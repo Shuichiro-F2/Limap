@@ -17,6 +17,9 @@ import { spotImageUrl } from '../lib/spots';
 import { colors } from '../lib/theme';
 import type { Spot, ReportReason } from '../types/database';
 
+// PC/Web表示時に画像・本文が横に広がりすぎないようにする最大幅。
+const MAX_CONTENT_WIDTH = 640;
+
 const REPORT_REASONS: { value: ReportReason; label: string }[] = [
   { value: 'privacy', label: 'プライバシー・私有地の懸念' },
   { value: 'wrong_location', label: '位置情報が誤っている' },
@@ -59,6 +62,8 @@ export default function SpotDetailContent({
   onViewOnMap,
 }: Props) {
   const { width: screenWidth } = useWindowDimensions();
+  // PCなど横幅の広い画面では、画像や本文が横に間延びしないよう最大幅で中央寄せする。
+  const contentWidth = Math.min(screenWidth, MAX_CONTENT_WIDTH);
 
   if (loading || !spot) {
     return (
@@ -76,29 +81,36 @@ export default function SpotDetailContent({
   return (
     <ScrollView
       style={styles.container}
+      contentContainerStyle={styles.scrollContent}
       scrollEnabled={scrollEnabled}
       onScroll={onScroll}
       scrollEventThrottle={16}
     >
-      {spot.images && spot.images.length > 0 ? (
-        <ScrollView horizontal pagingEnabled showsHorizontalScrollIndicator={false}>
-          {spot.images
-            .sort((a, b) => a.position - b.position)
-            .map((img) => (
-              <Image
-                key={img.id}
-                source={{ uri: spotImageUrl(img.storage_path) }}
-                style={[styles.image, { width: screenWidth, height: imageHeight }]}
-                resizeMode="cover"
-              />
-            ))}
-        </ScrollView>
-      ) : (
-        <View style={[styles.image, styles.noImage, { width: screenWidth, height: imageHeight }]} />
-      )}
+      <View style={[styles.contentWrapper, { maxWidth: MAX_CONTENT_WIDTH }]}>
+        {spot.images && spot.images.length > 0 ? (
+          <ScrollView
+            horizontal
+            pagingEnabled
+            showsHorizontalScrollIndicator={false}
+            style={{ width: contentWidth }}
+          >
+            {spot.images
+              .sort((a, b) => a.position - b.position)
+              .map((img) => (
+                <Image
+                  key={img.id}
+                  source={{ uri: spotImageUrl(img.storage_path) }}
+                  style={[styles.image, { width: contentWidth, height: imageHeight }]}
+                  resizeMode="cover"
+                />
+              ))}
+          </ScrollView>
+        ) : (
+          <View style={[styles.image, styles.noImage, { width: contentWidth, height: imageHeight }]} />
+        )}
 
-      <View style={styles.body}>
-        <Text style={styles.title}>{spot.title}</Text>
+        <View style={styles.body}>
+          <Text style={styles.title}>{spot.title}</Text>
         <Text style={styles.meta}>
           {spot.city ?? ''} {spot.country ?? ''} ・投稿者 @{spot.author?.username}
         </Text>
@@ -158,6 +170,7 @@ export default function SpotDetailContent({
             ))}
           </View>
         )}
+        </View>
       </View>
     </ScrollView>
   );
@@ -165,6 +178,8 @@ export default function SpotDetailContent({
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.accent },
+  scrollContent: { alignItems: 'center' },
+  contentWrapper: { width: '100%' },
   center: {
     flex: 1,
     backgroundColor: colors.accent,
