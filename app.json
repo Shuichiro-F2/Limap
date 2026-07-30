@@ -1,0 +1,63 @@
+{
+  "expo": {
+    "name": "limap",
+    "slug": "limap",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "ios": {
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "近くのリミナルスペースを地図に表示するために位置情報を使用します。",
+        "NSPhotoLibraryUsageDescription": "投稿する写真を選択するために写真ライブラリへのアクセスが必要です。"
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#404040",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false,
+      "permissions": ["ACCESS_FINE_LOCATION", "ACCESS_COARSE_LOCATION"],
+      "package": "com.v.xo2.limap"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+        "@rnmapbox/maps",
+        {}
+      ],
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "近くのリミナルスペースを地図に表示するために位置情報を使用します。"
+        }
+      ],
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/splash-logo.png",
+          "imageWidth": 220,
+          "resizeMode": "contain",
+          "backgroundColor": "#404040"
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "cfe0c767-a429-4d68-8550-4ed4da2cf1d3"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/cfe0c767-a429-4d68-8550-4ed4da2cf1d3"
+    }
+  }
+}

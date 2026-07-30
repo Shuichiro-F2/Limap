@@ -1,0 +1,167 @@
+import React, { useCallback, useEffect, useState } from 'react';
+import {
+  View,
+  Text,
+  Pressable,
+  StyleSheet,
+  FlatList,
+  Image,
+  ActivityIndicator,
+} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { useFocusEffect } from '@react-navigation/native';
+import { fetchSpotsByAuthor, fetchLikedSpots, fetchBookmarkedSpots, spotImageUrl } from '../lib/spots';
+import { useAuth } from '../lib/AuthContext';
+import { colors } from '../lib/theme';
+import type { Spot } from '../types/database';
+import type { MainTabScreenProps } from '../navigation/types';
+
+type Props = MainTabScreenProps<'MyPageTab'>;
+
+type TabKey = 'mine' | 'liked' | 'bookmarked';
+
+const TABS: { key: TabKey; label: string }[] = [
+  { key: 'mine', label: '自分の投稿' },
+  { key: 'liked', label: 'いいね' },
+  { key: 'bookmarked', label: '行きたい場所' },
+];
+
+export default function MyPageScreen({ navigation }: Props) {
+  const { profile, session, signOut } = useAuth();
+  const [activeTab, setActiveTab] = useState<TabKey>('mine');
+  const [spots, setSpots] = useState<Spot[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  const load = useCallback(async () => {
+    if (!session?.user) return;
+    setLoading(true);
+    try {
+      let data: Spot[] = [];
+      if (activeTab === 'mine') data = await fetchSpotsByAuthor(session.user.id);
+      else if (activeTab === 'liked') data = await fetchLikedSpots(session.user.id);
+      else data = await fetchBookmarkedSpots(session.user.id);
+      setSpots(data);
+    } catch (e) {
+      console.warn('マイページ取得エラー', e);
+      // 取得失敗時に前のタブのデータが残り続けないよう、必ず空にする
+      setSpots([]);
+    } finally {
+      setLoading(false);
+    }
+  }, [activeTab, session?.user?.id]);
+
+  // タブ切り替え時に再取得。画面に戻ってきたときも最新化する
+  useEffect(() => {
+    load();
+  }, [load]);
+
+  useFocusEffect(
+    useCallback(() => {
+      load();
+    }, [load])
+  );
+
+  return (
+    <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
+      <View style={styles.logoRow}>
+        <Image source={require('../../assets/logo-header.png')} style={styles.logo} resizeMode="contain" />
+      </View>
+
+      <View style={styles.header}>
+        <View style={styles.avatar}>
+          <Text style={styles.avatarText}>{(profile?.username ?? '?').charAt(0).toUpperCase()}</Text>
+        </View>
+        <View style={{ flex: 1 }}>
+          <Text style={styles.username}>@{profile?.username ?? '...'}</Text>
+          {profile?.display_name && <Text style={styles.displayName}>{profile.display_name}</Text>}
+        </View>
+        <Pressable onPress={signOut}>
+          <Text style={styles.logoutText}>ログアウト</Text>
+        </Pressable>
+      </View>
+
+      <View style={styles.tabRow}>
+        {TABS.map((tab) => (
+          <Pressable
+            key={tab.key}
+            style={[styles.tabButton, activeTab === tab.key && styles.tabButtonActive]}
+            onPress={() => setActiveTab(tab.key)}
+          >
+            <Text style={[styles.tabButtonText, activeTab === tab.key && styles.tabButtonTextActive]}>
+              {tab.label}
+            </Text>
+          </Pressable>
+        ))}
+      </View>
+
+      {loading ? (
+        <ActivityIndicator color={colors.textPrimary} style={{ marginTop: 24 }} />
+      ) : (
+        <FlatList
+          data={spots}
+          keyExtractor={(item) => item.id}
+          numColumns={3}
+          contentContainerStyle={{ padding: 4 }}
+          ListEmptyComponent={<Text style={styles.emptyText}>まだ表示できるスポットがありません</Text>}
+          renderItem={({ item }) => (
+            <Pressable
+              style={styles.gridItem}
+              onPress={() => navigation.navigate('SpotDetail', { spotId: item.id })}
+            >
+              {item.images && item.images.length > 0 ? (
+                <Image source={{ uri: spotImageUrl(item.images[0].storage_path) }} style={styles.gridImage} />
+              ) : (
+                <View style={[styles.gridImage, styles.noImage]}>
+                  <Text style={styles.noImageText} numberOfLines={2}>
+                    {item.title}
+                  </Text>
+                </View>
+              )}
+            </Pressable>
+          )}
+        />
+      )}
+    </SafeAreaView>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: { flex: 1, backgroundColor: colors.background },
+  logoRow: { paddingLeft: 20, paddingTop: 12 },
+  logo: { width: 84, height: 52 },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 20,
+    paddingTop: 12,
+    gap: 12,
+  },
+  avatar: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    backgroundColor: colors.accent,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  avatarText: { color: colors.accentText, fontSize: 18, fontWeight: '700' },
+  username: { color: colors.textPrimary, fontSize: 16, fontWeight: '600' },
+  displayName: { color: colors.textSecondary, fontSize: 13, marginTop: 2 },
+  logoutText: { color: colors.textSecondary, fontSize: 12 },
+  tabRow: { flexDirection: 'row', paddingHorizontal: 16, gap: 8, marginBottom: 8 },
+  tabButton: {
+    flex: 1,
+    paddingVertical: 10,
+    borderRadius: 8,
+    backgroundColor: colors.surface,
+    alignItems: 'center',
+  },
+  tabButtonActive: { backgroundColor: colors.accent },
+  tabButtonText: { color: colors.textSecondary, fontSize: 12 },
+  tabButtonTextActive: { color: colors.accentText, fontWeight: '600' },
+  emptyText: { color: colors.textMuted, textAlign: 'center', marginTop: 40, fontSize: 13 },
+  gridItem: { width: '33.33%', aspectRatio: 1, padding: 2 },
+  gridImage: { flex: 1, borderRadius: 4 },
+  noImage: { backgroundColor: colors.surface, alignItems: 'center', justifyContent: 'center', padding: 6 },
+  noImageText: { color: colors.textMuted, fontSize: 11, textAlign: 'center' },
+});

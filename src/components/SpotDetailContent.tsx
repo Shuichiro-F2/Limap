@@ -1,0 +1,220 @@
+import React from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Image,
+  Pressable,
+  ActivityIndicator,
+  Linking,
+  useWindowDimensions,
+  type NativeScrollEvent,
+  type NativeSyntheticEvent,
+} from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import { spotImageUrl } from '../lib/spots';
+import { colors } from '../lib/theme';
+import type { Spot, ReportReason } from '../types/database';
+
+const REPORT_REASONS: { value: ReportReason; label: string }[] = [
+  { value: 'privacy', label: 'プライバシー・私有地の懸念' },
+  { value: 'wrong_location', label: '位置情報が誤っている' },
+  { value: 'inappropriate', label: '不適切なコンテンツ' },
+  { value: 'spam', label: 'スパム・宣伝' },
+  { value: 'other', label: 'その他' },
+];
+
+type Props = {
+  spot: Spot | null;
+  loading: boolean;
+  liked: boolean;
+  bookmarked: boolean;
+  showReport: boolean;
+  onToggleReport: () => void;
+  onLike: () => void;
+  onBookmark: () => void;
+  onReport: (reason: ReportReason) => void;
+  imageHeight?: number;
+  scrollEnabled?: boolean;
+  onScroll?: (e: NativeSyntheticEvent<NativeScrollEvent>) => void;
+  onViewOnMap?: () => void;
+};
+
+// スポット詳細の中身（画像カルーセル＋本文）だけを描画する表示専用コンポーネント。
+// フル画面の詳細画面と、地図画面のプレビューシートの両方で使い回す。
+export default function SpotDetailContent({
+  spot,
+  loading,
+  liked,
+  bookmarked,
+  showReport,
+  onToggleReport,
+  onLike,
+  onBookmark,
+  onReport,
+  imageHeight = 280,
+  scrollEnabled = true,
+  onScroll,
+  onViewOnMap,
+}: Props) {
+  const { width: screenWidth } = useWindowDimensions();
+
+  if (loading || !spot) {
+    return (
+      <View style={styles.center}>
+        <ActivityIndicator color={colors.accentText} />
+      </View>
+    );
+  }
+
+  const openInGoogleMaps = () => {
+    const url = `https://www.google.com/maps/search/?api=1&query=${spot.lat},${spot.lng}`;
+    Linking.openURL(url).catch(() => {});
+  };
+
+  return (
+    <ScrollView
+      style={styles.container}
+      scrollEnabled={scrollEnabled}
+      onScroll={onScroll}
+      scrollEventThrottle={16}
+    >
+      {spot.images && spot.images.length > 0 ? (
+        <ScrollView horizontal pagingEnabled showsHorizontalScrollIndicator={false}>
+          {spot.images
+            .sort((a, b) => a.position - b.position)
+            .map((img) => (
+              <Image
+                key={img.id}
+                source={{ uri: spotImageUrl(img.storage_path) }}
+                style={[styles.image, { width: screenWidth, height: imageHeight }]}
+                resizeMode="cover"
+              />
+            ))}
+        </ScrollView>
+      ) : (
+        <View style={[styles.image, styles.noImage, { width: screenWidth, height: imageHeight }]} />
+      )}
+
+      <View style={styles.body}>
+        <Text style={styles.title}>{spot.title}</Text>
+        <Text style={styles.meta}>
+          {spot.city ?? ''} {spot.country ?? ''} ・投稿者 @{spot.author?.username}
+        </Text>
+
+        {spot.tags && spot.tags.length > 0 && (
+          <View style={styles.tagRow}>
+            {spot.tags.map((tag) => (
+              <View key={tag.id} style={styles.tagChip}>
+                <Text style={styles.tagChipText}>{tag.name}</Text>
+              </View>
+            ))}
+          </View>
+        )}
+
+        {spot.description && <Text style={styles.description}>{spot.description}</Text>}
+
+        <View style={styles.actionRow}>
+          <View style={styles.iconButtonsRow}>
+            <Pressable style={styles.iconButton} onPress={onLike} hitSlop={10}>
+              <Ionicons
+                name={liked ? 'heart' : 'heart-outline'}
+                size={26}
+                color={liked ? colors.danger : colors.accentText}
+              />
+            </Pressable>
+            <Pressable style={styles.iconButton} onPress={onBookmark} hitSlop={10}>
+              <Ionicons
+                name={bookmarked ? 'bookmark' : 'bookmark-outline'}
+                size={24}
+                color={colors.accentText}
+              />
+            </Pressable>
+          </View>
+          <Pressable style={styles.reportButton} onPress={onToggleReport}>
+            <Text style={styles.reportButtonText}>通報する</Text>
+          </Pressable>
+        </View>
+
+        <View style={styles.linkRow}>
+          {onViewOnMap && (
+            <Pressable style={styles.linkButton} onPress={onViewOnMap}>
+              <Text style={styles.linkButtonText}>地図で見る</Text>
+            </Pressable>
+          )}
+          <Pressable style={styles.linkButton} onPress={openInGoogleMaps}>
+            <Text style={styles.linkButtonText}>Googleマップで開く</Text>
+          </Pressable>
+        </View>
+
+        {showReport && (
+          <View style={styles.reportPanel}>
+            <Text style={styles.reportTitle}>通報理由を選択</Text>
+            {REPORT_REASONS.map((r) => (
+              <Pressable key={r.value} style={styles.reportOption} onPress={() => onReport(r.value)}>
+                <Text style={styles.reportOptionText}>{r.label}</Text>
+              </Pressable>
+            ))}
+          </View>
+        )}
+      </View>
+    </ScrollView>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: { flex: 1, backgroundColor: colors.accent },
+  center: {
+    flex: 1,
+    backgroundColor: colors.accent,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 60,
+  },
+  image: {},
+  noImage: { backgroundColor: colors.background },
+  body: { padding: 20, backgroundColor: colors.accent },
+  title: { fontSize: 22, fontWeight: '700', color: colors.accentText },
+  meta: { fontSize: 13, color: colors.accentTextMuted, marginTop: 6 },
+  tagRow: { flexDirection: 'row', flexWrap: 'wrap', marginTop: 14, gap: 8 },
+  tagChip: {
+    backgroundColor: colors.background,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 16,
+    marginRight: 8,
+    marginBottom: 8,
+  },
+  tagChipText: { color: colors.accent, fontSize: 12, fontWeight: '600' },
+  description: { fontSize: 15, color: colors.accentText, marginTop: 16, lineHeight: 22 },
+  actionRow: {
+    flexDirection: 'row',
+    marginTop: 24,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  iconButtonsRow: { flexDirection: 'row', gap: 18 },
+  iconButton: { padding: 2 },
+  reportButton: {
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    borderRadius: 10,
+    borderWidth: 1.5,
+    borderColor: colors.accentText,
+  },
+  reportButtonText: { color: colors.accentText, fontSize: 13, fontWeight: '600' },
+  linkRow: { flexDirection: 'row', marginTop: 10, gap: 10, flexWrap: 'wrap' },
+  linkButton: {
+    paddingVertical: 10,
+    paddingHorizontal: 14,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: colors.accentText,
+  },
+  linkButtonText: { color: colors.accentText, fontSize: 12, fontWeight: '600' },
+  reportPanel: { marginTop: 16, backgroundColor: colors.background, borderRadius: 12, padding: 16 },
+  reportTitle: { color: colors.textPrimary, fontWeight: '600', marginBottom: 10 },
+  reportOption: { paddingVertical: 10 },
+  reportOptionText: { color: colors.textSecondary, fontSize: 14 },
+});
