@@ -29,6 +29,13 @@ export default function SpotDetailScreen({ route, navigation }: Props) {
     });
   };
 
+  const goToTag = (tagId: number) => {
+    navigation.navigate('Main', {
+      screen: 'SearchTab',
+      params: { tagId },
+    });
+  };
+
   return (
     <View style={styles.screen}>
       <SpotDetailContent
@@ -42,6 +49,7 @@ export default function SpotDetailScreen({ route, navigation }: Props) {
         onBookmark={handleBookmark}
         onReport={handleReport}
         onViewOnMap={goToMap}
+        onTagPress={goToTag}
       />
     </View>
   );

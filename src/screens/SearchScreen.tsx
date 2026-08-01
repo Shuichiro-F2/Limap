@@ -15,8 +15,9 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { searchSpots, fetchRandomSpots, spotImageUrl } from '../lib/spots';
+import { fetchAllTags } from '../lib/tags';
 import { colors } from '../lib/theme';
-import type { Spot } from '../types/database';
+import type { Spot, Tag } from '../types/database';
 import type { MainTabScreenProps } from '../navigation/types';
 
 const GRID_GAP = 2;
@@ -24,20 +25,7 @@ const GRID_COLUMNS = 3;
 
 type Props = MainTabScreenProps<'SearchTab'>;
 
-const AVAILABLE_TAGS = [
-  { id: 1, name: '廃墟' },
-  { id: 2, name: '深夜' },
-  { id: 3, name: '無人駅' },
-  { id: 4, name: '地下道' },
-  { id: 5, name: '駐車場' },
-  { id: 6, name: '団地' },
-  { id: 7, name: '遊園地跡' },
-  { id: 8, name: '海外' },
-  { id: 9, name: '雨の日' },
-  { id: 10, name: '人工照明' },
-];
-
-export default function SearchScreen({ navigation }: Props) {
+export default function SearchScreen({ navigation, route }: Props) {
   const { width: screenWidth } = useWindowDimensions();
   const tileSize = (screenWidth - GRID_GAP * (GRID_COLUMNS - 1)) / GRID_COLUMNS;
 
@@ -46,6 +34,14 @@ export default function SearchScreen({ navigation }: Props) {
   const [results, setResults] = useState<Spot[]>([]);
   const [loading, setLoading] = useState(false);
   const [searched, setSearched] = useState(false);
+
+  // タグは固定リストではなく、DBに存在するものをその都度取得する
+  const [allTags, setAllTags] = useState<Tag[]>([]);
+  useEffect(() => {
+    fetchAllTags()
+      .then(setAllTags)
+      .catch((e) => console.warn('タグ取得エラー', e));
+  }, []);
 
   // 検索前のデフォルト表示：Instagramの発見タブのようなおすすめ投稿のグリッド
   const [recommended, setRecommended] = useState<Spot[]>([]);
@@ -75,12 +71,14 @@ export default function SearchScreen({ navigation }: Props) {
     setSelectedTags((prev) => (prev.includes(id) ? prev.filter((t) => t !== id) : [...prev, id]));
   };
 
-  const runSearch = async () => {
+  const runSearch = async (overrides?: { keyword?: string; tagIds?: number[] }) => {
     Keyboard.dismiss();
+    const searchKeyword = overrides?.keyword ?? keyword;
+    const searchTagIds = overrides?.tagIds ?? selectedTags;
     setLoading(true);
     setSearched(true);
     try {
-      const data = await searchSpots({ keyword, tagIds: selectedTags });
+      const data = await searchSpots({ keyword: searchKeyword, tagIds: searchTagIds });
       setResults(data);
     } catch (e) {
       console.warn('検索エラー', e);
@@ -97,6 +95,16 @@ export default function SearchScreen({ navigation }: Props) {
     setSearched(false);
   };
 
+  // 投稿詳細のタグをタップして遷移してきた場合、そのタグで自動的に絞り込む
+  useEffect(() => {
+    const tagId = route.params?.tagId;
+    if (tagId == null) return;
+    setKeyword('');
+    setSelectedTags([tagId]);
+    runSearch({ keyword: '', tagIds: [tagId] });
+    navigation.setParams({ tagId: undefined });
+  }, [route.params?.tagId]);
+
   return (
     <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
       <View style={styles.searchBar}>
@@ -106,7 +114,7 @@ export default function SearchScreen({ navigation }: Props) {
           onChangeText={setKeyword}
           placeholder="タイトルや説明文で検索"
           placeholderTextColor="#666"
-          onSubmitEditing={runSearch}
+          onSubmitEditing={() => runSearch()}
           returnKeyType="search"
         />
         {searched ? (
@@ -114,14 +122,14 @@ export default function SearchScreen({ navigation }: Props) {
             <Text style={styles.searchButtonText}>クリア</Text>
           </Pressable>
         ) : (
-          <Pressable style={styles.searchButton} onPress={runSearch}>
+          <Pressable style={styles.searchButton} onPress={() => runSearch()}>
             <Text style={styles.searchButtonText}>検索</Text>
           </Pressable>
         )}
       </View>
 
       <View style={styles.tagGrid}>
-        {AVAILABLE_TAGS.map((tag) => (
+        {allTags.map((tag) => (
           <Pressable
             key={tag.id}
             style={[styles.tagOption, selectedTags.includes(tag.id) && styles.tagOptionSelected]}

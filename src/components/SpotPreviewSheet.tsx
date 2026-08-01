@@ -32,9 +32,10 @@ type Props = {
   spotId: string | null;
   onClose: () => void;
   onViewOnMap?: (lat: number, lng: number) => void;
+  onTagPress?: (tagId: number) => void;
 };
 
-export default function SpotPreviewSheet({ spotId, onClose, onViewOnMap }: Props) {
+export default function SpotPreviewSheet({ spotId, onClose, onViewOnMap, onTagPress }: Props) {
   const {
     spot,
     loading,
@@ -212,6 +213,14 @@ export default function SpotPreviewSheet({ spotId, onClose, onViewOnMap }: Props
                 onViewOnMap && spot
                   ? () => {
                       onViewOnMap(spot.lat, spot.lng);
+                      close();
+                    }
+                  : undefined
+              }
+              onTagPress={
+                onTagPress
+                  ? (tagId) => {
+                      onTagPress(tagId);
                       close();
                     }
                   : undefined

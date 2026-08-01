@@ -14,23 +14,14 @@ import * as Location from 'expo-location';
 import { decode } from 'base64-arraybuffer';
 import { supabase } from '../lib/supabase';
 import { createSpot } from '../lib/spots';
+import { fetchAllTags, findOrCreateTag } from '../lib/tags';
 import { useAuth } from '../lib/AuthContext';
 import { notify } from '../lib/notify';
 import { colors } from '../lib/theme';
+import type { Tag } from '../types/database';
 import type { RootStackScreenProps } from '../navigation/types';
 
-const AVAILABLE_TAGS = [
-  { id: 1, name: '廃墟' },
-  { id: 2, name: '深夜' },
-  { id: 3, name: '無人駅' },
-  { id: 4, name: '地下道' },
-  { id: 5, name: '駐車場' },
-  { id: 6, name: '団地' },
-  { id: 7, name: '遊園地跡' },
-  { id: 8, name: '海外' },
-  { id: 9, name: '雨の日' },
-  { id: 10, name: '人工照明' },
-];
+const MAX_TAGS = 5;
 
 type Props = RootStackScreenProps<'CreateSpot'>;
 
@@ -38,10 +29,20 @@ export default function CreateSpotScreen({ navigation, route }: Props) {
   const { session } = useAuth();
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [selectedTags, setSelectedTags] = useState<number[]>([]);
+  const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
+  const [tagInput, setTagInput] = useState('');
+  const [allTags, setAllTags] = useState<Tag[]>([]);
+  const [addingTag, setAddingTag] = useState(false);
   const [images, setImages] = useState<ImagePicker.ImagePickerAsset[]>([]);
   const [coords, setCoords] = useState<{ lat: number; lng: number } | null>(null);
   const [submitting, setSubmitting] = useState(false);
+
+  // 既存タグの候補一覧（新規タグはこの場で追加できる）
+  useEffect(() => {
+    fetchAllTags()
+      .then(setAllTags)
+      .catch((e) => console.warn('タグ取得エラー', e));
+  }, []);
 
   // LocationPicker画面で選んだ座標をパラメータ経由で受け取る
   useEffect(() => {
@@ -79,9 +80,46 @@ export default function CreateSpotScreen({ navigation, route }: Props) {
     setCoords({ lat: loc.coords.latitude, lng: loc.coords.longitude });
   };
 
-  const toggleTag = (id: number) => {
-    setSelectedTags((prev) => (prev.includes(id) ? prev.filter((t) => t !== id) : [...prev, id]));
+  const addTag = (tag: Tag) => {
+    if (selectedTags.length >= MAX_TAGS) return;
+    setSelectedTags((prev) => (prev.some((t) => t.id === tag.id) ? prev : [...prev, tag]));
+    setTagInput('');
   };
+
+  const removeTag = (id: number) => {
+    setSelectedTags((prev) => prev.filter((t) => t.id !== id));
+  };
+
+  // 入力中の文字列から、既存タグにあればそれを使い、なければ新規作成して追加する
+  const addTagFromInput = async () => {
+    const name = tagInput.trim();
+    if (!name || selectedTags.length >= MAX_TAGS) return;
+    if (selectedTags.some((t) => t.name === name)) {
+      setTagInput('');
+      return;
+    }
+    setAddingTag(true);
+    try {
+      const tag = await findOrCreateTag(name);
+      setSelectedTags((prev) => (prev.some((t) => t.id === tag.id) ? prev : [...prev, tag]));
+      setAllTags((prev) => (prev.some((t) => t.id === tag.id) ? prev : [...prev, tag]));
+      setTagInput('');
+    } catch (e: any) {
+      notify('タグの追加に失敗しました', e.message);
+    } finally {
+      setAddingTag(false);
+    }
+  };
+
+  const tagSuggestions = tagInput.trim()
+    ? allTags
+        .filter(
+          (t) =>
+            t.name.toLowerCase().includes(tagInput.trim().toLowerCase()) &&
+            !selectedTags.some((s) => s.id === t.id)
+        )
+        .slice(0, 6)
+    : [];
 
   const submit = async () => {
     if (!session?.user) {
@@ -115,7 +153,7 @@ export default function CreateSpotScreen({ navigation, route }: Props) {
         description: description.trim() || undefined,
         lat: coords.lat,
         lng: coords.lng,
-        tagIds: selectedTags,
+        tagIds: selectedTags.map((t) => t.id),
         imagePaths,
       });
 
@@ -171,25 +209,60 @@ export default function CreateSpotScreen({ navigation, route }: Props) {
         </Pressable>
       </View>
 
-      <Text style={styles.label}>雰囲気タグ</Text>
-      <View style={styles.tagGrid}>
-        {AVAILABLE_TAGS.map((tag) => (
-          <Pressable
-            key={tag.id}
-            style={[styles.tagOption, selectedTags.includes(tag.id) && styles.tagOptionSelected]}
-            onPress={() => toggleTag(tag.id)}
-          >
-            <Text
-              style={[
-                styles.tagOptionText,
-                selectedTags.includes(tag.id) && styles.tagOptionTextSelected,
-              ]}
+      <Text style={styles.label}>雰囲気タグ（最大{MAX_TAGS}個）</Text>
+
+      {selectedTags.length > 0 && (
+        <View style={styles.tagGrid}>
+          {selectedTags.map((tag) => (
+            <Pressable
+              key={tag.id}
+              style={[styles.tagOption, styles.tagOptionSelected]}
+              onPress={() => removeTag(tag.id)}
             >
-              {tag.name}
-            </Text>
-          </Pressable>
-        ))}
-      </View>
+              <Text style={styles.tagOptionTextSelected}>{tag.name} ✕</Text>
+            </Pressable>
+          ))}
+        </View>
+      )}
+
+      {selectedTags.length >= MAX_TAGS ? (
+        <Text style={styles.tagLimitText}>タグは{MAX_TAGS}個まで設定できます</Text>
+      ) : (
+        <>
+          <View style={styles.tagInputRow}>
+            <TextInput
+              style={[styles.input, styles.tagInput]}
+              value={tagInput}
+              onChangeText={setTagInput}
+              placeholder="タグを入力（新規作成も可）"
+              placeholderTextColor="#666"
+              onSubmitEditing={addTagFromInput}
+              returnKeyType="done"
+            />
+            <Pressable
+              style={[styles.secondaryButton, styles.tagAddButton]}
+              onPress={addTagFromInput}
+              disabled={addingTag || !tagInput.trim()}
+            >
+              {addingTag ? (
+                <ActivityIndicator color={colors.textSecondary} size="small" />
+              ) : (
+                <Text style={styles.secondaryButtonText}>追加</Text>
+              )}
+            </Pressable>
+          </View>
+
+          {tagSuggestions.length > 0 && (
+            <View style={styles.tagGrid}>
+              {tagSuggestions.map((tag) => (
+                <Pressable key={tag.id} style={styles.tagOption} onPress={() => addTag(tag)}>
+                  <Text style={styles.tagOptionText}>{tag.name}</Text>
+                </Pressable>
+              ))}
+            </View>
+          )}
+        </>
+      )}
 
       <Text style={styles.label}>写真（最大5枚）</Text>
       <Pressable style={styles.secondaryButton} onPress={pickImages}>
@@ -247,6 +320,10 @@ const styles = StyleSheet.create({
   tagOptionSelected: { backgroundColor: colors.accent, borderColor: colors.accent },
   tagOptionText: { color: colors.textSecondary, fontSize: 13 },
   tagOptionTextSelected: { color: colors.accentText, fontWeight: '600' },
+  tagInputRow: { flexDirection: 'row', gap: 8 },
+  tagInput: { flex: 1 },
+  tagAddButton: { paddingHorizontal: 18 },
+  tagLimitText: { color: colors.textMuted, fontSize: 12 },
   thumb: { width: 80, height: 80, borderRadius: 8, marginRight: 8 },
   submitButton: {
     backgroundColor: colors.accent,

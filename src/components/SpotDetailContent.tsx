@@ -42,6 +42,7 @@ type Props = {
   scrollEnabled?: boolean;
   onScroll?: (e: NativeSyntheticEvent<NativeScrollEvent>) => void;
   onViewOnMap?: () => void;
+  onTagPress?: (tagId: number) => void;
 };
 
 // スポット詳細の中身（画像カルーセル＋本文）だけを描画する表示専用コンポーネント。
@@ -60,6 +61,7 @@ export default function SpotDetailContent({
   scrollEnabled = true,
   onScroll,
   onViewOnMap,
+  onTagPress,
 }: Props) {
   const { width: screenWidth } = useWindowDimensions();
   // PCなど横幅の広い画面では、画像や本文が横に間延びしないよう最大幅で中央寄せする。
@@ -117,11 +119,17 @@ export default function SpotDetailContent({
 
         {spot.tags && spot.tags.length > 0 && (
           <View style={styles.tagRow}>
-            {spot.tags.map((tag) => (
-              <View key={tag.id} style={styles.tagChip}>
-                <Text style={styles.tagChipText}>{tag.name}</Text>
-              </View>
-            ))}
+            {spot.tags.map((tag) =>
+              onTagPress ? (
+                <Pressable key={tag.id} style={styles.tagChip} onPress={() => onTagPress(tag.id)}>
+                  <Text style={styles.tagChipText}>{tag.name}</Text>
+                </Pressable>
+              ) : (
+                <View key={tag.id} style={styles.tagChip}>
+                  <Text style={styles.tagChipText}>{tag.name}</Text>
+                </View>
+              )
+            )}
           </View>
         )}
 

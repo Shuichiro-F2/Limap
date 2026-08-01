@@ -272,6 +272,10 @@ export default function MapScreen({ navigation, route }: Props) {
             animationDuration: 500,
           });
         }}
+        onTagPress={(tagId) => {
+          setSelectedSpotId(null);
+          navigation.navigate('Main', { screen: 'SearchTab', params: { tagId } });
+        }}
       />
     </View>
   );

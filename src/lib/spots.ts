@@ -181,6 +181,10 @@ export interface CreateSpotInput {
 }
 
 export async function createSpot(authorId: string, input: CreateSpotInput): Promise<Spot> {
+  if (input.tagIds.length > 5) {
+    throw new Error('タグは5個までしか設定できません');
+  }
+
   const { data: spot, error } = await supabase
     .from('spots')
     .insert({

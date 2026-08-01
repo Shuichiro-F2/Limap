@@ -282,6 +282,10 @@ export default function MapScreen({ navigation, route }: Props) {
           setSelectedSpotId(null);
           mapRef.current?.flyTo({ center: [lng, lat], zoom: 15, duration: 500 });
         }}
+        onTagPress={(tagId) => {
+          setSelectedSpotId(null);
+          navigation.navigate('Main', { screen: 'SearchTab', params: { tagId } });
+        }}
       />
     </View>
   );
