@@ -1,5 +1,4 @@
 import React from 'react';
-import { ActivityIndicator, View } from 'react-native';
 import { NavigationContainer, DarkTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useAuth } from '../lib/AuthContext';
@@ -8,6 +7,7 @@ import MainTabNavigator from './MainTabNavigator';
 import SpotDetailScreen from '../screens/SpotDetailScreen';
 import CreateSpotScreen from '../screens/CreateSpotScreen';
 import LocationPickerScreen from '../screens/LocationPickerScreen';
+import LoadingScreen from '../components/LoadingScreen';
 import { colors } from '../lib/theme';
 import type { RootStackParamList } from './types';
 
@@ -29,11 +29,7 @@ export default function RootNavigator() {
   const { session, loading } = useAuth();
 
   if (loading) {
-    return (
-      <View style={{ flex: 1, backgroundColor: colors.background, alignItems: 'center', justifyContent: 'center' }}>
-        <ActivityIndicator color={colors.textPrimary} />
-      </View>
-    );
+    return <LoadingScreen />;
   }
 
   return (
