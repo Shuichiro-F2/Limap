@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -9,12 +9,18 @@ import {
   Image,
   ActivityIndicator,
   Keyboard,
+  RefreshControl,
+  useWindowDimensions,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { searchSpots, spotImageUrl } from '../lib/spots';
+import { Ionicons } from '@expo/vector-icons';
+import { searchSpots, fetchRandomSpots, spotImageUrl } from '../lib/spots';
 import { colors } from '../lib/theme';
 import type { Spot } from '../types/database';
 import type { MainTabScreenProps } from '../navigation/types';
+
+const GRID_GAP = 2;
+const GRID_COLUMNS = 3;
 
 type Props = MainTabScreenProps<'SearchTab'>;
 
@@ -32,11 +38,38 @@ const AVAILABLE_TAGS = [
 ];
 
 export default function SearchScreen({ navigation }: Props) {
+  const { width: screenWidth } = useWindowDimensions();
+  const tileSize = (screenWidth - GRID_GAP * (GRID_COLUMNS - 1)) / GRID_COLUMNS;
+
   const [keyword, setKeyword] = useState('');
   const [selectedTags, setSelectedTags] = useState<number[]>([]);
   const [results, setResults] = useState<Spot[]>([]);
   const [loading, setLoading] = useState(false);
   const [searched, setSearched] = useState(false);
+
+  // 検索前のデフォルト表示：Instagramの発見タブのようなおすすめ投稿のグリッド
+  const [recommended, setRecommended] = useState<Spot[]>([]);
+  const [loadingRecommended, setLoadingRecommended] = useState(true);
+  const [refreshingRecommended, setRefreshingRecommended] = useState(false);
+
+  const loadRecommended = useCallback(async () => {
+    try {
+      const data = await fetchRandomSpots(30);
+      setRecommended(data);
+    } catch (e) {
+      console.warn('おすすめ取得エラー', e);
+    }
+  }, []);
+
+  useEffect(() => {
+    loadRecommended().finally(() => setLoadingRecommended(false));
+  }, [loadRecommended]);
+
+  const shuffleRecommended = async () => {
+    setRefreshingRecommended(true);
+    await loadRecommended();
+    setRefreshingRecommended(false);
+  };
 
   const toggleTag = (id: number) => {
     setSelectedTags((prev) => (prev.includes(id) ? prev.filter((t) => t !== id) : [...prev, id]));
@@ -56,6 +89,14 @@ export default function SearchScreen({ navigation }: Props) {
     }
   };
 
+  // 検索バーを空にして送信すると、おすすめグリッドの初期表示に戻す
+  const clearSearch = () => {
+    setKeyword('');
+    setSelectedTags([]);
+    setResults([]);
+    setSearched(false);
+  };
+
   return (
     <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
       <View style={styles.searchBar}>
@@ -68,9 +109,15 @@ export default function SearchScreen({ navigation }: Props) {
           onSubmitEditing={runSearch}
           returnKeyType="search"
         />
-        <Pressable style={styles.searchButton} onPress={runSearch}>
-          <Text style={styles.searchButtonText}>検索</Text>
-        </Pressable>
+        {searched ? (
+          <Pressable style={styles.searchButton} onPress={clearSearch}>
+            <Text style={styles.searchButtonText}>クリア</Text>
+          </Pressable>
+        ) : (
+          <Pressable style={styles.searchButton} onPress={runSearch}>
+            <Text style={styles.searchButtonText}>検索</Text>
+          </Pressable>
+        )}
       </View>
 
       <View style={styles.tagGrid}>
@@ -89,37 +136,75 @@ export default function SearchScreen({ navigation }: Props) {
         ))}
       </View>
 
-      {loading ? (
+      {searched ? (
+        loading ? (
+          <ActivityIndicator color={colors.textPrimary} style={{ marginTop: 24 }} />
+        ) : (
+          <FlatList
+            data={results}
+            keyExtractor={(item) => item.id}
+            contentContainerStyle={{ padding: 16 }}
+            ListEmptyComponent={<Text style={styles.emptyText}>該当するスポットが見つかりませんでした</Text>}
+            renderItem={({ item }) => (
+              <Pressable
+                style={styles.resultCard}
+                onPress={() => navigation.navigate('SpotDetail', { spotId: item.id })}
+              >
+                {item.images && item.images.length > 0 ? (
+                  <Image source={{ uri: spotImageUrl(item.images[0].storage_path) }} style={styles.thumb} />
+                ) : (
+                  <View style={[styles.thumb, styles.noThumb]} />
+                )}
+                <View style={styles.cardBody}>
+                  <Text style={styles.cardTitle} numberOfLines={1}>
+                    {item.title}
+                  </Text>
+                  <Text style={styles.cardMeta} numberOfLines={1}>
+                    {item.city ?? ''} {item.country ?? ''}
+                  </Text>
+                </View>
+              </Pressable>
+            )}
+          />
+        )
+      ) : loadingRecommended ? (
         <ActivityIndicator color={colors.textPrimary} style={{ marginTop: 24 }} />
       ) : (
-        <FlatList
-          data={results}
-          keyExtractor={(item) => item.id}
-          contentContainerStyle={{ padding: 16 }}
-          ListEmptyComponent={
-            searched ? <Text style={styles.emptyText}>該当するスポットが見つかりませんでした</Text> : null
-          }
-          renderItem={({ item }) => (
-            <Pressable
-              style={styles.resultCard}
-              onPress={() => navigation.navigate('SpotDetail', { spotId: item.id })}
-            >
-              {item.images && item.images.length > 0 ? (
-                <Image source={{ uri: spotImageUrl(item.images[0].storage_path) }} style={styles.thumb} />
-              ) : (
-                <View style={[styles.thumb, styles.noThumb]} />
-              )}
-              <View style={styles.cardBody}>
-                <Text style={styles.cardTitle} numberOfLines={1}>
-                  {item.title}
-                </Text>
-                <Text style={styles.cardMeta} numberOfLines={1}>
-                  {item.city ?? ''} {item.country ?? ''}
-                </Text>
-              </View>
+        <>
+          <View style={styles.recommendedHeader}>
+            <Text style={styles.recommendedTitle}>おすすめ</Text>
+            <Pressable style={styles.shuffleButton} onPress={shuffleRecommended} hitSlop={10}>
+              <Ionicons name="shuffle-outline" size={20} color={colors.textPrimary} />
             </Pressable>
-          )}
-        />
+          </View>
+          <FlatList
+            data={recommended}
+            keyExtractor={(item) => item.id}
+            numColumns={GRID_COLUMNS}
+            columnWrapperStyle={{ justifyContent: 'space-between' }}
+            contentContainerStyle={{ paddingBottom: 24 }}
+            refreshControl={
+              <RefreshControl
+                refreshing={refreshingRecommended}
+                onRefresh={shuffleRecommended}
+                tintColor={colors.accent}
+              />
+            }
+            ListEmptyComponent={<Text style={styles.emptyText}>まだ表示できる投稿がありません</Text>}
+            renderItem={({ item }) => (
+              <Pressable
+                style={[styles.gridTile, { width: tileSize, height: tileSize }]}
+                onPress={() => navigation.navigate('SpotDetail', { spotId: item.id })}
+              >
+                {item.images && item.images.length > 0 ? (
+                  <Image source={{ uri: spotImageUrl(item.images[0].storage_path) }} style={styles.gridImage} />
+                ) : (
+                  <View style={[styles.gridImage, styles.noThumb]} />
+                )}
+              </Pressable>
+            )}
+          />
+        </>
       )}
     </SafeAreaView>
   );
@@ -170,4 +255,16 @@ const styles = StyleSheet.create({
   cardBody: { flex: 1, padding: 10, justifyContent: 'center' },
   cardTitle: { color: colors.textPrimary, fontSize: 14, fontWeight: '600' },
   cardMeta: { color: colors.textSecondary, fontSize: 12, marginTop: 4 },
+  recommendedHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 16,
+    paddingTop: 4,
+    paddingBottom: 8,
+  },
+  recommendedTitle: { color: colors.textPrimary, fontSize: 15, fontWeight: '700' },
+  shuffleButton: { padding: 4 },
+  gridTile: { marginBottom: GRID_GAP },
+  gridImage: { width: '100%', height: '100%' },
 });

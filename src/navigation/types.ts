@@ -4,7 +4,6 @@ import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 export type MainTabParamList = {
   MapTab: { focusLat?: number; focusLng?: number } | undefined;
-  FeedTab: undefined;
   SearchTab: undefined;
   MyPageTab: undefined;
 };
