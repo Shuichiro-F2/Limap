@@ -11,10 +11,11 @@ import {
   Image,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import Mapbox, { Camera, MapView, PointAnnotation, UserLocation } from '@rnmapbox/maps';
+import Mapbox, { Camera, MapView, UserLocation, ShapeSource, CircleLayer, SymbolLayer } from '@rnmapbox/maps';
 import * as Location from 'expo-location';
 import { MAPBOX_ACCESS_TOKEN } from '@env';
 import { fetchSpotsInBounds } from '../lib/spots';
+import { spotsToFeatureCollection } from '../lib/geo';
 import { generateSessionToken, suggestPlaces, retrievePlace, type SuggestResult } from '../lib/mapboxSearch';
 import SpotPreviewSheet from '../components/SpotPreviewSheet';
 import { colors } from '../lib/theme';
@@ -26,12 +27,42 @@ Mapbox.setAccessToken(MAPBOX_ACCESS_TOKEN);
 // リミナルスペースらしい、彩度を落とした暗めのマップスタイル
 const MAP_STYLE = 'mapbox://styles/mapbox/dark-v11';
 
+// 近接する投稿をまとめて円＋件数で表示するクラスタリング設定
+const clusterCircleStyle = {
+  circleColor: colors.accent,
+  circleRadius: ['step', ['get', 'point_count'], 16, 10, 20, 30, 26] as any,
+  circleOpacity: 0.92,
+  circleStrokeWidth: 2,
+  circleStrokeColor: '#fff',
+};
+const clusterCountStyle = {
+  textField: ['get', 'point_count_abbreviated'] as any,
+  textSize: 13,
+  textColor: '#2a2a2a',
+  textAllowOverlap: true,
+  textIgnorePlacement: true,
+};
+const pointStyle = {
+  circleColor: colors.accent,
+  circleRadius: 7,
+  circleStrokeWidth: 2,
+  circleStrokeColor: '#fff',
+};
+
+// ShapeSource#onPress のイベント型（@rnmapbox/maps はルートからexportしていないため独自定義）
+type SpotsSourcePressEvent = {
+  features: GeoJSON.Feature[];
+  coordinates: { latitude: number; longitude: number };
+  point: { x: number; y: number };
+};
+
 type Props = MainTabScreenProps<'MapTab'>;
 
 export default function MapScreen({ navigation, route }: Props) {
   const [spots, setSpots] = useState<Spot[]>([]);
   const mapRef = useRef<MapView>(null);
   const cameraRef = useRef<Camera>(null);
+  const shapeSourceRef = useRef<ShapeSource>(null);
 
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<SuggestResult[]>([]);
@@ -129,6 +160,27 @@ export default function MapScreen({ navigation, route }: Props) {
     }
   };
 
+  // クラスタ（複数投稿の集合）をタップしたら拡大、個別ポイントをタップしたら詳細シートを開く
+  const onSpotsPress = useCallback(async (event: SpotsSourcePressEvent) => {
+    const feature = event.features[0];
+    if (!feature) return;
+    const props = (feature.properties ?? {}) as { cluster?: boolean; id?: string };
+    if (props.cluster) {
+      try {
+        const zoom = await shapeSourceRef.current?.getClusterExpansionZoom(feature);
+        cameraRef.current?.setCamera({
+          centerCoordinate: [event.coordinates.longitude, event.coordinates.latitude],
+          zoomLevel: (zoom ?? 14) + 0.5,
+          animationDuration: 400,
+        });
+      } catch (e) {
+        console.warn('クラスタ展開エラー', e);
+      }
+      return;
+    }
+    if (props.id) setSelectedSpotId(props.id);
+  }, []);
+
   return (
     <View style={styles.container}>
       <MapView
@@ -141,16 +193,19 @@ export default function MapScreen({ navigation, route }: Props) {
       >
         <Camera ref={cameraRef} defaultSettings={{ centerCoordinate: [139.767, 35.681], zoomLevel: 13 }} />
         {locationGranted && <UserLocation visible androidRenderMode="normal" showsUserHeadingIndicator />}
-        {spots.map((spot) => (
-          <PointAnnotation
-            key={spot.id}
-            id={spot.id}
-            coordinate={[spot.lng, spot.lat]}
-            onSelected={() => setSelectedSpotId(spot.id)}
-          >
-            <View style={styles.pin} />
-          </PointAnnotation>
-        ))}
+        <ShapeSource
+          ref={shapeSourceRef}
+          id="spots-source"
+          shape={spotsToFeatureCollection(spots)}
+          cluster
+          clusterRadius={50}
+          clusterMaxZoomLevel={14}
+          onPress={onSpotsPress}
+        >
+          <CircleLayer id="clusters" filter={['has', 'point_count']} style={clusterCircleStyle} />
+          <SymbolLayer id="cluster-count" filter={['has', 'point_count']} style={clusterCountStyle} />
+          <CircleLayer id="unclustered-point" filter={['!', ['has', 'point_count']]} style={pointStyle} />
+        </ShapeSource>
       </MapView>
 
       <SafeAreaView style={styles.topOverlay} pointerEvents="box-none">
@@ -225,14 +280,6 @@ export default function MapScreen({ navigation, route }: Props) {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.background },
   map: { flex: 1 },
-  pin: {
-    width: 14,
-    height: 14,
-    borderRadius: 7,
-    backgroundColor: colors.accent,
-    borderWidth: 2,
-    borderColor: '#fff',
-  },
   topOverlay: { position: 'absolute', top: 0, left: 0, right: 0 },
   logoRow: { paddingLeft: 20, paddingTop: 4 },
   logo: { width: 84, height: 52 },

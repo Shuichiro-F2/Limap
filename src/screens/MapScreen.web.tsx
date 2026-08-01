@@ -14,11 +14,12 @@ import {
   Image,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import Map, { Marker, ScaleControl, type MapRef } from 'react-map-gl/mapbox';
+import Map, { Marker, ScaleControl, Source, Layer, type MapRef, type MapMouseEvent } from 'react-map-gl/mapbox';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import * as Location from 'expo-location';
 import { MAPBOX_ACCESS_TOKEN } from '@env';
 import { fetchSpotsInBounds } from '../lib/spots';
+import { spotsToFeatureCollection } from '../lib/geo';
 import { generateSessionToken, suggestPlaces, retrievePlace, type SuggestResult } from '../lib/mapboxSearch';
 import SpotPreviewSheet from '../components/SpotPreviewSheet';
 import { colors } from '../lib/theme';
@@ -27,6 +28,31 @@ import type { MainTabScreenProps } from '../navigation/types';
 
 // リミナルスペースらしい、彩度を落とした暗めのマップスタイル（ネイティブ版と同じ）
 const MAP_STYLE = 'mapbox://styles/mapbox/dark-v11';
+
+const SPOTS_SOURCE_ID = 'spots-source';
+const CLUSTER_LAYER_ID = 'clusters';
+const CLUSTER_COUNT_LAYER_ID = 'cluster-count';
+const UNCLUSTERED_LAYER_ID = 'unclustered-point';
+
+// 近接する投稿をまとめて円＋件数で表示するクラスタリング設定（ネイティブ版と同じ見た目）
+// mapbox-gl-js のスタイル式の型がやや厳密なため、ここでは any で受ける。
+const clusterLayerPaint: any = {
+  'circle-color': colors.accent,
+  'circle-radius': ['step', ['get', 'point_count'], 16, 10, 20, 30, 26],
+  'circle-opacity': 0.92,
+  'circle-stroke-width': 2,
+  'circle-stroke-color': '#fff',
+};
+const clusterCountLayout: any = {
+  'text-field': ['get', 'point_count_abbreviated'],
+  'text-size': 13,
+};
+const unclusteredPaint: any = {
+  'circle-color': colors.accent,
+  'circle-radius': 7,
+  'circle-stroke-width': 2,
+  'circle-stroke-color': '#fff',
+};
 
 type Props = MainTabScreenProps<'MapTab'>;
 
@@ -119,6 +145,33 @@ export default function MapScreen({ navigation, route }: Props) {
     }
   };
 
+  // クラスタ（複数投稿の集合）をクリックしたら拡大、個別ポイントをクリックしたら詳細シートを開く
+  const onSpotsClick = useCallback((event: MapMouseEvent) => {
+    const feature = event.features?.[0];
+    if (!feature) return;
+    const props = (feature.properties ?? {}) as {
+      cluster?: boolean;
+      cluster_id?: number;
+      id?: string;
+    };
+
+    if (props.cluster && props.cluster_id != null) {
+      const map = mapRef.current?.getMap();
+      const source = map?.getSource(SPOTS_SOURCE_ID) as
+        | { getClusterExpansionZoom: (id: number, cb: (err: unknown, zoom: number) => void) => void }
+        | undefined;
+      if (!source) return;
+      source.getClusterExpansionZoom(props.cluster_id, (err, zoom) => {
+        if (err) return;
+        const [lng, lat] = (feature.geometry as GeoJSON.Point).coordinates;
+        mapRef.current?.flyTo({ center: [lng, lat], zoom, duration: 400 });
+      });
+      return;
+    }
+
+    if (props.id) setSelectedSpotId(props.id);
+  }, []);
+
   return (
     <View style={styles.container}>
       <View style={styles.mapWrap}>
@@ -130,6 +183,8 @@ export default function MapScreen({ navigation, route }: Props) {
           style={{ width: '100%', height: '100%' }}
           onLoad={loadForBounds}
           onMoveEnd={loadForBounds}
+          interactiveLayerIds={[CLUSTER_LAYER_ID, UNCLUSTERED_LAYER_ID]}
+          onClick={onSpotsClick}
         >
           <ScaleControl position="bottom-left" unit="metric" />
 
@@ -141,17 +196,29 @@ export default function MapScreen({ navigation, route }: Props) {
             </Marker>
           )}
 
-          {spots.map((spot) => (
-            <Marker
-              key={spot.id}
-              latitude={spot.lat}
-              longitude={spot.lng}
-              anchor="center"
-              onClick={() => setSelectedSpotId(spot.id)}
-            >
-              <View style={styles.pin} />
-            </Marker>
-          ))}
+          <Source
+            id={SPOTS_SOURCE_ID}
+            type="geojson"
+            data={spotsToFeatureCollection(spots)}
+            cluster
+            clusterRadius={50}
+            clusterMaxZoom={14}
+          >
+            <Layer id={CLUSTER_LAYER_ID} type="circle" filter={['has', 'point_count']} paint={clusterLayerPaint} />
+            <Layer
+              id={CLUSTER_COUNT_LAYER_ID}
+              type="symbol"
+              filter={['has', 'point_count']}
+              layout={clusterCountLayout}
+              paint={{ 'text-color': '#2a2a2a' }}
+            />
+            <Layer
+              id={UNCLUSTERED_LAYER_ID}
+              type="circle"
+              filter={['!', ['has', 'point_count']]}
+              paint={unclusteredPaint}
+            />
+          </Source>
         </Map>
       </View>
 
@@ -223,14 +290,6 @@ export default function MapScreen({ navigation, route }: Props) {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.background },
   mapWrap: { flex: 1 },
-  pin: {
-    width: 14,
-    height: 14,
-    borderRadius: 7,
-    backgroundColor: colors.accent,
-    borderWidth: 2,
-    borderColor: '#fff',
-  },
   userDotOuter: {
     width: 20,
     height: 20,
