@@ -92,8 +92,13 @@
         var root = document.getElementById('root');
         if (!splash || !root) return;
 
+        // 演出として、実際のロードが早く終わっても最低これだけは表示し続ける
+        var MIN_DISPLAY_MS = 1200;
+        var startTime = Date.now();
+        var mounted = false;
         var removed = false;
-        function hideSplash() {
+
+        function doHide() {
           if (removed) return;
           removed = true;
           splash.classList.add('limap-splash-hidden');
@@ -102,8 +107,19 @@
           }, 400);
         }
 
+        function hideSplash() {
+          if (!mounted) return;
+          var remaining = MIN_DISPLAY_MS - (Date.now() - startTime);
+          if (remaining > 0) {
+            setTimeout(doHide, remaining);
+          } else {
+            doHide();
+          }
+        }
+
         var observer = new MutationObserver(function () {
           if (root.childNodes.length > 0) {
+            mounted = true;
             hideSplash();
             observer.disconnect();
           }
@@ -111,7 +127,10 @@
         observer.observe(root, { childList: true });
 
         // 万一Reactのマウントを検知できなかった場合の保険（10秒でタイムアウト）
-        setTimeout(hideSplash, 10000);
+        setTimeout(function () {
+          mounted = true;
+          hideSplash();
+        }, 10000);
       })();
     </script>
   </body>

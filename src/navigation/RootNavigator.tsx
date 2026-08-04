@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavigationContainer, DarkTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useAuth } from '../lib/AuthContext';
@@ -12,6 +12,9 @@ import { colors } from '../lib/theme';
 import type { RootStackParamList } from './types';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
+
+// ロード画面を演出として見せるため、実際のセッション確認がすぐ終わっても最低これだけは表示する
+const MIN_LOADING_SCREEN_MS = 900;
 
 const navTheme = {
   ...DarkTheme,
@@ -27,8 +30,14 @@ const navTheme = {
 
 export default function RootNavigator() {
   const { session, loading } = useAuth();
+  const [minTimeElapsed, setMinTimeElapsed] = useState(false);
 
-  if (loading) {
+  useEffect(() => {
+    const timer = setTimeout(() => setMinTimeElapsed(true), MIN_LOADING_SCREEN_MS);
+    return () => clearTimeout(timer);
+  }, []);
+
+  if (loading || !minTimeElapsed) {
     return <LoadingScreen />;
   }
 
