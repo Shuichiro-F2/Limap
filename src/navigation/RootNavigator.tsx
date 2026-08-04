@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { NavigationContainer, DarkTheme } from '@react-navigation/native';
+import { NavigationContainer, DarkTheme, type LinkingOptions } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useAuth } from '../lib/AuthContext';
 import AuthScreen from '../screens/AuthScreen';
@@ -15,6 +15,26 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 // ロード画面を演出として見せるため、実際のセッション確認がすぐ終わっても最低これだけは表示する
 const MIN_LOADING_SCREEN_MS = 900;
+
+// Web版のURLバーと連動させ、投稿詳細などを直接開ける/共有できるURLにする。
+// （例: https://limap.jp/spot/xxxxx）ネイティブ版では limap:// のカスタムスキームとして機能する。
+const linking: LinkingOptions<RootStackParamList> = {
+  prefixes: ['https://limap.jp', 'https://www.limap.jp', 'limap://'],
+  config: {
+    screens: {
+      Main: {
+        screens: {
+          MapTab: 'map',
+          SearchTab: 'search',
+          MyPageTab: 'mypage',
+        },
+      },
+      SpotDetail: 'spot/:spotId',
+      CreateSpot: 'create',
+      LocationPicker: 'location-picker',
+    },
+  },
+};
 
 const navTheme = {
   ...DarkTheme,
@@ -42,7 +62,7 @@ export default function RootNavigator() {
   }
 
   return (
-    <NavigationContainer theme={navTheme}>
+    <NavigationContainer theme={navTheme} linking={linking}>
       {!session ? (
         <AuthScreen />
       ) : (

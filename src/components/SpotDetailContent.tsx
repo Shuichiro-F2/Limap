@@ -8,12 +8,14 @@ import {
   Pressable,
   ActivityIndicator,
   Linking,
+  Platform,
   useWindowDimensions,
   type NativeScrollEvent,
   type NativeSyntheticEvent,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { spotImageUrl } from '../lib/spots';
+import { shareSpot, copyLink } from '../lib/share';
 import { colors } from '../lib/theme';
 import type { Spot, ReportReason } from '../types/database';
 
@@ -79,6 +81,9 @@ export default function SpotDetailContent({
     const url = `https://www.google.com/maps/search/?api=1&query=${spot.lat},${spot.lng}`;
     Linking.openURL(url).catch(() => {});
   };
+
+  const handleShare = () => shareSpot(spot.title, spot.id);
+  const handleCopyLink = () => copyLink(spot.id);
 
   return (
     <ScrollView
@@ -151,6 +156,9 @@ export default function SpotDetailContent({
                 color={colors.accentText}
               />
             </Pressable>
+            <Pressable style={styles.iconButton} onPress={handleShare} hitSlop={10}>
+              <Ionicons name="share-social-outline" size={24} color={colors.accentText} />
+            </Pressable>
           </View>
           <Pressable style={styles.reportButton} onPress={onToggleReport}>
             <Text style={styles.reportButtonText}>通報する</Text>
@@ -166,6 +174,11 @@ export default function SpotDetailContent({
           <Pressable style={styles.linkButton} onPress={openInGoogleMaps}>
             <Text style={styles.linkButtonText}>Googleマップで開く</Text>
           </Pressable>
+          {Platform.OS === 'web' && (
+            <Pressable style={styles.linkButton} onPress={handleCopyLink}>
+              <Text style={styles.linkButtonText}>リンクをコピー</Text>
+            </Pressable>
+          )}
         </View>
 
         {showReport && (
