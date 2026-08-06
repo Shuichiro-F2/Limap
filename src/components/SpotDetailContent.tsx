@@ -45,6 +45,7 @@ type Props = {
   onScroll?: (e: NativeSyntheticEvent<NativeScrollEvent>) => void;
   onViewOnMap?: () => void;
   onTagPress?: (tagId: number) => void;
+  onAuthorPress?: (userId: string) => void;
 };
 
 // スポット詳細の中身（画像カルーセル＋本文）だけを描画する表示専用コンポーネント。
@@ -64,6 +65,7 @@ export default function SpotDetailContent({
   onScroll,
   onViewOnMap,
   onTagPress,
+  onAuthorPress,
 }: Props) {
   const { width: screenWidth } = useWindowDimensions();
   // PCなど横幅の広い画面では、画像や本文が横に間延びしないよう最大幅で中央寄せする。
@@ -118,10 +120,21 @@ export default function SpotDetailContent({
         )}
 
         <View style={styles.body}>
-          <Text style={styles.title}>{spot.title}</Text>
-        <Text style={styles.meta}>
-          {spot.city ?? ''} {spot.country ?? ''} ・投稿者 @{spot.author?.username}
-        </Text>
+          <View style={styles.metaRow}>
+            {(spot.city || spot.country) && (
+              <Text style={styles.meta}>
+                {spot.city ?? ''} {spot.country ?? ''}
+              </Text>
+            )}
+            {spot.author?.username &&
+              (onAuthorPress ? (
+                <Pressable onPress={() => onAuthorPress(spot.author_id)} hitSlop={6}>
+                  <Text style={styles.authorText}>@{spot.author.username}</Text>
+                </Pressable>
+              ) : (
+                <Text style={styles.authorText}>@{spot.author.username}</Text>
+              ))}
+          </View>
 
         {spot.tags && spot.tags.length > 0 && (
           <View style={styles.tagRow}>
@@ -245,8 +258,9 @@ const styles = StyleSheet.create({
   image: {},
   noImage: { backgroundColor: colors.background },
   body: { padding: 20, backgroundColor: colors.accent },
-  title: { fontSize: 22, fontWeight: '700', color: colors.accentText },
-  meta: { fontSize: 13, color: colors.accentTextMuted, marginTop: 6 },
+  metaRow: { flexDirection: 'row', alignItems: 'center', flexWrap: 'wrap', gap: 8 },
+  meta: { fontSize: 13, color: colors.accentTextMuted },
+  authorText: { fontSize: 13, color: colors.accentText, fontWeight: '600' },
   tagRow: { flexDirection: 'row', flexWrap: 'wrap', marginTop: 14, gap: 8 },
   tagChip: {
     backgroundColor: colors.background,

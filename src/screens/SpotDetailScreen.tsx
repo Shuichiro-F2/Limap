@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useSpotDetail } from '../hooks/useSpotDetail';
 import SpotDetailContent from '../components/SpotDetailContent';
+import { useAuth } from '../lib/AuthContext';
 import { colors } from '../lib/theme';
 import type { RootStackScreenProps } from '../navigation/types';
 
@@ -9,6 +10,7 @@ type Props = RootStackScreenProps<'SpotDetail'>;
 
 export default function SpotDetailScreen({ route, navigation }: Props) {
   const { spotId } = route.params;
+  const { session } = useAuth();
   const {
     spot,
     loading,
@@ -36,6 +38,15 @@ export default function SpotDetailScreen({ route, navigation }: Props) {
     });
   };
 
+  // 自分自身の場合はマイページタブへ、他ユーザーの場合はプロフィール画面へ遷移する
+  const goToAuthor = (userId: string) => {
+    if (session?.user?.id === userId) {
+      navigation.navigate('Main', { screen: 'MyPageTab' });
+    } else {
+      navigation.navigate('UserProfile', { userId });
+    }
+  };
+
   return (
     <View style={styles.screen}>
       <SpotDetailContent
@@ -50,6 +61,7 @@ export default function SpotDetailScreen({ route, navigation }: Props) {
         onReport={handleReport}
         onViewOnMap={goToMap}
         onTagPress={goToTag}
+        onAuthorPress={goToAuthor}
       />
     </View>
   );

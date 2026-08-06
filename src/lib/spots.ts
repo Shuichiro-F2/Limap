@@ -111,6 +111,18 @@ export async function fetchSpotsByAuthor(authorId: string): Promise<Spot[]> {
   return normalizeSpots(data ?? []);
 }
 
+// ユーザープロフィール画面: 他ユーザーにも見える公開投稿のみ取得する
+export async function fetchPublishedSpotsByAuthor(authorId: string): Promise<Spot[]> {
+  const { data, error } = await supabase
+    .from('spots')
+    .select(SPOT_SELECT)
+    .eq('author_id', authorId)
+    .eq('status', 'published')
+    .order('created_at', { ascending: false });
+  if (error) throw error;
+  return normalizeSpots(data ?? []);
+}
+
 // マイページ: いいねした投稿一覧
 export async function fetchLikedSpots(userId: string): Promise<Spot[]> {
   const { data, error } = await supabase

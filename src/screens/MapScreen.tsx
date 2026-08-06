@@ -18,6 +18,7 @@ import { fetchSpotsInBounds } from '../lib/spots';
 import { spotsToFeatureCollection } from '../lib/geo';
 import { generateSessionToken, suggestPlaces, retrievePlace, type SuggestResult } from '../lib/mapboxSearch';
 import SpotPreviewSheet from '../components/SpotPreviewSheet';
+import { useAuth } from '../lib/AuthContext';
 import { colors } from '../lib/theme';
 import type { Spot } from '../types/database';
 import type { MainTabScreenProps } from '../navigation/types';
@@ -59,6 +60,7 @@ type SpotsSourcePressEvent = {
 type Props = MainTabScreenProps<'MapTab'>;
 
 export default function MapScreen({ navigation, route }: Props) {
+  const { session } = useAuth();
   const [spots, setSpots] = useState<Spot[]>([]);
   const mapRef = useRef<MapView>(null);
   const cameraRef = useRef<Camera>(null);
@@ -275,6 +277,14 @@ export default function MapScreen({ navigation, route }: Props) {
         onTagPress={(tagId) => {
           setSelectedSpotId(null);
           navigation.navigate('Main', { screen: 'SearchTab', params: { tagId } });
+        }}
+        onAuthorPress={(userId) => {
+          setSelectedSpotId(null);
+          if (session?.user?.id === userId) {
+            navigation.navigate('Main', { screen: 'MyPageTab' });
+          } else {
+            navigation.navigate('UserProfile', { userId });
+          }
         }}
       />
     </View>

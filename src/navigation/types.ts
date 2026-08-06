@@ -13,6 +13,7 @@ export type RootStackParamList = {
   SpotDetail: { spotId: string };
   CreateSpot: { pickedLat?: number; pickedLng?: number } | undefined;
   LocationPicker: { initialLat?: number; initialLng?: number } | undefined;
+  UserProfile: { userId: string };
 };
 
 // タブ内の画面（Map/Search/MyPage）は、タブ自身の画面遷移に加えて

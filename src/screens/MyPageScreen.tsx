@@ -11,6 +11,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useFocusEffect } from '@react-navigation/native';
 import { fetchSpotsByAuthor, fetchLikedSpots, fetchBookmarkedSpots, spotImageUrl } from '../lib/spots';
+import { fetchFollowCounts, type FollowCounts } from '../lib/profiles';
 import { useAuth } from '../lib/AuthContext';
 import { colors } from '../lib/theme';
 import type { Spot } from '../types/database';
@@ -31,6 +32,7 @@ export default function MyPageScreen({ navigation }: Props) {
   const [activeTab, setActiveTab] = useState<TabKey>('mine');
   const [spots, setSpots] = useState<Spot[]>([]);
   const [loading, setLoading] = useState(false);
+  const [followCounts, setFollowCounts] = useState<FollowCounts>({ followers: 0, following: 0 });
 
   const load = useCallback(async () => {
     if (!session?.user) return;
@@ -61,6 +63,13 @@ export default function MyPageScreen({ navigation }: Props) {
     }, [load])
   );
 
+  useEffect(() => {
+    if (!session?.user) return;
+    fetchFollowCounts(session.user.id)
+      .then(setFollowCounts)
+      .catch((e) => console.warn('フォロー数取得エラー', e));
+  }, [session?.user?.id]);
+
   return (
     <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
       <View style={styles.logoRow}>
@@ -78,6 +87,17 @@ export default function MyPageScreen({ navigation }: Props) {
         <Pressable onPress={signOut}>
           <Text style={styles.logoutText}>ログアウト</Text>
         </Pressable>
+      </View>
+
+      <View style={styles.countsRow}>
+        <View style={styles.countItem}>
+          <Text style={styles.countNumber}>{followCounts.followers}</Text>
+          <Text style={styles.countLabel}>フォロワー</Text>
+        </View>
+        <View style={styles.countItem}>
+          <Text style={styles.countNumber}>{followCounts.following}</Text>
+          <Text style={styles.countLabel}>フォロー中</Text>
+        </View>
       </View>
 
       <View style={styles.tabRow}>
@@ -148,6 +168,10 @@ const styles = StyleSheet.create({
   username: { color: colors.textPrimary, fontSize: 16, fontWeight: '600' },
   displayName: { color: colors.textSecondary, fontSize: 13, marginTop: 2 },
   logoutText: { color: colors.textSecondary, fontSize: 12 },
+  countsRow: { flexDirection: 'row', paddingHorizontal: 20, gap: 28, marginBottom: 16 },
+  countItem: { alignItems: 'center' },
+  countNumber: { color: colors.textPrimary, fontSize: 16, fontWeight: '700' },
+  countLabel: { color: colors.textMuted, fontSize: 11, marginTop: 2 },
   tabRow: { flexDirection: 'row', paddingHorizontal: 16, gap: 8, marginBottom: 8 },
   tabButton: {
     flex: 1,

@@ -27,7 +27,6 @@ type Props = RootStackScreenProps<'CreateSpot'>;
 
 export default function CreateSpotScreen({ navigation, route }: Props) {
   const { session } = useAuth();
-  const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
   const [tagInput, setTagInput] = useState('');
@@ -126,10 +125,6 @@ export default function CreateSpotScreen({ navigation, route }: Props) {
       notify('ログインが必要です');
       return;
     }
-    if (!title.trim()) {
-      notify('タイトルを入力してください');
-      return;
-    }
     if (!coords) {
       notify('位置情報を設定してください');
       return;
@@ -148,8 +143,12 @@ export default function CreateSpotScreen({ navigation, route }: Props) {
         imagePaths.push(path);
       }
 
+      // タイトル欄は廃止したため、説明文の冒頭から内部用のタイトルを自動生成する
+      // （検索やグリッド表示のフォールバックなど、内部的にのみ使用する）
+      const derivedTitle = description.trim().slice(0, 40) || '無題の投稿';
+
       await createSpot(session.user.id, {
-        title: title.trim(),
+        title: derivedTitle,
         description: description.trim() || undefined,
         lat: coords.lat,
         lng: coords.lng,
@@ -167,15 +166,6 @@ export default function CreateSpotScreen({ navigation, route }: Props) {
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={{ padding: 20 }}>
-      <Text style={styles.label}>タイトル</Text>
-      <TextInput
-        style={styles.input}
-        value={title}
-        onChangeText={setTitle}
-        placeholder="例：深夜の無人駅ホーム"
-        placeholderTextColor="#666"
-      />
-
       <Text style={styles.label}>説明</Text>
       <TextInput
         style={[styles.input, styles.textArea]}

@@ -7,6 +7,7 @@ import MainTabNavigator from './MainTabNavigator';
 import SpotDetailScreen from '../screens/SpotDetailScreen';
 import CreateSpotScreen from '../screens/CreateSpotScreen';
 import LocationPickerScreen from '../screens/LocationPickerScreen';
+import UserProfileScreen from '../screens/UserProfileScreen';
 import LoadingScreen from '../components/LoadingScreen';
 import { colors } from '../lib/theme';
 import type { RootStackParamList } from './types';
@@ -32,6 +33,7 @@ const linking: LinkingOptions<RootStackParamList> = {
       SpotDetail: 'spot/:spotId',
       CreateSpot: 'create',
       LocationPicker: 'location-picker',
+      UserProfile: 'user/:userId',
     },
   },
 };
@@ -87,6 +89,15 @@ export default function RootNavigator() {
             name="LocationPicker"
             component={LocationPickerScreen}
             options={{ title: '場所を選択', presentation: 'modal' }}
+          />
+          <Stack.Screen
+            name="UserProfile"
+            component={UserProfileScreen}
+            options={{
+              title: '',
+              headerStyle: { backgroundColor: colors.background },
+              headerTintColor: colors.textPrimary,
+            }}
           />
         </Stack.Navigator>
       )}
