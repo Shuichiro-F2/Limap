@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -68,6 +68,7 @@ export default function SpotDetailContent({
   const { width: screenWidth } = useWindowDimensions();
   // PCなど横幅の広い画面では、画像や本文が横に間延びしないよう最大幅で中央寄せする。
   const contentWidth = Math.min(screenWidth, MAX_CONTENT_WIDTH);
+  const [showMenu, setShowMenu] = useState(false);
 
   if (loading || !spot) {
     return (
@@ -160,26 +161,59 @@ export default function SpotDetailContent({
               <Ionicons name="share-social-outline" size={24} color={colors.accentText} />
             </Pressable>
           </View>
-          <Pressable style={styles.reportButton} onPress={onToggleReport}>
-            <Text style={styles.reportButtonText}>通報する</Text>
+          <Pressable style={styles.menuButton} onPress={() => setShowMenu((v) => !v)} hitSlop={10}>
+            <Ionicons name="ellipsis-horizontal" size={22} color={colors.accentText} />
           </Pressable>
         </View>
 
-        <View style={styles.linkRow}>
-          {onViewOnMap && (
-            <Pressable style={styles.linkButton} onPress={onViewOnMap}>
-              <Text style={styles.linkButtonText}>地図で見る</Text>
+        {showMenu && (
+          <View style={styles.menuPanel}>
+            {onViewOnMap && (
+              <Pressable
+                style={styles.menuItem}
+                onPress={() => {
+                  setShowMenu(false);
+                  onViewOnMap();
+                }}
+              >
+                <Ionicons name="map-outline" size={18} color={colors.textPrimary} />
+                <Text style={styles.menuItemText}>地図で見る</Text>
+              </Pressable>
+            )}
+            <Pressable
+              style={styles.menuItem}
+              onPress={() => {
+                setShowMenu(false);
+                openInGoogleMaps();
+              }}
+            >
+              <Ionicons name="navigate-outline" size={18} color={colors.textPrimary} />
+              <Text style={styles.menuItemText}>Googleマップで開く</Text>
             </Pressable>
-          )}
-          <Pressable style={styles.linkButton} onPress={openInGoogleMaps}>
-            <Text style={styles.linkButtonText}>Googleマップで開く</Text>
-          </Pressable>
-          {Platform.OS === 'web' && (
-            <Pressable style={styles.linkButton} onPress={handleCopyLink}>
-              <Text style={styles.linkButtonText}>リンクをコピー</Text>
+            {Platform.OS === 'web' && (
+              <Pressable
+                style={styles.menuItem}
+                onPress={() => {
+                  setShowMenu(false);
+                  handleCopyLink();
+                }}
+              >
+                <Ionicons name="link-outline" size={18} color={colors.textPrimary} />
+                <Text style={styles.menuItemText}>リンクをコピー</Text>
+              </Pressable>
+            )}
+            <Pressable
+              style={[styles.menuItem, styles.menuItemLast]}
+              onPress={() => {
+                setShowMenu(false);
+                onToggleReport();
+              }}
+            >
+              <Ionicons name="flag-outline" size={18} color={colors.danger} />
+              <Text style={[styles.menuItemText, styles.menuItemDangerText]}>通報する</Text>
             </Pressable>
-          )}
-        </View>
+          </View>
+        )}
 
         {showReport && (
           <View style={styles.reportPanel}>
@@ -232,23 +266,25 @@ const styles = StyleSheet.create({
   },
   iconButtonsRow: { flexDirection: 'row', gap: 18 },
   iconButton: { padding: 2 },
-  reportButton: {
-    paddingVertical: 12,
+  menuButton: { padding: 6 },
+  menuPanel: {
+    marginTop: 10,
+    backgroundColor: colors.background,
+    borderRadius: 12,
+    overflow: 'hidden',
+  },
+  menuItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
     paddingHorizontal: 16,
-    borderRadius: 10,
-    borderWidth: 1.5,
-    borderColor: colors.accentText,
+    paddingVertical: 13,
+    borderBottomWidth: 1,
+    borderBottomColor: colors.border,
   },
-  reportButtonText: { color: colors.accentText, fontSize: 13, fontWeight: '600' },
-  linkRow: { flexDirection: 'row', marginTop: 10, gap: 10, flexWrap: 'wrap' },
-  linkButton: {
-    paddingVertical: 10,
-    paddingHorizontal: 14,
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: colors.accentText,
-  },
-  linkButtonText: { color: colors.accentText, fontSize: 12, fontWeight: '600' },
+  menuItemLast: { borderBottomWidth: 0 },
+  menuItemText: { color: colors.textPrimary, fontSize: 14, fontWeight: '600' },
+  menuItemDangerText: { color: colors.danger },
   reportPanel: { marginTop: 16, backgroundColor: colors.background, borderRadius: 12, padding: 16 },
   reportTitle: { color: colors.textPrimary, fontWeight: '600', marginBottom: 10 },
   reportOption: { paddingVertical: 10 },
