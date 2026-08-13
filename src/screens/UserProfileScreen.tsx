@@ -137,6 +137,10 @@ export default function UserProfileScreen({ route, navigation }: Props) {
         keyExtractor={(item) => item.id}
         numColumns={3}
         contentContainerStyle={{ padding: 4, paddingTop: 16 }}
+        initialNumToRender={12}
+        maxToRenderPerBatch={9}
+        windowSize={5}
+        removeClippedSubviews
         ListEmptyComponent={<Text style={styles.emptyText}>まだ投稿がありません</Text>}
         renderItem={({ item }) => (
           <Pressable

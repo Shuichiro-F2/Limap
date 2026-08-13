@@ -207,6 +207,11 @@ export default function MyPageScreen({ navigation }: Props) {
                   refreshControl={
                     <RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor={colors.accent} />
                   }
+                  // 画像の同時デコード数を抑え、初期表示時の操作不能な時間を短くする
+                  initialNumToRender={12}
+                  maxToRenderPerBatch={9}
+                  windowSize={5}
+                  removeClippedSubviews
                   ListEmptyComponent={<Text style={styles.emptyText}>まだ表示できるスポットがありません</Text>}
                   renderItem={({ item }) => (
                     <Pressable

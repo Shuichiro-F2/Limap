@@ -14,6 +14,7 @@ import Text from '../components/AppText';
 import TextInput from '../components/AppTextInput';
 import { supabase } from '../lib/supabase';
 import { createSpot } from '../lib/spots';
+import { resizeImageForUpload } from '../lib/imageResize';
 import { fetchAllTags, findOrCreateTag } from '../lib/tags';
 import { useAuth } from '../lib/AuthContext';
 import { notify } from '../lib/notify';
@@ -142,10 +143,15 @@ export default function CreateSpotScreen({ navigation, route }: Props) {
       const imagePaths: string[] = [];
       for (const asset of images) {
         if (!asset.base64) continue;
+        // 大きい写真をそのままアップロードすると、マイページや検索のグリッド表示時に
+        // ブラウザが高解像度のまま画像をデコードすることになり動作が重くなるため、
+        // アップロード前に縮小・再圧縮する
+        const resized = await resizeImageForUpload(asset.uri, asset.base64);
+        if (!resized) continue;
         const path = `${session.user.id}/${Date.now()}-${Math.random().toString(36).slice(2)}.jpg`;
         const { error } = await supabase.storage
           .from('spot-images')
-          .upload(path, decode(asset.base64), { contentType: 'image/jpeg' });
+          .upload(path, decode(resized.base64), { contentType: resized.contentType });
         if (error) throw error;
         imagePaths.push(path);
       }

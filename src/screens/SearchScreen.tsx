@@ -152,6 +152,10 @@ export default function SearchScreen({ navigation, route }: Props) {
             data={results}
             keyExtractor={(item) => item.id}
             contentContainerStyle={{ padding: 16 }}
+            initialNumToRender={10}
+            maxToRenderPerBatch={8}
+            windowSize={5}
+            removeClippedSubviews
             ListEmptyComponent={<Text style={styles.emptyText}>該当するスポットが見つかりませんでした</Text>}
             renderItem={({ item }) => (
               <Pressable
@@ -191,6 +195,11 @@ export default function SearchScreen({ navigation, route }: Props) {
             numColumns={GRID_COLUMNS}
             columnWrapperStyle={{ justifyContent: 'space-between' }}
             contentContainerStyle={{ paddingBottom: 24 }}
+            // 画像の同時デコード数を抑え、初期表示時の操作不能な時間を短くする
+            initialNumToRender={12}
+            maxToRenderPerBatch={9}
+            windowSize={5}
+            removeClippedSubviews
             refreshControl={
               <RefreshControl
                 refreshing={refreshingRecommended}
