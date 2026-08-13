@@ -89,17 +89,20 @@ export default function RootNavigator() {
           component={SpotDetailScreen}
           options={({ navigation }) => ({
             title: '',
-            headerStyle: { backgroundColor: colors.background, height: 84 },
-            headerTintColor: colors.textPrimary,
+            // ヘッダーも本文と同じ黄色にし、区切り線のない一体感のある見た目にする
+            headerStyle: { backgroundColor: colors.accent, height: 84 },
+            headerTintColor: colors.accentText,
+            headerShadowVisible: false,
             headerLeftContainerStyle: { paddingTop: 14 },
-            // 他の画面と同じくロゴを左上に表示し、タップでトップページ（地図画面）へ戻れるようにする
+            // 他の画面と同じくロゴを左上に表示し、タップでトップページ（地図画面）へ戻れるようにする。
+            // 黄色いヘッダーの上でも見えるよう、通常の黄色ロゴではなく濃いグレー版を使う。
             headerLeft: () => (
               <Pressable
                 onPress={() => navigation.navigate('Main', { screen: 'MapTab' })}
                 hitSlop={10}
               >
                 <Image
-                  source={require('../../assets/logo-header.png')}
+                  source={require('../../assets/logo-header-dark.png')}
                   style={headerStyles.logo}
                   resizeMode="contain"
                 />
