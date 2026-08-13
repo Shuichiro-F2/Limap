@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
+import { Pressable } from 'react-native';
 import { NavigationContainer, DarkTheme, type LinkingOptions } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { Ionicons } from '@expo/vector-icons';
 import { useAuth } from '../lib/AuthContext';
 import AuthScreen from '../screens/AuthScreen';
 import MainTabNavigator from './MainTabNavigator';
@@ -105,7 +107,17 @@ export default function RootNavigator() {
         <Stack.Screen
           name="Auth"
           component={AuthScreen}
-          options={{ title: 'ログイン', presentation: 'modal' }}
+          options={({ navigation }) => ({
+            title: 'ログイン',
+            presentation: 'modal',
+            // 遷移元によっては戻る先の履歴がなく、標準の戻るボタンが無反応になることがあるため、
+            // 常にトップページ（地図画面）へ遷移するよう明示的に指定する
+            headerLeft: () => (
+              <Pressable onPress={() => navigation.navigate('Main', { screen: 'MapTab' })} hitSlop={10}>
+                <Ionicons name="arrow-back" size={24} color={colors.textPrimary} />
+              </Pressable>
+            ),
+          })}
         />
       </Stack.Navigator>
     </NavigationContainer>
