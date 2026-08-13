@@ -4,9 +4,9 @@ import type { Spot } from '../types/database';
 import type { StaticPageContent } from '../content/staticPages';
 
 // public/index.html の静的な値と揃えておく（Webでスポット詳細から離脱した際に戻す用）
-const DEFAULT_TITLE = 'LIMap（リマップ） | 限界空間を記録・共有する地図アプリ';
+const DEFAULT_TITLE = 'LIMap（リマップ） | リミナルスペースを記録・共有する地図アプリ';
 const DEFAULT_DESCRIPTION =
-  'LIMapは、廃墟や無人駅、深夜の駐車場など「限界空間（リミナルスペース）」を写真と場所で記録・共有できる地図アプリです。街や旅先に潜む不思議な空間を、みんなで見つけて地図に残しましょう。';
+  'LIMapは、廃墟や無人駅、深夜の駐車場など「リミナルスペース」を写真と場所で記録・共有できる地図アプリです。街や旅先に潜む不思議な空間を、みんなで見つけて地図に残しましょう。';
 const DEFAULT_OG_IMAGE = 'https://limap.jp/og-image.png';
 const SITE_NAME = 'LIMap（リマップ）';
 const JSONLD_ID = 'limap-spot-jsonld';
@@ -33,8 +33,8 @@ export function applySpotSeo(spot: Spot) {
   const pageTitle = `${truncate(rawTitle, 40)} | ${SITE_NAME}`;
   const descBase =
     (spot.description || '').trim() ||
-    '限界空間（リミナルスペース）を記録した投稿です。写真と場所の詳細はLIMapでご覧いただけます。';
-  const pageDescription = truncate(place ? `${place}にある限界空間の記録。${descBase}` : descBase, 120);
+    'リミナルスペースを記録した投稿です。写真と場所の詳細はLIMapでご覧いただけます。';
+  const pageDescription = truncate(place ? `${place}にあるリミナルスペースの記録。${descBase}` : descBase, 120);
 
   const firstImage = (spot.images || []).slice().sort((a, b) => a.position - b.position)[0];
   const ogImage = firstImage ? spotImageUrl(firstImage.storage_path) : DEFAULT_OG_IMAGE;

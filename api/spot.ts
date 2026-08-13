@@ -86,8 +86,8 @@ export default async function handler(req: any, res: any) {
     const pageTitle = `${truncate(rawTitle, 40)} | ${SITE_NAME}`;
     const descBase =
       (spot.description || '').trim() ||
-      '限界空間（リミナルスペース）を記録した投稿です。写真と場所の詳細はLIMapでご覧いただけます。';
-    const pageDescription = truncate(place ? `${place}にある限界空間の記録。${descBase}` : descBase, 120);
+      'リミナルスペースを記録した投稿です。写真と場所の詳細はLIMapでご覧いただけます。';
+    const pageDescription = truncate(place ? `${place}にあるリミナルスペースの記録。${descBase}` : descBase, 120);
 
     const images = (spot.images || []) as { storage_path: string; position: number }[];
     const sortedImages = [...images].sort((a, b) => (a.position ?? 0) - (b.position ?? 0));
