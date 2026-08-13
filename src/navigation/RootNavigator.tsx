@@ -10,6 +10,8 @@ import SpotDetailScreen from '../screens/SpotDetailScreen';
 import CreateSpotScreen from '../screens/CreateSpotScreen';
 import LocationPickerScreen from '../screens/LocationPickerScreen';
 import UserProfileScreen from '../screens/UserProfileScreen';
+import AboutScreen from '../screens/AboutScreen';
+import HelpScreen from '../screens/HelpScreen';
 import LoadingScreen from '../components/LoadingScreen';
 import { colors } from '../lib/theme';
 import type { RootStackParamList } from './types';
@@ -37,6 +39,8 @@ const linking: LinkingOptions<RootStackParamList> = {
       LocationPicker: 'location-picker',
       UserProfile: 'user/:userId',
       Auth: 'login',
+      About: 'about',
+      Help: 'help',
     },
   },
 };
@@ -104,6 +108,12 @@ export default function RootNavigator() {
             headerTintColor: colors.textPrimary,
           }}
         />
+        <Stack.Screen
+          name="About"
+          component={AboutScreen}
+          options={{ title: 'リミナルスペースとは' }}
+        />
+        <Stack.Screen name="Help" component={HelpScreen} options={{ title: '使い方' }} />
         <Stack.Screen
           name="Auth"
           component={AuthScreen}

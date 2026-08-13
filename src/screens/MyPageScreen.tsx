@@ -157,6 +157,16 @@ export default function MyPageScreen({ navigation }: Props) {
         </View>
       </View>
 
+      <View style={styles.footerLinksRow}>
+        <Pressable onPress={() => navigation.navigate('Help')} hitSlop={8}>
+          <Text style={styles.footerLinkText}>使い方</Text>
+        </Pressable>
+        <Text style={styles.footerLinkDivider}>・</Text>
+        <Pressable onPress={() => navigation.navigate('About')} hitSlop={8}>
+          <Text style={styles.footerLinkText}>リミナルスペースとは</Text>
+        </Pressable>
+      </View>
+
       <View style={styles.tabRow}>
         {TABS.map((tab, index) => (
           <Pressable key={tab.icon} style={styles.tabButton} onPress={() => goToPage(index)}>
@@ -251,6 +261,14 @@ const styles = StyleSheet.create({
   countItem: { alignItems: 'center' },
   countNumber: { color: colors.textPrimary, fontSize: 16, fontWeight: '700' },
   countLabel: { color: colors.textMuted, fontSize: 11, marginTop: 2 },
+  footerLinksRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+    marginBottom: 12,
+  },
+  footerLinkText: { color: colors.textMuted, fontSize: 11 },
+  footerLinkDivider: { color: colors.textMuted, fontSize: 11, marginHorizontal: 6 },
   tabRow: { flexDirection: 'row' },
   tabButton: { flex: 1, alignItems: 'center', justifyContent: 'center', paddingVertical: 10 },
   indicatorTrack: { height: 2, backgroundColor: colors.border },

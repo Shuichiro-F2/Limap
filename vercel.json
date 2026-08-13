@@ -6,6 +6,8 @@
   "rewrites": [
     { "source": "/sitemap.xml", "destination": "/api/sitemap" },
     { "source": "/spot/:id", "destination": "/api/spot?id=:id" },
+    { "source": "/about", "destination": "/api/page?slug=about" },
+    { "source": "/help", "destination": "/api/page?slug=help" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }

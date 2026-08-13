@@ -1,6 +1,7 @@
 import { Platform } from 'react-native';
 import { spotImageUrl } from './spots';
 import type { Spot } from '../types/database';
+import type { StaticPageContent } from '../content/staticPages';
 
 // public/index.html の静的な値と揃えておく（Webでスポット詳細から離脱した際に戻す用）
 const DEFAULT_TITLE = 'LIMap（リマップ） | 限界空間を記録・共有する地図アプリ';
@@ -69,6 +70,48 @@ export function applySpotSeo(spot: Spot) {
     ...(spot.author?.username
       ? { author: { '@type': 'Person', name: spot.author.display_name || spot.author.username } }
       : {}),
+  };
+
+  let script = document.getElementById(JSONLD_ID) as HTMLScriptElement | null;
+  if (!script) {
+    script = document.createElement('script');
+    script.id = JSONLD_ID;
+    script.type = 'application/ld+json';
+    document.head.appendChild(script);
+  }
+  script.textContent = JSON.stringify(jsonLd);
+}
+
+// 「リミナルスペースとは」「使い方」など静的な読み物ページ用。
+// サーバー側(api/page.ts)が最初のHTTPリクエストで同じ内容を注入するが、
+// SPA内遷移でこの画面を開いた場合にもtitle/OGP/FAQPage構造化データが揃うようにする。
+export function applyStaticPageSeo(content: StaticPageContent) {
+  if (Platform.OS !== 'web' || typeof document === 'undefined') return;
+
+  const pageTitle = `${content.metaTitle} | ${SITE_NAME}`;
+  const pageUrl = `https://limap.jp/${content.path}`;
+
+  document.title = pageTitle;
+  setMetaContent('meta[name="description"]', content.metaDescription);
+  setMetaContent('meta[property="og:url"]', pageUrl);
+  setMetaContent('meta[property="og:title"]', pageTitle);
+  setMetaContent('meta[property="og:description"]', content.metaDescription);
+  setMetaContent('meta[property="og:image"]', DEFAULT_OG_IMAGE);
+  setMetaContent('meta[name="twitter:title"]', pageTitle);
+  setMetaContent('meta[name="twitter:description"]', content.metaDescription);
+  setMetaContent('meta[name="twitter:image"]', DEFAULT_OG_IMAGE);
+
+  const canonical = document.querySelector('link[rel="canonical"]');
+  if (canonical) canonical.setAttribute('href', pageUrl);
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: content.faq.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: { '@type': 'Answer', text: item.answer },
+    })),
   };
 
   let script = document.getElementById(JSONLD_ID) as HTMLScriptElement | null;

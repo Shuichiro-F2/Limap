@@ -15,6 +15,8 @@ export type RootStackParamList = {
   LocationPicker: { initialLat?: number; initialLng?: number } | undefined;
   UserProfile: { userId: string };
   Auth: undefined;
+  About: undefined;
+  Help: undefined;
 };
 
 // タブ内の画面（Map/Search/MyPage）は、タブ自身の画面遷移に加えて
