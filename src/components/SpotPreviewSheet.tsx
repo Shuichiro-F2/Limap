@@ -272,7 +272,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: colors.background,
+    backgroundColor: colors.accent,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     overflow: 'hidden',
@@ -286,7 +286,7 @@ const styles = StyleSheet.create({
     width: 44,
     height: 5,
     borderRadius: 3,
-    backgroundColor: colors.textPrimary,
+    backgroundColor: colors.accentText,
     opacity: 0.4,
   },
   closeButton: {
@@ -295,6 +295,6 @@ const styles = StyleSheet.create({
     top: 10,
     padding: 8,
   },
-  closeButtonText: { color: colors.textPrimary, fontSize: 18, fontWeight: '700' },
+  closeButtonText: { color: colors.accentText, fontSize: 18, fontWeight: '700' },
   contentWrap: { flex: 1 },
 });

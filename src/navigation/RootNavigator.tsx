@@ -89,8 +89,9 @@ export default function RootNavigator() {
           component={SpotDetailScreen}
           options={({ navigation }) => ({
             title: '',
-            headerStyle: { backgroundColor: colors.background },
+            headerStyle: { backgroundColor: colors.background, height: 84 },
             headerTintColor: colors.textPrimary,
+            headerLeftContainerStyle: { paddingTop: 14 },
             // 他の画面と同じくロゴを左上に表示し、タップでトップページ（地図画面）へ戻れるようにする
             headerLeft: () => (
               <Pressable
@@ -148,5 +149,5 @@ export default function RootNavigator() {
 }
 
 const headerStyles = StyleSheet.create({
-  logo: { width: 64, height: 32 },
+  logo: { width: 84, height: 52 },
 });
