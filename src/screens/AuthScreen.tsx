@@ -89,12 +89,12 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.background, padding: 24, justifyContent: 'center' },
   logo: { width: 220, height: 140, alignSelf: 'center', marginBottom: 32 },
   input: {
-    backgroundColor: colors.surface,
     color: colors.textPrimary,
-    borderRadius: 10,
-    paddingHorizontal: 16,
-    paddingVertical: 14,
-    marginBottom: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: colors.border,
+    paddingHorizontal: 2,
+    paddingVertical: 12,
+    marginBottom: 20,
     fontSize: 15,
   },
   primaryButton: {

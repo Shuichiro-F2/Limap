@@ -1,5 +1,5 @@
 import type { CompositeScreenProps, NavigatorScreenParams } from '@react-navigation/native';
-import type { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
+import type { MaterialTopTabScreenProps } from '@react-navigation/material-top-tabs';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 export type MainTabParamList = {
@@ -19,9 +19,10 @@ export type RootStackParamList = {
 
 // タブ内の画面（Map/Search/MyPage）は、タブ自身の画面遷移に加えて
 // 親であるRootStack側の画面（SpotDetailなど）にも遷移できる必要があるため、
-// CompositeScreenPropsで両方のナビゲーション型を合成する
+// CompositeScreenPropsで両方のナビゲーション型を合成する。
+// タブはスワイプ切り替えのためmaterial-top-tabs（tabBarPosition: 'bottom'）で実装している。
 export type MainTabScreenProps<T extends keyof MainTabParamList> = CompositeScreenProps<
-  BottomTabScreenProps<MainTabParamList, T>,
+  MaterialTopTabScreenProps<MainTabParamList, T>,
   NativeStackScreenProps<RootStackParamList>
 >;
 
