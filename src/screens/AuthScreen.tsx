@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Pressable, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, Image, Pressable, StyleSheet, ActivityIndicator } from 'react-native';
 import Text from '../components/AppText';
 import TextInput from '../components/AppTextInput';
 import { useAuth } from '../lib/AuthContext';
@@ -32,8 +32,7 @@ export default function AuthScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.logo}>Limap</Text>
-      <Text style={styles.tagline}>世界のリミナルスペースを記録する</Text>
+      <Image source={require('../../assets/splash-logo.png')} style={styles.logo} resizeMode="contain" />
 
       {mode === 'signup' && (
         <TextInput
@@ -88,8 +87,7 @@ export default function AuthScreen() {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.background, padding: 24, justifyContent: 'center' },
-  logo: { fontSize: 34, fontWeight: '700', color: colors.accent, textAlign: 'center' },
-  tagline: { fontSize: 14, color: colors.textSecondary, textAlign: 'center', marginTop: 8, marginBottom: 32 },
+  logo: { width: 220, height: 140, alignSelf: 'center', marginBottom: 32 },
   input: {
     backgroundColor: colors.surface,
     color: colors.textPrimary,

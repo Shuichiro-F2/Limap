@@ -72,6 +72,9 @@ export default function RootNavigator() {
         screenOptions={{
           headerStyle: { backgroundColor: colors.background },
           headerTintColor: colors.textPrimary,
+          // ヘッダータイトルはReact Navigation内部のTextで描画されるため、
+          // アプリ全体のフォント差し替え（AppText）が効かない。ここで直接指定する。
+          headerTitleStyle: { fontFamily: 'DotGothic16_400Regular' },
         }}
       >
         <Stack.Screen name="Main" component={MainTabNavigator} options={{ headerShown: false }} />
