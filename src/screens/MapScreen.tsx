@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Mapbox, { Camera, MapView, UserLocation, ShapeSource, CircleLayer, SymbolLayer } from '@rnmapbox/maps';
+import { Ionicons } from '@expo/vector-icons';
 import * as Location from 'expo-location';
 import { MAPBOX_ACCESS_TOKEN } from '@env';
 import { fetchSpotsInBounds } from '../lib/spots';
@@ -255,8 +256,8 @@ export default function MapScreen({ navigation, route }: Props) {
         )}
       </SafeAreaView>
 
-      <Pressable style={styles.locateButton} onPress={goToMyLocation}>
-        <Text style={styles.locateButtonText}>現在地</Text>
+      <Pressable style={styles.locateButton} onPress={goToMyLocation} hitSlop={8}>
+        <Ionicons name="locate-outline" size={20} color={colors.textPrimary} />
       </Pressable>
 
       <Pressable
@@ -335,12 +336,13 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 16,
     bottom: 96,
+    width: 40,
+    height: 40,
     backgroundColor: 'rgba(61,61,61,0.92)',
-    paddingHorizontal: 14,
-    paddingVertical: 10,
     borderRadius: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  locateButtonText: { color: colors.textPrimary, fontSize: 13 },
   fab: {
     position: 'absolute',
     right: 20,

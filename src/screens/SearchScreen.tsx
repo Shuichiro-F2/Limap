@@ -118,12 +118,12 @@ export default function SearchScreen({ navigation, route }: Props) {
           returnKeyType="search"
         />
         {searched ? (
-          <Pressable style={styles.searchButton} onPress={clearSearch}>
-            <Text style={styles.searchButtonText}>クリア</Text>
+          <Pressable style={styles.searchButton} onPress={clearSearch} hitSlop={8}>
+            <Ionicons name="close-outline" size={20} color={colors.accentText} />
           </Pressable>
         ) : (
-          <Pressable style={styles.searchButton} onPress={() => runSearch()}>
-            <Text style={styles.searchButtonText}>検索</Text>
+          <Pressable style={styles.searchButton} onPress={() => runSearch()} hitSlop={8}>
+            <Ionicons name="search-outline" size={18} color={colors.accentText} />
           </Pressable>
         )}
       </View>
@@ -231,12 +231,12 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   searchButton: {
+    width: 44,
     backgroundColor: colors.accent,
     borderRadius: 10,
-    paddingHorizontal: 16,
+    alignItems: 'center',
     justifyContent: 'center',
   },
-  searchButtonText: { color: colors.accentText, fontSize: 14, fontWeight: '600' },
   tagGrid: { flexDirection: 'row', flexWrap: 'wrap', paddingHorizontal: 16, gap: 8 },
   tagOption: {
     borderWidth: 1,
