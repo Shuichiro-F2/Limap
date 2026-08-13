@@ -82,7 +82,7 @@ export default function SpotDetailContent({
   if (loading || !spot) {
     return (
       <View style={styles.center}>
-        <ActivityIndicator color={colors.accentText} />
+        <ActivityIndicator color={colors.textPrimary} />
       </View>
     );
   }
@@ -167,22 +167,22 @@ export default function SpotDetailContent({
               <Ionicons
                 name={liked ? 'heart' : 'heart-outline'}
                 size={26}
-                color={liked ? colors.danger : colors.accentText}
+                color={liked ? colors.danger : colors.textPrimary}
               />
             </Pressable>
             <Pressable style={styles.iconButton} onPress={onBookmark} hitSlop={10}>
               <Ionicons
                 name={bookmarked ? 'bookmark' : 'bookmark-outline'}
                 size={24}
-                color={colors.accentText}
+                color={colors.textPrimary}
               />
             </Pressable>
             <Pressable style={styles.iconButton} onPress={handleShare} hitSlop={10}>
-              <Ionicons name="share-social-outline" size={24} color={colors.accentText} />
+              <Ionicons name="share-social-outline" size={24} color={colors.textPrimary} />
             </Pressable>
           </View>
           <Pressable style={styles.menuButton} onPress={() => setShowMenu((v) => !v)} hitSlop={10}>
-            <Ionicons name="ellipsis-horizontal" size={22} color={colors.accentText} />
+            <Ionicons name="ellipsis-horizontal" size={22} color={colors.textPrimary} />
           </Pressable>
         </View>
 
@@ -292,33 +292,33 @@ export default function SpotDetailContent({
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: colors.accent },
+  container: { flex: 1, backgroundColor: colors.background },
   scrollContent: { alignItems: 'center' },
   contentWrapper: { width: '100%' },
   center: {
     flex: 1,
-    backgroundColor: colors.accent,
+    backgroundColor: colors.background,
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 60,
   },
   image: {},
-  noImage: { backgroundColor: colors.background },
-  body: { padding: 20, backgroundColor: colors.accent },
+  noImage: { backgroundColor: colors.surface },
+  body: { padding: 20, backgroundColor: colors.background },
   metaRow: { flexDirection: 'row', alignItems: 'center', flexWrap: 'wrap', gap: 8 },
-  meta: { fontSize: 13, color: colors.accentTextMuted },
-  authorText: { fontSize: 13, color: colors.accentText, fontWeight: '600' },
+  meta: { fontSize: 13, color: colors.textMuted },
+  authorText: { fontSize: 13, color: colors.accent, fontWeight: '600' },
   tagRow: { flexDirection: 'row', flexWrap: 'wrap', marginTop: 14, gap: 8 },
   tagChip: {
-    backgroundColor: colors.background,
+    backgroundColor: colors.accent,
     paddingHorizontal: 12,
     paddingVertical: 6,
     borderRadius: 16,
     marginRight: 8,
     marginBottom: 8,
   },
-  tagChipText: { color: colors.accent, fontSize: 12, fontWeight: '600' },
-  description: { fontSize: 15, color: colors.accentText, marginTop: 16, lineHeight: 22 },
+  tagChipText: { color: colors.accentText, fontSize: 12, fontWeight: '600' },
+  description: { fontSize: 15, color: colors.textPrimary, marginTop: 16, lineHeight: 22 },
   actionRow: {
     flexDirection: 'row',
     marginTop: 24,
@@ -330,7 +330,7 @@ const styles = StyleSheet.create({
   menuButton: { padding: 6 },
   menuPanel: {
     marginTop: 10,
-    backgroundColor: colors.background,
+    backgroundColor: colors.surface,
     borderRadius: 12,
     overflow: 'hidden',
   },
@@ -346,7 +346,7 @@ const styles = StyleSheet.create({
   menuItemLast: { borderBottomWidth: 0 },
   menuItemText: { color: colors.textPrimary, fontSize: 14, fontWeight: '600' },
   menuItemDangerText: { color: colors.danger },
-  reportPanel: { marginTop: 16, backgroundColor: colors.background, borderRadius: 12, padding: 16 },
+  reportPanel: { marginTop: 16, backgroundColor: colors.surface, borderRadius: 12, padding: 16 },
   reportTitle: { color: colors.textPrimary, fontWeight: '600', marginBottom: 10 },
   reportOption: { paddingVertical: 10 },
   reportOptionText: { color: colors.textSecondary, fontSize: 14 },

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Pressable } from 'react-native';
+import { Image, Pressable, StyleSheet } from 'react-native';
 import { NavigationContainer, DarkTheme, type LinkingOptions } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Ionicons } from '@expo/vector-icons';
@@ -87,11 +87,24 @@ export default function RootNavigator() {
         <Stack.Screen
           name="SpotDetail"
           component={SpotDetailScreen}
-          options={{
+          options={({ navigation }) => ({
             title: '',
-            headerStyle: { backgroundColor: colors.accent },
-            headerTintColor: colors.accentText,
-          }}
+            headerStyle: { backgroundColor: colors.background },
+            headerTintColor: colors.textPrimary,
+            // 他の画面と同じくロゴを左上に表示し、タップでトップページ（地図画面）へ戻れるようにする
+            headerLeft: () => (
+              <Pressable
+                onPress={() => navigation.navigate('Main', { screen: 'MapTab' })}
+                hitSlop={10}
+              >
+                <Image
+                  source={require('../../assets/logo-header.png')}
+                  style={headerStyles.logo}
+                  resizeMode="contain"
+                />
+              </Pressable>
+            ),
+          })}
         />
         <Stack.Screen name="CreateSpot" component={CreateSpotScreen} options={{ title: '投稿する' }} />
         <Stack.Screen
@@ -133,3 +146,7 @@ export default function RootNavigator() {
     </NavigationContainer>
   );
 }
+
+const headerStyles = StyleSheet.create({
+  logo: { width: 64, height: 32 },
+});
