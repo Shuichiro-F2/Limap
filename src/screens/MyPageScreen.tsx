@@ -44,8 +44,9 @@ export default function MyPageScreen({ navigation }: Props) {
   const [pageIndex, setPageIndex] = useState(0);
   const [followCounts, setFollowCounts] = useState<FollowCounts>({ followers: 0, following: 0 });
 
-  const pagerRef = useRef<Animated.FlatList<any>>(null);
+  const pagerRef = useRef<Animated.ScrollView>(null);
   const scrollX = useRef(new Animated.Value(0)).current;
+  const hasLoadedOnceRef = useRef(false);
 
   const loadAll = useCallback(async () => {
     if (!session?.user) return;
@@ -60,13 +61,16 @@ export default function MyPageScreen({ navigation }: Props) {
     setBookmarkedSpots(bookmarked);
   }, [session?.user?.id]);
 
-  useEffect(() => {
-    loadAll().finally(() => setLoadingInitial(false));
-  }, [loadAll]);
-
+  // マウント時と画面に戻ってきたときの両方をこの1箇所でまとめて処理する
+  // （以前はuseEffectとuseFocusEffectが両方走り、初回に二重で取得していたのが「タブ切り替えが重い」原因の一つだった）
   useFocusEffect(
     useCallback(() => {
-      loadAll();
+      loadAll().finally(() => {
+        if (!hasLoadedOnceRef.current) {
+          hasLoadedOnceRef.current = true;
+          setLoadingInitial(false);
+        }
+      });
     }, [loadAll])
   );
 
@@ -85,13 +89,21 @@ export default function MyPageScreen({ navigation }: Props) {
 
   const goToPage = (index: number) => {
     setPageIndex(index);
-    pagerRef.current?.scrollToOffset({ offset: index * screenWidth, animated: true });
+    pagerRef.current?.scrollTo({ x: index * screenWidth, animated: true });
   };
 
-  const onPagerMomentumScrollEnd = (e: any) => {
-    const index = Math.round(e.nativeEvent.contentOffset.x / screenWidth);
-    setPageIndex(index);
-  };
+  // スワイプ中の位置に応じて、アイコンのハイライトと描画するページ（隣接ページのみ）を更新する。
+  // scrollイベントごとに毎回setStateするのではなく、切り替わる瞬間だけ更新することで負荷を抑える。
+  const onPagerScroll = Animated.event(
+    [{ nativeEvent: { contentOffset: { x: scrollX } } }],
+    {
+      useNativeDriver: true,
+      listener: (e: any) => {
+        const index = Math.round(e.nativeEvent.contentOffset.x / screenWidth);
+        setPageIndex((prev) => (prev === index ? prev : index));
+      },
+    }
+  );
 
   // タブの下線インジケーター：横スワイプの位置(scrollX)に連動して自然に滑らせる
   const indicatorTranslateX = scrollX.interpolate({
@@ -156,7 +168,7 @@ export default function MyPageScreen({ navigation }: Props) {
             <Ionicons
               name={tab.icon}
               size={24}
-              color={pageIndex === index ? colors.textPrimary : colors.textMuted}
+              color={pageIndex === index ? colors.accent : colors.textMuted}
             />
           </Pressable>
         ))}
@@ -170,48 +182,48 @@ export default function MyPageScreen({ navigation }: Props) {
       {loadingInitial ? (
         <ActivityIndicator color={colors.textPrimary} style={{ marginTop: 24 }} />
       ) : (
-        <Animated.FlatList
+        <Animated.ScrollView
           ref={pagerRef}
-          data={pages}
-          keyExtractor={(_, index) => `page-${index}`}
           horizontal
           pagingEnabled
           showsHorizontalScrollIndicator={false}
-          onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: scrollX } } }], {
-            useNativeDriver: true,
-          })}
+          onScroll={onPagerScroll}
           scrollEventThrottle={16}
-          onMomentumScrollEnd={onPagerMomentumScrollEnd}
-          renderItem={({ item: pageSpots }) => (
-            <FlatList
-              data={pageSpots}
-              keyExtractor={(item) => item.id}
-              numColumns={3}
-              style={{ width: screenWidth }}
-              contentContainerStyle={{ padding: 4 }}
-              refreshControl={
-                <RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor={colors.accent} />
-              }
-              ListEmptyComponent={<Text style={styles.emptyText}>まだ表示できるスポットがありません</Text>}
-              renderItem={({ item }) => (
-                <Pressable
-                  style={styles.gridItem}
-                  onPress={() => navigation.navigate('SpotDetail', { spotId: item.id })}
-                >
-                  {item.images && item.images.length > 0 ? (
-                    <Image source={{ uri: spotImageUrl(item.images[0].storage_path) }} style={styles.gridImage} />
-                  ) : (
-                    <View style={[styles.gridImage, styles.noImage]}>
-                      <Text style={styles.noImageText} numberOfLines={2}>
-                        {item.title}
-                      </Text>
-                    </View>
+        >
+          {pages.map((pageSpots, index) => (
+            <View key={index} style={{ width: screenWidth }}>
+              {/* 表示中のページと隣接ページのみ実描画し、負荷を抑える（未訪問ページは空のまま） */}
+              {Math.abs(pageIndex - index) <= 1 ? (
+                <FlatList
+                  data={pageSpots}
+                  keyExtractor={(item) => item.id}
+                  numColumns={3}
+                  contentContainerStyle={{ padding: 4 }}
+                  refreshControl={
+                    <RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor={colors.accent} />
+                  }
+                  ListEmptyComponent={<Text style={styles.emptyText}>まだ表示できるスポットがありません</Text>}
+                  renderItem={({ item }) => (
+                    <Pressable
+                      style={styles.gridItem}
+                      onPress={() => navigation.navigate('SpotDetail', { spotId: item.id })}
+                    >
+                      {item.images && item.images.length > 0 ? (
+                        <Image source={{ uri: spotImageUrl(item.images[0].storage_path) }} style={styles.gridImage} />
+                      ) : (
+                        <View style={[styles.gridImage, styles.noImage]}>
+                          <Text style={styles.noImageText} numberOfLines={2}>
+                            {item.title}
+                          </Text>
+                        </View>
+                      )}
+                    </Pressable>
                   )}
-                </Pressable>
-              )}
-            />
-          )}
-        />
+                />
+              ) : null}
+            </View>
+          ))}
+        </Animated.ScrollView>
       )}
     </SafeAreaView>
   );
@@ -264,7 +276,7 @@ const styles = StyleSheet.create({
   tabRow: { flexDirection: 'row' },
   tabButton: { flex: 1, alignItems: 'center', justifyContent: 'center', paddingVertical: 10 },
   indicatorTrack: { height: 2, backgroundColor: colors.border },
-  indicator: { height: 2, backgroundColor: colors.textPrimary },
+  indicator: { height: 2, backgroundColor: colors.accent },
   emptyText: { color: colors.textMuted, textAlign: 'center', marginTop: 40, fontSize: 13 },
   gridItem: { width: '33.33%', aspectRatio: 1, padding: 2 },
   gridImage: { flex: 1, borderRadius: 4 },
