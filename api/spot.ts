@@ -60,12 +60,13 @@ export default async function handler(req: any, res: any) {
       .from('spots')
       .select(
         `
-        id, title, description, lat, lng, country, city, status, created_at, updated_at,
+        id, slug, title, description, lat, lng, country, city, status, created_at, updated_at,
         images:spot_images(storage_path, position),
         author:profiles!spots_author_id_fkey(username, display_name)
       `
       )
-      .eq('id', id)
+      // URLの:idはLIMap ID(slug)。内部の主キー(id)とは別物。
+      .eq('slug', id)
       .eq('status', 'published')
       .maybeSingle();
 
@@ -96,7 +97,7 @@ export default async function handler(req: any, res: any) {
       ? supabase.storage.from('spot-images').getPublicUrl(firstImagePath).data.publicUrl
       : DEFAULT_OG_IMAGE;
 
-    const pageUrl = `https://limap.jp/spot/${spot.id}`;
+    const pageUrl = `https://limap.jp/spot/${spot.slug}`;
     const escTitle = escapeHtml(pageTitle);
     const escDesc = escapeHtml(pageDescription);
     const escImage = escapeHtml(ogImage);

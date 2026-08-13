@@ -216,7 +216,7 @@ export default function MyPageScreen({ navigation }: Props) {
                   renderItem={({ item }) => (
                     <Pressable
                       style={styles.gridItem}
-                      onPress={() => navigation.navigate('SpotDetail', { spotId: item.id })}
+                      onPress={() => navigation.navigate('SpotDetail', { spotId: item.slug })}
                     >
                       {item.images && item.images.length > 0 ? (
                         <Image source={{ uri: spotImageUrl(item.images[0].storage_path) }} style={styles.gridImage} />

@@ -32,11 +32,12 @@ export async function fetchSpotsInBounds(bounds: {
   return normalizeSpots(data ?? []);
 }
 
-export async function fetchSpotById(id: string): Promise<Spot> {
+// URLのスラッグ（LIMap ID）から投稿を取得する
+export async function fetchSpotBySlug(slug: string): Promise<Spot> {
   const { data, error } = await supabase
     .from('spots')
     .select(SPOT_SELECT)
-    .eq('id', id)
+    .eq('slug', slug)
     .single();
 
   if (error) throw error;
@@ -231,7 +232,8 @@ export async function createSpot(authorId: string, input: CreateSpotInput): Prom
     if (imgError) throw imgError;
   }
 
-  return fetchSpotById(spot.id);
+  // slugはDB側のDEFAULTで自動採番されているため、insert結果にそのまま含まれている
+  return fetchSpotBySlug(spot.slug);
 }
 
 export async function toggleLike(userId: string, spotId: string, currentlyLiked: boolean) {

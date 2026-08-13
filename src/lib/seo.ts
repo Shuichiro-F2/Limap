@@ -38,7 +38,7 @@ export function applySpotSeo(spot: Spot) {
 
   const firstImage = (spot.images || []).slice().sort((a, b) => a.position - b.position)[0];
   const ogImage = firstImage ? spotImageUrl(firstImage.storage_path) : DEFAULT_OG_IMAGE;
-  const pageUrl = `https://limap.jp/spot/${spot.id}`;
+  const pageUrl = `https://limap.jp/spot/${spot.slug}`;
 
   document.title = pageTitle;
   setMetaContent('meta[name="description"]', pageDescription);

@@ -160,7 +160,7 @@ export default function SearchScreen({ navigation, route }: Props) {
             renderItem={({ item }) => (
               <Pressable
                 style={styles.resultCard}
-                onPress={() => navigation.navigate('SpotDetail', { spotId: item.id })}
+                onPress={() => navigation.navigate('SpotDetail', { spotId: item.slug })}
               >
                 {item.images && item.images.length > 0 ? (
                   <Image source={{ uri: spotImageUrl(item.images[0].storage_path) }} style={styles.thumb} />
@@ -211,7 +211,7 @@ export default function SearchScreen({ navigation, route }: Props) {
             renderItem={({ item }) => (
               <Pressable
                 style={[styles.gridTile, { width: tileSize, height: tileSize }]}
-                onPress={() => navigation.navigate('SpotDetail', { spotId: item.id })}
+                onPress={() => navigation.navigate('SpotDetail', { spotId: item.slug })}
               >
                 {item.images && item.images.length > 0 ? (
                   <Image source={{ uri: spotImageUrl(item.images[0].storage_path) }} style={styles.gridImage} />

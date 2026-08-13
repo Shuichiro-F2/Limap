@@ -32,14 +32,14 @@ export default async function handler(req: any, res: any) {
       const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
       const { data, error } = await supabase
         .from('spots')
-        .select('id, updated_at')
+        .select('slug, updated_at')
         .eq('status', 'published')
         .order('updated_at', { ascending: false })
         .limit(50000);
 
       if (!error && data) {
-        spotUrls = data.map((row: { id: string; updated_at: string }) => ({
-          loc: `https://limap.jp/spot/${row.id}`,
+        spotUrls = data.map((row: { slug: string; updated_at: string }) => ({
+          loc: `https://limap.jp/spot/${row.slug}`,
           lastmod: new Date(row.updated_at).toISOString().slice(0, 10),
           changefreq: 'weekly',
           priority: '0.7',

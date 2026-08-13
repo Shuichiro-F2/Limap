@@ -156,6 +156,7 @@ export default function MapScreen({ navigation, route }: Props) {
       cluster?: boolean;
       cluster_id?: number;
       id?: string;
+      slug?: string;
     };
 
     if (props.cluster && props.cluster_id != null) {
@@ -172,7 +173,7 @@ export default function MapScreen({ navigation, route }: Props) {
       return;
     }
 
-    if (props.id) setSelectedSpotId(props.id);
+    if (props.slug) setSelectedSpotId(props.slug);
   }, []);
 
   return (

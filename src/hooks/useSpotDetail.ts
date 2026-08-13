@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { notify } from '../lib/notify';
 import {
-  fetchSpotById,
+  fetchSpotBySlug,
   toggleLike,
   toggleBookmark,
   isSpotLiked,
@@ -14,7 +14,9 @@ import type { Spot, ReportReason } from '../types/database';
 
 // スポット詳細の取得といいね・行きたい・通報の操作をまとめたフック。
 // フル画面の詳細画面と、地図画面のプレビューシートの両方から共有して使う。
-export function useSpotDetail(spotId: string | null) {
+// 引数はURL/遷移で使うLIMap ID（slug）。いいね・行きたい・通報などのDB操作は
+// FK制約が内部の主キー(id)を参照しているため、取得したspot.idを使う。
+export function useSpotDetail(slug: string | null) {
   const { session } = useAuth();
   const [spot, setSpot] = useState<Spot | null>(null);
   const [liked, setLiked] = useState(false);
@@ -24,26 +26,28 @@ export function useSpotDetail(spotId: string | null) {
   const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
-    if (!spotId) return;
+    if (!slug) return;
     setSpot(null);
     setLoading(true);
     setShowReport(false);
 
-    fetchSpotById(spotId)
-      .then(setSpot)
+    fetchSpotBySlug(slug)
+      .then((data) => {
+        setSpot(data);
+        if (session?.user) {
+          isSpotLiked(session.user.id, data.id).then(setLiked).catch(() => {});
+          isSpotBookmarked(session.user.id, data.id).then(setBookmarked).catch(() => {});
+        } else {
+          setLiked(false);
+          setBookmarked(false);
+        }
+      })
+      .catch((e) => console.warn('スポット取得エラー', e))
       .finally(() => setLoading(false));
-
-    if (session?.user) {
-      isSpotLiked(session.user.id, spotId).then(setLiked).catch(() => {});
-      isSpotBookmarked(session.user.id, spotId).then(setBookmarked).catch(() => {});
-    } else {
-      setLiked(false);
-      setBookmarked(false);
-    }
-  }, [spotId, session?.user?.id]);
+  }, [slug, session?.user?.id]);
 
   const handleLike = async () => {
-    if (!spotId) return;
+    if (!spot) return;
     if (!session?.user) {
       notify('ログインが必要です');
       return;
@@ -51,14 +55,14 @@ export function useSpotDetail(spotId: string | null) {
     const next = !liked;
     setLiked(next);
     try {
-      await toggleLike(session.user.id, spotId, !next);
+      await toggleLike(session.user.id, spot.id, !next);
     } catch {
       setLiked(!next);
     }
   };
 
   const handleBookmark = async () => {
-    if (!spotId) return;
+    if (!spot) return;
     if (!session?.user) {
       notify('ログインが必要です');
       return;
@@ -66,20 +70,20 @@ export function useSpotDetail(spotId: string | null) {
     const next = !bookmarked;
     setBookmarked(next);
     try {
-      await toggleBookmark(session.user.id, spotId, !next);
+      await toggleBookmark(session.user.id, spot.id, !next);
     } catch {
       setBookmarked(!next);
     }
   };
 
   const handleReport = async (reason: ReportReason) => {
-    if (!spotId) return;
+    if (!spot) return;
     if (!session?.user) {
       notify('ログインが必要です');
       return;
     }
     try {
-      await reportSpot(session.user.id, spotId, reason);
+      await reportSpot(session.user.id, spot.id, reason);
       setShowReport(false);
       notify('通報を受け付けました', 'ご協力ありがとうございます。');
     } catch (e: any) {

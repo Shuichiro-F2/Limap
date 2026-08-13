@@ -28,6 +28,8 @@ export interface SpotImage {
 
 export interface Spot {
   id: string;
+  // LIMap ID: URLのスラッグに使う短い英数字ID（例: aB3xK9pQ）。内部の主キー(id)とは別物。
+  slug: string;
   author_id: string;
   title: string;
   description: string | null;

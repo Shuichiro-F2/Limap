@@ -167,7 +167,7 @@ export default function MapScreen({ navigation, route }: Props) {
   const onSpotsPress = useCallback(async (event: SpotsSourcePressEvent) => {
     const feature = event.features[0];
     if (!feature) return;
-    const props = (feature.properties ?? {}) as { cluster?: boolean; id?: string };
+    const props = (feature.properties ?? {}) as { cluster?: boolean; id?: string; slug?: string };
     if (props.cluster) {
       try {
         const zoom = await shapeSourceRef.current?.getClusterExpansionZoom(feature);
@@ -181,7 +181,7 @@ export default function MapScreen({ navigation, route }: Props) {
       }
       return;
     }
-    if (props.id) setSelectedSpotId(props.id);
+    if (props.slug) setSelectedSpotId(props.slug);
   }, []);
 
   return (

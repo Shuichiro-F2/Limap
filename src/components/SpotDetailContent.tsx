@@ -92,8 +92,8 @@ export default function SpotDetailContent({
     Linking.openURL(url).catch(() => {});
   };
 
-  const handleShare = () => shareSpot(spot.title, spot.id);
-  const handleCopyLink = () => copyLink(spot.id);
+  const handleShare = () => shareSpot(spot.title, spot.slug);
+  const handleCopyLink = () => copyLink(spot.slug);
 
   return (
     <ScrollView
