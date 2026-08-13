@@ -1,14 +1,18 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
+  Animated,
   View,
   Pressable,
   StyleSheet,
   FlatList,
   Image,
   ActivityIndicator,
+  RefreshControl,
+  useWindowDimensions,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useFocusEffect } from '@react-navigation/native';
+import { Ionicons } from '@expo/vector-icons';
 import Text from '../components/AppText';
 import { fetchSpotsByAuthor, fetchLikedSpots, fetchBookmarkedSpots, spotImageUrl } from '../lib/spots';
 import { fetchFollowCounts, type FollowCounts } from '../lib/profiles';
@@ -19,49 +23,58 @@ import type { MainTabScreenProps } from '../navigation/types';
 
 type Props = MainTabScreenProps<'MyPageTab'>;
 
-type TabKey = 'mine' | 'liked' | 'bookmarked';
-
-const TABS: { key: TabKey; label: string }[] = [
-  { key: 'mine', label: '自分の投稿' },
-  { key: 'liked', label: 'いいね' },
-  { key: 'bookmarked', label: '行きたい場所' },
+// Instagramのプロフィール切り替えのように、アイコンのみ＋下線インジケーターでタブを表現する
+const TABS: { icon: keyof typeof Ionicons.glyphMap }[] = [
+  { icon: 'grid-outline' }, // 自分の投稿
+  { icon: 'heart-outline' }, // いいね
+  { icon: 'bookmark-outline' }, // 行きたい場所
 ];
 
 export default function MyPageScreen({ navigation }: Props) {
   const { profile, session, signOut } = useAuth();
-  const [activeTab, setActiveTab] = useState<TabKey>('mine');
-  const [spots, setSpots] = useState<Spot[]>([]);
-  const [loading, setLoading] = useState(false);
+  const { width: screenWidth } = useWindowDimensions();
+
+  const [mineSpots, setMineSpots] = useState<Spot[]>([]);
+  const [likedSpots, setLikedSpots] = useState<Spot[]>([]);
+  const [bookmarkedSpots, setBookmarkedSpots] = useState<Spot[]>([]);
+  const pages = [mineSpots, likedSpots, bookmarkedSpots];
+
+  const [loadingInitial, setLoadingInitial] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
+  const [pageIndex, setPageIndex] = useState(0);
   const [followCounts, setFollowCounts] = useState<FollowCounts>({ followers: 0, following: 0 });
 
-  const load = useCallback(async () => {
-    if (!session?.user) return;
-    setLoading(true);
-    try {
-      let data: Spot[] = [];
-      if (activeTab === 'mine') data = await fetchSpotsByAuthor(session.user.id);
-      else if (activeTab === 'liked') data = await fetchLikedSpots(session.user.id);
-      else data = await fetchBookmarkedSpots(session.user.id);
-      setSpots(data);
-    } catch (e) {
-      console.warn('マイページ取得エラー', e);
-      // 取得失敗時に前のタブのデータが残り続けないよう、必ず空にする
-      setSpots([]);
-    } finally {
-      setLoading(false);
-    }
-  }, [activeTab, session?.user?.id]);
+  const pagerRef = useRef<Animated.FlatList<any>>(null);
+  const scrollX = useRef(new Animated.Value(0)).current;
 
-  // タブ切り替え時に再取得。画面に戻ってきたときも最新化する
+  const loadAll = useCallback(async () => {
+    if (!session?.user) return;
+    const userId = session.user.id;
+    const [mine, liked, bookmarked] = await Promise.all([
+      fetchSpotsByAuthor(userId).catch(() => []),
+      fetchLikedSpots(userId).catch(() => []),
+      fetchBookmarkedSpots(userId).catch(() => []),
+    ]);
+    setMineSpots(mine);
+    setLikedSpots(liked);
+    setBookmarkedSpots(bookmarked);
+  }, [session?.user?.id]);
+
   useEffect(() => {
-    load();
-  }, [load]);
+    loadAll().finally(() => setLoadingInitial(false));
+  }, [loadAll]);
 
   useFocusEffect(
     useCallback(() => {
-      load();
-    }, [load])
+      loadAll();
+    }, [loadAll])
   );
+
+  const onRefresh = async () => {
+    setRefreshing(true);
+    await loadAll();
+    setRefreshing(false);
+  };
 
   useEffect(() => {
     if (!session?.user) return;
@@ -69,6 +82,23 @@ export default function MyPageScreen({ navigation }: Props) {
       .then(setFollowCounts)
       .catch((e) => console.warn('フォロー数取得エラー', e));
   }, [session?.user?.id]);
+
+  const goToPage = (index: number) => {
+    setPageIndex(index);
+    pagerRef.current?.scrollToOffset({ offset: index * screenWidth, animated: true });
+  };
+
+  const onPagerMomentumScrollEnd = (e: any) => {
+    const index = Math.round(e.nativeEvent.contentOffset.x / screenWidth);
+    setPageIndex(index);
+  };
+
+  // タブの下線インジケーター：横スワイプの位置(scrollX)に連動して自然に滑らせる
+  const indicatorTranslateX = scrollX.interpolate({
+    inputRange: [0, screenWidth, screenWidth * 2],
+    outputRange: [0, screenWidth / TABS.length, (screenWidth / TABS.length) * 2],
+    extrapolate: 'clamp',
+  });
 
   // 未ログイン時はプロフィールの代わりにログイン導線を表示する（閲覧自体はログイン不要）
   if (!session?.user) {
@@ -121,43 +151,65 @@ export default function MyPageScreen({ navigation }: Props) {
       </View>
 
       <View style={styles.tabRow}>
-        {TABS.map((tab) => (
-          <Pressable
-            key={tab.key}
-            style={[styles.tabButton, activeTab === tab.key && styles.tabButtonActive]}
-            onPress={() => setActiveTab(tab.key)}
-          >
-            <Text style={[styles.tabButtonText, activeTab === tab.key && styles.tabButtonTextActive]}>
-              {tab.label}
-            </Text>
+        {TABS.map((tab, index) => (
+          <Pressable key={tab.icon} style={styles.tabButton} onPress={() => goToPage(index)}>
+            <Ionicons
+              name={tab.icon}
+              size={24}
+              color={pageIndex === index ? colors.textPrimary : colors.textMuted}
+            />
           </Pressable>
         ))}
       </View>
+      <View style={styles.indicatorTrack}>
+        <Animated.View
+          style={[styles.indicator, { width: screenWidth / TABS.length, transform: [{ translateX: indicatorTranslateX }] }]}
+        />
+      </View>
 
-      {loading ? (
+      {loadingInitial ? (
         <ActivityIndicator color={colors.textPrimary} style={{ marginTop: 24 }} />
       ) : (
-        <FlatList
-          data={spots}
-          keyExtractor={(item) => item.id}
-          numColumns={3}
-          contentContainerStyle={{ padding: 4 }}
-          ListEmptyComponent={<Text style={styles.emptyText}>まだ表示できるスポットがありません</Text>}
-          renderItem={({ item }) => (
-            <Pressable
-              style={styles.gridItem}
-              onPress={() => navigation.navigate('SpotDetail', { spotId: item.id })}
-            >
-              {item.images && item.images.length > 0 ? (
-                <Image source={{ uri: spotImageUrl(item.images[0].storage_path) }} style={styles.gridImage} />
-              ) : (
-                <View style={[styles.gridImage, styles.noImage]}>
-                  <Text style={styles.noImageText} numberOfLines={2}>
-                    {item.title}
-                  </Text>
-                </View>
+        <Animated.FlatList
+          ref={pagerRef}
+          data={pages}
+          keyExtractor={(_, index) => `page-${index}`}
+          horizontal
+          pagingEnabled
+          showsHorizontalScrollIndicator={false}
+          onScroll={Animated.event([{ nativeEvent: { contentOffset: { x: scrollX } } }], {
+            useNativeDriver: true,
+          })}
+          scrollEventThrottle={16}
+          onMomentumScrollEnd={onPagerMomentumScrollEnd}
+          renderItem={({ item: pageSpots }) => (
+            <FlatList
+              data={pageSpots}
+              keyExtractor={(item) => item.id}
+              numColumns={3}
+              style={{ width: screenWidth }}
+              contentContainerStyle={{ padding: 4 }}
+              refreshControl={
+                <RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor={colors.accent} />
+              }
+              ListEmptyComponent={<Text style={styles.emptyText}>まだ表示できるスポットがありません</Text>}
+              renderItem={({ item }) => (
+                <Pressable
+                  style={styles.gridItem}
+                  onPress={() => navigation.navigate('SpotDetail', { spotId: item.id })}
+                >
+                  {item.images && item.images.length > 0 ? (
+                    <Image source={{ uri: spotImageUrl(item.images[0].storage_path) }} style={styles.gridImage} />
+                  ) : (
+                    <View style={[styles.gridImage, styles.noImage]}>
+                      <Text style={styles.noImageText} numberOfLines={2}>
+                        {item.title}
+                      </Text>
+                    </View>
+                  )}
+                </Pressable>
               )}
-            </Pressable>
+            />
           )}
         />
       )}
@@ -209,17 +261,10 @@ const styles = StyleSheet.create({
   countItem: { alignItems: 'center' },
   countNumber: { color: colors.textPrimary, fontSize: 16, fontWeight: '700' },
   countLabel: { color: colors.textMuted, fontSize: 11, marginTop: 2 },
-  tabRow: { flexDirection: 'row', paddingHorizontal: 16, gap: 8, marginBottom: 8 },
-  tabButton: {
-    flex: 1,
-    paddingVertical: 10,
-    borderRadius: 8,
-    backgroundColor: colors.surface,
-    alignItems: 'center',
-  },
-  tabButtonActive: { backgroundColor: colors.accent },
-  tabButtonText: { color: colors.textSecondary, fontSize: 12 },
-  tabButtonTextActive: { color: colors.accentText, fontWeight: '600' },
+  tabRow: { flexDirection: 'row' },
+  tabButton: { flex: 1, alignItems: 'center', justifyContent: 'center', paddingVertical: 10 },
+  indicatorTrack: { height: 2, backgroundColor: colors.border },
+  indicator: { height: 2, backgroundColor: colors.textPrimary },
   emptyText: { color: colors.textMuted, textAlign: 'center', marginTop: 40, fontSize: 13 },
   gridItem: { width: '33.33%', aspectRatio: 1, padding: 2 },
   gridImage: { flex: 1, borderRadius: 4 },
