@@ -163,19 +163,21 @@ export default function SpotDetailContent({
 
         <View style={styles.actionRow}>
           <View style={styles.iconButtonsRow}>
-            <Pressable style={styles.iconButton} onPress={onLike} hitSlop={10}>
+            <Pressable style={styles.iconButtonWithCount} onPress={onLike} hitSlop={10}>
               <Ionicons
                 name={liked ? 'heart' : 'heart-outline'}
                 size={26}
                 color={liked ? colors.danger : colors.accentText}
               />
+              {spot.like_count > 0 && <Text style={styles.iconCountText}>{spot.like_count}</Text>}
             </Pressable>
-            <Pressable style={styles.iconButton} onPress={onBookmark} hitSlop={10}>
+            <Pressable style={styles.iconButtonWithCount} onPress={onBookmark} hitSlop={10}>
               <Ionicons
                 name={bookmarked ? 'bookmark' : 'bookmark-outline'}
                 size={24}
                 color={colors.accentText}
               />
+              {spot.bookmark_count > 0 && <Text style={styles.iconCountText}>{spot.bookmark_count}</Text>}
             </Pressable>
             <Pressable style={styles.iconButton} onPress={handleShare} hitSlop={10}>
               <Ionicons name="share-social-outline" size={24} color={colors.accentText} />
@@ -327,6 +329,8 @@ const styles = StyleSheet.create({
   },
   iconButtonsRow: { flexDirection: 'row', gap: 18 },
   iconButton: { padding: 2 },
+  iconButtonWithCount: { flexDirection: 'row', alignItems: 'center', gap: 4, padding: 2 },
+  iconCountText: { color: colors.accentText, fontSize: 13, fontWeight: '600' },
   menuButton: { padding: 6 },
   menuPanel: {
     marginTop: 10,

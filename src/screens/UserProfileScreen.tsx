@@ -94,9 +94,13 @@ export default function UserProfileScreen({ route, navigation }: Props) {
   return (
     <SafeAreaView style={styles.container} edges={['left', 'right']}>
       <View style={styles.header}>
-        <View style={styles.avatar}>
-          <Text style={styles.avatarText}>{(profile?.username ?? '?').charAt(0).toUpperCase()}</Text>
-        </View>
+        {profile?.avatar_url ? (
+          <Image source={{ uri: profile.avatar_url }} style={styles.avatar} />
+        ) : (
+          <View style={[styles.avatar, styles.avatarPlaceholder]}>
+            <Text style={styles.avatarText}>{(profile?.username ?? '?').charAt(0).toUpperCase()}</Text>
+          </View>
+        )}
         <View style={{ flex: 1 }}>
           <Text style={styles.username}>@{profile?.username ?? '...'}</Text>
           {profile?.display_name && <Text style={styles.displayName}>{profile.display_name}</Text>}
@@ -110,14 +114,14 @@ export default function UserProfileScreen({ route, navigation }: Props) {
           <Text style={styles.countNumber}>{spots.length}</Text>
           <Text style={styles.countLabel}>投稿</Text>
         </View>
-        <View style={styles.countItem}>
+        <Pressable style={styles.countItem} onPress={() => navigation.push('FollowList', { userId, mode: 'followers' })}>
           <Text style={styles.countNumber}>{counts.followers}</Text>
           <Text style={styles.countLabel}>フォロワー</Text>
-        </View>
-        <View style={styles.countItem}>
+        </Pressable>
+        <Pressable style={styles.countItem} onPress={() => navigation.push('FollowList', { userId, mode: 'following' })}>
           <Text style={styles.countNumber}>{counts.following}</Text>
           <Text style={styles.countLabel}>フォロー中</Text>
-        </View>
+        </Pressable>
       </View>
 
       {!isOwnProfile && session?.user && (
@@ -172,6 +176,8 @@ const styles = StyleSheet.create({
     width: 48,
     height: 48,
     borderRadius: 24,
+  },
+  avatarPlaceholder: {
     backgroundColor: colors.accent,
     alignItems: 'center',
     justifyContent: 'center',

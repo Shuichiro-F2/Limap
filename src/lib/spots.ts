@@ -100,6 +100,28 @@ function shuffleArray<T>(arr: T[]): T[] {
   return a;
 }
 
+// フィードタブ: フォロー中のユーザーの投稿を新しい順で取得する
+export async function fetchFollowingFeed(userId: string): Promise<Spot[]> {
+  const { data: follows, error: followsError } = await supabase
+    .from('follows')
+    .select('followee_id')
+    .eq('follower_id', userId);
+  if (followsError) throw followsError;
+
+  const followeeIds = (follows ?? []).map((f: any) => f.followee_id);
+  if (followeeIds.length === 0) return [];
+
+  const { data, error } = await supabase
+    .from('spots')
+    .select(SPOT_SELECT)
+    .in('author_id', followeeIds)
+    .eq('status', 'published')
+    .order('created_at', { ascending: false })
+    .limit(200);
+  if (error) throw error;
+  return normalizeSpots(data ?? []);
+}
+
 // マイページ: 自分の投稿一覧（非公開/非表示になったものも本人には見える）
 export async function fetchSpotsByAuthor(authorId: string): Promise<Spot[]> {
   const { data, error } = await supabase

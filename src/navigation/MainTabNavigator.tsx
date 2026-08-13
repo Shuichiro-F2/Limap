@@ -7,6 +7,7 @@ import {
 } from '@react-navigation/material-top-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import MapScreen from '../screens/MapScreen';
+import FeedScreen from '../screens/FeedScreen';
 import SearchScreen from '../screens/SearchScreen';
 import MyPageScreen from '../screens/MyPageScreen';
 import { colors } from '../lib/theme';
@@ -20,6 +21,7 @@ const TAB_HEIGHT = 54;
 // タブバーは自前で描画し、スワイプ位置(position)に連動してハイライトと下線を滑らかに動かす。
 const TAB_ICONS: Record<keyof MainTabParamList, keyof typeof Ionicons.glyphMap> = {
   MapTab: 'map-outline',
+  FeedTab: 'people-outline',
   SearchTab: 'search-outline',
   MyPageTab: 'person-outline',
 };
@@ -83,6 +85,7 @@ export default function MainTabNavigator() {
       screenOptions={{ swipeEnabled: true, animationEnabled: true }}
     >
       <Tab.Screen name="MapTab" component={MapScreen} options={{ title: '地図' }} />
+      <Tab.Screen name="FeedTab" component={FeedScreen} options={{ title: 'フィード' }} />
       <Tab.Screen name="SearchTab" component={SearchScreen} options={{ title: '検索' }} />
       <Tab.Screen name="MyPageTab" component={MyPageScreen} options={{ title: 'マイページ' }} />
     </Tab.Navigator>

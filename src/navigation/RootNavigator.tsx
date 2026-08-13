@@ -12,6 +12,8 @@ import LocationPickerScreen from '../screens/LocationPickerScreen';
 import UserProfileScreen from '../screens/UserProfileScreen';
 import AboutScreen from '../screens/AboutScreen';
 import HelpScreen from '../screens/HelpScreen';
+import EditProfileScreen from '../screens/EditProfileScreen';
+import FollowListScreen from '../screens/FollowListScreen';
 import LoadingScreen from '../components/LoadingScreen';
 import { colors } from '../lib/theme';
 import type { RootStackParamList } from './types';
@@ -30,6 +32,7 @@ const linking: LinkingOptions<RootStackParamList> = {
       Main: {
         screens: {
           MapTab: 'map',
+          FeedTab: 'feed',
           SearchTab: 'search',
           MyPageTab: 'mypage',
         },
@@ -41,6 +44,8 @@ const linking: LinkingOptions<RootStackParamList> = {
       Auth: 'login',
       About: 'about',
       Help: 'help',
+      EditProfile: 'edit-profile',
+      FollowList: 'user/:userId/:mode',
     },
   },
 };
@@ -131,6 +136,24 @@ export default function RootNavigator() {
           options={{ title: 'リミナルスペースとは' }}
         />
         <Stack.Screen name="Help" component={HelpScreen} options={{ title: '使い方' }} />
+        <Stack.Screen
+          name="EditProfile"
+          component={EditProfileScreen}
+          options={{
+            title: 'プロフィールを編集',
+            headerStyle: { backgroundColor: colors.background },
+            headerTintColor: colors.textPrimary,
+          }}
+        />
+        <Stack.Screen
+          name="FollowList"
+          component={FollowListScreen}
+          options={{
+            title: '',
+            headerStyle: { backgroundColor: colors.background },
+            headerTintColor: colors.textPrimary,
+          }}
+        />
         <Stack.Screen
           name="Auth"
           component={AuthScreen}

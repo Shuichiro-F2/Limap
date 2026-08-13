@@ -1,4 +1,6 @@
+import { decode } from 'base64-arraybuffer';
 import { supabase } from './supabase';
+import { resizeImageForUpload } from './imageResize';
 import type { Profile } from '../types/database';
 
 // ユーザープロフィール画面用: idからプロフィールを1件取得する
@@ -6,6 +8,63 @@ export async function fetchProfileById(id: string): Promise<Profile> {
   const { data, error } = await supabase.from('profiles').select('*').eq('id', id).single();
   if (error) throw error;
   return data;
+}
+
+// avatarsバケットのstorage_pathから公開URLを組み立てる
+export function avatarImageUrl(storagePath: string): string {
+  const { data } = supabase.storage.from('avatars').getPublicUrl(storagePath);
+  return data.publicUrl;
+}
+
+// 表示名・自己紹介文の更新（ユーザーID/usernameとは別に編集できる項目）
+export async function updateProfile(
+  userId: string,
+  updates: { displayName?: string | null; bio?: string | null; avatarUrl?: string | null }
+) {
+  const payload: Record<string, string | null> = {};
+  if ('displayName' in updates) payload.display_name = updates.displayName ?? null;
+  if ('bio' in updates) payload.bio = updates.bio ?? null;
+  if ('avatarUrl' in updates) payload.avatar_url = updates.avatarUrl ?? null;
+
+  const { error } = await supabase.from('profiles').update(payload).eq('id', userId);
+  if (error) throw error;
+}
+
+// プロフィール画像をavatarsバケットへアップロードし、公開URLを返す。
+// 投稿画像のアップロード（CreateSpotScreen）と同じ縮小・圧縮ヘルパーを再利用する。
+export async function uploadAvatar(userId: string, uri: string, base64: string): Promise<string> {
+  const resized = await resizeImageForUpload(uri, base64);
+  if (!resized) throw new Error('画像の処理に失敗しました');
+
+  // 常に同じパスに上書きすることで、古いアバター画像がストレージに残り続けるのを防ぐ
+  const path = `${userId}/avatar.jpg`;
+  const { error } = await supabase.storage
+    .from('avatars')
+    .upload(path, decode(resized.base64), { contentType: resized.contentType, upsert: true });
+  if (error) throw error;
+
+  // 同じパスのままだとCDN/ブラウザキャッシュにより更新後も古い画像が表示され続けることがあるため、
+  // クエリパラメータでキャッシュを回避する
+  return `${avatarImageUrl(path)}?t=${Date.now()}`;
+}
+
+// フォロワー一覧・フォロー中一覧（FollowListScreen用）
+export async function fetchFollowers(userId: string): Promise<Profile[]> {
+  const { data, error } = await supabase
+    .from('follows')
+    .select('follower:profiles!follows_follower_id_fkey(*)')
+    .eq('followee_id', userId);
+  if (error) throw error;
+  return (data ?? []).map((row: any) => row.follower).filter(Boolean);
+}
+
+export async function fetchFollowing(userId: string): Promise<Profile[]> {
+  const { data, error } = await supabase
+    .from('follows')
+    .select('followee:profiles!follows_followee_id_fkey(*)')
+    .eq('follower_id', userId);
+  if (error) throw error;
+  return (data ?? []).map((row: any) => row.followee).filter(Boolean);
 }
 
 export interface FollowCounts {

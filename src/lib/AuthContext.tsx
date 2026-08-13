@@ -12,6 +12,7 @@ interface AuthContextValue {
   signUpWithEmail: (email: string, password: string, username: string) => Promise<void>;
   signInWithOAuth: (provider: 'google') => Promise<void>;
   signOut: () => Promise<void>;
+  refreshProfile: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
@@ -47,6 +48,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       .then(({ data }) => setProfile(data));
   }, [session?.user?.id]);
 
+  // プロフィール編集画面で表示名・自己紹介・アバターを更新した後、
+  // アプリ内の各所（マイページのヘッダーなど）に即座に反映させるために使う
+  const refreshProfile = async () => {
+    if (!session?.user) return;
+    const { data } = await supabase.from('profiles').select('*').eq('id', session.user.id).single();
+    if (data) setProfile(data);
+  };
+
   const signInWithEmail = async (email: string, password: string) => {
     const { error } = await supabase.auth.signInWithPassword({ email, password });
     if (error) throw error;
@@ -78,7 +87,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <AuthContext.Provider
-      value={{ session, profile, loading, signInWithEmail, signUpWithEmail, signInWithOAuth, signOut }}
+      value={{ session, profile, loading, signInWithEmail, signUpWithEmail, signInWithOAuth, signOut, refreshProfile }}
     >
       {children}
     </AuthContext.Provider>

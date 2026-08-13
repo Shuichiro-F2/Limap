@@ -54,10 +54,13 @@ export function useSpotDetail(slug: string | null) {
     }
     const next = !liked;
     setLiked(next);
+    // 件数はDBのトリガーで更新されるが、体感速度のためここでも即座に反映する
+    setSpot((s) => (s ? { ...s, like_count: Math.max(0, s.like_count + (next ? 1 : -1)) } : s));
     try {
       await toggleLike(session.user.id, spot.id, !next);
     } catch {
       setLiked(!next);
+      setSpot((s) => (s ? { ...s, like_count: Math.max(0, s.like_count + (next ? -1 : 1)) } : s));
     }
   };
 
@@ -69,10 +72,12 @@ export function useSpotDetail(slug: string | null) {
     }
     const next = !bookmarked;
     setBookmarked(next);
+    setSpot((s) => (s ? { ...s, bookmark_count: Math.max(0, s.bookmark_count + (next ? 1 : -1)) } : s));
     try {
       await toggleBookmark(session.user.id, spot.id, !next);
     } catch {
       setBookmarked(!next);
+      setSpot((s) => (s ? { ...s, bookmark_count: Math.max(0, s.bookmark_count + (next ? -1 : 1)) } : s));
     }
   };
 

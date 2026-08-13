@@ -4,6 +4,7 @@ import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 export type MainTabParamList = {
   MapTab: { focusLat?: number; focusLng?: number } | undefined;
+  FeedTab: undefined;
   SearchTab: { tagId?: number } | undefined;
   MyPageTab: undefined;
 };
@@ -17,6 +18,8 @@ export type RootStackParamList = {
   Auth: undefined;
   About: undefined;
   Help: undefined;
+  EditProfile: undefined;
+  FollowList: { userId: string; mode: 'followers' | 'following' };
 };
 
 // タブ内の画面（Map/Search/MyPage）は、タブ自身の画面遷移に加えて

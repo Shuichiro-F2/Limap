@@ -45,7 +45,8 @@ export interface Spot {
   images?: SpotImage[];
   tags?: Tag[];
   author?: Profile;
-  like_count?: number;
+  like_count: number;
+  bookmark_count: number;
   liked_by_me?: boolean;
 }
 

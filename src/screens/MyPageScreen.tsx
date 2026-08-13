@@ -134,27 +134,42 @@ export default function MyPageScreen({ navigation }: Props) {
       </View>
 
       <View style={styles.header}>
-        <View style={styles.avatar}>
-          <Text style={styles.avatarText}>{(profile?.username ?? '?').charAt(0).toUpperCase()}</Text>
-        </View>
+        {profile?.avatar_url ? (
+          <Image source={{ uri: profile.avatar_url }} style={styles.avatar} />
+        ) : (
+          <View style={[styles.avatar, styles.avatarPlaceholder]}>
+            <Text style={styles.avatarText}>{(profile?.username ?? '?').charAt(0).toUpperCase()}</Text>
+          </View>
+        )}
         <View style={{ flex: 1 }}>
           <Text style={styles.username}>@{profile?.username ?? '...'}</Text>
           {profile?.display_name && <Text style={styles.displayName}>{profile.display_name}</Text>}
         </View>
+        <Pressable onPress={() => navigation.navigate('EditProfile')} hitSlop={8} style={{ marginRight: 14 }}>
+          <Ionicons name="create-outline" size={20} color={colors.textSecondary} />
+        </Pressable>
         <Pressable onPress={signOut}>
           <Text style={styles.logoutText}>ログアウト</Text>
         </Pressable>
       </View>
 
+      {profile?.bio ? <Text style={styles.bio}>{profile.bio}</Text> : null}
+
       <View style={styles.countsRow}>
-        <View style={styles.countItem}>
+        <Pressable
+          style={styles.countItem}
+          onPress={() => session?.user && navigation.navigate('FollowList', { userId: session.user.id, mode: 'followers' })}
+        >
           <Text style={styles.countNumber}>{followCounts.followers}</Text>
           <Text style={styles.countLabel}>フォロワー</Text>
-        </View>
-        <View style={styles.countItem}>
+        </Pressable>
+        <Pressable
+          style={styles.countItem}
+          onPress={() => session?.user && navigation.navigate('FollowList', { userId: session.user.id, mode: 'following' })}
+        >
           <Text style={styles.countNumber}>{followCounts.following}</Text>
           <Text style={styles.countLabel}>フォロー中</Text>
-        </View>
+        </Pressable>
       </View>
 
       <View style={styles.footerLinksRow}>
@@ -254,6 +269,8 @@ const styles = StyleSheet.create({
     width: 48,
     height: 48,
     borderRadius: 24,
+  },
+  avatarPlaceholder: {
     backgroundColor: colors.accent,
     alignItems: 'center',
     justifyContent: 'center',
@@ -261,6 +278,7 @@ const styles = StyleSheet.create({
   avatarText: { color: colors.accentText, fontSize: 18, fontWeight: '700' },
   username: { color: colors.textPrimary, fontSize: 16, fontWeight: '600' },
   displayName: { color: colors.textSecondary, fontSize: 13, marginTop: 2 },
+  bio: { color: colors.textSecondary, fontSize: 13, paddingHorizontal: 20, marginBottom: 12, lineHeight: 19 },
   logoutText: { color: colors.textSecondary, fontSize: 12 },
   countsRow: { flexDirection: 'row', paddingHorizontal: 20, gap: 28, marginBottom: 16 },
   countItem: { alignItems: 'center' },
