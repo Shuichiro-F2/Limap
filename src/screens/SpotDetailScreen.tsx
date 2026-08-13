@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useSpotDetail } from '../hooks/useSpotDetail';
 import SpotDetailContent from '../components/SpotDetailContent';
 import { useAuth } from '../lib/AuthContext';
 import { colors } from '../lib/theme';
+import { applySpotSeo, resetSeo } from '../lib/seo';
 import type { RootStackScreenProps } from '../navigation/types';
 
 type Props = RootStackScreenProps<'SpotDetail'>;
@@ -22,6 +23,17 @@ export default function SpotDetailScreen({ route, navigation }: Props) {
     handleBookmark,
     handleReport,
   } = useSpotDetail(spotId);
+
+  // Web版: SPA内遷移でこの画面を開いた場合もタイトル/OGP/構造化データを
+  // このスポット固有の内容に更新する（初回アクセス時はapi/spot.tsが同等の処理をSSR的に行う）。
+  // 画面を離れる際はアプリ全体の既定値に戻す。
+  useEffect(() => {
+    if (spot) applySpotSeo(spot);
+  }, [spot]);
+
+  useEffect(() => {
+    return () => resetSeo();
+  }, []);
 
   const goToMap = () => {
     if (!spot) return;

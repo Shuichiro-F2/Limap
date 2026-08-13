@@ -37,6 +37,25 @@
     />
     <meta name="twitter:image" content="https://limap.jp/og-image.png" />
 
+    <!-- 構造化データ(schema.org): サイト全体のWebSite/Organization情報。
+         個別の投稿ページの構造化データ(Place)は /api/spot.ts が投稿ごとに動的に埋め込む。 -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "LIMap（リマップ）",
+        "url": "https://limap.jp/",
+        "description": "廃墟や無人駅、深夜の駐車場など「限界空間（リミナルスペース）」を写真と場所で記録・共有できる地図アプリ。",
+        "inLanguage": "ja",
+        "publisher": {
+          "@type": "Organization",
+          "name": "LIMap",
+          "url": "https://limap.jp/",
+          "logo": "https://limap.jp/apple-touch-icon.png"
+        }
+      }
+    </script>
+
     <!-- The `react-native-web` recommended style reset: https://necolas.github.io/react-native-web/docs/setup/#root-element -->
     <style id="expo-reset">
       /* These styles make the body full-height */
