@@ -34,6 +34,7 @@ const linking: LinkingOptions<RootStackParamList> = {
       CreateSpot: 'create',
       LocationPicker: 'location-picker',
       UserProfile: 'user/:userId',
+      Auth: 'login',
     },
   },
 };
@@ -51,7 +52,7 @@ const navTheme = {
 };
 
 export default function RootNavigator() {
-  const { session, loading } = useAuth();
+  const { loading } = useAuth();
   const [minTimeElapsed, setMinTimeElapsed] = useState(false);
 
   useEffect(() => {
@@ -63,44 +64,47 @@ export default function RootNavigator() {
     return <LoadingScreen />;
   }
 
+  // 地図・検索・スポット詳細の閲覧はログイン不要。投稿など会員限定の操作をしようとした
+  // タイミングでのみ、モーダルとしてAuth画面へ遷移する（各画面側でガードする）。
   return (
     <NavigationContainer theme={navTheme} linking={linking}>
-      {!session ? (
-        <AuthScreen />
-      ) : (
-        <Stack.Navigator
-          screenOptions={{
+      <Stack.Navigator
+        screenOptions={{
+          headerStyle: { backgroundColor: colors.background },
+          headerTintColor: colors.textPrimary,
+        }}
+      >
+        <Stack.Screen name="Main" component={MainTabNavigator} options={{ headerShown: false }} />
+        <Stack.Screen
+          name="SpotDetail"
+          component={SpotDetailScreen}
+          options={{
+            title: '',
+            headerStyle: { backgroundColor: colors.accent },
+            headerTintColor: colors.accentText,
+          }}
+        />
+        <Stack.Screen name="CreateSpot" component={CreateSpotScreen} options={{ title: '投稿する' }} />
+        <Stack.Screen
+          name="LocationPicker"
+          component={LocationPickerScreen}
+          options={{ title: '場所を選択', presentation: 'modal' }}
+        />
+        <Stack.Screen
+          name="UserProfile"
+          component={UserProfileScreen}
+          options={{
+            title: '',
             headerStyle: { backgroundColor: colors.background },
             headerTintColor: colors.textPrimary,
           }}
-        >
-          <Stack.Screen name="Main" component={MainTabNavigator} options={{ headerShown: false }} />
-          <Stack.Screen
-            name="SpotDetail"
-            component={SpotDetailScreen}
-            options={{
-              title: '',
-              headerStyle: { backgroundColor: colors.accent },
-              headerTintColor: colors.accentText,
-            }}
-          />
-          <Stack.Screen name="CreateSpot" component={CreateSpotScreen} options={{ title: '投稿する' }} />
-          <Stack.Screen
-            name="LocationPicker"
-            component={LocationPickerScreen}
-            options={{ title: '場所を選択', presentation: 'modal' }}
-          />
-          <Stack.Screen
-            name="UserProfile"
-            component={UserProfileScreen}
-            options={{
-              title: '',
-              headerStyle: { backgroundColor: colors.background },
-              headerTintColor: colors.textPrimary,
-            }}
-          />
-        </Stack.Navigator>
-      )}
+        />
+        <Stack.Screen
+          name="Auth"
+          component={AuthScreen}
+          options={{ title: 'ログイン', presentation: 'modal' }}
+        />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }

@@ -273,7 +273,10 @@ export default function MapScreen({ navigation, route }: Props) {
         <Text style={styles.locateButtonText}>現在地</Text>
       </Pressable>
 
-      <Pressable style={styles.fab} onPress={() => navigation.navigate('CreateSpot')}>
+      <Pressable
+        style={styles.fab}
+        onPress={() => navigation.navigate(session?.user ? 'CreateSpot' : 'Auth')}
+      >
         <Text style={styles.fabText}>＋</Text>
       </Pressable>
 

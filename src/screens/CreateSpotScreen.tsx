@@ -43,6 +43,13 @@ export default function CreateSpotScreen({ navigation, route }: Props) {
       .catch((e) => console.warn('タグ取得エラー', e));
   }, []);
 
+  // URL直接アクセスなど、未ログインでこの画面に来た場合はログイン画面へ誘導する
+  useEffect(() => {
+    if (!session?.user) {
+      navigation.replace('Auth');
+    }
+  }, [session?.user]);
+
   // LocationPicker画面で選んだ座標をパラメータ経由で受け取る
   useEffect(() => {
     const { pickedLat, pickedLng } = route.params ?? {};

@@ -70,6 +70,26 @@ export default function MyPageScreen({ navigation }: Props) {
       .catch((e) => console.warn('フォロー数取得エラー', e));
   }, [session?.user?.id]);
 
+  // 未ログイン時はプロフィールの代わりにログイン導線を表示する（閲覧自体はログイン不要）
+  if (!session?.user) {
+    return (
+      <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
+        <View style={styles.logoRow}>
+          <Image source={require('../../assets/logo-header.png')} style={styles.logo} resizeMode="contain" />
+        </View>
+        <View style={styles.loggedOutBox}>
+          <Text style={styles.loggedOutTitle}>ログインするとマイページが使えます</Text>
+          <Text style={styles.loggedOutText}>
+            投稿・いいね・行きたい場所の保存・フォローには{'\n'}アカウントが必要です。
+          </Text>
+          <Pressable style={styles.loginButton} onPress={() => navigation.navigate('Auth')}>
+            <Text style={styles.loginButtonText}>ログイン / 新規登録</Text>
+          </Pressable>
+        </View>
+      </SafeAreaView>
+    );
+  }
+
   return (
     <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
       <View style={styles.logoRow}>
@@ -149,6 +169,23 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.background },
   logoRow: { paddingLeft: 20, paddingTop: 12 },
   logo: { width: 84, height: 52 },
+  loggedOutBox: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: 32 },
+  loggedOutTitle: { color: colors.textPrimary, fontSize: 16, fontWeight: '700', textAlign: 'center' },
+  loggedOutText: {
+    color: colors.textSecondary,
+    fontSize: 13,
+    textAlign: 'center',
+    marginTop: 10,
+    lineHeight: 20,
+  },
+  loginButton: {
+    backgroundColor: colors.accent,
+    borderRadius: 10,
+    paddingVertical: 14,
+    paddingHorizontal: 32,
+    marginTop: 24,
+  },
+  loginButtonText: { color: colors.accentText, fontWeight: '600', fontSize: 15 },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
