@@ -240,11 +240,11 @@ export default function MapScreen({ navigation, route }: Props) {
             onSubmitEditing={search}
             returnKeyType="search"
           />
-          <Pressable style={styles.searchButton} onPress={search}>
+          <Pressable style={styles.searchButton} onPress={search} hitSlop={8}>
             {searching ? (
               <ActivityIndicator color={colors.accentText} size="small" />
             ) : (
-              <Text style={styles.searchButtonText}>検索</Text>
+              <Ionicons name="search-outline" size={18} color={colors.accentText} />
             )}
           </Pressable>
         </View>
@@ -338,12 +338,12 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   searchButton: {
+    width: 44,
     backgroundColor: colors.accent,
     borderRadius: 10,
-    paddingHorizontal: 16,
+    alignItems: 'center',
     justifyContent: 'center',
   },
-  searchButtonText: { color: colors.accentText, fontSize: 14, fontWeight: '600' },
   resultList: {
     maxHeight: 260,
     backgroundColor: 'rgba(58,58,58,0.97)',

@@ -15,7 +15,9 @@ export default function MainTabNavigator() {
       screenOptions={{
         headerShown: false,
         tabBarShowLabel: false,
-        tabBarStyle: { backgroundColor: colors.background, borderTopColor: colors.border },
+        tabBarStyle: { backgroundColor: colors.background, borderTopColor: colors.border, height: 58 },
+        tabBarItemStyle: { alignItems: 'center', justifyContent: 'center' },
+        tabBarIconStyle: { marginTop: 0, marginBottom: 0 },
         tabBarActiveTintColor: colors.accent,
         tabBarInactiveTintColor: colors.textMuted,
       }}
