@@ -7,11 +7,11 @@ import {
   type PanResponderGestureState,
   Pressable,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 import { useSpotDetail } from '../hooks/useSpotDetail';
 import SpotDetailContent from './SpotDetailContent';
+import Text from './AppText';
 import { colors } from '../lib/theme';
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');

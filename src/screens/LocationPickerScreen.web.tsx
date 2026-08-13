@@ -1,7 +1,9 @@
 // Web版の位置ピッカー画面。ネイティブ版(LocationPickerScreen.tsx)と同じUI・操作感を
 // mapbox-gl-js（react-map-gl）で再現している。
 import React, { useRef, useState } from 'react';
-import { View, Text, TextInput, Pressable, StyleSheet, ActivityIndicator, FlatList, Keyboard } from 'react-native';
+import { View, Pressable, StyleSheet, ActivityIndicator, FlatList, Keyboard } from 'react-native';
+import Text from '../components/AppText';
+import TextInput from '../components/AppTextInput';
 import Map, { type MapRef } from 'react-map-gl/mapbox';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import * as Location from 'expo-location';

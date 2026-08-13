@@ -1,14 +1,14 @@
 import React, { useRef, useState } from 'react';
 import {
   View,
-  Text,
-  TextInput,
   Pressable,
   StyleSheet,
   ActivityIndicator,
   FlatList,
   Keyboard,
 } from 'react-native';
+import Text from '../components/AppText';
+import TextInput from '../components/AppTextInput';
 import Mapbox, { Camera, MapView } from '@rnmapbox/maps';
 import * as Location from 'expo-location';
 import { MAPBOX_ACCESS_TOKEN } from '@env';

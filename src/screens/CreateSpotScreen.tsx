@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {
   View,
-  Text,
-  TextInput,
   Pressable,
   StyleSheet,
   ScrollView,
@@ -12,6 +10,8 @@ import {
 import * as ImagePicker from 'expo-image-picker';
 import * as Location from 'expo-location';
 import { decode } from 'base64-arraybuffer';
+import Text from '../components/AppText';
+import TextInput from '../components/AppTextInput';
 import { supabase } from '../lib/supabase';
 import { createSpot } from '../lib/spots';
 import { fetchAllTags, findOrCreateTag } from '../lib/tags';

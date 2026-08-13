@@ -1,8 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import {
   View,
-  Text,
-  TextInput,
   Pressable,
   StyleSheet,
   FlatList,
@@ -14,6 +12,8 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
+import Text from '../components/AppText';
+import TextInput from '../components/AppTextInput';
 import { searchSpots, fetchRandomSpots, spotImageUrl } from '../lib/spots';
 import { fetchAllTags } from '../lib/tags';
 import { colors } from '../lib/theme';

@@ -6,9 +6,7 @@ import {
   View,
   StyleSheet,
   Pressable,
-  Text,
   ActivityIndicator,
-  TextInput,
   FlatList,
   Keyboard,
   Image,
@@ -23,6 +21,8 @@ import { fetchSpotsInBounds } from '../lib/spots';
 import { spotsToFeatureCollection } from '../lib/geo';
 import { generateSessionToken, suggestPlaces, retrievePlace, type SuggestResult } from '../lib/mapboxSearch';
 import SpotPreviewSheet from '../components/SpotPreviewSheet';
+import Text from '../components/AppText';
+import TextInput from '../components/AppTextInput';
 import { useAuth } from '../lib/AuthContext';
 import { colors } from '../lib/theme';
 import type { Spot } from '../types/database';

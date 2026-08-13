@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import {
   View,
-  Text,
   StyleSheet,
   ScrollView,
   Image,
@@ -14,6 +13,7 @@ import {
   type NativeSyntheticEvent,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import Text from './AppText';
 import { spotImageUrl } from '../lib/spots';
 import { shareSpot, copyLink } from '../lib/share';
 import { colors } from '../lib/theme';
