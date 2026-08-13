@@ -7,6 +7,7 @@ import {
   isSpotLiked,
   isSpotBookmarked,
   reportSpot,
+  deleteSpot,
 } from '../lib/spots';
 import { useAuth } from '../lib/AuthContext';
 import type { Spot, ReportReason } from '../types/database';
@@ -20,6 +21,7 @@ export function useSpotDetail(spotId: string | null) {
   const [bookmarked, setBookmarked] = useState(false);
   const [loading, setLoading] = useState(true);
   const [showReport, setShowReport] = useState(false);
+  const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
     if (!spotId) return;
@@ -85,6 +87,23 @@ export function useSpotDetail(spotId: string | null) {
     }
   };
 
+  // 投稿者本人かどうか（削除メニューの表示可否に使う）
+  const isOwner = !!session?.user && !!spot && session.user.id === spot.author_id;
+
+  const handleDelete = async (): Promise<boolean> => {
+    if (!spot || !isOwner) return false;
+    setDeleting(true);
+    try {
+      await deleteSpot(spot);
+      return true;
+    } catch (e: any) {
+      notify('削除に失敗しました', e.message);
+      return false;
+    } finally {
+      setDeleting(false);
+    }
+  };
+
   return {
     spot,
     loading,
@@ -95,5 +114,8 @@ export function useSpotDetail(spotId: string | null) {
     handleLike,
     handleBookmark,
     handleReport,
+    isOwner,
+    deleting,
+    handleDelete,
   };
 }

@@ -46,6 +46,9 @@ type Props = {
   onViewOnMap?: () => void;
   onTagPress?: (tagId: number) => void;
   onAuthorPress?: (userId: string) => void;
+  isOwner?: boolean;
+  onDelete?: () => void;
+  deleting?: boolean;
 };
 
 // スポット詳細の中身（画像カルーセル＋本文）だけを描画する表示専用コンポーネント。
@@ -66,11 +69,15 @@ export default function SpotDetailContent({
   onViewOnMap,
   onTagPress,
   onAuthorPress,
+  isOwner = false,
+  onDelete,
+  deleting = false,
 }: Props) {
   const { width: screenWidth } = useWindowDimensions();
   // PCなど横幅の広い画面では、画像や本文が横に間延びしないよう最大幅で中央寄せする。
   const contentWidth = Math.min(screenWidth, MAX_CONTENT_WIDTH);
   const [showMenu, setShowMenu] = useState(false);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
   if (loading || !spot) {
     return (
@@ -215,16 +222,29 @@ export default function SpotDetailContent({
                 <Text style={styles.menuItemText}>リンクをコピー</Text>
               </Pressable>
             )}
-            <Pressable
-              style={[styles.menuItem, styles.menuItemLast]}
-              onPress={() => {
-                setShowMenu(false);
-                onToggleReport();
-              }}
-            >
-              <Ionicons name="flag-outline" size={18} color={colors.danger} />
-              <Text style={[styles.menuItemText, styles.menuItemDangerText]}>通報する</Text>
-            </Pressable>
+            {isOwner && onDelete ? (
+              <Pressable
+                style={[styles.menuItem, styles.menuItemLast]}
+                onPress={() => {
+                  setShowMenu(false);
+                  setShowDeleteConfirm(true);
+                }}
+              >
+                <Ionicons name="trash-outline" size={18} color={colors.danger} />
+                <Text style={[styles.menuItemText, styles.menuItemDangerText]}>削除する</Text>
+              </Pressable>
+            ) : (
+              <Pressable
+                style={[styles.menuItem, styles.menuItemLast]}
+                onPress={() => {
+                  setShowMenu(false);
+                  onToggleReport();
+                }}
+              >
+                <Ionicons name="flag-outline" size={18} color={colors.danger} />
+                <Text style={[styles.menuItemText, styles.menuItemDangerText]}>通報する</Text>
+              </Pressable>
+            )}
           </View>
         )}
 
@@ -236,6 +256,33 @@ export default function SpotDetailContent({
                 <Text style={styles.reportOptionText}>{r.label}</Text>
               </Pressable>
             ))}
+          </View>
+        )}
+
+        {showDeleteConfirm && (
+          <View style={styles.reportPanel}>
+            <Text style={styles.reportTitle}>この投稿を削除しますか？</Text>
+            <Text style={styles.deleteConfirmDesc}>削除すると元に戻せません。写真や説明文もすべて削除されます。</Text>
+            <View style={styles.deleteConfirmRow}>
+              <Pressable
+                style={styles.deleteCancelButton}
+                onPress={() => setShowDeleteConfirm(false)}
+                disabled={deleting}
+              >
+                <Text style={styles.deleteCancelText}>キャンセル</Text>
+              </Pressable>
+              <Pressable
+                style={styles.deleteConfirmButton}
+                onPress={onDelete}
+                disabled={deleting}
+              >
+                {deleting ? (
+                  <ActivityIndicator color="#fff" size="small" />
+                ) : (
+                  <Text style={styles.deleteConfirmButtonText}>削除する</Text>
+                )}
+              </Pressable>
+            </View>
           </View>
         )}
         </View>
@@ -303,4 +350,22 @@ const styles = StyleSheet.create({
   reportTitle: { color: colors.textPrimary, fontWeight: '600', marginBottom: 10 },
   reportOption: { paddingVertical: 10 },
   reportOptionText: { color: colors.textSecondary, fontSize: 14 },
+  deleteConfirmDesc: { color: colors.textSecondary, fontSize: 13, lineHeight: 19, marginBottom: 16 },
+  deleteConfirmRow: { flexDirection: 'row', gap: 10 },
+  deleteCancelButton: {
+    flex: 1,
+    borderRadius: 10,
+    paddingVertical: 12,
+    alignItems: 'center',
+    backgroundColor: colors.surface,
+  },
+  deleteCancelText: { color: colors.textSecondary, fontSize: 14, fontWeight: '600' },
+  deleteConfirmButton: {
+    flex: 1,
+    borderRadius: 10,
+    paddingVertical: 12,
+    alignItems: 'center',
+    backgroundColor: colors.danger,
+  },
+  deleteConfirmButtonText: { color: '#fff', fontSize: 14, fontWeight: '700' },
 });

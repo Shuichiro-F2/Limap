@@ -290,6 +290,10 @@ export default function MapScreen({ navigation, route }: Props) {
             navigation.navigate('UserProfile', { userId });
           }
         }}
+        onDeleted={() => {
+          setSelectedSpotId(null);
+          loadForBounds();
+        }}
       />
     </View>
   );

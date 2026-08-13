@@ -13,6 +13,7 @@ import { useSpotDetail } from '../hooks/useSpotDetail';
 import SpotDetailContent from './SpotDetailContent';
 import Text from './AppText';
 import { colors } from '../lib/theme';
+import { notify } from '../lib/notify';
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
@@ -34,9 +35,17 @@ type Props = {
   onViewOnMap?: (lat: number, lng: number) => void;
   onTagPress?: (tagId: number) => void;
   onAuthorPress?: (userId: string) => void;
+  onDeleted?: () => void;
 };
 
-export default function SpotPreviewSheet({ spotId, onClose, onViewOnMap, onTagPress, onAuthorPress }: Props) {
+export default function SpotPreviewSheet({
+  spotId,
+  onClose,
+  onViewOnMap,
+  onTagPress,
+  onAuthorPress,
+  onDeleted,
+}: Props) {
   const {
     spot,
     loading,
@@ -47,6 +56,9 @@ export default function SpotPreviewSheet({ spotId, onClose, onViewOnMap, onTagPr
     handleLike,
     handleBookmark,
     handleReport,
+    isOwner,
+    deleting,
+    handleDelete,
   } = useSpotDetail(spotId);
 
   const [modalVisible, setModalVisible] = useState(false);
@@ -101,6 +113,14 @@ export default function SpotPreviewSheet({ spotId, onClose, onViewOnMap, onTagPr
   };
 
   const close = () => animateTo(CLOSED_Y, true);
+
+  const onDelete = async () => {
+    const success = await handleDelete();
+    if (!success) return;
+    close();
+    onDeleted?.();
+    notify('削除しました');
+  };
 
   const onGrant = () => {
     translateY.stopAnimation((value) => {
@@ -234,6 +254,9 @@ export default function SpotPreviewSheet({ spotId, onClose, onViewOnMap, onTagPr
                     }
                   : undefined
               }
+              isOwner={isOwner}
+              onDelete={onDelete}
+              deleting={deleting}
             />
           </View>
         </Animated.View>

@@ -248,6 +248,21 @@ export async function toggleLike(userId: string, spotId: string, currentlyLiked:
   }
 }
 
+// 投稿者本人による投稿削除。spots行の削除はRLS("authors can delete own spots")で
+// 本人以外は拒否されるが、Storage上の画像ファイルはDBのcascade削除では消えないため、
+// 先に対象の画像を明示的に削除してからspots行を削除する。
+export async function deleteSpot(spot: Spot): Promise<void> {
+  const paths = (spot.images ?? []).map((img) => img.storage_path).filter(Boolean);
+  if (paths.length > 0) {
+    const { error: storageError } = await supabase.storage.from('spot-images').remove(paths);
+    // Storage側の削除に失敗しても、投稿自体は削除できるよう続行する（孤立ファイルは残るが致命的ではない）
+    if (storageError) console.warn('画像ファイル削除エラー', storageError);
+  }
+
+  const { error } = await supabase.from('spots').delete().eq('id', spot.id);
+  if (error) throw error;
+}
+
 export async function reportSpot(
   reporterId: string,
   spotId: string,

@@ -5,6 +5,7 @@ import SpotDetailContent from '../components/SpotDetailContent';
 import { useAuth } from '../lib/AuthContext';
 import { colors } from '../lib/theme';
 import { applySpotSeo, resetSeo } from '../lib/seo';
+import { notify } from '../lib/notify';
 import type { RootStackScreenProps } from '../navigation/types';
 
 type Props = RootStackScreenProps<'SpotDetail'>;
@@ -22,6 +23,9 @@ export default function SpotDetailScreen({ route, navigation }: Props) {
     handleLike,
     handleBookmark,
     handleReport,
+    isOwner,
+    deleting,
+    handleDelete,
   } = useSpotDetail(spotId);
 
   // Web版: SPA内遷移でこの画面を開いた場合もタイトル/OGP/構造化データを
@@ -59,6 +63,19 @@ export default function SpotDetailScreen({ route, navigation }: Props) {
     }
   };
 
+  // 削除後は詳細画面に留まれないため、戻れる場合は戻り、戻れない場合は地図画面へ遷移する
+  const onDelete = async () => {
+    const success = await handleDelete();
+    if (!success) return;
+    notify('削除しました', '', () => {
+      if (navigation.canGoBack()) {
+        navigation.goBack();
+      } else {
+        navigation.navigate('Main', { screen: 'MapTab' });
+      }
+    });
+  };
+
   return (
     <View style={styles.screen}>
       <SpotDetailContent
@@ -74,6 +91,9 @@ export default function SpotDetailScreen({ route, navigation }: Props) {
         onViewOnMap={goToMap}
         onTagPress={goToTag}
         onAuthorPress={goToAuthor}
+        isOwner={isOwner}
+        onDelete={onDelete}
+        deleting={deleting}
       />
     </View>
   );
