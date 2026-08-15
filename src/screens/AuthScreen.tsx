@@ -1,20 +1,30 @@
 import React, { useState } from 'react';
 import { View, Image, Pressable, StyleSheet, ActivityIndicator } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import Text from '../components/AppText';
 import TextInput from '../components/AppTextInput';
 import { useAuth } from '../lib/AuthContext';
 import { notify } from '../lib/notify';
 import { colors } from '../lib/theme';
+import type { RootStackScreenProps } from '../navigation/types';
 
-export default function AuthScreen() {
+export default function AuthScreen({ navigation }: RootStackScreenProps<'Auth'>) {
   const { signInWithEmail, signUpWithEmail, signInWithOAuth } = useAuth();
   const [mode, setMode] = useState<'signin' | 'signup'>('signin');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
   const [busy, setBusy] = useState(false);
+  // 利用規約・プライバシーポリシーへの同意（アカウント作成時のみ必須）
+  const [agreed, setAgreed] = useState(false);
+
+  const requiresAgreement = mode === 'signup' && !agreed;
 
   const submit = async () => {
+    if (requiresAgreement) {
+      notify('確認してください', '利用規約とプライバシーポリシーへの同意が必要です。');
+      return;
+    }
     setBusy(true);
     try {
       if (mode === 'signin') {
@@ -28,6 +38,17 @@ export default function AuthScreen() {
     } finally {
       setBusy(false);
     }
+  };
+
+  // GoogleでのログインボタンはSupabase側で新規登録・既存ログイン共通のため、
+  // signupモードの場合のみここで同意チェックを行ってからOAuthを開始する
+  // （OAuthはリダイレクトを伴うため、開始後に途中キャンセルする手段がない）
+  const handleGoogleAuth = () => {
+    if (requiresAgreement) {
+      notify('確認してください', '利用規約とプライバシーポリシーへの同意が必要です。');
+      return;
+    }
+    signInWithOAuth('google');
   };
 
   return (
@@ -62,6 +83,36 @@ export default function AuthScreen() {
         secureTextEntry
       />
 
+      {mode === 'signup' && (
+        <View style={styles.agreementRow}>
+          <Pressable
+            style={[styles.checkbox, agreed && styles.checkboxChecked]}
+            onPress={() => setAgreed(!agreed)}
+            hitSlop={8}
+            accessibilityRole="checkbox"
+            accessibilityState={{ checked: agreed }}
+          >
+            {agreed && <Ionicons name="checkmark" size={14} color={colors.accentText} />}
+          </Pressable>
+          <Text style={styles.agreementText}>
+            <Text
+              style={styles.agreementLink}
+              onPress={() => navigation.navigate('Terms')}
+            >
+              利用規約
+            </Text>
+            と
+            <Text
+              style={styles.agreementLink}
+              onPress={() => navigation.navigate('Privacy')}
+            >
+              プライバシーポリシー
+            </Text>
+            に同意する
+          </Text>
+        </View>
+      )}
+
       <Pressable style={styles.primaryButton} onPress={submit} disabled={busy}>
         {busy ? (
           <ActivityIndicator color={colors.accentText} />
@@ -78,7 +129,7 @@ export default function AuthScreen() {
 
       <View style={styles.divider} />
 
-      <Pressable style={styles.oauthButton} onPress={() => signInWithOAuth('google')}>
+      <Pressable style={styles.oauthButton} onPress={handleGoogleAuth}>
         <Text style={styles.oauthButtonText}>Googleでログイン</Text>
       </Pressable>
     </View>
@@ -105,6 +156,22 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
   primaryButtonText: { color: colors.accentText, fontWeight: '600', fontSize: 16 },
+  agreementRow: { flexDirection: 'row', alignItems: 'flex-start', marginTop: 4, marginBottom: 4 },
+  checkbox: {
+    width: 20,
+    height: 20,
+    borderRadius: 4,
+    borderWidth: 1,
+    borderColor: colors.border,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 8,
+    marginTop: 1,
+    backgroundColor: colors.background,
+  },
+  checkboxChecked: { backgroundColor: colors.accent, borderColor: colors.accent },
+  agreementText: { color: colors.textSecondary, fontSize: 13, flex: 1, lineHeight: 19 },
+  agreementLink: { color: colors.accent, textDecorationLine: 'underline' },
   switchText: { color: colors.textSecondary, textAlign: 'center', marginTop: 16, fontSize: 13 },
   divider: { height: 1, backgroundColor: colors.border, marginVertical: 24 },
   oauthButton: {

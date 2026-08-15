@@ -34,7 +34,9 @@ export default async function handler(req: any, res: any) {
     let html = await baseHtmlRes.text();
 
     const page: StaticPageContent | null =
-      slug === 'about' || slug === 'help' ? STATIC_PAGES[slug as 'about' | 'help'] : null;
+      slug === 'about' || slug === 'help' || slug === 'privacy' || slug === 'terms'
+        ? STATIC_PAGES[slug as 'about' | 'help' | 'privacy' | 'terms']
+        : null;
     if (!page) {
       res.setHeader('Content-Type', 'text/html; charset=utf-8');
       res.status(200).send(html);
@@ -80,17 +82,21 @@ export default async function handler(req: any, res: any) {
       `<meta name="twitter:description" content="${escDesc}" />`
     );
 
-    const jsonLd = {
-      '@context': 'https://schema.org',
-      '@type': 'FAQPage',
-      mainEntity: page.faq.map((item) => ({
-        '@type': 'Question',
-        name: item.question,
-        acceptedAnswer: { '@type': 'Answer', text: item.answer },
-      })),
-    };
-    const jsonLdScript = `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>\n  </head>`;
-    html = html.replace(/<\/head>/, jsonLdScript);
+    // FAQが無いページ（Privacy/Terms等）ではFAQPageの構造化データを埋め込まない
+    // （mainEntityが空のFAQPageは無意味かつSearch Consoleで警告の対象になり得るため）
+    if (page.faq.length > 0) {
+      const jsonLd = {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: page.faq.map((item) => ({
+          '@type': 'Question',
+          name: item.question,
+          acceptedAnswer: { '@type': 'Answer', text: item.answer },
+        })),
+      };
+      const jsonLdScript = `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>\n  </head>`;
+      html = html.replace(/<\/head>/, jsonLdScript);
+    }
 
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
     res.setHeader('Cache-Control', 'public, max-age=0, s-maxage=3600, stale-while-revalidate=86400');

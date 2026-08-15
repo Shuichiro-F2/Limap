@@ -104,6 +104,13 @@ export function applyStaticPageSeo(content: StaticPageContent) {
   const canonical = document.querySelector('link[rel="canonical"]');
   if (canonical) canonical.setAttribute('href', pageUrl);
 
+  // FAQが無いページ（Privacy/Terms等）では、既存のFAQPage構造化データを残さないよう削除する
+  if (content.faq.length === 0) {
+    const existing = document.getElementById(JSONLD_ID);
+    if (existing) existing.remove();
+    return;
+  }
+
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',

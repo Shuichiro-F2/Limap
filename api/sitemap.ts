@@ -37,6 +37,8 @@ export default async function handler(req: any, res: any) {
     { loc: 'https://limap.jp/', changefreq: 'daily', priority: '1.0' },
     { loc: 'https://limap.jp/about', changefreq: 'monthly', priority: '0.6' },
     { loc: 'https://limap.jp/help', changefreq: 'monthly', priority: '0.5' },
+    { loc: 'https://limap.jp/privacy', changefreq: 'yearly', priority: '0.3' },
+    { loc: 'https://limap.jp/terms', changefreq: 'yearly', priority: '0.3' },
     { loc: 'https://limap.jp/articles/', changefreq: 'weekly', priority: '0.6' },
     ...ARTICLE_SLUGS.map((slug) => ({
       loc: `https://limap.jp/articles/${slug}/`,

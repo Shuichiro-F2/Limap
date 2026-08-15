@@ -18,6 +18,8 @@ export type RootStackParamList = {
   Auth: undefined;
   About: undefined;
   Help: undefined;
+  Privacy: undefined;
+  Terms: undefined;
   EditProfile: undefined;
   FollowList: { userId: string; mode: 'followers' | 'following' };
 };

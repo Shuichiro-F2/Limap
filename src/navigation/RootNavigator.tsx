@@ -12,6 +12,8 @@ import LocationPickerScreen from '../screens/LocationPickerScreen';
 import UserProfileScreen from '../screens/UserProfileScreen';
 import AboutScreen from '../screens/AboutScreen';
 import HelpScreen from '../screens/HelpScreen';
+import PrivacyScreen from '../screens/PrivacyScreen';
+import TermsScreen from '../screens/TermsScreen';
 import EditProfileScreen from '../screens/EditProfileScreen';
 import FollowListScreen from '../screens/FollowListScreen';
 import LoadingScreen from '../components/LoadingScreen';
@@ -44,6 +46,8 @@ const linking: LinkingOptions<RootStackParamList> = {
       Auth: 'login',
       About: 'about',
       Help: 'help',
+      Privacy: 'privacy',
+      Terms: 'terms',
       EditProfile: 'edit-profile',
       FollowList: 'user/:userId/:mode',
     },
@@ -136,6 +140,12 @@ export default function RootNavigator() {
           options={{ title: 'リミナルスペースとは' }}
         />
         <Stack.Screen name="Help" component={HelpScreen} options={{ title: '使い方' }} />
+        <Stack.Screen
+          name="Privacy"
+          component={PrivacyScreen}
+          options={{ title: 'プライバシーポリシー' }}
+        />
+        <Stack.Screen name="Terms" component={TermsScreen} options={{ title: '利用規約' }} />
         <Stack.Screen
           name="EditProfile"
           component={EditProfileScreen}
