@@ -106,17 +106,32 @@
         }
       ]
     },
-    "image": {
-      "file": "Inevitable end of corridor (2098072225).jpg",
-      "author": "Michal Osmenda",
-      "license": "CC BY-SA 2.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Inevitable_end_of_corridor_(2098072225).jpg",
-      "altJa": "使われている気配が消えた、無人の廊下",
-      "altEn": "An empty corridor with no sign of use",
-      "captionJa": "人の気配だけが消えた廊下。リミナルスペースを象徴するイメージです。",
-      "captionEn": "A corridor with every trace of activity removed — the classic liminal space image."
-    }
+    "images": [
+      {
+        "file": "Inevitable end of corridor (2098072225).jpg",
+        "author": "Michal Osmenda",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Inevitable_end_of_corridor_(2098072225).jpg",
+        "altJa": "使われている気配が消えた、無人の廊下",
+        "altEn": "An empty corridor with no sign of use",
+        "captionJa": "人の気配だけが消えた廊下。リミナルスペースを象徴するイメージです。",
+        "captionEn": "A corridor with every trace of activity removed — the classic liminal space image.",
+        "afterSection": -1
+      },
+      {
+        "file": "Waiting room at Budapest Keleti.jpg",
+        "author": "TricksterWildcat",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Waiting_room_at_Budapest_Keleti.jpg",
+        "altJa": "誰もいない駅の待合室",
+        "altEn": "An empty train station waiting room",
+        "captionJa": "誰もいない駅の待合室。日常のすぐそばにあるリミナルスペースの一例です。",
+        "captionEn": "An empty train station waiting room — the kind of everyday liminal space that's all around us.",
+        "afterSection": 2
+      }
+    ]
   },
   {
     "slug": "liminal-spaces-in-japan",
@@ -233,17 +248,32 @@
         }
       ]
     },
-    "image": {
-      "file": "Nara Dreamland.jpg",
-      "author": "Jordy Meow",
-      "license": "CC BY 3.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Nara_Dreamland.jpg",
-      "altJa": "廃墟となった奈良ドリームランドの園内",
-      "altEn": "The abandoned grounds of Nara Dreamland",
-      "captionJa": "かつて多くの人で賑わった奈良ドリームランド。日本を代表する廃墟・リミナルスペースの一つです。",
-      "captionEn": "Once a bustling amusement park, Nara Dreamland is now one of Japan's most iconic liminal spaces."
-    }
+    "images": [
+      {
+        "file": "Nara Dreamland.jpg",
+        "author": "Jordy Meow",
+        "license": "CC BY 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Nara_Dreamland.jpg",
+        "altJa": "廃墟となった奈良ドリームランドの園内",
+        "altEn": "The abandoned grounds of Nara Dreamland",
+        "captionJa": "かつて多くの人で賑わった奈良ドリームランド。日本を代表する廃墟・リミナルスペースの一つです。",
+        "captionEn": "Once a bustling amusement park, Nara Dreamland is now one of Japan's most iconic liminal spaces.",
+        "afterSection": -1
+      },
+      {
+        "file": "Nokendai Station Platforms.jpg",
+        "author": "Kope1120",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Nokendai_Station_Platforms.jpg",
+        "altJa": "日本の駅の無人のホーム",
+        "altEn": "An empty platform at a Japanese train station",
+        "captionJa": "誰もいない日本の駅のホーム。始発前や終電後に見られる典型的な光景です。",
+        "captionEn": "An empty platform at a Japanese station — a typical sight before the first train or after the last.",
+        "afterSection": 1
+      }
+    ]
   },
   {
     "slug": "liminal-space-vs-backrooms",
@@ -348,17 +378,32 @@
         }
       ]
     },
-    "image": {
-      "file": "Empty office.jpg",
-      "author": "Ged Carroll",
-      "license": "CC BY 2.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Empty_office.jpg",
-      "altJa": "蛍光灯だけが点いた、誰もいないオフィスフロア",
-      "altEn": "An empty office floor lit only by fluorescent lights",
-      "captionJa": "誰もいないオフィスフロア。バックルームズの世界観のベースになった構図と近い雰囲気を持っています。",
-      "captionEn": "An empty office floor — close in feeling to the imagery that inspired the Backrooms."
-    }
+    "images": [
+      {
+        "file": "HobbyTown USA Oshkosh interior under construction 2002 (The Backrooms).jpg",
+        "author": "Bill Magritz",
+        "license": "CC0 1.0 (パブリックドメイン)",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:HobbyTown_USA_Oshkosh_interior_under_construction_2002_(The_Backrooms).jpg",
+        "altJa": "バックルームズの元になった、2002年撮影のオリジナル写真",
+        "altEn": "The original 2002 photograph that inspired the Backrooms",
+        "captionJa": "バックルームズの元になった、まさにそのオリジナル写真。2002年、米ウィスコンシン州の改装中の店舗で撮影されました。",
+        "captionEn": "The actual original photograph that started it all — taken in 2002 during renovations at a store in Wisconsin, USA.",
+        "afterSection": -1
+      },
+      {
+        "file": "Dsc00159.jpg_Bức_ảnh_thứ_2_trong_2_bức_ảnh_nguồn_gốc_của_The_Backrooms.jpg",
+        "author": "Bill Magritz",
+        "license": "CC0 1.0 (パブリックドメイン)",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Dsc00159.jpg_B%E1%BB%A9c_%E1%BA%A3nh_th%E1%BB%A9_2_trong_2_b%E1%BB%A9c_%E1%BA%A3nh_ngu%E1%BB%93n_g%E1%BB%91c_c%E1%BB%A7a_The_Backrooms.jpg",
+        "altJa": "オリジナルのバックルームズ写真、もう1枚の別カット",
+        "altEn": "The second surviving original Backrooms source photo",
+        "captionJa": "同じ2002年の撮影で残っていた、もう1枚のオリジナル写真。",
+        "captionEn": "The second of the two surviving original photographs from that same 2002 shoot.",
+        "afterSection": 2
+      }
+    ]
   },
   {
     "slug": "liminal-space-vs-dreamcore",
@@ -463,17 +508,32 @@
         }
       ]
     },
-    "image": {
-      "file": "Static on the playground (48616367).jpg",
-      "author": "Chris Darling",
-      "license": "CC BY 2.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Static_on_the_playground_(48616367).jpg",
-      "altJa": "誰もいない公園の遊具",
-      "altEn": "Playground equipment with no one around",
-      "captionJa": "誰もいない遊具だけの公園。ドリームコアでよく扱われるモチーフのひとつです。",
-      "captionEn": "An empty playground with no one on the equipment — a recurring motif in dreamcore imagery."
-    }
+    "images": [
+      {
+        "file": "Static on the playground (48616367).jpg",
+        "author": "Chris Darling",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Static_on_the_playground_(48616367).jpg",
+        "altJa": "誰もいない公園の遊具",
+        "altEn": "Playground equipment with no one around",
+        "captionJa": "誰もいない遊具だけの公園。ドリームコアでよく扱われるモチーフのひとつです。",
+        "captionEn": "An empty playground with no one on the equipment — a recurring motif in dreamcore imagery.",
+        "afterSection": -1
+      },
+      {
+        "file": "Old TV sets.jpg",
+        "author": "Marcin Wichary",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Old_TV_sets.jpg",
+        "altJa": "古いブラウン管テレビ",
+        "altEn": "Old CRT television sets",
+        "captionJa": "古いブラウン管テレビ。ノスタルジックな質感は、ドリームコアの代表的なモチーフです。",
+        "captionEn": "Old CRT televisions — their nostalgic, degraded texture is a signature dreamcore motif.",
+        "afterSection": 2
+      }
+    ]
   },
   {
     "slug": "why-liminal-spaces-feel-scary",
@@ -576,17 +636,32 @@
         }
       ]
     },
-    "image": {
-      "file": "IN Govt Center parking garage.JPG",
-      "author": "Xnatedawgx",
-      "license": "CC BY-SA 3.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:IN_Govt_Center_parking_garage.JPG",
-      "altJa": "均質な照明が続く、無人の立体駐車場",
-      "altEn": "An empty parking garage under uniform lighting",
-      "captionJa": "均質な照明が続く駐車場。安全の手がかりとなる「人の気配」が失われた空間の例です。",
-      "captionEn": "A parking garage under uniform lighting — a space stripped of the human presence we unconsciously read as a safety cue."
-    }
+    "images": [
+      {
+        "file": "IN Govt Center parking garage.JPG",
+        "author": "Xnatedawgx",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:IN_Govt_Center_parking_garage.JPG",
+        "altJa": "均質な照明が続く、無人の立体駐車場",
+        "altEn": "An empty parking garage under uniform lighting",
+        "captionJa": "均質な照明が続く駐車場。安全の手がかりとなる「人の気配」が失われた空間の例です。",
+        "captionEn": "A parking garage under uniform lighting — a space stripped of the human presence we unconsciously read as a safety cue.",
+        "afterSection": -1
+      },
+      {
+        "file": "The Prison Hospital corridor.JPG",
+        "author": "Stan Fong",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:The_Prison_Hospital_corridor.JPG",
+        "altJa": "どこまでも続く、無人の施設の廊下",
+        "altEn": "A long, empty institutional corridor",
+        "captionJa": "どこまでも続く無人の廊下。見慣れた建築なのにどこかがズレている感覚を象徴しています。",
+        "captionEn": "A long, empty institutional corridor — the familiar-yet-slightly-wrong feeling in a single image.",
+        "afterSection": 1
+      }
+    ]
   },
   {
     "slug": "history-of-liminal-space-trend",
@@ -701,17 +776,32 @@
         }
       ]
     },
-    "image": {
-      "file": "Powell Street at Ellis Street, San Francisco, California, May 19, 2020.jpg",
-      "author": "Sharon Hahn Darlin",
-      "license": "CC BY 2.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Powell_Street_at_Ellis_Street,_San_Francisco,_California,_May_19,_2020.jpg",
-      "altJa": "2020年、ロックダウン下で無人になったサンフランシスコの街並み",
-      "altEn": "A deserted San Francisco street during the 2020 lockdowns",
-      "captionJa": "2020年、ロックダウン下で無人になったサンフランシスコの街並み。リミナルスペース人気を押し上げた光景の一つです。",
-      "captionEn": "A deserted San Francisco street during the 2020 lockdowns — the kind of scene that helped push the liminal space trend into the mainstream."
-    }
+    "images": [
+      {
+        "file": "Powell Street at Ellis Street, San Francisco, California, May 19, 2020.jpg",
+        "author": "Sharon Hahn Darlin",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Powell_Street_at_Ellis_Street,_San_Francisco,_California,_May_19,_2020.jpg",
+        "altJa": "2020年、ロックダウン下で無人になったサンフランシスコの街並み",
+        "altEn": "A deserted San Francisco street during the 2020 lockdowns",
+        "captionJa": "2020年、ロックダウン下で無人になったサンフランシスコの街並み。リミナルスペース人気を押し上げた光景の一つです。",
+        "captionEn": "A deserted San Francisco street during the 2020 lockdowns — the kind of scene that helped push the liminal space trend into the mainstream.",
+        "afterSection": -1
+      },
+      {
+        "file": "HobbyTown USA Oshkosh interior under construction 2002 (The Backrooms).jpg",
+        "author": "Bill Magritz",
+        "license": "CC0 1.0 (パブリックドメイン)",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:HobbyTown_USA_Oshkosh_interior_under_construction_2002_(The_Backrooms).jpg",
+        "altJa": "2019年に4chanへ投稿され、話題の起点となった元祖の写真",
+        "altEn": "The 2002 photo that was posted to 4chan in 2019, sparking the whole trend",
+        "captionJa": "2019年に4chanへ投稿され、バックルームズ／リミナルスペース人気の起点になった、まさにその1枚。",
+        "captionEn": "The very photo that was posted to 4chan in 2019 and touched off the Backrooms and liminal space trend.",
+        "afterSection": 0
+      }
+    ]
   },
   {
     "slug": "how-to-find-liminal-spaces",
@@ -826,17 +916,32 @@
         }
       ]
     },
-    "image": {
-      "file": "Vatican Museums Spiral Staircase 2012.jpg",
-      "author": "Colin",
-      "license": "CC BY-SA 3.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Vatican_Museums_Spiral_Staircase_2012.jpg",
-      "altJa": "左右対称に撮影されたらせん階段",
-      "altEn": "A symmetrically framed spiral staircase",
-      "captionJa": "左右対称のらせん階段。奥に視線が集まる構図は、リミナルスペースらしい写真の好例です。",
-      "captionEn": "A symmetrical spiral staircase — the kind of composition, drawing the eye toward a vanishing point, that defines a strong liminal space photo."
-    }
+    "images": [
+      {
+        "file": "Vatican Museums Spiral Staircase 2012.jpg",
+        "author": "Colin",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Vatican_Museums_Spiral_Staircase_2012.jpg",
+        "altJa": "左右対称に撮影されたらせん階段",
+        "altEn": "A symmetrically framed spiral staircase",
+        "captionJa": "左右対称のらせん階段。奥に視線が集まる構図は、リミナルスペースらしい写真の好例です。",
+        "captionEn": "A symmetrical spiral staircase — the kind of composition, drawing the eye toward a vanishing point, that defines a strong liminal space photo.",
+        "afterSection": -1
+      },
+      {
+        "file": "IN Govt Center parking garage.JPG",
+        "author": "Xnatedawgx",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:IN_Govt_Center_parking_garage.JPG",
+        "altJa": "見つけやすい場所の例、立体駐車場",
+        "altEn": "A parking garage — an easy type of location to find",
+        "captionJa": "駐車場のような場所は、構造的にリミナルスペースになりやすい代表例です。",
+        "captionEn": "Parking garages are a textbook example of a location that's structurally prone to becoming a liminal space.",
+        "afterSection": 2
+      }
+    ]
   },
   {
     "slug": "famous-liminal-spaces-around-the-world",
@@ -951,16 +1056,31 @@
         }
       ]
     },
-    "image": {
-      "file": "Kaputte Dinosaurier Spreepark.JPG",
-      "author": "Carsten Pietzsch",
-      "license": "CC BY 3.0",
-      "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
-      "sourceUrl": "https://commons.wikimedia.org/wiki/File:Kaputte_Dinosaurier_Spreepark.JPG",
-      "altJa": "閉園したベルリンのシュプレーパーク",
-      "altEn": "The closed Spreepark amusement park in Berlin",
-      "captionJa": "ベルリンの閉園した遊園地シュプレーパーク。世界的によく紹介されるリミナルスペース事例の一つです。",
-      "captionEn": "Spreepark, a shuttered amusement park in Berlin, is one of the most frequently cited liminal space examples worldwide."
-    }
+    "images": [
+      {
+        "file": "Kaputte Dinosaurier Spreepark.JPG",
+        "author": "Carsten Pietzsch",
+        "license": "CC BY 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Kaputte_Dinosaurier_Spreepark.JPG",
+        "altJa": "閉園したベルリンのシュプレーパーク",
+        "altEn": "The closed Spreepark amusement park in Berlin",
+        "captionJa": "ベルリンの閉園した遊園地シュプレーパーク。世界的によく紹介されるリミナルスペース事例の一つです。",
+        "captionEn": "Spreepark, a shuttered amusement park in Berlin, is one of the most frequently cited liminal space examples worldwide.",
+        "afterSection": -1
+      },
+      {
+        "file": "Uniwide Mall.jpg",
+        "author": "PowerCarsAreJustLocomotives",
+        "license": "CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Uniwide_Mall.jpg",
+        "altJa": "利用者がいなくなった、閉鎖されたショッピングモール",
+        "altEn": "A shuttered shopping mall with no shoppers left",
+        "captionJa": "利用者がいなくなった、いわゆる「デッドモール」。かつての賑わいとの落差が印象的です。",
+        "captionEn": "A so-called \"dead mall\" with no shoppers left — the contrast with its once-bustling past is what makes it memorable.",
+        "afterSection": 2
+      }
+    ]
   }
 ]

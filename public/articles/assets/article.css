@@ -137,6 +137,14 @@ figure.article-hero {
   margin: 0 0 36px;
 }
 
+figure.article-inline {
+  margin: 8px 0 32px;
+}
+
+figure.article-inline img {
+  max-height: 340px;
+}
+
 figure.article-hero img {
   width: 100%;
   height: auto;

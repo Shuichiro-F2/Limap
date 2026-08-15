@@ -37,13 +37,14 @@ function langParagraphs(paragraphs) {
   return paragraphs.map((p) => `        <p>${escapeHtml(p)}</p>`).join('\n');
 }
 
-function heroImageBlock(image, lang) {
+function imageBlock(image, lang, variant) {
   if (!image) return '';
   const alt = lang === 'ja' ? image.altJa : image.altEn;
   const caption = lang === 'ja' ? image.captionJa : image.captionEn;
   const photoLabel = lang === 'ja' ? '写真' : 'Photo';
   const viaLabel = lang === 'ja' ? '出典' : 'Source';
-  return `      <figure class="article-hero">
+  const figureClass = variant === 'hero' ? 'article-hero' : 'article-hero article-inline';
+  return `      <figure class="${figureClass}">
         <img
           src="https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(image.file)}?width=1200"
           alt="${escapeHtml(alt)}"
@@ -57,14 +58,19 @@ function heroImageBlock(image, lang) {
       </figure>`;
 }
 
-function langSections(sections) {
+// images配列のうち、指定セクションの直後(afterSection: 0始まりのセクション index)に
+// 挿入する画像だけを取り出す。afterSection: -1 は「本文冒頭(=ヒーロー画像)」用に予約している。
+function langSections(sections, images, lang) {
+  const inlineImages = (images || []).filter((img) => img.afterSection >= 0);
   return sections
-    .map(
-      (s, i) => `      <section class="article-section">
+    .map((s, i) => {
+      const imgHere = inlineImages.find((img) => img.afterSection === i);
+      const imgHtml = imgHere ? '\n' + imageBlock(imgHere, lang, 'inline') : '';
+      return `      <section class="article-section">
         <h2 class="section-heading">${escapeHtml(s.heading)}</h2>
 ${langParagraphs(s.paragraphs)}
-      </section>`
-    )
+      </section>${imgHtml}`;
+    })
     .join('\n');
 }
 
@@ -129,13 +135,14 @@ function langBlock(lang, article, all) {
     lang === 'ja'
       ? `公開日: ${article.publishedDate}`
       : `Published: ${article.publishedDate}`;
+  const heroImage = (article.images || []).find((img) => img.afterSection === -1);
   return `    <div data-lang="${lang}">
       <span class="article-category">${escapeHtml(categoryLabel)}</span>
       <h1 class="article-title">${escapeHtml(content.h1)}</h1>
       <p class="article-meta">${dateLabel}</p>
       <p class="article-lead">${escapeHtml(content.lead)}</p>
-${heroImageBlock(article.image, lang)}
-${langSections(content.sections)}
+${imageBlock(heroImage, lang, 'hero')}
+${langSections(content.sections, article.images, lang)}
 ${faqBlock(content.faq, lang)}
 ${ctaBlock(lang)}
 ${relatedBlock(article, all, lang)}
