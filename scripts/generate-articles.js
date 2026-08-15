@@ -37,6 +37,26 @@ function langParagraphs(paragraphs) {
   return paragraphs.map((p) => `        <p>${escapeHtml(p)}</p>`).join('\n');
 }
 
+function heroImageBlock(image, lang) {
+  if (!image) return '';
+  const alt = lang === 'ja' ? image.altJa : image.altEn;
+  const caption = lang === 'ja' ? image.captionJa : image.captionEn;
+  const photoLabel = lang === 'ja' ? '写真' : 'Photo';
+  const viaLabel = lang === 'ja' ? '出典' : 'Source';
+  return `      <figure class="article-hero">
+        <img
+          src="https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(image.file)}?width=1200"
+          alt="${escapeHtml(alt)}"
+          loading="lazy"
+          onerror="this.closest('figure').style.display='none'"
+        />
+        <figcaption>
+          <span class="hero-caption-text">${escapeHtml(caption)}</span>
+          <span class="hero-credit">${photoLabel}: ${escapeHtml(image.author)} (<a href="${escapeHtml(image.licenseUrl)}" target="_blank" rel="noopener noreferrer nofollow">${escapeHtml(image.license)}</a>), ${viaLabel}: <a href="${escapeHtml(image.sourceUrl)}" target="_blank" rel="noopener noreferrer nofollow">Wikimedia Commons</a></span>
+        </figcaption>
+      </figure>`;
+}
+
 function langSections(sections) {
   return sections
     .map(
@@ -114,6 +134,7 @@ function langBlock(lang, article, all) {
       <h1 class="article-title">${escapeHtml(content.h1)}</h1>
       <p class="article-meta">${dateLabel}</p>
       <p class="article-lead">${escapeHtml(content.lead)}</p>
+${heroImageBlock(article.image, lang)}
 ${langSections(content.sections)}
 ${faqBlock(content.faq, lang)}
 ${ctaBlock(lang)}
@@ -199,8 +220,7 @@ ${articleJsonLd(article)}${faqJsonLd(article)}
   <body>
     <header class="site-header">
       <a class="brand" href="${SITE_URL}/">
-        <img src="${SITE_URL}/apple-touch-icon.png" alt="LIMap" />
-        <span>LIMap 読みもの</span>
+        <img src="/articles/assets/logo-header.png" alt="LIMap" class="brand-logo" />
       </a>
       <div class="lang-switch">
         <button type="button" data-set-lang="ja">日本語</button>
@@ -285,8 +305,7 @@ function renderHubPage(all) {
   <body>
     <header class="site-header">
       <a class="brand" href="${SITE_URL}/">
-        <img src="${SITE_URL}/apple-touch-icon.png" alt="LIMap" />
-        <span>LIMap 読みもの</span>
+        <img src="/articles/assets/logo-header.png" alt="LIMap" class="brand-logo" />
       </a>
     </header>
 
