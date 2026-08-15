@@ -197,52 +197,6 @@ h2.section-heading {
   margin: 0 0 16px;
 }
 
-.faq-block {
-  margin: 44px 0;
-  padding: 24px;
-  background-color: var(--surface);
-  border-radius: 14px;
-  border: 1px solid var(--border);
-}
-
-.faq-block h2 {
-  font-family: "Noto Serif JP", "Hiragino Mincho ProN", serif;
-  font-size: 18px;
-  margin: 0 0 18px;
-}
-
-.faq-item {
-  margin-bottom: 18px;
-}
-.faq-item:last-child {
-  margin-bottom: 0;
-}
-
-.faq-q {
-  font-weight: 700;
-  font-size: 14.5px;
-  margin-bottom: 6px;
-  display: flex;
-  gap: 8px;
-}
-.faq-q::before {
-  content: "Q";
-  color: var(--accent);
-  flex-shrink: 0;
-}
-.faq-a {
-  font-size: 14.5px;
-  color: var(--text-secondary);
-  display: flex;
-  gap: 8px;
-  margin: 0;
-}
-.faq-a::before {
-  content: "A";
-  color: var(--text-muted);
-  flex-shrink: 0;
-}
-
 .cta-block {
   margin: 48px 0;
   padding: 28px 24px;
@@ -300,6 +254,7 @@ h2.section-heading {
 
 .related-list a {
   display: block;
+  overflow: hidden;
   padding: 16px;
   background-color: var(--surface);
   border: 1px solid var(--border);
@@ -312,6 +267,15 @@ h2.section-heading {
 
 .related-list a:hover {
   border-color: var(--accent);
+}
+
+.related-list img.card-thumb {
+  display: block;
+  width: calc(100% + 32px);
+  height: 120px;
+  object-fit: cover;
+  margin: -16px -16px 12px;
+  background-color: var(--surface-alt);
 }
 
 .related-list .related-category {
@@ -355,6 +319,7 @@ footer.site-footer a:hover {
 
 .hub-list a {
   display: block;
+  overflow: hidden;
   padding: 20px;
   background-color: var(--surface);
   border: 1px solid var(--border);
@@ -365,6 +330,15 @@ footer.site-footer a:hover {
 
 .hub-list a:hover {
   border-color: var(--accent);
+}
+
+.hub-list img.card-thumb {
+  display: block;
+  width: calc(100% + 40px);
+  height: 160px;
+  object-fit: cover;
+  margin: -20px -20px 14px;
+  background-color: var(--surface-alt);
 }
 
 .hub-list .hub-item-title {

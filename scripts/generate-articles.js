@@ -74,23 +74,6 @@ ${langParagraphs(s.paragraphs)}
     .join('\n');
 }
 
-function faqBlock(faq, lang) {
-  if (!faq || faq.length === 0) return '';
-  const heading = lang === 'ja' ? 'よくある質問' : 'Frequently Asked Questions';
-  const items = faq
-    .map(
-      (item) => `        <div class="faq-item">
-          <p class="faq-q">${escapeHtml(item.q)}</p>
-          <p class="faq-a">${escapeHtml(item.a)}</p>
-        </div>`
-    )
-    .join('\n');
-  return `      <div class="faq-block">
-        <h2>${heading}</h2>
-${items}
-      </div>`;
-}
-
 function ctaBlock(lang) {
   if (lang === 'ja') {
     return `      <div class="cta-block">
@@ -106,6 +89,18 @@ function ctaBlock(lang) {
       </div>`;
 }
 
+function heroImageOf(article) {
+  return (article.images || []).find((img) => img.afterSection === -1);
+}
+
+function cardThumbImg(image, lang) {
+  if (!image) return '';
+  const alt = lang === 'ja' ? image.altJa : image.altEn;
+  return `<img class="card-thumb" src="https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(
+    image.file
+  )}?width=600" alt="${escapeHtml(alt)}" loading="lazy" onerror="this.style.display='none'" />`;
+}
+
 function relatedBlock(current, all, lang) {
   const others = all.filter((a) => a.slug !== current.slug).slice(0, 4);
   if (others.length === 0) return '';
@@ -115,6 +110,7 @@ function relatedBlock(current, all, lang) {
       const t = lang === 'ja' ? a.ja : a.en;
       const cat = lang === 'ja' ? a.category : a.categoryEn;
       return `          <a href="${SITE_URL}/articles/${a.slug}/">
+            ${cardThumbImg(heroImageOf(a), lang)}
             <span class="related-category">${escapeHtml(cat)}</span>
             <span class="related-item-title">${escapeHtml(t.h1)}</span>
           </a>`;
@@ -143,25 +139,9 @@ function langBlock(lang, article, all) {
       <p class="article-lead">${escapeHtml(content.lead)}</p>
 ${imageBlock(heroImage, lang, 'hero')}
 ${langSections(content.sections, article.images, lang)}
-${faqBlock(content.faq, lang)}
 ${ctaBlock(lang)}
 ${relatedBlock(article, all, lang)}
     </div>`;
-}
-
-function faqJsonLd(article) {
-  const faq = article.ja.faq;
-  if (!faq || faq.length === 0) return '';
-  const data = {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: faq.map((item) => ({
-      '@type': 'Question',
-      name: item.q,
-      acceptedAnswer: { '@type': 'Answer', text: item.a },
-    })),
-  };
-  return `    <script type="application/ld+json">${escapeJsonLd(data)}</script>\n`;
 }
 
 function articleJsonLd(article) {
@@ -215,7 +195,7 @@ function renderArticlePage(article, all) {
     <meta name="twitter:description" content="${escapeHtml(ja.metaDescription)}" />
     <meta name="twitter:image" content="${SITE_URL}/og-image.png" />
 
-${articleJsonLd(article)}${faqJsonLd(article)}
+${articleJsonLd(article)}
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -263,6 +243,7 @@ function renderHubPage(all) {
   const items = all
     .map(
       (a) => `        <a href="/articles/${a.slug}/">
+          ${cardThumbImg(heroImageOf(a), 'ja')}
           <span class="related-category">${escapeHtml(a.category)}</span>
           <p class="hub-item-title">${escapeHtml(a.ja.h1)}</p>
           <p class="hub-item-desc">${escapeHtml(a.ja.metaDescription)}</p>
