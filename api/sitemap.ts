@@ -9,6 +9,20 @@ import { createClient } from '@supabase/supabase-js';
 const SUPABASE_URL = process.env.SUPABASE_URL || '';
 const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY || '';
 
+// SEO記事（public/articles/配下、content/articles.jsonから静的生成）のスラッグ一覧。
+// 記事を追加した際は、content/articles.json の更新・scripts/generate-articles.js の再実行に
+// あわせて、ここにもスラッグを追加する。
+const ARTICLE_SLUGS = [
+  'what-is-liminal-space',
+  'liminal-spaces-in-japan',
+  'liminal-space-vs-backrooms',
+  'liminal-space-vs-dreamcore',
+  'why-liminal-spaces-feel-scary',
+  'history-of-liminal-space-trend',
+  'how-to-find-liminal-spaces',
+  'famous-liminal-spaces-around-the-world',
+];
+
 function escapeXml(str: string): string {
   return str
     .replace(/&/g, '&amp;')
@@ -23,6 +37,12 @@ export default async function handler(req: any, res: any) {
     { loc: 'https://limap.jp/', changefreq: 'daily', priority: '1.0' },
     { loc: 'https://limap.jp/about', changefreq: 'monthly', priority: '0.6' },
     { loc: 'https://limap.jp/help', changefreq: 'monthly', priority: '0.5' },
+    { loc: 'https://limap.jp/articles/', changefreq: 'weekly', priority: '0.6' },
+    ...ARTICLE_SLUGS.map((slug) => ({
+      loc: `https://limap.jp/articles/${slug}/`,
+      changefreq: 'monthly',
+      priority: '0.6',
+    })),
   ];
 
   let spotUrls: { loc: string; lastmod: string; changefreq: string; priority: string }[] = [];
