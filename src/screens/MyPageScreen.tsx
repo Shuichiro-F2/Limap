@@ -209,15 +209,17 @@ export default function MyPageScreen({ navigation }: Props) {
           showsHorizontalScrollIndicator={false}
           onScroll={onPagerScroll}
           scrollEventThrottle={16}
+          style={styles.pager}
         >
           {pages.map((pageSpots, index) => (
-            <View key={index} style={{ width: screenWidth }}>
+            <View key={index} style={{ width: screenWidth, flex: 1 }}>
               {/* 表示中のページと隣接ページのみ実描画し、負荷を抑える（未訪問ページは空のまま） */}
               {Math.abs(pageIndex - index) <= 1 ? (
                 <FlatList
                   data={pageSpots}
                   keyExtractor={(item) => item.id}
                   numColumns={3}
+                  style={styles.grid}
                   contentContainerStyle={{ padding: 4 }}
                   refreshControl={
                     <RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor={colors.accent} />
@@ -296,6 +298,10 @@ const styles = StyleSheet.create({
   tabButton: { flex: 1, alignItems: 'center', justifyContent: 'center', paddingVertical: 10 },
   indicatorTrack: { height: 2, backgroundColor: colors.border },
   indicator: { height: 2, backgroundColor: colors.accent },
+  // 残りの縦スペースをこのページャー(横スワイプ)に割り当てないと、
+  // 中のFlatListの高さが確定せず投稿が多くても縦にスクロールできなくなる
+  pager: { flex: 1 },
+  grid: { flex: 1 },
   emptyText: { color: colors.textMuted, textAlign: 'center', marginTop: 40, fontSize: 13 },
   gridItem: { width: '33.33%', aspectRatio: 1, padding: 2 },
   gridImage: { flex: 1, borderRadius: 4 },

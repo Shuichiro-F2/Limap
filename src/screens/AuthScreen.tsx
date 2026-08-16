@@ -29,6 +29,13 @@ export default function AuthScreen({ navigation }: RootStackScreenProps<'Auth'>)
     try {
       if (mode === 'signin') {
         await signInWithEmail(email, password);
+        // ログイン完了後、遷移元の画面（マイページなど）に戻る。
+        // Authはモーダルとして積まれているため戻り先がなければトップページ（地図）へ遷移する。
+        if (navigation.canGoBack()) {
+          navigation.goBack();
+        } else {
+          navigation.navigate('Main', { screen: 'MapTab' });
+        }
       } else {
         await signUpWithEmail(email, password, username);
         notify('確認メールを送信しました', 'メール内のリンクから登録を完了してください。');
@@ -138,7 +145,7 @@ export default function AuthScreen({ navigation }: RootStackScreenProps<'Auth'>)
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.background, padding: 24, justifyContent: 'center' },
-  logo: { width: 220, height: 140, alignSelf: 'center', marginBottom: 32 },
+  logo: { width: 170, height: 108, alignSelf: 'center', marginBottom: 32 },
   input: {
     color: colors.textPrimary,
     borderBottomWidth: 1,

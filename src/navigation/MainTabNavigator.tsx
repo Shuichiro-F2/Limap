@@ -84,7 +84,17 @@ export default function MainTabNavigator() {
       tabBar={(props) => <CustomTabBar {...props} />}
       screenOptions={{ swipeEnabled: true, animationEnabled: true }}
     >
-      <Tab.Screen name="MapTab" component={MapScreen} options={{ title: '地図' }} />
+      {/*
+        地図画面だけはタブ全体のスワイプ切り替え(swipeEnabled)を無効にする。
+        地図はネイティブのパン/ピンチジェスチャーで自前にドラッグを処理するため、
+        同じ画面内にタブ切り替え用のスワイプも有効にしていると、
+        地図をドラッグしようとした操作がタブ切り替えのジェスチャーと競合し、
+        意図せずタブが切り替わってしまうことがあった。
+        （タブ内の検索バー部分だけをスワイプ対象にする、という部分的な制御は
+        ページャーが画面単位でしかジェスチャーを持てないため実現できないが、
+        タブ自体はアイコンタップでいつでも切り替えられる）
+      */}
+      <Tab.Screen name="MapTab" component={MapScreen} options={{ title: '地図', swipeEnabled: false }} />
       <Tab.Screen name="FeedTab" component={FeedScreen} options={{ title: 'フィード' }} />
       <Tab.Screen name="SearchTab" component={SearchScreen} options={{ title: '検索' }} />
       <Tab.Screen name="MyPageTab" component={MyPageScreen} options={{ title: 'マイページ' }} />
