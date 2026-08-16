@@ -14,6 +14,7 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import Text from './AppText';
+import { UsernameWithBadge } from './UserBadge';
 import { spotImageUrl } from '../lib/spots';
 import { shareSpot, copyLink } from '../lib/share';
 import { colors } from '../lib/theme';
@@ -172,10 +173,10 @@ export default function SpotDetailContent({
             {spot.author?.username &&
               (onAuthorPress ? (
                 <Pressable onPress={() => onAuthorPress(spot.author_id)} hitSlop={6}>
-                  <Text style={styles.authorText}>@{spot.author.username}</Text>
+                  <UsernameWithBadge username={spot.author.username} badge={spot.author.badge} textStyle={styles.authorText} />
                 </Pressable>
               ) : (
-                <Text style={styles.authorText}>@{spot.author.username}</Text>
+                <UsernameWithBadge username={spot.author.username} badge={spot.author.badge} textStyle={styles.authorText} />
               ))}
           </View>
 

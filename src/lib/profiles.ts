@@ -3,9 +3,16 @@ import { supabase } from './supabase';
 import { resizeImageForUpload } from './imageResize';
 import type { Profile } from '../types/database';
 
+// バッジ(公式マークなど)も含めてプロフィールを取得するための共通select句。
+// badge_types側にレコードがない(=badge_type_key が null)場合は badge も null になる。
+const PROFILE_SELECT = `
+  *,
+  badge:badge_types(key, label_ja, label_en, icon_name, bg_color, text_color)
+`;
+
 // ユーザープロフィール画面用: idからプロフィールを1件取得する
 export async function fetchProfileById(id: string): Promise<Profile> {
-  const { data, error } = await supabase.from('profiles').select('*').eq('id', id).single();
+  const { data, error } = await supabase.from('profiles').select(PROFILE_SELECT).eq('id', id).single();
   if (error) throw error;
   return data;
 }
@@ -52,7 +59,7 @@ export async function uploadAvatar(userId: string, uri: string, base64: string):
 export async function fetchFollowers(userId: string): Promise<Profile[]> {
   const { data, error } = await supabase
     .from('follows')
-    .select('follower:profiles!follows_follower_id_fkey(*)')
+    .select(`follower:profiles!follows_follower_id_fkey(${PROFILE_SELECT})`)
     .eq('followee_id', userId);
   if (error) throw error;
   return (data ?? []).map((row: any) => row.follower).filter(Boolean);
@@ -61,7 +68,7 @@ export async function fetchFollowers(userId: string): Promise<Profile[]> {
 export async function fetchFollowing(userId: string): Promise<Profile[]> {
   const { data, error } = await supabase
     .from('follows')
-    .select('followee:profiles!follows_followee_id_fkey(*)')
+    .select(`followee:profiles!follows_followee_id_fkey(${PROFILE_SELECT})`)
     .eq('follower_id', userId);
   if (error) throw error;
   return (data ?? []).map((row: any) => row.followee).filter(Boolean);

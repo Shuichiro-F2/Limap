@@ -10,6 +10,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useFocusEffect } from '@react-navigation/native';
 import Text from '../components/AppText';
+import { UsernameWithBadge } from '../components/UserBadge';
 import { fetchPublishedSpotsByAuthor, spotImageUrl } from '../lib/spots';
 import { fetchProfileById, fetchFollowCounts, isFollowing, toggleFollow, type FollowCounts } from '../lib/profiles';
 import { useAuth } from '../lib/AuthContext';
@@ -102,7 +103,7 @@ export default function UserProfileScreen({ route, navigation }: Props) {
           </View>
         )}
         <View style={{ flex: 1 }}>
-          <Text style={styles.username}>@{profile?.username ?? '...'}</Text>
+          <UsernameWithBadge username={profile?.username} badge={profile?.badge} textStyle={styles.username} />
           {profile?.display_name && <Text style={styles.displayName}>{profile.display_name}</Text>}
         </View>
       </View>

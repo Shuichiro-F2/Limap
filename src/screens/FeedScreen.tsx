@@ -4,6 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useFocusEffect } from '@react-navigation/native';
 import Text from '../components/AppText';
 import { HEADER_CONTENT_HEIGHT } from '../components/AppHeader';
+import { UsernameWithBadge } from '../components/UserBadge';
 import { fetchFollowingFeed, spotImageUrl } from '../lib/spots';
 import { useAuth } from '../lib/AuthContext';
 import { useTranslation } from '../lib/i18n';
@@ -97,7 +98,7 @@ export default function FeedScreen({ navigation }: Props) {
                   onPress={() => navigation.navigate('UserProfile', { userId: item.author_id })}
                   hitSlop={4}
                 >
-                  <Text style={styles.authorText}>@{item.author?.username ?? '...'}</Text>
+                  <UsernameWithBadge username={item.author?.username} badge={item.author?.badge} textStyle={styles.authorText} />
                 </Pressable>
                 {item.description ? (
                   <Text style={styles.description} numberOfLines={2}>

@@ -4,6 +4,12 @@ import type { Session } from '@supabase/supabase-js';
 import { supabase } from './supabase';
 import type { Profile } from '../types/database';
 
+// バッジ(公式マークなど)も含めて自分のプロフィールを取得する
+const PROFILE_SELECT = `
+  *,
+  badge:badge_types(key, label_ja, label_en, icon_name, bg_color, text_color)
+`;
+
 interface AuthContextValue {
   session: Session | null;
   profile: Profile | null;
@@ -42,7 +48,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
     supabase
       .from('profiles')
-      .select('*')
+      .select(PROFILE_SELECT)
       .eq('id', session.user.id)
       .single()
       .then(({ data }) => setProfile(data));
@@ -52,7 +58,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   // アプリ内の各所（マイページのヘッダーなど）に即座に反映させるために使う
   const refreshProfile = async () => {
     if (!session?.user) return;
-    const { data } = await supabase.from('profiles').select('*').eq('id', session.user.id).single();
+    const { data } = await supabase.from('profiles').select(PROFILE_SELECT).eq('id', session.user.id).single();
     if (data) setProfile(data);
   };
 

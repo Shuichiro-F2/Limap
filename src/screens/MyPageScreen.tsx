@@ -15,6 +15,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import Text from '../components/AppText';
 import { HEADER_CONTENT_HEIGHT } from '../components/AppHeader';
+import { UsernameWithBadge } from '../components/UserBadge';
 import { fetchSpotsByAuthor, fetchLikedSpots, fetchBookmarkedSpots, spotImageUrl } from '../lib/spots';
 import { fetchFollowCounts, type FollowCounts } from '../lib/profiles';
 import { useAuth } from '../lib/AuthContext';
@@ -144,7 +145,7 @@ export default function MyPageScreen({ navigation }: Props) {
           </View>
         )}
         <View style={{ flex: 1 }}>
-          <Text style={styles.username}>@{profile?.username ?? '...'}</Text>
+          <UsernameWithBadge username={profile?.username} badge={profile?.badge} textStyle={styles.username} />
           {profile?.display_name && <Text style={styles.displayName}>{profile.display_name}</Text>}
         </View>
         <Pressable onPress={() => navigation.navigate('EditProfile')} hitSlop={8} style={{ marginRight: 14 }}>

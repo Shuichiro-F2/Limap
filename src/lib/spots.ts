@@ -7,7 +7,7 @@ const SPOT_SELECT = `
   *,
   images:spot_images(id, storage_path, position),
   tags:spot_tags(tag:tags(id, name)),
-  author:profiles!spots_author_id_fkey(id, username, display_name, avatar_url)
+  author:profiles!spots_author_id_fkey(id, username, display_name, avatar_url, badge_type_key, badge:badge_types(key, label_ja, label_en, icon_name, bg_color, text_color))
 `;
 
 // 地図の表示範囲(bounding box)内の投稿を取得する

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Pressable, StyleSheet, FlatList, Image, ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Text from '../components/AppText';
+import { UsernameWithBadge } from '../components/UserBadge';
 import { fetchFollowers, fetchFollowing } from '../lib/profiles';
 import { useAuth } from '../lib/AuthContext';
 import { colors } from '../lib/theme';
@@ -59,7 +60,7 @@ export default function FollowListScreen({ route, navigation }: Props) {
                 </View>
               )}
               <View style={{ flex: 1 }}>
-                <Text style={styles.username}>@{item.username}</Text>
+                <UsernameWithBadge username={item.username} badge={item.badge} textStyle={styles.username} />
                 {item.display_name ? <Text style={styles.displayName}>{item.display_name}</Text> : null}
               </View>
             </Pressable>

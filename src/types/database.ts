@@ -4,6 +4,18 @@
 export type SpotStatus = 'published' | 'hidden' | 'removed';
 export type ReportReason = 'inappropriate' | 'privacy' | 'spam' | 'wrong_location' | 'other';
 
+// アカウントに付与できるバッジ(公式マーク/将来的なスポンサー・アンバサダー等)の種別。
+// badge_typesテーブルの内容をそのまま表す。新しい種別を追加してもアプリのコード変更は不要で、
+// UI側は未知のkeyでもlabel/icon/colorだけを見て汎用的に描画する。
+export interface BadgeType {
+  key: string;
+  label_ja: string;
+  label_en: string;
+  icon_name: string;
+  bg_color: string;
+  text_color: string;
+}
+
 export interface Profile {
   id: string;
   username: string;
@@ -11,6 +23,9 @@ export interface Profile {
   avatar_url: string | null;
   bio: string | null;
   created_at: string;
+  badge_type_key: string | null;
+  // クライアント側でjoinして付与するフィールド(未付与の場合はnull)
+  badge?: BadgeType | null;
 }
 
 export interface Tag {
