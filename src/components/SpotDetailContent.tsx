@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   StyleSheet,
@@ -21,6 +21,10 @@ import type { Spot, ReportReason } from '../types/database';
 
 // PC/Web表示時に画像・本文が横に広がりすぎないようにする最大幅。
 const MAX_CONTENT_WIDTH = 640;
+
+// 画像の高さは基本的に元画像の縦横比に合わせて表示し、上下がカットされないようにする。
+// ただし極端に縦長な画像の場合はこの倍率(横幅比)を上限に高さをクランプし、はみ出た分だけカットする。
+const MAX_IMAGE_ASPECT_RATIO = 1.5;
 
 const REPORT_REASONS: { value: ReportReason; label: string }[] = [
   { value: 'privacy', label: 'プライバシー・私有地の懸念' },
@@ -78,6 +82,36 @@ export default function SpotDetailContent({
   const contentWidth = Math.min(screenWidth, MAX_CONTENT_WIDTH);
   const [showMenu, setShowMenu] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  // 先頭画像の縦横比（高さ÷幅）。取得できるまではimageHeightのデフォルト値で表示する。
+  const [imageAspectRatio, setImageAspectRatio] = useState<number | null>(null);
+
+  const firstImage =
+    spot?.images && spot.images.length > 0
+      ? [...spot.images].sort((a, b) => a.position - b.position)[0]
+      : null;
+  const firstImagePath = firstImage?.storage_path ?? null;
+
+  useEffect(() => {
+    setImageAspectRatio(null);
+    if (!firstImagePath) return;
+    let cancelled = false;
+    Image.getSize(
+      spotImageUrl(firstImagePath),
+      (w, h) => {
+        if (!cancelled && w > 0) setImageAspectRatio(h / w);
+      },
+      () => {}
+    );
+    return () => {
+      cancelled = true;
+    };
+  }, [firstImagePath]);
+
+  // 縦横比が判明していれば、上下がカットされないよう画像の高さを実寸に合わせる。
+  // 極端に縦長な場合はMAX_IMAGE_ASPECT_RATIOを超えないようクランプし、その分だけカットする。
+  const displayedImageHeight = imageAspectRatio
+    ? Math.min(contentWidth * imageAspectRatio, contentWidth * MAX_IMAGE_ASPECT_RATIO)
+    : imageHeight;
 
   if (loading || !spot) {
     return (
@@ -117,13 +151,15 @@ export default function SpotDetailContent({
                 <Image
                   key={img.id}
                   source={{ uri: spotImageUrl(img.storage_path) }}
-                  style={[styles.image, { width: contentWidth, height: imageHeight }]}
+                  style={[styles.image, { width: contentWidth, height: displayedImageHeight }]}
                   resizeMode="cover"
                 />
               ))}
           </ScrollView>
         ) : (
-          <View style={[styles.image, styles.noImage, { width: contentWidth, height: imageHeight }]} />
+          <View
+            style={[styles.image, styles.noImage, { width: contentWidth, height: displayedImageHeight }]}
+          />
         )}
 
         <View style={styles.body}>
