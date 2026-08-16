@@ -7,7 +7,8 @@ import { colors } from '../lib/theme';
 
 // ロゴ本体の高さ＋余白。各タブ画面側は、この分だけ先頭にスペースを空けて
 // コンテンツを配置することで、常に最前面に重なるこのヘッダーと被らないようにする。
-export const HEADER_CONTENT_HEIGHT = 56;
+// ロゴが上に寄りすぎないよう、ロゴ自体の高さより少し大きめの値にして上部に隙間を作る。
+export const HEADER_CONTENT_HEIGHT = 64;
 
 // ロゴと言語切り替えトグルは4つのタブ全てに共通する固定要素。
 // MainTabNavigator側で、タブのページャー（スワイプで横に流れる部分）とは別の
@@ -53,8 +54,10 @@ const styles = StyleSheet.create({
   row: {
     height: HEADER_CONTENT_HEIGHT,
     paddingHorizontal: 20,
+    paddingBottom: 4,
     flexDirection: 'row',
-    alignItems: 'center',
+    // ロゴ・トグルを行の下寄せにすることで、上部にだけ隙間ができるようにする
+    alignItems: 'flex-end',
     justifyContent: 'space-between',
   },
   logo: { width: 84, height: 52 },

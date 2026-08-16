@@ -9,7 +9,6 @@ import {
   ActivityIndicator,
   FlatList,
   Keyboard,
-  Image,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Map, { Marker, ScaleControl, Source, Layer, type MapRef, type MapMouseEvent } from 'react-map-gl/mapbox';
@@ -23,7 +22,9 @@ import { generateSessionToken, suggestPlaces, retrievePlace, type SuggestResult 
 import SpotPreviewSheet from '../components/SpotPreviewSheet';
 import Text from '../components/AppText';
 import TextInput from '../components/AppTextInput';
+import { HEADER_CONTENT_HEIGHT } from '../components/AppHeader';
 import { useAuth } from '../lib/AuthContext';
+import { useTranslation } from '../lib/i18n';
 import { colors } from '../lib/theme';
 import type { Spot } from '../types/database';
 import type { MainTabScreenProps } from '../navigation/types';
@@ -60,6 +61,7 @@ type Props = MainTabScreenProps<'MapTab'>;
 
 export default function MapScreen({ navigation, route }: Props) {
   const { session } = useAuth();
+  const t = useTranslation();
   const [spots, setSpots] = useState<Spot[]>([]);
   const mapRef = useRef<MapRef>(null);
 
@@ -227,16 +229,15 @@ export default function MapScreen({ navigation, route }: Props) {
       </View>
 
       <SafeAreaView style={styles.topOverlay} pointerEvents="box-none">
-        <View style={styles.logoRow} pointerEvents="none">
-          <Image source={require('../../assets/logo-header.png')} style={styles.logo} resizeMode="contain" />
-        </View>
+        {/* 共通ヘッダー(ロゴ+言語トグル)が最前面に重なっているため、その高さ分だけ空けてから検索バーを配置する */}
+        <View style={{ height: HEADER_CONTENT_HEIGHT }} pointerEvents="none" />
 
         <View style={styles.searchBar}>
           <TextInput
             style={styles.searchInput}
             value={query}
             onChangeText={setQuery}
-            placeholder="住所や施設名で検索"
+            placeholder={t.map.searchPlaceholder}
             placeholderTextColor="#666"
             onSubmitEditing={search}
             returnKeyType="search"
@@ -326,8 +327,6 @@ const styles = StyleSheet.create({
     borderColor: '#fff',
   },
   topOverlay: { position: 'absolute', top: 0, left: 0, right: 0 },
-  logoRow: { paddingLeft: 20, paddingTop: 4 },
-  logo: { width: 84, height: 52 },
   searchBar: { flexDirection: 'row', padding: 12, gap: 8 },
   searchInput: {
     flex: 1,
