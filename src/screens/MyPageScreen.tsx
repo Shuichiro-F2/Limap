@@ -14,9 +14,11 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useFocusEffect } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import Text from '../components/AppText';
+import { HEADER_CONTENT_HEIGHT } from '../components/AppHeader';
 import { fetchSpotsByAuthor, fetchLikedSpots, fetchBookmarkedSpots, spotImageUrl } from '../lib/spots';
 import { fetchFollowCounts, type FollowCounts } from '../lib/profiles';
 import { useAuth } from '../lib/AuthContext';
+import { useTranslation } from '../lib/i18n';
 import { colors } from '../lib/theme';
 import type { Spot } from '../types/database';
 import type { MainTabScreenProps } from '../navigation/types';
@@ -33,6 +35,7 @@ const TABS: { icon: keyof typeof Ionicons.glyphMap }[] = [
 export default function MyPageScreen({ navigation }: Props) {
   const { profile, session, signOut } = useAuth();
   const { width: screenWidth } = useWindowDimensions();
+  const t = useTranslation();
 
   const [mineSpots, setMineSpots] = useState<Spot[]>([]);
   const [likedSpots, setLikedSpots] = useState<Spot[]>([]);
@@ -129,9 +132,8 @@ export default function MyPageScreen({ navigation }: Props) {
 
   return (
     <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
-      <View style={styles.logoRow}>
-        <Image source={require('../../assets/logo-header.png')} style={styles.logo} resizeMode="contain" />
-      </View>
+      {/* 共通ヘッダー(ロゴ+言語トグル)が最前面に重なっているため、その高さ分だけ空ける */}
+      <View style={{ height: HEADER_CONTENT_HEIGHT }} />
 
       <View style={styles.header}>
         {profile?.avatar_url ? (
@@ -149,7 +151,7 @@ export default function MyPageScreen({ navigation }: Props) {
           <Ionicons name="create-outline" size={20} color={colors.textSecondary} />
         </Pressable>
         <Pressable onPress={signOut}>
-          <Text style={styles.logoutText}>ログアウト</Text>
+          <Text style={styles.logoutText}>{t.myPage.logout}</Text>
         </Pressable>
       </View>
 
@@ -161,24 +163,24 @@ export default function MyPageScreen({ navigation }: Props) {
           onPress={() => session?.user && navigation.navigate('FollowList', { userId: session.user.id, mode: 'followers' })}
         >
           <Text style={styles.countNumber}>{followCounts.followers}</Text>
-          <Text style={styles.countLabel}>フォロワー</Text>
+          <Text style={styles.countLabel}>{t.myPage.followers}</Text>
         </Pressable>
         <Pressable
           style={styles.countItem}
           onPress={() => session?.user && navigation.navigate('FollowList', { userId: session.user.id, mode: 'following' })}
         >
           <Text style={styles.countNumber}>{followCounts.following}</Text>
-          <Text style={styles.countLabel}>フォロー中</Text>
+          <Text style={styles.countLabel}>{t.myPage.following}</Text>
         </Pressable>
       </View>
 
       <View style={styles.footerLinksRow}>
         <Pressable onPress={() => navigation.navigate('Help')} hitSlop={8}>
-          <Text style={styles.footerLinkText}>使い方</Text>
+          <Text style={styles.footerLinkText}>{t.myPage.help}</Text>
         </Pressable>
         <Text style={styles.footerLinkDivider}>・</Text>
         <Pressable onPress={() => navigation.navigate('About')} hitSlop={8}>
-          <Text style={styles.footerLinkText}>リミナルスペースとは</Text>
+          <Text style={styles.footerLinkText}>{t.myPage.about}</Text>
         </Pressable>
       </View>
 
@@ -229,7 +231,7 @@ export default function MyPageScreen({ navigation }: Props) {
                   maxToRenderPerBatch={9}
                   windowSize={5}
                   removeClippedSubviews
-                  ListEmptyComponent={<Text style={styles.emptyText}>まだ表示できるスポットがありません</Text>}
+                  ListEmptyComponent={<Text style={styles.emptyText}>{t.myPage.empty}</Text>}
                   renderItem={({ item }) => (
                     <Pressable
                       style={styles.gridItem}
@@ -258,8 +260,6 @@ export default function MyPageScreen({ navigation }: Props) {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.background },
-  logoRow: { paddingLeft: 20, paddingTop: 12 },
-  logo: { width: 84, height: 52 },
   header: {
     flexDirection: 'row',
     alignItems: 'center',

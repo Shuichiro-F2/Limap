@@ -2,6 +2,7 @@ import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { useFonts, DotGothic16_400Regular } from '@expo-google-fonts/dotgothic16';
 import { AuthProvider } from './src/lib/AuthContext';
+import { LanguageProvider } from './src/lib/i18n';
 import RootNavigator from './src/navigation/RootNavigator';
 import LoadingScreen from './src/components/LoadingScreen';
 
@@ -15,8 +16,10 @@ export default function App() {
 
   return (
     <AuthProvider>
-      <StatusBar style="light" />
-      <RootNavigator />
+      <LanguageProvider>
+        <StatusBar style="light" />
+        <RootNavigator />
+      </LanguageProvider>
     </AuthProvider>
   );
 }

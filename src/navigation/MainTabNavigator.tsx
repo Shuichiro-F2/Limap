@@ -10,6 +10,7 @@ import MapScreen from '../screens/MapScreen';
 import FeedScreen from '../screens/FeedScreen';
 import SearchScreen from '../screens/SearchScreen';
 import MyPageScreen from '../screens/MyPageScreen';
+import AppHeader from '../components/AppHeader';
 import { colors } from '../lib/theme';
 import type { MainTabParamList } from './types';
 
@@ -79,26 +80,35 @@ function CustomTabBar({ state, navigation, position }: MaterialTopTabBarProps) {
 
 export default function MainTabNavigator() {
   return (
-    <Tab.Navigator
-      tabBarPosition="bottom"
-      tabBar={(props) => <CustomTabBar {...props} />}
-      screenOptions={{ swipeEnabled: true, animationEnabled: true }}
-    >
+    <View style={{ flex: 1 }}>
+      <Tab.Navigator
+        tabBarPosition="bottom"
+        tabBar={(props) => <CustomTabBar {...props} />}
+        screenOptions={{ swipeEnabled: true, animationEnabled: true }}
+      >
+        {/*
+          地図画面だけはタブ全体のスワイプ切り替え(swipeEnabled)を無効にする。
+          地図はネイティブのパン/ピンチジェスチャーで自前にドラッグを処理するため、
+          同じ画面内にタブ切り替え用のスワイプも有効にしていると、
+          地図をドラッグしようとした操作がタブ切り替えのジェスチャーと競合し、
+          意図せずタブが切り替わってしまうことがあった。
+          （タブ内の検索バー部分だけをスワイプ対象にする、という部分的な制御は
+          ページャーが画面単位でしかジェスチャーを持てないため実現できないが、
+          タブ自体はアイコンタップでいつでも切り替えられる）
+        */}
+        <Tab.Screen name="MapTab" component={MapScreen} options={{ title: '地図', swipeEnabled: false }} />
+        <Tab.Screen name="FeedTab" component={FeedScreen} options={{ title: 'フィード' }} />
+        <Tab.Screen name="SearchTab" component={SearchScreen} options={{ title: '検索' }} />
+        <Tab.Screen name="MyPageTab" component={MyPageScreen} options={{ title: 'マイページ' }} />
+      </Tab.Navigator>
+
       {/*
-        地図画面だけはタブ全体のスワイプ切り替え(swipeEnabled)を無効にする。
-        地図はネイティブのパン/ピンチジェスチャーで自前にドラッグを処理するため、
-        同じ画面内にタブ切り替え用のスワイプも有効にしていると、
-        地図をドラッグしようとした操作がタブ切り替えのジェスチャーと競合し、
-        意図せずタブが切り替わってしまうことがあった。
-        （タブ内の検索バー部分だけをスワイプ対象にする、という部分的な制御は
-        ページャーが画面単位でしかジェスチャーを持てないため実現できないが、
-        タブ自体はアイコンタップでいつでも切り替えられる）
+        ロゴと言語切り替えトグルは、タブのページャー(Tab.Navigator)の外側・最前面に重ねて描画する。
+        こうすることで、各タブ画面の中身がスワイプで横にスライドしても、
+        ヘッダー自体は再マウントされず常に画面の同じ位置に固定されたまま表示される。
       */}
-      <Tab.Screen name="MapTab" component={MapScreen} options={{ title: '地図', swipeEnabled: false }} />
-      <Tab.Screen name="FeedTab" component={FeedScreen} options={{ title: 'フィード' }} />
-      <Tab.Screen name="SearchTab" component={SearchScreen} options={{ title: '検索' }} />
-      <Tab.Screen name="MyPageTab" component={MyPageScreen} options={{ title: 'マイページ' }} />
-    </Tab.Navigator>
+      <AppHeader />
+    </View>
   );
 }
 

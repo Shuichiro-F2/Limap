@@ -3,8 +3,10 @@ import { View, Pressable, StyleSheet, FlatList, Image, ActivityIndicator, Refres
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useFocusEffect } from '@react-navigation/native';
 import Text from '../components/AppText';
+import { HEADER_CONTENT_HEIGHT } from '../components/AppHeader';
 import { fetchFollowingFeed, spotImageUrl } from '../lib/spots';
 import { useAuth } from '../lib/AuthContext';
+import { useTranslation } from '../lib/i18n';
 import { colors } from '../lib/theme';
 import type { Spot } from '../types/database';
 import type { MainTabScreenProps } from '../navigation/types';
@@ -16,6 +18,7 @@ type Props = MainTabScreenProps<'FeedTab'>;
 // （フォロー関係という個人的な情報に基づくタブのため）。
 export default function FeedScreen({ navigation }: Props) {
   const { session } = useAuth();
+  const t = useTranslation();
   const [spots, setSpots] = useState<Spot[]>([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
@@ -50,15 +53,12 @@ export default function FeedScreen({ navigation }: Props) {
   if (!session?.user) {
     return (
       <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
-        <View style={styles.logoRow}>
-          <Image source={require('../../assets/logo-header.png')} style={styles.logo} resizeMode="contain" />
-        </View>
+        {/* 共通ヘッダー(ロゴ+言語トグル)が最前面に重なっているため、その高さ分だけ空ける */}
+        <View style={{ height: HEADER_CONTENT_HEIGHT }} />
         <View style={styles.loggedOutBox}>
-          <Text style={styles.loggedOutText}>
-            ログインすると、フォロー中のユーザーの投稿が新着順でここに表示されます。
-          </Text>
+          <Text style={styles.loggedOutText}>{t.feed.loggedOutMessage}</Text>
           <Pressable style={styles.loginButton} onPress={() => navigation.navigate('Auth')}>
-            <Text style={styles.loginButtonText}>ログイン / 新規登録</Text>
+            <Text style={styles.loginButtonText}>{t.feed.loginButton}</Text>
           </Pressable>
         </View>
       </SafeAreaView>
@@ -67,9 +67,7 @@ export default function FeedScreen({ navigation }: Props) {
 
   return (
     <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
-      <View style={styles.logoRow}>
-        <Image source={require('../../assets/logo-header.png')} style={styles.logo} resizeMode="contain" />
-      </View>
+      <View style={{ height: HEADER_CONTENT_HEIGHT }} />
 
       {loading ? (
         <ActivityIndicator color={colors.textPrimary} style={{ marginTop: 24 }} />
@@ -83,11 +81,7 @@ export default function FeedScreen({ navigation }: Props) {
           windowSize={5}
           removeClippedSubviews
           refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor={colors.accent} />}
-          ListEmptyComponent={
-            <Text style={styles.emptyText}>
-              フォロー中のユーザーの投稿がありません。気になる投稿者をフォローしてみましょう。
-            </Text>
-          }
+          ListEmptyComponent={<Text style={styles.emptyText}>{t.feed.empty}</Text>}
           renderItem={({ item }) => (
             <Pressable
               style={styles.card}
@@ -130,8 +124,6 @@ export default function FeedScreen({ navigation }: Props) {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.background },
-  logoRow: { paddingLeft: 20, paddingTop: 12, paddingBottom: 4 },
-  logo: { width: 84, height: 52 },
   loggedOutBox: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: 32, gap: 16 },
   loggedOutText: { color: colors.textSecondary, fontSize: 14, textAlign: 'center', lineHeight: 21 },
   loginButton: { backgroundColor: colors.accent, borderRadius: 10, paddingVertical: 12, paddingHorizontal: 28 },

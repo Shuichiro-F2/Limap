@@ -13,8 +13,10 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import Text from '../components/AppText';
 import TextInput from '../components/AppTextInput';
+import { HEADER_CONTENT_HEIGHT } from '../components/AppHeader';
 import { searchSpots, spotImageUrl } from '../lib/spots';
 import { fetchAllTags } from '../lib/tags';
+import { useTranslation } from '../lib/i18n';
 import { colors } from '../lib/theme';
 import type { Spot, Tag } from '../types/database';
 import type { MainTabScreenProps } from '../navigation/types';
@@ -22,6 +24,7 @@ import type { MainTabScreenProps } from '../navigation/types';
 type Props = MainTabScreenProps<'SearchTab'>;
 
 export default function SearchScreen({ navigation, route }: Props) {
+  const t = useTranslation();
   const [keyword, setKeyword] = useState('');
   const [selectedTags, setSelectedTags] = useState<number[]>([]);
   const [results, setResults] = useState<Spot[]>([]);
@@ -93,12 +96,14 @@ export default function SearchScreen({ navigation, route }: Props) {
 
   return (
     <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
+      {/* 共通ヘッダー(ロゴ+言語トグル)が最前面に重なっているため、その高さ分だけ空けてから検索バーを配置する */}
+      <View style={{ height: HEADER_CONTENT_HEIGHT }} />
       <View style={styles.searchBar}>
         <TextInput
           style={styles.input}
           value={keyword}
           onChangeText={setKeyword}
-          placeholder="タイトルや説明文で検索"
+          placeholder={t.search.placeholder}
           placeholderTextColor="#666"
           onSubmitEditing={() => runSearch()}
           returnKeyType="search"
@@ -128,7 +133,7 @@ export default function SearchScreen({ navigation, route }: Props) {
               maxToRenderPerBatch={8}
               windowSize={5}
               removeClippedSubviews
-              ListEmptyComponent={<Text style={styles.emptyText}>該当するスポットが見つかりませんでした</Text>}
+              ListEmptyComponent={<Text style={styles.emptyText}>{t.search.empty}</Text>}
               renderItem={({ item }) => (
                 <Pressable
                   style={styles.resultCard}
@@ -154,8 +159,8 @@ export default function SearchScreen({ navigation, route }: Props) {
         </>
       ) : (
         <ScrollView contentContainerStyle={styles.browseScroll}>
-          <Text style={styles.browseHeading}>雰囲気タグ</Text>
-          <Text style={styles.browseLead}>気になるタグをタップすると、その雰囲気の投稿を検索できます。</Text>
+          <Text style={styles.browseHeading}>{t.search.browseHeading}</Text>
+          <Text style={styles.browseLead}>{t.search.browseLead}</Text>
           {tagChips}
         </ScrollView>
       )}
