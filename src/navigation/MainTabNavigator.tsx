@@ -9,6 +9,7 @@ import { Ionicons } from '@expo/vector-icons';
 import MapScreen from '../screens/MapScreen';
 import FeedScreen from '../screens/FeedScreen';
 import SearchScreen from '../screens/SearchScreen';
+import ArticlesScreen from '../screens/ArticlesScreen';
 import MyPageScreen from '../screens/MyPageScreen';
 import AppHeader from '../components/AppHeader';
 import { colors } from '../lib/theme';
@@ -24,6 +25,7 @@ const TAB_ICONS: Record<keyof MainTabParamList, keyof typeof Ionicons.glyphMap> 
   MapTab: 'map-outline',
   FeedTab: 'people-outline',
   SearchTab: 'search-outline',
+  ArticlesTab: 'newspaper-outline',
   MyPageTab: 'person-outline',
 };
 
@@ -99,6 +101,7 @@ export default function MainTabNavigator() {
         <Tab.Screen name="MapTab" component={MapScreen} options={{ title: '地図', swipeEnabled: false }} />
         <Tab.Screen name="FeedTab" component={FeedScreen} options={{ title: 'フィード' }} />
         <Tab.Screen name="SearchTab" component={SearchScreen} options={{ title: '検索' }} />
+        <Tab.Screen name="ArticlesTab" component={ArticlesScreen} options={{ title: 'コラム' }} />
         <Tab.Screen name="MyPageTab" component={MyPageScreen} options={{ title: 'マイページ' }} />
       </Tab.Navigator>
 

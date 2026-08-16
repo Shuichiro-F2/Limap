@@ -1,0 +1,131 @@
+// SEO記事一覧(記事タブ)用の軽量なデータ定義。
+// 記事本文そのもの(content/articles.json)はサイト生成(scripts/generate-articles.js)専用で
+// 分量が大きいため、アプリ側では一覧表示に必要な最小限の情報だけをここに持たせている。
+// 記事を追加した場合は、ここと content/articles.json (本文) / api/sitemap.ts (ARTICLE_SLUGS) の
+// 3箇所を合わせて更新する。
+export interface ArticleSummary {
+  slug: string;
+  publishedDate: string;
+  categoryJa: string;
+  categoryEn: string;
+  titleJa: string;
+  titleEn: string;
+  leadJa: string;
+  leadEn: string;
+  // Wikimedia Commonsのファイル名(サムネイル用)
+  thumbnailFile: string;
+}
+
+export const ARTICLES: ArticleSummary[] = [
+  {
+    slug: 'what-is-liminal-space',
+    publishedDate: '2026-08-15',
+    categoryJa: '基礎知識',
+    categoryEn: 'Basics',
+    titleJa: 'リミナルスペースとは？意味・語源・具体例をわかりやすく解説',
+    titleEn: 'What Is a Liminal Space? Meaning, Origin, and Real-World Examples',
+    leadJa:
+      'SNSで見かける「リミナルスペース」という言葉。なんとなく雰囲気は伝わるものの、正確な意味を説明できる人は意外と少ないかもしれません。',
+    leadEn:
+      'The term "liminal space" shows up constantly on social media. But what does it actually mean? This article breaks down the definition and origin.',
+    thumbnailFile: 'Inevitable end of corridor (2098072225).jpg',
+  },
+  {
+    slug: 'liminal-spaces-in-japan',
+    publishedDate: '2026-08-15',
+    categoryJa: '日本のリミナルスペース',
+    categoryEn: 'Liminal Spaces in Japan',
+    titleJa: '日本のリミナルスペースとは？特徴と代表的な場所の例',
+    titleEn: 'Liminal Spaces in Japan: What Makes Them Different',
+    leadJa:
+      '鉄道網が発達し、24時間近く機能し続ける都市を持つ日本には、実は絶好のリミナルスペースが数多く存在します。',
+    leadEn:
+      'Japan — with its dense rail network and cities that run almost 24 hours a day — happens to be full of ideal liminal spaces.',
+    thumbnailFile: 'Nara Dreamland.jpg',
+  },
+  {
+    slug: 'liminal-space-vs-backrooms',
+    publishedDate: '2026-08-15',
+    categoryJa: '違いを知る',
+    categoryEn: 'Comparisons',
+    titleJa: 'リミナルスペースとバックルームの違いとは？',
+    titleEn: "Liminal Space vs. the Backrooms: What's the Difference?",
+    leadJa:
+      '黄色い壁紙に蛍光灯、どこまでも続く廊下――見た目だけを見るとよく似ており、しばしば混同される2つの違いを解説します。',
+    leadEn:
+      "Yellow wallpaper, humming fluorescent lights, an endless hallway — liminal spaces and the Backrooms look alike, but they're fundamentally different.",
+    thumbnailFile: 'HobbyTown USA Oshkosh interior under construction 2002 (The Backrooms).jpg',
+  },
+  {
+    slug: 'liminal-space-vs-dreamcore',
+    publishedDate: '2026-08-15',
+    categoryJa: '違いを知る',
+    categoryEn: 'Comparisons',
+    titleJa: 'リミナルスペースとドリームコアの違いとは？',
+    titleEn: 'Liminal Space vs. Dreamcore: What\'s the Difference?',
+    leadJa:
+      '「リミナルスペース」「ドリームコア」「ウィアードコア」。似ているようで違う3つのインターネット美学の違いを解説します。',
+    leadEn:
+      'Liminal space, dreamcore, and weirdcore all sit in similar territory online — here\'s a clear breakdown of what separates them.',
+    thumbnailFile: 'Static on the playground (48616367).jpg',
+  },
+  {
+    slug: 'why-liminal-spaces-feel-scary',
+    publishedDate: '2026-08-15',
+    categoryJa: '心理・雑学',
+    categoryEn: 'Psychology',
+    titleJa: 'なぜリミナルスペースに恐怖や不安を感じるのか',
+    titleEn: 'Why Do Liminal Spaces Feel Scary or Unsettling?',
+    leadJa:
+      '誰もいないだけの場所なのに、なぜか怖い。その不思議な感覚の正体を、心理学の視点から整理します。',
+    leadEn: "There's no monster in the photo, so why does it feel unsettling? Here's what psychology says.",
+    thumbnailFile: 'IN Govt Center parking garage.JPG',
+  },
+  {
+    slug: 'history-of-liminal-space-trend',
+    publishedDate: '2026-08-15',
+    categoryJa: '歴史・トレンド',
+    categoryEn: 'History',
+    titleJa: 'リミナルスペースはどう生まれ、なぜ流行したのか',
+    titleEn: 'How Liminal Spaces Became a Trend: A Brief History',
+    leadJa:
+      '2019年のインターネット掲示板への1枚の投稿から始まり、コロナ禍を経て世界的なトレンドになった経緯を解説します。',
+    leadEn:
+      'From a single 2019 forum post to a worldwide phenomenon accelerated by the pandemic — the timeline of the trend.',
+    thumbnailFile: 'Powell Street at Ellis Street, San Francisco, California, May 19, 2020.jpg',
+  },
+  {
+    slug: 'how-to-find-liminal-spaces',
+    publishedDate: '2026-08-15',
+    categoryJa: '実践ガイド',
+    categoryEn: 'Practical Guide',
+    titleJa: 'リミナルスペースの見つけ方・撮り方のコツ',
+    titleEn: 'How to Find and Photograph Liminal Spaces',
+    leadJa:
+      'いつも通っている場所の「時間帯」や「見る角度」を変えるだけで見つかることがほとんどです。見つけ方と撮り方のコツを紹介します。',
+    leadEn:
+      "Liminal spaces aren't hiding in some exotic location. Here's how to spot them nearby and photograph them well.",
+    thumbnailFile: 'Vatican Museums Spiral Staircase 2012.jpg',
+  },
+  {
+    slug: 'famous-liminal-spaces-around-the-world',
+    publishedDate: '2026-08-15',
+    categoryJa: '事例紹介',
+    categoryEn: 'Examples',
+    titleJa: '世界の有名なリミナルスペース事例',
+    titleEn: 'Famous Liminal Spaces from Around the World',
+    leadJa: '世界各地のよく話題に上がる代表的な事例を紹介しながら、それらに共通する特徴を整理します。',
+    leadEn:
+      'A look at the types of liminal spaces that keep going viral online, from dead malls to abandoned amusement parks.',
+    thumbnailFile: 'Kaputte Dinosaurier Spreepark.JPG',
+  },
+];
+
+// public/articles配下の静的ページ生成(scripts/generate-articles.js)と全く同じ組み立て方に揃えている
+export function articleThumbnailUrl(file: string, width = 600): string {
+  return `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(file)}?width=${width}`;
+}
+
+export function articleUrl(slug: string): string {
+  return `https://limap.jp/articles/${slug}/`;
+}

@@ -36,6 +36,9 @@ const linking: LinkingOptions<RootStackParamList> = {
           MapTab: 'map',
           FeedTab: 'feed',
           SearchTab: 'search',
+          // 'articles' は静的な記事ページ本体(public/articles/)が既に使っているパスのため、
+          // アプリ内の記事一覧タブは 'columns' という別のパスにする。
+          ArticlesTab: 'columns',
           MyPageTab: 'mypage',
         },
       },

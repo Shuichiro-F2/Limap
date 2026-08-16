@@ -6,6 +6,7 @@ export type MainTabParamList = {
   MapTab: { focusLat?: number; focusLng?: number } | undefined;
   FeedTab: undefined;
   SearchTab: { tagId?: number } | undefined;
+  ArticlesTab: undefined;
   MyPageTab: undefined;
 };
 

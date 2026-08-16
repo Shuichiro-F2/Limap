@@ -68,6 +68,10 @@ const dictionary = {
       logout: 'ログアウト',
       empty: 'まだ表示できるスポットがありません',
     },
+    articles: {
+      pageTitle: 'コラム',
+      pageLead: 'リミナルスペースにまつわる読み物を集めました。',
+    },
   },
   en: {
     map: {
@@ -91,6 +95,10 @@ const dictionary = {
       about: 'What is a Liminal Space?',
       logout: 'Log Out',
       empty: 'No spots to show yet',
+    },
+    articles: {
+      pageTitle: 'Articles',
+      pageLead: 'A collection of reads about liminal spaces.',
     },
   },
 } as const;
