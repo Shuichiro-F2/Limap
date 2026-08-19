@@ -41,6 +41,19 @@ export interface SpotImage {
   created_at: string;
 }
 
+// スポットに紐付けるSNS埋め込み(現状はInstagram投稿のみ対応)。
+// platformは将来的な拡張(X/TikTok等)を見越した項目。
+export type SpotEmbedPlatform = 'instagram';
+
+export interface SpotEmbed {
+  id: string;
+  spot_id: string;
+  platform: SpotEmbedPlatform;
+  url: string;
+  position: number;
+  created_at: string;
+}
+
 export interface Spot {
   id: string;
   // LIMap ID: URLのスラッグに使う短い英数字ID（例: aB3xK9pQ）。内部の主キー(id)とは別物。
@@ -58,6 +71,7 @@ export interface Spot {
   updated_at: string;
   // クライアント側で join して付与するフィールド
   images?: SpotImage[];
+  embeds?: SpotEmbed[];
   tags?: Tag[];
   author?: Profile;
   like_count: number;

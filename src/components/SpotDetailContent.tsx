@@ -15,6 +15,7 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import Text from './AppText';
 import { UsernameWithBadge } from './UserBadge';
+import InstagramEmbed from './InstagramEmbed';
 import { spotImageUrl } from '../lib/spots';
 import { shareSpot, copyLink } from '../lib/share';
 import { colors } from '../lib/theme';
@@ -198,6 +199,19 @@ export default function SpotDetailContent({
 
         {spot.description && <Text style={styles.description}>{spot.description}</Text>}
 
+        {spot.embeds && spot.embeds.filter((e) => e.platform === 'instagram').length > 0 && (
+          <View style={styles.embedSection}>
+            <Text style={styles.embedHeading}>Instagram</Text>
+            {spot.embeds
+              .filter((e) => e.platform === 'instagram')
+              .map((embed) => (
+                <View key={embed.id} style={styles.embedItem}>
+                  <InstagramEmbed url={embed.url} />
+                </View>
+              ))}
+          </View>
+        )}
+
         <View style={styles.actionRow}>
           <View style={styles.iconButtonsRow}>
             <Pressable style={styles.iconButtonWithCount} onPress={onLike} hitSlop={10}>
@@ -348,6 +362,9 @@ const styles = StyleSheet.create({
   meta: { fontSize: 13, color: colors.accentTextMuted },
   authorText: { fontSize: 13, color: colors.accentText, fontWeight: '600' },
   tagRow: { flexDirection: 'row', flexWrap: 'wrap', marginTop: 14, gap: 8 },
+  embedSection: { marginTop: 18 },
+  embedHeading: { fontSize: 13, fontWeight: '700', color: colors.accentText, marginBottom: 10 },
+  embedItem: { marginBottom: 14, borderRadius: 12, overflow: 'hidden', backgroundColor: colors.background },
   tagChip: {
     backgroundColor: colors.background,
     paddingHorizontal: 12,

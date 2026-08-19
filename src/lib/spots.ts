@@ -1,4 +1,5 @@
 import { supabase } from './supabase';
+import { isValidInstagramUrl, normalizeInstagramUrl, MAX_INSTAGRAM_EMBEDS } from './instagram';
 import type { Spot, ReportReason } from '../types/database';
 
 // profiles とは spots.author_id 経由の他に likes テーブルを介した間接的な関連もあり、
@@ -6,6 +7,7 @@ import type { Spot, ReportReason } from '../types/database';
 const SPOT_SELECT = `
   *,
   images:spot_images(id, storage_path, position),
+  embeds:spot_embeds(id, platform, url, position, created_at),
   tags:spot_tags(tag:tags(id, name)),
   author:profiles!spots_author_id_fkey(id, username, display_name, avatar_url, badge_type_key, badge:badge_types(key, label_ja, label_en, icon_name, bg_color, text_color))
 `;
@@ -213,11 +215,19 @@ export interface CreateSpotInput {
   city?: string;
   tagIds: number[];
   imagePaths: string[]; // Storage にアップロード済みのパス
+  instagramUrls?: string[]; // 「SNSで話題の場所」を紹介するためのInstagram投稿URL
 }
 
 export async function createSpot(authorId: string, input: CreateSpotInput): Promise<Spot> {
   if (input.tagIds.length > 5) {
     throw new Error('タグは5個までしか設定できません');
+  }
+  const instagramUrls = input.instagramUrls ?? [];
+  if (instagramUrls.length > MAX_INSTAGRAM_EMBEDS) {
+    throw new Error(`Instagram投稿は${MAX_INSTAGRAM_EMBEDS}件までしか設定できません`);
+  }
+  if (instagramUrls.some((u) => !isValidInstagramUrl(u))) {
+    throw new Error('Instagram投稿のURLが正しくありません');
   }
 
   const { data: spot, error } = await supabase
@@ -252,6 +262,18 @@ export async function createSpot(authorId: string, input: CreateSpotInput): Prom
       }))
     );
     if (imgError) throw imgError;
+  }
+
+  if (instagramUrls.length > 0) {
+    const { error: embedError } = await supabase.from('spot_embeds').insert(
+      instagramUrls.map((url, i) => ({
+        spot_id: spot.id,
+        platform: 'instagram',
+        url: normalizeInstagramUrl(url),
+        position: i,
+      }))
+    );
+    if (embedError) throw embedError;
   }
 
   // slugはDB側のDEFAULTで自動採番されているため、insert結果にそのまま含まれている
@@ -312,5 +334,6 @@ function normalizeSpots(rows: any[]): Spot[] {
   return rows.map((row) => ({
     ...row,
     tags: (row.tags ?? []).map((t: any) => t.tag).filter(Boolean),
+    embeds: [...(row.embeds ?? [])].sort((a: any, b: any) => a.position - b.position),
   }));
 }

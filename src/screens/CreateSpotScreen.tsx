@@ -16,6 +16,7 @@ import { supabase } from '../lib/supabase';
 import { createSpot } from '../lib/spots';
 import { resizeImageForUpload } from '../lib/imageResize';
 import { fetchAllTags, findOrCreateTag } from '../lib/tags';
+import { isValidInstagramUrl, normalizeInstagramUrl, MAX_INSTAGRAM_EMBEDS } from '../lib/instagram';
 import { useAuth } from '../lib/AuthContext';
 import { notify } from '../lib/notify';
 import { colors } from '../lib/theme';
@@ -35,6 +36,8 @@ export default function CreateSpotScreen({ navigation, route }: Props) {
   const [addingTag, setAddingTag] = useState(false);
   const [images, setImages] = useState<ImagePicker.ImagePickerAsset[]>([]);
   const [coords, setCoords] = useState<{ lat: number; lng: number } | null>(null);
+  const [instagramUrls, setInstagramUrls] = useState<string[]>([]);
+  const [instagramInput, setInstagramInput] = useState('');
   const [submitting, setSubmitting] = useState(false);
 
   // 既存タグの候補一覧（新規タグはこの場で追加できる）
@@ -118,6 +121,28 @@ export default function CreateSpotScreen({ navigation, route }: Props) {
     }
   };
 
+  // 「SNSで話題の場所」を紹介するためのInstagram投稿URL(最大MAX_INSTAGRAM_EMBEDS件)
+  const addInstagramUrl = () => {
+    const url = instagramInput.trim();
+    if (!url) return;
+    if (instagramUrls.length >= MAX_INSTAGRAM_EMBEDS) return;
+    if (!isValidInstagramUrl(url)) {
+      notify('Instagram投稿のURLが正しくありません', '投稿ページのURL(https://www.instagram.com/p/... など)を入力してください');
+      return;
+    }
+    const normalized = normalizeInstagramUrl(url);
+    if (instagramUrls.includes(normalized)) {
+      setInstagramInput('');
+      return;
+    }
+    setInstagramUrls((prev) => [...prev, normalized]);
+    setInstagramInput('');
+  };
+
+  const removeInstagramUrl = (url: string) => {
+    setInstagramUrls((prev) => prev.filter((u) => u !== url));
+  };
+
   const tagSuggestions = tagInput.trim()
     ? allTags
         .filter(
@@ -167,6 +192,7 @@ export default function CreateSpotScreen({ navigation, route }: Props) {
         lng: coords.lng,
         tagIds: selectedTags.map((t) => t.id),
         imagePaths,
+        instagramUrls,
       });
 
       notify('投稿しました', '', () => navigation.goBack());
@@ -277,6 +303,51 @@ export default function CreateSpotScreen({ navigation, route }: Props) {
         ))}
       </ScrollView>
 
+      <Text style={styles.label}>Instagram投稿（最大{MAX_INSTAGRAM_EMBEDS}件・任意）</Text>
+      <Text style={styles.helperText}>
+        SNSで話題になっている場所であれば、関連するInstagram投稿のURLを追加すると詳細画面に埋め込み表示されます。
+      </Text>
+
+      {instagramUrls.length > 0 && (
+        <View style={{ marginBottom: 8 }}>
+          {instagramUrls.map((url) => (
+            <View key={url} style={styles.instagramRow}>
+              <Text style={styles.instagramUrlText} numberOfLines={1}>
+                {url}
+              </Text>
+              <Pressable onPress={() => removeInstagramUrl(url)} hitSlop={8}>
+                <Text style={styles.instagramRemoveText}>✕</Text>
+              </Pressable>
+            </View>
+          ))}
+        </View>
+      )}
+
+      {instagramUrls.length >= MAX_INSTAGRAM_EMBEDS ? (
+        <Text style={styles.tagLimitText}>Instagram投稿は{MAX_INSTAGRAM_EMBEDS}件まで設定できます</Text>
+      ) : (
+        <View style={styles.tagInputRow}>
+          <TextInput
+            style={[styles.input, styles.tagInput]}
+            value={instagramInput}
+            onChangeText={setInstagramInput}
+            placeholder="https://www.instagram.com/p/..."
+            placeholderTextColor="#666"
+            autoCapitalize="none"
+            autoCorrect={false}
+            onSubmitEditing={addInstagramUrl}
+            returnKeyType="done"
+          />
+          <Pressable
+            style={[styles.secondaryButton, styles.tagAddButton]}
+            onPress={addInstagramUrl}
+            disabled={!instagramInput.trim()}
+          >
+            <Text style={styles.secondaryButtonText}>追加</Text>
+          </Pressable>
+        </View>
+      )}
+
       <Pressable style={styles.submitButton} onPress={submit} disabled={submitting}>
         {submitting ? (
           <ActivityIndicator color={colors.accentText} />
@@ -327,6 +398,18 @@ const styles = StyleSheet.create({
   tagInput: { flex: 1 },
   tagAddButton: { paddingHorizontal: 18 },
   tagLimitText: { color: colors.textMuted, fontSize: 12 },
+  helperText: { color: colors.textMuted, fontSize: 12, marginBottom: 10, lineHeight: 17 },
+  instagramRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: colors.surface,
+    borderRadius: 8,
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    marginBottom: 6,
+  },
+  instagramUrlText: { flex: 1, color: colors.textSecondary, fontSize: 12, marginRight: 8 },
+  instagramRemoveText: { color: colors.textMuted, fontSize: 14 },
   thumb: { width: 80, height: 80, borderRadius: 8, marginRight: 8 },
   submitButton: {
     backgroundColor: colors.accent,
