@@ -37,6 +37,13 @@ function escapeHtmlAttr(value: string): string {
     .replace(/>/g, '&gt;');
 }
 
+// 一部のブラウザ(Brave標準のShields、各種プライバシー系拡張機能など)は、
+// Instagram公式の埋め込みiframe自体の読み込みは許可しつつ、
+// iframeが実際の高さを親ページへ伝えるpostMessage通信だけをブロックすることがある。
+// この場合iframeの高さが0のまま止まってしまい、見た目には何も表示されていないのと同じになる。
+// そこで一定時間待っても高さがつかない場合は、Instagramへの外部リンクにフォールバックする。
+const RESIZE_TIMEOUT_MS = 4000;
+
 type Props = { url: string };
 
 export default function InstagramEmbed({ url }: Props) {
@@ -45,6 +52,7 @@ export default function InstagramEmbed({ url }: Props) {
   useEffect(() => {
     const node = containerRef.current as unknown as HTMLDivElement | null;
     if (!node) return;
+    let cancelled = false;
 
     const safeUrl = escapeHtmlAttr(url);
     node.innerHTML = `
@@ -52,9 +60,33 @@ export default function InstagramEmbed({ url }: Props) {
     `;
 
     loadEmbedScript().then(() => {
+      if (cancelled) return;
       window.instgrm?.Embeds.process();
+
+      // 処理後もiframeの高さが0のまま(=何らかの理由で埋め込みが機能していない)場合は、
+      // 空白のまま放置せず、投稿へのリンクとして最低限機能するようにする。
+      setTimeout(() => {
+        if (cancelled) return;
+        const iframe = node.querySelector('iframe');
+        const height = iframe ? iframe.getBoundingClientRect().height : 0;
+        if (height < 40) {
+          node.innerHTML = '';
+          const link = document.createElement('a');
+          link.href = safeUrl;
+          link.target = '_blank';
+          link.rel = 'noopener noreferrer';
+          link.textContent = 'Instagramで投稿を見る ↗';
+          link.style.cssText =
+            'display:block; padding:16px; text-align:center; border:1px solid rgba(0,0,0,0.15); border-radius:8px; text-decoration:none; color:inherit; font-size:14px;';
+          node.appendChild(link);
+        }
+      }, RESIZE_TIMEOUT_MS);
     });
+
+    return () => {
+      cancelled = true;
+    };
   }, [url]);
 
-  return <View ref={containerRef} style={{ width: '100%' }} />;
+  return <View ref={containerRef} style={{ width: '100%', minHeight: 40 }} />;
 }

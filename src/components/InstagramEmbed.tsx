@@ -43,12 +43,30 @@ function buildHtml(url: string): string {
       setTimeout(sendHeight, 1000);
       setTimeout(sendHeight, 2000);
       setTimeout(sendHeight, 3500);
+
+      // OS側の設定(トラッキング防止など)によって、Instagram側のiframeサイズ通知が
+      // ブロックされ高さが0のまま止まってしまうことがある。その場合は空白のまま
+      // 放置せず、投稿への外部リンクに置き換える。
+      setTimeout(function () {
+        var iframe = document.querySelector('iframe');
+        var h = iframe ? iframe.getBoundingClientRect().height : 0;
+        if (h < 40) {
+          document.body.innerHTML =
+            '<a href="${safeUrl}" style="display:block;padding:16px;text-align:center;border:1px solid rgba(255,255,255,0.3);border-radius:8px;text-decoration:none;color:inherit;font-size:14px;">Instagramで投稿を見る ↗</a>';
+          if (window.ReactNativeWebView) {
+            window.ReactNativeWebView.postMessage('60');
+          }
+        }
+      }, 4000);
     </script>
   </body>
 </html>`;
 }
 
 const DEFAULT_HEIGHT = 420;
+// Instagram側からの高さ通知がブロックされた場合でも、埋め込みが完全に潰れて
+// 見えなくなることがないよう、これより小さい値には縮めない。
+const MIN_HEIGHT = 60;
 
 type Props = { url: string };
 
@@ -57,7 +75,7 @@ export default function InstagramEmbed({ url }: Props) {
 
   const onMessage = (event: WebViewMessageEvent) => {
     const parsed = Number(event.nativeEvent.data);
-    if (!Number.isNaN(parsed) && parsed > 0 && parsed !== height) {
+    if (!Number.isNaN(parsed) && parsed >= MIN_HEIGHT && parsed !== height) {
       setHeight(parsed);
     }
   };
