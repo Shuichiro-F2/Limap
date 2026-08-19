@@ -163,6 +163,26 @@ export default function CreateSpotScreen({ navigation, route }: Props) {
       return;
     }
 
+    // Instagram入力欄に文字が残ったまま「追加」を押し忘れて投稿されてしまうケースを防ぐため、
+    // 未追加のURLが残っていればここで検証したうえで自動的に含める。
+    let finalInstagramUrls = instagramUrls;
+    const pendingInstagramInput = instagramInput.trim();
+    if (pendingInstagramInput) {
+      if (!isValidInstagramUrl(pendingInstagramInput)) {
+        notify(
+          'Instagram投稿のURLが正しくありません',
+          '入力欄に未追加のURLが残っています。投稿ページのURL(https://www.instagram.com/p/... など)を確認するか、欄を空にしてください'
+        );
+        return;
+      }
+      const normalized = normalizeInstagramUrl(pendingInstagramInput);
+      if (!finalInstagramUrls.includes(normalized) && finalInstagramUrls.length < MAX_INSTAGRAM_EMBEDS) {
+        finalInstagramUrls = [...finalInstagramUrls, normalized];
+        setInstagramUrls(finalInstagramUrls);
+        setInstagramInput('');
+      }
+    }
+
     setSubmitting(true);
     try {
       const imagePaths: string[] = [];
@@ -192,7 +212,7 @@ export default function CreateSpotScreen({ navigation, route }: Props) {
         lng: coords.lng,
         tagIds: selectedTags.map((t) => t.id),
         imagePaths,
-        instagramUrls,
+        instagramUrls: finalInstagramUrls,
       });
 
       notify('投稿しました', '', () => navigation.goBack());

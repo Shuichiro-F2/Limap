@@ -2,7 +2,9 @@
 // 投稿(p)・リール(reel)・IGTV(tv)の公開URL形式のみを許可する。
 // 画像ファイルを直接抜き出すのではなく、あくまで公式の埋め込み(embed.js)で
 // 表示するための「投稿ページのURL」を対象にしている。
-const INSTAGRAM_URL_PATTERN = /^https?:\/\/(www\.)?instagram\.com\/(p|reel|tv)\/[A-Za-z0-9_-]+\/?/i;
+// プロフィール経由でコピーした場合など、ユーザー名がパスに含まれる形式
+// (instagram.com/{username}/p/{code}/) もあるため、その部分は任意にしている。
+const INSTAGRAM_URL_PATTERN = /^https?:\/\/(www\.)?instagram\.com\/(?:[A-Za-z0-9_.]+\/)?(p|reel|tv)\/[A-Za-z0-9_-]+\/?/i;
 
 export function isValidInstagramUrl(url: string): boolean {
   return INSTAGRAM_URL_PATTERN.test(url.trim());
