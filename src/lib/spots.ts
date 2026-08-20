@@ -1,5 +1,5 @@
 import { supabase } from './supabase';
-import { isValidInstagramUrl, normalizeInstagramUrl, MAX_INSTAGRAM_EMBEDS } from './instagram';
+import { detectEmbedUrl, MAX_SNS_EMBEDS } from './embeds';
 import type { Spot, SpotImage, ReportReason } from '../types/database';
 
 // profiles とは spots.author_id 経由の他に likes テーブルを介した間接的な関連もあり、
@@ -217,19 +217,20 @@ export interface CreateSpotInput {
   // Storage にアップロード済みのパス。thumbnailPathはグリッド/カード表示用の
   // 軽量サムネイル(生成に失敗した場合はnull=フル画像で代用)
   imagePaths: { path: string; thumbnailPath: string | null }[];
-  instagramUrls?: string[]; // 「SNSで話題の場所」を紹介するためのInstagram投稿URL
+  embedUrls?: string[]; // 「SNSで話題の場所」を紹介するためのInstagram/X投稿URL(プラットフォームは自動判定する)
 }
 
 export async function createSpot(authorId: string, input: CreateSpotInput): Promise<Spot> {
   if (input.tagIds.length > 5) {
     throw new Error('タグは5個までしか設定できません');
   }
-  const instagramUrls = input.instagramUrls ?? [];
-  if (instagramUrls.length > MAX_INSTAGRAM_EMBEDS) {
-    throw new Error(`Instagram投稿は${MAX_INSTAGRAM_EMBEDS}件までしか設定できません`);
+  const embedUrls = input.embedUrls ?? [];
+  if (embedUrls.length > MAX_SNS_EMBEDS) {
+    throw new Error(`SNS投稿は${MAX_SNS_EMBEDS}件までしか設定できません`);
   }
-  if (instagramUrls.some((u) => !isValidInstagramUrl(u))) {
-    throw new Error('Instagram投稿のURLが正しくありません');
+  const detectedEmbeds = embedUrls.map((url) => detectEmbedUrl(url));
+  if (detectedEmbeds.some((e) => !e)) {
+    throw new Error('SNS投稿のURLが正しくありません(Instagram/Xの投稿URLを指定してください)');
   }
 
   const { data: spot, error } = await supabase
@@ -267,12 +268,12 @@ export async function createSpot(authorId: string, input: CreateSpotInput): Prom
     if (imgError) throw imgError;
   }
 
-  if (instagramUrls.length > 0) {
+  if (detectedEmbeds.length > 0) {
     const { error: embedError } = await supabase.from('spot_embeds').insert(
-      instagramUrls.map((url, i) => ({
+      detectedEmbeds.map((embed, i) => ({
         spot_id: spot.id,
-        platform: 'instagram',
-        url: normalizeInstagramUrl(url),
+        platform: embed!.platform,
+        url: embed!.url,
         position: i,
       }))
     );

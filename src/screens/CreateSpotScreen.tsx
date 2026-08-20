@@ -16,7 +16,7 @@ import { supabase } from '../lib/supabase';
 import { createSpot } from '../lib/spots';
 import { resizeImageForUpload, extensionForContentType, THUMBNAIL_RESIZE_OPTIONS } from '../lib/imageResize';
 import { fetchAllTags, findOrCreateTag } from '../lib/tags';
-import { isValidInstagramUrl, normalizeInstagramUrl, MAX_INSTAGRAM_EMBEDS } from '../lib/instagram';
+import { detectEmbedUrl, MAX_SNS_EMBEDS, type DetectedEmbed } from '../lib/embeds';
 import { useAuth } from '../lib/AuthContext';
 import { notify } from '../lib/notify';
 import { colors } from '../lib/theme';
@@ -36,8 +36,8 @@ export default function CreateSpotScreen({ navigation, route }: Props) {
   const [addingTag, setAddingTag] = useState(false);
   const [images, setImages] = useState<ImagePicker.ImagePickerAsset[]>([]);
   const [coords, setCoords] = useState<{ lat: number; lng: number } | null>(null);
-  const [instagramUrls, setInstagramUrls] = useState<string[]>([]);
-  const [instagramInput, setInstagramInput] = useState('');
+  const [embeds, setEmbeds] = useState<DetectedEmbed[]>([]);
+  const [embedInput, setEmbedInput] = useState('');
   const [submitting, setSubmitting] = useState(false);
 
   // 既存タグの候補一覧（新規タグはこの場で追加できる）
@@ -121,26 +121,30 @@ export default function CreateSpotScreen({ navigation, route }: Props) {
     }
   };
 
-  // 「SNSで話題の場所」を紹介するためのInstagram投稿URL(最大MAX_INSTAGRAM_EMBEDS件)
-  const addInstagramUrl = () => {
-    const url = instagramInput.trim();
+  // 「SNSで話題の場所」を紹介するためのInstagram/X投稿URL(最大MAX_SNS_EMBEDS件)。
+  // 入力されたURLからプラットフォーム(Instagram/X)を自動判定する。
+  const addEmbedUrl = () => {
+    const url = embedInput.trim();
     if (!url) return;
-    if (instagramUrls.length >= MAX_INSTAGRAM_EMBEDS) return;
-    if (!isValidInstagramUrl(url)) {
-      notify('Instagram投稿のURLが正しくありません', '投稿ページのURL(https://www.instagram.com/p/... など)を入力してください');
+    if (embeds.length >= MAX_SNS_EMBEDS) return;
+    const detected = detectEmbedUrl(url);
+    if (!detected) {
+      notify(
+        '投稿のURLが正しくありません',
+        'Instagram投稿(https://www.instagram.com/p/...)またはX投稿(https://x.com/.../status/...)のURLを入力してください'
+      );
       return;
     }
-    const normalized = normalizeInstagramUrl(url);
-    if (instagramUrls.includes(normalized)) {
-      setInstagramInput('');
+    if (embeds.some((e) => e.url === detected.url)) {
+      setEmbedInput('');
       return;
     }
-    setInstagramUrls((prev) => [...prev, normalized]);
-    setInstagramInput('');
+    setEmbeds((prev) => [...prev, detected]);
+    setEmbedInput('');
   };
 
-  const removeInstagramUrl = (url: string) => {
-    setInstagramUrls((prev) => prev.filter((u) => u !== url));
+  const removeEmbedUrl = (url: string) => {
+    setEmbeds((prev) => prev.filter((e) => e.url !== url));
   };
 
   const tagSuggestions = tagInput.trim()
@@ -163,23 +167,23 @@ export default function CreateSpotScreen({ navigation, route }: Props) {
       return;
     }
 
-    // Instagram入力欄に文字が残ったまま「追加」を押し忘れて投稿されてしまうケースを防ぐため、
+    // SNS投稿入力欄に文字が残ったまま「追加」を押し忘れて投稿されてしまうケースを防ぐため、
     // 未追加のURLが残っていればここで検証したうえで自動的に含める。
-    let finalInstagramUrls = instagramUrls;
-    const pendingInstagramInput = instagramInput.trim();
-    if (pendingInstagramInput) {
-      if (!isValidInstagramUrl(pendingInstagramInput)) {
+    let finalEmbeds = embeds;
+    const pendingEmbedInput = embedInput.trim();
+    if (pendingEmbedInput) {
+      const detected = detectEmbedUrl(pendingEmbedInput);
+      if (!detected) {
         notify(
-          'Instagram投稿のURLが正しくありません',
-          '入力欄に未追加のURLが残っています。投稿ページのURL(https://www.instagram.com/p/... など)を確認するか、欄を空にしてください'
+          '投稿のURLが正しくありません',
+          '入力欄に未追加のURLが残っています。Instagram投稿(https://www.instagram.com/p/...)またはX投稿(https://x.com/.../status/...)のURLを確認するか、欄を空にしてください'
         );
         return;
       }
-      const normalized = normalizeInstagramUrl(pendingInstagramInput);
-      if (!finalInstagramUrls.includes(normalized) && finalInstagramUrls.length < MAX_INSTAGRAM_EMBEDS) {
-        finalInstagramUrls = [...finalInstagramUrls, normalized];
-        setInstagramUrls(finalInstagramUrls);
-        setInstagramInput('');
+      if (!finalEmbeds.some((e) => e.url === detected.url) && finalEmbeds.length < MAX_SNS_EMBEDS) {
+        finalEmbeds = [...finalEmbeds, detected];
+        setEmbeds(finalEmbeds);
+        setEmbedInput('');
       }
     }
 
@@ -236,7 +240,7 @@ export default function CreateSpotScreen({ navigation, route }: Props) {
         lng: coords.lng,
         tagIds: selectedTags.map((t) => t.id),
         imagePaths,
-        instagramUrls: finalInstagramUrls,
+        embedUrls: finalEmbeds.map((e) => e.url),
       });
 
       notify('投稿しました', '', () => navigation.goBack());
@@ -347,45 +351,46 @@ export default function CreateSpotScreen({ navigation, route }: Props) {
         ))}
       </ScrollView>
 
-      <Text style={styles.label}>Instagram投稿（最大{MAX_INSTAGRAM_EMBEDS}件・任意）</Text>
+      <Text style={styles.label}>SNS投稿（最大{MAX_SNS_EMBEDS}件・任意）</Text>
       <Text style={styles.helperText}>
-        SNSで話題になっている場所であれば、関連するInstagram投稿のURLを追加すると詳細画面に埋め込み表示されます。
+        Instagram・Xで話題になっている場所であれば、関連する投稿のURLを追加すると詳細画面に埋め込み表示されます。
       </Text>
 
-      {instagramUrls.length > 0 && (
+      {embeds.length > 0 && (
         <View style={{ marginBottom: 8 }}>
-          {instagramUrls.map((url) => (
-            <View key={url} style={styles.instagramRow}>
-              <Text style={styles.instagramUrlText} numberOfLines={1}>
-                {url}
+          {embeds.map((e) => (
+            <View key={e.url} style={styles.embedRow}>
+              <Text style={styles.embedPlatformTag}>{e.platform === 'instagram' ? 'Instagram' : 'X'}</Text>
+              <Text style={styles.embedUrlText} numberOfLines={1}>
+                {e.url}
               </Text>
-              <Pressable onPress={() => removeInstagramUrl(url)} hitSlop={8}>
-                <Text style={styles.instagramRemoveText}>✕</Text>
+              <Pressable onPress={() => removeEmbedUrl(e.url)} hitSlop={8}>
+                <Text style={styles.embedRemoveText}>✕</Text>
               </Pressable>
             </View>
           ))}
         </View>
       )}
 
-      {instagramUrls.length >= MAX_INSTAGRAM_EMBEDS ? (
-        <Text style={styles.tagLimitText}>Instagram投稿は{MAX_INSTAGRAM_EMBEDS}件まで設定できます</Text>
+      {embeds.length >= MAX_SNS_EMBEDS ? (
+        <Text style={styles.tagLimitText}>SNS投稿は{MAX_SNS_EMBEDS}件まで設定できます</Text>
       ) : (
         <View style={styles.tagInputRow}>
           <TextInput
             style={[styles.input, styles.tagInput]}
-            value={instagramInput}
-            onChangeText={setInstagramInput}
-            placeholder="https://www.instagram.com/p/..."
+            value={embedInput}
+            onChangeText={setEmbedInput}
+            placeholder="https://www.instagram.com/p/... または https://x.com/.../status/..."
             placeholderTextColor="#666"
             autoCapitalize="none"
             autoCorrect={false}
-            onSubmitEditing={addInstagramUrl}
+            onSubmitEditing={addEmbedUrl}
             returnKeyType="done"
           />
           <Pressable
             style={[styles.secondaryButton, styles.tagAddButton]}
-            onPress={addInstagramUrl}
-            disabled={!instagramInput.trim()}
+            onPress={addEmbedUrl}
+            disabled={!embedInput.trim()}
           >
             <Text style={styles.secondaryButtonText}>追加</Text>
           </Pressable>
@@ -443,7 +448,7 @@ const styles = StyleSheet.create({
   tagAddButton: { paddingHorizontal: 18 },
   tagLimitText: { color: colors.textMuted, fontSize: 12 },
   helperText: { color: colors.textMuted, fontSize: 12, marginBottom: 10, lineHeight: 17 },
-  instagramRow: {
+  embedRow: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: colors.surface,
@@ -452,8 +457,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     marginBottom: 6,
   },
-  instagramUrlText: { flex: 1, color: colors.textSecondary, fontSize: 12, marginRight: 8 },
-  instagramRemoveText: { color: colors.textMuted, fontSize: 14 },
+  embedPlatformTag: {
+    color: colors.textSecondary,
+    fontSize: 11,
+    fontWeight: '700',
+    backgroundColor: colors.background,
+    borderRadius: 4,
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    marginRight: 8,
+  },
+  embedUrlText: { flex: 1, color: colors.textSecondary, fontSize: 12, marginRight: 8 },
+  embedRemoveText: { color: colors.textMuted, fontSize: 14 },
   thumb: { width: 80, height: 80, borderRadius: 8, marginRight: 8 },
   submitButton: {
     backgroundColor: colors.accent,

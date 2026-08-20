@@ -44,9 +44,8 @@ export interface SpotImage {
   created_at: string;
 }
 
-// スポットに紐付けるSNS埋め込み(現状はInstagram投稿のみ対応)。
-// platformは将来的な拡張(X/TikTok等)を見越した項目。
-export type SpotEmbedPlatform = 'instagram';
+// スポットに紐付けるSNS埋め込み(現状はInstagram投稿・X投稿に対応)。
+export type SpotEmbedPlatform = 'instagram' | 'x';
 
 export interface SpotEmbed {
   id: string;

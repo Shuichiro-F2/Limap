@@ -17,5 +17,3 @@ export function normalizeInstagramUrl(url: string): string {
   if (!match) return trimmed;
   return match[0].endsWith('/') ? match[0] : `${match[0]}/`;
 }
-
-export const MAX_INSTAGRAM_EMBEDS = 5;
