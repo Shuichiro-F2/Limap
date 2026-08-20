@@ -124,7 +124,13 @@ async function main() {
     try {
       const { data: blob, error: downloadError } = await supabase.storage.from('spot-images').download(image.storage_path);
       if (downloadError) throw downloadError;
-      const rawBuffer = Buffer.from(await blob.arrayBuffer());
+      // Node(undici)のfetch実装では、Blob#arrayBuffer()がSharedArrayBufferを
+      // 参照するバッファを返すことがあり、そのままsharpに渡すと
+      // 「SharedArrayBuffer is not allowed」で失敗する。
+      // Uint8Array経由でBuffer.fromに渡すと内容が新しい(共有されていない)バッファに
+      // コピーされるため、この問題を回避できる。
+      const arrayBuffer = await blob.arrayBuffer();
+      const rawBuffer = Buffer.from(new Uint8Array(arrayBuffer));
 
       const [fullBuffer, thumbBuffer] = await Promise.all([
         toWebp(rawBuffer, FULL_MAX_DIMENSION, FULL_QUALITY),
