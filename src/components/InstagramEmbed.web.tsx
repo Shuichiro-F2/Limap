@@ -42,7 +42,7 @@ function escapeHtmlAttr(value: string): string {
 // iframeが実際の高さを親ページへ伝えるpostMessage通信だけをブロックすることがある。
 // この場合iframeの高さが0のまま止まってしまい、見た目には何も表示されていないのと同じになる。
 // そこで一定時間待っても高さがつかない場合は、Instagramへの外部リンクにフォールバックする。
-const RESIZE_TIMEOUT_MS = 4000;
+const RESIZE_TIMEOUT_MS = 2500;
 
 type Props = { url: string };
 
@@ -76,8 +76,10 @@ export default function InstagramEmbed({ url }: Props) {
           link.target = '_blank';
           link.rel = 'noopener noreferrer';
           link.textContent = 'Instagramで投稿を見る ↗';
+          // color:inherit だと親要素の文字色を継承してしまい、背景色によっては
+          // 文字が背景と同化してほぼ見えなくなることがあったため、背景・文字色ともに固定する。
           link.style.cssText =
-            'display:block; padding:16px; text-align:center; border:1px solid rgba(0,0,0,0.15); border-radius:8px; text-decoration:none; color:inherit; font-size:14px;';
+            'display:block; padding:16px; text-align:center; border-radius:8px; text-decoration:none; font-size:14px; font-weight:600; background-color:#262626; color:#ffffff; border:1px solid rgba(255,255,255,0.15);';
           node.appendChild(link);
         }
       }, RESIZE_TIMEOUT_MS);

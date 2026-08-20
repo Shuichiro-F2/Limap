@@ -52,12 +52,12 @@ function buildHtml(url: string): string {
         var h = iframe ? iframe.getBoundingClientRect().height : 0;
         if (h < 40) {
           document.body.innerHTML =
-            '<a href="${safeUrl}" style="display:block;padding:16px;text-align:center;border:1px solid rgba(255,255,255,0.3);border-radius:8px;text-decoration:none;color:inherit;font-size:14px;">Instagramで投稿を見る ↗</a>';
+            '<a href="${safeUrl}" style="display:block;padding:16px;text-align:center;border-radius:8px;text-decoration:none;font-size:14px;font-weight:600;background-color:#262626;color:#ffffff;border:1px solid rgba(255,255,255,0.15);">Instagramで投稿を見る ↗</a>';
           if (window.ReactNativeWebView) {
             window.ReactNativeWebView.postMessage('60');
           }
         }
-      }, 4000);
+      }, 2500);
     </script>
   </body>
 </html>`;
