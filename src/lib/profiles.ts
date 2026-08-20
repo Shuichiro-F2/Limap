@@ -1,7 +1,10 @@
 import { decode } from 'base64-arraybuffer';
 import { supabase } from './supabase';
-import { resizeImageForUpload } from './imageResize';
+import { resizeImageForUpload, extensionForContentType } from './imageResize';
 import type { Profile } from '../types/database';
+
+// アバターは48〜96px程度の小さい円形でしか表示しないため、投稿画像より小さい上限で縮小する
+const AVATAR_RESIZE_OPTIONS = { maxDimension: 480, quality: 0.75 };
 
 // バッジ(公式マークなど)も含めてプロフィールを取得するための共通select句。
 // badge_types側にレコードがない(=badge_type_key が null)場合は badge も null になる。
@@ -40,11 +43,11 @@ export async function updateProfile(
 // プロフィール画像をavatarsバケットへアップロードし、公開URLを返す。
 // 投稿画像のアップロード（CreateSpotScreen）と同じ縮小・圧縮ヘルパーを再利用する。
 export async function uploadAvatar(userId: string, uri: string, base64: string): Promise<string> {
-  const resized = await resizeImageForUpload(uri, base64);
+  const resized = await resizeImageForUpload(uri, base64, AVATAR_RESIZE_OPTIONS);
   if (!resized) throw new Error('画像の処理に失敗しました');
 
   // 常に同じパスに上書きすることで、古いアバター画像がストレージに残り続けるのを防ぐ
-  const path = `${userId}/avatar.jpg`;
+  const path = `${userId}/avatar.${extensionForContentType(resized.contentType)}`;
   const { error } = await supabase.storage
     .from('avatars')
     .upload(path, decode(resized.base64), { contentType: resized.contentType, upsert: true });

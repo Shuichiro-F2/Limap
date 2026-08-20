@@ -14,7 +14,7 @@ import { Ionicons } from '@expo/vector-icons';
 import Text from '../components/AppText';
 import TextInput from '../components/AppTextInput';
 import { HEADER_CONTENT_HEIGHT } from '../components/AppHeader';
-import { searchSpots, spotImageUrl } from '../lib/spots';
+import { searchSpots, spotImageThumbUrl } from '../lib/spots';
 import { fetchAllTags } from '../lib/tags';
 import { useTranslation } from '../lib/i18n';
 import { colors } from '../lib/theme';
@@ -140,7 +140,7 @@ export default function SearchScreen({ navigation, route }: Props) {
                   onPress={() => navigation.navigate('SpotDetail', { spotId: item.slug })}
                 >
                   {item.images && item.images.length > 0 ? (
-                    <Image source={{ uri: spotImageUrl(item.images[0].storage_path) }} style={styles.thumb} />
+                    <Image source={{ uri: spotImageThumbUrl(item.images[0]) }} style={styles.thumb} />
                   ) : (
                     <View style={[styles.thumb, styles.noThumb]} />
                   )}

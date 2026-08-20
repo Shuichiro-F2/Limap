@@ -16,7 +16,7 @@ import { Ionicons } from '@expo/vector-icons';
 import Text from '../components/AppText';
 import { HEADER_CONTENT_HEIGHT } from '../components/AppHeader';
 import { UsernameWithBadge } from '../components/UserBadge';
-import { fetchSpotsByAuthor, fetchLikedSpots, fetchBookmarkedSpots, spotImageUrl } from '../lib/spots';
+import { fetchSpotsByAuthor, fetchLikedSpots, fetchBookmarkedSpots, spotImageThumbUrl } from '../lib/spots';
 import { fetchFollowCounts, type FollowCounts } from '../lib/profiles';
 import { useAuth } from '../lib/AuthContext';
 import { useTranslation } from '../lib/i18n';
@@ -239,7 +239,7 @@ export default function MyPageScreen({ navigation }: Props) {
                       onPress={() => navigation.navigate('SpotDetail', { spotId: item.slug })}
                     >
                       {item.images && item.images.length > 0 ? (
-                        <Image source={{ uri: spotImageUrl(item.images[0].storage_path) }} style={styles.gridImage} />
+                        <Image source={{ uri: spotImageThumbUrl(item.images[0]) }} style={styles.gridImage} />
                       ) : (
                         <View style={[styles.gridImage, styles.noImage]}>
                           <Text style={styles.noImageText} numberOfLines={2}>

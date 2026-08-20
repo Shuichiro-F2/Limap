@@ -37,6 +37,9 @@ export interface SpotImage {
   id: string;
   spot_id: string;
   storage_path: string;
+  // グリッド/カードなど小さい表示専用の軽量サムネイル画像のパス。
+  // 古い投稿など未生成の場合はnullで、その場合はstorage_path(フル画像)を代わりに使う。
+  thumbnail_path: string | null;
   position: number;
   created_at: string;
 }

@@ -14,7 +14,7 @@ import Text from '../components/AppText';
 import TextInput from '../components/AppTextInput';
 import { supabase } from '../lib/supabase';
 import { createSpot } from '../lib/spots';
-import { resizeImageForUpload } from '../lib/imageResize';
+import { resizeImageForUpload, extensionForContentType, THUMBNAIL_RESIZE_OPTIONS } from '../lib/imageResize';
 import { fetchAllTags, findOrCreateTag } from '../lib/tags';
 import { isValidInstagramUrl, normalizeInstagramUrl, MAX_INSTAGRAM_EMBEDS } from '../lib/instagram';
 import { useAuth } from '../lib/AuthContext';
@@ -185,20 +185,44 @@ export default function CreateSpotScreen({ navigation, route }: Props) {
 
     setSubmitting(true);
     try {
-      const imagePaths: string[] = [];
+      const imagePaths: { path: string; thumbnailPath: string | null }[] = [];
       for (const asset of images) {
         if (!asset.base64) continue;
         // 大きい写真をそのままアップロードすると、マイページや検索のグリッド表示時に
-        // ブラウザが高解像度のまま画像をデコードすることになり動作が重くなるため、
-        // アップロード前に縮小・再圧縮する
-        const resized = await resizeImageForUpload(asset.uri, asset.base64);
-        if (!resized) continue;
-        const path = `${session.user.id}/${Date.now()}-${Math.random().toString(36).slice(2)}.jpg`;
-        const { error } = await supabase.storage
+        // 毎回高解像度のまま画像をデコードすることになり動作が重くなる(投稿数の多い
+        // アカウントのプロフィール画面などで再読み込みが繰り返される主因になっていた)。
+        // そのため、詳細画面表示用の縮小版(full)に加えて、グリッド/カード表示専用の
+        // より小さいサムネイル(thumbnail)も別途生成してアップロードする。
+        // どちらもWebP形式に変換し、同品質のJPEGよりファイルサイズを抑える。
+        const [full, thumbnail] = await Promise.all([
+          resizeImageForUpload(asset.uri, asset.base64),
+          resizeImageForUpload(asset.uri, asset.base64, THUMBNAIL_RESIZE_OPTIONS),
+        ]);
+        if (!full) continue;
+
+        const uid = `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+        const fullPath = `${session.user.id}/${uid}.${extensionForContentType(full.contentType)}`;
+        const { error: fullError } = await supabase.storage
           .from('spot-images')
-          .upload(path, decode(resized.base64), { contentType: resized.contentType });
-        if (error) throw error;
-        imagePaths.push(path);
+          .upload(fullPath, decode(full.base64), { contentType: full.contentType });
+        if (fullError) throw fullError;
+
+        let thumbnailPath: string | null = null;
+        if (thumbnail) {
+          const path = `${session.user.id}/${uid}-thumb.${extensionForContentType(thumbnail.contentType)}`;
+          const { error: thumbError } = await supabase.storage
+            .from('spot-images')
+            .upload(path, decode(thumbnail.base64), { contentType: thumbnail.contentType });
+          // サムネイルのアップロードに失敗しても、フル画像だけで投稿自体は継続できるようにする
+          // (表示側はthumbnail_pathがnullならフル画像にフォールバックする)
+          if (thumbError) {
+            console.warn('サムネイルアップロードエラー', thumbError);
+          } else {
+            thumbnailPath = path;
+          }
+        }
+
+        imagePaths.push({ path: fullPath, thumbnailPath });
       }
 
       // タイトル欄は廃止したため、説明文の冒頭から内部用のタイトルを自動生成する

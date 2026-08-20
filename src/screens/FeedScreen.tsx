@@ -5,7 +5,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import Text from '../components/AppText';
 import { HEADER_CONTENT_HEIGHT } from '../components/AppHeader';
 import { UsernameWithBadge } from '../components/UserBadge';
-import { fetchFollowingFeed, spotImageUrl } from '../lib/spots';
+import { fetchFollowingFeed, spotImageThumbUrl } from '../lib/spots';
 import { useAuth } from '../lib/AuthContext';
 import { useTranslation } from '../lib/i18n';
 import { colors } from '../lib/theme';
@@ -89,7 +89,7 @@ export default function FeedScreen({ navigation }: Props) {
               onPress={() => navigation.navigate('SpotDetail', { spotId: item.slug })}
             >
               {item.images && item.images.length > 0 ? (
-                <Image source={{ uri: spotImageUrl(item.images[0].storage_path) }} style={styles.cardImage} />
+                <Image source={{ uri: spotImageThumbUrl(item.images[0]) }} style={styles.cardImage} />
               ) : (
                 <View style={[styles.cardImage, styles.noImage]} />
               )}

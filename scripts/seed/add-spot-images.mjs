@@ -7,6 +7,9 @@
 // - content/spot-images.json に載っていない(=CCライセンス画像が見つからなかった)スポットには、
 //   assets/seed/no-image-placeholder.jpg を代わりに登録する。
 // - 既にそのスポットに画像が1枚以上登録済みの場合はスキップする(再実行しても重複登録されない)。
+// - Wikimedia Commonsの画像は数千px四方・数MBのことがあるため、アプリ本体の投稿画像と同様に
+//   sharpで縮小・WebP変換してからアップロードする。詳細画面用のフル画像に加えて、
+//   グリッド/カード表示専用のサムネイルも別途生成する。
 //
 // 使い方（このリポジトリのルートで、通常のネット接続がある環境で実行すること）:
 //   OFFICIAL_EMAIL="xxx@example.com" OFFICIAL_PASSWORD="xxxxxxxx" node scripts/seed/add-spot-images.mjs
@@ -16,6 +19,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import WebSocket from 'ws';
+import sharp from 'sharp';
 
 // Node 20以下にはネイティブのWebSocketがなく、supabase-jsの内部クライアント初期化時に
 // エラーになるため、wsパッケージをグローバルに補完しておく（Realtime機能自体は未使用）。
@@ -60,6 +64,24 @@ const PLACEHOLDER_FILE = path.join(ROOT, 'assets/seed/no-image-placeholder.jpg')
 // Wikimedia Commonsは匿名の一般的なUser-Agentでのアクセスを推奨していないため、
 // 連絡先を含む識別可能なUser-Agentを付けてリクエストする。
 const WIKIMEDIA_UA = 'LIMapSeedBot/1.0 (https://limap.jp; contact: hinan.evacuate@gmail.com)';
+
+// アプリ本体(src/lib/imageResize.ts)と同じ考え方で、アップロード前に縮小・WebP変換する。
+// Wikimedia Commonsの画像は数千px四方・数MBのことがあり、そのままアップロードすると
+// 一覧表示のたびに大きな画像を同時デコードすることになり動作が重くなるため必須の処理。
+const FULL_MAX_DIMENSION = 1600;
+const FULL_QUALITY = 75;
+const THUMBNAIL_MAX_DIMENSION = 640;
+const THUMBNAIL_QUALITY = 60;
+
+// バッファをリサイズ+WebP変換する。長辺がmaxDimensionを超えなければ縮小はしない。
+async function toWebp(buffer, maxDimension, quality) {
+  const webpBuffer = await sharp(buffer)
+    .rotate() // Exifの回転情報を反映してから処理する
+    .resize({ width: maxDimension, height: maxDimension, fit: 'inside', withoutEnlargement: true })
+    .webp({ quality })
+    .toBuffer();
+  return { buffer: webpBuffer, contentType: 'image/webp' };
+}
 
 function loadSeedSpots() {
   const all = [];
@@ -142,26 +164,38 @@ async function main() {
     const imageInfo = imageMap.get(item.name);
 
     try {
-      let buffer, contentType, creditText;
+      let rawBuffer, creditText;
       if (imageInfo) {
-        ({ buffer, contentType } = await downloadCommonsImage(imageInfo.commonsFile));
+        ({ buffer: rawBuffer } = await downloadCommonsImage(imageInfo.commonsFile));
         creditText = `\n\n掲載写真: ${imageInfo.author}（出典: Wikimedia Commons, ${imageInfo.license}, ${imageInfo.sourceUrl}）`;
       } else {
-        ({ buffer, contentType } = loadPlaceholder());
+        ({ buffer: rawBuffer } = loadPlaceholder());
         creditText = null;
       }
 
-      const ext = contentType.includes('png') ? 'png' : 'jpg';
-      const storagePath = `${authorId}/${Date.now()}-${Math.random().toString(36).slice(2)}.${ext}`;
+      // フル画像(詳細画面用)とサムネイル(グリッド/カード用)の両方をWebPで生成する
+      const [full, thumbnail] = await Promise.all([
+        toWebp(rawBuffer, FULL_MAX_DIMENSION, FULL_QUALITY),
+        toWebp(rawBuffer, THUMBNAIL_MAX_DIMENSION, THUMBNAIL_QUALITY),
+      ]);
+
+      const uid = `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+      const storagePath = `${authorId}/${uid}.webp`;
+      const thumbnailPath = `${authorId}/${uid}-thumb.webp`;
 
       const { error: uploadError } = await supabase.storage
         .from('spot-images')
-        .upload(storagePath, buffer, { contentType, upsert: false });
+        .upload(storagePath, full.buffer, { contentType: full.contentType, upsert: false });
       if (uploadError) throw uploadError;
+
+      const { error: thumbUploadError } = await supabase.storage
+        .from('spot-images')
+        .upload(thumbnailPath, thumbnail.buffer, { contentType: thumbnail.contentType, upsert: false });
+      if (thumbUploadError) throw thumbUploadError;
 
       const { error: imgInsertError } = await supabase
         .from('spot_images')
-        .insert({ spot_id: spot.id, storage_path: storagePath, position: 0 });
+        .insert({ spot_id: spot.id, storage_path: storagePath, thumbnail_path: thumbnailPath, position: 0 });
       if (imgInsertError) throw imgInsertError;
 
       if (creditText) {

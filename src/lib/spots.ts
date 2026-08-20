@@ -1,12 +1,12 @@
 import { supabase } from './supabase';
 import { isValidInstagramUrl, normalizeInstagramUrl, MAX_INSTAGRAM_EMBEDS } from './instagram';
-import type { Spot, ReportReason } from '../types/database';
+import type { Spot, SpotImage, ReportReason } from '../types/database';
 
 // profiles とは spots.author_id 経由の他に likes テーブルを介した間接的な関連もあり、
 // PostgREST がどちらか一意に判断できずエラーになるため、FK制約名で明示的に指定する
 const SPOT_SELECT = `
   *,
-  images:spot_images(id, storage_path, position),
+  images:spot_images(id, storage_path, thumbnail_path, position),
   embeds:spot_embeds(id, platform, url, position, created_at),
   tags:spot_tags(tag:tags(id, name)),
   author:profiles!spots_author_id_fkey(id, username, display_name, avatar_url, badge_type_key, badge:badge_types(key, label_ja, label_en, icon_name, bg_color, text_color))
@@ -214,7 +214,9 @@ export interface CreateSpotInput {
   country?: string;
   city?: string;
   tagIds: number[];
-  imagePaths: string[]; // Storage にアップロード済みのパス
+  // Storage にアップロード済みのパス。thumbnailPathはグリッド/カード表示用の
+  // 軽量サムネイル(生成に失敗した場合はnull=フル画像で代用)
+  imagePaths: { path: string; thumbnailPath: string | null }[];
   instagramUrls?: string[]; // 「SNSで話題の場所」を紹介するためのInstagram投稿URL
 }
 
@@ -255,9 +257,10 @@ export async function createSpot(authorId: string, input: CreateSpotInput): Prom
 
   if (input.imagePaths.length > 0) {
     const { error: imgError } = await supabase.from('spot_images').insert(
-      input.imagePaths.map((path, i) => ({
+      input.imagePaths.map((img, i) => ({
         spot_id: spot.id,
-        storage_path: path,
+        storage_path: img.path,
+        thumbnail_path: img.thumbnailPath,
         position: i,
       }))
     );
@@ -298,7 +301,8 @@ export async function toggleLike(userId: string, spotId: string, currentlyLiked:
 // 本人以外は拒否されるが、Storage上の画像ファイルはDBのcascade削除では消えないため、
 // 先に対象の画像を明示的に削除してからspots行を削除する。
 export async function deleteSpot(spot: Spot): Promise<void> {
-  const paths = (spot.images ?? []).map((img) => img.storage_path).filter(Boolean);
+  // フル画像に加え、別途生成しているサムネイル画像も孤立ファイルとして残らないよう削除する
+  const paths = (spot.images ?? []).flatMap((img) => [img.storage_path, img.thumbnail_path]).filter(Boolean) as string[];
   if (paths.length > 0) {
     const { error: storageError } = await supabase.storage.from('spot-images').remove(paths);
     // Storage側の削除に失敗しても、投稿自体は削除できるよう続行する（孤立ファイルは残るが致命的ではない）
@@ -327,6 +331,14 @@ export async function reportSpot(
 export function spotImageUrl(storagePath: string): string {
   const { data } = supabase.storage.from('spot-images').getPublicUrl(storagePath);
   return data.publicUrl;
+}
+
+// グリッド/カードなど小さい表示専用。サムネイルが生成されていればそちらを、
+// なければフル画像を使う。フル画像は詳細画面のような大きな表示でのみ使うこと
+// (一覧画面で毎回フル画像を読み込むと、投稿数の多いアカウントを開いたときに
+// 大量の高解像度画像を同時デコードして重くなる)。
+export function spotImageThumbUrl(image: Pick<SpotImage, 'storage_path' | 'thumbnail_path'>): string {
+  return spotImageUrl(image.thumbnail_path ?? image.storage_path);
 }
 
 // join結果のネスト構造をフラットな Spot[] に整形する

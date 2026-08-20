@@ -11,7 +11,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useFocusEffect } from '@react-navigation/native';
 import Text from '../components/AppText';
 import { UsernameWithBadge } from '../components/UserBadge';
-import { fetchPublishedSpotsByAuthor, spotImageUrl } from '../lib/spots';
+import { fetchPublishedSpotsByAuthor, spotImageThumbUrl } from '../lib/spots';
 import { fetchProfileById, fetchFollowCounts, isFollowing, toggleFollow, type FollowCounts } from '../lib/profiles';
 import { useAuth } from '../lib/AuthContext';
 import { colors } from '../lib/theme';
@@ -153,7 +153,7 @@ export default function UserProfileScreen({ route, navigation }: Props) {
             onPress={() => navigation.navigate('SpotDetail', { spotId: item.slug })}
           >
             {item.images && item.images.length > 0 ? (
-              <Image source={{ uri: spotImageUrl(item.images[0].storage_path) }} style={styles.gridImage} />
+              <Image source={{ uri: spotImageThumbUrl(item.images[0]) }} style={styles.gridImage} />
             ) : (
               <View style={[styles.gridImage, styles.noImage]} />
             )}
