@@ -19,7 +19,11 @@ import InstagramEmbed from './InstagramEmbed';
 import { spotImageUrl } from '../lib/spots';
 import { shareSpot, copyLink } from '../lib/share';
 import { colors } from '../lib/theme';
-import type { Spot, ReportReason } from '../types/database';
+import type { Spot, SpotImage, SpotEmbed, ReportReason } from '../types/database';
+
+// 画像・Instagram埋め込みを「メディア」として一つの横スクロールにまとめて扱うための型。
+// 表示順は画像(position順)→Instagram埋め込み(position順)。
+type MediaItem = { kind: 'image'; image: SpotImage } | { kind: 'instagram'; embed: SpotEmbed };
 
 // PC/Web表示時に画像・本文が横に広がりすぎないようにする最大幅。
 const MAX_CONTENT_WIDTH = 640;
@@ -87,11 +91,19 @@ export default function SpotDetailContent({
   // 先頭画像の縦横比（高さ÷幅）。取得できるまではimageHeightのデフォルト値で表示する。
   const [imageAspectRatio, setImageAspectRatio] = useState<number | null>(null);
 
-  const firstImage =
-    spot?.images && spot.images.length > 0
-      ? [...spot.images].sort((a, b) => a.position - b.position)[0]
-      : null;
-  const firstImagePath = firstImage?.storage_path ?? null;
+  // 画像とInstagram埋め込みをまとめて1つの横スライドで扱う。
+  // 表示順は画像→Instagram埋め込み。カルーセル全体の高さは(下記の通り)先頭画像の
+  // 縦横比に合わせるため、画像がある場合は画像を先に並べるのが自然な見た目になる。
+  const sortedImages = spot?.images ? [...spot.images].sort((a, b) => a.position - b.position) : [];
+  const sortedEmbeds = spot?.embeds
+    ? [...spot.embeds].filter((e) => e.platform === 'instagram').sort((a, b) => a.position - b.position)
+    : [];
+  const mediaItems: MediaItem[] = [
+    ...sortedImages.map((image) => ({ kind: 'image' as const, image })),
+    ...sortedEmbeds.map((embed) => ({ kind: 'instagram' as const, embed })),
+  ];
+
+  const firstImagePath = sortedImages[0]?.storage_path ?? null;
 
   useEffect(() => {
     setImageAspectRatio(null);
@@ -140,28 +152,31 @@ export default function SpotDetailContent({
       scrollEventThrottle={16}
     >
       <View style={[styles.contentWrapper, { maxWidth: MAX_CONTENT_WIDTH }]}>
-        {spot.images && spot.images.length > 0 ? (
+        {mediaItems.length > 0 && (
           <ScrollView
             horizontal
             pagingEnabled
             showsHorizontalScrollIndicator={false}
             style={{ width: contentWidth }}
           >
-            {spot.images
-              .sort((a, b) => a.position - b.position)
-              .map((img) => (
+            {mediaItems.map((item) =>
+              item.kind === 'image' ? (
                 <Image
-                  key={img.id}
-                  source={{ uri: spotImageUrl(img.storage_path) }}
+                  key={`image-${item.image.id}`}
+                  source={{ uri: spotImageUrl(item.image.storage_path) }}
                   style={[styles.image, { width: contentWidth, height: displayedImageHeight }]}
                   resizeMode="cover"
                 />
-              ))}
+              ) : (
+                <View
+                  key={`instagram-${item.embed.id}`}
+                  style={[styles.embedSlide, { width: contentWidth, height: displayedImageHeight }]}
+                >
+                  <InstagramEmbed url={item.embed.url} />
+                </View>
+              )
+            )}
           </ScrollView>
-        ) : (
-          <View
-            style={[styles.image, styles.noImage, { width: contentWidth, height: displayedImageHeight }]}
-          />
         )}
 
         <View style={styles.body}>
@@ -198,19 +213,6 @@ export default function SpotDetailContent({
         )}
 
         {spot.description && <Text style={styles.description}>{spot.description}</Text>}
-
-        {spot.embeds && spot.embeds.filter((e) => e.platform === 'instagram').length > 0 && (
-          <View style={styles.embedSection}>
-            <Text style={styles.embedHeading}>Instagram</Text>
-            {spot.embeds
-              .filter((e) => e.platform === 'instagram')
-              .map((embed) => (
-                <View key={embed.id} style={styles.embedItem}>
-                  <InstagramEmbed url={embed.url} />
-                </View>
-              ))}
-          </View>
-        )}
 
         <View style={styles.actionRow}>
           <View style={styles.iconButtonsRow}>
@@ -356,15 +358,14 @@ const styles = StyleSheet.create({
     paddingVertical: 60,
   },
   image: {},
-  noImage: { backgroundColor: colors.background },
+  // Instagram埋め込みも画像と同じ横スライドの中で扱うため、画像スロットと同じ土台に
+  // 埋め込みを乗せるための枠。はみ出た分は画像のcoverと同様にクリップする。
+  embedSlide: { backgroundColor: colors.background, overflow: 'hidden' },
   body: { padding: 20, backgroundColor: colors.accent },
   metaRow: { flexDirection: 'row', alignItems: 'center', flexWrap: 'wrap', gap: 8 },
   meta: { fontSize: 13, color: colors.accentTextMuted },
   authorText: { fontSize: 13, color: colors.accentText, fontWeight: '600' },
   tagRow: { flexDirection: 'row', flexWrap: 'wrap', marginTop: 14, gap: 8 },
-  embedSection: { marginTop: 18 },
-  embedHeading: { fontSize: 13, fontWeight: '700', color: colors.accentText, marginBottom: 10 },
-  embedItem: { marginBottom: 14, borderRadius: 12, overflow: 'hidden', backgroundColor: colors.background },
   tagChip: {
     backgroundColor: colors.background,
     paddingHorizontal: 12,
