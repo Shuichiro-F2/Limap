@@ -68,15 +68,18 @@ const DEFAULT_HEIGHT = 420;
 // 見えなくなることがないよう、これより小さい値には縮めない。
 const MIN_HEIGHT = 60;
 
-type Props = { url: string };
+// 画像と同じメディアカルーセルに乗せる都合上、ウィジェット全体が見切れないよう、
+// WebView自身の高さだけでなく、実測した高さを親コンポーネントにも伝える。
+type Props = { url: string; onHeightChange?: (height: number) => void };
 
-export default function InstagramEmbed({ url }: Props) {
+export default function InstagramEmbed({ url, onHeightChange }: Props) {
   const [height, setHeight] = useState(DEFAULT_HEIGHT);
 
   const onMessage = (event: WebViewMessageEvent) => {
     const parsed = Number(event.nativeEvent.data);
     if (!Number.isNaN(parsed) && parsed >= MIN_HEIGHT && parsed !== height) {
       setHeight(parsed);
+      onHeightChange?.(parsed);
     }
   };
 

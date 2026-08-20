@@ -44,9 +44,13 @@ function escapeHtmlAttr(value: string): string {
 // そこで一定時間待っても高さがつかない場合は、Instagramへの外部リンクにフォールバックする。
 const RESIZE_TIMEOUT_MS = 2500;
 
-type Props = { url: string };
+// 画像と同じメディアカルーセルに乗せる都合上、ウィジェット全体(キャプションや
+// ヘッダーを含む)が見切れないよう、実際のDOM高さを親コンポーネントに伝える。
+// Instagram側のiframeリサイズは画像読み込み等で後から変化することもあるため、
+// 一度きりの計測ではなくResizeObserverで継続的に監視する。
+type Props = { url: string; onHeightChange?: (height: number) => void };
 
-export default function InstagramEmbed({ url }: Props) {
+export default function InstagramEmbed({ url, onHeightChange }: Props) {
   const containerRef = useRef<View>(null);
 
   useEffect(() => {
@@ -58,6 +62,15 @@ export default function InstagramEmbed({ url }: Props) {
     node.innerHTML = `
       <blockquote class="instagram-media" data-instgrm-permalink="${safeUrl}" data-instgrm-version="14" style="margin:0 auto; width:100%;"></blockquote>
     `;
+
+    let resizeObserver: ResizeObserver | null = null;
+    if (typeof ResizeObserver !== 'undefined' && onHeightChange) {
+      resizeObserver = new ResizeObserver((entries) => {
+        const height = entries[0]?.contentRect.height;
+        if (height && height > 0) onHeightChange(height);
+      });
+      resizeObserver.observe(node);
+    }
 
     loadEmbedScript().then(() => {
       if (cancelled) return;
@@ -81,12 +94,14 @@ export default function InstagramEmbed({ url }: Props) {
           link.style.cssText =
             'display:block; padding:16px; text-align:center; border-radius:8px; text-decoration:none; font-size:14px; font-weight:600; background-color:#262626; color:#ffffff; border:1px solid rgba(255,255,255,0.15);';
           node.appendChild(link);
+          onHeightChange?.(node.getBoundingClientRect().height);
         }
       }, RESIZE_TIMEOUT_MS);
     });
 
     return () => {
       cancelled = true;
+      resizeObserver?.disconnect();
     };
   }, [url]);
 

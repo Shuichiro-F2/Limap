@@ -32,6 +32,10 @@ const MAX_CONTENT_WIDTH = 640;
 // ただし極端に縦長な画像の場合はこの倍率(横幅比)を上限に高さをクランプし、はみ出た分だけカットする。
 const MAX_IMAGE_ASPECT_RATIO = 1.5;
 
+// Instagram埋め込みの実測高さがまだ届いていない間の仮の高さ。
+// react-native-webview版のDEFAULT_HEIGHTと合わせておく。
+const EMBED_FALLBACK_HEIGHT = 420;
+
 const REPORT_REASONS: { value: ReportReason; label: string }[] = [
   { value: 'privacy', label: 'プライバシー・私有地の懸念' },
   { value: 'wrong_location', label: '位置情報が誤っている' },
@@ -90,6 +94,9 @@ export default function SpotDetailContent({
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   // 先頭画像の縦横比（高さ÷幅）。取得できるまではimageHeightのデフォルト値で表示する。
   const [imageAspectRatio, setImageAspectRatio] = useState<number | null>(null);
+  // Instagram埋め込みごとの実測高さ(embed.idをキーに保持)。
+  // ウィジェット全体が見切れないよう、カルーセルの高さはこれらの最大値を含めて決める。
+  const [embedHeights, setEmbedHeights] = useState<Record<string, number>>({});
 
   // 画像とInstagram埋め込みをまとめて1つの横スライドで扱う。
   // 表示順は画像→Instagram埋め込み。カルーセル全体の高さは(下記の通り)先頭画像の
@@ -121,11 +128,32 @@ export default function SpotDetailContent({
     };
   }, [firstImagePath]);
 
-  // 縦横比が判明していれば、上下がカットされないよう画像の高さを実寸に合わせる。
+  // スポットが切り替わったら、前のスポットのInstagram埋め込みの実測高さを引き継がない。
+  useEffect(() => {
+    setEmbedHeights({});
+  }, [spot?.id]);
+
+  // 画像側の希望の高さ。縦横比が判明していれば、上下がカットされないよう実寸に合わせる。
   // 極端に縦長な場合はMAX_IMAGE_ASPECT_RATIOを超えないようクランプし、その分だけカットする。
-  const displayedImageHeight = imageAspectRatio
-    ? Math.min(contentWidth * imageAspectRatio, contentWidth * MAX_IMAGE_ASPECT_RATIO)
-    : imageHeight;
+  // 画像が1枚もない場合はInstagram埋め込みの高さだけで決まるので0として扱う。
+  const baseImageHeight =
+    sortedImages.length === 0
+      ? 0
+      : imageAspectRatio
+        ? Math.min(contentWidth * imageAspectRatio, contentWidth * MAX_IMAGE_ASPECT_RATIO)
+        : imageHeight;
+
+  // Instagram埋め込みの実測高さの最大値。ウィジェット全体(キャプション等含む)が
+  // 見切れないよう、カルーセルの高さはこれを下回らないようにする。
+  // 実測がまだ届いていない埋め込みがあればEMBED_FALLBACK_HEIGHTを仮の高さとして使う。
+  const maxEmbedHeight =
+    sortedEmbeds.length === 0
+      ? 0
+      : Math.max(...sortedEmbeds.map((e) => embedHeights[e.id] ?? EMBED_FALLBACK_HEIGHT));
+
+  // カルーセル全体で共有する高さ。画像だけの縦横比ではなく、Instagram埋め込みの
+  // 実際の高さも含めた最大値に合わせることで、埋め込みが枠内で見切れないようにする。
+  const displayedImageHeight = mediaItems.length === 0 ? imageHeight : Math.max(baseImageHeight, maxEmbedHeight);
 
   if (loading || !spot) {
     return (
@@ -172,7 +200,12 @@ export default function SpotDetailContent({
                   key={`instagram-${item.embed.id}`}
                   style={[styles.embedSlide, { width: contentWidth, height: displayedImageHeight }]}
                 >
-                  <InstagramEmbed url={item.embed.url} />
+                  <InstagramEmbed
+                    url={item.embed.url}
+                    onHeightChange={(height) =>
+                      setEmbedHeights((prev) => (prev[item.embed.id] === height ? prev : { ...prev, [item.embed.id]: height }))
+                    }
+                  />
                 </View>
               )
             )}
@@ -358,9 +391,12 @@ const styles = StyleSheet.create({
     paddingVertical: 60,
   },
   image: {},
-  // Instagram埋め込みも画像と同じ横スライドの中で扱うため、画像スロットと同じ土台に
-  // 埋め込みを乗せるための枠。はみ出た分は画像のcoverと同様にクリップする。
-  embedSlide: { backgroundColor: colors.background, overflow: 'hidden' },
+  // Instagram埋め込みも画像と同じ横スライドの中で扱うための枠。
+  // カルーセルの高さ自体を埋め込みの実測高さに合わせて広げているため、
+  // 通常はここでクリップされることはない(overflow:hiddenは計測が届く前の一瞬の保険)。
+  // 他のスライド(画像や、より縦長の別の埋め込み)に合わせて枠の方が高くなった場合は
+  // 埋め込みを縦中央に配置する。
+  embedSlide: { backgroundColor: colors.background, overflow: 'hidden', justifyContent: 'center' },
   body: { padding: 20, backgroundColor: colors.accent },
   metaRow: { flexDirection: 'row', alignItems: 'center', flexWrap: 'wrap', gap: 8 },
   meta: { fontSize: 13, color: colors.accentTextMuted },
