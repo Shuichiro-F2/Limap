@@ -26,6 +26,7 @@ export type RootStackParamList = {
   Help: undefined;
   Privacy: undefined;
   Terms: undefined;
+  AddToHomeScreen: undefined;
   EditProfile: undefined;
   FollowList: { userId: string; mode: 'followers' | 'following' };
 };

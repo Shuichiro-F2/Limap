@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover" />
     <title>LIMap（リマップ） | リミナルスペースを記録・共有する地図アプリ</title>
     <meta
       name="description"
@@ -12,6 +12,15 @@
     <link rel="canonical" href="https://limap.jp/" />
     <meta name="theme-color" content="#1a1a1a" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.json" />
+    <!-- iOSでホーム画面に追加した際、Safariのアドレスバー/ツールバーを一切表示せず
+         全画面のアプリのように開かせるための指定。これが無いと画面ごとにスクロール状態次第で
+         上下バーの表示が揺れてしまう(地図画面等だけ全画面に見える不具合の原因)。 -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="LIMap" />
     <meta name="google-site-verification" content="NGNarhGHxaFdB6fOyLNuQzbdUNDsjNjHO1vjJrdUFps" />
 
     <!-- Open Graph / Facebook / LINEなど -->

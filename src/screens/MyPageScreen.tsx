@@ -9,6 +9,7 @@ import {
   ActivityIndicator,
   RefreshControl,
   useWindowDimensions,
+  Platform,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useFocusEffect } from '@react-navigation/native';
@@ -21,6 +22,7 @@ import { fetchFollowCounts, type FollowCounts } from '../lib/profiles';
 import { useAuth } from '../lib/AuthContext';
 import { useTranslation } from '../lib/i18n';
 import { colors } from '../lib/theme';
+import { isStandaloneDisplay } from '../lib/pwaInstall';
 import type { Spot } from '../types/database';
 import type { MainTabScreenProps } from '../navigation/types';
 
@@ -183,6 +185,15 @@ export default function MyPageScreen({ navigation }: Props) {
         <Pressable onPress={() => navigation.navigate('About')} hitSlop={8}>
           <Text style={styles.footerLinkText}>{t.myPage.about}</Text>
         </Pressable>
+        {/* ホーム画面への追加はWeb版限定。すでにホーム画面から起動している場合は表示不要 */}
+        {Platform.OS === 'web' && !isStandaloneDisplay() && (
+          <>
+            <Text style={styles.footerLinkDivider}>・</Text>
+            <Pressable onPress={() => navigation.navigate('AddToHomeScreen')} hitSlop={8}>
+              <Text style={styles.footerLinkText}>{t.myPage.addToHomeScreen}</Text>
+            </Pressable>
+          </>
+        )}
       </View>
 
       <View style={styles.tabRow}>

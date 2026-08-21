@@ -174,13 +174,18 @@ function renderArticlePage(article, all) {
 <html lang="ja">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover" />
     <title>${escapeHtml(ja.title)} | LIMap</title>
     <meta name="description" content="${escapeHtml(ja.metaDescription)}" />
     <link rel="canonical" href="${url}" />
     <meta name="theme-color" content="#16130f" />
     <link rel="apple-touch-icon" href="${SITE_URL}/apple-touch-icon.png" />
     <link rel="icon" href="${SITE_URL}/apple-touch-icon.png" />
+    <link rel="manifest" href="${SITE_URL}/manifest.json" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="LIMap" />
 
     <meta property="og:type" content="article" />
     <meta property="og:site_name" content="LIMap" />
@@ -264,13 +269,18 @@ function renderHubPage(all) {
 <html lang="ja">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover" />
     <title>${escapeHtml(title)}</title>
     <meta name="description" content="${escapeHtml(description)}" />
     <link rel="canonical" href="${url}" />
     <meta name="theme-color" content="#16130f" />
     <link rel="apple-touch-icon" href="${SITE_URL}/apple-touch-icon.png" />
     <link rel="icon" href="${SITE_URL}/apple-touch-icon.png" />
+    <link rel="manifest" href="${SITE_URL}/manifest.json" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="LIMap" />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="LIMap" />

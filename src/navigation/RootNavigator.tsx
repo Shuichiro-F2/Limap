@@ -20,6 +20,7 @@ import AboutScreen from '../screens/AboutScreen';
 import HelpScreen from '../screens/HelpScreen';
 import PrivacyScreen from '../screens/PrivacyScreen';
 import TermsScreen from '../screens/TermsScreen';
+import AddToHomeScreenScreen from '../screens/AddToHomeScreenScreen';
 import EditProfileScreen from '../screens/EditProfileScreen';
 import FollowListScreen from '../screens/FollowListScreen';
 import LoadingScreen from '../components/LoadingScreen';
@@ -59,6 +60,7 @@ const linking: LinkingOptions<RootStackParamList> = {
       Help: 'help',
       Privacy: 'privacy',
       Terms: 'terms',
+      AddToHomeScreen: 'add-to-home-screen',
       EditProfile: 'edit-profile',
       FollowList: 'user/:userId/:mode',
     },
@@ -151,6 +153,11 @@ export default function RootNavigator() {
           options={{ title: 'プライバシーポリシー' }}
         />
         <Stack.Screen name="Terms" component={TermsScreen} options={{ title: '利用規約' }} />
+        <Stack.Screen
+          name="AddToHomeScreen"
+          component={AddToHomeScreenScreen}
+          options={{ title: 'ホーム画面に追加' }}
+        />
         <Stack.Screen
           name="EditProfile"
           component={EditProfileScreen}
