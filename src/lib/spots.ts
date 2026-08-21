@@ -288,6 +288,114 @@ export async function createSpot(authorId: string, input: CreateSpotInput): Prom
   return fetchSpotBySlug(spot.slug);
 }
 
+export interface UpdateSpotInput {
+  title: string;
+  description?: string;
+  access?: string;
+  recommendedVisitTime?: VisitTime;
+  lat: number;
+  lng: number;
+  tagIds: number[];
+  // 既存画像のうち残すものの id 一覧。それ以外の既存画像(id)は削除される
+  keepImageIds: string[];
+  // 今回新たにアップロードした画像。既存の残す画像の後ろに追加される
+  newImagePaths: { path: string; thumbnailPath: string | null }[];
+  embedUrls?: string[];
+}
+
+// 投稿者本人による投稿編集。spotsテーブルの更新に加え、タグ・画像・SNS埋め込みも
+// 送信された内容に合わせて入れ替える(タグ/埋め込みは全削除→再挿入、画像は差分のみ処理)。
+export async function updateSpot(spot: Spot, input: UpdateSpotInput): Promise<Spot> {
+  if (input.tagIds.length > 5) {
+    throw new Error('タグは5個までしか設定できません');
+  }
+  const embedUrls = input.embedUrls ?? [];
+  if (embedUrls.length > MAX_SNS_EMBEDS) {
+    throw new Error(`SNS投稿は${MAX_SNS_EMBEDS}件までしか設定できません`);
+  }
+  const detectedEmbeds = embedUrls.map((url) => detectEmbedUrl(url));
+  if (detectedEmbeds.some((e) => !e)) {
+    throw new Error('SNS投稿のURLが正しくありません(Instagram/Xの投稿URLを指定してください)');
+  }
+
+  const { error } = await supabase
+    .from('spots')
+    .update({
+      title: input.title,
+      description: input.description ?? null,
+      access: input.access ?? null,
+      recommended_visit_time: input.recommendedVisitTime ?? null,
+      lat: input.lat,
+      lng: input.lng,
+    })
+    .eq('id', spot.id);
+  if (error) throw error;
+
+  // タグはシンプルに全削除してから選択されたものを入れ直す
+  const { error: delTagError } = await supabase.from('spot_tags').delete().eq('spot_id', spot.id);
+  if (delTagError) throw delTagError;
+  if (input.tagIds.length > 0) {
+    const { error: tagError } = await supabase
+      .from('spot_tags')
+      .insert(input.tagIds.map((tagId) => ({ spot_id: spot.id, tag_id: tagId })));
+    if (tagError) throw tagError;
+  }
+
+  // 画像: 残す指定のなかった既存画像は削除(Storage上のファイルも消す)、
+  // 残す画像はposition を詰め直し、新規画像はその後ろに追加する
+  const existingImages = spot.images ?? [];
+  const removedImages = existingImages.filter((img) => !input.keepImageIds.includes(img.id));
+  if (removedImages.length > 0) {
+    const removedIds = removedImages.map((img) => img.id);
+    const removedPaths = removedImages
+      .flatMap((img) => [img.storage_path, img.thumbnail_path])
+      .filter(Boolean) as string[];
+    if (removedPaths.length > 0) {
+      const { error: storageError } = await supabase.storage.from('spot-images').remove(removedPaths);
+      if (storageError) console.warn('画像ファイル削除エラー', storageError);
+    }
+    const { error: delImgError } = await supabase.from('spot_images').delete().in('id', removedIds);
+    if (delImgError) throw delImgError;
+  }
+
+  const keptImages = existingImages.filter((img) => input.keepImageIds.includes(img.id));
+  for (let i = 0; i < keptImages.length; i++) {
+    if (keptImages[i].position !== i) {
+      const { error: posError } = await supabase.from('spot_images').update({ position: i }).eq('id', keptImages[i].id);
+      if (posError) console.warn('画像position更新エラー', posError);
+    }
+  }
+
+  if (input.newImagePaths.length > 0) {
+    const { error: imgError } = await supabase.from('spot_images').insert(
+      input.newImagePaths.map((img, i) => ({
+        spot_id: spot.id,
+        storage_path: img.path,
+        thumbnail_path: img.thumbnailPath,
+        position: keptImages.length + i,
+      }))
+    );
+    if (imgError) throw imgError;
+  }
+
+  // SNS埋め込みもタグと同様、全削除してから入れ直す
+  const { error: delEmbedError } = await supabase.from('spot_embeds').delete().eq('spot_id', spot.id);
+  if (delEmbedError) throw delEmbedError;
+  if (detectedEmbeds.length > 0) {
+    const { error: embedError } = await supabase.from('spot_embeds').insert(
+      detectedEmbeds.map((embed, i) => ({
+        spot_id: spot.id,
+        platform: embed!.platform,
+        url: embed!.url,
+        position: i,
+      }))
+    );
+    if (embedError) throw embedError;
+  }
+
+  return fetchSpotBySlug(spot.slug);
+}
+
 export async function toggleLike(userId: string, spotId: string, currentlyLiked: boolean) {
   if (currentlyLiked) {
     const { error } = await supabase

@@ -14,7 +14,12 @@ export type RootStackParamList = {
   Main: NavigatorScreenParams<MainTabParamList> | undefined;
   SpotDetail: { spotId: string };
   CreateSpot: { pickedLat?: number; pickedLng?: number } | undefined;
-  LocationPicker: { initialLat?: number; initialLng?: number } | undefined;
+  EditSpot: { spotId: string; pickedLat?: number; pickedLng?: number };
+  // returnTo/spotIdは「地図から選択」の呼び出し元がCreateSpot/EditSpotのどちらかを
+  // 判別し、確定後に正しい画面(+編集対象)へ戻すために使う(未指定時はCreateSpotへ戻る)
+  LocationPicker:
+    | { initialLat?: number; initialLng?: number; returnTo?: 'CreateSpot' | 'EditSpot'; spotId?: string }
+    | undefined;
   UserProfile: { userId: string };
   Auth: undefined;
   About: undefined;

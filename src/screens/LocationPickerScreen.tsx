@@ -88,7 +88,15 @@ export default function LocationPickerScreen({ navigation, route }: Props) {
   };
 
   const confirm = () => {
-    navigation.navigate('CreateSpot', { pickedLat: center.lat, pickedLng: center.lng });
+    if (route.params?.returnTo === 'EditSpot' && route.params.spotId) {
+      navigation.navigate('EditSpot', {
+        spotId: route.params.spotId,
+        pickedLat: center.lat,
+        pickedLng: center.lng,
+      });
+    } else {
+      navigation.navigate('CreateSpot', { pickedLat: center.lat, pickedLng: center.lng });
+    }
   };
 
   return (

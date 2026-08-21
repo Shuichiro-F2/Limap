@@ -63,6 +63,11 @@ export default function SpotDetailScreen({ route, navigation }: Props) {
     }
   };
 
+  const goToEdit = () => {
+    if (!spot) return;
+    navigation.navigate('EditSpot', { spotId: spot.slug });
+  };
+
   // 削除後は詳細画面に留まれないため、戻れる場合は戻り、戻れない場合は地図画面へ遷移する
   const onDelete = async () => {
     const success = await handleDelete();
@@ -92,6 +97,7 @@ export default function SpotDetailScreen({ route, navigation }: Props) {
         onTagPress={goToTag}
         onAuthorPress={goToAuthor}
         isOwner={isOwner}
+        onEdit={goToEdit}
         onDelete={onDelete}
         deleting={deleting}
       />

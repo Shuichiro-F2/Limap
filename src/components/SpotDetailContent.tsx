@@ -70,6 +70,7 @@ type Props = {
   onTagPress?: (tagId: number) => void;
   onAuthorPress?: (userId: string) => void;
   isOwner?: boolean;
+  onEdit?: () => void;
   onDelete?: () => void;
   deleting?: boolean;
 };
@@ -93,6 +94,7 @@ export default function SpotDetailContent({
   onTagPress,
   onAuthorPress,
   isOwner = false,
+  onEdit,
   onDelete,
   deleting = false,
 }: Props) {
@@ -344,6 +346,18 @@ export default function SpotDetailContent({
               >
                 <Ionicons name="link-outline" size={18} color={colors.textPrimary} />
                 <Text style={styles.menuItemText}>リンクをコピー</Text>
+              </Pressable>
+            )}
+            {isOwner && onEdit && (
+              <Pressable
+                style={styles.menuItem}
+                onPress={() => {
+                  setShowMenu(false);
+                  onEdit();
+                }}
+              >
+                <Ionicons name="create-outline" size={18} color={colors.textPrimary} />
+                <Text style={styles.menuItemText}>編集する</Text>
               </Pressable>
             )}
             {isOwner && onDelete ? (

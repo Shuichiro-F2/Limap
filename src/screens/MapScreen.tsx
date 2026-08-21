@@ -291,6 +291,10 @@ export default function MapScreen({ navigation, route }: Props) {
             navigation.navigate('UserProfile', { userId });
           }
         }}
+        onEdit={(slug) => {
+          setSelectedSpotId(null);
+          navigation.navigate('EditSpot', { spotId: slug });
+        }}
         onDeleted={() => {
           setSelectedSpotId(null);
           loadForBounds();

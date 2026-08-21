@@ -35,6 +35,7 @@ type Props = {
   onViewOnMap?: (lat: number, lng: number) => void;
   onTagPress?: (tagId: number) => void;
   onAuthorPress?: (userId: string) => void;
+  onEdit?: (slug: string) => void;
   onDeleted?: () => void;
 };
 
@@ -44,6 +45,7 @@ export default function SpotPreviewSheet({
   onViewOnMap,
   onTagPress,
   onAuthorPress,
+  onEdit,
   onDeleted,
 }: Props) {
   const {
@@ -255,6 +257,14 @@ export default function SpotPreviewSheet({
                   : undefined
               }
               isOwner={isOwner}
+              onEdit={
+                onEdit && spot
+                  ? () => {
+                      onEdit(spot.slug);
+                      close();
+                    }
+                  : undefined
+              }
               onDelete={onDelete}
               deleting={deleting}
             />
