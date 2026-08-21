@@ -50,6 +50,9 @@ span[data-lang].lang-active {
   justify-content: space-between;
   gap: 12px;
   padding: 16px 20px;
+  /* ホーム画面に追加してスタンドアロン表示にした際、ステータスバー(時計・電池等)の
+     領域にヘッダーが被らないよう、ノッチ/ステータスバー分の余白を追加で確保する */
+  padding-top: calc(16px + env(safe-area-inset-top, 0px));
   border-bottom: 1px solid var(--border);
   position: sticky;
   top: 0;

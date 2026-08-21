@@ -72,6 +72,13 @@
       body {
         height: 100%;
       }
+      /* ホーム画面に追加してスタンドアロン表示にした際、ノッチ/ホームインジケーター分の
+         セーフエリア(env(safe-area-inset-*))が各画面のレイアウト計算で反映されるまでの間や
+         万一余白がずれた場合でも、下地が白く見えないようにアプリの背景色で塗っておく。 */
+      html,
+      body {
+        background-color: #1a1a1a;
+      }
       /* These styles disable body scrolling if you are using <ScrollView> */
       body {
         overflow: hidden;
