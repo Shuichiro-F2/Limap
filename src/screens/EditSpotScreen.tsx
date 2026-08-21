@@ -19,6 +19,7 @@ import { fetchSpotBySlug, updateSpot, spotImageThumbUrl } from '../lib/spots';
 import { resizeImageForUpload, extensionForContentType, THUMBNAIL_RESIZE_OPTIONS } from '../lib/imageResize';
 import { fetchAllTags, findOrCreateTag } from '../lib/tags';
 import { detectEmbedUrl, MAX_SNS_EMBEDS, type DetectedEmbed } from '../lib/embeds';
+import { isValidHttpUrl } from '../lib/url';
 import { useAuth } from '../lib/AuthContext';
 import { useTranslation } from '../lib/i18n';
 import { notify } from '../lib/notify';
@@ -49,6 +50,7 @@ export default function EditSpotScreen({ navigation, route }: Props) {
   const [description, setDescription] = useState('');
   const [access, setAccess] = useState('');
   const [visitTime, setVisitTime] = useState<VisitTime | null>(null);
+  const [googleMapsUrl, setGoogleMapsUrl] = useState('');
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
   const [tagInput, setTagInput] = useState('');
   const [allTags, setAllTags] = useState<Tag[]>([]);
@@ -93,6 +95,7 @@ export default function EditSpotScreen({ navigation, route }: Props) {
         setDescription(data.description ?? '');
         setAccess(data.access ?? '');
         setVisitTime(data.recommended_visit_time ?? null);
+        setGoogleMapsUrl(data.google_maps_url ?? '');
         setSelectedTags(data.tags ?? []);
         setExistingImages([...(data.images ?? [])].sort((a, b) => a.position - b.position));
         setCoords({ lat: data.lat, lng: data.lng });
@@ -268,6 +271,12 @@ export default function EditSpotScreen({ navigation, route }: Props) {
       return;
     }
 
+    const trimmedGoogleMapsUrl = googleMapsUrl.trim();
+    if (trimmedGoogleMapsUrl && !isValidHttpUrl(trimmedGoogleMapsUrl)) {
+      notify(t.createSpot.googleMapsUrlInvalidTitle, t.createSpot.googleMapsUrlInvalidMessage);
+      return;
+    }
+
     setSubmitting(true);
     try {
       const newImagePaths: { path: string; thumbnailPath: string | null }[] = [];
@@ -309,6 +318,7 @@ export default function EditSpotScreen({ navigation, route }: Props) {
         description: description.trim() || undefined,
         access: access.trim() || undefined,
         recommendedVisitTime: visitTime ?? undefined,
+        googleMapsUrl: trimmedGoogleMapsUrl || undefined,
         lat: coords.lat,
         lng: coords.lng,
         tagIds: selectedTags.map((tag) => tag.id),
@@ -376,6 +386,17 @@ export default function EditSpotScreen({ navigation, route }: Props) {
           <Text style={styles.secondaryButtonText}>{t.createSpot.chooseOnMap}</Text>
         </Pressable>
       </View>
+
+      <SectionLabel label={t.createSpot.googleMapsUrl} help={t.createSpot.googleMapsUrlHelp} />
+      <TextInput
+        style={styles.input}
+        value={googleMapsUrl}
+        onChangeText={setGoogleMapsUrl}
+        placeholder={t.createSpot.googleMapsUrlPlaceholder}
+        placeholderTextColor="#666"
+        autoCapitalize="none"
+        autoCorrect={false}
+      />
 
       <SectionLabel label={t.createSpot.access} help={t.createSpot.accessHelp} />
       <TextInput

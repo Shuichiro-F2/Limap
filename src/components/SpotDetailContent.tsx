@@ -176,8 +176,10 @@ export default function SpotDetailContent({
     );
   }
 
+  // 投稿者がGoogleマップのリンクを指定していればそちらを優先し、
+  // 未指定の場合は従来通り緯度経度から生成したリンクを開く
   const openInGoogleMaps = () => {
-    const url = `https://www.google.com/maps/search/?api=1&query=${spot.lat},${spot.lng}`;
+    const url = spot.google_maps_url || `https://www.google.com/maps/search/?api=1&query=${spot.lat},${spot.lng}`;
     Linking.openURL(url).catch(() => {});
   };
 

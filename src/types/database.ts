@@ -71,6 +71,8 @@ export interface Spot {
   access: string | null;
   // 投稿者が選んだおすすめの訪問時間帯(任意、未設定の場合はnull)
   recommended_visit_time: VisitTime | null;
+  // 投稿者が指定したGoogleマップのリンク(任意)。未設定の場合は緯度経度から生成したリンクを使う
+  google_maps_url: string | null;
   lat: number;
   lng: number;
   country: string | null;

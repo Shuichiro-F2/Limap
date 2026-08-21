@@ -211,6 +211,7 @@ export interface CreateSpotInput {
   description?: string;
   access?: string; // 最寄り駅からの行き方など、現地にたどり着くためのヒント(任意)
   recommendedVisitTime?: VisitTime; // おすすめの訪問時間帯(任意)
+  googleMapsUrl?: string; // 投稿者が指定するGoogleマップのリンク(任意、未指定なら緯度経度から生成)
   lat: number;
   lng: number;
   country?: string;
@@ -243,6 +244,7 @@ export async function createSpot(authorId: string, input: CreateSpotInput): Prom
       description: input.description ?? null,
       access: input.access ?? null,
       recommended_visit_time: input.recommendedVisitTime ?? null,
+      google_maps_url: input.googleMapsUrl ?? null,
       lat: input.lat,
       lng: input.lng,
       country: input.country ?? null,
@@ -293,6 +295,7 @@ export interface UpdateSpotInput {
   description?: string;
   access?: string;
   recommendedVisitTime?: VisitTime;
+  googleMapsUrl?: string;
   lat: number;
   lng: number;
   tagIds: number[];
@@ -325,6 +328,7 @@ export async function updateSpot(spot: Spot, input: UpdateSpotInput): Promise<Sp
       description: input.description ?? null,
       access: input.access ?? null,
       recommended_visit_time: input.recommendedVisitTime ?? null,
+      google_maps_url: input.googleMapsUrl ?? null,
       lat: input.lat,
       lng: input.lng,
     })
