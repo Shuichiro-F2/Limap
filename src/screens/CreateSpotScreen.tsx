@@ -320,7 +320,7 @@ export default function CreateSpotScreen({ navigation, route }: Props) {
 
       <Text style={styles.mediaRequiredNote}>{t.createSpot.mediaRequiredNote}</Text>
 
-      <SectionLabel label={fmt(t.createSpot.photosTemplate, MAX_PHOTOS)} help={t.createSpot.photosHelp} />
+      <SectionLabel label={t.createSpot.photos} help={fmt(t.createSpot.photosHelp, MAX_PHOTOS)} />
       <Pressable style={styles.secondaryButton} onPress={pickImages}>
         <Text style={styles.secondaryButtonText}>{t.createSpot.pickPhotos}</Text>
       </Pressable>
@@ -330,7 +330,7 @@ export default function CreateSpotScreen({ navigation, route }: Props) {
         ))}
       </ScrollView>
 
-      <SectionLabel label={fmt(t.createSpot.embedsTemplate, MAX_SNS_EMBEDS)} help={t.createSpot.embedsHelp} />
+      <SectionLabel label={t.createSpot.embeds} help={fmt(t.createSpot.embedsHelp, MAX_SNS_EMBEDS)} />
 
       {embeds.length > 0 && (
         <View style={{ marginBottom: 8 }}>
@@ -379,7 +379,7 @@ export default function CreateSpotScreen({ navigation, route }: Props) {
         </View>
       )}
 
-      <SectionLabel label={fmt(t.createSpot.hashtagsTemplate, MAX_TAGS)} help={t.createSpot.hashtagsHelp} />
+      <SectionLabel label={t.createSpot.hashtags} help={fmt(t.createSpot.hashtagsHelp, MAX_TAGS)} />
 
       {selectedTags.length > 0 && (
         <View style={styles.tagGrid}>
@@ -463,10 +463,8 @@ function SectionLabel({ label, help, required }: { label: string; help?: string;
   return (
     <View>
       <View style={styles.sectionLabelRow}>
-        <View style={styles.sectionLabelTextRow}>
-          <Text style={styles.label}>{label}</Text>
-          {required && <Text style={styles.requiredMark}>*</Text>}
-        </View>
+        <Text style={styles.label}>{label}</Text>
+        {required && <Text style={styles.requiredMark}>*</Text>}
         {help && (
           <Pressable
             onPress={() => setShowHelp((v) => !v)}
@@ -487,25 +485,24 @@ const styles = StyleSheet.create({
   sectionLabelRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    gap: 6,
     marginTop: 20,
     marginBottom: 8,
   },
-  sectionLabelTextRow: { flexDirection: 'row', alignItems: 'center' },
   label: { color: colors.textSecondary, fontSize: 13 },
-  requiredMark: { color: colors.danger, fontSize: 13, fontWeight: '700', marginLeft: 4 },
+  requiredMark: { color: colors.danger, fontSize: 13, fontWeight: '700' },
   helpButton: {
     width: 20,
     height: 20,
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: colors.border,
+    borderColor: colors.accent,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  helpButtonActive: { backgroundColor: colors.surface, borderColor: colors.textSecondary },
-  helpButtonText: { color: colors.textMuted, fontSize: 12, fontWeight: '700' },
-  helpButtonTextActive: { color: colors.textSecondary },
+  helpButtonActive: { backgroundColor: colors.accent, borderColor: colors.accent },
+  helpButtonText: { color: colors.accent, fontSize: 12, fontWeight: '700' },
+  helpButtonTextActive: { color: colors.accentText },
   helpText: { color: colors.textMuted, fontSize: 12, lineHeight: 17, marginBottom: 8 },
   mediaRequiredNote: { color: colors.danger, fontSize: 12, marginTop: 20 },
   input: {
