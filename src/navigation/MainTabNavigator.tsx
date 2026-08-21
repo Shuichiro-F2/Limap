@@ -89,6 +89,9 @@ export default function MainTabNavigator() {
   // 余白を確保する処理とは独立して機能する)。
   const insets = useSafeAreaInsets();
   return (
+    // 注意: ここでの張り出し量はTab.Navigator内のflex:1コンテンツ(地図など)が
+    // そのまま消費し、下タブバーの位置を押し下げてしまうため、SpotDetailScreen等の
+    // 単色背景の張り出しとは違い、余分なバッファを足さずinsets.bottomちょうどにする。
     <View style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: -insets.bottom }}>
       <Tab.Navigator
         tabBarPosition="bottom"

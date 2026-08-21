@@ -91,7 +91,14 @@ export default function SpotDetailScreen({ route, navigation }: Props) {
     // 途切れて見える不具合があった。position:absoluteで自前の領域を
     // 明示し、bottomをinsets.bottom分だけ余分に伸ばすことで、
     // 親コンテナの取りこぼしを吸収して実機の下端まで確実に黄色を届かせる。
-    <View style={[styles.screen, { position: 'absolute', top: 0, left: 0, right: 0, bottom: -insets.bottom }]}>
+    <View
+      style={[
+        styles.screen,
+        // insets.bottomぴったりだと機種によって数pxのグレーの隙間が残ることがあるため、
+        // 少し余分に張り出させて確実に隙間なく実機の下端まで覆う
+        { position: 'absolute', top: 0, left: 0, right: 0, bottom: -(insets.bottom + 16) },
+      ]}
+    >
       <SpotDetailContent
         spot={spot}
         loading={loading}

@@ -30,6 +30,9 @@ const CLOSED_Y = FULL_HEIGHT;
 const FLICK_VELOCITY = 1.1;
 const DRAG_THRESHOLD = 6;
 
+// insets.bottomの実測値だけでは機種によって数px足りないことがあるための保険の張り出し量
+const BOTTOM_OVERSHOOT_BUFFER = 16;
+
 type Props = {
   spotId: string | null;
   onClose: () => void;
@@ -220,7 +223,14 @@ export default function SpotPreviewSheet({
         <Animated.View
           style={[
             styles.sheet,
-            { height: FULL_HEIGHT + insets.bottom, bottom: -insets.bottom, transform: [{ translateY }] },
+            {
+              // insets.bottomぴったりだと機種によってはわずかに(数px)足りず、
+              // 実機の下端との間にごく細いグレーの隙間が残ることがあったため、
+              // 少し余分に張り出させて確実に隙間なく覆うようにする。
+              height: FULL_HEIGHT + insets.bottom + BOTTOM_OVERSHOOT_BUFFER,
+              bottom: -(insets.bottom + BOTTOM_OVERSHOOT_BUFFER),
+              transform: [{ translateY }],
+            },
           ]}
         >
           <View {...handleResponder.panHandlers} style={styles.handleArea}>
