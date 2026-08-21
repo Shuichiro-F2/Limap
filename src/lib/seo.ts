@@ -1,5 +1,6 @@
 import { Platform } from 'react-native';
 import { spotImageUrl } from './spots';
+import { colors } from './theme';
 import type { Spot } from '../types/database';
 import type { StaticPageContent } from '../content/staticPages';
 
@@ -80,6 +81,20 @@ export function applySpotSeo(spot: Spot) {
     document.head.appendChild(script);
   }
   script.textContent = JSON.stringify(jsonLd);
+}
+
+// 画面(ルート名)ごとに、ブラウザのアドレスバー/ステータスバーの色(theme-color)を
+// そのページの実際の背景色に合わせて切り替える。投稿詳細画面だけ背景が黄色のため、
+// ここに無いルートは既定値(index.htmlの静的な値と同じダークグレー)のままにする。
+const ROUTE_THEME_COLORS: Record<string, string> = {
+  SpotDetail: colors.accent,
+};
+const DEFAULT_THEME_COLOR = colors.background;
+
+export function applyThemeColorForRoute(routeName: string | undefined) {
+  if (Platform.OS !== 'web' || typeof document === 'undefined') return;
+  const color = (routeName && ROUTE_THEME_COLORS[routeName]) || DEFAULT_THEME_COLOR;
+  setMetaContent('meta[name="theme-color"]', color);
 }
 
 // 「リミナルスペースとは」「使い方」など静的な読み物ページ用。

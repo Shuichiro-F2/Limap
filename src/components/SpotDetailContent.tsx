@@ -37,6 +37,12 @@ const MAX_IMAGE_ASPECT_RATIO = 1.5;
 // react-native-webview版のDEFAULT_HEIGHTと合わせておく。
 const EMBED_FALLBACK_HEIGHT = 420;
 
+// メディアカルーセルを「ピーク表示」(隣のスライドが少しだけ見える)にするための余白。
+// MEDIA_PEEKが各スライドの左右の隙間、MEDIA_GAPがスライド間の間隔。
+// MEDIA_PEEK > MEDIA_GAP にすることで、隣のスライドの端が (MEDIA_PEEK - MEDIA_GAP) 分だけ覗く。
+const MEDIA_PEEK = 24;
+const MEDIA_GAP = 10;
+
 // おすすめの訪問時間帯(DBには英語キーで保存)の表示ラベル
 const VISIT_TIME_LABELS: Record<string, string> = {
   morning: '朝',
@@ -101,6 +107,9 @@ export default function SpotDetailContent({
   const { width: screenWidth } = useWindowDimensions();
   // PCなど横幅の広い画面では、画像や本文が横に間延びしないよう最大幅で中央寄せする。
   const contentWidth = Math.min(screenWidth, MAX_CONTENT_WIDTH);
+  // 各スライドの実際の幅。両端にMEDIA_PEEK分の隙間を作ることで、
+  // 隣にもスライドがあることがひと目でわかるようにする。
+  const mediaItemWidth = Math.max(contentWidth - MEDIA_PEEK * 2, 0);
   const [showMenu, setShowMenu] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   // 先頭画像の縦横比（高さ÷幅）。取得できるまではimageHeightのデフォルト値で表示する。
@@ -153,7 +162,7 @@ export default function SpotDetailContent({
     sortedImages.length === 0
       ? 0
       : imageAspectRatio
-        ? Math.min(contentWidth * imageAspectRatio, contentWidth * MAX_IMAGE_ASPECT_RATIO)
+        ? Math.min(mediaItemWidth * imageAspectRatio, mediaItemWidth * MAX_IMAGE_ASPECT_RATIO)
         : imageHeight;
 
   // SNS埋め込み(Instagram/X)の実測高さの最大値。ウィジェット全体(キャプション等含む)が
@@ -198,23 +207,29 @@ export default function SpotDetailContent({
         {mediaItems.length > 0 && (
           <ScrollView
             horizontal
-            pagingEnabled
             showsHorizontalScrollIndicator={false}
+            decelerationRate="fast"
+            snapToInterval={mediaItemWidth + MEDIA_GAP}
+            snapToAlignment="start"
             style={{ width: contentWidth }}
+            contentContainerStyle={{ paddingHorizontal: MEDIA_PEEK }}
           >
-            {mediaItems.map((item) =>
-              item.kind === 'image' ? (
+            {mediaItems.map((item, index) => {
+              const isLast = index === mediaItems.length - 1;
+              const itemStyle = {
+                width: mediaItemWidth,
+                height: displayedImageHeight,
+                marginRight: isLast ? 0 : MEDIA_GAP,
+              };
+              return item.kind === 'image' ? (
                 <Image
                   key={`image-${item.image.id}`}
                   source={{ uri: spotImageUrl(item.image.storage_path) }}
-                  style={[styles.image, { width: contentWidth, height: displayedImageHeight }]}
+                  style={[styles.image, itemStyle]}
                   resizeMode="cover"
                 />
               ) : (
-                <View
-                  key={`embed-${item.embed.id}`}
-                  style={[styles.embedSlide, { width: contentWidth, height: displayedImageHeight }]}
-                >
+                <View key={`embed-${item.embed.id}`} style={[styles.embedSlide, itemStyle]}>
                   {item.embed.platform === 'instagram' ? (
                     <InstagramEmbed
                       url={item.embed.url}
@@ -231,8 +246,8 @@ export default function SpotDetailContent({
                     />
                   )}
                 </View>
-              )
-            )}
+              );
+            })}
           </ScrollView>
         )}
 
@@ -442,13 +457,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingVertical: 60,
   },
-  image: {},
+  image: { borderRadius: 14 },
   // SNS埋め込み(Instagram/X)も画像と同じ横スライドの中で扱うための枠。
   // カルーセルの高さ自体を埋め込みの実測高さに合わせて広げているため、
   // 通常はここでクリップされることはない(overflow:hiddenは計測が届く前の一瞬の保険)。
   // 他のスライド(画像や、より縦長の別の埋め込み)に合わせて枠の方が高くなった場合は
-  // 埋め込みを縦中央に配置する。
-  embedSlide: { backgroundColor: colors.background, overflow: 'hidden', justifyContent: 'center' },
+  // 埋め込みを縦中央に配置する。背景は詳細画面の黄色と揃え、余白部分が別の色に
+  // 見えてしまわないようにする。
+  embedSlide: { backgroundColor: colors.accent, overflow: 'hidden', justifyContent: 'center', borderRadius: 14 },
   body: { padding: 20, backgroundColor: colors.accent },
   metaRow: { flexDirection: 'row', alignItems: 'center', flexWrap: 'wrap', gap: 8 },
   meta: { fontSize: 13, color: colors.accentTextMuted },
@@ -464,14 +480,16 @@ const styles = StyleSheet.create({
   },
   tagChipText: { color: colors.accent, fontSize: 12, fontWeight: '600' },
   description: { fontSize: 15, color: colors.accentText, marginTop: 16, lineHeight: 22 },
+  // colors.background(暗い色)を背景にする箱なので、文字色は黄色背景用の
+  // accentText系ではなく、暗い背景の上で読める明るい色を使う
   accessBox: {
     marginTop: 16,
     padding: 12,
     borderRadius: 10,
     backgroundColor: colors.background,
   },
-  accessLabel: { fontSize: 12, fontWeight: '700', color: colors.accentTextMuted, marginBottom: 4 },
-  accessText: { fontSize: 14, color: colors.accentText, lineHeight: 20 },
+  accessLabel: { fontSize: 12, fontWeight: '700', color: colors.accent, marginBottom: 4 },
+  accessText: { fontSize: 14, color: colors.textPrimary, lineHeight: 20 },
   actionRow: {
     flexDirection: 'row',
     marginTop: 24,

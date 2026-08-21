@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Image, Pressable, StyleSheet } from 'react-native';
-import { NavigationContainer, DarkTheme, type LinkingOptions } from '@react-navigation/native';
+import {
+  NavigationContainer,
+  DarkTheme,
+  useNavigationContainerRef,
+  type LinkingOptions,
+} from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Ionicons } from '@expo/vector-icons';
 import { useAuth } from '../lib/AuthContext';
@@ -19,6 +24,7 @@ import EditProfileScreen from '../screens/EditProfileScreen';
 import FollowListScreen from '../screens/FollowListScreen';
 import LoadingScreen from '../components/LoadingScreen';
 import { colors } from '../lib/theme';
+import { applyThemeColorForRoute } from '../lib/seo';
 import type { RootStackParamList } from './types';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -74,11 +80,18 @@ const navTheme = {
 export default function RootNavigator() {
   const { loading } = useAuth();
   const [minTimeElapsed, setMinTimeElapsed] = useState(false);
+  const navigationRef = useNavigationContainerRef<RootStackParamList>();
 
   useEffect(() => {
     const timer = setTimeout(() => setMinTimeElapsed(true), MIN_LOADING_SCREEN_MS);
     return () => clearTimeout(timer);
   }, []);
+
+  // 画面(現在フォーカスされているルート)が変わるたびに、ブラウザのtheme-colorを
+  // そのページの実際の背景色に合わせて切り替える(Web版のみ、ネイティブでは何もしない)
+  const syncThemeColor = () => {
+    applyThemeColorForRoute(navigationRef.getCurrentRoute()?.name);
+  };
 
   if (loading || !minTimeElapsed) {
     return <LoadingScreen />;
@@ -87,7 +100,13 @@ export default function RootNavigator() {
   // 地図・検索・スポット詳細の閲覧はログイン不要。投稿など会員限定の操作をしようとした
   // タイミングでのみ、モーダルとしてAuth画面へ遷移する（各画面側でガードする）。
   return (
-    <NavigationContainer theme={navTheme} linking={linking}>
+    <NavigationContainer
+      ref={navigationRef}
+      theme={navTheme}
+      linking={linking}
+      onReady={syncThemeColor}
+      onStateChange={syncThemeColor}
+    >
       <Stack.Navigator
         screenOptions={{
           headerStyle: { backgroundColor: colors.background },

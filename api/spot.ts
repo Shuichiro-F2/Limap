@@ -145,6 +145,14 @@ export default async function handler(req: any, res: any) {
       /<meta name="twitter:image" content="[^"]*"\s*\/>/,
       `<meta name="twitter:image" content="${escImage}" />`
     );
+    // 投稿詳細画面はアプリ内背景が黄色のため、直接このURLを開いた/共有先から
+    // 開いた場合も最初からブラウザのtheme-colorを黄色にしておく
+    // (アプリ起動後はRootNavigator側で画面遷移に応じて切り替わる)
+    html = replaceTag(
+      html,
+      /<meta name="theme-color" content="[^"]*"\s*\/>/,
+      `<meta name="theme-color" content="#dece32" />`
+    );
 
     const jsonLd = {
       '@context': 'https://schema.org',
