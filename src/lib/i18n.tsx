@@ -83,6 +83,10 @@ const dictionary = {
       androidSuccess: 'ホーム画面に追加しました',
       androidHint: 'ボタンが表示されない場合は、ブラウザメニューの「ホーム画面に追加」または「アプリをインストール」からも追加できます。',
       otherHint: 'お使いのブラウザのメニューから「ホーム画面に追加」または「インストール」を選ぶと追加できます。',
+      popupTitle: 'ホーム画面に追加してみませんか?',
+      popupLeadIos: '画面下部の共有アイコンから「ホーム画面に追加」を選ぶと、アプリのようにすぐ開けるようになります。',
+      popupLeadAndroid: 'ホーム画面に追加すると、アプリのようにすぐ開けるようになります。',
+      popupLater: '後で',
     },
     articles: {
       pageTitle: 'コラム',
@@ -189,6 +193,10 @@ const dictionary = {
       androidSuccess: 'Added to your home screen',
       androidHint: 'If the button doesn\'t appear, you can also add it from the browser menu via "Add to Home Screen" or "Install app".',
       otherHint: 'Choose "Add to Home Screen" or "Install" from your browser\'s menu to add it.',
+      popupTitle: 'Add LIMap to your Home Screen?',
+      popupLeadIos: 'Tap the Share icon at the bottom of the screen and choose "Add to Home Screen" to open it instantly, just like an app.',
+      popupLeadAndroid: 'Add it to your home screen to open it instantly, just like an app.',
+      popupLater: 'Later',
     },
     articles: {
       pageTitle: 'Articles',
