@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Image, Pressable, StyleSheet } from 'react-native';
+import { Pressable } from 'react-native';
 import {
   NavigationContainer,
   DarkTheme,
@@ -117,32 +117,12 @@ export default function RootNavigator() {
         }}
       >
         <Stack.Screen name="Main" component={MainTabNavigator} options={{ headerShown: false }} />
-        <Stack.Screen
-          name="SpotDetail"
-          component={SpotDetailScreen}
-          options={({ navigation }) => ({
-            title: '',
-            // ヘッダーも本文と同じ黄色にし、区切り線のない一体感のある見た目にする
-            headerStyle: { backgroundColor: colors.accent, height: 84 },
-            headerTintColor: colors.accentText,
-            headerShadowVisible: false,
-            headerLeftContainerStyle: { paddingTop: 14 },
-            // 他の画面と同じくロゴを左上に表示し、タップでトップページ（地図画面）へ戻れるようにする。
-            // 黄色いヘッダーの上でも見えるよう、通常の黄色ロゴではなく濃いグレー版を使う。
-            headerLeft: () => (
-              <Pressable
-                onPress={() => navigation.navigate('Main', { screen: 'MapTab' })}
-                hitSlop={10}
-              >
-                <Image
-                  source={require('../../assets/logo-header-dark.png')}
-                  style={headerStyles.logo}
-                  resizeMode="contain"
-                />
-              </Pressable>
-            ),
-          })}
-        />
+        {/*
+          投稿詳細画面は、他画面(地図・フィード等)と全く同じロゴ位置・レイアウトの
+          ヘッダーにするため、native-stackの既定ヘッダーは使わずSpotDetailScreen側で
+          共通のAppHeaderを重ねて描画する。
+        */}
+        <Stack.Screen name="SpotDetail" component={SpotDetailScreen} options={{ headerShown: false }} />
         <Stack.Screen name="CreateSpot" component={CreateSpotScreen} options={{ title: '投稿する' }} />
         <Stack.Screen name="EditSpot" component={EditSpotScreen} options={{ title: '投稿を編集' }} />
         <Stack.Screen
@@ -208,7 +188,3 @@ export default function RootNavigator() {
     </NavigationContainer>
   );
 }
-
-const headerStyles = StyleSheet.create({
-  logo: { width: 84, height: 52 },
-});

@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useSpotDetail } from '../hooks/useSpotDetail';
 import SpotDetailContent from '../components/SpotDetailContent';
+import AppHeader, { HEADER_CONTENT_HEIGHT } from '../components/AppHeader';
 import { useAuth } from '../lib/AuthContext';
 import { colors } from '../lib/theme';
 import { applySpotSeo, resetSeo } from '../lib/seo';
@@ -100,6 +101,16 @@ export default function SpotDetailScreen({ route, navigation }: Props) {
         onEdit={goToEdit}
         onDelete={onDelete}
         deleting={deleting}
+        topInset={HEADER_CONTENT_HEIGHT}
+      />
+      {/* 他の画面(地図・フィード等)と全く同じレイアウトのヘッダーにするため、
+          個別のnative-stackヘッダーではなく共通のAppHeaderをそのまま重ねて使う。
+          黄色背景に合わせて濃色ロゴを使い、タップで(このスポットの位置を中心にした)地図へ戻る。 */}
+      <AppHeader
+        logoSource={require('../../assets/logo-header-dark.png')}
+        backgroundColor={colors.accent}
+        onLogoPress={goToMap}
+        showLanguageToggle={false}
       />
     </View>
   );

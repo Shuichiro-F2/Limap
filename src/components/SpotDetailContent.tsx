@@ -43,6 +43,10 @@ const EMBED_FALLBACK_HEIGHT = 420;
 const MEDIA_PEEK = 24;
 const MEDIA_GAP = 10;
 
+// 縦長画像やリール埋め込みなど、カルーセルの必要な高さが非常に大きくなるケース向けの上限。
+// 画面高さに対する比率で決め、開いた瞬間に本文の冒頭も見える程度の余白を残す。
+const MAX_MEDIA_HEIGHT_RATIO = 0.55;
+
 // おすすめの訪問時間帯(DBには英語キーで保存)の表示ラベル
 const VISIT_TIME_LABELS: Record<string, string> = {
   morning: '朝',
@@ -79,6 +83,9 @@ type Props = {
   onEdit?: () => void;
   onDelete?: () => void;
   deleting?: boolean;
+  // 上に重なる固定ヘッダー(AppHeader)の高さ分だけ、先頭のメディアが隠れないよう空ける余白。
+  // フル画面の詳細画面でのみ指定し、プレビューシート側は0のまま(独自のハンドルバーがある)。
+  topInset?: number;
 };
 
 // スポット詳細の中身（画像カルーセル＋本文）だけを描画する表示専用コンポーネント。
@@ -103,8 +110,9 @@ export default function SpotDetailContent({
   onEdit,
   onDelete,
   deleting = false,
+  topInset = 0,
 }: Props) {
-  const { width: screenWidth } = useWindowDimensions();
+  const { width: screenWidth, height: screenHeight } = useWindowDimensions();
   // PCなど横幅の広い画面では、画像や本文が横に間延びしないよう最大幅で中央寄せする。
   const contentWidth = Math.min(screenWidth, MAX_CONTENT_WIDTH);
   // 各スライドの実際の幅。両端にMEDIA_PEEK分の隙間を作ることで、
@@ -175,7 +183,12 @@ export default function SpotDetailContent({
 
   // カルーセル全体で共有する高さ。画像だけの縦横比ではなく、SNS埋め込み(Instagram/X)の
   // 実際の高さも含めた最大値に合わせることで、埋め込みが枠内で見切れないようにする。
-  const displayedImageHeight = mediaItems.length === 0 ? imageHeight : Math.max(baseImageHeight, maxEmbedHeight);
+  // ただし、縦長画像やリール埋め込みなどでこの値が非常に大きくなる場合、開いた瞬間に
+  // ほぼメディアだけで画面が埋まってしまうため、画面高さに対する上限でクランプする
+  // (はみ出た分は中央基準でカットされるだけで、下にスクロールすれば見える)。
+  const rawDisplayedHeight = mediaItems.length === 0 ? imageHeight : Math.max(baseImageHeight, maxEmbedHeight);
+  const displayedImageHeight =
+    mediaItems.length === 0 ? rawDisplayedHeight : Math.min(rawDisplayedHeight, screenHeight * MAX_MEDIA_HEIGHT_RATIO);
 
   if (loading || !spot) {
     return (
@@ -198,7 +211,7 @@ export default function SpotDetailContent({
   return (
     <ScrollView
       style={styles.container}
-      contentContainerStyle={styles.scrollContent}
+      contentContainerStyle={[styles.scrollContent, topInset ? { paddingTop: topInset } : null]}
       scrollEnabled={scrollEnabled}
       onScroll={onScroll}
       scrollEventThrottle={16}
@@ -252,6 +265,8 @@ export default function SpotDetailContent({
         )}
 
         <View style={styles.body}>
+          {spot.title && <Text style={styles.titleText}>{spot.title}</Text>}
+
           <View style={styles.metaRow}>
             {(spot.city || spot.country) && (
               <Text style={styles.meta}>
@@ -323,6 +338,9 @@ export default function SpotDetailContent({
             <Pressable style={styles.iconButton} onPress={handleShare} hitSlop={10}>
               <Ionicons name="share-social-outline" size={24} color={colors.accentText} />
             </Pressable>
+            <Pressable style={styles.iconButton} onPress={openInGoogleMaps} hitSlop={10}>
+              <Ionicons name="navigate-outline" size={24} color={colors.accentText} />
+            </Pressable>
           </View>
           <Pressable style={styles.menuButton} onPress={() => setShowMenu((v) => !v)} hitSlop={10}>
             <Ionicons name="ellipsis-horizontal" size={22} color={colors.accentText} />
@@ -343,16 +361,6 @@ export default function SpotDetailContent({
                 <Text style={styles.menuItemText}>地図で見る</Text>
               </Pressable>
             )}
-            <Pressable
-              style={styles.menuItem}
-              onPress={() => {
-                setShowMenu(false);
-                openInGoogleMaps();
-              }}
-            >
-              <Ionicons name="navigate-outline" size={18} color={colors.textPrimary} />
-              <Text style={styles.menuItemText}>Googleマップで開く</Text>
-            </Pressable>
             {Platform.OS === 'web' && (
               <Pressable
                 style={styles.menuItem}
@@ -466,6 +474,7 @@ const styles = StyleSheet.create({
   // 見えてしまわないようにする。
   embedSlide: { backgroundColor: colors.accent, overflow: 'hidden', justifyContent: 'center', borderRadius: 14 },
   body: { padding: 20, backgroundColor: colors.accent },
+  titleText: { fontSize: 20, fontWeight: '700', color: colors.accentText, marginBottom: 8 },
   metaRow: { flexDirection: 'row', alignItems: 'center', flexWrap: 'wrap', gap: 8 },
   meta: { fontSize: 13, color: colors.accentTextMuted },
   authorText: { fontSize: 13, color: colors.accentText, fontWeight: '600' },
