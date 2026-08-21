@@ -47,6 +47,10 @@ export interface SpotImage {
 // スポットに紐付けるSNS埋め込み(現状はInstagram投稿・X投稿に対応)。
 export type SpotEmbedPlatform = 'instagram' | 'x';
 
+// 投稿者が選べる「おすすめの訪問時間帯」。リミナルスペースは時間帯によって
+// 雰囲気が大きく変わるため、最も雰囲気を感じられる時間帯を任意で選択できる。
+export type VisitTime = 'morning' | 'daytime' | 'dusk' | 'night';
+
 export interface SpotEmbed {
   id: string;
   spot_id: string;
@@ -65,6 +69,8 @@ export interface Spot {
   description: string | null;
   // 最寄り駅からの行き方など、現地にたどり着くためのヒントを書ける自由記述欄(任意)
   access: string | null;
+  // 投稿者が選んだおすすめの訪問時間帯(任意、未設定の場合はnull)
+  recommended_visit_time: VisitTime | null;
   lat: number;
   lng: number;
   country: string | null;

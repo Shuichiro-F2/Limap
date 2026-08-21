@@ -23,11 +23,12 @@ import { useAuth } from '../lib/AuthContext';
 import { useTranslation } from '../lib/i18n';
 import { notify } from '../lib/notify';
 import { colors } from '../lib/theme';
-import type { Tag } from '../types/database';
+import type { Tag, VisitTime } from '../types/database';
 import type { RootStackScreenProps } from '../navigation/types';
 
 const MAX_TAGS = 5;
 const MAX_PHOTOS = 5;
+const VISIT_TIME_OPTIONS: VisitTime[] = ['morning', 'daytime', 'dusk', 'night'];
 
 // 「写真（最大{n}枚）」のような文言の{n}部分を実際の件数に置き換える
 function fmt(template: string, n: number): string {
@@ -42,6 +43,7 @@ export default function CreateSpotScreen({ navigation, route }: Props) {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [access, setAccess] = useState('');
+  const [visitTime, setVisitTime] = useState<VisitTime | null>(null);
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
   const [tagInput, setTagInput] = useState('');
   const [allTags, setAllTags] = useState<Tag[]>([]);
@@ -163,6 +165,20 @@ export default function CreateSpotScreen({ navigation, route }: Props) {
     setEmbeds((prev) => prev.filter((e) => e.url !== url));
   };
 
+  // 訪問時間帯オプションの表示ラベルを選択中の言語で取得する
+  const visitTimeLabel = (opt: VisitTime) => {
+    switch (opt) {
+      case 'morning':
+        return t.createSpot.visitTimeMorning;
+      case 'daytime':
+        return t.createSpot.visitTimeDaytime;
+      case 'dusk':
+        return t.createSpot.visitTimeDusk;
+      case 'night':
+        return t.createSpot.visitTimeNight;
+    }
+  };
+
   const tagSuggestions = tagInput.trim()
     ? allTags
         .filter(
@@ -256,6 +272,7 @@ export default function CreateSpotScreen({ navigation, route }: Props) {
         title: derivedTitle,
         description: description.trim() || undefined,
         access: access.trim() || undefined,
+        recommendedVisitTime: visitTime ?? undefined,
         lat: coords.lat,
         lng: coords.lng,
         tagIds: selectedTags.map((tag) => tag.id),
@@ -317,6 +334,21 @@ export default function CreateSpotScreen({ navigation, route }: Props) {
         placeholderTextColor="#666"
         multiline
       />
+
+      <SectionLabel label={t.createSpot.visitTime} help={t.createSpot.visitTimeHelp} />
+      <View style={styles.tagGrid}>
+        {VISIT_TIME_OPTIONS.map((opt) => (
+          <Pressable
+            key={opt}
+            style={[styles.tagOption, visitTime === opt && styles.tagOptionSelected]}
+            onPress={() => setVisitTime((prev) => (prev === opt ? null : opt))}
+          >
+            <Text style={visitTime === opt ? styles.tagOptionTextSelected : styles.tagOptionText}>
+              {visitTimeLabel(opt)}
+            </Text>
+          </Pressable>
+        ))}
+      </View>
 
       <Text style={styles.mediaRequiredNote}>{t.createSpot.mediaRequiredNote}</Text>
 
@@ -490,21 +522,21 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   label: { color: colors.textSecondary, fontSize: 13 },
-  requiredMark: { color: colors.danger, fontSize: 13, fontWeight: '700' },
+  requiredMark: { color: colors.accent, fontSize: 13, fontWeight: '700' },
   helpButton: {
-    width: 20,
-    height: 20,
-    borderRadius: 10,
+    width: 16,
+    height: 16,
+    borderRadius: 8,
     borderWidth: 1,
-    borderColor: colors.accent,
+    borderColor: colors.textPrimary,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  helpButtonActive: { backgroundColor: colors.accent, borderColor: colors.accent },
-  helpButtonText: { color: colors.accent, fontSize: 12, fontWeight: '700' },
+  helpButtonActive: { backgroundColor: colors.textPrimary, borderColor: colors.textPrimary },
+  helpButtonText: { color: colors.textPrimary, fontSize: 10, fontWeight: '700' },
   helpButtonTextActive: { color: colors.accentText },
   helpText: { color: colors.textMuted, fontSize: 12, lineHeight: 17, marginBottom: 8 },
-  mediaRequiredNote: { color: colors.danger, fontSize: 12, marginTop: 20 },
+  mediaRequiredNote: { color: colors.accent, fontSize: 12, marginTop: 20 },
   input: {
     backgroundColor: colors.surface,
     color: colors.textPrimary,

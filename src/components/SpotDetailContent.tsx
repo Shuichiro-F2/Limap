@@ -37,6 +37,14 @@ const MAX_IMAGE_ASPECT_RATIO = 1.5;
 // react-native-webview版のDEFAULT_HEIGHTと合わせておく。
 const EMBED_FALLBACK_HEIGHT = 420;
 
+// おすすめの訪問時間帯(DBには英語キーで保存)の表示ラベル
+const VISIT_TIME_LABELS: Record<string, string> = {
+  morning: '朝',
+  daytime: '昼',
+  dusk: '夕方',
+  night: '夜',
+};
+
 const REPORT_REASONS: { value: ReportReason; label: string }[] = [
   { value: 'privacy', label: 'プライバシー・私有地の懸念' },
   { value: 'wrong_location', label: '位置情報が誤っている' },
@@ -263,6 +271,15 @@ export default function SpotDetailContent({
           <View style={styles.accessBox}>
             <Text style={styles.accessLabel}>アクセス</Text>
             <Text style={styles.accessText}>{spot.access}</Text>
+          </View>
+        )}
+
+        {spot.recommended_visit_time && (
+          <View style={styles.accessBox}>
+            <Text style={styles.accessLabel}>おすすめの訪問時間帯</Text>
+            <Text style={styles.accessText}>
+              {VISIT_TIME_LABELS[spot.recommended_visit_time] ?? spot.recommended_visit_time}
+            </Text>
           </View>
         )}
 

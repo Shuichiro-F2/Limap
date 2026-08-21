@@ -1,6 +1,6 @@
 import { supabase } from './supabase';
 import { detectEmbedUrl, MAX_SNS_EMBEDS } from './embeds';
-import type { Spot, SpotImage, ReportReason } from '../types/database';
+import type { Spot, SpotImage, ReportReason, VisitTime } from '../types/database';
 
 // profiles とは spots.author_id 経由の他に likes テーブルを介した間接的な関連もあり、
 // PostgREST がどちらか一意に判断できずエラーになるため、FK制約名で明示的に指定する
@@ -210,6 +210,7 @@ export interface CreateSpotInput {
   title: string;
   description?: string;
   access?: string; // 最寄り駅からの行き方など、現地にたどり着くためのヒント(任意)
+  recommendedVisitTime?: VisitTime; // おすすめの訪問時間帯(任意)
   lat: number;
   lng: number;
   country?: string;
@@ -241,6 +242,7 @@ export async function createSpot(authorId: string, input: CreateSpotInput): Prom
       title: input.title,
       description: input.description ?? null,
       access: input.access ?? null,
+      recommended_visit_time: input.recommendedVisitTime ?? null,
       lat: input.lat,
       lng: input.lng,
       country: input.country ?? null,
