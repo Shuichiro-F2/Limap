@@ -120,6 +120,8 @@ export default function SpotDetailContent({
   const mediaItemWidth = Math.max(contentWidth - MEDIA_PEEK * 2, 0);
   const [showMenu, setShowMenu] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  // 現在表示中のメディア(画像/SNS埋め込み)のインデックス。下のドットインジケーターに使う。
+  const [activeMediaIndex, setActiveMediaIndex] = useState(0);
   // 先頭画像の縦横比（高さ÷幅）。取得できるまではimageHeightのデフォルト値で表示する。
   const [imageAspectRatio, setImageAspectRatio] = useState<number | null>(null);
   // SNS埋め込み(Instagram/X)ごとの実測高さ(embed.idをキーに保持)。
@@ -161,6 +163,7 @@ export default function SpotDetailContent({
   // スポットが切り替わったら、前のスポットのSNS埋め込み(Instagram/X)の実測高さを引き継がない。
   useEffect(() => {
     setEmbedHeights({});
+    setActiveMediaIndex(0);
   }, [spot?.id]);
 
   // 画像側の希望の高さ。縦横比が判明していれば、上下がカットされないよう実寸に合わせる。
@@ -224,6 +227,16 @@ export default function SpotDetailContent({
             decelerationRate="fast"
             snapToInterval={mediaItemWidth + MEDIA_GAP}
             snapToAlignment="start"
+            // 1回のスワイプで複数枚分スクロールしてしまうことがないようにし、
+            // 必ず1枚単位でぴったり止まる(中途半端な位置で止まらない)ようにする。
+            disableIntervalMomentum
+            onScroll={(e) => {
+              const x = e.nativeEvent.contentOffset.x;
+              const index = Math.round(x / (mediaItemWidth + MEDIA_GAP));
+              const clamped = Math.max(0, Math.min(mediaItems.length - 1, index));
+              setActiveMediaIndex((prev) => (prev === clamped ? prev : clamped));
+            }}
+            scrollEventThrottle={16}
             style={{ width: contentWidth }}
             contentContainerStyle={{ paddingHorizontal: MEDIA_PEEK }}
           >
@@ -278,6 +291,15 @@ export default function SpotDetailContent({
               );
             })}
           </ScrollView>
+        )}
+
+        {/* Instagramの投稿と同じように、何枚あるか・今どれを見ているかをドットで伝える */}
+        {mediaItems.length > 1 && (
+          <View style={styles.dotsRow}>
+            {mediaItems.map((_, i) => (
+              <View key={i} style={[styles.dot, i === activeMediaIndex && styles.dotActive]} />
+            ))}
+          </View>
         )}
 
         <View style={styles.body}>
@@ -495,6 +517,9 @@ const styles = StyleSheet.create({
   // 埋め込みを縦中央に配置する。背景は詳細画面の黄色と揃え、余白部分が別の色に
   // 見えてしまわないようにする。
   embedSlide: { backgroundColor: colors.accent, overflow: 'hidden', justifyContent: 'center', borderRadius: 14 },
+  dotsRow: { flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: 6, marginTop: 10 },
+  dot: { width: 6, height: 6, borderRadius: 3, backgroundColor: colors.accentTextMuted },
+  dotActive: { backgroundColor: colors.accentText },
   body: { padding: 20, backgroundColor: colors.accent },
   titleText: { fontSize: 20, fontWeight: '700', color: colors.accentText, marginBottom: 8 },
   metaRow: { flexDirection: 'row', alignItems: 'center', flexWrap: 'wrap', gap: 8 },
