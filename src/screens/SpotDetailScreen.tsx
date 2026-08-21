@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useSpotDetail } from '../hooks/useSpotDetail';
 import SpotDetailContent from '../components/SpotDetailContent';
 import AppHeader, { HEADER_CONTENT_HEIGHT } from '../components/AppHeader';
@@ -14,6 +15,7 @@ type Props = RootStackScreenProps<'SpotDetail'>;
 export default function SpotDetailScreen({ route, navigation }: Props) {
   const { spotId } = route.params;
   const { session } = useAuth();
+  const insets = useSafeAreaInsets();
   const {
     spot,
     loading,
@@ -83,7 +85,13 @@ export default function SpotDetailScreen({ route, navigation }: Props) {
   };
 
   return (
-    <View style={styles.screen}>
+    // ホーム画面に追加してスタンドアロン表示にした際、この画面を包む
+    // react-navigation側のコンテナがホームインジケーター分の安全領域まで
+    // 高さを伸ばしきれないことがあり、その分だけ背景の黄色がグレーで
+    // 途切れて見える不具合があった。position:absoluteで自前の領域を
+    // 明示し、bottomをinsets.bottom分だけ余分に伸ばすことで、
+    // 親コンテナの取りこぼしを吸収して実機の下端まで確実に黄色を届かせる。
+    <View style={[styles.screen, { position: 'absolute', top: 0, left: 0, right: 0, bottom: -insets.bottom }]}>
       <SpotDetailContent
         spot={spot}
         loading={loading}
@@ -101,7 +109,7 @@ export default function SpotDetailScreen({ route, navigation }: Props) {
         onEdit={goToEdit}
         onDelete={onDelete}
         deleting={deleting}
-        topInset={HEADER_CONTENT_HEIGHT}
+        topInset={insets.top + HEADER_CONTENT_HEIGHT}
       />
       {/* 他の画面(地図・フィード等)と全く同じレイアウトのヘッダーにするため、
           個別のnative-stackヘッダーではなく共通のAppHeaderをそのまま重ねて使う。

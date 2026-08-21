@@ -9,6 +9,7 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useSpotDetail } from '../hooks/useSpotDetail';
 import SpotDetailContent from './SpotDetailContent';
 import Text from './AppText';
@@ -48,6 +49,13 @@ export default function SpotPreviewSheet({
   onEdit,
   onDeleted,
 }: Props) {
+  // Web版でホーム画面に追加してスタンドアロン表示にした場合、react-native-webの
+  // Modalは position:fixed で画面全体を覆うが、iOS Safariの仕様上この
+  // fixed要素はホームインジケーター分の安全領域までは自動で伸びない。
+  // そのままだとシート下端とホームインジケーターの間に黄色ではない
+  // 隙間ができてしまうため、シート自体をinsets.bottom分だけ余分に
+  // 下へ張り出させて実機の下端まで確実に届かせる。
+  const insets = useSafeAreaInsets();
   const {
     spot,
     loading,
@@ -209,7 +217,12 @@ export default function SpotPreviewSheet({
           <Animated.View style={[styles.backdrop, { opacity: backdropOpacity }]} />
         </Pressable>
 
-        <Animated.View style={[styles.sheet, { height: FULL_HEIGHT, transform: [{ translateY }] }]}>
+        <Animated.View
+          style={[
+            styles.sheet,
+            { height: FULL_HEIGHT + insets.bottom, bottom: -insets.bottom, transform: [{ translateY }] },
+          ]}
+        >
           <View {...handleResponder.panHandlers} style={styles.handleArea}>
             <View style={styles.handleBar} />
             <Pressable style={styles.closeButton} onPress={close} hitSlop={14}>

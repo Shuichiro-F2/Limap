@@ -81,8 +81,15 @@ function CustomTabBar({ state, navigation, position }: MaterialTopTabBarProps) {
 }
 
 export default function MainTabNavigator() {
+  // ホーム画面に追加してスタンドアロン表示にした場合、react-navigation側の
+  // スクリーンコンテナがホームインジケーター分の安全領域まで高さを伸ばしきれず、
+  // 下タブバーの下にグレーの隙間ができてしまうことがあった。position:absoluteで
+  // 自前の領域を明示し、bottomをinsets.bottom分だけ余分に張り出させることで
+  // 実機の下端まで確実に届かせる(タブバー自体が内側でinsets.bottom分の
+  // 余白を確保する処理とは独立して機能する)。
+  const insets = useSafeAreaInsets();
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: -insets.bottom }}>
       <Tab.Navigator
         tabBarPosition="bottom"
         tabBar={(props) => <CustomTabBar {...props} />}
