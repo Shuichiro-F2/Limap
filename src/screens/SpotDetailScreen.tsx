@@ -6,6 +6,7 @@ import SpotDetailContent from '../components/SpotDetailContent';
 import AppHeader, { HEADER_CONTENT_HEIGHT } from '../components/AppHeader';
 import { useAuth } from '../lib/AuthContext';
 import { colors } from '../lib/theme';
+import { WEB_SAFE_BOTTOM_OVERHANG } from '../lib/safeAreaWeb';
 import { applySpotSeo, resetSeo } from '../lib/seo';
 import { notify } from '../lib/notify';
 import type { RootStackScreenProps } from '../navigation/types';
@@ -94,9 +95,15 @@ export default function SpotDetailScreen({ route, navigation }: Props) {
     <View
       style={[
         styles.screen,
-        // insets.bottomぴったりだと機種によって数pxのグレーの隙間が残ることがあるため、
-        // 少し余分に張り出させて確実に隙間なく実機の下端まで覆う
-        { position: 'absolute', top: 0, left: 0, right: 0, bottom: -(insets.bottom + 16) },
+        {
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          // Web版はCSSのenv(safe-area-inset-bottom)を直接使い、コラム記事ページと
+          // 同じ仕組みで誤差なく実機の下端まで届かせる。ネイティブ版はinsets.bottomを使う。
+          bottom: WEB_SAFE_BOTTOM_OVERHANG ?? -insets.bottom,
+        },
       ]}
     >
       <SpotDetailContent

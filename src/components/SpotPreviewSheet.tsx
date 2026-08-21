@@ -15,6 +15,7 @@ import SpotDetailContent from './SpotDetailContent';
 import Text from './AppText';
 import { colors } from '../lib/theme';
 import { notify } from '../lib/notify';
+import { WEB_SAFE_BOTTOM_OVERHANG, webSafeHeight } from '../lib/safeAreaWeb';
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
@@ -29,9 +30,6 @@ const CLOSED_Y = FULL_HEIGHT;
 
 const FLICK_VELOCITY = 1.1;
 const DRAG_THRESHOLD = 6;
-
-// insets.bottomの実測値だけでは機種によって数px足りないことがあるための保険の張り出し量
-const BOTTOM_OVERSHOOT_BUFFER = 16;
 
 type Props = {
   spotId: string | null;
@@ -224,11 +222,10 @@ export default function SpotPreviewSheet({
           style={[
             styles.sheet,
             {
-              // insets.bottomぴったりだと機種によってはわずかに(数px)足りず、
-              // 実機の下端との間にごく細いグレーの隙間が残ることがあったため、
-              // 少し余分に張り出させて確実に隙間なく覆うようにする。
-              height: FULL_HEIGHT + insets.bottom + BOTTOM_OVERSHOOT_BUFFER,
-              bottom: -(insets.bottom + BOTTOM_OVERSHOOT_BUFFER),
+              // Web版はCSSのenv(safe-area-inset-bottom)を直接使い、コラム記事ページと
+              // 同じ仕組みで誤差なく実機の下端まで届かせる。ネイティブ版はinsets.bottomを使う。
+              height: WEB_SAFE_BOTTOM_OVERHANG != null ? webSafeHeight(FULL_HEIGHT) : FULL_HEIGHT + insets.bottom,
+              bottom: WEB_SAFE_BOTTOM_OVERHANG ?? -insets.bottom,
               transform: [{ translateY }],
             },
           ]}

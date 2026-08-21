@@ -13,6 +13,7 @@ import ArticlesScreen from '../screens/ArticlesScreen';
 import MyPageScreen from '../screens/MyPageScreen';
 import AppHeader from '../components/AppHeader';
 import { colors } from '../lib/theme';
+import { WEB_SAFE_BOTTOM_OVERHANG } from '../lib/safeAreaWeb';
 import type { MainTabParamList } from './types';
 
 const Tab = createMaterialTopTabNavigator<MainTabParamList>();
@@ -88,11 +89,14 @@ export default function MainTabNavigator() {
   // 実機の下端まで確実に届かせる(タブバー自体が内側でinsets.bottom分の
   // 余白を確保する処理とは独立して機能する)。
   const insets = useSafeAreaInsets();
+  // Web版はCSSのenv(safe-area-inset-bottom)を直接使い、コラム記事ページと同じ仕組みで
+  // 誤差なく実機の下端まで届かせる。ネイティブ版はinsets.bottomを使う。
+  // 注意: ここでの張り出し量はTab.Navigator内のflex:1コンテンツ(地図など)がそのまま
+  // 消費し、下タブバーの位置を押し下げてしまうため、正確な値を使う必要がある
+  // (SpotDetailScreen等の単色背景の張り出しと違い、多めのバッファは使えない)。
+  const bottomOverhang = WEB_SAFE_BOTTOM_OVERHANG ?? -insets.bottom;
   return (
-    // 注意: ここでの張り出し量はTab.Navigator内のflex:1コンテンツ(地図など)が
-    // そのまま消費し、下タブバーの位置を押し下げてしまうため、SpotDetailScreen等の
-    // 単色背景の張り出しとは違い、余分なバッファを足さずinsets.bottomちょうどにする。
-    <View style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: -insets.bottom }}>
+    <View style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: bottomOverhang }}>
       <Tab.Navigator
         tabBarPosition="bottom"
         tabBar={(props) => <CustomTabBar {...props} />}
