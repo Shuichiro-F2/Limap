@@ -234,30 +234,46 @@ export default function SpotDetailContent({
                 height: displayedImageHeight,
                 marginRight: isLast ? 0 : MEDIA_GAP,
               };
-              return item.kind === 'image' ? (
-                <Image
-                  key={`image-${item.image.id}`}
-                  source={{ uri: spotImageUrl(item.image.storage_path) }}
-                  style={[styles.image, itemStyle]}
-                  resizeMode="cover"
-                />
-              ) : (
+              if (item.kind === 'image') {
+                return (
+                  <Image
+                    key={`image-${item.image.id}`}
+                    source={{ uri: spotImageUrl(item.image.storage_path) }}
+                    style={[styles.image, itemStyle]}
+                    // "cover"だと箱の縦横比に合わせて上下(または左右)が切れてしまうため、
+                    // 画像全体が必ず収まる"contain"にする。余白は画像自体の余白としてではなく
+                    // このスライドの背景色(黄色)がそのまま見えるだけなので違和感は出ない。
+                    resizeMode="contain"
+                  />
+                );
+              }
+
+              // SNS埋め込み(Instagram/X)は実測の自然な高さ(naturalHeight)を持つが、
+              // カルーセルの共有高さ(displayedImageHeight、画面高さで上限クランプ済み)より
+              // 高い場合、そのままではみ出た分がクリップされ見切れてしまう。
+              // そこで、はみ出るケースだけ自然なサイズのまま描画したうえで縦横比を保ったまま
+              // 均一に縮小(scale)し、共有高さの枠内に必ず収まるようにする。
+              const naturalHeight = embedHeights[item.embed.id] ?? EMBED_FALLBACK_HEIGHT;
+              const embedScale = naturalHeight > displayedImageHeight ? displayedImageHeight / naturalHeight : 1;
+              return (
                 <View key={`embed-${item.embed.id}`} style={[styles.embedSlide, itemStyle]}>
-                  {item.embed.platform === 'instagram' ? (
-                    <InstagramEmbed
-                      url={item.embed.url}
-                      onHeightChange={(height) =>
-                        setEmbedHeights((prev) => (prev[item.embed.id] === height ? prev : { ...prev, [item.embed.id]: height }))
-                      }
-                    />
-                  ) : (
-                    <XEmbed
-                      url={item.embed.url}
-                      onHeightChange={(height) =>
-                        setEmbedHeights((prev) => (prev[item.embed.id] === height ? prev : { ...prev, [item.embed.id]: height }))
-                      }
-                    />
-                  )}
+                  <View style={{ width: mediaItemWidth, height: naturalHeight, transform: [{ scale: embedScale }] }}>
+                    {item.embed.platform === 'instagram' ? (
+                      <InstagramEmbed
+                        url={item.embed.url}
+                        onHeightChange={(height) =>
+                          setEmbedHeights((prev) => (prev[item.embed.id] === height ? prev : { ...prev, [item.embed.id]: height }))
+                        }
+                      />
+                    ) : (
+                      <XEmbed
+                        url={item.embed.url}
+                        onHeightChange={(height) =>
+                          setEmbedHeights((prev) => (prev[item.embed.id] === height ? prev : { ...prev, [item.embed.id]: height }))
+                        }
+                      />
+                    )}
+                  </View>
                 </View>
               );
             })}
@@ -338,14 +354,18 @@ export default function SpotDetailContent({
             <Pressable style={styles.iconButton} onPress={handleShare} hitSlop={10}>
               <Ionicons name="share-social-outline" size={24} color={colors.accentText} />
             </Pressable>
-            <Pressable style={styles.iconButton} onPress={openInGoogleMaps} hitSlop={10}>
-              <Ionicons name="navigate-outline" size={24} color={colors.accentText} />
-            </Pressable>
           </View>
           <Pressable style={styles.menuButton} onPress={() => setShowMenu((v) => !v)} hitSlop={10}>
             <Ionicons name="ellipsis-horizontal" size={22} color={colors.accentText} />
           </Pressable>
         </View>
+
+        {/* アイコンだけだと何のボタンか判断しづらいとの指摘があったため、
+            よく使われるGoogleマップ導線だけは文字付きの単独ボタンにする */}
+        <Pressable style={styles.mapsButton} onPress={openInGoogleMaps} hitSlop={6}>
+          <Ionicons name="navigate-outline" size={16} color={colors.accent} />
+          <Text style={styles.mapsButtonText}>Googleマップで見る</Text>
+        </Pressable>
 
         {showMenu && (
           <View style={styles.menuPanel}>
@@ -465,7 +485,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingVertical: 60,
   },
-  image: { borderRadius: 14 },
+  // resizeMode="contain"で画像の縦横比を保ったまま表示するため、箱の縦横比と合わない場合に
+  // 余白ができる。この余白がスライドの黄色い背景と同じ色になるよう明示しておく。
+  image: { borderRadius: 14, backgroundColor: colors.accent },
   // SNS埋め込み(Instagram/X)も画像と同じ横スライドの中で扱うための枠。
   // カルーセルの高さ自体を埋め込みの実測高さに合わせて広げているため、
   // 通常はここでクリップされることはない(overflow:hiddenは計測が届く前の一瞬の保険)。
@@ -510,6 +532,17 @@ const styles = StyleSheet.create({
   iconButtonWithCount: { flexDirection: 'row', alignItems: 'center', gap: 4, padding: 2 },
   iconCountText: { color: colors.accentText, fontSize: 13, fontWeight: '600' },
   menuButton: { padding: 6 },
+  mapsButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 6,
+    marginTop: 12,
+    paddingVertical: 10,
+    borderRadius: 10,
+    backgroundColor: colors.background,
+  },
+  mapsButtonText: { color: colors.accent, fontSize: 13, fontWeight: '600' },
   menuPanel: {
     marginTop: 10,
     backgroundColor: colors.background,
