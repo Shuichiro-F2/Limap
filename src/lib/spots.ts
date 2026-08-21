@@ -209,6 +209,7 @@ export async function isSpotLiked(userId: string, spotId: string): Promise<boole
 export interface CreateSpotInput {
   title: string;
   description?: string;
+  access?: string; // 最寄り駅からの行き方など、現地にたどり着くためのヒント(任意)
   lat: number;
   lng: number;
   country?: string;
@@ -239,6 +240,7 @@ export async function createSpot(authorId: string, input: CreateSpotInput): Prom
       author_id: authorId,
       title: input.title,
       description: input.description ?? null,
+      access: input.access ?? null,
       lat: input.lat,
       lng: input.lng,
       country: input.country ?? null,

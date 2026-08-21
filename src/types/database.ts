@@ -63,6 +63,8 @@ export interface Spot {
   author_id: string;
   title: string;
   description: string | null;
+  // 最寄り駅からの行き方など、現地にたどり着くためのヒントを書ける自由記述欄(任意)
+  access: string | null;
   lat: number;
   lng: number;
   country: string | null;

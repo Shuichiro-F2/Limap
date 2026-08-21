@@ -12,24 +12,36 @@ import * as Location from 'expo-location';
 import { decode } from 'base64-arraybuffer';
 import Text from '../components/AppText';
 import TextInput from '../components/AppTextInput';
+import InstagramEmbed from '../components/InstagramEmbed';
+import XEmbed from '../components/XEmbed';
 import { supabase } from '../lib/supabase';
 import { createSpot } from '../lib/spots';
 import { resizeImageForUpload, extensionForContentType, THUMBNAIL_RESIZE_OPTIONS } from '../lib/imageResize';
 import { fetchAllTags, findOrCreateTag } from '../lib/tags';
 import { detectEmbedUrl, MAX_SNS_EMBEDS, type DetectedEmbed } from '../lib/embeds';
 import { useAuth } from '../lib/AuthContext';
+import { useTranslation } from '../lib/i18n';
 import { notify } from '../lib/notify';
 import { colors } from '../lib/theme';
 import type { Tag } from '../types/database';
 import type { RootStackScreenProps } from '../navigation/types';
 
 const MAX_TAGS = 5;
+const MAX_PHOTOS = 5;
+
+// 「写真（最大{n}枚）」のような文言の{n}部分を実際の件数に置き換える
+function fmt(template: string, n: number): string {
+  return template.replace('{n}', String(n));
+}
 
 type Props = RootStackScreenProps<'CreateSpot'>;
 
 export default function CreateSpotScreen({ navigation, route }: Props) {
   const { session } = useAuth();
+  const t = useTranslation();
+  const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const [access, setAccess] = useState('');
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
   const [tagInput, setTagInput] = useState('');
   const [allTags, setAllTags] = useState<Tag[]>([]);
@@ -39,6 +51,13 @@ export default function CreateSpotScreen({ navigation, route }: Props) {
   const [embeds, setEmbeds] = useState<DetectedEmbed[]>([]);
   const [embedInput, setEmbedInput] = useState('');
   const [submitting, setSubmitting] = useState(false);
+
+  // ヘッダーのタイトルも選択中の言語に合わせる(このスクリーン自体は
+  // 4タブのようにReact Navigationの外側にいる時間が長いため、画面遷移をまたいでも
+  // 選択した言語がここでも維持されていることを分かりやすくする)
+  useEffect(() => {
+    navigation.setOptions({ title: t.createSpot.headerTitle });
+  }, [t.createSpot.headerTitle]);
 
   // 既存タグの候補一覧（新規タグはこの場で追加できる）
   useEffect(() => {
@@ -65,7 +84,7 @@ export default function CreateSpotScreen({ navigation, route }: Props) {
   const pickImages = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (status !== 'granted') {
-      notify('写真ライブラリへのアクセス許可が必要です');
+      notify(t.createSpot.photoPermissionTitle);
       return;
     }
     const result = await ImagePicker.launchImageLibraryAsync({
@@ -73,17 +92,17 @@ export default function CreateSpotScreen({ navigation, route }: Props) {
       allowsMultipleSelection: true,
       quality: 0.7,
       base64: true,
-      selectionLimit: 5,
+      selectionLimit: MAX_PHOTOS,
     });
     if (!result.canceled) {
-      setImages((prev) => [...prev, ...result.assets].slice(0, 5));
+      setImages((prev) => [...prev, ...result.assets].slice(0, MAX_PHOTOS));
     }
   };
 
   const useCurrentLocation = async () => {
     const { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== 'granted') {
-      notify('位置情報の許可が必要です');
+      notify(t.createSpot.locationPermissionTitle);
       return;
     }
     const loc = await Location.getCurrentPositionAsync({});
@@ -115,7 +134,7 @@ export default function CreateSpotScreen({ navigation, route }: Props) {
       setAllTags((prev) => (prev.some((t) => t.id === tag.id) ? prev : [...prev, tag]));
       setTagInput('');
     } catch (e: any) {
-      notify('タグの追加に失敗しました', e.message);
+      notify(t.createSpot.tagAddFailedTitle, e.message);
     } finally {
       setAddingTag(false);
     }
@@ -129,10 +148,7 @@ export default function CreateSpotScreen({ navigation, route }: Props) {
     if (embeds.length >= MAX_SNS_EMBEDS) return;
     const detected = detectEmbedUrl(url);
     if (!detected) {
-      notify(
-        '投稿のURLが正しくありません',
-        'Instagram投稿(https://www.instagram.com/p/...)またはX投稿(https://x.com/.../status/...)のURLを入力してください'
-      );
+      notify(t.createSpot.embedInvalidTitle, t.createSpot.embedInvalidMessage);
       return;
     }
     if (embeds.some((e) => e.url === detected.url)) {
@@ -150,20 +166,20 @@ export default function CreateSpotScreen({ navigation, route }: Props) {
   const tagSuggestions = tagInput.trim()
     ? allTags
         .filter(
-          (t) =>
-            t.name.toLowerCase().includes(tagInput.trim().toLowerCase()) &&
-            !selectedTags.some((s) => s.id === t.id)
+          (tag) =>
+            tag.name.toLowerCase().includes(tagInput.trim().toLowerCase()) &&
+            !selectedTags.some((s) => s.id === tag.id)
         )
         .slice(0, 6)
     : [];
 
   const submit = async () => {
     if (!session?.user) {
-      notify('ログインが必要です');
+      notify(t.createSpot.loginRequiredTitle);
       return;
     }
     if (!coords) {
-      notify('位置情報を設定してください');
+      notify(t.createSpot.locationRequiredTitle);
       return;
     }
 
@@ -174,10 +190,7 @@ export default function CreateSpotScreen({ navigation, route }: Props) {
     if (pendingEmbedInput) {
       const detected = detectEmbedUrl(pendingEmbedInput);
       if (!detected) {
-        notify(
-          '投稿のURLが正しくありません',
-          '入力欄に未追加のURLが残っています。Instagram投稿(https://www.instagram.com/p/...)またはX投稿(https://x.com/.../status/...)のURLを確認するか、欄を空にしてください'
-        );
+        notify(t.createSpot.embedInvalidTitle, t.createSpot.embedInvalidMessage);
         return;
       }
       if (!finalEmbeds.some((e) => e.url === detected.url) && finalEmbeds.length < MAX_SNS_EMBEDS) {
@@ -185,6 +198,12 @@ export default function CreateSpotScreen({ navigation, route }: Props) {
         setEmbeds(finalEmbeds);
         setEmbedInput('');
       }
+    }
+
+    // 写真・SNS投稿のどちらか一方は必須(何のメディアも無い投稿を防ぐため)
+    if (images.length === 0 && finalEmbeds.length === 0) {
+      notify(t.createSpot.mediaRequiredTitle);
+      return;
     }
 
     setSubmitting(true);
@@ -229,23 +248,26 @@ export default function CreateSpotScreen({ navigation, route }: Props) {
         imagePaths.push({ path: fullPath, thumbnailPath });
       }
 
-      // タイトル欄は廃止したため、説明文の冒頭から内部用のタイトルを自動生成する
-      // （検索やグリッド表示のフォールバックなど、内部的にのみ使用する）
-      const derivedTitle = description.trim().slice(0, 40) || '無題の投稿';
+      // スポット名が未入力の場合は、説明文の冒頭から内部用のタイトルを自動生成する
+      // （検索やグリッド表示のフォールバックなど、内部的にも使用する）
+      const derivedTitle = title.trim() || description.trim().slice(0, 40) || '無題の投稿';
 
       await createSpot(session.user.id, {
         title: derivedTitle,
         description: description.trim() || undefined,
+        access: access.trim() || undefined,
         lat: coords.lat,
         lng: coords.lng,
-        tagIds: selectedTags.map((t) => t.id),
+        tagIds: selectedTags.map((tag) => tag.id),
         imagePaths,
         embedUrls: finalEmbeds.map((e) => e.url),
       });
 
-      notify('投稿しました', '', () => navigation.goBack());
+      // 「地図から選択」を経由した場合など、遷移元の画面(位置選択画面)に戻ってしまわないよう、
+      // 常にトップページ(地図画面)へ明示的に遷移する
+      notify(t.createSpot.submitSuccessTitle, '', () => navigation.navigate('Main', { screen: 'MapTab' }));
     } catch (e: any) {
-      notify('投稿に失敗しました', e.message);
+      notify(t.createSpot.submitFailedTitle, e.message);
     } finally {
       setSubmitting(false);
     }
@@ -253,25 +275,25 @@ export default function CreateSpotScreen({ navigation, route }: Props) {
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={{ padding: 20 }}>
-      <Text style={styles.label}>説明</Text>
+      <SectionLabel label={t.createSpot.name} help={t.createSpot.nameHelp} />
       <TextInput
-        style={[styles.input, styles.textArea]}
-        value={description}
-        onChangeText={setDescription}
-        placeholder="場所の雰囲気や見つけ方など"
+        style={styles.input}
+        value={title}
+        onChangeText={setTitle}
+        placeholder={t.createSpot.namePlaceholder}
         placeholderTextColor="#666"
-        multiline
+        maxLength={60}
       />
 
-      <Text style={styles.label}>位置情報</Text>
+      <SectionLabel label={t.createSpot.location} help={t.createSpot.locationHelp} required />
       {coords && (
         <Text style={styles.coordsSetText}>
-          設定済み ({coords.lat.toFixed(5)}, {coords.lng.toFixed(5)})
+          {t.createSpot.locationSet} ({coords.lat.toFixed(5)}, {coords.lng.toFixed(5)})
         </Text>
       )}
       <View style={styles.locationRow}>
         <Pressable style={[styles.secondaryButton, styles.locationButton]} onPress={useCurrentLocation}>
-          <Text style={styles.secondaryButtonText}>現在地を使用</Text>
+          <Text style={styles.secondaryButtonText}>{t.createSpot.useCurrentLocation}</Text>
         </Pressable>
         <Pressable
           style={[styles.secondaryButton, styles.locationButton]}
@@ -282,11 +304,82 @@ export default function CreateSpotScreen({ navigation, route }: Props) {
             })
           }
         >
-          <Text style={styles.secondaryButtonText}>地図から選択</Text>
+          <Text style={styles.secondaryButtonText}>{t.createSpot.chooseOnMap}</Text>
         </Pressable>
       </View>
 
-      <Text style={styles.label}>雰囲気タグ（最大{MAX_TAGS}個）</Text>
+      <SectionLabel label={t.createSpot.access} help={t.createSpot.accessHelp} />
+      <TextInput
+        style={styles.input}
+        value={access}
+        onChangeText={setAccess}
+        placeholder={t.createSpot.accessPlaceholder}
+        placeholderTextColor="#666"
+        multiline
+      />
+
+      <Text style={styles.mediaRequiredNote}>{t.createSpot.mediaRequiredNote}</Text>
+
+      <SectionLabel label={fmt(t.createSpot.photosTemplate, MAX_PHOTOS)} help={t.createSpot.photosHelp} />
+      <Pressable style={styles.secondaryButton} onPress={pickImages}>
+        <Text style={styles.secondaryButtonText}>{t.createSpot.pickPhotos}</Text>
+      </Pressable>
+      <ScrollView horizontal style={{ marginTop: 12 }}>
+        {images.map((img, i) => (
+          <Image key={i} source={{ uri: img.uri }} style={styles.thumb} />
+        ))}
+      </ScrollView>
+
+      <SectionLabel label={fmt(t.createSpot.embedsTemplate, MAX_SNS_EMBEDS)} help={t.createSpot.embedsHelp} />
+
+      {embeds.length > 0 && (
+        <View style={{ marginBottom: 8 }}>
+          {embeds.map((e) => (
+            <View key={e.url} style={styles.embedPreviewWrap}>
+              <View style={styles.embedRow}>
+                <Text style={styles.embedPlatformTag}>{e.platform === 'instagram' ? 'Instagram' : 'X'}</Text>
+                <Text style={styles.embedUrlText} numberOfLines={1}>
+                  {e.url}
+                </Text>
+                <Pressable onPress={() => removeEmbedUrl(e.url)} hitSlop={8}>
+                  <Text style={styles.embedRemoveText}>✕</Text>
+                </Pressable>
+              </View>
+              {/* 登録した投稿がどう見えるかその場で確認できるよう、実際の埋め込みをプレビュー表示する */}
+              <View style={styles.embedPreviewBox}>
+                {e.platform === 'instagram' ? <InstagramEmbed url={e.url} /> : <XEmbed url={e.url} />}
+              </View>
+            </View>
+          ))}
+        </View>
+      )}
+
+      {embeds.length >= MAX_SNS_EMBEDS ? (
+        <Text style={styles.tagLimitText}>{fmt(t.createSpot.embedLimitTemplate, MAX_SNS_EMBEDS)}</Text>
+      ) : (
+        <View style={styles.tagInputRow}>
+          <TextInput
+            style={[styles.input, styles.tagInput]}
+            value={embedInput}
+            onChangeText={setEmbedInput}
+            placeholder={t.createSpot.embedPlaceholder}
+            placeholderTextColor="#666"
+            autoCapitalize="none"
+            autoCorrect={false}
+            onSubmitEditing={addEmbedUrl}
+            returnKeyType="done"
+          />
+          <Pressable
+            style={[styles.secondaryButton, styles.tagAddButton]}
+            onPress={addEmbedUrl}
+            disabled={!embedInput.trim()}
+          >
+            <Text style={styles.secondaryButtonText}>{t.createSpot.add}</Text>
+          </Pressable>
+        </View>
+      )}
+
+      <SectionLabel label={fmt(t.createSpot.hashtagsTemplate, MAX_TAGS)} help={t.createSpot.hashtagsHelp} />
 
       {selectedTags.length > 0 && (
         <View style={styles.tagGrid}>
@@ -303,7 +396,7 @@ export default function CreateSpotScreen({ navigation, route }: Props) {
       )}
 
       {selectedTags.length >= MAX_TAGS ? (
-        <Text style={styles.tagLimitText}>タグは{MAX_TAGS}個まで設定できます</Text>
+        <Text style={styles.tagLimitText}>{fmt(t.createSpot.hashtagLimitTemplate, MAX_TAGS)}</Text>
       ) : (
         <>
           <View style={styles.tagInputRow}>
@@ -311,7 +404,7 @@ export default function CreateSpotScreen({ navigation, route }: Props) {
               style={[styles.input, styles.tagInput]}
               value={tagInput}
               onChangeText={setTagInput}
-              placeholder="タグを入力（新規作成も可）"
+              placeholder={t.createSpot.hashtagPlaceholder}
               placeholderTextColor="#666"
               onSubmitEditing={addTagFromInput}
               returnKeyType="done"
@@ -324,7 +417,7 @@ export default function CreateSpotScreen({ navigation, route }: Props) {
               {addingTag ? (
                 <ActivityIndicator color={colors.textSecondary} size="small" />
               ) : (
-                <Text style={styles.secondaryButtonText}>追加</Text>
+                <Text style={styles.secondaryButtonText}>{t.createSpot.add}</Text>
               )}
             </Pressable>
           </View>
@@ -341,76 +434,80 @@ export default function CreateSpotScreen({ navigation, route }: Props) {
         </>
       )}
 
-      <Text style={styles.label}>写真（最大5枚）</Text>
-      <Pressable style={styles.secondaryButton} onPress={pickImages}>
-        <Text style={styles.secondaryButtonText}>写真を選択</Text>
-      </Pressable>
-      <ScrollView horizontal style={{ marginTop: 12 }}>
-        {images.map((img, i) => (
-          <Image key={i} source={{ uri: img.uri }} style={styles.thumb} />
-        ))}
-      </ScrollView>
-
-      <Text style={styles.label}>SNS投稿（最大{MAX_SNS_EMBEDS}件・任意）</Text>
-      <Text style={styles.helperText}>
-        Instagram・Xで話題になっている場所であれば、関連する投稿のURLを追加すると詳細画面に埋め込み表示されます。
-      </Text>
-
-      {embeds.length > 0 && (
-        <View style={{ marginBottom: 8 }}>
-          {embeds.map((e) => (
-            <View key={e.url} style={styles.embedRow}>
-              <Text style={styles.embedPlatformTag}>{e.platform === 'instagram' ? 'Instagram' : 'X'}</Text>
-              <Text style={styles.embedUrlText} numberOfLines={1}>
-                {e.url}
-              </Text>
-              <Pressable onPress={() => removeEmbedUrl(e.url)} hitSlop={8}>
-                <Text style={styles.embedRemoveText}>✕</Text>
-              </Pressable>
-            </View>
-          ))}
-        </View>
-      )}
-
-      {embeds.length >= MAX_SNS_EMBEDS ? (
-        <Text style={styles.tagLimitText}>SNS投稿は{MAX_SNS_EMBEDS}件まで設定できます</Text>
-      ) : (
-        <View style={styles.tagInputRow}>
-          <TextInput
-            style={[styles.input, styles.tagInput]}
-            value={embedInput}
-            onChangeText={setEmbedInput}
-            placeholder="https://www.instagram.com/p/... または https://x.com/.../status/..."
-            placeholderTextColor="#666"
-            autoCapitalize="none"
-            autoCorrect={false}
-            onSubmitEditing={addEmbedUrl}
-            returnKeyType="done"
-          />
-          <Pressable
-            style={[styles.secondaryButton, styles.tagAddButton]}
-            onPress={addEmbedUrl}
-            disabled={!embedInput.trim()}
-          >
-            <Text style={styles.secondaryButtonText}>追加</Text>
-          </Pressable>
-        </View>
-      )}
+      <SectionLabel label={t.createSpot.description} help={t.createSpot.descriptionHelp} />
+      <TextInput
+        style={[styles.input, styles.textArea]}
+        value={description}
+        onChangeText={setDescription}
+        placeholder={t.createSpot.descriptionPlaceholder}
+        placeholderTextColor="#666"
+        multiline
+      />
 
       <Pressable style={styles.submitButton} onPress={submit} disabled={submitting}>
         {submitting ? (
           <ActivityIndicator color={colors.accentText} />
         ) : (
-          <Text style={styles.submitButtonText}>投稿する</Text>
+          <Text style={styles.submitButtonText}>{t.createSpot.submit}</Text>
         )}
       </Pressable>
     </ScrollView>
   );
 }
 
+// セクション見出し＋(あれば)必須マーク＋「?」ボタン。
+// 「?」を押すとhelpの説明文だけがその場に展開される。デフォルトでは畳んだ状態にして
+// おくことで、投稿画面全体を細かい説明文だらけにせずミニマルな見た目に保つ。
+function SectionLabel({ label, help, required }: { label: string; help?: string; required?: boolean }) {
+  const [showHelp, setShowHelp] = useState(false);
+  return (
+    <View>
+      <View style={styles.sectionLabelRow}>
+        <View style={styles.sectionLabelTextRow}>
+          <Text style={styles.label}>{label}</Text>
+          {required && <Text style={styles.requiredMark}>*</Text>}
+        </View>
+        {help && (
+          <Pressable
+            onPress={() => setShowHelp((v) => !v)}
+            hitSlop={8}
+            style={[styles.helpButton, showHelp && styles.helpButtonActive]}
+          >
+            <Text style={[styles.helpButtonText, showHelp && styles.helpButtonTextActive]}>?</Text>
+          </Pressable>
+        )}
+      </View>
+      {help && showHelp && <Text style={styles.helpText}>{help}</Text>}
+    </View>
+  );
+}
+
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.background },
-  label: { color: colors.textSecondary, fontSize: 13, marginTop: 20, marginBottom: 8 },
+  sectionLabelRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginTop: 20,
+    marginBottom: 8,
+  },
+  sectionLabelTextRow: { flexDirection: 'row', alignItems: 'center' },
+  label: { color: colors.textSecondary, fontSize: 13 },
+  requiredMark: { color: colors.danger, fontSize: 13, fontWeight: '700', marginLeft: 4 },
+  helpButton: {
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: colors.border,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  helpButtonActive: { backgroundColor: colors.surface, borderColor: colors.textSecondary },
+  helpButtonText: { color: colors.textMuted, fontSize: 12, fontWeight: '700' },
+  helpButtonTextActive: { color: colors.textSecondary },
+  helpText: { color: colors.textMuted, fontSize: 12, lineHeight: 17, marginBottom: 8 },
+  mediaRequiredNote: { color: colors.danger, fontSize: 12, marginTop: 20 },
   input: {
     backgroundColor: colors.surface,
     color: colors.textPrimary,
@@ -447,7 +544,7 @@ const styles = StyleSheet.create({
   tagInput: { flex: 1 },
   tagAddButton: { paddingHorizontal: 18 },
   tagLimitText: { color: colors.textMuted, fontSize: 12 },
-  helperText: { color: colors.textMuted, fontSize: 12, marginBottom: 10, lineHeight: 17 },
+  embedPreviewWrap: { marginBottom: 14 },
   embedRow: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -469,6 +566,7 @@ const styles = StyleSheet.create({
   },
   embedUrlText: { flex: 1, color: colors.textSecondary, fontSize: 12, marginRight: 8 },
   embedRemoveText: { color: colors.textMuted, fontSize: 14 },
+  embedPreviewBox: { borderRadius: 10, overflow: 'hidden', backgroundColor: colors.background },
   thumb: { width: 80, height: 80, borderRadius: 8, marginRight: 8 },
   submitButton: {
     backgroundColor: colors.accent,

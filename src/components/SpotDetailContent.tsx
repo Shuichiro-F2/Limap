@@ -259,6 +259,13 @@ export default function SpotDetailContent({
 
         {spot.description && <Text style={styles.description}>{spot.description}</Text>}
 
+        {spot.access && (
+          <View style={styles.accessBox}>
+            <Text style={styles.accessLabel}>アクセス</Text>
+            <Text style={styles.accessText}>{spot.access}</Text>
+          </View>
+        )}
+
         <View style={styles.actionRow}>
           <View style={styles.iconButtonsRow}>
             <Pressable style={styles.iconButtonWithCount} onPress={onLike} hitSlop={10}>
@@ -424,6 +431,14 @@ const styles = StyleSheet.create({
   },
   tagChipText: { color: colors.accent, fontSize: 12, fontWeight: '600' },
   description: { fontSize: 15, color: colors.accentText, marginTop: 16, lineHeight: 22 },
+  accessBox: {
+    marginTop: 16,
+    padding: 12,
+    borderRadius: 10,
+    backgroundColor: colors.background,
+  },
+  accessLabel: { fontSize: 12, fontWeight: '700', color: colors.accentTextMuted, marginBottom: 4 },
+  accessText: { fontSize: 14, color: colors.accentText, lineHeight: 20 },
   actionRow: {
     flexDirection: 'row',
     marginTop: 24,
