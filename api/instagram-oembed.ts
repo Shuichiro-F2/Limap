@@ -1,25 +1,59 @@
 // Vercel Serverless Function
-// スポット詳細画面のInstagram引用カード用に、Meta Graph oEmbed APIを
-// サーバー側で呼び出し、サムネイル画像・投稿者名だけを返す薄いプロキシ。
+// スポット一覧のグリッドサムネイル用に、Instagram投稿のサムネイル画像を取得する。
 //
-// なぜプロキシが必要か:
-// 1. Meta Graph API (graph.facebook.com) はブラウザから直接呼ぶとCORSで弾かれるため、
-//    サーバー経由にする必要がある。
-// 2. アクセストークン(META_APP_ID/META_APP_SECRET)はクライアント側のJSバンドルに
-//    絶対に含めてはいけない秘密情報のため、サーバー環境変数としてのみ扱う。
+// 以前はMeta Graph API(graph.facebook.com/instagram_oembed)を使っていたが、
+// このAPIで自社アカウント以外(第三者)の投稿を扱うにはMeta側の「App Review」による
+// 審査(ビジネス確認・審査期間を要する)が必要で手間が大きいため、Instagramの公開投稿
+// ページ自体をサーバー側で取得し、ページに含まれるOGP画像(og:image)からサムネイルURLを
+// 抽出する非公式な方式に切り替えた。og:imageはリンクプレビュー(Slackへの共有時の
+// サムネイル表示など)のためにInstagram側が公開ページに埋め込んでいるもので、
+// ログインなしでも取得できる。
 //
-// なぜ動画をそのまま埋め込まず、サムネイル+リンクのカードにしているか:
-// blockquote+embed.js方式のライブ埋め込みは、投稿者がアカウント側で埋め込みを
-// 許可していない場合や、リール(動画)特有の相性問題で、ブラウザによらず
-// 高さが0のまま描画に失敗することがあり信頼性が低かった。
-// サムネイル画像を使う場合はMeta公式ドキュメントで「投稿者名+Instagramへの
-// リンクを明記すること」が要件として定められているため、このAPIは
-// thumbnail_url / author_name のみを返し、クレジット表記は呼び出し側(アプリ)で行う。
+// X側の実装(api/x-oembed.ts)と同様、公式にサポートされた手段ではないため、
+// Instagram側の仕様変更やスクレイピング対策(データセンターIPからのアクセス制限、
+// ログイン要求など)により、投稿によっては取得できない場合がある。取得できなかった
+// 場合はエラーを返すだけで、呼び出し側はテキストのみの表示にフォールバックする
+// (致命的な壊れ方はしない)。
 
-const GRAPH_API_VERSION = 'v21.0';
+const INSTAGRAM_URL_PATTERN = /^https:\/\/(www\.)?instagram\.com\/(?:[A-Za-z0-9_.]+\/)?(p|reel|tv)\/([A-Za-z0-9_-]+)\/?/i;
 
 function isValidInstagramUrl(url: string): boolean {
-  return /^https:\/\/(www\.)?instagram\.com\/(?:[A-Za-z0-9_.]+\/)?(p|reel|tv)\/[A-Za-z0-9_-]+\/?/i.test(url);
+  return INSTAGRAM_URL_PATTERN.test(url.trim());
+}
+
+function extractShortcode(url: string): string | null {
+  const match = url.trim().match(INSTAGRAM_URL_PATTERN);
+  return match ? match[3] : null;
+}
+
+// 一般的なブラウザからのアクセスに見せることで、簡易的なボット判定を避ける
+const BROWSER_HEADERS = {
+  'user-agent':
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+  accept: 'text/html,application/xhtml+xml',
+  'accept-language': 'ja,en;q=0.8',
+};
+
+function extractMetaContent(html: string, property: string): string | null {
+  const patterns = [
+    new RegExp(`<meta\\s+property=["']${property}["']\\s+content=["']([^"']+)["']`, 'i'),
+    new RegExp(`<meta\\s+content=["']([^"']+)["']\\s+property=["']${property}["']`, 'i'),
+  ];
+  for (const pattern of patterns) {
+    const match = html.match(pattern);
+    if (match) return match[1].replace(/&amp;/g, '&').replace(/&quot;/g, '"');
+  }
+  return null;
+}
+
+async function tryFetchThumbnail(url: string): Promise<{ thumbnailUrl: string | null; authorName: string | null }> {
+  const res = await fetch(url, { headers: BROWSER_HEADERS });
+  if (!res.ok) return { thumbnailUrl: null, authorName: null };
+  const html = await res.text();
+  return {
+    thumbnailUrl: extractMetaContent(html, 'og:image'),
+    authorName: extractMetaContent(html, 'og:title'),
+  };
 }
 
 export default async function handler(req: any, res: any) {
@@ -31,40 +65,32 @@ export default async function handler(req: any, res: any) {
     return;
   }
 
-  const appId = process.env.META_APP_ID;
-  const appSecret = process.env.META_APP_SECRET;
-  if (!appId || !appSecret) {
-    // 環境変数が未設定の場合(Meta Developerアプリの準備が済んでいない場合)は、
-    // 500ではなく「サムネイルなし」として扱えるよう404で返す。
-    // アプリ側はこれを「フォールバックリンク表示」の合図として扱う。
-    res.status(404).json({ error: 'not_configured' });
+  const shortcode = extractShortcode(targetUrl);
+  if (!shortcode) {
+    res.status(400).json({ error: 'invalid_url' });
     return;
   }
 
   try {
-    const accessToken = `${appId}|${appSecret}`;
-    const oembedUrl =
-      `https://graph.facebook.com/${GRAPH_API_VERSION}/instagram_oembed` +
-      `?url=${encodeURIComponent(targetUrl)}` +
-      `&fields=thumbnail_url,author_name,provider_name,provider_url,thumbnail_width,thumbnail_height` +
-      `&access_token=${encodeURIComponent(accessToken)}`;
+    // 通常の投稿ページでog:imageが取れない場合、埋め込み専用ページも試す
+    // (どちらもInstagram側で公開・ログイン不要のページ)
+    let result = await tryFetchThumbnail(`https://www.instagram.com/p/${shortcode}/`);
+    if (!result.thumbnailUrl) {
+      result = await tryFetchThumbnail(`https://www.instagram.com/p/${shortcode}/embed/captioned/`);
+    }
 
-    const metaRes = await fetch(oembedUrl);
-    if (!metaRes.ok) {
-      // 対象アカウントが埋め込みを許可していない/非公開/年齢制限ありなどの場合もここに来る
-      res.status(404).json({ error: 'oembed_unavailable' });
+    if (!result.thumbnailUrl) {
+      // ログイン画面にリダイレクトされた、アクセス制限を受けたなど
+      res.status(404).json({ error: 'thumbnail_not_found' });
       return;
     }
-    const data = await metaRes.json();
 
     res.setHeader('Content-Type', 'application/json; charset=utf-8');
     // Instagram側のサムネイルURLは頻繁には変わらないため、1日キャッシュする
     res.setHeader('Cache-Control', 'public, max-age=0, s-maxage=86400, stale-while-revalidate=604800');
     res.status(200).json({
-      thumbnailUrl: data.thumbnail_url ?? null,
-      authorName: data.author_name ?? null,
-      thumbnailWidth: data.thumbnail_width ?? null,
-      thumbnailHeight: data.thumbnail_height ?? null,
+      thumbnailUrl: result.thumbnailUrl,
+      authorName: result.authorName,
     });
   } catch (e) {
     res.status(502).json({ error: 'fetch_failed' });
