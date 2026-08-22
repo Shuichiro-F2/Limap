@@ -56,6 +56,9 @@ export interface SpotEmbed {
   spot_id: string;
   platform: SpotEmbedPlatform;
   url: string;
+  // 投稿作成/編集時にあらかじめ取得しておいた、埋め込み投稿のサムネイル画像URL。
+  // 取得できなかった場合(テキストのみの投稿など)はnull。
+  thumbnail_url: string | null;
   position: number;
   created_at: string;
 }

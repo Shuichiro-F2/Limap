@@ -1,5 +1,6 @@
 import { supabase } from './supabase';
 import { detectEmbedUrl, MAX_SNS_EMBEDS } from './embeds';
+import { fetchEmbedThumbnail } from './embedThumbnail';
 import type { Spot, SpotImage, ReportReason, VisitTime } from '../types/database';
 
 // profiles とは spots.author_id 経由の他に likes テーブルを介した間接的な関連もあり、
@@ -7,7 +8,7 @@ import type { Spot, SpotImage, ReportReason, VisitTime } from '../types/database
 const SPOT_SELECT = `
   *,
   images:spot_images(id, storage_path, thumbnail_path, position),
-  embeds:spot_embeds(id, platform, url, position, created_at),
+  embeds:spot_embeds(id, platform, url, thumbnail_url, position, created_at),
   tags:spot_tags(tag:tags(id, name)),
   author:profiles!spots_author_id_fkey(id, username, display_name, avatar_url, badge_type_key, badge:badge_types(key, label_ja, label_en, icon_name, bg_color, text_color))
 `;
@@ -235,6 +236,11 @@ export async function createSpot(authorId: string, input: CreateSpotInput): Prom
   if (detectedEmbeds.some((e) => !e)) {
     throw new Error('SNS投稿のURLが正しくありません(Instagram/Xの投稿URLを指定してください)');
   }
+  // 画像がない投稿でも一覧のグリッド/カードに何か表示できるよう、埋め込み投稿の
+  // サムネイル画像を先に取得しておく(spots本体の作成と並行して走らせ、待ち時間を減らす)。
+  const embedThumbnailsPromise = Promise.all(
+    detectedEmbeds.map((embed) => fetchEmbedThumbnail(embed!.platform, embed!.url))
+  );
 
   const { data: spot, error } = await supabase
     .from('spots')
@@ -275,11 +281,13 @@ export async function createSpot(authorId: string, input: CreateSpotInput): Prom
   }
 
   if (detectedEmbeds.length > 0) {
+    const embedThumbnails = await embedThumbnailsPromise;
     const { error: embedError } = await supabase.from('spot_embeds').insert(
       detectedEmbeds.map((embed, i) => ({
         spot_id: spot.id,
         platform: embed!.platform,
         url: embed!.url,
+        thumbnail_url: embedThumbnails[i] ?? null,
         position: i,
       }))
     );
@@ -320,6 +328,11 @@ export async function updateSpot(spot: Spot, input: UpdateSpotInput): Promise<Sp
   if (detectedEmbeds.some((e) => !e)) {
     throw new Error('SNS投稿のURLが正しくありません(Instagram/Xの投稿URLを指定してください)');
   }
+  // 埋め込みは編集のたびに全削除→再挿入するため、サムネイルもURLが変わっていなくても
+  // 都度取得し直す(投稿件数・頻度を踏まえるとAPI呼び出しコストは小さい)
+  const embedThumbnailsPromise = Promise.all(
+    detectedEmbeds.map((embed) => fetchEmbedThumbnail(embed!.platform, embed!.url))
+  );
 
   const { error } = await supabase
     .from('spots')
@@ -386,11 +399,13 @@ export async function updateSpot(spot: Spot, input: UpdateSpotInput): Promise<Sp
   const { error: delEmbedError } = await supabase.from('spot_embeds').delete().eq('spot_id', spot.id);
   if (delEmbedError) throw delEmbedError;
   if (detectedEmbeds.length > 0) {
+    const embedThumbnails = await embedThumbnailsPromise;
     const { error: embedError } = await supabase.from('spot_embeds').insert(
       detectedEmbeds.map((embed, i) => ({
         spot_id: spot.id,
         platform: embed!.platform,
         url: embed!.url,
+        thumbnail_url: embedThumbnails[i] ?? null,
         position: i,
       }))
     );
@@ -456,6 +471,18 @@ export function spotImageUrl(storagePath: string): string {
 // 大量の高解像度画像を同時デコードして重くなる)。
 export function spotImageThumbUrl(image: Pick<SpotImage, 'storage_path' | 'thumbnail_path'>): string {
   return spotImageUrl(image.thumbnail_path ?? image.storage_path);
+}
+
+// 一覧のグリッド/カードに表示するサムネイルURLをまとめて解決する。
+// 写真の投稿があればその1枚目、なければ埋め込み投稿(Instagram/X)から取得済みの
+// サムネイルを使う。どちらもない場合はnullを返し、呼び出し側でテキストなどの
+// プレースホルダー表示にフォールバックする。
+export function spotThumbnailUrl(spot: Pick<Spot, 'images' | 'embeds'>): string | null {
+  if (spot.images && spot.images.length > 0) {
+    return spotImageThumbUrl(spot.images[0]);
+  }
+  const embedWithThumbnail = (spot.embeds ?? []).find((e) => e.thumbnail_url);
+  return embedWithThumbnail?.thumbnail_url ?? null;
 }
 
 // join結果のネスト構造をフラットな Spot[] に整形する
