@@ -20,6 +20,7 @@ import { resizeImageForUpload, extensionForContentType, THUMBNAIL_RESIZE_OPTIONS
 import { fetchAllTags, findOrCreateTag } from '../lib/tags';
 import { detectEmbedUrl, MAX_SNS_EMBEDS, type DetectedEmbed } from '../lib/embeds';
 import { isValidHttpUrl } from '../lib/url';
+import { saveCreateSpotDraft, takeCreateSpotDraft } from '../lib/createSpotDraft';
 import { useAuth } from '../lib/AuthContext';
 import { useTranslation } from '../lib/i18n';
 import { notify } from '../lib/notify';
@@ -77,11 +78,28 @@ export default function CreateSpotScreen({ navigation, route }: Props) {
     }
   }, [session?.user]);
 
-  // LocationPicker画面で選んだ座標をパラメータ経由で受け取る
+  // LocationPicker画面で選んだ座標をパラメータ経由で受け取る。
+  // Web版ではこの往復でCreateSpotScreenが再マウントされ、それまで入力していた
+  // タイトルなどが失われてしまうことがあるため、「地図から選択」を押す直前に
+  // 退避しておいたフォーム内容(下書き)があればあわせて復元する。
   useEffect(() => {
     const { pickedLat, pickedLng } = route.params ?? {};
     if (pickedLat != null && pickedLng != null) {
       setCoords({ lat: pickedLat, lng: pickedLng });
+
+      const draft = takeCreateSpotDraft();
+      if (draft) {
+        setTitle(draft.title);
+        setDescription(draft.description);
+        setAccess(draft.access);
+        setVisitTime(draft.visitTime);
+        setGoogleMapsUrl(draft.googleMapsUrl);
+        setSelectedTags(draft.selectedTags);
+        setTagInput(draft.tagInput);
+        setImages(draft.images);
+        setEmbeds(draft.embeds);
+        setEmbedInput(draft.embedInput);
+      }
     }
   }, [route.params?.pickedLat, route.params?.pickedLng]);
 
@@ -323,12 +341,26 @@ export default function CreateSpotScreen({ navigation, route }: Props) {
         </Pressable>
         <Pressable
           style={[styles.secondaryButton, styles.locationButton]}
-          onPress={() =>
+          onPress={() => {
+            // Web版でこの往復中にCreateSpotScreenが再マウントされても入力内容が
+            // 消えないよう、遷移前に現在のフォーム内容を退避しておく
+            saveCreateSpotDraft({
+              title,
+              description,
+              access,
+              visitTime,
+              googleMapsUrl,
+              selectedTags,
+              tagInput,
+              images,
+              embeds,
+              embedInput,
+            });
             navigation.navigate('LocationPicker', {
               initialLat: coords?.lat,
               initialLng: coords?.lng,
-            })
-          }
+            });
+          }}
         >
           <Text style={styles.secondaryButtonText}>{t.createSpot.chooseOnMap}</Text>
         </Pressable>
