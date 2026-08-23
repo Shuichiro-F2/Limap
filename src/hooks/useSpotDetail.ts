@@ -9,8 +9,9 @@ import {
   reportSpot,
   deleteSpot,
 } from '../lib/spots';
+import { fetchSpotReviews, deleteSpotReview } from '../lib/spotReviews';
 import { useAuth } from '../lib/AuthContext';
-import type { Spot, ReportReason } from '../types/database';
+import type { Spot, SpotReview, ReportReason } from '../types/database';
 
 // スポット詳細の取得といいね・行きたい・通報の操作をまとめたフック。
 // フル画面の詳細画面と、地図画面のプレビューシートの両方から共有して使う。
@@ -24,16 +25,28 @@ export function useSpotDetail(slug: string | null) {
   const [loading, setLoading] = useState(true);
   const [showReport, setShowReport] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const [reviews, setReviews] = useState<SpotReview[]>([]);
+  const [reviewsLoading, setReviewsLoading] = useState(false);
+
+  const loadReviews = (spotDbId: string) => {
+    setReviewsLoading(true);
+    fetchSpotReviews(spotDbId)
+      .then(setReviews)
+      .catch((e) => console.warn('レビュー取得エラー', e))
+      .finally(() => setReviewsLoading(false));
+  };
 
   useEffect(() => {
     if (!slug) return;
     setSpot(null);
     setLoading(true);
     setShowReport(false);
+    setReviews([]);
 
     fetchSpotBySlug(slug)
       .then((data) => {
         setSpot(data);
+        loadReviews(data.id);
         if (session?.user) {
           isSpotLiked(session.user.id, data.id).then(setLiked).catch(() => {});
           isSpotBookmarked(session.user.id, data.id).then(setBookmarked).catch(() => {});
@@ -45,6 +58,20 @@ export function useSpotDetail(slug: string | null) {
       .catch((e) => console.warn('スポット取得エラー', e))
       .finally(() => setLoading(false));
   }, [slug, session?.user?.id]);
+
+  const refreshReviews = () => {
+    if (spot) loadReviews(spot.id);
+  };
+
+  const handleDeleteReview = async (review: SpotReview) => {
+    if (!session?.user || session.user.id !== review.author_id) return;
+    try {
+      await deleteSpotReview(review);
+      setReviews((prev) => prev.filter((r) => r.id !== review.id));
+    } catch (e: any) {
+      notify('削除に失敗しました', e.message);
+    }
+  };
 
   const handleLike = async () => {
     if (!spot) return;
@@ -126,5 +153,9 @@ export function useSpotDetail(slug: string | null) {
     isOwner,
     deleting,
     handleDelete,
+    reviews,
+    reviewsLoading,
+    refreshReviews,
+    handleDeleteReview,
   };
 }

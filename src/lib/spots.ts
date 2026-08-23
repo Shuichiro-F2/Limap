@@ -81,6 +81,90 @@ export async function searchSpots(params: SearchSpotsParams): Promise<Spot[]> {
   return normalizeSpots(data ?? []);
 }
 
+const NEARBY_DISTANCE_THRESHOLD_M = 300;
+
+function haversineMeters(aLat: number, aLng: number, bLat: number, bLng: number): number {
+  const R = 6371000;
+  const toRad = (deg: number) => (deg * Math.PI) / 180;
+  const dLat = toRad(bLat - aLat);
+  const dLng = toRad(bLng - aLng);
+  const lat1 = toRad(aLat);
+  const lat2 = toRad(bLat);
+  const h = Math.sin(dLat / 2) ** 2 + Math.cos(lat1) * Math.cos(lat2) * Math.sin(dLng / 2) ** 2;
+  return 2 * R * Math.asin(Math.sqrt(h));
+}
+
+export interface NearbySpotMatch {
+  id: string;
+  slug: string;
+  title: string;
+  lat: number;
+  lng: number;
+  distanceMeters: number;
+  images?: SpotImage[];
+  embeds?: Spot['embeds'];
+}
+
+const NEARBY_SELECT =
+  'id, slug, title, lat, lng, images:spot_images(id, storage_path, thumbnail_path, position), embeds:spot_embeds(id, platform, url, thumbnail_url, position, created_at)';
+
+// 新規投稿時に、既に近い場所や似た名前の投稿がないかを調べる(重複投稿防止のため)。
+// 座標が近い(既定300m以内)、またはスポット名が部分一致(大文字小文字を無視)する
+// 投稿を検出する。どちらかに該当すれば「重複の可能性あり」として返す。
+export async function findNearbySpots(lat: number, lng: number, title: string): Promise<NearbySpotMatch[]> {
+  // 緯度1度あたり約111km。距離のしきい値に十分な余裕を持たせたバウンディングボックスで
+  // まず候補を絞り込み、正確な距離はクライアント側でhaversine計算する。
+  const latDelta = (NEARBY_DISTANCE_THRESHOLD_M * 3) / 111000;
+  const lngDelta = latDelta / Math.max(Math.cos((lat * Math.PI) / 180), 0.2);
+
+  const trimmedTitle = title.trim();
+
+  const nearbyPromise = supabase
+    .from('spots')
+    .select(NEARBY_SELECT)
+    .eq('status', 'published')
+    .gte('lat', lat - latDelta)
+    .lte('lat', lat + latDelta)
+    .gte('lng', lng - lngDelta)
+    .lte('lng', lng + lngDelta)
+    .limit(50);
+
+  const namePromise =
+    trimmedTitle.length >= 2
+      ? supabase.from('spots').select(NEARBY_SELECT).eq('status', 'published').ilike('title', `%${trimmedTitle}%`).limit(20)
+      : Promise.resolve({ data: [] as any[], error: null });
+
+  const [nearbyResult, nameResult] = await Promise.all([nearbyPromise, namePromise]);
+  if (nearbyResult.error) throw nearbyResult.error;
+  if (nameResult.error) throw nameResult.error;
+
+  const candidates = new Map<string, any>();
+  for (const row of [...(nearbyResult.data ?? []), ...(nameResult.data ?? [])]) {
+    candidates.set(row.id, row);
+  }
+
+  const matches: NearbySpotMatch[] = [];
+  for (const row of candidates.values()) {
+    const distanceMeters = haversineMeters(lat, lng, row.lat, row.lng);
+    const nameMatches = trimmedTitle.length >= 2 && (row.title as string).toLowerCase().includes(trimmedTitle.toLowerCase());
+    if (distanceMeters <= NEARBY_DISTANCE_THRESHOLD_M || nameMatches) {
+      matches.push({
+        id: row.id,
+        slug: row.slug,
+        title: row.title,
+        lat: row.lat,
+        lng: row.lng,
+        distanceMeters,
+        images: row.images,
+        embeds: row.embeds,
+      });
+    }
+  }
+
+  matches.sort((a, b) => a.distanceMeters - b.distanceMeters);
+  return matches.slice(0, 3);
+}
+
 // フィード: 全投稿からランダムに一部を取り出す（X/Instagramのような発見用フィード）
 export async function fetchRandomSpots(limit = 30): Promise<Spot[]> {
   const { data, error } = await supabase

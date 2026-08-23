@@ -15,6 +15,10 @@ export type RootStackParamList = {
   SpotDetail: { spotId: string };
   CreateSpot: { pickedLat?: number; pickedLng?: number } | undefined;
   EditSpot: { spotId: string; pickedLat?: number; pickedLng?: number };
+  // spotIdは対象スポットのLIMap ID(slug)。入力途中の内容(タイトルは除く)を
+  // 新規投稿画面から引き継ぐ場合はsrc/lib/reviewDraft.tsの下書きストアを使う
+  // (画像などシリアライズできない値を含むため、route paramsには含めない)。
+  AddReview: { spotId: string };
   // returnTo/spotIdは「地図から選択」の呼び出し元がCreateSpot/EditSpotのどちらかを
   // 判別し、確定後に正しい画面(+編集対象)へ戻すために使う(未指定時はCreateSpotへ戻る)
   LocationPicker:

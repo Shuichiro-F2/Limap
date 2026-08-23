@@ -102,3 +102,39 @@ export interface Report {
   note: string | null;
   created_at: string;
 }
+
+// 既存スポットに他ユーザーが追加できる「レビュー」投稿(写真・SNS埋め込み・コメント・
+// 訪問時間帯)。spots本体とほぼ同じ構成だが、位置情報・タイトル・タグは持たず、
+// 常に既存のスポット(spot_id)に紐付く。
+export interface SpotReviewImage {
+  id: string;
+  review_id: string;
+  storage_path: string;
+  thumbnail_path: string | null;
+  position: number;
+  created_at: string;
+}
+
+export interface SpotReviewEmbed {
+  id: string;
+  review_id: string;
+  platform: SpotEmbedPlatform;
+  url: string;
+  thumbnail_url: string | null;
+  position: number;
+  created_at: string;
+}
+
+export interface SpotReview {
+  id: string;
+  spot_id: string;
+  author_id: string;
+  description: string | null;
+  recommended_visit_time: VisitTime | null;
+  created_at: string;
+  updated_at: string;
+  // クライアント側でjoinして付与するフィールド
+  images?: SpotReviewImage[];
+  embeds?: SpotReviewEmbed[];
+  author?: Profile;
+}

@@ -13,6 +13,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useSpotDetail } from '../hooks/useSpotDetail';
 import SpotDetailContent from './SpotDetailContent';
 import Text from './AppText';
+import { useAuth } from '../lib/AuthContext';
 import { colors } from '../lib/theme';
 import { notify } from '../lib/notify';
 import { WEB_SAFE_BOTTOM_OVERHANG, webSafeHeight } from '../lib/safeAreaWeb';
@@ -38,6 +39,7 @@ type Props = {
   onTagPress?: (tagId: number) => void;
   onAuthorPress?: (userId: string) => void;
   onEdit?: (slug: string) => void;
+  onAddReview?: (slug: string) => void;
   onDeleted?: () => void;
 };
 
@@ -48,6 +50,7 @@ export default function SpotPreviewSheet({
   onTagPress,
   onAuthorPress,
   onEdit,
+  onAddReview,
   onDeleted,
 }: Props) {
   // Web版でホーム画面に追加してスタンドアロン表示にした場合、react-native-webの
@@ -57,6 +60,7 @@ export default function SpotPreviewSheet({
   // 隙間ができてしまうため、シート自体をinsets.bottom分だけ余分に
   // 下へ張り出させて実機の下端まで確実に届かせる。
   const insets = useSafeAreaInsets();
+  const { session } = useAuth();
   const {
     spot,
     loading,
@@ -70,6 +74,9 @@ export default function SpotPreviewSheet({
     isOwner,
     deleting,
     handleDelete,
+    reviews,
+    reviewsLoading,
+    handleDeleteReview,
   } = useSpotDetail(spotId);
 
   const [modalVisible, setModalVisible] = useState(false);
@@ -287,6 +294,18 @@ export default function SpotPreviewSheet({
               }
               onDelete={onDelete}
               deleting={deleting}
+              reviews={reviews}
+              reviewsLoading={reviewsLoading}
+              currentUserId={session?.user?.id}
+              onAddReview={
+                onAddReview && spot
+                  ? () => {
+                      onAddReview(spot.slug);
+                      close();
+                    }
+                  : undefined
+              }
+              onDeleteReview={handleDeleteReview}
             />
           </View>
         </Animated.View>

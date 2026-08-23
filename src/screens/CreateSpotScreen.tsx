@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   View,
   Pressable,
@@ -15,12 +15,14 @@ import TextInput from '../components/AppTextInput';
 import InstagramEmbed from '../components/InstagramEmbed';
 import XEmbed from '../components/XEmbed';
 import { supabase } from '../lib/supabase';
-import { createSpot } from '../lib/spots';
+import { createSpot, findNearbySpots, type NearbySpotMatch } from '../lib/spots';
 import { resizeImageForUpload, extensionForContentType, THUMBNAIL_RESIZE_OPTIONS } from '../lib/imageResize';
 import { fetchAllTags, findOrCreateTag } from '../lib/tags';
 import { detectEmbedUrl, MAX_SNS_EMBEDS, type DetectedEmbed } from '../lib/embeds';
 import { isValidHttpUrl } from '../lib/url';
 import { saveCreateSpotDraft, takeCreateSpotDraft } from '../lib/createSpotDraft';
+import { saveReviewDraft } from '../lib/reviewDraft';
+import DuplicateSpotPopup from '../components/DuplicateSpotPopup';
 import { useAuth } from '../lib/AuthContext';
 import { useTranslation } from '../lib/i18n';
 import { notify } from '../lib/notify';
@@ -56,6 +58,40 @@ export default function CreateSpotScreen({ navigation, route }: Props) {
   const [embeds, setEmbeds] = useState<DetectedEmbed[]>([]);
   const [embedInput, setEmbedInput] = useState('');
   const [submitting, setSubmitting] = useState(false);
+
+  // 座標・名前が近い既存スポットが見つかった場合に案内するポップアップ用の状態。
+  // 同じ組み合わせ(座標+タイトル)で一度閉じたら、再入力するまで出しっぱなしに
+  // しないよう、直前に閉じた組み合わせをdismissedSignatureRefに覚えておく。
+  const [nearbyMatches, setNearbyMatches] = useState<NearbySpotMatch[]>([]);
+  const [showDuplicatePopup, setShowDuplicatePopup] = useState(false);
+  const dismissedSignatureRef = useRef<string | null>(null);
+
+  const checkForDuplicates = async (lat: number, lng: number, currentTitle: string) => {
+    const signature = `${lat.toFixed(5)},${lng.toFixed(5)}|${currentTitle.trim()}`;
+    if (dismissedSignatureRef.current === signature) return;
+    try {
+      const matches = await findNearbySpots(lat, lng, currentTitle);
+      if (matches.length > 0) {
+        setNearbyMatches(matches);
+        setShowDuplicatePopup(true);
+      }
+    } catch (e) {
+      console.warn('近隣スポット検索エラー', e);
+    }
+  };
+
+  const dismissDuplicatePopup = () => {
+    dismissedSignatureRef.current = coords ? `${coords.lat.toFixed(5)},${coords.lng.toFixed(5)}|${title.trim()}` : null;
+    setShowDuplicatePopup(false);
+  };
+
+  // 「レビューとして投稿する」を選んだ場合、それまでの入力内容(タイトル以外)を
+  // AddReviewScreenへ引き継いでから遷移する
+  const selectDuplicateMatch = (match: NearbySpotMatch) => {
+    saveReviewDraft({ description, visitTime, images, embeds });
+    setShowDuplicatePopup(false);
+    navigation.navigate('AddReview', { spotId: match.slug });
+  };
 
   // ヘッダーのタイトルも選択中の言語に合わせる(このスクリーン自体は
   // 4タブのようにReact Navigationの外側にいる時間が長いため、画面遷移をまたいでも
@@ -102,6 +138,11 @@ export default function CreateSpotScreen({ navigation, route }: Props) {
       }
     }
   }, [route.params?.pickedLat, route.params?.pickedLng]);
+
+  // 位置情報が設定/変更されるたびに、近くまたは同じ名前の既存スポットがないか確認する
+  useEffect(() => {
+    if (coords) checkForDuplicates(coords.lat, coords.lng, title);
+  }, [coords?.lat, coords?.lng]);
 
   const pickImages = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -318,12 +359,18 @@ export default function CreateSpotScreen({ navigation, route }: Props) {
   };
 
   return (
+    <View style={{ flex: 1 }}>
     <ScrollView style={styles.container} contentContainerStyle={{ padding: 20 }}>
       <SectionLabel label={t.createSpot.name} help={t.createSpot.nameHelp} />
       <TextInput
         style={styles.input}
         value={title}
         onChangeText={setTitle}
+        onEndEditing={() => {
+          // 位置情報が既に決まっている状態でタイトルを入力し終えたタイミングでも、
+          // 同じ名前の既存スポットがないか確認する
+          if (coords) checkForDuplicates(coords.lat, coords.lng, title);
+        }}
         placeholder={t.createSpot.namePlaceholder}
         placeholderTextColor="#666"
         maxLength={60}
@@ -536,6 +583,13 @@ export default function CreateSpotScreen({ navigation, route }: Props) {
         )}
       </Pressable>
     </ScrollView>
+    <DuplicateSpotPopup
+      visible={showDuplicatePopup}
+      matches={nearbyMatches}
+      onSelectMatch={selectDuplicateMatch}
+      onDismiss={dismissDuplicatePopup}
+    />
+    </View>
   );
 }
 

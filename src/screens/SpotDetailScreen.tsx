@@ -30,6 +30,9 @@ export default function SpotDetailScreen({ route, navigation }: Props) {
     isOwner,
     deleting,
     handleDelete,
+    reviews,
+    reviewsLoading,
+    handleDeleteReview,
   } = useSpotDetail(spotId);
 
   // Web版: SPA内遷移でこの画面を開いた場合もタイトル/OGP/構造化データを
@@ -70,6 +73,12 @@ export default function SpotDetailScreen({ route, navigation }: Props) {
   const goToEdit = () => {
     if (!spot) return;
     navigation.navigate('EditSpot', { spotId: spot.slug });
+  };
+
+  // 未ログインの場合はAddReviewScreen側の内部ガードでログイン画面へ誘導される
+  const goToAddReview = () => {
+    if (!spot) return;
+    navigation.navigate('AddReview', { spotId: spot.slug });
   };
 
   // 削除後は詳細画面に留まれないため、戻れる場合は戻り、戻れない場合は地図画面へ遷移する
@@ -124,6 +133,11 @@ export default function SpotDetailScreen({ route, navigation }: Props) {
         onDelete={onDelete}
         deleting={deleting}
         topInset={insets.top + HEADER_CONTENT_HEIGHT}
+        reviews={reviews}
+        reviewsLoading={reviewsLoading}
+        currentUserId={session?.user?.id}
+        onAddReview={goToAddReview}
+        onDeleteReview={handleDeleteReview}
       />
       {/* 他の画面(地図・フィード等)と全く同じレイアウトのヘッダーにするため、
           個別のnative-stackヘッダーではなく共通のAppHeaderをそのまま重ねて使う。

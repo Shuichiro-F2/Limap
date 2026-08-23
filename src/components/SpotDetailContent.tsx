@@ -17,10 +17,10 @@ import Text from './AppText';
 import { UsernameWithBadge } from './UserBadge';
 import InstagramEmbed from './InstagramEmbed';
 import XEmbed from './XEmbed';
-import { spotImageUrl } from '../lib/spots';
+import { spotImageUrl, spotImageThumbUrl } from '../lib/spots';
 import { shareSpot, copyLink } from '../lib/share';
 import { colors } from '../lib/theme';
-import type { Spot, SpotImage, SpotEmbed, ReportReason } from '../types/database';
+import type { Spot, SpotImage, SpotEmbed, SpotReview, ReportReason } from '../types/database';
 
 // 画像・SNS埋め込み(Instagram/X)を「メディア」として一つの横スクロールにまとめて扱うための型。
 // 表示順は画像(position順)→SNS埋め込み(position順)。
@@ -86,7 +86,22 @@ type Props = {
   // 上に重なる固定ヘッダー(AppHeader)の高さ分だけ、先頭のメディアが隠れないよう空ける余白。
   // フル画面の詳細画面でのみ指定し、プレビューシート側は0のまま(独自のハンドルバーがある)。
   topInset?: number;
+  // 「みんなの投稿」セクション(既存スポットへの他ユーザーによるレビュー投稿)。
+  // 未ログイン時などonAddReviewを渡さない場合は投稿ボタンを表示しない。
+  reviews?: SpotReview[];
+  reviewsLoading?: boolean;
+  currentUserId?: string;
+  onAddReview?: () => void;
+  onDeleteReview?: (review: SpotReview) => void;
 };
+
+function formatReviewDate(iso: string): string {
+  try {
+    return new Date(iso).toLocaleDateString('ja-JP', { year: 'numeric', month: 'short', day: 'numeric' });
+  } catch {
+    return '';
+  }
+}
 
 // スポット詳細の中身（画像カルーセル＋本文）だけを描画する表示専用コンポーネント。
 // フル画面の詳細画面と、地図画面のプレビューシートの両方で使い回す。
@@ -111,6 +126,11 @@ export default function SpotDetailContent({
   onDelete,
   deleting = false,
   topInset = 0,
+  reviews = [],
+  reviewsLoading = false,
+  currentUserId,
+  onAddReview,
+  onDeleteReview,
 }: Props) {
   const { width: screenWidth, height: screenHeight } = useWindowDimensions();
   // PCなど横幅の広い画面では、画像や本文が横に間延びしないよう最大幅で中央寄せする。
@@ -490,6 +510,88 @@ export default function SpotDetailContent({
             </View>
           </View>
         )}
+
+        {/* 「みんなの投稿」: 他ユーザーがこのスポットに追加したレビュー(写真・SNS埋め込み・
+            コメント・訪問時間帯)を本文の下に一覧で並べる。onAddReviewが渡っている場合のみ
+            投稿ボタンを表示する(未ログイン時は親側でボタンごと出し分ける想定)。 */}
+        <View style={styles.reviewsSection}>
+          <View style={styles.reviewsHeaderRow}>
+            <Text style={styles.reviewsHeading}>
+              みんなの投稿{reviews.length > 0 ? `(${reviews.length})` : ''}
+            </Text>
+            {onAddReview && (
+              <Pressable style={styles.addReviewButton} onPress={onAddReview} hitSlop={6}>
+                <Ionicons name="add" size={15} color={colors.accent} />
+                <Text style={styles.addReviewButtonText}>投稿を追加</Text>
+              </Pressable>
+            )}
+          </View>
+
+          {reviewsLoading ? (
+            <ActivityIndicator color={colors.background} style={{ marginTop: 14 }} />
+          ) : reviews.length === 0 ? (
+            <Text style={styles.reviewsEmptyText}>
+              まだ投稿がありません。最初の投稿を追加してみましょう。
+            </Text>
+          ) : (
+            reviews.map((review) => {
+              const reviewMedia = [
+                ...(review.images ?? []).map((img) => ({
+                  key: `img-${img.id}`,
+                  uri: spotImageThumbUrl(img),
+                  url: null as string | null,
+                })),
+                ...(review.embeds ?? [])
+                  .filter((e) => e.thumbnail_url)
+                  .map((e) => ({ key: `embed-${e.id}`, uri: e.thumbnail_url as string, url: e.url })),
+              ];
+              return (
+                <View key={review.id} style={styles.reviewCard}>
+                  <View style={styles.reviewHeaderRow}>
+                    {review.author?.username ? (
+                      <UsernameWithBadge
+                        username={review.author.username}
+                        badge={review.author.badge}
+                        textStyle={styles.reviewAuthorText}
+                      />
+                    ) : (
+                      <View />
+                    )}
+                    <Text style={styles.reviewDate}>{formatReviewDate(review.created_at)}</Text>
+                  </View>
+
+                  {review.recommended_visit_time && (
+                    <Text style={styles.reviewVisitTime}>
+                      おすすめ: {VISIT_TIME_LABELS[review.recommended_visit_time] ?? review.recommended_visit_time}
+                    </Text>
+                  )}
+
+                  {reviewMedia.length > 0 && (
+                    <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.reviewMediaRow}>
+                      {reviewMedia.map((m) =>
+                        m.url ? (
+                          <Pressable key={m.key} onPress={() => Linking.openURL(m.url!).catch(() => {})}>
+                            <Image source={{ uri: m.uri }} style={styles.reviewImage} />
+                          </Pressable>
+                        ) : (
+                          <Image key={m.key} source={{ uri: m.uri }} style={styles.reviewImage} />
+                        )
+                      )}
+                    </ScrollView>
+                  )}
+
+                  {review.description && <Text style={styles.reviewDescription}>{review.description}</Text>}
+
+                  {currentUserId && review.author_id === currentUserId && onDeleteReview && (
+                    <Pressable style={styles.reviewDeleteButton} onPress={() => onDeleteReview(review)} hitSlop={6}>
+                      <Text style={styles.reviewDeleteText}>削除する</Text>
+                    </Pressable>
+                  )}
+                </View>
+              );
+            })
+          )}
+        </View>
         </View>
       </View>
     </ScrollView>
@@ -608,4 +710,38 @@ const styles = StyleSheet.create({
     backgroundColor: colors.danger,
   },
   deleteConfirmButtonText: { color: '#fff', fontSize: 14, fontWeight: '700' },
+  reviewsSection: {
+    marginTop: 32,
+    paddingTop: 20,
+    borderTopWidth: 1,
+    borderTopColor: 'rgba(0,0,0,0.12)',
+  },
+  reviewsHeaderRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
+  reviewsHeading: { color: colors.accentText, fontSize: 15, fontWeight: '700' },
+  addReviewButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 3,
+    backgroundColor: colors.background,
+    borderRadius: 999,
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+  },
+  addReviewButtonText: { color: colors.accent, fontSize: 12.5, fontWeight: '700' },
+  reviewsEmptyText: { color: colors.accentTextMuted, fontSize: 13, marginTop: 14, lineHeight: 19 },
+  reviewCard: {
+    backgroundColor: colors.background,
+    borderRadius: 12,
+    padding: 14,
+    marginTop: 14,
+  },
+  reviewHeaderRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
+  reviewAuthorText: { fontSize: 13, color: colors.accent, fontWeight: '700' },
+  reviewDate: { fontSize: 11, color: colors.textMuted },
+  reviewVisitTime: { fontSize: 12, color: colors.accent, marginTop: 6, fontWeight: '600' },
+  reviewMediaRow: { marginTop: 10 },
+  reviewImage: { width: 96, height: 96, borderRadius: 8, marginRight: 8, backgroundColor: colors.surfaceAlt },
+  reviewDescription: { fontSize: 13.5, color: colors.textPrimary, lineHeight: 19, marginTop: 10 },
+  reviewDeleteButton: { marginTop: 10, alignSelf: 'flex-start' },
+  reviewDeleteText: { color: colors.danger, fontSize: 12, fontWeight: '600' },
 });

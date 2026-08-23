@@ -13,6 +13,7 @@ import AuthScreen from '../screens/AuthScreen';
 import MainTabNavigator from './MainTabNavigator';
 import SpotDetailScreen from '../screens/SpotDetailScreen';
 import CreateSpotScreen from '../screens/CreateSpotScreen';
+import AddReviewScreen from '../screens/AddReviewScreen';
 import EditSpotScreen from '../screens/EditSpotScreen';
 import LocationPickerScreen from '../screens/LocationPickerScreen';
 import UserProfileScreen from '../screens/UserProfileScreen';
@@ -52,6 +53,7 @@ const linking: LinkingOptions<RootStackParamList> = {
       },
       SpotDetail: 'spot/:spotId',
       CreateSpot: 'create',
+      AddReview: 'spot/:spotId/review',
       EditSpot: 'spot/:spotId/edit',
       LocationPicker: 'location-picker',
       UserProfile: 'user/:userId',
@@ -126,6 +128,7 @@ export default function RootNavigator() {
         */}
         <Stack.Screen name="SpotDetail" component={SpotDetailScreen} options={{ headerShown: false }} />
         <Stack.Screen name="CreateSpot" component={CreateSpotScreen} options={{ title: '投稿する' }} />
+        <Stack.Screen name="AddReview" component={AddReviewScreen} options={{ title: 'レビューを投稿' }} />
         <Stack.Screen name="EditSpot" component={EditSpotScreen} options={{ title: '投稿を編集' }} />
         <Stack.Screen
           name="LocationPicker"
