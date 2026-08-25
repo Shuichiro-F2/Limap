@@ -5,7 +5,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import Text from '../components/AppText';
 import { HEADER_CONTENT_HEIGHT } from '../components/AppHeader';
 import { UsernameWithBadge } from '../components/UserBadge';
-import { fetchFollowingFeed, spotThumbnailUrl } from '../lib/spots';
+import { fetchFollowingFeed, fetchRandomSpots, spotThumbnailUrl } from '../lib/spots';
 import { useAuth } from '../lib/AuthContext';
 import { useTranslation } from '../lib/i18n';
 import { colors } from '../lib/theme';
@@ -13,26 +13,33 @@ import type { Spot } from '../types/database';
 import type { MainTabScreenProps } from '../navigation/types';
 
 type Props = MainTabScreenProps<'FeedTab'>;
+type FeedMode = 'recommended' | 'following';
 
-// フォロー中のユーザーの投稿を新しい順に並べたフィード。
+// タイムラインタブ。「おすすめ」（全投稿からランダム抽出）と「フォロー中」を
+// 切り替えられる。デフォルトは「おすすめ」にして、まだ誰もフォローしていない
+// ユーザーでもタイムラインが空にならないようにする。
 // マイページと違い、未ログインでも画面自体は開けるが、中身はログインを促す表示にする
 // （フォロー関係という個人的な情報に基づくタブのため）。
 export default function FeedScreen({ navigation }: Props) {
   const { session } = useAuth();
   const t = useTranslation();
+  const [mode, setMode] = useState<FeedMode>('recommended');
   const [spots, setSpots] = useState<Spot[]>([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
 
-  const load = useCallback(async () => {
-    if (!session?.user) return;
-    try {
-      const data = await fetchFollowingFeed(session.user.id);
-      setSpots(data);
-    } catch (e) {
-      console.warn('フィード取得エラー', e);
-    }
-  }, [session?.user?.id]);
+  const load = useCallback(
+    async (m: FeedMode) => {
+      if (!session?.user) return;
+      try {
+        const data = m === 'following' ? await fetchFollowingFeed(session.user.id) : await fetchRandomSpots();
+        setSpots(data);
+      } catch (e) {
+        console.warn('フィード取得エラー', e);
+      }
+    },
+    [session?.user?.id]
+  );
 
   useFocusEffect(
     useCallback(() => {
@@ -41,13 +48,13 @@ export default function FeedScreen({ navigation }: Props) {
         return;
       }
       setLoading(true);
-      load().finally(() => setLoading(false));
-    }, [load, session?.user?.id])
+      load(mode).finally(() => setLoading(false));
+    }, [load, session?.user?.id, mode])
   );
 
   const onRefresh = async () => {
     setRefreshing(true);
-    await load();
+    await load(mode);
     setRefreshing(false);
   };
 
@@ -70,6 +77,25 @@ export default function FeedScreen({ navigation }: Props) {
     <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
       <View style={{ height: HEADER_CONTENT_HEIGHT }} />
 
+      <View style={styles.modeTabs}>
+        <Pressable
+          style={[styles.modeTab, mode === 'recommended' && styles.modeTabActive]}
+          onPress={() => setMode('recommended')}
+        >
+          <Text style={[styles.modeTabText, mode === 'recommended' && styles.modeTabTextActive]}>
+            {t.feed.recommendedTab}
+          </Text>
+        </Pressable>
+        <Pressable
+          style={[styles.modeTab, mode === 'following' && styles.modeTabActive]}
+          onPress={() => setMode('following')}
+        >
+          <Text style={[styles.modeTabText, mode === 'following' && styles.modeTabTextActive]}>
+            {t.feed.followingTab}
+          </Text>
+        </Pressable>
+      </View>
+
       {loading ? (
         <ActivityIndicator color={colors.textPrimary} style={{ marginTop: 24 }} />
       ) : (
@@ -82,7 +108,9 @@ export default function FeedScreen({ navigation }: Props) {
           windowSize={5}
           removeClippedSubviews
           refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor={colors.accent} />}
-          ListEmptyComponent={<Text style={styles.emptyText}>{t.feed.empty}</Text>}
+          ListEmptyComponent={
+            <Text style={styles.emptyText}>{mode === 'following' ? t.feed.empty : t.feed.recommendedEmpty}</Text>
+          }
           renderItem={({ item }) => (
             <Pressable
               style={styles.card}
@@ -129,6 +157,16 @@ const styles = StyleSheet.create({
   loggedOutText: { color: colors.textSecondary, fontSize: 14, textAlign: 'center', lineHeight: 21 },
   loginButton: { backgroundColor: colors.accent, borderRadius: 10, paddingVertical: 12, paddingHorizontal: 28 },
   loginButtonText: { color: colors.accentText, fontWeight: '600', fontSize: 14 },
+  modeTabs: { flexDirection: 'row', gap: 8, paddingHorizontal: 16, paddingBottom: 12 },
+  modeTab: {
+    paddingVertical: 8,
+    paddingHorizontal: 18,
+    borderRadius: 18,
+    backgroundColor: colors.surface,
+  },
+  modeTabActive: { backgroundColor: colors.accent },
+  modeTabText: { color: colors.textSecondary, fontSize: 13, fontWeight: '600' },
+  modeTabTextActive: { color: colors.accentText },
   emptyText: { color: colors.textMuted, textAlign: 'center', marginTop: 60, marginHorizontal: 32, fontSize: 13, lineHeight: 20 },
   card: { marginHorizontal: 16, marginBottom: 20, borderRadius: 14, overflow: 'hidden', backgroundColor: colors.surface },
   cardImage: { width: '100%', aspectRatio: 4 / 3 },

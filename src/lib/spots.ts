@@ -165,7 +165,7 @@ export async function findNearbySpots(lat: number, lng: number, title: string): 
   return matches.slice(0, 3);
 }
 
-// フィード: 全投稿からランダムに一部を取り出す（X/Instagramのような発見用フィード）
+// タイムラインタブ「おすすめ」: 全投稿からランダムに一部を取り出す（X/Instagramのような発見用フィード）
 export async function fetchRandomSpots(limit = 30): Promise<Spot[]> {
   const { data, error } = await supabase
     .from('spots')

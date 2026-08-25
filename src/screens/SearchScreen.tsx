@@ -41,8 +41,15 @@ export default function SearchScreen({ navigation, route }: Props) {
       .catch((e) => console.warn('タグ取得エラー', e));
   }, []);
 
+  // タグをタップした時点で、検索ボタンを押さなくてもそのタグの投稿一覧を即座に表示する
   const toggleTag = (id: number) => {
-    setSelectedTags((prev) => (prev.includes(id) ? prev.filter((t) => t !== id) : [...prev, id]));
+    const next = selectedTags.includes(id) ? selectedTags.filter((t) => t !== id) : [...selectedTags, id];
+    setSelectedTags(next);
+    if (next.length === 0 && keyword.trim() === '') {
+      clearSearch();
+    } else {
+      runSearch({ tagIds: next });
+    }
   };
 
   const runSearch = async (overrides?: { keyword?: string; tagIds?: number[] }) => {
@@ -159,11 +166,7 @@ export default function SearchScreen({ navigation, route }: Props) {
           )}
         </>
       ) : (
-        <ScrollView contentContainerStyle={styles.browseScroll}>
-          <Text style={styles.browseHeading}>{t.search.browseHeading}</Text>
-          <Text style={styles.browseLead}>{t.search.browseLead}</Text>
-          {tagChips}
-        </ScrollView>
+        <ScrollView contentContainerStyle={styles.browseScroll}>{tagChips}</ScrollView>
       )}
     </SafeAreaView>
   );
@@ -191,9 +194,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   compactTagRow: { paddingHorizontal: 16, paddingBottom: 4 },
-  browseScroll: { paddingHorizontal: 16, paddingBottom: 40 },
-  browseHeading: { color: colors.textPrimary, fontSize: 17, fontWeight: '700', marginBottom: 6 },
-  browseLead: { color: colors.textSecondary, fontSize: 13, marginBottom: 16, lineHeight: 19 },
+  browseScroll: { paddingHorizontal: 16, paddingTop: 16, paddingBottom: 40 },
   tagGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
   tagOption: {
     borderWidth: 1,

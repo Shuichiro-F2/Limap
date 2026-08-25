@@ -50,15 +50,16 @@ const dictionary = {
       searchPlaceholder: '住所や施設名で検索',
     },
     feed: {
-      loggedOutMessage: 'ログインすると、フォロー中のユーザーの投稿が新着順でここに表示されます。',
+      loggedOutMessage: 'ログインすると、フォロー中のユーザーの投稿や、おすすめの投稿がここに表示されます。',
       loginButton: 'ログイン / 新規登録',
+      followingTab: 'フォロー中',
+      recommendedTab: 'おすすめ',
       empty: 'フォロー中のユーザーの投稿がありません。気になる投稿者をフォローしてみましょう。',
+      recommendedEmpty: 'まだ表示できる投稿がありません',
     },
     search: {
       placeholder: 'タイトルや説明文で検索',
       empty: '該当するスポットが見つかりませんでした',
-      browseHeading: 'ハッシュタグ',
-      browseLead: '気になるハッシュタグをタップすると、関連する投稿を検索できます。',
     },
     myPage: {
       followers: 'フォロワー',
@@ -178,15 +179,16 @@ const dictionary = {
       searchPlaceholder: 'Search by address or place name',
     },
     feed: {
-      loggedOutMessage: 'Log in to see the latest posts from people you follow, right here.',
+      loggedOutMessage: 'Log in to see posts from people you follow, plus recommended posts, right here.',
       loginButton: 'Log In / Sign Up',
+      followingTab: 'Following',
+      recommendedTab: 'Recommended',
       empty: "No posts yet from people you follow. Try following someone whose posts you like.",
+      recommendedEmpty: 'No posts to show yet',
     },
     search: {
       placeholder: 'Search by title or description',
       empty: 'No matching spots found',
-      browseHeading: 'Hashtags',
-      browseLead: 'Tap a hashtag to search for related posts.',
     },
     myPage: {
       followers: 'Followers',
