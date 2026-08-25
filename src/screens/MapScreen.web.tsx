@@ -343,7 +343,9 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingHorizontal: 14,
     paddingVertical: 10,
-    fontSize: 14,
+    // 16px未満だとiOS Safariがフォーカス時に自動ズームし、フォーカスが外れても
+    // ズームが戻らないまま画面全体が拡大された状態になってしまうため16px以上にする。
+    fontSize: 16,
   },
   searchButton: {
     width: 44,

@@ -8,6 +8,7 @@ import {
   Image,
   ActivityIndicator,
   Keyboard,
+  Platform,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
@@ -178,7 +179,9 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingHorizontal: 14,
     paddingVertical: 10,
-    fontSize: 14,
+    // Web版は16px未満だとiOS Safariがフォーカス時に自動ズームし、フォーカスが
+    // 外れても画面全体が拡大されたまま戻らなくなるため16px以上にする。
+    fontSize: Platform.OS === 'web' ? 16 : 14,
   },
   searchButton: {
     width: 44,
