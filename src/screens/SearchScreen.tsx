@@ -128,45 +128,51 @@ export default function SearchScreen({ navigation, route }: Props) {
       </View>
 
       {searched ? (
-        <>
-          <View style={styles.compactTagRow}>{tagChips}</View>
-          {loading ? (
-            <ActivityIndicator color={colors.textPrimary} style={{ marginTop: 24 }} />
-          ) : (
-            <FlatList
-              data={results}
-              keyExtractor={(item) => item.id}
-              contentContainerStyle={{ padding: 16 }}
-              initialNumToRender={10}
-              maxToRenderPerBatch={8}
-              windowSize={5}
-              removeClippedSubviews
-              ListEmptyComponent={<Text style={styles.emptyText}>{t.search.empty}</Text>}
-              renderItem={({ item }) => (
-                <Pressable
-                  style={styles.resultCard}
-                  onPress={() => navigation.navigate('SpotDetail', { spotId: item.slug })}
-                >
-                  {spotThumbnailUrl(item) ? (
-                    <Image source={{ uri: spotThumbnailUrl(item)! }} style={styles.thumb} />
-                  ) : (
-                    <View style={[styles.thumb, styles.noThumb]} />
-                  )}
-                  <View style={styles.cardBody}>
-                    <Text style={styles.cardTitle} numberOfLines={1}>
-                      {item.title}
-                    </Text>
-                    <Text style={styles.cardMeta} numberOfLines={1}>
-                      {item.city ?? ''} {item.country ?? ''}
-                    </Text>
-                  </View>
-                </Pressable>
-              )}
-            />
-          )}
-        </>
+        loading ? (
+          <ActivityIndicator color={colors.textPrimary} style={{ marginTop: 24 }} />
+        ) : (
+          // 検索後はハッシュタグ一覧を隠し、その領域に検索結果を表示する。
+          // スマホ版はタブのスワイプページャーと縦スクロールの相性が悪く、
+          // タグ一覧の下に結果を並べるだけだと結果までスクロールで到達できなかったため。
+          <FlatList
+            style={styles.resultList}
+            data={results}
+            keyExtractor={(item) => item.id}
+            contentContainerStyle={{ padding: 16 }}
+            initialNumToRender={10}
+            maxToRenderPerBatch={8}
+            windowSize={5}
+            removeClippedSubviews
+            ListEmptyComponent={<Text style={styles.emptyText}>{t.search.empty}</Text>}
+            renderItem={({ item }) => (
+              <Pressable
+                style={styles.resultCard}
+                onPress={() => navigation.navigate('SpotDetail', { spotId: item.slug })}
+              >
+                {spotThumbnailUrl(item) ? (
+                  <Image source={{ uri: spotThumbnailUrl(item)! }} style={styles.thumb} />
+                ) : (
+                  <View style={[styles.thumb, styles.noThumb]} />
+                )}
+                <View style={styles.cardBody}>
+                  <Text style={styles.cardTitle} numberOfLines={1}>
+                    {item.title}
+                  </Text>
+                  <Text style={styles.cardMeta} numberOfLines={1}>
+                    {item.city ?? ''} {item.country ?? ''}
+                  </Text>
+                </View>
+              </Pressable>
+            )}
+          />
+        )
       ) : (
-        <ScrollView contentContainerStyle={styles.browseScroll}>{tagChips}</ScrollView>
+        // タグ一覧が画面に収まらない場合でもスマホ版で下までスクロールできるよう、
+        // ScrollView自体にflex:1を与えて残りの縦スペースいっぱいに広げる
+        // (contentContainerStyleだけでは高さが確定せず、はみ出た分が操作不能になっていた)。
+        <ScrollView style={styles.browseScrollContainer} contentContainerStyle={styles.browseScroll}>
+          {tagChips}
+        </ScrollView>
       )}
     </SafeAreaView>
   );
@@ -193,8 +199,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  compactTagRow: { paddingHorizontal: 16, paddingBottom: 4 },
+  browseScrollContainer: { flex: 1 },
   browseScroll: { paddingHorizontal: 16, paddingTop: 16, paddingBottom: 40 },
+  resultList: { flex: 1 },
   tagGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
   tagOption: {
     borderWidth: 1,
