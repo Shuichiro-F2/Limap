@@ -33,10 +33,6 @@ function escapeJsonLd(obj) {
   return JSON.stringify(obj, null, 0).replace(/</g, '\\u003c');
 }
 
-function langParagraphs(paragraphs) {
-  return paragraphs.map((p) => `        <p>${escapeHtml(p)}</p>`).join('\n');
-}
-
 function imageBlock(image, lang, variant) {
   if (!image) return '';
   const alt = lang === 'ja' ? image.altJa : image.altEn;
@@ -58,23 +54,66 @@ function imageBlock(image, lang, variant) {
       </figure>`;
 }
 
+// スポットカードのサムネイルが無い場合に表示する簡易ピンアイコン(インラインSVG)。
+// LIMap公式アカウント経由で登録したスポットの多くは写真未添付のため、
+// 画像が無くてもカードらしい見た目になるようプレースホルダーとして使う。
+const SPOT_PIN_ICON =
+  '<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s7-7.58 7-12a7 7 0 1 0-14 0c0 4.42 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>';
+
 // セクション内でLIMapの実在スポットへ内部リンクを貼るためのブロック。
 // 本文段落はescapeHtmlしているため<a>タグを直接埋め込めない。そのため、
 // セクションのspots配列(各記事のja/en.sections[i].spots)に{title, slug}を
-// 指定すると、段落の下にスポットへのリンクカードを並べて表示する。
-function spotLinksBlock(spots, lang) {
+// 指定すると、タイムラインタブのカードに近い、サムネイル付きのカード形式で
+// スポットへのリンクを並べて表示する。サムネイル画像が無いスポットは
+// ピンアイコンのプレースホルダーで代替する。
+function spotCardBlock(spots, lang) {
   if (!spots || spots.length === 0) return '';
-  const label = lang === 'ja' ? '関連スポットを見る' : 'Related spot on LIMap';
+  const label = lang === 'ja' ? '関連スポットを見る' : 'Related spots on LIMap';
   const items = spots
-    .map(
-      (sp) =>
-        `          <a href="${SITE_URL}/spot/${escapeHtml(sp.slug)}">${escapeHtml(sp.title)}</a>`
-    )
+    .map((sp) => {
+      const thumb = sp.thumbnailFile
+        ? `<img class="spot-card-thumb" src="https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(
+            sp.thumbnailFile
+          )}?width=400" alt="${escapeHtml(
+            sp.title
+          )}" loading="lazy" onerror="this.onerror=null;this.removeAttribute('src');this.classList.add('spot-card-thumb-empty');this.innerHTML='${SPOT_PIN_ICON.replace(/'/g, "\\'")}';" />`
+        : `<div class="spot-card-thumb spot-card-thumb-empty">${SPOT_PIN_ICON}</div>`;
+      return `          <a class="spot-card" href="${SITE_URL}/spot/${escapeHtml(sp.slug)}">
+            ${thumb}
+            <span class="spot-card-title">${escapeHtml(sp.title)}</span>
+          </a>`;
+    })
     .join('\n');
-  return `\n        <div class="spot-links">
-          <span class="spot-links-label">${label}</span>
+  return `\n        <div class="spot-cards">
+          <span class="spot-cards-label">${label}</span>
 ${items}
         </div>`;
+}
+
+// 段落を出力しつつ、spots配列内の各要素が持つafterParagraph(0始まりの段落index)に従って、
+// その段落の直後にスポットカードを差し込む。最後の段落の後で一括表示していた以前の形式から、
+// 本文の関連する箇所にカードを挟み込む形式に変更している。afterParagraph未指定のスポットは
+// 従来通り段落の末尾にまとめて表示する。
+function langParagraphsWithSpots(paragraphs, spots, lang) {
+  const spotsByParagraph = new Map();
+  const trailingSpots = [];
+  (spots || []).forEach((sp) => {
+    if (typeof sp.afterParagraph === 'number') {
+      const list = spotsByParagraph.get(sp.afterParagraph) || [];
+      list.push(sp);
+      spotsByParagraph.set(sp.afterParagraph, list);
+    } else {
+      trailingSpots.push(sp);
+    }
+  });
+  const body = paragraphs
+    .map((p, i) => {
+      const pHtml = `        <p>${escapeHtml(p)}</p>`;
+      const cardHtml = spotsByParagraph.has(i) ? spotCardBlock(spotsByParagraph.get(i), lang) : '';
+      return pHtml + cardHtml;
+    })
+    .join('\n');
+  return body + spotCardBlock(trailingSpots, lang);
 }
 
 // images配列のうち、指定セクションの直後(afterSection: 0始まりのセクション index)に
@@ -87,7 +126,7 @@ function langSections(sections, images, lang) {
       const imgHtml = imgHere ? '\n' + imageBlock(imgHere, lang, 'inline') : '';
       return `      <section class="article-section">
         <h2 class="section-heading">${escapeHtml(s.heading)}</h2>
-${langParagraphs(s.paragraphs)}${spotLinksBlock(s.spots, lang)}
+${langParagraphsWithSpots(s.paragraphs, s.spots, lang)}
       </section>${imgHtml}`;
     })
     .join('\n');
