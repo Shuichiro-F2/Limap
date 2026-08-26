@@ -1,3 +1,16 @@
+// スポットカードのサムネイル画像(SNS投稿から取得したthumbnail_url)の読み込みに
+// 失敗した場合、img要素をピンアイコンのプレースホルダーに置き換える。
+// generate-articles.js側のonerror属性から呼び出す想定のグローバル関数。
+window.__limapSpotThumbFallback = function (img) {
+  var placeholder = document.createElement('div');
+  placeholder.className = 'spot-card-thumb spot-card-thumb-empty';
+  placeholder.innerHTML =
+    '<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s7-7.58 7-12a7 7 0 1 0-14 0c0 4.42 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>';
+  if (img && img.parentNode) {
+    img.parentNode.replaceChild(placeholder, img);
+  }
+};
+
 // LIMap 読み物記事: 日本語/英語の表示切り替え。
 // SEO上はページの初期HTMLで日本語を優先させたいため、
 // サーバー側では日本語ブロックのみを可視状態でレンダリングし、

@@ -1123,10 +1123,10 @@
             "気になる場所があれば、そのままLIMapの地図で位置や行き方を確認できます。訪れた記録を残しておけば、あなたが見つけた“8番出口っぽい場所”を他の人と共有することもできます。"
           ],
           "spots": [
-            { "title": "清澄白河駅の不気味な通路（8番出口のモデル地）", "slug": "vbUQ9kcZ", "afterParagraph": 1 },
+            { "title": "清澄白河駅の不気味な通路（8番出口のモデル地）", "slug": "vbUQ9kcZ", "afterParagraph": 1, "thumbnailUrl": "https://pbs.twimg.com/media/Gzp1WTga0AAAr0j.jpg" },
             { "title": "東京駅 京葉線・武蔵野線連絡通路（渋すぎる入口）", "slug": "KM5aKcco", "afterParagraph": 1 },
-            { "title": "首都圏外郭放水路(地下神殿)", "slug": "JsXsWk9W", "afterParagraph": 1 },
-            { "title": "松代大本営 象山地下壕", "slug": "zphbsPDi", "afterParagraph": 1 }
+            { "title": "首都圏外郭放水路(地下神殿)", "slug": "JsXsWk9W", "afterParagraph": 1, "thumbnailUrl": "https://pbs.twimg.com/media/EGlbOOBU8AAoYLF.jpg" },
+            { "title": "松代大本営 象山地下壕", "slug": "zphbsPDi", "afterParagraph": 1, "thumbnailUrl": "https://pbs.twimg.com/media/EhlxMqEXsAA-DPB.jpg" }
           ]
         }
       ]
@@ -1166,10 +1166,10 @@
             "If one of these catches your interest, you can check its exact location and how to get there right on the LIMap map. And if you find your own \"Exit 8\"-like place, you can record it and share it with everyone else looking for the same feeling."
           ],
           "spots": [
-            { "title": "清澄白河駅の不気味な通路（8番出口のモデル地）", "slug": "vbUQ9kcZ", "afterParagraph": 1 },
+            { "title": "清澄白河駅の不気味な通路（8番出口のモデル地）", "slug": "vbUQ9kcZ", "afterParagraph": 1, "thumbnailUrl": "https://pbs.twimg.com/media/Gzp1WTga0AAAr0j.jpg" },
             { "title": "東京駅 京葉線・武蔵野線連絡通路（渋すぎる入口）", "slug": "KM5aKcco", "afterParagraph": 1 },
-            { "title": "首都圏外郭放水路(地下神殿)", "slug": "JsXsWk9W", "afterParagraph": 1 },
-            { "title": "松代大本営 象山地下壕", "slug": "zphbsPDi", "afterParagraph": 1 }
+            { "title": "首都圏外郭放水路(地下神殿)", "slug": "JsXsWk9W", "afterParagraph": 1, "thumbnailUrl": "https://pbs.twimg.com/media/EGlbOOBU8AAoYLF.jpg" },
+            { "title": "松代大本営 象山地下壕", "slug": "zphbsPDi", "afterParagraph": 1, "thumbnailUrl": "https://pbs.twimg.com/media/EhlxMqEXsAA-DPB.jpg" }
           ]
         }
       ]

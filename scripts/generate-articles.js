@@ -63,20 +63,21 @@ const SPOT_PIN_ICON =
 // セクション内でLIMapの実在スポットへ内部リンクを貼るためのブロック。
 // 本文段落はescapeHtmlしているため<a>タグを直接埋め込めない。そのため、
 // セクションのspots配列(各記事のja/en.sections[i].spots)に{title, slug}を
-// 指定すると、タイムラインタブのカードに近い、サムネイル付きのカード形式で
-// スポットへのリンクを並べて表示する。サムネイル画像が無いスポットは
-// ピンアイコンのプレースホルダーで代替する。
+// 指定すると、タイムラインタブ/プロフィールタブと同じ考え方(spotThumbnailUrl:
+// 投稿写真があればそれ、無ければ埋め込んだSNS投稿(X/Instagram)のサムネイルを使う)で
+// 事前に解決したthumbnailUrlを使い、サムネイル付きのカード形式でスポットへの
+// リンクを並べて表示する。サムネイルが無い(SNS埋め込みにも写真が無い)スポットや
+// 画像の読み込みに失敗した場合は、article.js側のonerrorハンドラでピンアイコンの
+// プレースホルダーに差し替える。
 function spotCardBlock(spots, lang) {
   if (!spots || spots.length === 0) return '';
   const label = lang === 'ja' ? '関連スポットを見る' : 'Related spots on LIMap';
   const items = spots
     .map((sp) => {
-      const thumb = sp.thumbnailFile
-        ? `<img class="spot-card-thumb" src="https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(
-            sp.thumbnailFile
-          )}?width=400" alt="${escapeHtml(
+      const thumb = sp.thumbnailUrl
+        ? `<img class="spot-card-thumb" src="${escapeHtml(sp.thumbnailUrl)}" alt="${escapeHtml(
             sp.title
-          )}" loading="lazy" onerror="this.onerror=null;this.removeAttribute('src');this.classList.add('spot-card-thumb-empty');this.innerHTML='${SPOT_PIN_ICON.replace(/'/g, "\\'")}';" />`
+          )}" loading="lazy" onerror="window.__limapSpotThumbFallback(this)" />`
         : `<div class="spot-card-thumb spot-card-thumb-empty">${SPOT_PIN_ICON}</div>`;
       return `          <a class="spot-card" href="${SITE_URL}/spot/${escapeHtml(sp.slug)}">
             ${thumb}
