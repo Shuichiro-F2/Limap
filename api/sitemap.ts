@@ -24,6 +24,7 @@ const ARTICLE_SLUGS = [
   'is-exit-8-real',
   'backrooms-in-japan',
   'not-haunted-just-eerie-spots',
+  'haikyo-photo-spots-japan',
 ];
 
 function escapeXml(str: string): string {

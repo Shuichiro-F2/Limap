@@ -158,6 +158,19 @@ export const ARTICLES: ArticleSummary[] = [
       "Not into haunted spots, but still drawn to abandoned buildings and empty stations? Here's how to find \"strangely unsettling\" places worth visiting for the atmosphere alone — no occult required.",
     thumbnailFile: 'Quiet street - Kamakura, Kanagawa, Japan - DSC08370.JPG',
   },
+  {
+    slug: 'haikyo-photo-spots-japan',
+    publishedDate: '2026-08-26',
+    categoryJa: '実在スポット',
+    categoryEn: 'Real Spots',
+    titleJa: '廃墟の撮影スポットを地図で探す。心霊目当てじゃない、日本各地の廃墟案内',
+    titleEn: "Finding Abandoned Buildings on a Map: Japan's Ruins, Without the Haunted-House Angle",
+    leadJa:
+      '廃墟を撮りたい。でも、肝試しや心霊スポット巡りはしたくない。写真映えや建物そのものの迫力を楽しむための、日本各地の廃墟をLIMapの実例とともに紹介します。',
+    leadEn:
+      "Want to photograph abandoned buildings without the haunted-spot angle? Here's a guide to photogenic ruins across Japan, with real examples mapped on LIMap.",
+    thumbnailFile: 'Battle-Ship Island Nagasaki Japan.jpg',
+  },
 ];
 
 // public/articles配下の静的ページ生成(scripts/generate-articles.js)と全く同じ組み立て方に揃えている

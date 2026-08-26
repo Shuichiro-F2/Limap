@@ -1406,5 +1406,117 @@
         "afterSection": 1
       }
     ]
+  },
+  {
+    "slug": "haikyo-photo-spots-japan",
+    "category": "実在スポット",
+    "categoryEn": "Real Spots",
+    "publishedDate": "2026-08-26",
+    "ja": {
+      "title": "廃墟の撮影スポットを地図で探す。心霊目当てじゃない、日本各地の廃墟案内",
+      "metaDescription": "廃墟を撮りたいけど心霊スポット巡りはしたくない。そんな人向けに、写真映えを重視した日本各地の廃墟をLIMapから紹介。気になる場所はそのまま地図で確認できます。",
+      "h1": "廃墟の撮影スポットを地図で探す。心霊目当てじゃない、日本各地の廃墟案内",
+      "lead": "廃墟を撮りたい。でも、肝試しや心霊スポット巡りはしたくない――そんな人は少なくないはずです。この記事では、写真映えや建物そのものの迫力を楽しむための、日本各地の廃墟をLIMapの実例とともに紹介します。",
+      "sections": [
+        {
+          "heading": "「廃墟=心霊スポット」ではない",
+          "paragraphs": [
+            "廃墟と聞くと、真っ先に「肝試し」や「心霊スポット」を連想する人は少なくありません。ですが、実際に廃墟を訪れて写真を撮っている人の多くは、幽霊や怪奇現象には興味がありません。目当てはあくまで、時間が止まったような建物や設備が生み出す独特の質感と、そこにしかない光と影です。",
+            "産業遺産としての価値が見直され、写真集や展覧会のテーマになることも珍しくありません。この記事では、そんな「撮影目的で楽しむ廃墟」を、LIMapに実際に登録されているスポットとともに紹介します。"
+          ]
+        },
+        {
+          "heading": "撮影目的で廃墟を訪れるときに気をつけたいこと",
+          "paragraphs": [
+            "廃墟の多くは私有地であり、無断で立ち入ると不法侵入にあたる場合があります。中には老朽化が進み、床が抜けたり構造物が崩落したりする危険がある建物も少なくありません。「入れそうだから入る」のではなく、見学ツアーが用意されている場所や、展望施設・敷地外から撮影できる場所を選ぶのが安心です。",
+            "LIMapで紹介するスポットも、あくまで「こういう場所がある」という記録であり、立ち入りを推奨するものではありません。訪問を検討する際は、現地の案内板やルールを必ず確認してください。"
+          ]
+        },
+        {
+          "heading": "LIMapに登録されている実例スポット",
+          "paragraphs": [
+            "例えば、山の斜面に階段状のコンクリート基礎だけが積み重なり「東洋のマチュピチュ」と呼ばれる兵庫県の神子畑選鉱場跡。2021年に営業を終え、英虞湾を望む白い建物だけが静かに残る三重県の志摩マリンランド(廃墟)。そして、日本最後の海底炭鉱として稼働した長崎県・池島の、旧池島炭鉱 選炭工場跡。錆びたトタン屋根と配管が斜面に折り重なる姿は、空から見ると一つの巨大な機械のようにも見えます。"
+          ],
+          "spots": [
+            { "title": "神子畑選鉱場跡（東洋のマチュピチュ）", "slug": "tZU5uY9m", "afterParagraph": 0, "thumbnailUrl": "https://pbs.twimg.com/media/FIkQS4YaUAk_Pma.jpg" },
+            { "title": "志摩マリンランド(廃墟)", "slug": "m52bzS9d", "afterParagraph": 0, "thumbnailUrl": "https://pbs.twimg.com/media/GhpTQFsbIAAB4qW.jpg" },
+            { "title": "旧池島炭鉱 選炭工場跡", "slug": "ZKgQrh3z", "afterParagraph": 0, "thumbnailUrl": "https://pbs.twimg.com/media/C0KwdfOVIAAwkdE.jpg" }
+          ]
+        },
+        {
+          "heading": "気になる場所を地図で確認する",
+          "paragraphs": [
+            "いずれも、心霊的な要素ではなく、建物や設備そのものが持つ迫力と、そこに刻まれた時間の厚みで惹きつける場所です。気になるスポットがあれば、そのままLIMapの地図で位置を確認できます。",
+            "もしあなたの知っている廃墟や産業遺産があれば、安全とマナーに配慮したうえで、ぜひ写真とともにLIMapに記録してみてください。"
+          ]
+        }
+      ]
+    },
+    "en": {
+      "title": "Finding Abandoned Buildings on a Map: Japan's Ruins, Without the Haunted-House Angle",
+      "metaDescription": "Want to photograph abandoned buildings without a haunted-spot tour? Here's a guide to photogenic ruins across Japan, mapped on LIMap so you can check the exact location.",
+      "h1": "Finding Abandoned Buildings on a Map: Japan's Ruins, Without the Haunted-House Angle",
+      "lead": "You want to photograph abandoned buildings, but a haunted-spot pilgrimage isn't really the point. If that sounds like you, this article rounds up photogenic ruins across Japan — for the atmosphere and the architecture, not the ghost stories — with real examples mapped on LIMap.",
+      "sections": [
+        {
+          "heading": "An Abandoned Building Isn't the Same Thing as a Haunted Spot",
+          "paragraphs": [
+            "Mention an abandoned building, and a lot of people immediately think \"haunted spot\" or a dare to go inside. But most people who actually visit ruins to take photos aren't interested in ghosts or the supernatural at all. What they're after is the particular texture that comes from a building or piece of equipment being left to time, and the light and shadow found nowhere else.",
+            "Interest in these places as industrial heritage has grown too, and they turn up regularly in photo books and exhibitions. This article rounds up ruins worth visiting purely for the photos, with real examples recorded on LIMap."
+          ]
+        },
+        {
+          "heading": "What to Keep in Mind When Visiting Ruins for Photos",
+          "paragraphs": [
+            "Most abandoned buildings are private property, and entering without permission can count as trespassing. Some are also structurally unsound, with real risk of a floor giving way or part of the structure collapsing. Rather than going in just because it looks possible, it's safer to choose places with an organized viewing tour, or ones you can photograph from a designated lookout or from outside the property line.",
+            "The spots introduced on LIMap are simply a record of \"places like this exist\" — not a recommendation to enter. If you're considering a visit, always check the on-site signage and rules first."
+          ]
+        },
+        {
+          "heading": "Real Examples Recorded on LIMap",
+          "paragraphs": [
+            "Take the Mikobata Ore Processing Plant Ruins in Hyogo, nicknamed \"the Machu Picchu of the East\" for the terraced concrete foundations stacked up a mountainside. Or Shima Marineland in Mie, a closed aquarium whose white building still stands quietly overlooking Ago Bay. Or the former coal-washing plant on Ikeshima in Nagasaki, once Japan's last operating undersea coal mine — its rusted sheet-metal roofs and piping stack up the slope in a shape that, from the air, looks almost like one giant machine."
+          ],
+          "spots": [
+            { "title": "神子畑選鉱場跡（東洋のマチュピチュ）", "slug": "tZU5uY9m", "afterParagraph": 0, "thumbnailUrl": "https://pbs.twimg.com/media/FIkQS4YaUAk_Pma.jpg" },
+            { "title": "志摩マリンランド(廃墟)", "slug": "m52bzS9d", "afterParagraph": 0, "thumbnailUrl": "https://pbs.twimg.com/media/GhpTQFsbIAAB4qW.jpg" },
+            { "title": "旧池島炭鉱 選炭工場跡", "slug": "ZKgQrh3z", "afterParagraph": 0, "thumbnailUrl": "https://pbs.twimg.com/media/C0KwdfOVIAAwkdE.jpg" }
+          ]
+        },
+        {
+          "heading": "Check the Exact Location on the Map",
+          "paragraphs": [
+            "None of these rely on anything supernatural — what draws people in is the sheer presence of the buildings and equipment themselves, and the weight of the time layered into them. If one of these catches your interest, you can check its exact location on the LIMap map.",
+            "If you know of an abandoned building or piece of industrial heritage yourself, consider recording it on LIMap too — with safety and site etiquette in mind, and a photo to go with it."
+          ]
+        }
+      ]
+    },
+    "images": [
+      {
+        "file": "Battle-Ship Island Nagasaki Japan.jpg",
+        "author": "kntrty",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Battle-Ship_Island_Nagasaki_Japan.jpg",
+        "altJa": "廃墟だけが残る軍艦島(端島)の空撮",
+        "altEn": "An aerial view of Hashima (Gunkanjima), Japan's famous \"Battleship Island\" of ruins",
+        "captionJa": "廃墟然とした建物が密集する軍艦島(端島)。日本の廃墟ブームを象徴する風景の一つです。",
+        "captionEn": "Hashima Island, densely packed with abandoned concrete buildings — one of the scenes that helped spark Japan's ruins-photography boom.",
+        "afterSection": -1
+      },
+      {
+        "file": "Gunkanjima Block 65.jpg",
+        "author": "Jordy Meow",
+        "license": "CC BY 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/3.0/",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Gunkanjima_Block_65.jpg",
+        "altJa": "植物に侵食された軍艦島のアパート群、内部からの眺め",
+        "altEn": "A view from within one of Gunkanjima's overgrown apartment blocks",
+        "captionJa": "老朽化した建物の内部は崩落の危険もあり、無許可での立ち入りはできません。写真は許可を得たツアー等で撮影されたものです。",
+        "captionEn": "The interiors of these aging buildings carry real collapse risk, and unauthorized entry isn't possible. Images like this one come from permitted tours.",
+        "afterSection": 1
+      }
+    ]
   }
 ]
