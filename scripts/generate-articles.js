@@ -58,6 +58,25 @@ function imageBlock(image, lang, variant) {
       </figure>`;
 }
 
+// セクション内でLIMapの実在スポットへ内部リンクを貼るためのブロック。
+// 本文段落はescapeHtmlしているため<a>タグを直接埋め込めない。そのため、
+// セクションのspots配列(各記事のja/en.sections[i].spots)に{title, slug}を
+// 指定すると、段落の下にスポットへのリンクカードを並べて表示する。
+function spotLinksBlock(spots, lang) {
+  if (!spots || spots.length === 0) return '';
+  const label = lang === 'ja' ? '関連スポットを見る' : 'Related spot on LIMap';
+  const items = spots
+    .map(
+      (sp) =>
+        `          <a href="${SITE_URL}/spot/${escapeHtml(sp.slug)}">${escapeHtml(sp.title)}</a>`
+    )
+    .join('\n');
+  return `\n        <div class="spot-links">
+          <span class="spot-links-label">${label}</span>
+${items}
+        </div>`;
+}
+
 // images配列のうち、指定セクションの直後(afterSection: 0始まりのセクション index)に
 // 挿入する画像だけを取り出す。afterSection: -1 は「本文冒頭(=ヒーロー画像)」用に予約している。
 function langSections(sections, images, lang) {
@@ -68,7 +87,7 @@ function langSections(sections, images, lang) {
       const imgHtml = imgHere ? '\n' + imageBlock(imgHere, lang, 'inline') : '';
       return `      <section class="article-section">
         <h2 class="section-heading">${escapeHtml(s.heading)}</h2>
-${langParagraphs(s.paragraphs)}
+${langParagraphs(s.paragraphs)}${spotLinksBlock(s.spots, lang)}
       </section>${imgHtml}`;
     })
     .join('\n');

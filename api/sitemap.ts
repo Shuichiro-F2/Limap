@@ -21,6 +21,7 @@ const ARTICLE_SLUGS = [
   'history-of-liminal-space-trend',
   'how-to-find-liminal-spaces',
   'famous-liminal-spaces-around-the-world',
+  'is-exit-8-real',
 ];
 
 function escapeXml(str: string): string {

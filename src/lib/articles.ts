@@ -119,6 +119,19 @@ export const ARTICLES: ArticleSummary[] = [
       'A look at the types of liminal spaces that keep going viral online, from dead malls to abandoned amusement parks.',
     thumbnailFile: 'Kaputte Dinosaurier Spreepark.JPG',
   },
+  {
+    slug: 'is-exit-8-real',
+    publishedDate: '2026-08-26',
+    categoryJa: '実在スポット',
+    categoryEn: 'Real Spots',
+    titleJa: '「8番出口」は現実にあるのか？似た空気感の実在スポットを探す',
+    titleEn: 'Is "Exit 8" Real? Looking for Actual Places With the Same Eerie Vibe',
+    leadJa:
+      '「本当に、あの光景と同じ場所があるんじゃないか」。ホラーゲーム・映画『8番出口』のような場所を、モデル駅探しではなく実例とともに紹介します。',
+    leadEn:
+      'Is there really a place like that? Instead of hunting for "the one station," we round up real places with the same Exit 8-like vibe.',
+    thumbnailFile: 'University of Waterloo Underground Tunnel.jpg',
+  },
 ];
 
 // public/articles配下の静的ページ生成(scripts/generate-articles.js)と全く同じ組み立て方に揃えている
