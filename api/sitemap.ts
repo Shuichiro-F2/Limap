@@ -22,6 +22,7 @@ const ARTICLE_SLUGS = [
   'how-to-find-liminal-spaces',
   'famous-liminal-spaces-around-the-world',
   'is-exit-8-real',
+  'backrooms-in-japan',
 ];
 
 function escapeXml(str: string): string {

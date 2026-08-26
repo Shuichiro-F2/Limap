@@ -132,6 +132,19 @@ export const ARTICLES: ArticleSummary[] = [
       'Is there really a place like that? Instead of hunting for "the one station," we round up real places with the same Exit 8-like vibe.',
     thumbnailFile: 'University of Waterloo Underground Tunnel.jpg',
   },
+  {
+    slug: 'backrooms-in-japan',
+    publishedDate: '2026-08-26',
+    categoryJa: '実在スポット',
+    categoryEn: 'Real Spots',
+    titleJa: 'バックルームズは日本に実在する？「黄色い部屋」に近い空気の場所を探して',
+    titleEn: 'Do the Backrooms Exist in Japan? Looking for Places With That "Yellow Room" Feeling',
+    leadJa:
+      '黄色い壁紙と蛍光灯の低い唸り音だけが響く、終わりのない部屋――「バックルームズ」は日本にも実在するのか。都市伝説としての成り立ちと、似た空気感を味わえる実在スポットを紹介します。',
+    leadEn:
+      'An endless maze of yellow-wallpapered rooms lit only by humming fluorescent tubes. Does anything like the Backrooms actually exist in Japan? We trace the legend and round up real places with a similar vibe.',
+    thumbnailFile: 'HobbyTown USA Oshkosh interior under construction 2002 (The Backrooms).jpg',
+  },
 ];
 
 // public/articles配下の静的ページ生成(scripts/generate-articles.js)と全く同じ組み立て方に揃えている

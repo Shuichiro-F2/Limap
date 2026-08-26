@@ -1188,5 +1188,109 @@
         "afterSection": -1
       }
     ]
+  },
+  {
+    "slug": "backrooms-in-japan",
+    "category": "実在スポット",
+    "categoryEn": "Real Spots",
+    "publishedDate": "2026-08-26",
+    "ja": {
+      "title": "バックルームズは日本に実在する？「黄色い部屋」に近い空気の場所を探して",
+      "metaDescription": "4chan発の都市伝説「バックルームズ」。あの黄色い部屋は日本にも実在するのか？都市伝説としての成り立ちを整理しつつ、似た雰囲気を味わえる実在スポットをLIMapから紹介します。",
+      "h1": "バックルームズは日本に実在する？「黄色い部屋」に近い空気の場所を探して",
+      "lead": "「本当にこんな部屋、どこかにあるんじゃないか」。ホラー映像作品や都市伝説サイトで語られる「バックルームズ」。黄色い壁紙と蛍光灯の低い唸り音だけが響く、終わりのない部屋――そんな空間は日本にも実在するのか。この記事では都市伝説としての成り立ちを短く整理しつつ、似た空気感を味わえる実在の場所を、LIMapの実例とともに紹介します。",
+      "sections": [
+        {
+          "heading": "バックルームズとは：4chan発の都市伝説をおさらい",
+          "paragraphs": [
+            "バックルームズは、2019年に匿名掲示板4chanに投稿された1枚の写真をきっかけに広まった都市伝説(クリーピーパスタ)です。誰もいない、黄色い壁紙のオフィスのような空間が迷路のように無限に続いている、というのが基本設定。現実からうっかり迷い込んでしまう場所として語られ、蛍光灯の低い唸り音と、湿ったカーペットの匂いだけがある、という描写が定番になっています。",
+            "この設定はネット上で瞬く間に拡張され、\"レベル\"と呼ばれる階層構造やクリーチャーの設定などが有志によって次々に追加されていきました。長編映画化の企画が進んでいることでも知られ、単なる掲示板ネタを超えて大きなカルチャーになっています。"
+          ]
+        },
+        {
+          "heading": "結論、バックルームズそのものは実在しない",
+          "paragraphs": [
+            "先に結論から言うと、バックルームズは実際にある場所ではなく、あくまで創作から始まった都市伝説です。『8番出口』のような「モデルになった実在の場所」も公式には存在せず、\"あの黄色い部屋\"をピンポイントで探し当てることはできません。",
+            "ただし、多くの人がバックルームズの映像や設定に「なんとなく覚えがある」感覚を抱くのも事実です。この既視感の正体を辿っていくと、日常の中にも似た空気感を持つ場所が実在することに気づきます。"
+          ]
+        },
+        {
+          "heading": "リミナルスペースという感覚：なぜ「黄色い部屋」を不気味に感じるのか",
+          "paragraphs": [
+            "バックルームズが多くの人を惹きつける理由の一つは、それが「リミナルスペース」と呼ばれる感覚を極端な形で表現しているからだと考えられます。リミナルスペースとは、本来人がいるはずの場所から人の気配だけがふっと消えたときに感じる、あの落ち着かない感覚を指す言葉です(詳しくは「リミナルスペースとは」で解説しています)。",
+            "蛍光灯だけが灯る無人のオフィス、深夜の駅、閉店後の商業施設――バックルームズの「黄色い部屋」は、こうした現実の場所が持つ感覚を極限まで抽象化したもの、と言えるかもしれません。"
+          ]
+        },
+        {
+          "heading": "それでも「近い空気感」を持つ場所は日本各地にある",
+          "paragraphs": [
+            "「あの部屋」そのものは存在しませんが、似た空気感を味わえる実在の場所なら日本各地にあります。LIMapには、そうした場所がすでにいくつも記録されています。",
+            "例えば、1979年開業・世界初の実用カプセルホテルとして知られる大阪のカプセルイン大阪は、同じ形の個室が延々と連なる非現実的な均質空間。かつて成田空港のターミナル駅として使われ、今は静かに時が止まった東成田駅(旧成田空港駅)の薄暗いコンコース。そして、栃木県に今も残る旧野木病院の、壁一面に痕跡だけが残る廃病棟の廊下。いずれも「誰もいないのに、何かの気配だけが残っている」空気感を持つ場所です。",
+            "気になる場所があれば、そのままLIMapの地図で位置や行き方を確認できます。あなたが感じた\"バックルームズっぽさ\"を、ぜひ他の人とも共有してみてください。"
+          ],
+          "spots": [
+            { "title": "カプセルイン大阪（ニュージャパン梅田店）", "slug": "77BLLqk2", "afterParagraph": 1, "thumbnailUrl": "https://pbs.twimg.com/media/G2oGVRAbIAETcxS.jpg" },
+            { "title": "東成田駅（旧成田空港駅）", "slug": "FGg4w6Jh", "afterParagraph": 1, "thumbnailUrl": "https://pbs.twimg.com/media/GLmAa2laQAAPDpD.jpg" },
+            { "title": "旧野木病院（廃病院）", "slug": "Ru5BLnja", "afterParagraph": 1, "thumbnailUrl": "https://pbs.twimg.com/media/FVXOVhZacAAdBkW.jpg" }
+          ]
+        }
+      ]
+    },
+    "en": {
+      "title": "Do the Backrooms Exist in Japan? Looking for Places With That \"Yellow Room\" Feeling",
+      "metaDescription": "The urban legend \"Backrooms\" started on 4chan. Does that yellow room really exist somewhere in Japan? We trace the legend's origins and round up real places with a similar unsettling vibe, mapped on LIMap.",
+      "h1": "Do the Backrooms Exist in Japan? Looking for Places With That \"Yellow Room\" Feeling",
+      "lead": "\"Is there really a place like that somewhere?\" The Backrooms — an endless maze of yellow-wallpapered rooms lit only by humming fluorescent tubes — has become a horror-culture phenomenon. Does anything like it actually exist in Japan? This article briefly traces the legend's origins, then rounds up real places with a similar atmosphere, using actual examples recorded on LIMap.",
+      "sections": [
+        {
+          "heading": "What Are the Backrooms? A Quick Recap of the 4chan Legend",
+          "paragraphs": [
+            "The Backrooms is an urban legend (creepypasta) that spread after a single photo was posted to the anonymous imageboard 4chan in 2019. The premise: an empty, yellow-wallpapered office-like space that stretches on forever like a maze — somewhere you might accidentally \"noclip\" into from reality. The defining details are almost always the same: the low hum of fluorescent lights, and the smell of damp carpet.",
+            "The concept quickly expanded online, with fans adding a whole hierarchy of \"Levels\" and creatures of their own. A feature film adaptation is also known to be in the works, turning what started as a single forum post into a full-blown piece of internet culture."
+          ]
+        },
+        {
+          "heading": "To Be Clear, the Backrooms Aren't Real",
+          "paragraphs": [
+            "Let's get this out of the way first: the Backrooms isn't an actual place — it's a fictional urban legend from the start. Just like Exit 8, there's no officially confirmed \"real location\" it's based on, so there's no single yellow room out there waiting to be found.",
+            "That said, plenty of people describe a nagging sense of familiarity when they see Backrooms imagery. Tracing that feeling back leads to real places with a surprisingly similar atmosphere."
+          ]
+        },
+        {
+          "heading": "What \"Liminal Space\" Has to Do With That Yellow Room",
+          "paragraphs": [
+            "Part of why the Backrooms resonates with so many people is that it takes the feeling known online as a \"liminal space\" and pushes it to an extreme. A liminal space is that unsettling feeling when everyone suddenly vanishes from a place that's normally full of people (we go deeper into this in What Is a Liminal Space?).",
+            "An empty office lit only by fluorescent tubes, a train platform at 2am, a shopping mall after closing — the Backrooms' yellow room might just be the most distilled, abstracted version of that same feeling."
+          ]
+        },
+        {
+          "heading": "Real Places With a Similar Atmosphere Do Exist Across Japan",
+          "paragraphs": [
+            "The room itself doesn't exist, but real places with a similar atmosphere are scattered across Japan. LIMap already has several of them recorded.",
+            "Take Capsule Inn Osaka, the world's first practical capsule hotel (opened 1979) — a surreal, uniform space where identical pods repeat endlessly down the corridor. Or Higashi-Narita Station, once a terminal stop for Narita Airport and now a quietly frozen-in-time station with a dim, empty concourse. Or the former Nogi Hospital in Tochigi, its abandoned ward hallway lined wall-to-wall with decades of graffiti. Each one carries that same feeling: nobody's there, but something still lingers.",
+            "If one of these catches your interest, you can check its exact location and how to get there right on the LIMap map. And if you find your own \"Backrooms\"-like place, record it and share that feeling with everyone else looking for it too."
+          ],
+          "spots": [
+            { "title": "カプセルイン大阪（ニュージャパン梅田店）", "slug": "77BLLqk2", "afterParagraph": 1, "thumbnailUrl": "https://pbs.twimg.com/media/G2oGVRAbIAETcxS.jpg" },
+            { "title": "東成田駅（旧成田空港駅）", "slug": "FGg4w6Jh", "afterParagraph": 1, "thumbnailUrl": "https://pbs.twimg.com/media/GLmAa2laQAAPDpD.jpg" },
+            { "title": "旧野木病院（廃病院）", "slug": "Ru5BLnja", "afterParagraph": 1, "thumbnailUrl": "https://pbs.twimg.com/media/FVXOVhZacAAdBkW.jpg" }
+          ]
+        }
+      ]
+    },
+    "images": [
+      {
+        "file": "HobbyTown USA Oshkosh interior under construction 2002 (The Backrooms).jpg",
+        "author": "Bill Magritz",
+        "license": "CC0 1.0 (パブリックドメイン)",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:HobbyTown_USA_Oshkosh_interior_under_construction_2002_(The_Backrooms).jpg",
+        "altJa": "バックルームズの元になった、2002年撮影のオリジナル写真",
+        "altEn": "The original 2002 photograph that inspired the Backrooms",
+        "captionJa": "すべての始まりとなった、まさにそのオリジナル写真。2002年、米ウィスコンシン州の改装中の店舗で撮影されました。",
+        "captionEn": "The photograph that started it all — taken in 2002 during renovations at a store in Wisconsin, USA.",
+        "afterSection": -1
+      }
+    ]
   }
 ]
