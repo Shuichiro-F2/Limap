@@ -145,6 +145,19 @@ export const ARTICLES: ArticleSummary[] = [
       'An endless maze of yellow-wallpapered rooms lit only by humming fluorescent tubes. Does anything like the Backrooms actually exist in Japan? We trace the legend and round up real places with a similar vibe.',
     thumbnailFile: 'HobbyTown USA Oshkosh interior under construction 2002 (The Backrooms).jpg',
   },
+  {
+    slug: 'not-haunted-just-eerie-spots',
+    publishedDate: '2026-08-26',
+    categoryJa: '実在スポット',
+    categoryEn: 'Real Spots',
+    titleJa: '心霊スポットじゃない、「なんとなく怖い」不思議な場所の探し方',
+    titleEn: 'Not a Haunted Spot, Just Eerie: How to Find "Strangely Unsettling" Places',
+    leadJa:
+      '心霊スポットは苦手。でも、廃墟や無人駅のような「なんとなく不思議な場所」には、なぜか心惹かれる。オカルト抜きで楽しめる不思議スポットの探し方と実例を紹介します。',
+    leadEn:
+      "Not into haunted spots, but still drawn to abandoned buildings and empty stations? Here's how to find \"strangely unsettling\" places worth visiting for the atmosphere alone — no occult required.",
+    thumbnailFile: 'Quiet street - Kamakura, Kanagawa, Japan - DSC08370.JPG',
+  },
 ];
 
 // public/articles配下の静的ページ生成(scripts/generate-articles.js)と全く同じ組み立て方に揃えている

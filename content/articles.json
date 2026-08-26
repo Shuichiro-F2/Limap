@@ -1292,5 +1292,119 @@
         "afterSection": -1
       }
     ]
+  },
+  {
+    "slug": "not-haunted-just-eerie-spots",
+    "category": "実在スポット",
+    "categoryEn": "Real Spots",
+    "publishedDate": "2026-08-26",
+    "ja": {
+      "title": "心霊スポットじゃない、「なんとなく怖い」不思議な場所の探し方",
+      "metaDescription": "心霊が苦手でも、なぜか惹かれる「不思議な場所」がある。オカルトではなく、写真映えや雰囲気を楽しむための不思議スポットの探し方と、実際に登録されている場所を紹介します。",
+      "h1": "心霊スポットじゃない、「なんとなく怖い」不思議な場所の探し方",
+      "lead": "心霊スポットは苦手。でも、廃墟や無人駅のような「なんとなく不思議な場所」には、なぜか心惹かれる――そんな感覚に覚えのある人は少なくないはずです。この記事では、オカルト抜きで楽しめる不思議スポットの探し方と、実際にLIMapに登録されている場所を紹介します。",
+      "sections": [
+        {
+          "heading": "「心霊」と「なんとなく不思議」は別物",
+          "paragraphs": [
+            "廃墟や無人駅と聞くと、真っ先に「心霊スポット」という言葉を思い浮かべる人も多いかもしれません。ですが、写真や動画でよく話題になる「なんとなく不思議な場所」の多くは、幽霊や怪奇現象とは無関係です。そこにあるのは、ただの静けさと、時間が止まったような空気感だけ。",
+            "「心霊スポットは苦手だけど、廃墟や無人の空間には惹かれる」という人は少なくありません。この記事では、オカルト的な文脈を抜きにして、写真映えや雰囲気だけを楽しむための「なんとなく不思議な場所」の探し方を紹介します。"
+          ]
+        },
+        {
+          "heading": "リミナルスペースという、怖がらせる目的じゃないジャンル",
+          "paragraphs": [
+            "この「なんとなく不思議」という感覚に近いのが、「リミナルスペース」と呼ばれる概念です。本来人がいるはずの場所から人の気配だけがふっと消えたときに感じる、あの落ち着かない感覚を指す言葉で、心霊現象のような超常的な要素は前提にしていません(詳しくは「リミナルスペースとは」で解説しています)。",
+            "つまり、怖がらせることが目的のホラースポットとは根本的に別のジャンル。むしろ、静かで、少し寂しくて、どこか懐かしい――そんな感覚を楽しむためのものです。"
+          ]
+        },
+        {
+          "heading": "オカルト抜きで楽しめる、日本各地の実在スポット",
+          "paragraphs": [
+            "廃墟や無人駅、閉店した商業施設――こうした場所は「肝試し」の対象として語られがちですが、実際に足を運んでいる人の多くが求めているのは恐怖体験ではなく、写真映えする景色や、静かな時間そのものです。手入れされないまま残った建物や設備が生み出す独特の質感は、心霊要素がなくても十分に魅力的です。",
+            "LIMapには、そうした「オカルト抜き」で楽しめる実在スポットがすでにいくつも記録されています。"
+          ]
+        },
+        {
+          "heading": "LIMapに登録されている実例スポット",
+          "paragraphs": [
+            "例えば、深夜のドライバーの休憩所として営業していた無人の自動販売機コーナー、コインスナック ジョイフル24。都心の団地に今も残る、昭和の面影そのままの桐ケ丘中央商店街。そして、錆びついたゴンドラが竹林にひっそりと佇む、奥多摩湖ロープウェイの川野駅跡。いずれも「ただの通りすがり」では気づかない、静かな時間の止まり方を味わえる場所です。",
+            "気になる場所があれば、そのままLIMapの地図で位置を確認できます。もし自分の街にも似たような場所を見つけたら、ぜひ写真に収めて投稿してみてください。"
+          ],
+          "spots": [
+            { "title": "コインスナック ジョイフル24", "slug": "nPuRMQQp", "afterParagraph": 0, "thumbnailUrl": "https://pbs.twimg.com/media/GjErXzzbIAA63yu.jpg" },
+            { "title": "桐ケ丘中央商店街", "slug": "V6z9Xx58", "afterParagraph": 0, "thumbnailUrl": "https://pbs.twimg.com/media/HKlVSHha4AApEKk.jpg" },
+            { "title": "奥多摩湖ロープウェイ 川野駅跡", "slug": "gHBKZTqy", "afterParagraph": 0, "thumbnailUrl": "https://pbs.twimg.com/media/GAcVls5akAA_DQ9.jpg" }
+          ]
+        }
+      ]
+    },
+    "en": {
+      "title": "Not a Haunted Spot, Just Eerie: How to Find \"Strangely Unsettling\" Places",
+      "metaDescription": "Some places feel eerie without being haunted. Here's how to find \"strangely unsettling\" spots you can enjoy for the atmosphere and photos alone — no ghost stories required — plus real examples from LIMap.",
+      "h1": "Not a Haunted Spot, Just Eerie: How to Find \"Strangely Unsettling\" Places",
+      "lead": "You're not into haunted spots, but abandoned buildings and empty train stations still pull you in somehow. If that sounds familiar, this article is for you: how to find \"strangely unsettling\" places worth visiting purely for their atmosphere — no occult required — with real examples recorded on LIMap.",
+      "sections": [
+        {
+          "heading": "A \"Haunted Spot\" and a \"Strangely Unsettling Place\" Are Not the Same Thing",
+          "paragraphs": [
+            "Mention an abandoned building or an unmanned train station, and a lot of people's minds jump straight to \"haunted spot.\" But most of the \"strangely unsettling places\" that go viral in photos and videos have nothing to do with ghosts or the supernatural. What's actually there is just silence, and the feeling that time has stopped.",
+            "Plenty of people say they're not into haunted spots, but still feel drawn to abandoned buildings and empty spaces. This article is about finding \"strangely unsettling places\" you can enjoy purely for the atmosphere and the photos — no occult angle required."
+          ]
+        },
+        {
+          "heading": "\"Liminal Space\" Isn't About Trying to Scare You",
+          "paragraphs": [
+            "The feeling closest to this \"strangely unsettling\" sensation is what's known online as a \"liminal space.\" It describes that unsettled feeling when all the people suddenly disappear from a place that's normally full of them — and it doesn't assume anything supernatural is going on (we go deeper into this in What Is a Liminal Space?).",
+            "In other words, it's a fundamentally different genre from horror spots built to scare you. It's more about enjoying something quiet, a little lonely, and oddly nostalgic."
+          ]
+        },
+        {
+          "heading": "Real Places You Can Enjoy Without Any Occult Angle",
+          "paragraphs": [
+            "Abandoned buildings, empty stations, shuttered shopping arcades — these places often get talked about as dare-you-to-go-there horror destinations. But most people who actually visit are looking for great photos and quiet atmosphere, not a scare. The particular texture that comes from a building or fixture being left untouched for years is compelling on its own, with no ghost story needed.",
+            "LIMap already has a number of these \"no occult required\" real places recorded."
+          ]
+        },
+        {
+          "heading": "Real Examples Recorded on LIMap",
+          "paragraphs": [
+            "Take Coin Snack Joyful 24, an unmanned vending machine corner that once served as a late-night rest stop for drivers. Or Kirigaoka Central Shopping Street, a Showa-era shopping arcade still standing in the middle of a Tokyo public housing complex. Or the former Kawano Station on the Lake Okutama ropeway, where a rusted gondola sits quietly, half-swallowed by a bamboo grove. Each one offers that particular feeling of time having quietly stopped — the kind you'd never notice just passing through.",
+            "If one of these catches your interest, you can check its exact location on the LIMap map. And if you find a similar place near you, take a photo and share it."
+          ],
+          "spots": [
+            { "title": "コインスナック ジョイフル24", "slug": "nPuRMQQp", "afterParagraph": 0, "thumbnailUrl": "https://pbs.twimg.com/media/GjErXzzbIAA63yu.jpg" },
+            { "title": "桐ケ丘中央商店街", "slug": "V6z9Xx58", "afterParagraph": 0, "thumbnailUrl": "https://pbs.twimg.com/media/HKlVSHha4AApEKk.jpg" },
+            { "title": "奥多摩湖ロープウェイ 川野駅跡", "slug": "gHBKZTqy", "afterParagraph": 0, "thumbnailUrl": "https://pbs.twimg.com/media/GAcVls5akAA_DQ9.jpg" }
+          ]
+        }
+      ]
+    },
+    "images": [
+      {
+        "file": "Quiet street - Kamakura, Kanagawa, Japan - DSC08370.JPG",
+        "author": "Daderot",
+        "license": "CC0 1.0 (パブリックドメイン)",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Quiet_street_-_Kamakura,_Kanagawa,_Japan_-_DSC08370.JPG",
+        "altJa": "住宅街の静かな路地を一人で歩く人物",
+        "altEn": "A single passerby walking down a quiet residential lane",
+        "captionJa": "特別な仕掛けは何もない、ただの静かな路地。心霊要素がなくても、こうした場所は十分に「なんとなく不思議」です。",
+        "captionEn": "Nothing supernatural here — just a quiet lane. Places like this can feel strangely unsettling all on their own.",
+        "afterSection": -1
+      },
+      {
+        "file": "商店街のシャッター (30492827175).jpg",
+        "author": "Sandra Vallaure",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:商店街のシャッター_(30492827175).jpg",
+        "altJa": "シャッターが下りた店舗もある、静かな商店街のアーケード",
+        "altEn": "A quiet covered shopping arcade, with some shutters already down",
+        "captionJa": "こうした昔ながらの商店街のアーケードにも、心霊とは無縁の「なんとなく不思議」な空気が漂います。",
+        "captionEn": "Old-fashioned covered shopping arcades like this one carry that same strangely unsettling atmosphere — with nothing supernatural about it.",
+        "afterSection": 1
+      }
+    ]
   }
 ]

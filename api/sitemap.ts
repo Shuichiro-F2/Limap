@@ -23,6 +23,7 @@ const ARTICLE_SLUGS = [
   'famous-liminal-spaces-around-the-world',
   'is-exit-8-real',
   'backrooms-in-japan',
+  'not-haunted-just-eerie-spots',
 ];
 
 function escapeXml(str: string): string {
