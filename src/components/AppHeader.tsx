@@ -83,8 +83,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingBottom: 4,
     flexDirection: 'row',
-    // ロゴ・トグルを行の下寄せにすることで、上部にだけ隙間ができるようにする
-    alignItems: 'flex-end',
+    // ロゴとハンバーガーボタンの中心の高さを揃えるため、行の中央揃えにする
+    // (以前は下寄せだったが、ハンバーガーボタン追加に伴い、両者の中心が
+    // 一致するよう中央揃えに変更した)。
+    alignItems: 'center',
     justifyContent: 'space-between',
   },
   logo: { width: 84, height: 52 },

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { Animated, View, Pressable, StyleSheet, useWindowDimensions } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
@@ -41,15 +41,14 @@ function CustomTabBar({ state, navigation, position }: MaterialTopTabBarProps) {
   const routeCount = state.routes.length;
   const tabWidth = screenWidth / routeCount;
 
-  const [activeIndex, setActiveIndex] = useState(state.index);
-
-  useEffect(() => {
-    const id = position.addListener(({ value }) => {
-      const rounded = Math.round(value);
-      setActiveIndex((prev) => (prev === rounded ? prev : rounded));
-    });
-    return () => position.removeListener(id);
-  }, [position]);
+  // アイコンの色分け(どのタブが選択中か)は、react-navigationが渡してくる
+  // state.index(通常のReact props、常に正確)を直接使う。
+  // 以前はAnimatedのposition.addListener()で見た目のスワイプ位置から
+  // activeIndexを算出していたが、position.addListener()はネイティブ駆動の
+  // アニメーションに対しては呼び出されないことがあり、それが原因でアイコンの
+  // 色が切り替わらない不具合になっていた(下線インジケーターの方はAnimated.Viewの
+  // styleに直接positionをbindしているだけなので、この問題の影響を受けず正しく動く)。
+  const focusedIndex = state.index;
 
   const indicatorTranslateX = position.interpolate({
     inputRange: state.routes.map((_, i) => i),
@@ -65,7 +64,7 @@ function CustomTabBar({ state, navigation, position }: MaterialTopTabBarProps) {
       </View>
       <View style={styles.tabRow}>
         {state.routes.map((route, index) => {
-          const focused = activeIndex === index;
+          const focused = focusedIndex === index;
           const iconName = TAB_ICONS[route.name as keyof MainTabParamList] ?? 'ellipse-outline';
 
           const onPress = () => {
