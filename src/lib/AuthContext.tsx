@@ -20,6 +20,8 @@ interface AuthContextValue {
   // ブロック済みユーザーのコンテンツを除外するために、アプリ全体から参照できるようにしている。
   blockedUserIds: Set<string>;
   refreshBlockedUserIds: () => Promise<void>;
+  // 運営(問い合わせ管理画面へのアクセス権を持つ)本人のアカウントかどうか。
+  isAdmin: boolean;
   signInWithEmail: (email: string, password: string) => Promise<void>;
   signUpWithEmail: (email: string, password: string, username: string) => Promise<void>;
   signInWithOAuth: (provider: 'google') => Promise<void>;
@@ -156,6 +158,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         loading,
         blockedUserIds,
         refreshBlockedUserIds,
+        isAdmin: profile?.is_admin ?? false,
         signInWithEmail,
         signUpWithEmail,
         signInWithOAuth,

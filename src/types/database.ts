@@ -6,6 +6,10 @@ export type ReportReason = 'inappropriate' | 'privacy' | 'spam' | 'wrong_locatio
 // 通報の対象種別。スポット本体だけでなく、レビュー投稿・ユーザーアカウントも通報できる。
 export type ReportTargetType = 'spot' | 'review' | 'user';
 
+// 運営へのお問い合わせのカテゴリ・スレッドの対応状況。
+export type ContactCategory = 'bug' | 'request' | 'other';
+export type ContactThreadStatus = 'open' | 'closed';
+
 // アカウントに付与できるバッジ(公式マーク/将来的なスポンサー・アンバサダー等)の種別。
 // badge_typesテーブルの内容をそのまま表す。新しい種別を追加してもアプリのコード変更は不要で、
 // UI側は未知のkeyでもlabel/icon/colorだけを見て汎用的に描画する。
@@ -26,8 +30,33 @@ export interface Profile {
   bio: string | null;
   created_at: string;
   badge_type_key: string | null;
+  // trueの場合、問い合わせ管理画面にアクセスできる(運営本人のアカウントのみ)。
+  is_admin: boolean;
   // クライアント側でjoinして付与するフィールド(未付与の場合はnull)
   badge?: BadgeType | null;
+}
+
+// 運営へのお問い合わせスレッド(会話単位)。ユーザー1人につき基本的に1つ。
+export interface ContactThread {
+  id: string;
+  user_id: string;
+  category: ContactCategory;
+  status: ContactThreadStatus;
+  created_at: string;
+  updated_at: string;
+  // 管理画面の一覧表示用に、クライアント側でjoinして付与する
+  user?: Profile;
+}
+
+// スレッド内の個々のメッセージ(ユーザー本人の発言・管理者の返信の両方)。
+export interface ContactMessage {
+  id: string;
+  thread_id: string;
+  sender_id: string;
+  is_admin: boolean;
+  body: string;
+  created_at: string;
+  sender?: Profile;
 }
 
 export interface Tag {

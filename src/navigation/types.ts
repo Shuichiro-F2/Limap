@@ -34,6 +34,10 @@ export type RootStackParamList = {
   EditProfile: undefined;
   FollowList: { userId: string; mode: 'followers' | 'following' };
   BlockedUsers: undefined;
+  Contact: undefined;
+  // 運営(is_admin)専用の問い合わせ管理画面。
+  AdminInbox: undefined;
+  AdminThread: { threadId: string };
 };
 
 // タブ内の画面（Map/Search/MyPage）は、タブ自身の画面遷移に加えて

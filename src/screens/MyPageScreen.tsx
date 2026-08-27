@@ -10,7 +10,6 @@ import {
   RefreshControl,
   useWindowDimensions,
   Platform,
-  Linking,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useFocusEffect } from '@react-navigation/native';
@@ -37,7 +36,7 @@ const TABS: { icon: keyof typeof Ionicons.glyphMap }[] = [
 ];
 
 export default function MyPageScreen({ navigation }: Props) {
-  const { profile, session, signOut } = useAuth();
+  const { profile, session, signOut, isAdmin } = useAuth();
   const { width: screenWidth } = useWindowDimensions();
   const t = useTranslation();
 
@@ -103,11 +102,6 @@ export default function MyPageScreen({ navigation }: Props) {
       }
     }, [session?.user, navigation])
   );
-
-  // 運営への問い合わせ。プライバシーポリシーで案内している連絡先(メール)を開く
-  const handleContact = () => {
-    Linking.openURL('mailto:oo.fsh7@gmail.com?subject=' + encodeURIComponent('LIMapへのお問い合わせ'));
-  };
 
   const goToPage = (index: number) => {
     setPageIndex(index);
@@ -196,9 +190,19 @@ export default function MyPageScreen({ navigation }: Props) {
           <Text style={styles.footerLinkText}>{t.myPage.blockedUsers}</Text>
         </Pressable>
         <Text style={styles.footerLinkDivider}>・</Text>
-        <Pressable onPress={handleContact} hitSlop={8}>
+        <Pressable onPress={() => navigation.navigate('Contact')} hitSlop={8}>
           <Text style={styles.footerLinkText}>{t.myPage.contact}</Text>
         </Pressable>
+        {/* 運営(is_admin)本人のアカウントでログインしている場合のみ、問い合わせ管理画面への
+            リンクを表示する(見た目上も隠しておき、実際のアクセス制御はRLS側で行う)。 */}
+        {isAdmin && (
+          <>
+            <Text style={styles.footerLinkDivider}>・</Text>
+            <Pressable onPress={() => navigation.navigate('AdminInbox')} hitSlop={8}>
+              <Text style={styles.footerLinkText}>問い合わせ管理</Text>
+            </Pressable>
+          </>
+        )}
         {/* ホーム画面への追加はWeb版限定。すでにホーム画面から起動している場合は表示不要 */}
         {Platform.OS === 'web' && !isStandaloneDisplay() && (
           <>

@@ -25,6 +25,9 @@ import AddToHomeScreenScreen from '../screens/AddToHomeScreenScreen';
 import EditProfileScreen from '../screens/EditProfileScreen';
 import FollowListScreen from '../screens/FollowListScreen';
 import BlockedUsersScreen from '../screens/BlockedUsersScreen';
+import ContactScreen from '../screens/ContactScreen';
+import AdminInboxScreen from '../screens/AdminInboxScreen';
+import AdminThreadScreen from '../screens/AdminThreadScreen';
 import LoadingScreen from '../components/LoadingScreen';
 import { colors } from '../lib/theme';
 import { applyThemeColorForRoute } from '../lib/seo';
@@ -67,6 +70,9 @@ const linking: LinkingOptions<RootStackParamList> = {
       EditProfile: 'edit-profile',
       FollowList: 'user/:userId/:mode',
       BlockedUsers: 'blocked-users',
+      Contact: 'contact',
+      AdminInbox: 'admin/inbox',
+      AdminThread: 'admin/thread/:threadId',
     },
   },
 };
@@ -189,6 +195,33 @@ export default function RootNavigator() {
           component={BlockedUsersScreen}
           options={{
             title: 'ブロック中のユーザー',
+            headerStyle: { backgroundColor: colors.background },
+            headerTintColor: colors.textPrimary,
+          }}
+        />
+        <Stack.Screen
+          name="Contact"
+          component={ContactScreen}
+          options={{
+            title: 'お問い合わせ',
+            headerStyle: { backgroundColor: colors.background },
+            headerTintColor: colors.textPrimary,
+          }}
+        />
+        <Stack.Screen
+          name="AdminInbox"
+          component={AdminInboxScreen}
+          options={{
+            title: '問い合わせ管理',
+            headerStyle: { backgroundColor: colors.background },
+            headerTintColor: colors.textPrimary,
+          }}
+        />
+        <Stack.Screen
+          name="AdminThread"
+          component={AdminThreadScreen}
+          options={{
+            title: '',
             headerStyle: { backgroundColor: colors.background },
             headerTintColor: colors.textPrimary,
           }}
