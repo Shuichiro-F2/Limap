@@ -153,7 +153,6 @@ export default function SpotDetailScreen({ route, navigation }: Props) {
         logoSource={require('../../assets/logo-header-dark.png')}
         backgroundColor={colors.accent}
         onLogoPress={goToMap}
-        showLanguageToggle={false}
       />
     </View>
   );

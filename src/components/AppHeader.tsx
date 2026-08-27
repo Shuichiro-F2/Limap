@@ -1,8 +1,7 @@
 import React from 'react';
 import { View, Image, Pressable, StyleSheet, type ImageSourcePropType } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import Text from './AppText';
-import { useLanguage } from '../lib/i18n';
+import { Ionicons } from '@expo/vector-icons';
 import { colors } from '../lib/theme';
 
 // ロゴ本体の高さ＋余白。各タブ画面側は、この分だけ先頭にスペースを空けて
@@ -18,19 +17,26 @@ type Props = {
   backgroundColor?: string;
   // ロゴをタップ可能にしたい場合のハンドラ(例: 投稿詳細画面からトップに戻る)
   onLogoPress?: () => void;
-  showLanguageToggle?: boolean;
+  // 右上に表示するアクション。'menu'はハンバーガーメニューのボタンを表示する
+  // (現状はマイページタブの時だけMainTabNavigator側から'menu'を渡す)。
+  // 省略時・'none'指定時は何も表示しない。
+  rightAction?: 'menu' | 'none';
+  onMenuPress?: () => void;
 };
 
-// ロゴと言語切り替えトグルは4つのタブ全てに共通する固定要素。
+// ロゴは4つのタブ全てに共通する固定要素。
 // MainTabNavigator側で、タブのページャー（スワイプで横に流れる部分）とは別の
 // 最前面レイヤーとして重ねて描画することで、タブを切り替えても一緒にスライドせず
 // 常に画面の同じ位置に留まる「ヘッダー」のように振る舞う。背景は既定で透過。
 // 投稿詳細画面(SpotDetailScreen)など、タブ以外の画面でも全く同じレイアウトの
 // ヘッダーが必要な場合は、このコンポーネントをbackgroundColor/logoSource/onLogoPress
 // 付きでそのまま再利用し、ロゴの位置・サイズが画面ごとにズレないようにする。
-export default function AppHeader({ logoSource, backgroundColor, onLogoPress, showLanguageToggle = true }: Props) {
-  const { language, setLanguage } = useLanguage();
-
+//
+// 以前はここに言語切り替えトグルを常時表示していたが、マイページタブ専用の
+// ハンバーガーメニュー(ProfileMenu)の中に移動した。ハンバーガーボタン自体も
+// マイページタブを表示している間だけ、MainTabNavigator側からrightAction="menu"が
+// 渡されたときのみ表示する。
+export default function AppHeader({ logoSource, backgroundColor, onLogoPress, rightAction = 'none', onMenuPress }: Props) {
   const logo = (
     <Image
       source={logoSource ?? require('../../assets/logo-header.png')}
@@ -54,23 +60,10 @@ export default function AppHeader({ logoSource, backgroundColor, onLogoPress, sh
           logo
         )}
 
-        {showLanguageToggle && (
-          <View style={styles.langSwitch}>
-            <Pressable
-              style={[styles.langButton, language === 'ja' && styles.langButtonActive]}
-              onPress={() => setLanguage('ja')}
-              hitSlop={6}
-            >
-              <Text style={[styles.langButtonText, language === 'ja' && styles.langButtonTextActive]}>日本語</Text>
-            </Pressable>
-            <Pressable
-              style={[styles.langButton, language === 'en' && styles.langButtonActive]}
-              onPress={() => setLanguage('en')}
-              hitSlop={6}
-            >
-              <Text style={[styles.langButtonText, language === 'en' && styles.langButtonTextActive]}>English</Text>
-            </Pressable>
-          </View>
+        {rightAction === 'menu' && (
+          <Pressable style={styles.menuButton} onPress={onMenuPress} hitSlop={10}>
+            <Ionicons name="menu" size={26} color={colors.textPrimary} />
+          </Pressable>
         )}
       </View>
     </SafeAreaView>
@@ -95,15 +88,5 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   logo: { width: 84, height: 52 },
-  langSwitch: {
-    flexDirection: 'row',
-    borderWidth: 1,
-    borderColor: colors.textPrimary,
-    borderRadius: 999,
-    overflow: 'hidden',
-  },
-  langButton: { paddingHorizontal: 10, paddingVertical: 5 },
-  langButtonActive: { backgroundColor: colors.accent },
-  langButtonText: { fontSize: 11, fontWeight: '700', color: colors.textSecondary },
-  langButtonTextActive: { color: colors.accentText },
+  menuButton: { padding: 4 },
 });

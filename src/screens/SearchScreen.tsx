@@ -107,7 +107,7 @@ export default function SearchScreen({ navigation, route }: Props) {
 
   return (
     <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
-      {/* 共通ヘッダー(ロゴ+言語トグル)が最前面に重なっているため、その高さ分だけ空けてから検索バーを配置する */}
+      {/* 共通ヘッダー(ロゴ)が最前面に重なっているため、その高さ分だけ空けてから検索バーを配置する */}
       <View style={{ height: HEADER_CONTENT_HEIGHT }} />
       <View style={styles.searchBar}>
         <TextInput

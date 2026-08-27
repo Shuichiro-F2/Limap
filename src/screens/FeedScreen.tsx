@@ -62,7 +62,7 @@ export default function FeedScreen({ navigation }: Props) {
   if (!session?.user) {
     return (
       <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
-        {/* 共通ヘッダー(ロゴ+言語トグル)が最前面に重なっているため、その高さ分だけ空ける */}
+        {/* 共通ヘッダー(ロゴ)が最前面に重なっているため、その高さ分だけ空ける */}
         <View style={{ height: HEADER_CONTENT_HEIGHT }} />
         <View style={styles.loggedOutBox}>
           <Text style={styles.loggedOutText}>{t.feed.loggedOutMessage}</Text>

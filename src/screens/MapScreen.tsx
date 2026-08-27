@@ -215,7 +215,7 @@ export default function MapScreen({ navigation, route }: Props) {
       </MapView>
 
       <SafeAreaView style={styles.topOverlay} pointerEvents="box-none">
-        {/* 共通ヘッダー(ロゴ+言語トグル)が最前面に重なっているため、その高さ分だけ空けてから検索バーを配置する */}
+        {/* 共通ヘッダー(ロゴ)が最前面に重なっているため、その高さ分だけ空けてから検索バーを配置する */}
         <View style={{ height: HEADER_CONTENT_HEIGHT }} pointerEvents="none" />
 
         <View style={styles.searchBar}>

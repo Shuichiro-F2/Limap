@@ -9,7 +9,6 @@ import {
   ActivityIndicator,
   RefreshControl,
   useWindowDimensions,
-  Platform,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useFocusEffect } from '@react-navigation/native';
@@ -22,7 +21,6 @@ import { fetchFollowCounts, type FollowCounts } from '../lib/profiles';
 import { useAuth } from '../lib/AuthContext';
 import { useTranslation } from '../lib/i18n';
 import { colors } from '../lib/theme';
-import { isStandaloneDisplay } from '../lib/pwaInstall';
 import type { Spot } from '../types/database';
 import type { MainTabScreenProps } from '../navigation/types';
 
@@ -36,7 +34,7 @@ const TABS: { icon: keyof typeof Ionicons.glyphMap }[] = [
 ];
 
 export default function MyPageScreen({ navigation }: Props) {
-  const { profile, session, signOut, isAdmin } = useAuth();
+  const { profile, session, signOut } = useAuth();
   const { width: screenWidth } = useWindowDimensions();
   const t = useTranslation();
 
@@ -135,7 +133,7 @@ export default function MyPageScreen({ navigation }: Props) {
 
   return (
     <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
-      {/* 共通ヘッダー(ロゴ+言語トグル)が最前面に重なっているため、その高さ分だけ空ける */}
+      {/* 共通ヘッダー(ロゴ+このタブの時だけのハンバーガーメニュー)が最前面に重なっているため、その高さ分だけ空ける */}
       <View style={{ height: HEADER_CONTENT_HEIGHT }} />
 
       <View style={styles.header}>
@@ -175,43 +173,6 @@ export default function MyPageScreen({ navigation }: Props) {
           <Text style={styles.countNumber}>{followCounts.following}</Text>
           <Text style={styles.countLabel}>{t.myPage.following}</Text>
         </Pressable>
-      </View>
-
-      <View style={styles.footerLinksRow}>
-        <Pressable onPress={() => navigation.navigate('Help')} hitSlop={8}>
-          <Text style={styles.footerLinkText}>{t.myPage.help}</Text>
-        </Pressable>
-        <Text style={styles.footerLinkDivider}>・</Text>
-        <Pressable onPress={() => navigation.navigate('About')} hitSlop={8}>
-          <Text style={styles.footerLinkText}>{t.myPage.about}</Text>
-        </Pressable>
-        <Text style={styles.footerLinkDivider}>・</Text>
-        <Pressable onPress={() => navigation.navigate('BlockedUsers')} hitSlop={8}>
-          <Text style={styles.footerLinkText}>{t.myPage.blockedUsers}</Text>
-        </Pressable>
-        <Text style={styles.footerLinkDivider}>・</Text>
-        <Pressable onPress={() => navigation.navigate('Contact')} hitSlop={8}>
-          <Text style={styles.footerLinkText}>{t.myPage.contact}</Text>
-        </Pressable>
-        {/* 運営(is_admin)本人のアカウントでログインしている場合のみ、問い合わせ管理画面への
-            リンクを表示する(見た目上も隠しておき、実際のアクセス制御はRLS側で行う)。 */}
-        {isAdmin && (
-          <>
-            <Text style={styles.footerLinkDivider}>・</Text>
-            <Pressable onPress={() => navigation.navigate('AdminInbox')} hitSlop={8}>
-              <Text style={styles.footerLinkText}>問い合わせ管理</Text>
-            </Pressable>
-          </>
-        )}
-        {/* ホーム画面への追加はWeb版限定。すでにホーム画面から起動している場合は表示不要 */}
-        {Platform.OS === 'web' && !isStandaloneDisplay() && (
-          <>
-            <Text style={styles.footerLinkDivider}>・</Text>
-            <Pressable onPress={() => navigation.navigate('AddToHomeScreen')} hitSlop={8}>
-              <Text style={styles.footerLinkText}>{t.myPage.addToHomeScreen}</Text>
-            </Pressable>
-          </>
-        )}
       </View>
 
       <View style={styles.tabRow}>
@@ -316,16 +277,6 @@ const styles = StyleSheet.create({
   countItem: { alignItems: 'center' },
   countNumber: { color: colors.textPrimary, fontSize: 16, fontWeight: '700' },
   countLabel: { color: colors.textMuted, fontSize: 11, marginTop: 2 },
-  footerLinksRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    flexWrap: 'wrap',
-    rowGap: 6,
-    paddingHorizontal: 20,
-    marginBottom: 12,
-  },
-  footerLinkText: { color: colors.textMuted, fontSize: 11 },
-  footerLinkDivider: { color: colors.textMuted, fontSize: 11, marginHorizontal: 6 },
   tabRow: { flexDirection: 'row' },
   tabButton: { flex: 1, alignItems: 'center', justifyContent: 'center', paddingVertical: 10 },
   indicatorTrack: { height: 2, backgroundColor: colors.border },

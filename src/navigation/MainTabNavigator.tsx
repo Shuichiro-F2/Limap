@@ -1,10 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Animated, View, Pressable, StyleSheet, useWindowDimensions } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useNavigation } from '@react-navigation/native';
 import {
   createMaterialTopTabNavigator,
   type MaterialTopTabBarProps,
 } from '@react-navigation/material-top-tabs';
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Ionicons } from '@expo/vector-icons';
 import MapScreen from '../screens/MapScreen';
 import FeedScreen from '../screens/FeedScreen';
@@ -12,10 +14,12 @@ import SearchScreen from '../screens/SearchScreen';
 import ArticlesScreen from '../screens/ArticlesScreen';
 import MyPageScreen from '../screens/MyPageScreen';
 import AppHeader from '../components/AppHeader';
+import ProfileMenu from '../components/ProfileMenu';
 import AddToHomeScreenPopup from '../components/AddToHomeScreenPopup';
+import { useAuth } from '../lib/AuthContext';
 import { colors } from '../lib/theme';
 import { WEB_SAFE_BOTTOM_OVERHANG } from '../lib/safeAreaWeb';
-import type { MainTabParamList } from './types';
+import type { MainTabParamList, RootStackParamList } from './types';
 
 const Tab = createMaterialTopTabNavigator<MainTabParamList>();
 
@@ -31,7 +35,14 @@ const TAB_ICONS: Record<keyof MainTabParamList, keyof typeof Ionicons.glyphMap> 
   MyPageTab: 'person-outline',
 };
 
-function CustomTabBar({ state, navigation, position }: MaterialTopTabBarProps) {
+type CustomTabBarProps = MaterialTopTabBarProps & {
+  // 現在フォーカスされているタブ名をTab.Navigatorの外側(MainTabNavigator)に
+  // 伝えるためのコールバック。ヘッダーのハンバーガーボタンをマイページタブの
+  // ときだけ表示する、といった外側の見た目の切り替えに使う。
+  onActiveRouteChange?: (name: keyof MainTabParamList) => void;
+};
+
+function CustomTabBar({ state, navigation, position, onActiveRouteChange }: CustomTabBarProps) {
   const insets = useSafeAreaInsets();
   const { width: screenWidth } = useWindowDimensions();
   const routeCount = state.routes.length;
@@ -46,6 +57,11 @@ function CustomTabBar({ state, navigation, position }: MaterialTopTabBarProps) {
     });
     return () => position.removeListener(id);
   }, [position]);
+
+  useEffect(() => {
+    const name = state.routes[activeIndex]?.name as keyof MainTabParamList | undefined;
+    if (name) onActiveRouteChange?.(name);
+  }, [activeIndex, state.routes, onActiveRouteChange]);
 
   const indicatorTranslateX = position.interpolate({
     inputRange: state.routes.map((_, i) => i),
@@ -98,6 +114,18 @@ export default function MainTabNavigator() {
   // 確保しているため、ここでもオーバーハングさせると二重に相殺され、タブアイコンが
   // 画面の物理下端(ホームインジケーターの真上)まで来てしまっていた。ネイティブは0にする。
   const bottomOverhang = WEB_SAFE_BOTTOM_OVERHANG ?? 0;
+
+  // ハンバーガーメニューはマイページタブのときだけ表示する。以前の言語切り替え
+  // トグルは全タブ共通で常時表示していたが、これとは異なり他のタブでは
+  // ボタンごと出さない(要件どおり)。どのタブがフォーカスされているかは
+  // CustomTabBar側のスワイプ位置から伝えてもらう。
+  const [activeTabName, setActiveTabName] = useState<keyof MainTabParamList>('MapTab');
+  const [menuVisible, setMenuVisible] = useState(false);
+  const { isAdmin } = useAuth();
+  // Main画面(Stack.Screen)として登録されているため、useNavigation()で
+  // 親のRootStack側のnavigationを取得できる(About/Contact等はRootStack側のルート)。
+  const rootNavigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
   return (
     // 外側はオーバーハングさせない通常のflex:1コンテナにし、ポップアップ等
     // 「実機の下端付近に、多少の誤差があっても見た目上問題ない」要素はここに置く。
@@ -106,7 +134,7 @@ export default function MainTabNavigator() {
       <View style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: bottomOverhang }}>
         <Tab.Navigator
           tabBarPosition="bottom"
-          tabBar={(props) => <CustomTabBar {...props} />}
+          tabBar={(props) => <CustomTabBar {...props} onActiveRouteChange={setActiveTabName} />}
           screenOptions={{ swipeEnabled: true, animationEnabled: true }}
         >
           {/*
@@ -127,11 +155,15 @@ export default function MainTabNavigator() {
         </Tab.Navigator>
 
         {/*
-          ロゴと言語切り替えトグルは、タブのページャー(Tab.Navigator)の外側・最前面に重ねて描画する。
-          こうすることで、各タブ画面の中身がスワイプで横にスライドしても、
-          ヘッダー自体は再マウントされず常に画面の同じ位置に固定されたまま表示される。
+          ロゴ(と、マイページタブの時だけのハンバーガーボタン)は、タブのページャー
+          (Tab.Navigator)の外側・最前面に重ねて描画する。こうすることで、各タブ画面の
+          中身がスワイプで横にスライドしても、ヘッダー自体は再マウントされず
+          常に画面の同じ位置に固定されたまま表示される。
         */}
-        <AppHeader />
+        <AppHeader
+          rightAction={activeTabName === 'MyPageTab' ? 'menu' : 'none'}
+          onMenuPress={() => setMenuVisible(true)}
+        />
       </View>
 
       {/* Web版限定: ブラウザで開いた際、トップ画面(このMainTabNavigatorが
@@ -139,6 +171,15 @@ export default function MainTabNavigator() {
           既にホーム画面から起動している場合や、一度閉じた場合はこの端末では表示しない。
           外側のオーバーハングしない箱に置くことで、下端付近の位置ズレを避ける。 */}
       <AddToHomeScreenPopup />
+
+      {/* マイページタブ専用のハンバーガーメニュー。ハンバーガーボタン自体が
+          マイページタブの時にしか表示されないため、他タブ表示中に開くことはない。 */}
+      <ProfileMenu
+        visible={menuVisible}
+        onClose={() => setMenuVisible(false)}
+        navigation={rootNavigation}
+        isAdmin={isAdmin}
+      />
     </View>
   );
 }
