@@ -1,5 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { View, Pressable, StyleSheet, ScrollView, Image, ActivityIndicator } from 'react-native';
+import {
+  View,
+  Pressable,
+  StyleSheet,
+  ScrollView,
+  Image,
+  ActivityIndicator,
+  KeyboardAvoidingView,
+  Platform,
+} from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { decode } from 'base64-arraybuffer';
 import Text from '../components/AppText';
@@ -221,7 +230,16 @@ export default function AddReviewScreen({ navigation, route }: Props) {
   }
 
   return (
-    <ScrollView style={styles.container} contentContainerStyle={{ padding: 20 }}>
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+    >
+    <ScrollView
+      style={styles.container}
+      contentContainerStyle={{ padding: 20 }}
+      keyboardShouldPersistTaps="handled"
+      automaticallyAdjustKeyboardInsets
+    >
       <Text style={styles.lead}>{t.addReview.leadTemplate.replace('{name}', spot.title)}</Text>
 
       <SectionLabel label={t.createSpot.visitTime} help={t.createSpot.visitTimeHelp} />
@@ -315,6 +333,7 @@ export default function AddReviewScreen({ navigation, route }: Props) {
         )}
       </Pressable>
     </ScrollView>
+    </KeyboardAvoidingView>
   );
 }
 

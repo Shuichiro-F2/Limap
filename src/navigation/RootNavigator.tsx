@@ -120,6 +120,9 @@ export default function RootNavigator() {
           // ヘッダータイトルはReact Navigation内部のTextで描画されるため、
           // アプリ全体のフォント差し替え（AppText）が効かない。ここで直接指定する。
           headerTitleStyle: { fontFamily: 'DotGothic16_400Regular' },
+          // iOS標準では戻るボタンの矢印の横に遷移元画面のタイトル(例: "Main")が
+          // 表示されるが、この文言はユーザーには不要な情報のため、矢印のみの表示にする。
+          headerBackButtonDisplayMode: 'minimal',
         }}
       >
         <Stack.Screen name="Main" component={MainTabNavigator} options={{ headerShown: false }} />

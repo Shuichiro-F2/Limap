@@ -86,6 +86,9 @@ type Props = {
   // 上に重なる固定ヘッダー(AppHeader)の高さ分だけ、先頭のメディアが隠れないよう空ける余白。
   // フル画面の詳細画面でのみ指定し、プレビューシート側は0のまま(独自のハンドルバーがある)。
   topInset?: number;
+  // ホームインジケーターなど下部の安全領域分の余白。フル画面の詳細画面でのみ指定し、
+  // 末尾の「みんなの投稿」セクションが画面下端で見切れてスクロールしきれなくなるのを防ぐ。
+  bottomInset?: number;
   // 「みんなの投稿」セクション(既存スポットへの他ユーザーによるレビュー投稿)。
   // 未ログイン時などonAddReviewを渡さない場合は投稿ボタンを表示しない。
   reviews?: SpotReview[];
@@ -127,6 +130,7 @@ export default function SpotDetailContent({
   onDelete,
   deleting = false,
   topInset = 0,
+  bottomInset = 0,
   reviews = [],
   reviewsLoading = false,
   currentUserId,
@@ -238,7 +242,11 @@ export default function SpotDetailContent({
   return (
     <ScrollView
       style={styles.container}
-      contentContainerStyle={[styles.scrollContent, topInset ? { paddingTop: topInset } : null]}
+      contentContainerStyle={[
+        styles.scrollContent,
+        topInset ? { paddingTop: topInset } : null,
+        { paddingBottom: 32 + bottomInset },
+      ]}
       scrollEnabled={scrollEnabled}
       onScroll={onScroll}
       scrollEventThrottle={16}

@@ -6,6 +6,8 @@ import {
   ScrollView,
   Image,
   ActivityIndicator,
+  KeyboardAvoidingView,
+  Platform,
 } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import * as Location from 'expo-location';
@@ -351,7 +353,16 @@ export default function EditSpotScreen({ navigation, route }: Props) {
   }
 
   return (
-    <ScrollView style={styles.container} contentContainerStyle={{ padding: 20 }}>
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+    >
+    <ScrollView
+      style={styles.container}
+      contentContainerStyle={{ padding: 20 }}
+      keyboardShouldPersistTaps="handled"
+      automaticallyAdjustKeyboardInsets
+    >
       <SectionLabel label={t.createSpot.name} help={t.createSpot.nameHelp} />
       <TextInput
         style={styles.input}
@@ -569,6 +580,7 @@ export default function EditSpotScreen({ navigation, route }: Props) {
         )}
       </Pressable>
     </ScrollView>
+    </KeyboardAvoidingView>
   );
 }
 

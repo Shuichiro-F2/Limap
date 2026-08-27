@@ -96,12 +96,16 @@ export default function SpotDetailScreen({ route, navigation }: Props) {
   };
 
   return (
-    // ホーム画面に追加してスタンドアロン表示にした際、この画面を包む
+    // Web版でホーム画面に追加してスタンドアロン表示にした際、この画面を包む
     // react-navigation側のコンテナがホームインジケーター分の安全領域まで
     // 高さを伸ばしきれないことがあり、その分だけ背景の黄色がグレーで
     // 途切れて見える不具合があった。position:absoluteで自前の領域を
-    // 明示し、bottomをinsets.bottom分だけ余分に伸ばすことで、
+    // 明示し、bottomを安全領域分だけ余分に伸ばすことで、
     // 親コンテナの取りこぼしを吸収して実機の下端まで確実に黄色を届かせる。
+    // ネイティブ版は同様の問題が起きないため、ここでオーバーハングさせると
+    // 逆にScrollViewの表示領域が画面より大きくなり、末尾のコンテンツが
+    // 画面下端の外側(見えない領域)に隠れてスクロールしきれなくなってしまう。
+    // そのためネイティブ版はオーバーハングなし(0)にする。
     <View
       style={[
         styles.screen,
@@ -111,8 +115,8 @@ export default function SpotDetailScreen({ route, navigation }: Props) {
           left: 0,
           right: 0,
           // Web版はCSSのenv(safe-area-inset-bottom)を直接使い、コラム記事ページと
-          // 同じ仕組みで誤差なく実機の下端まで届かせる。ネイティブ版はinsets.bottomを使う。
-          bottom: WEB_SAFE_BOTTOM_OVERHANG ?? -insets.bottom,
+          // 同じ仕組みで誤差なく実機の下端まで届かせる。
+          bottom: WEB_SAFE_BOTTOM_OVERHANG ?? 0,
         },
       ]}
     >
@@ -134,6 +138,7 @@ export default function SpotDetailScreen({ route, navigation }: Props) {
         onDelete={onDelete}
         deleting={deleting}
         topInset={insets.top + HEADER_CONTENT_HEIGHT}
+        bottomInset={insets.bottom}
         reviews={reviews}
         reviewsLoading={reviewsLoading}
         currentUserId={session?.user?.id}

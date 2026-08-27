@@ -295,6 +295,7 @@ export default function SpotPreviewSheet({
               }
               onDelete={onDelete}
               deleting={deleting}
+              bottomInset={insets.bottom}
               reviews={reviews}
               reviewsLoading={reviewsLoading}
               currentUserId={session?.user?.id}

@@ -6,6 +6,8 @@ import {
   ScrollView,
   Image,
   ActivityIndicator,
+  KeyboardAvoidingView,
+  Platform,
 } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import * as Location from 'expo-location';
@@ -359,8 +361,16 @@ export default function CreateSpotScreen({ navigation, route }: Props) {
   };
 
   return (
-    <View style={{ flex: 1 }}>
-    <ScrollView style={styles.container} contentContainerStyle={{ padding: 20 }}>
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+    >
+    <ScrollView
+      style={styles.container}
+      contentContainerStyle={{ padding: 20 }}
+      keyboardShouldPersistTaps="handled"
+      automaticallyAdjustKeyboardInsets
+    >
       <SectionLabel label={t.createSpot.name} help={t.createSpot.nameHelp} />
       <TextInput
         style={styles.input}
@@ -589,7 +599,7 @@ export default function CreateSpotScreen({ navigation, route }: Props) {
       onSelectMatch={selectDuplicateMatch}
       onDismiss={dismissDuplicatePopup}
     />
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 

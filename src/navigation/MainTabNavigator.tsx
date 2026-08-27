@@ -83,19 +83,21 @@ function CustomTabBar({ state, navigation, position }: MaterialTopTabBarProps) {
 }
 
 export default function MainTabNavigator() {
-  // ホーム画面に追加してスタンドアロン表示にした場合、react-navigation側の
+  // Web版でホーム画面に追加してスタンドアロン表示にした場合、react-navigation側の
   // スクリーンコンテナがホームインジケーター分の安全領域まで高さを伸ばしきれず、
   // 下タブバーの下にグレーの隙間ができてしまうことがあった。position:absoluteで
-  // 自前の領域を明示し、bottomをinsets.bottom分だけ余分に張り出させることで
+  // 自前の領域を明示し、bottomを安全領域分だけ余分に張り出させることで
   // 実機の下端まで確実に届かせる(タブバー自体が内側でinsets.bottom分の
   // 余白を確保する処理とは独立して機能する)。
-  const insets = useSafeAreaInsets();
   // Web版はCSSのenv(safe-area-inset-bottom)を直接使い、コラム記事ページと同じ仕組みで
-  // 誤差なく実機の下端まで届かせる。ネイティブ版はinsets.bottomを使う。
+  // 誤差なく実機の下端まで届かせる。
   // 注意: ここでの張り出し量はTab.Navigator内のflex:1コンテンツ(地図など)がそのまま
   // 消費し、下タブバーの位置を押し下げてしまうため、正確な値を使う必要がある
   // (SpotDetailScreen等の単色背景の張り出しと違い、多めのバッファは使えない)。
-  const bottomOverhang = WEB_SAFE_BOTTOM_OVERHANG ?? -insets.bottom;
+  // ネイティブ版はCustomTabBar自体がすでにinsets.bottom分の高さ・paddingBottomを
+  // 確保しているため、ここでもオーバーハングさせると二重に相殺され、タブアイコンが
+  // 画面の物理下端(ホームインジケーターの真上)まで来てしまっていた。ネイティブは0にする。
+  const bottomOverhang = WEB_SAFE_BOTTOM_OVERHANG ?? 0;
   return (
     // 外側はオーバーハングさせない通常のflex:1コンテナにし、ポップアップ等
     // 「実機の下端付近に、多少の誤差があっても見た目上問題ない」要素はここに置く。
