@@ -10,6 +10,7 @@ import {
   RefreshControl,
   useWindowDimensions,
   Platform,
+  Linking,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useFocusEffect } from '@react-navigation/native';
@@ -103,6 +104,11 @@ export default function MyPageScreen({ navigation }: Props) {
     }, [session?.user, navigation])
   );
 
+  // 運営への問い合わせ。プライバシーポリシーで案内している連絡先(メール)を開く
+  const handleContact = () => {
+    Linking.openURL('mailto:oo.fsh7@gmail.com?subject=' + encodeURIComponent('LIMapへのお問い合わせ'));
+  };
+
   const goToPage = (index: number) => {
     setPageIndex(index);
     pagerRef.current?.scrollTo({ x: index * screenWidth, animated: true });
@@ -184,6 +190,14 @@ export default function MyPageScreen({ navigation }: Props) {
         <Text style={styles.footerLinkDivider}>・</Text>
         <Pressable onPress={() => navigation.navigate('About')} hitSlop={8}>
           <Text style={styles.footerLinkText}>{t.myPage.about}</Text>
+        </Pressable>
+        <Text style={styles.footerLinkDivider}>・</Text>
+        <Pressable onPress={() => navigation.navigate('BlockedUsers')} hitSlop={8}>
+          <Text style={styles.footerLinkText}>{t.myPage.blockedUsers}</Text>
+        </Pressable>
+        <Text style={styles.footerLinkDivider}>・</Text>
+        <Pressable onPress={handleContact} hitSlop={8}>
+          <Text style={styles.footerLinkText}>{t.myPage.contact}</Text>
         </Pressable>
         {/* ホーム画面への追加はWeb版限定。すでにホーム画面から起動している場合は表示不要 */}
         {Platform.OS === 'web' && !isStandaloneDisplay() && (
@@ -301,6 +315,8 @@ const styles = StyleSheet.create({
   footerLinksRow: {
     flexDirection: 'row',
     alignItems: 'center',
+    flexWrap: 'wrap',
+    rowGap: 6,
     paddingHorizontal: 20,
     marginBottom: 12,
   },

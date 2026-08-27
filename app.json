@@ -8,9 +8,12 @@
     "userInterfaceStyle": "dark",
     "ios": {
       "supportsTablet": true,
+      "bundleIdentifier": "com.v.xo2.limap",
+      "usesAppleSignIn": true,
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "近くのリミナルスペースを地図に表示するために位置情報を使用します。",
-        "NSPhotoLibraryUsageDescription": "投稿する写真を選択するために写真ライブラリへのアクセスが必要です。"
+        "NSPhotoLibraryUsageDescription": "投稿する写真を選択するために写真ライブラリへのアクセスが必要です。",
+        "ITSAppUsesNonExemptEncryption": false
       }
     },
     "android": {
@@ -21,13 +24,17 @@
         "monochromeImage": "./assets/android-icon-monochrome.png"
       },
       "predictiveBackGestureEnabled": false,
-      "permissions": ["ACCESS_FINE_LOCATION", "ACCESS_COARSE_LOCATION"],
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION"
+      ],
       "package": "com.v.xo2.limap"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
+      "expo-apple-authentication",
       [
         "@rnmapbox/maps",
         {}

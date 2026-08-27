@@ -3,6 +3,8 @@
 
 export type SpotStatus = 'published' | 'hidden' | 'removed';
 export type ReportReason = 'inappropriate' | 'privacy' | 'spam' | 'wrong_location' | 'other';
+// 通報の対象種別。スポット本体だけでなく、レビュー投稿・ユーザーアカウントも通報できる。
+export type ReportTargetType = 'spot' | 'review' | 'user';
 
 // アカウントに付与できるバッジ(公式マーク/将来的なスポンサー・アンバサダー等)の種別。
 // badge_typesテーブルの内容をそのまま表す。新しい種別を追加してもアプリのコード変更は不要で、
@@ -96,11 +98,26 @@ export interface Spot {
 
 export interface Report {
   id: string;
-  spot_id: string;
+  target_type: ReportTargetType;
+  // target_typeに応じて、以下のいずれか1つだけが値を持つ
+  spot_id: string | null;
+  review_id: string | null;
+  reported_user_id: string | null;
   reporter_id: string;
   reason: ReportReason;
   note: string | null;
   created_at: string;
+}
+
+// ユーザーブロック(片方向)。自分がブロックした相手の投稿・レビューは
+// クライアント側でフィード・検索・地図・スポット詳細から除外する。
+export interface Block {
+  id: string;
+  blocker_id: string;
+  blocked_id: string;
+  created_at: string;
+  // クライアント側でjoinして付与するフィールド
+  blocked?: Profile;
 }
 
 // 既存スポットに他ユーザーが追加できる「レビュー」投稿(写真・SNS埋め込み・コメント・
@@ -131,6 +148,7 @@ export interface SpotReview {
   author_id: string;
   description: string | null;
   recommended_visit_time: VisitTime | null;
+  report_count: number;
   created_at: string;
   updated_at: string;
   // クライアント側でjoinして付与するフィールド

@@ -13,6 +13,7 @@ import { Ionicons } from '@expo/vector-icons';
 import * as Location from 'expo-location';
 import { MAPBOX_ACCESS_TOKEN } from '@env';
 import { fetchSpotsInBounds } from '../lib/spots';
+import { filterBlockedAuthors } from '../lib/moderation';
 import { spotsToFeatureCollection } from '../lib/geo';
 import { generateSessionToken, suggestPlaces, retrievePlace, type SuggestResult } from '../lib/mapboxSearch';
 import SpotPreviewSheet from '../components/SpotPreviewSheet';
@@ -62,7 +63,7 @@ type SpotsSourcePressEvent = {
 type Props = MainTabScreenProps<'MapTab'>;
 
 export default function MapScreen({ navigation, route }: Props) {
-  const { session } = useAuth();
+  const { session, blockedUserIds } = useAuth();
   const t = useTranslation();
   const [spots, setSpots] = useState<Spot[]>([]);
   const mapRef = useRef<MapView>(null);
@@ -116,11 +117,11 @@ export default function MapScreen({ navigation, route }: Props) {
       const [[maxLng, maxLat], [minLng, minLat]] = bounds;
       setLastCenter({ lat: (maxLat + minLat) / 2, lng: (maxLng + minLng) / 2 });
       const data = await fetchSpotsInBounds({ minLat, maxLat, minLng, maxLng });
-      setSpots(data);
+      setSpots(filterBlockedAuthors(data, blockedUserIds));
     } catch (e) {
       console.warn('スポット取得エラー', e);
     }
-  }, []);
+  }, [blockedUserIds]);
 
   const goToMyLocation = async () => {
     const { status } = await Location.requestForegroundPermissionsAsync();

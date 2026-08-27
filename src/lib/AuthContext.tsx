@@ -1,7 +1,9 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState, useCallback } from 'react';
 import { Platform } from 'react-native';
+import * as AppleAuthentication from 'expo-apple-authentication';
 import type { Session } from '@supabase/supabase-js';
 import { supabase } from './supabase';
+import { fetchBlockedUserIds } from './moderation';
 import type { Profile } from '../types/database';
 
 // バッジ(公式マークなど)も含めて自分のプロフィールを取得する
@@ -14,9 +16,15 @@ interface AuthContextValue {
   session: Session | null;
   profile: Profile | null;
   loading: boolean;
+  // 自分がブロックしているユーザーのID集合。フィード・検索・地図・レビュー表示から
+  // ブロック済みユーザーのコンテンツを除外するために、アプリ全体から参照できるようにしている。
+  blockedUserIds: Set<string>;
+  refreshBlockedUserIds: () => Promise<void>;
   signInWithEmail: (email: string, password: string) => Promise<void>;
   signUpWithEmail: (email: string, password: string, username: string) => Promise<void>;
   signInWithOAuth: (provider: 'google') => Promise<void>;
+  // iOSネイティブのみ。ユーザーがキャンセルした場合は何もせず終了する(エラー表示しない)。
+  signInWithApple: () => Promise<void>;
   signOut: () => Promise<void>;
   refreshProfile: () => Promise<void>;
 }
@@ -27,6 +35,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [session, setSession] = useState<Session | null>(null);
   const [profile, setProfile] = useState<Profile | null>(null);
   const [loading, setLoading] = useState(true);
+  const [blockedUserIds, setBlockedUserIds] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
@@ -53,6 +62,23 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       .single()
       .then(({ data }) => setProfile(data));
   }, [session?.user?.id]);
+
+  const refreshBlockedUserIds = useCallback(async () => {
+    if (!session?.user) {
+      setBlockedUserIds(new Set());
+      return;
+    }
+    try {
+      const ids = await fetchBlockedUserIds(session.user.id);
+      setBlockedUserIds(new Set(ids));
+    } catch (e) {
+      console.warn('ブロック中ユーザー取得エラー', e);
+    }
+  }, [session?.user?.id]);
+
+  useEffect(() => {
+    refreshBlockedUserIds();
+  }, [refreshBlockedUserIds]);
 
   // プロフィール編集画面で表示名・自己紹介・アバターを更新した後、
   // アプリ内の各所（マイページのヘッダーなど）に即座に反映させるために使う
@@ -87,13 +113,56 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     if (error) throw error;
   };
 
+  // iOSネイティブ専用のApple公式ログイン(Sign in with Apple)。
+  // Googleログインなどサードパーティのソーシャルログインを提供するアプリは、
+  // Appleの審査ガイドライン(4.8)によりApple公式ログインも同等に用意する必要がある。
+  // expo-apple-authenticationでネイティブのApple認証UIを呼び出し、得られたidentityTokenを
+  // Supabase側(signInWithIdToken)に渡して、Supabase Auth上のセッションを確立する。
+  const signInWithApple = async () => {
+    let credential;
+    try {
+      credential = await AppleAuthentication.signInAsync({
+        requestedScopes: [
+          AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
+          AppleAuthentication.AppleAuthenticationScope.EMAIL,
+        ],
+      });
+    } catch (e: any) {
+      // ユーザーが自分でキャンセルした場合はエラー扱いにしない
+      if (e?.code === 'ERR_REQUEST_CANCELED') return;
+      throw e;
+    }
+
+    if (!credential.identityToken) {
+      throw new Error('Appleからの認証情報を取得できませんでした。');
+    }
+
+    const { error } = await supabase.auth.signInWithIdToken({
+      provider: 'apple',
+      token: credential.identityToken,
+    });
+    if (error) throw error;
+  };
+
   const signOut = async () => {
     await supabase.auth.signOut();
   };
 
   return (
     <AuthContext.Provider
-      value={{ session, profile, loading, signInWithEmail, signUpWithEmail, signInWithOAuth, signOut, refreshProfile }}
+      value={{
+        session,
+        profile,
+        loading,
+        blockedUserIds,
+        refreshBlockedUserIds,
+        signInWithEmail,
+        signUpWithEmail,
+        signInWithOAuth,
+        signInWithApple,
+        signOut,
+        refreshProfile,
+      }}
     >
       {children}
     </AuthContext.Provider>

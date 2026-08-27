@@ -10,6 +10,7 @@ import {
   deleteSpot,
 } from '../lib/spots';
 import { fetchSpotReviews, deleteSpotReview } from '../lib/spotReviews';
+import { reportReview, filterBlockedAuthors } from '../lib/moderation';
 import { useAuth } from '../lib/AuthContext';
 import type { Spot, SpotReview, ReportReason } from '../types/database';
 
@@ -18,7 +19,7 @@ import type { Spot, SpotReview, ReportReason } from '../types/database';
 // 引数はURL/遷移で使うLIMap ID（slug）。いいね・行きたい・通報などのDB操作は
 // FK制約が内部の主キー(id)を参照しているため、取得したspot.idを使う。
 export function useSpotDetail(slug: string | null) {
-  const { session } = useAuth();
+  const { session, blockedUserIds } = useAuth();
   const [spot, setSpot] = useState<Spot | null>(null);
   const [liked, setLiked] = useState(false);
   const [bookmarked, setBookmarked] = useState(false);
@@ -31,7 +32,7 @@ export function useSpotDetail(slug: string | null) {
   const loadReviews = (spotDbId: string) => {
     setReviewsLoading(true);
     fetchSpotReviews(spotDbId)
-      .then(setReviews)
+      .then((data) => setReviews(filterBlockedAuthors(data, blockedUserIds)))
       .catch((e) => console.warn('レビュー取得エラー', e))
       .finally(() => setReviewsLoading(false));
   };
@@ -70,6 +71,19 @@ export function useSpotDetail(slug: string | null) {
       setReviews((prev) => prev.filter((r) => r.id !== review.id));
     } catch (e: any) {
       notify('削除に失敗しました', e.message);
+    }
+  };
+
+  const handleReportReview = async (review: SpotReview, reason: ReportReason) => {
+    if (!session?.user) {
+      notify('ログインが必要です');
+      return;
+    }
+    try {
+      await reportReview(session.user.id, review.id, reason);
+      notify('通報を受け付けました', 'ご協力ありがとうございます。');
+    } catch (e: any) {
+      notify('エラー', e.message);
     }
   };
 
@@ -157,5 +171,6 @@ export function useSpotDetail(slug: string | null) {
     reviewsLoading,
     refreshReviews,
     handleDeleteReview,
+    handleReportReview,
   };
 }

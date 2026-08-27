@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { View, Image, Pressable, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, Image, Pressable, StyleSheet, ActivityIndicator, Platform } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import * as AppleAuthentication from 'expo-apple-authentication';
 import Text from '../components/AppText';
 import TextInput from '../components/AppTextInput';
 import { useAuth } from '../lib/AuthContext';
@@ -9,7 +10,7 @@ import { colors } from '../lib/theme';
 import type { RootStackScreenProps } from '../navigation/types';
 
 export default function AuthScreen({ navigation }: RootStackScreenProps<'Auth'>) {
-  const { signInWithEmail, signUpWithEmail, signInWithOAuth } = useAuth();
+  const { signInWithEmail, signUpWithEmail, signInWithOAuth, signInWithApple } = useAuth();
   const [mode, setMode] = useState<'signin' | 'signup'>('signin');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -56,6 +57,28 @@ export default function AuthScreen({ navigation }: RootStackScreenProps<'Auth'>)
       return;
     }
     signInWithOAuth('google');
+  };
+
+  // Apple公式ログイン(iOSネイティブのみ)。GoogleログインのようなOAuthリダイレクトではなく
+  // その場で完結するため、成功後はGoogleと違い自前で画面遷移まで行う。
+  const handleAppleAuth = async () => {
+    if (requiresAgreement) {
+      notify('確認してください', '利用規約とプライバシーポリシーへの同意が必要です。');
+      return;
+    }
+    setBusy(true);
+    try {
+      await signInWithApple();
+      if (navigation.canGoBack()) {
+        navigation.goBack();
+      } else {
+        navigation.navigate('Main', { screen: 'MapTab' });
+      }
+    } catch (e: any) {
+      notify('エラー', e.message ?? '処理に失敗しました');
+    } finally {
+      setBusy(false);
+    }
   };
 
   return (
@@ -139,6 +162,18 @@ export default function AuthScreen({ navigation }: RootStackScreenProps<'Auth'>)
       <Pressable style={styles.oauthButton} onPress={handleGoogleAuth}>
         <Text style={styles.oauthButtonText}>Googleでログイン</Text>
       </Pressable>
+
+      {/* Sign in with AppleはiOSネイティブでのみ利用可能。Appleのデザインガイドラインに
+          沿うため、独自ボタンではなく公式コンポーネント(AppleAuthenticationButton)を使う。 */}
+      {Platform.OS === 'ios' && (
+        <AppleAuthentication.AppleAuthenticationButton
+          buttonType={AppleAuthentication.AppleAuthenticationButtonType.CONTINUE}
+          buttonStyle={AppleAuthentication.AppleAuthenticationButtonStyle.WHITE}
+          cornerRadius={10}
+          style={styles.appleButton}
+          onPress={handleAppleAuth}
+        />
+      )}
     </View>
   );
 }
@@ -190,4 +225,5 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   oauthButtonText: { color: colors.textPrimary, fontSize: 14 },
+  appleButton: { width: '100%', height: 44 },
 });

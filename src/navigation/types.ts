@@ -33,6 +33,7 @@ export type RootStackParamList = {
   AddToHomeScreen: undefined;
   EditProfile: undefined;
   FollowList: { userId: string; mode: 'followers' | 'following' };
+  BlockedUsers: undefined;
 };
 
 // タブ内の画面（Map/Search/MyPage）は、タブ自身の画面遷移に加えて

@@ -24,6 +24,7 @@ import TermsScreen from '../screens/TermsScreen';
 import AddToHomeScreenScreen from '../screens/AddToHomeScreenScreen';
 import EditProfileScreen from '../screens/EditProfileScreen';
 import FollowListScreen from '../screens/FollowListScreen';
+import BlockedUsersScreen from '../screens/BlockedUsersScreen';
 import LoadingScreen from '../components/LoadingScreen';
 import { colors } from '../lib/theme';
 import { applyThemeColorForRoute } from '../lib/seo';
@@ -65,6 +66,7 @@ const linking: LinkingOptions<RootStackParamList> = {
       AddToHomeScreen: 'add-to-home-screen',
       EditProfile: 'edit-profile',
       FollowList: 'user/:userId/:mode',
+      BlockedUsers: 'blocked-users',
     },
   },
 };
@@ -175,6 +177,15 @@ export default function RootNavigator() {
           component={FollowListScreen}
           options={{
             title: '',
+            headerStyle: { backgroundColor: colors.background },
+            headerTintColor: colors.textPrimary,
+          }}
+        />
+        <Stack.Screen
+          name="BlockedUsers"
+          component={BlockedUsersScreen}
+          options={{
+            title: 'ブロック中のユーザー',
             headerStyle: { backgroundColor: colors.background },
             headerTintColor: colors.textPrimary,
           }}

@@ -13,17 +13,28 @@ import Text from '../components/AppText';
 import { UsernameWithBadge } from '../components/UserBadge';
 import { fetchPublishedSpotsByAuthor, spotThumbnailUrl } from '../lib/spots';
 import { fetchProfileById, fetchFollowCounts, isFollowing, toggleFollow, type FollowCounts } from '../lib/profiles';
+import { blockUser, unblockUser, reportUser } from '../lib/moderation';
 import { useAuth } from '../lib/AuthContext';
+import { notify } from '../lib/notify';
 import { colors } from '../lib/theme';
-import type { Spot, Profile } from '../types/database';
+import { Ionicons } from '@expo/vector-icons';
+import type { Spot, Profile, ReportReason } from '../types/database';
 import type { RootStackScreenProps } from '../navigation/types';
+
+const REPORT_REASONS: { value: ReportReason; label: string }[] = [
+  { value: 'inappropriate', label: '不適切なコンテンツ・迷惑行為' },
+  { value: 'spam', label: 'スパム・宣伝アカウント' },
+  { value: 'privacy', label: 'なりすまし・プライバシーの懸念' },
+  { value: 'other', label: 'その他' },
+];
 
 type Props = RootStackScreenProps<'UserProfile'>;
 
 export default function UserProfileScreen({ route, navigation }: Props) {
   const { userId } = route.params;
-  const { session } = useAuth();
+  const { session, blockedUserIds, refreshBlockedUserIds } = useAuth();
   const isOwnProfile = session?.user?.id === userId;
+  const isBlocked = blockedUserIds.has(userId);
 
   const [profile, setProfile] = useState<Profile | null>(null);
   const [spots, setSpots] = useState<Spot[]>([]);
@@ -31,6 +42,9 @@ export default function UserProfileScreen({ route, navigation }: Props) {
   const [following, setFollowing] = useState(false);
   const [followBusy, setFollowBusy] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [showMenu, setShowMenu] = useState(false);
+  const [showReport, setShowReport] = useState(false);
+  const [blockBusy, setBlockBusy] = useState(false);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -84,6 +98,40 @@ export default function UserProfileScreen({ route, navigation }: Props) {
     }
   };
 
+  const handleToggleBlock = async () => {
+    if (!session?.user) return;
+    setBlockBusy(true);
+    try {
+      if (isBlocked) {
+        await unblockUser(session.user.id, userId);
+      } else {
+        await blockUser(session.user.id, userId);
+        // ブロックしたら自分自身のフォロー状態も意味をなさなくなるため見た目上も解除しておく
+        setFollowing(false);
+      }
+      await refreshBlockedUserIds();
+      setShowMenu(false);
+    } catch (e: any) {
+      notify('エラー', e.message ?? '処理に失敗しました');
+    } finally {
+      setBlockBusy(false);
+    }
+  };
+
+  const handleReport = async (reason: ReportReason) => {
+    if (!session?.user) {
+      notify('ログインが必要です');
+      return;
+    }
+    try {
+      await reportUser(session.user.id, userId, reason);
+      setShowReport(false);
+      notify('通報を受け付けました', 'ご協力ありがとうございます。');
+    } catch (e: any) {
+      notify('エラー', e.message ?? '処理に失敗しました');
+    }
+  };
+
   if (loading && !profile) {
     return (
       <SafeAreaView style={styles.container} edges={['left', 'right']}>
@@ -126,15 +174,60 @@ export default function UserProfileScreen({ route, navigation }: Props) {
       </View>
 
       {!isOwnProfile && session?.user && (
-        <Pressable
-          style={[styles.followButton, following && styles.followButtonActive]}
-          onPress={handleToggleFollow}
-          disabled={followBusy}
-        >
-          <Text style={[styles.followButtonText, following && styles.followButtonTextActive]}>
-            {following ? 'フォロー中' : 'フォローする'}
-          </Text>
-        </Pressable>
+        <View style={styles.actionRow}>
+          <Pressable
+            style={[styles.followButton, following && styles.followButtonActive]}
+            onPress={handleToggleFollow}
+            disabled={followBusy}
+          >
+            <Text style={[styles.followButtonText, following && styles.followButtonTextActive]}>
+              {following ? 'フォロー中' : 'フォローする'}
+            </Text>
+          </Pressable>
+          <Pressable
+            style={styles.menuButton}
+            onPress={() => setShowMenu((v) => !v)}
+            hitSlop={8}
+            accessibilityLabel="その他の操作"
+          >
+            <Ionicons name="ellipsis-horizontal" size={20} color={colors.textPrimary} />
+          </Pressable>
+        </View>
+      )}
+
+      {!isOwnProfile && showMenu && (
+        <View style={styles.menuPanel}>
+          <Pressable
+            style={styles.menuItem}
+            onPress={handleToggleBlock}
+            disabled={blockBusy}
+          >
+            <Text style={styles.menuItemText}>{isBlocked ? 'ブロックを解除する' : 'ブロックする'}</Text>
+          </Pressable>
+          <Pressable
+            style={styles.menuItem}
+            onPress={() => {
+              setShowMenu(false);
+              setShowReport(true);
+            }}
+          >
+            <Text style={[styles.menuItemText, styles.menuItemDanger]}>通報する</Text>
+          </Pressable>
+        </View>
+      )}
+
+      {!isOwnProfile && showReport && (
+        <View style={styles.reportPanel}>
+          <Text style={styles.reportTitle}>通報理由を選択してください</Text>
+          {REPORT_REASONS.map((r) => (
+            <Pressable key={r.value} style={styles.reportOption} onPress={() => handleReport(r.value)}>
+              <Text style={styles.reportOptionText}>{r.label}</Text>
+            </Pressable>
+          ))}
+          <Pressable style={styles.reportCancel} onPress={() => setShowReport(false)}>
+            <Text style={styles.reportCancelText}>キャンセル</Text>
+          </Pressable>
+        </View>
       )}
 
       <FlatList
@@ -192,8 +285,7 @@ const styles = StyleSheet.create({
   countNumber: { color: colors.textPrimary, fontSize: 16, fontWeight: '700' },
   countLabel: { color: colors.textMuted, fontSize: 11, marginTop: 2 },
   followButton: {
-    marginHorizontal: 20,
-    marginTop: 16,
+    flex: 1,
     backgroundColor: colors.accent,
     borderRadius: 10,
     paddingVertical: 10,
@@ -202,6 +294,40 @@ const styles = StyleSheet.create({
   followButtonActive: { backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.border },
   followButtonText: { color: colors.accentText, fontWeight: '600', fontSize: 14 },
   followButtonTextActive: { color: colors.textPrimary },
+  actionRow: { flexDirection: 'row', alignItems: 'center', marginHorizontal: 20, marginTop: 16, gap: 8 },
+  menuButton: {
+    width: 40,
+    height: 40,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: colors.border,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  menuPanel: {
+    marginHorizontal: 20,
+    marginTop: 8,
+    backgroundColor: colors.surface,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: colors.border,
+    overflow: 'hidden',
+  },
+  menuItem: { paddingVertical: 12, paddingHorizontal: 16 },
+  menuItemText: { color: colors.textPrimary, fontSize: 14 },
+  menuItemDanger: { color: '#e05a5a' },
+  reportPanel: {
+    marginHorizontal: 20,
+    marginTop: 8,
+    backgroundColor: colors.surfaceAlt,
+    borderRadius: 10,
+    padding: 14,
+  },
+  reportTitle: { color: colors.textPrimary, fontSize: 13, fontWeight: '600', marginBottom: 8 },
+  reportOption: { paddingVertical: 10 },
+  reportOptionText: { color: colors.textSecondary, fontSize: 13 },
+  reportCancel: { marginTop: 6, alignItems: 'center', paddingVertical: 8 },
+  reportCancelText: { color: colors.textMuted, fontSize: 13 },
   emptyText: { color: colors.textMuted, textAlign: 'center', marginTop: 40, fontSize: 13 },
   gridItem: { width: '33.33%', aspectRatio: 1, padding: 2 },
   gridImage: { flex: 1, borderRadius: 4 },

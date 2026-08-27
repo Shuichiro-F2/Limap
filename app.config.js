@@ -12,6 +12,10 @@ module.exports = ({ config }) => {
   return {
     ...config,
     name: isDev ? 'Limap Dev' : config.name,
+    ios: {
+      ...config.ios,
+      bundleIdentifier: isDev ? 'com.v.xo2.limap.dev' : config.ios.bundleIdentifier,
+    },
     android: {
       ...config.android,
       package: isDev ? 'com.v.xo2.limap.dev' : config.android.package,

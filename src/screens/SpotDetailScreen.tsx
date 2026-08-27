@@ -33,6 +33,7 @@ export default function SpotDetailScreen({ route, navigation }: Props) {
     reviews,
     reviewsLoading,
     handleDeleteReview,
+    handleReportReview,
   } = useSpotDetail(spotId);
 
   // Web版: SPA内遷移でこの画面を開いた場合もタイトル/OGP/構造化データを
@@ -138,6 +139,7 @@ export default function SpotDetailScreen({ route, navigation }: Props) {
         currentUserId={session?.user?.id}
         onAddReview={goToAddReview}
         onDeleteReview={handleDeleteReview}
+        onReportReview={handleReportReview}
       />
       {/* 他の画面(地図・フィード等)と全く同じレイアウトのヘッダーにするため、
           個別のnative-stackヘッダーではなく共通のAppHeaderをそのまま重ねて使う。

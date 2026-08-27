@@ -46,13 +46,17 @@ function extractMetaContent(html: string, property: string): string | null {
   return null;
 }
 
-async function tryFetchThumbnail(url: string): Promise<{ thumbnailUrl: string | null; authorName: string | null }> {
-  const res = await fetch(url, { headers: BROWSER_HEADERS });
-  if (!res.ok) return { thumbnailUrl: null, authorName: null };
-  const html = await res.text();
+async function tryFetchThumbnail(
+  url: string
+): Promise<{ thumbnailUrl: string | null; authorName: string | null; status: number; htmlLength: number; htmlSnippet: string }> {
+  const res = await fetch(url, { headers: BROWSER_HEADERS, redirect: 'follow' });
+  const html = res.ok ? await res.text() : '';
   return {
     thumbnailUrl: extractMetaContent(html, 'og:image'),
     authorName: extractMetaContent(html, 'og:title'),
+    status: res.status,
+    htmlLength: html.length,
+    htmlSnippet: html.slice(0, 300),
   };
 }
 
@@ -74,14 +78,26 @@ export default async function handler(req: any, res: any) {
   try {
     // 通常の投稿ページでog:imageが取れない場合、埋め込み専用ページも試す
     // (どちらもInstagram側で公開・ログイン不要のページ)
-    let result = await tryFetchThumbnail(`https://www.instagram.com/p/${shortcode}/`);
+    const attempt1 = await tryFetchThumbnail(`https://www.instagram.com/p/${shortcode}/`);
+    let result = attempt1;
+    let attempt2: Awaited<ReturnType<typeof tryFetchThumbnail>> | null = null;
     if (!result.thumbnailUrl) {
-      result = await tryFetchThumbnail(`https://www.instagram.com/p/${shortcode}/embed/captioned/`);
+      attempt2 = await tryFetchThumbnail(`https://www.instagram.com/p/${shortcode}/embed/captioned/`);
+      result = attempt2;
     }
 
     if (!result.thumbnailUrl) {
-      // ログイン画面にリダイレクトされた、アクセス制限を受けたなど
-      res.status(404).json({ error: 'thumbnail_not_found' });
+      // ログイン画面にリダイレクトされた、アクセス制限を受けたなど。
+      // TODO: 原因切り分けが済んだらdebug情報は削除する
+      res.status(404).json({
+        error: 'thumbnail_not_found',
+        debug: {
+          attempt1: { status: attempt1.status, htmlLength: attempt1.htmlLength, htmlSnippet: attempt1.htmlSnippet },
+          attempt2: attempt2
+            ? { status: attempt2.status, htmlLength: attempt2.htmlLength, htmlSnippet: attempt2.htmlSnippet }
+            : null,
+        },
+      });
       return;
     }
 

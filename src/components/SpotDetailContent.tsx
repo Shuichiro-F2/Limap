@@ -93,6 +93,7 @@ type Props = {
   currentUserId?: string;
   onAddReview?: () => void;
   onDeleteReview?: (review: SpotReview) => void;
+  onReportReview?: (review: SpotReview, reason: ReportReason) => void;
 };
 
 function formatReviewDate(iso: string): string {
@@ -131,6 +132,7 @@ export default function SpotDetailContent({
   currentUserId,
   onAddReview,
   onDeleteReview,
+  onReportReview,
 }: Props) {
   const { width: screenWidth, height: screenHeight } = useWindowDimensions();
   // PCなど横幅の広い画面では、画像や本文が横に間延びしないよう最大幅で中央寄せする。
@@ -147,6 +149,8 @@ export default function SpotDetailContent({
   // SNS埋め込み(Instagram/X)ごとの実測高さ(embed.idをキーに保持)。
   // ウィジェット全体が見切れないよう、カルーセルの高さはこれらの最大値を含めて決める。
   const [embedHeights, setEmbedHeights] = useState<Record<string, number>>({});
+  // 通報理由パネルを開いているレビューのID(一度に1件のみ開ける)
+  const [reportingReviewId, setReportingReviewId] = useState<string | null>(null);
 
   // 画像とSNS埋め込み(Instagram/X)をまとめて1つの横スライドで扱う。
   // 表示順は画像→SNS埋め込み。カルーセル全体の高さは(下記の通り)先頭画像の
@@ -587,6 +591,34 @@ export default function SpotDetailContent({
                       <Text style={styles.reviewDeleteText}>削除する</Text>
                     </Pressable>
                   )}
+
+                  {(!currentUserId || review.author_id !== currentUserId) && onReportReview && (
+                    <Pressable
+                      style={styles.reviewDeleteButton}
+                      onPress={() => setReportingReviewId((id) => (id === review.id ? null : review.id))}
+                      hitSlop={6}
+                    >
+                      <Text style={styles.reviewReportText}>通報する</Text>
+                    </Pressable>
+                  )}
+
+                  {reportingReviewId === review.id && onReportReview && (
+                    <View style={styles.reviewReportPanel}>
+                      <Text style={styles.reportTitle}>通報理由を選択</Text>
+                      {REPORT_REASONS.map((r) => (
+                        <Pressable
+                          key={r.value}
+                          style={styles.reportOption}
+                          onPress={() => {
+                            onReportReview(review, r.value);
+                            setReportingReviewId(null);
+                          }}
+                        >
+                          <Text style={styles.reportOptionText}>{r.label}</Text>
+                        </Pressable>
+                      ))}
+                    </View>
+                  )}
                 </View>
               );
             })
@@ -743,5 +775,12 @@ const styles = StyleSheet.create({
   reviewImage: { width: 96, height: 96, borderRadius: 8, marginRight: 8, backgroundColor: colors.surfaceAlt },
   reviewDescription: { fontSize: 13.5, color: colors.textPrimary, lineHeight: 19, marginTop: 10 },
   reviewDeleteButton: { marginTop: 10, alignSelf: 'flex-start' },
+  reviewReportText: { color: colors.textMuted, fontSize: 12, textDecorationLine: 'underline' },
+  reviewReportPanel: {
+    marginTop: 10,
+    backgroundColor: colors.surfaceAlt,
+    borderRadius: 8,
+    padding: 12,
+  },
   reviewDeleteText: { color: colors.danger, fontSize: 12, fontWeight: '600' },
 });

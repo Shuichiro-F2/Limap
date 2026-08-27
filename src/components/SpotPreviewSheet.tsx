@@ -77,6 +77,7 @@ export default function SpotPreviewSheet({
     reviews,
     reviewsLoading,
     handleDeleteReview,
+    handleReportReview,
   } = useSpotDetail(spotId);
 
   const [modalVisible, setModalVisible] = useState(false);
@@ -306,6 +307,7 @@ export default function SpotPreviewSheet({
                   : undefined
               }
               onDeleteReview={handleDeleteReview}
+              onReportReview={handleReportReview}
             />
           </View>
         </Animated.View>

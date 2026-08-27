@@ -6,6 +6,7 @@ import Text from '../components/AppText';
 import { HEADER_CONTENT_HEIGHT } from '../components/AppHeader';
 import { UsernameWithBadge } from '../components/UserBadge';
 import { fetchFollowingFeed, fetchRandomSpots, spotThumbnailUrl } from '../lib/spots';
+import { filterBlockedAuthors } from '../lib/moderation';
 import { useAuth } from '../lib/AuthContext';
 import { useTranslation } from '../lib/i18n';
 import { colors } from '../lib/theme';
@@ -21,7 +22,7 @@ type FeedMode = 'recommended' | 'following';
 // マイページと違い、未ログインでも画面自体は開けるが、中身はログインを促す表示にする
 // （フォロー関係という個人的な情報に基づくタブのため）。
 export default function FeedScreen({ navigation }: Props) {
-  const { session } = useAuth();
+  const { session, blockedUserIds } = useAuth();
   const t = useTranslation();
   const [mode, setMode] = useState<FeedMode>('recommended');
   const [spots, setSpots] = useState<Spot[]>([]);
@@ -33,12 +34,12 @@ export default function FeedScreen({ navigation }: Props) {
       if (!session?.user) return;
       try {
         const data = m === 'following' ? await fetchFollowingFeed(session.user.id) : await fetchRandomSpots();
-        setSpots(data);
+        setSpots(filterBlockedAuthors(data, blockedUserIds));
       } catch (e) {
         console.warn('フィード取得エラー', e);
       }
     },
-    [session?.user?.id]
+    [session?.user?.id, blockedUserIds]
   );
 
   useFocusEffect(

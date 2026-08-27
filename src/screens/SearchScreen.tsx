@@ -17,6 +17,8 @@ import TextInput from '../components/AppTextInput';
 import { HEADER_CONTENT_HEIGHT } from '../components/AppHeader';
 import { searchSpots, spotThumbnailUrl } from '../lib/spots';
 import { fetchAllTags } from '../lib/tags';
+import { filterBlockedAuthors } from '../lib/moderation';
+import { useAuth } from '../lib/AuthContext';
 import { useTranslation } from '../lib/i18n';
 import { colors } from '../lib/theme';
 import type { Spot, Tag } from '../types/database';
@@ -26,6 +28,7 @@ type Props = MainTabScreenProps<'SearchTab'>;
 
 export default function SearchScreen({ navigation, route }: Props) {
   const t = useTranslation();
+  const { blockedUserIds } = useAuth();
   const [keyword, setKeyword] = useState('');
   const [selectedTags, setSelectedTags] = useState<number[]>([]);
   const [results, setResults] = useState<Spot[]>([]);
@@ -60,7 +63,7 @@ export default function SearchScreen({ navigation, route }: Props) {
     setSearched(true);
     try {
       const data = await searchSpots({ keyword: searchKeyword, tagIds: searchTagIds });
-      setResults(data);
+      setResults(filterBlockedAuthors(data, blockedUserIds));
     } catch (e) {
       console.warn('検索エラー', e);
     } finally {
