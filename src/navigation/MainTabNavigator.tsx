@@ -35,14 +35,7 @@ const TAB_ICONS: Record<keyof MainTabParamList, keyof typeof Ionicons.glyphMap> 
   MyPageTab: 'person-outline',
 };
 
-type CustomTabBarProps = MaterialTopTabBarProps & {
-  // 現在フォーカスされているタブ名をTab.Navigatorの外側(MainTabNavigator)に
-  // 伝えるためのコールバック。ヘッダーのハンバーガーボタンをマイページタブの
-  // ときだけ表示する、といった外側の見た目の切り替えに使う。
-  onActiveRouteChange?: (name: keyof MainTabParamList) => void;
-};
-
-function CustomTabBar({ state, navigation, position, onActiveRouteChange }: CustomTabBarProps) {
+function CustomTabBar({ state, navigation, position }: MaterialTopTabBarProps) {
   const insets = useSafeAreaInsets();
   const { width: screenWidth } = useWindowDimensions();
   const routeCount = state.routes.length;
@@ -57,11 +50,6 @@ function CustomTabBar({ state, navigation, position, onActiveRouteChange }: Cust
     });
     return () => position.removeListener(id);
   }, [position]);
-
-  useEffect(() => {
-    const name = state.routes[activeIndex]?.name as keyof MainTabParamList | undefined;
-    if (name) onActiveRouteChange?.(name);
-  }, [activeIndex, state.routes, onActiveRouteChange]);
 
   const indicatorTranslateX = position.interpolate({
     inputRange: state.routes.map((_, i) => i),
@@ -117,8 +105,11 @@ export default function MainTabNavigator() {
 
   // ハンバーガーメニューはマイページタブのときだけ表示する。以前の言語切り替え
   // トグルは全タブ共通で常時表示していたが、これとは異なり他のタブでは
-  // ボタンごと出さない(要件どおり)。どのタブがフォーカスされているかは
-  // CustomTabBar側のスワイプ位置から伝えてもらう。
+  // ボタンごと出さない(要件どおり)。どのタブがフォーカスされているかは、
+  // Tab.NavigatorのscreenListeners(state)で直接ナビゲーション状態の変化を
+  // 購読して取得する(CustomTabBar内のAnimated positionリスナー経由で
+  // コールバックを伝播させる方式は、外側の再レンダーとの絡みで更新が
+  // 反映されないことがあったため、より素直なこちらの方式に変更した)。
   const [activeTabName, setActiveTabName] = useState<keyof MainTabParamList>('MapTab');
   const [menuVisible, setMenuVisible] = useState(false);
   const { isAdmin } = useAuth();
@@ -134,8 +125,18 @@ export default function MainTabNavigator() {
       <View style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: bottomOverhang }}>
         <Tab.Navigator
           tabBarPosition="bottom"
-          tabBar={(props) => <CustomTabBar {...props} onActiveRouteChange={setActiveTabName} />}
+          tabBar={(props) => <CustomTabBar {...props} />}
           screenOptions={{ swipeEnabled: true, animationEnabled: true }}
+          screenListeners={{
+            // タブの状態(どのタブがアクティブか)が変わるたびに発火する。
+            // タップでの切り替え・スワイプでの切り替えのどちらでも、切り替えが
+            // 確定したタイミングで呼ばれる(react-navigation標準のイベント)。
+            state: (e) => {
+              const navState = e.data.state as { index: number; routes: { name: string }[] } | undefined;
+              const name = navState?.routes[navState.index]?.name as keyof MainTabParamList | undefined;
+              if (name) setActiveTabName(name);
+            },
+          }}
         >
           {/*
             地図画面だけはタブ全体のスワイプ切り替え(swipeEnabled)を無効にする。
