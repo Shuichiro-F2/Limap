@@ -6,6 +6,7 @@ import Text from '../components/AppText';
 import TextInput from '../components/AppTextInput';
 import { useAuth } from '../lib/AuthContext';
 import { notify } from '../lib/notify';
+import { translateAuthError } from '../lib/authErrors';
 import { colors } from '../lib/theme';
 import type { RootStackScreenProps } from '../navigation/types';
 
@@ -38,11 +39,18 @@ export default function AuthScreen({ navigation }: RootStackScreenProps<'Auth'>)
           navigation.navigate('Main', { screen: 'MapTab' });
         }
       } else {
-        await signUpWithEmail(email, password, username);
-        notify('確認メールを送信しました', 'メール内のリンクから登録を完了してください。');
+        const { alreadyRegistered } = await signUpWithEmail(email, password, username);
+        if (alreadyRegistered) {
+          notify(
+            '登録済みのメールアドレスです',
+            'このメールアドレスはすでに登録されています。ログインをお試しください。'
+          );
+        } else {
+          notify('確認メールを送信しました', 'メール内のリンクから登録を完了してください。');
+        }
       }
     } catch (e: any) {
-      notify('エラー', e.message ?? '処理に失敗しました');
+      notify('エラー', translateAuthError(e?.message));
     } finally {
       setBusy(false);
     }
@@ -75,7 +83,7 @@ export default function AuthScreen({ navigation }: RootStackScreenProps<'Auth'>)
         navigation.navigate('Main', { screen: 'MapTab' });
       }
     } catch (e: any) {
-      notify('エラー', e.message ?? '処理に失敗しました');
+      notify('エラー', translateAuthError(e?.message));
     } finally {
       setBusy(false);
     }

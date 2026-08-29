@@ -23,7 +23,9 @@ interface AuthContextValue {
   // 運営(問い合わせ管理画面へのアクセス権を持つ)本人のアカウントかどうか。
   isAdmin: boolean;
   signInWithEmail: (email: string, password: string) => Promise<void>;
-  signUpWithEmail: (email: string, password: string, username: string) => Promise<void>;
+  // 戻り値のalreadyRegisteredは、すでに登録・確認済みのメールアドレスで
+  // 新規登録しようとした場合にtrueになる(詳細はsignUpWithEmailの実装コメント参照)。
+  signUpWithEmail: (email: string, password: string, username: string) => Promise<{ alreadyRegistered: boolean }>;
   signInWithOAuth: (provider: 'google') => Promise<void>;
   // iOSネイティブのみ。ユーザーがキャンセルした場合は何もせず終了する(エラー表示しない)。
   signInWithApple: () => Promise<void>;
@@ -96,12 +98,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   const signUpWithEmail = async (email: string, password: string, username: string) => {
-    const { error } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email,
       password,
       options: { data: { username } },
     });
     if (error) throw error;
+    // Supabaseは、すでに登録・確認済みのメールアドレスで再度signUpされた場合でも、
+    // メールアドレス列挙(このアドレスは登録済みか探る攻撃)を防ぐためエラーを返さず、
+    // 新規登録成功時と見た目上同じレスポンスを返す。ただしこの場合はuser.identitiesが
+    // 空配列になるため、これを「実はすでに登録済みだった」ことの判定に使う。
+    const alreadyRegistered = !!data.user && Array.isArray(data.user.identities) && data.user.identities.length === 0;
+    return { alreadyRegistered };
   };
 
   // Web: ブラウザのリダイレクト経由でGoogleログインを行う。
