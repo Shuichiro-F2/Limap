@@ -30,6 +30,9 @@ interface AuthContextValue {
   // iOSネイティブのみ。ユーザーがキャンセルした場合は何もせず終了する(エラー表示しない)。
   signInWithApple: () => Promise<void>;
   signOut: () => Promise<void>;
+  // アカウント削除(退会)。サーバー側(api/delete-account)でauth.usersごと削除するため、
+  // 完了後はローカルのセッションもクリアする。
+  deleteAccount: () => Promise<void>;
   refreshProfile: () => Promise<void>;
 }
 
@@ -158,6 +161,34 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     await supabase.auth.signOut();
   };
 
+  // アカウント削除(退会)。auth.usersの削除には管理者権限(service roleキー)が必要で、
+  // これはアプリ本体には絶対に含められないため、サーバー側のapi/delete-accountを
+  // 呼び出す。現在のセッションのaccess_tokenを渡すことで、サーバー側がトークンから
+  // 本人確認を行い、そのユーザー自身のアカウントだけを削除する。
+  const deleteAccount = async () => {
+    const accessToken = session?.access_token;
+    if (!accessToken) throw new Error('ログイン情報が確認できませんでした。再度ログインしてからお試しください。');
+
+    const res = await fetch('https://limap.jp/api/delete-account', {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
+
+    if (!res.ok) {
+      let message = 'アカウントの削除に失敗しました。時間をおいて再度お試しください。';
+      try {
+        const body = await res.json();
+        if (body?.message) message = body.message;
+      } catch {
+        // レスポンスがJSONでない場合はデフォルトのメッセージのまま
+      }
+      throw new Error(message);
+    }
+
+    // サーバー側での削除が完了したら、ローカルに残っているセッションもクリアする
+    await supabase.auth.signOut();
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -172,6 +203,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         signInWithOAuth,
         signInWithApple,
         signOut,
+        deleteAccount,
         refreshProfile,
       }}
     >
