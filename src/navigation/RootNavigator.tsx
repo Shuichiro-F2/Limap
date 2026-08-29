@@ -144,7 +144,7 @@ export default function RootNavigator() {
         <Stack.Screen
           name="LocationPicker"
           component={LocationPickerScreen}
-          options={{ title: '場所を選択', presentation: 'modal' }}
+          options={{ title: '場所を選択' }}
         />
         <Stack.Screen
           name="UserProfile"
@@ -231,7 +231,9 @@ export default function RootNavigator() {
           component={AuthScreen}
           options={({ navigation }) => ({
             title: 'ログイン',
-            presentation: 'modal',
+            // 以前はpresentation: 'modal'(iOSのシート表示)にしていたが、下にスワイプすると
+            // 意図せず前の画面に戻ってしまい、前の画面が下に少しはみ出して見える見た目にも
+            // なることがあったため、他の画面と同じ通常のプッシュ遷移(既定値)に統一した。
             // 遷移元によっては戻る先の履歴がなく、標準の戻るボタンが無反応になることがあるため、
             // 常にトップページ（地図画面）へ遷移するよう明示的に指定する
             headerLeft: () => (
