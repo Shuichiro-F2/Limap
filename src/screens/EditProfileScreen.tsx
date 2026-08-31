@@ -17,16 +17,12 @@ type Props = RootStackScreenProps<'EditProfile'>;
 // ユーザーID(username)とは別に、表示名・自己紹介文・プロフィール画像を編集する画面。
 // usernameそのものは他の場所（共有URLなど）から広く参照されるため、ここでは編集対象にしない。
 export default function EditProfileScreen({ navigation }: Props) {
-  const { session, profile, refreshProfile, deleteAccount } = useAuth();
+  const { session, profile, refreshProfile } = useAuth();
   const [displayName, setDisplayName] = useState(profile?.display_name ?? '');
   const [bio, setBio] = useState(profile?.bio ?? '');
   const [avatarUrl, setAvatarUrl] = useState(profile?.avatar_url ?? null);
   const [pickedAsset, setPickedAsset] = useState<ImagePicker.ImagePickerAsset | null>(null);
   const [saving, setSaving] = useState(false);
-  // アカウント削除(退会)は取り消せない操作のため、投稿削除と同じく
-  // 画面内の確認パネルを一度挟んでから実行する
-  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
-  const [deletingAccount, setDeletingAccount] = useState(false);
 
   const pickAvatar = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -67,21 +63,6 @@ export default function EditProfileScreen({ navigation }: Props) {
       notify('保存に失敗しました', e.message);
     } finally {
       setSaving(false);
-    }
-  };
-
-  const confirmDeleteAccount = async () => {
-    setDeletingAccount(true);
-    try {
-      await deleteAccount();
-      // 削除完了後はマイページに留まれないため、地図画面へ遷移してから通知する
-      navigation.navigate('Main', { screen: 'MapTab' });
-      notify('アカウントを削除しました', 'ご利用ありがとうございました。');
-    } catch (e: any) {
-      notify('アカウントの削除に失敗しました', e.message);
-      setShowDeleteConfirm(false);
-    } finally {
-      setDeletingAccount(false);
     }
   };
 
@@ -133,44 +114,6 @@ export default function EditProfileScreen({ navigation }: Props) {
           <Text style={styles.saveButtonText}>保存する</Text>
         )}
       </Pressable>
-
-      {/* アカウント削除(退会)。取り消せない操作のため、他の項目から離して
-          目立たない位置に置きつつも、確実にアプリ内から実行できるようにする */}
-      <View style={styles.dangerZone}>
-        <View style={styles.divider} />
-        {showDeleteConfirm ? (
-          <View style={styles.deleteConfirmPanel}>
-            <Text style={styles.deleteConfirmTitle}>アカウントを削除しますか？</Text>
-            <Text style={styles.deleteConfirmDesc}>
-              削除すると元に戻せません。投稿・レビュー・いいね・フォロー等、このアカウントに紐づくすべてのデータが削除されます。
-            </Text>
-            <View style={styles.deleteConfirmRow}>
-              <Pressable
-                style={styles.deleteCancelButton}
-                onPress={() => setShowDeleteConfirm(false)}
-                disabled={deletingAccount}
-              >
-                <Text style={styles.deleteCancelText}>キャンセル</Text>
-              </Pressable>
-              <Pressable
-                style={styles.deleteConfirmButton}
-                onPress={confirmDeleteAccount}
-                disabled={deletingAccount}
-              >
-                {deletingAccount ? (
-                  <ActivityIndicator color="#fff" size="small" />
-                ) : (
-                  <Text style={styles.deleteConfirmButtonText}>削除する</Text>
-                )}
-              </Pressable>
-            </View>
-          </View>
-        ) : (
-          <Pressable onPress={() => setShowDeleteConfirm(true)} hitSlop={8}>
-            <Text style={styles.deleteAccountLink}>アカウントを削除</Text>
-          </Pressable>
-        )}
-      </View>
     </ScrollView>
   );
 }
@@ -217,32 +160,4 @@ const styles = StyleSheet.create({
     marginTop: 28,
   },
   saveButtonText: { color: colors.accentText, fontWeight: '600', fontSize: 15 },
-  dangerZone: { width: '100%', marginTop: 36, alignItems: 'center' },
-  divider: { height: 1, backgroundColor: colors.border, width: '100%', marginBottom: 20 },
-  deleteAccountLink: { color: colors.danger, fontSize: 13, fontWeight: '600' },
-  deleteConfirmPanel: {
-    width: '100%',
-    backgroundColor: colors.surface,
-    borderRadius: 12,
-    padding: 16,
-  },
-  deleteConfirmTitle: { color: colors.textPrimary, fontWeight: '600', marginBottom: 10, fontSize: 14 },
-  deleteConfirmDesc: { color: colors.textSecondary, fontSize: 13, lineHeight: 19, marginBottom: 16 },
-  deleteConfirmRow: { flexDirection: 'row', gap: 10 },
-  deleteCancelButton: {
-    flex: 1,
-    borderRadius: 10,
-    paddingVertical: 12,
-    alignItems: 'center',
-    backgroundColor: colors.background,
-  },
-  deleteCancelText: { color: colors.textSecondary, fontSize: 14, fontWeight: '600' },
-  deleteConfirmButton: {
-    flex: 1,
-    borderRadius: 10,
-    paddingVertical: 12,
-    alignItems: 'center',
-    backgroundColor: colors.danger,
-  },
-  deleteConfirmButtonText: { color: '#fff', fontSize: 14, fontWeight: '700' },
 });

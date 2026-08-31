@@ -236,6 +236,16 @@ export default function SpotDetailContent({
     Linking.openURL(url).catch(() => {});
   };
 
+  // Appleの審査ガイドライン4(位置情報機能はネイティブの地図アプリも起動できる
+  // 選択肢を用意する必要がある)への対応。maps.apple.comのURLはiOS上では
+  // Apple Mapsアプリが直接開く(Universal Link)。Android/Web版ではApple Maps
+  // アプリ自体が存在しないため、iOSの時だけボタンを表示する。
+  const openInAppleMaps = () => {
+    const label = encodeURIComponent(spot.title || 'LIMap');
+    const url = `https://maps.apple.com/?ll=${spot.lat},${spot.lng}&q=${label}`;
+    Linking.openURL(url).catch(() => {});
+  };
+
   const handleShare = () => shareSpot(spot.title, spot.slug);
   const handleCopyLink = () => copyLink(spot.slug);
 
@@ -415,11 +425,23 @@ export default function SpotDetailContent({
         </View>
 
         {/* アイコンだけだと何のボタンか判断しづらいとの指摘があったため、
-            よく使われるGoogleマップ導線だけは文字付きの単独ボタンにする */}
-        <Pressable style={styles.mapsButton} onPress={openInGoogleMaps} hitSlop={6}>
-          <Ionicons name="navigate-outline" size={16} color={colors.accent} />
-          <Text style={styles.mapsButtonText}>Googleマップで見る</Text>
-        </Pressable>
+            よく使われるGoogleマップ導線だけは文字付きの単独ボタンにする。
+            iOSでは、Appleの審査ガイドライン4(位置情報機能はサードパーティの地図アプリのみに
+            限定せず、ネイティブのApple Mapsアプリも起動できる選択肢を用意すること)に対応するため、
+            Apple Mapsで開くボタンも並べて表示する(Android/Web版にはApple Mapsアプリ自体が
+            存在しないため表示しない)。 */}
+        <View style={styles.mapsButtonRow}>
+          <Pressable style={styles.mapsButton} onPress={openInGoogleMaps} hitSlop={6}>
+            <Ionicons name="navigate-outline" size={16} color={colors.accent} />
+            <Text style={styles.mapsButtonText}>Googleマップで見る</Text>
+          </Pressable>
+          {Platform.OS === 'ios' && (
+            <Pressable style={styles.mapsButton} onPress={openInAppleMaps} hitSlop={6}>
+              <Ionicons name="map-outline" size={16} color={colors.accent} />
+              <Text style={styles.mapsButtonText}>Appleマップで見る</Text>
+            </Pressable>
+          )}
+        </View>
 
         {showMenu && (
           <View style={styles.menuPanel}>
@@ -699,12 +721,13 @@ const styles = StyleSheet.create({
   iconButtonWithCount: { flexDirection: 'row', alignItems: 'center', gap: 4, padding: 2 },
   iconCountText: { color: colors.accentText, fontSize: 13, fontWeight: '600' },
   menuButton: { padding: 6 },
+  mapsButtonRow: { flexDirection: 'row', gap: 10, marginTop: 12 },
   mapsButton: {
+    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     gap: 6,
-    marginTop: 12,
     paddingVertical: 10,
     borderRadius: 10,
     backgroundColor: colors.background,
