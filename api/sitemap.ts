@@ -25,6 +25,7 @@ const ARTICLE_SLUGS = [
   'backrooms-in-japan',
   'not-haunted-just-eerie-spots',
   'haikyo-photo-spots-japan',
+  'backrooms-movie-guide',
 ];
 
 function escapeXml(str: string): string {

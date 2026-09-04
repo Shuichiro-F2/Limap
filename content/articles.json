@@ -1123,10 +1123,29 @@
             "気になる場所があれば、そのままLIMapの地図で位置や行き方を確認できます。訪れた記録を残しておけば、あなたが見つけた“8番出口っぽい場所”を他の人と共有することもできます。"
           ],
           "spots": [
-            { "title": "清澄白河駅の不気味な通路（8番出口のモデル地）", "slug": "vbUQ9kcZ", "afterParagraph": 1, "thumbnailUrl": "https://pbs.twimg.com/media/Gzp1WTga0AAAr0j.jpg" },
-            { "title": "東京駅 京葉線・武蔵野線連絡通路（渋すぎる入口）", "slug": "KM5aKcco", "afterParagraph": 1 },
-            { "title": "首都圏外郭放水路(地下神殿)", "slug": "JsXsWk9W", "afterParagraph": 1, "thumbnailUrl": "https://pbs.twimg.com/media/EGlbOOBU8AAoYLF.jpg" },
-            { "title": "松代大本営 象山地下壕", "slug": "zphbsPDi", "afterParagraph": 1, "thumbnailUrl": "https://pbs.twimg.com/media/EhlxMqEXsAA-DPB.jpg" }
+            {
+              "title": "清澄白河駅の不気味な通路（8番出口のモデル地）",
+              "slug": "vbUQ9kcZ",
+              "afterParagraph": 1,
+              "thumbnailUrl": "https://pbs.twimg.com/media/Gzp1WTga0AAAr0j.jpg"
+            },
+            {
+              "title": "東京駅 京葉線・武蔵野線連絡通路（渋すぎる入口）",
+              "slug": "KM5aKcco",
+              "afterParagraph": 1
+            },
+            {
+              "title": "首都圏外郭放水路(地下神殿)",
+              "slug": "JsXsWk9W",
+              "afterParagraph": 1,
+              "thumbnailUrl": "https://pbs.twimg.com/media/EGlbOOBU8AAoYLF.jpg"
+            },
+            {
+              "title": "松代大本営 象山地下壕",
+              "slug": "zphbsPDi",
+              "afterParagraph": 1,
+              "thumbnailUrl": "https://pbs.twimg.com/media/EhlxMqEXsAA-DPB.jpg"
+            }
           ]
         }
       ]
@@ -1166,10 +1185,29 @@
             "If one of these catches your interest, you can check its exact location and how to get there right on the LIMap map. And if you find your own \"Exit 8\"-like place, you can record it and share it with everyone else looking for the same feeling."
           ],
           "spots": [
-            { "title": "清澄白河駅の不気味な通路（8番出口のモデル地）", "slug": "vbUQ9kcZ", "afterParagraph": 1, "thumbnailUrl": "https://pbs.twimg.com/media/Gzp1WTga0AAAr0j.jpg" },
-            { "title": "東京駅 京葉線・武蔵野線連絡通路（渋すぎる入口）", "slug": "KM5aKcco", "afterParagraph": 1 },
-            { "title": "首都圏外郭放水路(地下神殿)", "slug": "JsXsWk9W", "afterParagraph": 1, "thumbnailUrl": "https://pbs.twimg.com/media/EGlbOOBU8AAoYLF.jpg" },
-            { "title": "松代大本営 象山地下壕", "slug": "zphbsPDi", "afterParagraph": 1, "thumbnailUrl": "https://pbs.twimg.com/media/EhlxMqEXsAA-DPB.jpg" }
+            {
+              "title": "清澄白河駅の不気味な通路（8番出口のモデル地）",
+              "slug": "vbUQ9kcZ",
+              "afterParagraph": 1,
+              "thumbnailUrl": "https://pbs.twimg.com/media/Gzp1WTga0AAAr0j.jpg"
+            },
+            {
+              "title": "東京駅 京葉線・武蔵野線連絡通路（渋すぎる入口）",
+              "slug": "KM5aKcco",
+              "afterParagraph": 1
+            },
+            {
+              "title": "首都圏外郭放水路(地下神殿)",
+              "slug": "JsXsWk9W",
+              "afterParagraph": 1,
+              "thumbnailUrl": "https://pbs.twimg.com/media/EGlbOOBU8AAoYLF.jpg"
+            },
+            {
+              "title": "松代大本営 象山地下壕",
+              "slug": "zphbsPDi",
+              "afterParagraph": 1,
+              "thumbnailUrl": "https://pbs.twimg.com/media/EhlxMqEXsAA-DPB.jpg"
+            }
           ]
         }
       ]
@@ -1229,9 +1267,24 @@
             "気になる場所があれば、そのままLIMapの地図で位置や行き方を確認できます。あなたが感じた\"バックルームズっぽさ\"を、ぜひ他の人とも共有してみてください。"
           ],
           "spots": [
-            { "title": "カプセルイン大阪（ニュージャパン梅田店）", "slug": "77BLLqk2", "afterParagraph": 1, "thumbnailUrl": "https://pbs.twimg.com/media/G2oGVRAbIAETcxS.jpg" },
-            { "title": "東成田駅（旧成田空港駅）", "slug": "FGg4w6Jh", "afterParagraph": 1, "thumbnailUrl": "https://pbs.twimg.com/media/GLmAa2laQAAPDpD.jpg" },
-            { "title": "旧野木病院（廃病院）", "slug": "Ru5BLnja", "afterParagraph": 1, "thumbnailUrl": "https://pbs.twimg.com/media/FVXOVhZacAAdBkW.jpg" }
+            {
+              "title": "カプセルイン大阪（ニュージャパン梅田店）",
+              "slug": "77BLLqk2",
+              "afterParagraph": 1,
+              "thumbnailUrl": "https://pbs.twimg.com/media/G2oGVRAbIAETcxS.jpg"
+            },
+            {
+              "title": "東成田駅（旧成田空港駅）",
+              "slug": "FGg4w6Jh",
+              "afterParagraph": 1,
+              "thumbnailUrl": "https://pbs.twimg.com/media/GLmAa2laQAAPDpD.jpg"
+            },
+            {
+              "title": "旧野木病院（廃病院）",
+              "slug": "Ru5BLnja",
+              "afterParagraph": 1,
+              "thumbnailUrl": "https://pbs.twimg.com/media/FVXOVhZacAAdBkW.jpg"
+            }
           ]
         }
       ]
@@ -1271,9 +1324,24 @@
             "If one of these catches your interest, you can check its exact location and how to get there right on the LIMap map. And if you find your own \"Backrooms\"-like place, record it and share that feeling with everyone else looking for it too."
           ],
           "spots": [
-            { "title": "カプセルイン大阪（ニュージャパン梅田店）", "slug": "77BLLqk2", "afterParagraph": 1, "thumbnailUrl": "https://pbs.twimg.com/media/G2oGVRAbIAETcxS.jpg" },
-            { "title": "東成田駅（旧成田空港駅）", "slug": "FGg4w6Jh", "afterParagraph": 1, "thumbnailUrl": "https://pbs.twimg.com/media/GLmAa2laQAAPDpD.jpg" },
-            { "title": "旧野木病院（廃病院）", "slug": "Ru5BLnja", "afterParagraph": 1, "thumbnailUrl": "https://pbs.twimg.com/media/FVXOVhZacAAdBkW.jpg" }
+            {
+              "title": "カプセルイン大阪（ニュージャパン梅田店）",
+              "slug": "77BLLqk2",
+              "afterParagraph": 1,
+              "thumbnailUrl": "https://pbs.twimg.com/media/G2oGVRAbIAETcxS.jpg"
+            },
+            {
+              "title": "東成田駅（旧成田空港駅）",
+              "slug": "FGg4w6Jh",
+              "afterParagraph": 1,
+              "thumbnailUrl": "https://pbs.twimg.com/media/GLmAa2laQAAPDpD.jpg"
+            },
+            {
+              "title": "旧野木病院（廃病院）",
+              "slug": "Ru5BLnja",
+              "afterParagraph": 1,
+              "thumbnailUrl": "https://pbs.twimg.com/media/FVXOVhZacAAdBkW.jpg"
+            }
           ]
         }
       ]
@@ -1332,9 +1400,24 @@
             "気になる場所があれば、そのままLIMapの地図で位置を確認できます。もし自分の街にも似たような場所を見つけたら、ぜひ写真に収めて投稿してみてください。"
           ],
           "spots": [
-            { "title": "コインスナック ジョイフル24", "slug": "nPuRMQQp", "afterParagraph": 0, "thumbnailUrl": "https://pbs.twimg.com/media/GjErXzzbIAA63yu.jpg" },
-            { "title": "桐ケ丘中央商店街", "slug": "V6z9Xx58", "afterParagraph": 0, "thumbnailUrl": "https://pbs.twimg.com/media/HKlVSHha4AApEKk.jpg" },
-            { "title": "奥多摩湖ロープウェイ 川野駅跡", "slug": "gHBKZTqy", "afterParagraph": 0, "thumbnailUrl": "https://pbs.twimg.com/media/GAcVls5akAA_DQ9.jpg" }
+            {
+              "title": "コインスナック ジョイフル24",
+              "slug": "nPuRMQQp",
+              "afterParagraph": 0,
+              "thumbnailUrl": "https://pbs.twimg.com/media/GjErXzzbIAA63yu.jpg"
+            },
+            {
+              "title": "桐ケ丘中央商店街",
+              "slug": "V6z9Xx58",
+              "afterParagraph": 0,
+              "thumbnailUrl": "https://pbs.twimg.com/media/HKlVSHha4AApEKk.jpg"
+            },
+            {
+              "title": "奥多摩湖ロープウェイ 川野駅跡",
+              "slug": "gHBKZTqy",
+              "afterParagraph": 0,
+              "thumbnailUrl": "https://pbs.twimg.com/media/GAcVls5akAA_DQ9.jpg"
+            }
           ]
         }
       ]
@@ -1373,9 +1456,24 @@
             "If one of these catches your interest, you can check its exact location on the LIMap map. And if you find a similar place near you, take a photo and share it."
           ],
           "spots": [
-            { "title": "コインスナック ジョイフル24", "slug": "nPuRMQQp", "afterParagraph": 0, "thumbnailUrl": "https://pbs.twimg.com/media/GjErXzzbIAA63yu.jpg" },
-            { "title": "桐ケ丘中央商店街", "slug": "V6z9Xx58", "afterParagraph": 0, "thumbnailUrl": "https://pbs.twimg.com/media/HKlVSHha4AApEKk.jpg" },
-            { "title": "奥多摩湖ロープウェイ 川野駅跡", "slug": "gHBKZTqy", "afterParagraph": 0, "thumbnailUrl": "https://pbs.twimg.com/media/GAcVls5akAA_DQ9.jpg" }
+            {
+              "title": "コインスナック ジョイフル24",
+              "slug": "nPuRMQQp",
+              "afterParagraph": 0,
+              "thumbnailUrl": "https://pbs.twimg.com/media/GjErXzzbIAA63yu.jpg"
+            },
+            {
+              "title": "桐ケ丘中央商店街",
+              "slug": "V6z9Xx58",
+              "afterParagraph": 0,
+              "thumbnailUrl": "https://pbs.twimg.com/media/HKlVSHha4AApEKk.jpg"
+            },
+            {
+              "title": "奥多摩湖ロープウェイ 川野駅跡",
+              "slug": "gHBKZTqy",
+              "afterParagraph": 0,
+              "thumbnailUrl": "https://pbs.twimg.com/media/GAcVls5akAA_DQ9.jpg"
+            }
           ]
         }
       ]
@@ -1438,9 +1536,24 @@
             "例えば、山の斜面に階段状のコンクリート基礎だけが積み重なり「東洋のマチュピチュ」と呼ばれる兵庫県の神子畑選鉱場跡。2021年に営業を終え、英虞湾を望む白い建物だけが静かに残る三重県の志摩マリンランド(廃墟)。そして、日本最後の海底炭鉱として稼働した長崎県・池島の、旧池島炭鉱 選炭工場跡。錆びたトタン屋根と配管が斜面に折り重なる姿は、空から見ると一つの巨大な機械のようにも見えます。"
           ],
           "spots": [
-            { "title": "神子畑選鉱場跡（東洋のマチュピチュ）", "slug": "tZU5uY9m", "afterParagraph": 0, "thumbnailUrl": "https://pbs.twimg.com/media/FIkQS4YaUAk_Pma.jpg" },
-            { "title": "志摩マリンランド(廃墟)", "slug": "m52bzS9d", "afterParagraph": 0, "thumbnailUrl": "https://pbs.twimg.com/media/GhpTQFsbIAAB4qW.jpg" },
-            { "title": "旧池島炭鉱 選炭工場跡", "slug": "ZKgQrh3z", "afterParagraph": 0, "thumbnailUrl": "https://pbs.twimg.com/media/C0KwdfOVIAAwkdE.jpg" }
+            {
+              "title": "神子畑選鉱場跡（東洋のマチュピチュ）",
+              "slug": "tZU5uY9m",
+              "afterParagraph": 0,
+              "thumbnailUrl": "https://pbs.twimg.com/media/FIkQS4YaUAk_Pma.jpg"
+            },
+            {
+              "title": "志摩マリンランド(廃墟)",
+              "slug": "m52bzS9d",
+              "afterParagraph": 0,
+              "thumbnailUrl": "https://pbs.twimg.com/media/GhpTQFsbIAAB4qW.jpg"
+            },
+            {
+              "title": "旧池島炭鉱 選炭工場跡",
+              "slug": "ZKgQrh3z",
+              "afterParagraph": 0,
+              "thumbnailUrl": "https://pbs.twimg.com/media/C0KwdfOVIAAwkdE.jpg"
+            }
           ]
         },
         {
@@ -1478,9 +1591,24 @@
             "Take the Mikobata Ore Processing Plant Ruins in Hyogo, nicknamed \"the Machu Picchu of the East\" for the terraced concrete foundations stacked up a mountainside. Or Shima Marineland in Mie, a closed aquarium whose white building still stands quietly overlooking Ago Bay. Or the former coal-washing plant on Ikeshima in Nagasaki, once Japan's last operating undersea coal mine — its rusted sheet-metal roofs and piping stack up the slope in a shape that, from the air, looks almost like one giant machine."
           ],
           "spots": [
-            { "title": "神子畑選鉱場跡（東洋のマチュピチュ）", "slug": "tZU5uY9m", "afterParagraph": 0, "thumbnailUrl": "https://pbs.twimg.com/media/FIkQS4YaUAk_Pma.jpg" },
-            { "title": "志摩マリンランド(廃墟)", "slug": "m52bzS9d", "afterParagraph": 0, "thumbnailUrl": "https://pbs.twimg.com/media/GhpTQFsbIAAB4qW.jpg" },
-            { "title": "旧池島炭鉱 選炭工場跡", "slug": "ZKgQrh3z", "afterParagraph": 0, "thumbnailUrl": "https://pbs.twimg.com/media/C0KwdfOVIAAwkdE.jpg" }
+            {
+              "title": "神子畑選鉱場跡（東洋のマチュピチュ）",
+              "slug": "tZU5uY9m",
+              "afterParagraph": 0,
+              "thumbnailUrl": "https://pbs.twimg.com/media/FIkQS4YaUAk_Pma.jpg"
+            },
+            {
+              "title": "志摩マリンランド(廃墟)",
+              "slug": "m52bzS9d",
+              "afterParagraph": 0,
+              "thumbnailUrl": "https://pbs.twimg.com/media/GhpTQFsbIAAB4qW.jpg"
+            },
+            {
+              "title": "旧池島炭鉱 選炭工場跡",
+              "slug": "ZKgQrh3z",
+              "afterParagraph": 0,
+              "thumbnailUrl": "https://pbs.twimg.com/media/C0KwdfOVIAAwkdE.jpg"
+            }
           ]
         },
         {
@@ -1515,6 +1643,198 @@
         "altEn": "A view from within one of Gunkanjima's overgrown apartment blocks",
         "captionJa": "老朽化した建物の内部は崩落の危険もあり、無許可での立ち入りはできません。写真は許可を得たツアー等で撮影されたものです。",
         "captionEn": "The interiors of these aging buildings carry real collapse risk, and unauthorized entry isn't possible. Images like this one come from permitted tours.",
+        "afterSection": 1
+      }
+    ]
+  },
+  {
+    "slug": "backrooms-movie-guide",
+    "category": "歴史・トレンド",
+    "categoryEn": "History",
+    "publishedDate": "2026-09-04",
+    "ja": {
+      "title": "映画『バックルームズ』に予習は必要？元ネタ・原作YouTube・監督を公開日にまとめる",
+      "metaDescription": "2026年9月4日公開の映画『バックルームズ』。予習は必要なのか、という疑問に答えつつ、2019年の4chan発の都市伝説としての歴史、原作となったKane PixelsのYouTubeシリーズ、20歳でA24デビューした監督ケイン・パーソンズまでを整理しました。",
+      "h1": "映画『バックルームズ』に予習は必要？元ネタ・原作YouTube・監督を公開日にまとめる",
+      "lead": "2026年9月4日、映画『バックルームズ』がついに日本公開されました。ネット発の都市伝説を、当時16歳の高校生がYouTubeで映像化し、その本人がそのまま監督を務めた作品です。観る前に何か知っておくべきなのか——その疑問に答えるかたちで、都市伝説としての歴史、原作YouTubeシリーズ、監督の経歴を整理しました。",
+      "sections": [
+        {
+          "heading": "結論：予習なしでも観られる。ただし5分だけ知っておくと、見え方が変わる",
+          "paragraphs": [
+            "先に結論を書いておきます。映画『バックルームズ』は、原作を一切知らない状態で観ても物語として完結するように作られています。設定も登場人物も劇中で説明されるので、予習が必須の作品ではありません。",
+            "ただしこの映画には、ネット文化としての長い前史があります。2019年に匿名掲示板から生まれた都市伝説、それを映像化して世界的な現象にした当時16歳のYouTuber、そしてその本人がそのまま長編監督デビューを果たしたという経緯です。この流れを知っているかどうかで、画面に映る「黄色い部屋」の意味は確実に変わります。",
+            "さらに日本公開版は、本編のあとに16分の特別映像が続く「Everything Must Go Edition」です。この16分は原作YouTubeシリーズの文脈で作られた映像なので、以下の背景を押さえておくと、最後の最後まで置いていかれずに済みます。"
+          ]
+        },
+        {
+          "heading": "バックルームズの歴史｜4chanに貼られた1枚の写真から始まった",
+          "paragraphs": [
+            "すべての始まりは2019年5月12日でした。匿名掲示板4chanのオカルト板(/x/)に「なんとなく“おかしい”と感じる画像を貼ってほしい」というスレッドが立ち、そこに1枚の写真が投稿されます。黄ばんだ壁紙、蛍光灯、床一面のカーペット——人の姿だけがない、用途のわからない部屋の写真でした。",
+            "これに別の匿名ユーザーが返信を付けたことで、設定が生まれます。現実の壁を「ノークリップ(noclip)」してしまうと、この空間に落ちてしまう。同じような部屋がどこまでも続き、蛍光灯の低い唸りと、湿ったカーペットの匂いだけがある——この短い書き込みが、のちのバックルームズのすべての土台になりました。",
+            "設定は数日のうちにRedditやWikidot、Fandomの専用wikiへ広がり、有志が「レベル」と呼ばれる階層構造や、そこに棲むクリーチャーの設定を次々に追加していきます。特定の作者を持たない共同創作として膨らんでいった点が、この都市伝説の最大の特徴です。",
+            "なお、大元となった写真の出所は長らく不明でしたが、2024年5月にネット上の有志によって特定されました。撮影は2002年6月、アメリカ・ウィスコンシン州オシュコシュ。かつて家具店だった建物を改装している最中の、2階の一室でした。映画版の主人公が家具店の店主として設定されているのは、この事実を踏まえたものと考えられます。"
+          ]
+        },
+        {
+          "heading": "映画の原作｜Kane PixelsのYouTubeシリーズ(2022〜2026)",
+          "paragraphs": [
+            "掲示板の設定を「映像」として決定づけたのが、2022年1月7日にYouTubeへ投稿された9分の短編「The Backrooms (Found Footage)」です。制作したのはKane Pixels名義で活動していた、当時16歳のケイン・パーソンズ。1990年代のホームビデオ風の画質で、少年がカメラを回しながら黄色い部屋に迷い込む——それだけの内容が、単体で8,000万回前後の再生数を記録しました。",
+            "使われたのは3DCGソフトのBlenderとAdobe After Effectsだけ。モデリングも編集も音楽も、基本的に本人ひとりで手がけています。第1話の制作期間は、およそ1か月でした。",
+            "短編は単発で終わらず、全25話のシリーズへと発展します。軸になるのは「Async Research Institute」という架空の研究機関で、1990年代にMRIの研究過程で異次元への入口を発見してしまった、という設定。断片的な調査記録と民間人の遭遇映像を積み重ねる構成で、シリーズ全体の再生数は約2億回に達しました。",
+            "予習として1本だけ観るなら、迷わず第1話「The Backrooms (Found Footage)」です。9分ほどで、映画がどんな空気を再現しようとしているのかが一発で分かります。時間に余裕があれば、2026年8月18日にYouTubeで公開された最終話「Everything Must Go」まで観ておくと、日本公開版に付く16分の特別映像とそのまま地続きになります。"
+          ]
+        },
+        {
+          "heading": "監督ケイン・パーソンズ｜20歳でA24デビューを果たした史上最年少監督",
+          "paragraphs": [
+            "2005年6月18日、カリフォルニア州ペタルマ生まれ。父親はVFXアーティストで、本人が映像制作を始めたのは2017年のことです。バックルームズ以前にも「Project 209」や、『進撃の巨人』を実際の戦争記録映像のように再構成した「Attack on Titan (Historical Footage)」といった作品を発表していました。",
+            "転機は第1話の投稿から約1か月後。複数のスタジオから映画化の打診が届き、2023年2月にA24を中心とした企画として正式に始動します。当時17歳。撮影は2025年の夏、カナダ・バンクーバーで、4つのサウンドステージに合計約2,800平方メートルのセットを組んで行われました。彼は19歳でした。",
+            "そして2026年5月の全米公開時、パーソンズは20歳。全米および全世界の初登場興行ランキングで1位を獲得した、史上最年少の監督となりました。作品は製作費1,000万ドルに対して全世界で3億ドル以上を稼ぎ、A24にとって過去最大のヒット作となっています(Rotten Tomatoes 88%、Metacritic 77)。",
+            "ちなみに彼は2026年半ば、映画制作における生成AIの使用について「それでは目的そのものが失われてしまう」と公に批判しています。Blender1本でここまで来た作り手の言葉として受け止めると、この映画の手触りの理由も少し見えてきます。"
+          ]
+        },
+        {
+          "heading": "映画版のあらすじと、日本公開版で知っておきたいこと",
+          "paragraphs": [
+            "物語の主人公は、家具店を営むクラーク(キウェテル・イジョフォー)。アルコール依存に悩む彼が、店の地下から現実の裏側のような空間へ迷い込みます。彼を担当するセラピストのメアリー・クライン(レナーテ・レインスヴェ)をはじめ周囲の人物も巻き込まれ、黄色い部屋と歪んだ家具が続く迷宮を進んでいくことになります。",
+            "日本での公開は2026年9月4日、配給はハピネットファントム・スタジオ。上映されるのは、本編約110分に16分の特別映像「Everything Must Go」が加わった126分の「Everything Must Go Edition」で、日本は公開初日からこのバージョンです。この16分は1990年6月18日付のAsync社の調査記録という体裁を取っており、映画とYouTubeシリーズを橋渡しする位置づけの映像。本編が終わっても、すぐに席を立たないでください。",
+            "まとめると、予習は必須ではありません。ただ「2019年の1枚の写真」「2022年の9分の短編」「20歳の監督」という3点だけ頭に入れておけば、同じ126分から受け取れる情報量は確実に増えます。"
+          ]
+        },
+        {
+          "heading": "そして、スクリーンの外にもバックルームズはある",
+          "paragraphs": [
+            "この映画がこれほど広く刺さった理由は、あの空間が完全な作り話ではなく、私たちが日常的に通り過ぎている場所の感覚を抽出したものだからでしょう。誰もいない深夜の駅、閉店後の商業施設、蛍光灯だけが灯る地下の通路——リミナルスペースと呼ばれる感覚です。",
+            "LIMapには、そうした「バックルームズに近い空気」を持つ実在の場所が記録されています。映画を観たあとに、あるいは観る前に、現実側の入口を覗いてみてください。",
+            "日本国内のバックルームズ的な場所については、「バックルームズは日本に実在する？」の記事でさらに詳しく紹介しています。",
+            "そしてもし、あなた自身が「ここ、あの映画の空気だ」と思う場所に出会ったら、写真と位置をLIMapに記録してみてください。同じ感覚を探している人が、必ずどこかにいます。"
+          ],
+          "spots": [
+            {
+              "title": "カプセルイン大阪（ニュージャパン梅田店）",
+              "slug": "77BLLqk2",
+              "afterParagraph": 1,
+              "thumbnailUrl": "https://pbs.twimg.com/media/G2oGVRAbIAETcxS.jpg"
+            },
+            {
+              "title": "東成田駅（旧成田空港駅）",
+              "slug": "FGg4w6Jh",
+              "afterParagraph": 1,
+              "thumbnailUrl": "https://pbs.twimg.com/media/GLmAa2laQAAPDpD.jpg"
+            },
+            {
+              "title": "旧野木病院（廃病院）",
+              "slug": "Ru5BLnja",
+              "afterParagraph": 1,
+              "thumbnailUrl": "https://pbs.twimg.com/media/FVXOVhZacAAdBkW.jpg"
+            }
+          ]
+        }
+      ]
+    },
+    "en": {
+      "title": "Do You Need to Do Homework Before Watching Backrooms? The Legend, the YouTube Series, and the Director",
+      "metaDescription": "Backrooms opened in Japan on September 4, 2026. Do you need to know anything going in? We answer that, then trace the 2019 4chan urban legend, the Kane Pixels YouTube series the film is based on, and director Kane Parsons, who debuted with A24 at twenty.",
+      "h1": "Do You Need to Do Homework Before Watching Backrooms? The Legend, the YouTube Series, and the Director",
+      "lead": "Backrooms finally opened in Japan on September 4, 2026. It began as an internet urban legend, was turned into film by a sixteen-year-old on YouTube, and was then directed for the screen by that same person. Do you need to prepare before seeing it? Here is the short answer, followed by the legend's history, the original YouTube series, and the director's story.",
+      "sections": [
+        {
+          "heading": "The Short Answer: You Can Go In Cold — But Five Minutes of Context Changes What You See",
+          "paragraphs": [
+            "Let us get this out of the way first. Backrooms is built to work as a self-contained story. The setting and the characters are explained on screen, so no homework is strictly required.",
+            "That said, the film sits on top of a long internet history: an urban legend born on an anonymous message board in 2019, a sixteen-year-old YouTuber who turned it into a worldwide phenomenon, and that same person making his feature directing debut. Knowing that chain of events genuinely changes what the yellow room on screen means to you.",
+            "There is one more reason to read on. The Japanese release is the Everything Must Go Edition, which adds sixteen minutes of extra footage after the main feature. That footage was made in the language of the original YouTube series, so a little background keeps you with it right to the end."
+          ]
+        },
+        {
+          "heading": "A History of the Backrooms: It Started With One Photo on 4chan",
+          "paragraphs": [
+            "It all began on May 12, 2019. A thread on 4chan's paranormal board (/x/) asked people to post images that just feel off, and someone uploaded a single photograph: yellowed wallpaper, fluorescent tubes, wall-to-wall carpet, and no people at all in a room with no obvious purpose.",
+            "Another anonymous user replied, and that reply created the mythology. If you noclip out of reality, you fall into this place: identical rooms repeating endlessly, the low hum of fluorescent lights, the smell of damp carpet. That short post is the foundation everything since has been built on.",
+            "Within days the idea spread to Reddit and to dedicated wikis on Wikidot and Fandom, where contributors added a hierarchy of Levels and the entities that inhabit them. The defining trait of this legend is that it grew as collaborative fiction with no single author.",
+            "The source of the original photograph stayed a mystery for years, until internet researchers traced it in May 2024. It was taken in June 2002 in Oshkosh, Wisconsin, on the second floor of a building that had been a furniture store and was mid-renovation. The film making its protagonist a furniture store owner is almost certainly a nod to that fact."
+          ]
+        },
+        {
+          "heading": "The Source Material: Kane Pixels' YouTube Series (2022–2026)",
+          "paragraphs": [
+            "What turned a message-board premise into a visual language was a nine-minute short uploaded to YouTube on January 7, 2022: The Backrooms (Found Footage). It was made by Kane Parsons, then sixteen, posting as Kane Pixels. Shot to look like a 1990s home video, it follows a boy with a camcorder who stumbles into the yellow rooms — and it drew somewhere around eighty million views on its own.",
+            "The tools were Blender and Adobe After Effects, nothing more. Parsons handled the modelling, the editing and the music essentially by himself, and the first episode took him about a month.",
+            "The short grew into a twenty-five episode series. Its spine is the Async Research Institute, a fictional 1990s organisation that discovered a doorway to another dimension during MRI research. Built from fragmentary expedition records and civilian encounter footage, the series has accumulated roughly 197 million views.",
+            "If you only watch one thing beforehand, make it episode one. Nine minutes is enough to understand exactly what atmosphere the film is reaching for. If you have more time, the finale, Everything Must Go, went up on YouTube on August 18, 2026 — and it connects directly to the sixteen minutes attached to the Japanese release."
+          ]
+        },
+        {
+          "heading": "Director Kane Parsons: An A24 Debut at Twenty",
+          "paragraphs": [
+            "Parsons was born on June 18, 2005 in Petaluma, California. His father is a visual effects artist, and he started making videos in 2017. Before the Backrooms he had already released Project 209 and Attack on Titan (Historical Footage), which restaged the anime as if it were real wartime documentary footage.",
+            "The turning point came about a month after episode one. Multiple studios approached him about a feature, and by February 2023 the project was formally underway with A24 at its centre. He was seventeen. Filming took place in the summer of 2025 in Vancouver, on more than 30,000 square feet of sets across four sound stages. He was nineteen.",
+            "When the film opened in May 2026 he was twenty — the youngest director ever to debut at number one both domestically and worldwide. Made for ten million dollars, it has grossed over three hundred million globally, making it A24's biggest release to date (88% on Rotten Tomatoes, 77 on Metacritic).",
+            "In mid-2026 he also publicly criticised the use of generative AI in filmmaking, saying it defeats the purpose entirely. Coming from someone who got here with Blender and a laptop, it says something about how the film itself was made."
+          ]
+        },
+        {
+          "heading": "The Plot, and What to Know About the Japanese Release",
+          "paragraphs": [
+            "The film follows Clark (Chiwetel Ejiofor), a furniture store owner struggling with alcoholism, who finds a space behind reality through his store's basement. His therapist, Dr. Mary Kline (Renate Reinsve), and others around him are pulled in as well, into a labyrinth of yellow rooms and malformed furniture.",
+            "In Japan the film opened on September 4, 2026, distributed by Happinet Phantom Studios. What screens is the Everything Must Go Edition: roughly 110 minutes of feature plus sixteen minutes of extra footage, 126 minutes in total, and Japan gets this version from opening day. Those sixteen minutes are presented as an Async investigation record dated June 18, 1990, bridging the film and the web series. Do not leave your seat when the credits start.",
+            "So: homework is optional. But hold on to three things — one photo from 2019, one nine-minute short from 2022, and a twenty-year-old director — and the same 126 minutes will give you noticeably more."
+          ]
+        },
+        {
+          "heading": "And the Backrooms Exist Outside the Screen, Too",
+          "paragraphs": [
+            "The reason this film landed so widely is that its space is not pure invention. It distils a feeling we pass through all the time: an empty station at 2am, a mall after closing, an underground passage lit only by fluorescent tubes. Online, that feeling has a name — liminal space.",
+            "LIMap collects real places in Japan that carry something close to that Backrooms air. Before or after the film, take a look at the entrances on the real-world side.",
+            "For more on Backrooms-like places in Japan, see our article Do the Backrooms Exist in Japan?",
+            "And if you come across somewhere that feels like the film, record the photo and the location on LIMap. Someone else is out there looking for exactly that feeling."
+          ],
+          "spots": [
+            {
+              "title": "カプセルイン大阪（ニュージャパン梅田店）",
+              "slug": "77BLLqk2",
+              "afterParagraph": 1,
+              "thumbnailUrl": "https://pbs.twimg.com/media/G2oGVRAbIAETcxS.jpg"
+            },
+            {
+              "title": "東成田駅（旧成田空港駅）",
+              "slug": "FGg4w6Jh",
+              "afterParagraph": 1,
+              "thumbnailUrl": "https://pbs.twimg.com/media/GLmAa2laQAAPDpD.jpg"
+            },
+            {
+              "title": "旧野木病院（廃病院）",
+              "slug": "Ru5BLnja",
+              "afterParagraph": 1,
+              "thumbnailUrl": "https://pbs.twimg.com/media/FVXOVhZacAAdBkW.jpg"
+            }
+          ]
+        }
+      ]
+    },
+    "images": [
+      {
+        "file": "Dsc00159.jpg_Bức_ảnh_thứ_2_trong_2_bức_ảnh_nguồn_gốc_của_The_Backrooms.jpg",
+        "author": "Bill Magritz",
+        "license": "CC0 1.0 (パブリックドメイン)",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Dsc00159.jpg_B%E1%BB%A9c_%E1%BA%A3nh_th%E1%BB%A9_2_trong_2_b%E1%BB%A9c_%E1%BA%A3nh_ngu%E1%BB%93n_g%E1%BB%91c_c%E1%BB%A7a_The_Backrooms.jpg",
+        "altJa": "バックルームズの元になった2002年撮影の写真、もう1枚のカット",
+        "altEn": "The second surviving original Backrooms source photo, taken in 2002",
+        "captionJa": "2002年の同じ撮影で残っていた、もう1枚のオリジナル写真。映画が再現しようとしたのは、この質感でした。",
+        "captionEn": "The second surviving photograph from that same 2002 shoot — the exact texture the film set out to recreate.",
+        "afterSection": -1
+      },
+      {
+        "file": "HobbyTown USA Oshkosh interior under construction 2002 (The Backrooms).jpg",
+        "author": "Bill Magritz",
+        "license": "CC0 1.0 (パブリックドメイン)",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:HobbyTown_USA_Oshkosh_interior_under_construction_2002_(The_Backrooms).jpg",
+        "altJa": "2019年に4chanへ投稿された、バックルームズの元になったオリジナル写真",
+        "altEn": "The original photograph posted to 4chan in 2019 that created the Backrooms",
+        "captionJa": "すべての始まりとなった、まさにその1枚。2002年6月、米ウィスコンシン州オシュコシュの改装中の店舗で撮影されました。",
+        "captionEn": "The photograph that started everything — taken in June 2002 in a store under renovation in Oshkosh, Wisconsin.",
         "afterSection": 1
       }
     ]
