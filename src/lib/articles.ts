@@ -171,6 +171,21 @@ export const ARTICLES: ArticleSummary[] = [
       "Want to photograph abandoned buildings without the haunted-spot angle? Here's a guide to photogenic ruins across Japan, with real examples mapped on LIMap.",
     thumbnailFile: 'Battle-Ship Island Nagasaki Japan.jpg',
   },
+  {
+    slug: 'backrooms-movie-guide',
+    publishedDate: '2026-09-04',
+    categoryJa: '歴史・トレンド',
+    categoryEn: 'History',
+    titleJa: '映画『バックルームズ』に予習は必要？元ネタ・原作YouTube・監督を公開日にまとめる',
+    titleEn:
+      'Do You Need to Do Homework Before Watching Backrooms? The Legend, the YouTube Series, and the Director',
+    leadJa:
+      '2026年9月4日、映画『バックルームズ』が日本公開。予習は必要なのか——その答えとあわせて、4chan発の都市伝説としての歴史、原作となったYouTubeシリーズ、20歳でA24デビューした監督の経歴を整理しました。',
+    leadEn:
+      'Backrooms opened in Japan on September 4, 2026. Do you need to prepare before seeing it? Here is the short answer, plus the 4chan legend, the YouTube series it is based on, and the director who debuted with A24 at twenty.',
+    thumbnailFile:
+      'Dsc00159.jpg_Bức_ảnh_thứ_2_trong_2_bức_ảnh_nguồn_gốc_của_The_Backrooms.jpg',
+  },
 ];
 
 // public/articles配下の静的ページ生成(scripts/generate-articles.js)と全く同じ組み立て方に揃えている
