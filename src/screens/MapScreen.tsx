@@ -6,6 +6,8 @@ import {
   ActivityIndicator,
   FlatList,
   Keyboard,
+  Platform,
+  Linking,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Mapbox, { Camera, MapView, UserLocation, ShapeSource, CircleLayer, SymbolLayer } from '@rnmapbox/maps';
@@ -134,6 +136,15 @@ export default function MapScreen({ navigation, route }: Props) {
     });
   };
 
+  // Appleの審査ガイドライン4(位置情報機能はネイティブのApple Mapsアプリを起動できる
+  // 選択肢を用意する必要がある)への対応。地図画面そのものはMapbox製のため、今見ている
+  // 範囲の中心座標でApple Mapsアプリを直接開けるボタンを、地図のメイン画面上に用意する
+  // (投稿詳細画面の個別リンクだけでは不十分と判断されたため、より見つけやすいこちらにも追加)。
+  const openInAppleMaps = () => {
+    const url = `https://maps.apple.com/?ll=${lastCenter.lat},${lastCenter.lng}`;
+    Linking.openURL(url).catch(() => {});
+  };
+
   const search = async () => {
     if (!query.trim()) return;
     Keyboard.dismiss();
@@ -258,6 +269,13 @@ export default function MapScreen({ navigation, route }: Props) {
         )}
       </SafeAreaView>
 
+      {/* iOSのみ: ネイティブのApple Mapsアプリを、今表示している地図の中心座標で開く */}
+      {Platform.OS === 'ios' && (
+        <Pressable style={styles.appleMapsButton} onPress={openInAppleMaps} hitSlop={8}>
+          <Ionicons name="map-outline" size={20} color={colors.textPrimary} />
+        </Pressable>
+      )}
+
       <Pressable style={styles.locateButton} onPress={goToMyLocation} hitSlop={8}>
         <Ionicons name="locate-outline" size={20} color={colors.textPrimary} />
       </Pressable>
@@ -348,6 +366,17 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 16,
     bottom: 96,
+    width: 40,
+    height: 40,
+    backgroundColor: 'rgba(61,61,61,0.92)',
+    borderRadius: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  appleMapsButton: {
+    position: 'absolute',
+    right: 16,
+    bottom: 144,
     width: 40,
     height: 40,
     backgroundColor: 'rgba(61,61,61,0.92)',
