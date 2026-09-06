@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { View, Image, StyleSheet, Pressable, Platform } from 'react-native';
+import { View, Text, Image, StyleSheet, Pressable, Platform } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
-import Text from './AppText';
 import { useTranslation } from '../lib/i18n';
 import { colors } from '../lib/theme';
 import { isStandaloneDisplay, isIOSDevice } from '../lib/pwaInstall';
@@ -22,6 +21,15 @@ import { openAppStore } from '../lib/appStore';
 //   - すでにホーム画面から起動している(スタンドアロン表示)
 //   - 一度閉じた端末(localStorageに記録)
 const DISMISS_KEY = 'limap-ios-app-banner-dismissed';
+
+// このバナーだけは、アプリ共通のドットフォント(DotGothic16)ではなく
+// OS標準のUIフォントで表示する。App Store由来の見慣れた案内として認識してもらうため、
+// Appleのシステムフォント(SF Pro / ヒラギノ)に寄せている。
+// そのため共通のAppTextではなく素のTextを使い、fontFamilyをここで明示する。
+// このコンポーネントはWebのiOS端末でしか描画しないため、CSSのフォントスタックを
+// そのまま指定してよい(React Native WebはfontFamilyの文字列をCSSへ素通しする)。
+const SYSTEM_FONT =
+  '-apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", "Hiragino Sans", sans-serif';
 
 function isDismissed(): boolean {
   if (typeof window === 'undefined') return true;
@@ -109,13 +117,13 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background,
   },
   textWrap: { flex: 1, minWidth: 0 },
-  title: { color: colors.textPrimary, fontSize: 13, fontWeight: '700' },
-  subtitle: { color: colors.textMuted, fontSize: 11, marginTop: 2 },
+  title: { color: colors.textPrimary, fontSize: 14, fontWeight: '600', fontFamily: SYSTEM_FONT, letterSpacing: -0.2 },
+  subtitle: { color: colors.textMuted, fontSize: 11, marginTop: 2, fontFamily: SYSTEM_FONT, letterSpacing: -0.1 },
   installButton: {
     backgroundColor: colors.accent,
     borderRadius: 999,
     paddingVertical: 7,
     paddingHorizontal: 16,
   },
-  installButtonText: { color: colors.accentText, fontSize: 13, fontWeight: '700' },
+  installButtonText: { color: colors.accentText, fontSize: 13, fontWeight: '600', fontFamily: SYSTEM_FONT, letterSpacing: -0.1 },
 });
