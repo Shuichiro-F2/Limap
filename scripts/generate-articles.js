@@ -18,6 +18,29 @@ const ROOT = path.resolve(__dirname, '..');
 const DATA_PATH = path.join(ROOT, 'content', 'articles.json');
 const OUT_DIR = path.join(ROOT, 'public', 'articles');
 const SITE_URL = 'https://limap.jp';
+// iOSアプリのApp Storeページ。src/lib/appStore.ts と同じURLを指す
+// (記事ページはReactアプリとは別の静的HTMLのため、定数を共有できず二重管理になる。
+//  App IDを変える場合は両方を更新すること)。
+const APP_STORE_URL = 'https://apps.apple.com/jp/app/id6805902713';
+
+// iOS向けApp Store誘導バナー。
+// アプリ本体(src/components/AppStoreBanner.tsx)と同じ構成・同じ文言・同じ
+// localStorageキーで動く。既定はhiddenで、iOS端末のブラウザで開いたときだけ
+// article.js側が表示する(非iOS端末で一瞬ちらつくのを避けるため)。
+// 記事ページの言語切り替えに追従できるよう、文言は既存の [data-lang] の仕組みに乗せる。
+function appBannerBlock() {
+  return `    <aside class="app-banner" id="app-banner" hidden>
+      <button type="button" class="app-banner-close" id="app-banner-close" aria-label="閉じる">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18" /></svg>
+      </button>
+      <img src="${SITE_URL}/apple-touch-icon.png" alt="" class="app-banner-icon" />
+      <div class="app-banner-text">
+        <p class="app-banner-title">LIMap</p>
+        <p class="app-banner-subtitle"><span data-lang="ja">App Storeでアプリを入手</span><span data-lang="en">Get the app on the App Store</span></p>
+      </div>
+      <a class="app-banner-action" href="${APP_STORE_URL}" target="_blank" rel="noopener"><span data-lang="ja">入手</span><span data-lang="en">Get</span></a>
+    </aside>`;
+}
 
 function escapeHtml(str) {
   return String(str)
@@ -269,6 +292,7 @@ ${articleJsonLd(article)}
     <link rel="stylesheet" href="/articles/assets/article.css" />
   </head>
   <body>
+${appBannerBlock()}
     <header class="site-header">
       <a class="brand" href="${SITE_URL}/">
         <img src="/articles/assets/logo-header.png" alt="LIMap" class="brand-logo" />
@@ -360,6 +384,7 @@ function renderHubPage(all) {
     <link rel="stylesheet" href="/articles/assets/article.css" />
   </head>
   <body>
+${appBannerBlock()}
     <header class="site-header">
       <a class="brand" href="${SITE_URL}/">
         <img src="/articles/assets/logo-header.png" alt="LIMap" class="brand-logo" />
@@ -378,6 +403,8 @@ ${items}
       <a href="${SITE_URL}/">LIMapトップへ</a>
       <a href="${SITE_URL}/about">リミナルスペースとは</a>
     </footer>
+
+    <script src="/articles/assets/article.js"></script>
   </body>
 </html>
 `;

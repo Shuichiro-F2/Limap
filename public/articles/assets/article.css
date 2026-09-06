@@ -44,6 +44,93 @@ span[data-lang].lang-active {
   display: inline;
 }
 
+/* --- iOS向けApp Store誘導バナー ---------------------------------------
+   アプリ本体(src/components/AppStoreBanner.tsx)と同じ構成のバナー。
+   配色は記事ページのパレットに合わせ、文字だけはApple純正UIに寄せた
+   システムフォントで表示する(本文のNoto Sans JPとは意図的に変えている)。
+   既定はhiddenで、article.js側がiOS端末のときだけ表示する。
+   ページ最上部に通常フローで置くため、スクロールすると流れて消える
+   (sticky指定の .site-header はその後もページ上部に残る)。 */
+.app-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 10px;
+  /* スタンドアロン表示のときのノッチ分。ブラウザ表示では0になる */
+  padding-top: env(safe-area-inset-top, 0px);
+  height: calc(62px + env(safe-area-inset-top, 0px));
+  background-color: var(--surface-alt);
+  border-bottom: 1px solid var(--border);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", "Hiragino Sans", sans-serif;
+}
+
+/* display:flex が hidden属性より強いため、明示的に打ち消す */
+.app-banner[hidden] {
+  display: none;
+}
+
+.app-banner-close {
+  appearance: none;
+  -webkit-appearance: none;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.app-banner-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 9px;
+  display: block;
+  flex-shrink: 0;
+}
+
+.app-banner-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.app-banner-title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.2px;
+  line-height: 1.3;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.app-banner-subtitle {
+  margin: 2px 0 0;
+  font-size: 11px;
+  letter-spacing: -0.1px;
+  line-height: 1.3;
+  color: var(--text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.app-banner-action {
+  flex-shrink: 0;
+  background-color: var(--accent);
+  color: var(--accent-text);
+  border-radius: 999px;
+  padding: 7px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: -0.1px;
+  line-height: 1.2;
+  text-decoration: none;
+}
+
 .site-header {
   display: flex;
   align-items: center;
