@@ -411,7 +411,12 @@ ${items}
 }
 
 function main() {
-  const articles = JSON.parse(fs.readFileSync(DATA_PATH, 'utf8'));
+  // 記事一覧ハブ・関連記事ブロックともに新着順(publishedDateの降順)で並べる。
+  // Array#sortは安定なので、同じ公開日の記事はarticles.jsonに書いた順のまま。
+  // src/lib/articles.ts(アプリのコラムタブ)の並び順と揃えてある。
+  const articles = JSON.parse(fs.readFileSync(DATA_PATH, 'utf8')).sort((a, b) =>
+    b.publishedDate.localeCompare(a.publishedDate)
+  );
 
   fs.mkdirSync(OUT_DIR, { recursive: true });
 

@@ -26,6 +26,14 @@ const ARTICLE_SLUGS = [
   'not-haunted-just-eerie-spots',
   'haikyo-photo-spots-japan',
   'backrooms-movie-guide',
+  'is-backrooms-movie-scary',
+  'backrooms-spots-tokyo',
+  'backrooms-levels-explained',
+  'poolrooms-explained',
+  'backrooms-original-photo-location',
+  'backrooms-vs-exit-8',
+  'who-is-kane-pixels',
+  'what-is-noclip',
 ];
 
 function escapeXml(str: string): string {

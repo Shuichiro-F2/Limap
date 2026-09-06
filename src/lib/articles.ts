@@ -16,7 +16,7 @@ export interface ArticleSummary {
   thumbnailFile: string;
 }
 
-export const ARTICLES: ArticleSummary[] = [
+const ARTICLE_ENTRIES: ArticleSummary[] = [
   {
     slug: 'what-is-liminal-space',
     publishedDate: '2026-08-15',
@@ -186,7 +186,126 @@ export const ARTICLES: ArticleSummary[] = [
     thumbnailFile:
       'Dsc00159.jpg_Bức_ảnh_thứ_2_trong_2_bức_ảnh_nguồn_gốc_của_The_Backrooms.jpg',
   },
+  {
+    slug: 'is-backrooms-movie-scary',
+    publishedDate: '2026-09-06',
+    categoryJa: '心理・雑学',
+    categoryEn: 'Psychology',
+    titleJa: '映画『バックルームズ』は怖い？ネタバレなしで、怖さの種類を説明します',
+    titleEn:
+      'Is the Backrooms Movie Scary? A Spoiler-Free Guide to What Kind of Fear It Uses',
+    leadJa:
+      'どのくらい怖いのか分からない、という人へ。ストーリーに一切触れずに、この映画の怖さがジャンプスケア型ではなく空間型であることと、評価が割れている理由を説明します。',
+    leadEn:
+      'Not sure how scary it gets? With zero plot spoilers: why this film uses spatial dread rather than jump scares, and why reviews are so split.',
+    thumbnailFile: 'Waiting room at Budapest Keleti.jpg',
+  },
+  {
+    slug: 'backrooms-spots-tokyo',
+    publishedDate: '2026-09-06',
+    categoryJa: '実在スポット',
+    categoryEn: 'Real Spots',
+    titleJa: '映画を観たあとに行きたい、東京の「バックルームズ的」な場所',
+    titleEn:
+      'Where to Go in Tokyo After Watching the Backrooms Movie',
+    leadJa:
+      '映画館を出たあと、いつもの帰り道が少し違って見える。その目のまま行ける東京の実在スポットを、地下通路・団地・閉じた駅から選びました。',
+    leadEn:
+      'If the film changed how your commute looks, here are real Tokyo places with the same air — underground passages, housing estates and closed transit sites.',
+    thumbnailFile: '商店街のシャッター (30492827175).jpg',
+  },
+  {
+    slug: 'backrooms-levels-explained',
+    publishedDate: '2026-09-06',
+    categoryJa: '基礎知識',
+    categoryEn: 'Basics',
+    titleJa: 'バックルームズの「レベル」とは？レベル0からThe Endまでと、公式設定が存在しない理由',
+    titleEn:
+      'What Are the Backrooms Levels? From Level 0 to The End — and Why There Is No Official Canon',
+    leadJa:
+      'レベル0、レベル37、The End。代表的な階層を整理しつつ、なぜwikiごとに設定が食い違うのか、どれが正しいのかという疑問にも答えます。',
+    leadEn:
+      'Level 0, Level 37, The End. The levels people actually talk about — plus an answer to why no two wikis agree.',
+    thumbnailFile: 'HobbyTown USA Oshkosh interior under construction 2002 (The Backrooms).jpg',
+  },
+  {
+    slug: 'poolrooms-explained',
+    publishedDate: '2026-09-06',
+    categoryJa: '基礎知識',
+    categoryEn: 'Basics',
+    titleJa: 'プールルーム（Poolrooms）とは？青いタイルの水の空間の正体と、日本で近い場所',
+    titleEn:
+      'What Are the Poolrooms? Where the Blue-Tiled Water Spaces Came From',
+    leadJa:
+      '誰もいない室内プール、青いタイル、生ぬるい水。バックルームズより後に生まれたこの空間の成り立ちと、なぜ怖いのに懐かしいのかを解説します。',
+    leadEn:
+      'An empty indoor pool, blue tile, lukewarm water. Where this imagery actually came from, and why it feels frightening and nostalgic at once.',
+    thumbnailFile: 'Swimming Pool Hall 4 Pripyat.jpg',
+  },
+  {
+    slug: 'backrooms-original-photo-location',
+    publishedDate: '2026-09-06',
+    categoryJa: '事例紹介',
+    categoryEn: 'Examples',
+    titleJa: 'バックルームズの元ネタ写真はどこで撮られた？2024年に特定された実在の建物',
+    titleEn:
+      'Where Was the Original Backrooms Photo Taken? The Real Building, Identified in 2024',
+    leadJa:
+      '5年間わからなかった、あの1枚の撮影場所。2024年に特定された答えは、意外なほど平凡な場所でした。',
+    leadEn:
+      'For five years nobody knew where that photograph was taken. The answer, pinned down in 2024, turned out to be remarkably ordinary.',
+    thumbnailFile: 'HobbyTown USA Oshkosh interior under construction 2002 (The Backrooms).jpg',
+  },
+  {
+    slug: 'backrooms-vs-exit-8',
+    publishedDate: '2026-09-06',
+    categoryJa: '違いを知る',
+    categoryEn: 'Comparisons',
+    titleJa: 'バックルームズと『8番出口』は何が違う？似ているようで正反対な2つの無限空間',
+    titleEn:
+      'Backrooms vs Exit 8: Two Endless Spaces That Work in Opposite Ways',
+    leadJa:
+      '無人、均質、出口が見えない。よく似た2つですが、恐怖の構造は正反対です。ルールがあるかどうかという決定的な違いを整理しました。',
+    leadEn:
+      'Empty, uniform, no way out. They look alike, but their fear is built in opposite ways — and it comes down to whether there are rules.',
+    thumbnailFile: 'Nokendai Station Platforms.jpg',
+  },
+  {
+    slug: 'who-is-kane-pixels',
+    publishedDate: '2026-09-06',
+    categoryJa: '歴史・トレンド',
+    categoryEn: 'History',
+    titleJa: 'Kane Pixels（ケイン・パーソンズ）とは何者か？16歳の投稿から映画監督になるまで',
+    titleEn:
+      'Who Is Kane Pixels? From a Post at Sixteen to Directing for A24',
+    leadJa:
+      '掲示板のテキストだったバックルームズを「あの映像」に変えた人物。経歴、代表作、Blender1本で作る手法、生成AIへの発言までまとめました。',
+    leadEn:
+      'The person who turned message-board text into the footage everyone pictures. His background, key works, Blender-only workflow, and stance on AI.',
+    thumbnailFile: 'Static on the playground (48616367).jpg',
+  },
+  {
+    slug: 'what-is-noclip',
+    publishedDate: '2026-09-06',
+    categoryJa: '基礎知識',
+    categoryEn: 'Basics',
+    titleJa: 'ノークリップ（noclip）とは？ゲーム用語が「現実の裏側」を意味するようになるまで',
+    titleEn:
+      'What Does Noclip Mean? How a Game Dev Term Came to Describe the Back of Reality',
+    leadJa:
+      'もとは壁をすり抜けるためのデバッグ機能でした。用語の由来と、なぜこの一語がネット都市伝説の核心になったのかを解説します。',
+    leadEn:
+      'It began as a debug feature for walking through walls. Where the term came from, and why one word became the core of an internet legend.',
+    thumbnailFile: 'Old TV sets.jpg',
+  },
 ];
+
+// 一覧は新着順(publishedDate の降順)で表示する。Array#sort は安定なので、
+// 同じ公開日の記事は ARTICLE_ENTRIES に書いた順のまま並ぶ。
+// scripts/generate-articles.js の記事一覧ハブも同じ並び順に揃えてある。
+export const ARTICLES: ArticleSummary[] = [...ARTICLE_ENTRIES].sort((a, b) =>
+  b.publishedDate.localeCompare(a.publishedDate)
+);
 
 // public/articles配下の静的ページ生成(scripts/generate-articles.js)と全く同じ組み立て方に揃えている
 export function articleThumbnailUrl(file: string, width = 600): string {
