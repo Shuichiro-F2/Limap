@@ -9,7 +9,7 @@ import { useLanguage, useTranslation } from '../lib/i18n';
 import { useAuth } from '../lib/AuthContext';
 import { notify } from '../lib/notify';
 import { colors } from '../lib/theme';
-import { isStandaloneDisplay } from '../lib/pwaInstall';
+import { isStandaloneDisplay, isIOSDevice } from '../lib/pwaInstall';
 import type { RootStackParamList } from '../navigation/types';
 
 type Props = {
@@ -64,6 +64,9 @@ export default function ProfileMenu({ visible, onClose, navigation, isAdmin }: P
   };
 
   const showAddToHomeScreen = Platform.OS === 'web' && !isStandaloneDisplay();
+  // iOSはPWAではなくApp Storeのアプリ版へ誘導するため、遷移先ページの内容に合わせて
+  // メニューのラベルとアイコンも変える(遷移先は同じAddToHomeScreen)。
+  const iosApp = showAddToHomeScreen && isIOSDevice();
 
   return (
     <View style={styles.overlay} pointerEvents="box-none">
@@ -128,7 +131,11 @@ export default function ProfileMenu({ visible, onClose, navigation, isAdmin }: P
             )}
             {/* ホーム画面への追加はWeb版限定。すでにホーム画面から起動している場合は表示不要 */}
             {showAddToHomeScreen && (
-              <MenuItem icon="add-circle-outline" label={t.myPage.addToHomeScreen} onPress={() => go('AddToHomeScreen')} />
+              <MenuItem
+                icon={iosApp ? 'logo-apple' : 'add-circle-outline'}
+                label={iosApp ? t.myPage.getApp : t.myPage.addToHomeScreen}
+                onPress={() => go('AddToHomeScreen')}
+              />
             )}
             {/* アカウント削除。ログイン中のみ表示する(未ログインならそもそもこのメニュー自体が
                 開かれないはずだが、念のためsessionの有無でガードしておく)。 */}

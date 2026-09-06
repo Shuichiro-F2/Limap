@@ -9,6 +9,11 @@ import { isStandaloneDisplay, isIOSDevice, usePwaInstallPrompt } from '../lib/pw
 // Web版限定: ブラウザでトップ画面(地図タブ)を開いた際に、まだホーム画面に
 // 追加していない場合だけ表示する軽い案内ポップアップ。
 // 一度閉じたら(またはインストール済みになったら)この端末では再表示しない。
+//
+// iOSアプリのリリース(2026年9月)以降、iOS端末ではこのポップアップは表示しない。
+// iOSではPWAとしてホーム画面に追加するよりネイティブアプリを入れてもらう方がよいため、
+// 代わりに画面上部のAppStoreBannerがApp Storeへの導線を担当する。
+// このポップアップはAndroid等、ネイティブアプリを提供していない端末向けの導線として残す。
 const DISMISS_KEY = 'limap-a2hs-popup-dismissed';
 const SHOW_DELAY_MS = 1800;
 
@@ -38,6 +43,8 @@ export default function AddToHomeScreenPopup() {
 
   useEffect(() => {
     if (Platform.OS !== 'web') return;
+    // iOSはApp Storeアプリへ誘導するため、このポップアップは出さない(AppStoreBannerが担当)
+    if (isIOSDevice()) return;
     if (isStandaloneDisplay() || isDismissed()) return;
     const timer = setTimeout(() => setVisible(true), SHOW_DELAY_MS);
     return () => clearTimeout(timer);
@@ -59,8 +66,6 @@ export default function AddToHomeScreenPopup() {
 
   if (Platform.OS !== 'web' || !visible) return null;
 
-  const ios = isIOSDevice();
-
   return (
     <View style={styles.overlay} pointerEvents="box-none">
       <View style={styles.card}>
@@ -74,7 +79,7 @@ export default function AddToHomeScreenPopup() {
           </View>
           <View style={styles.textWrap}>
             <Text style={styles.title}>{t.addToHome.popupTitle}</Text>
-            <Text style={styles.lead}>{ios ? t.addToHome.popupLeadIos : t.addToHome.popupLeadAndroid}</Text>
+            <Text style={styles.lead}>{t.addToHome.popupLeadAndroid}</Text>
           </View>
         </View>
 
@@ -83,24 +88,16 @@ export default function AddToHomeScreenPopup() {
             <Text style={styles.laterText}>{t.addToHome.popupLater}</Text>
           </Pressable>
 
-          {!ios && (
-            <Pressable style={styles.installButton} onPress={handleInstall} disabled={installed}>
-              <Ionicons
-                name={installed ? 'checkmark' : 'download-outline'}
-                size={16}
-                color={colors.accentText}
-              />
-              <Text style={styles.installButtonText}>
-                {installed ? t.addToHome.androidSuccess : t.addToHome.androidButton}
-              </Text>
-            </Pressable>
-          )}
-
-          {ios && (
-            <View style={styles.shareHint}>
-              <Ionicons name="share-outline" size={16} color={colors.accent} />
-            </View>
-          )}
+          <Pressable style={styles.installButton} onPress={handleInstall} disabled={installed}>
+            <Ionicons
+              name={installed ? 'checkmark' : 'download-outline'}
+              size={16}
+              color={colors.accentText}
+            />
+            <Text style={styles.installButtonText}>
+              {installed ? t.addToHome.androidSuccess : t.addToHome.androidButton}
+            </Text>
+          </Pressable>
         </View>
       </View>
     </View>
@@ -160,13 +157,4 @@ const styles = StyleSheet.create({
     paddingHorizontal: 14,
   },
   installButtonText: { color: colors.accentText, fontSize: 13, fontWeight: '700' },
-  shareHint: {
-    width: 30,
-    height: 30,
-    borderRadius: 15,
-    borderWidth: 1,
-    borderColor: colors.accent,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
 });

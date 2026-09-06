@@ -22,6 +22,7 @@ import HelpScreen from '../screens/HelpScreen';
 import PrivacyScreen from '../screens/PrivacyScreen';
 import TermsScreen from '../screens/TermsScreen';
 import AddToHomeScreenScreen from '../screens/AddToHomeScreenScreen';
+import { isIOSDevice } from '../lib/pwaInstall';
 import EditProfileScreen from '../screens/EditProfileScreen';
 import FollowListScreen from '../screens/FollowListScreen';
 import BlockedUsersScreen from '../screens/BlockedUsersScreen';
@@ -170,7 +171,9 @@ export default function RootNavigator() {
         <Stack.Screen
           name="AddToHomeScreen"
           component={AddToHomeScreenScreen}
-          options={{ title: 'ホーム画面に追加' }}
+          // iOSではPWAの追加手順ではなくApp Storeのアプリ版を案内するページになるため、
+          // 画面タイトルも中身に合わせて切り替える(判定はUA由来の同期関数なのでここで呼んで問題ない)。
+          options={{ title: isIOSDevice() ? 'アプリを入手' : 'ホーム画面に追加' }}
         />
         <Stack.Screen
           name="EditProfile"

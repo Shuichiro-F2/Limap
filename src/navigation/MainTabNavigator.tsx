@@ -16,6 +16,7 @@ import MyPageScreen from '../screens/MyPageScreen';
 import AppHeader from '../components/AppHeader';
 import ProfileMenu from '../components/ProfileMenu';
 import AddToHomeScreenPopup from '../components/AddToHomeScreenPopup';
+import AppStoreBanner from '../components/AppStoreBanner';
 import { useAuth } from '../lib/AuthContext';
 import { colors } from '../lib/theme';
 import { WEB_SAFE_BOTTOM_OVERHANG } from '../lib/safeAreaWeb';
@@ -121,49 +122,57 @@ export default function MainTabNavigator() {
     // 「実機の下端付近に、多少の誤差があっても見た目上問題ない」要素はここに置く。
     // タブバーの張り出し処理(bottomOverhang)は内側のViewだけに閉じ込める。
     <View style={{ flex: 1 }}>
-      <View style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: bottomOverhang }}>
-        <Tab.Navigator
-          tabBarPosition="bottom"
-          tabBar={(props) => <CustomTabBar {...props} />}
-          screenOptions={{ swipeEnabled: true, animationEnabled: true }}
-          screenListeners={{
-            // タブの状態(どのタブがアクティブか)が変わるたびに発火する。
-            // タップでの切り替え・スワイプでの切り替えのどちらでも、切り替えが
-            // 確定したタイミングで呼ばれる(react-navigation標準のイベント)。
-            state: (e) => {
-              const navState = e.data.state as { index: number; routes: { name: string }[] } | undefined;
-              const name = navState?.routes[navState.index]?.name as keyof MainTabParamList | undefined;
-              if (name) setActiveTabName(name);
-            },
-          }}
-        >
-          {/*
-            地図画面だけはタブ全体のスワイプ切り替え(swipeEnabled)を無効にする。
-            地図はネイティブのパン/ピンチジェスチャーで自前にドラッグを処理するため、
-            同じ画面内にタブ切り替え用のスワイプも有効にしていると、
-            地図をドラッグしようとした操作がタブ切り替えのジェスチャーと競合し、
-            意図せずタブが切り替わってしまうことがあった。
-            （タブ内の検索バー部分だけをスワイプ対象にする、という部分的な制御は
-            ページャーが画面単位でしかジェスチャーを持てないため実現できないが、
-            タブ自体はアイコンタップでいつでも切り替えられる）
-          */}
-          <Tab.Screen name="MapTab" component={MapScreen} options={{ title: '地図', swipeEnabled: false }} />
-          <Tab.Screen name="FeedTab" component={FeedScreen} options={{ title: 'フィード' }} />
-          <Tab.Screen name="SearchTab" component={SearchScreen} options={{ title: '検索' }} />
-          <Tab.Screen name="ArticlesTab" component={ArticlesScreen} options={{ title: 'コラム' }} />
-          <Tab.Screen name="MyPageTab" component={MyPageScreen} options={{ title: 'マイページ' }} />
-        </Tab.Navigator>
+      {/* Web版のiOS端末限定: 画面最上部のApp Store誘導バナー。
+          通常フローの要素として置くことで、下のアプリ本体を押し下げる
+          (position:absoluteで重ねると透過ヘッダーのロゴと被るため)。
+          iOS以外・ネイティブ版・ホーム画面から起動中・一度閉じた端末では何も描画しない。 */}
+      <AppStoreBanner />
 
-        {/*
-          ロゴ(と、マイページタブの時だけのハンバーガーボタン)は、タブのページャー
-          (Tab.Navigator)の外側・最前面に重ねて描画する。こうすることで、各タブ画面の
-          中身がスワイプで横にスライドしても、ヘッダー自体は再マウントされず
-          常に画面の同じ位置に固定されたまま表示される。
-        */}
-        <AppHeader
-          rightAction={activeTabName === 'MyPageTab' ? 'menu' : 'none'}
-          onMenuPress={() => setMenuVisible(true)}
-        />
+      <View style={{ flex: 1 }}>
+        <View style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: bottomOverhang }}>
+          <Tab.Navigator
+            tabBarPosition="bottom"
+            tabBar={(props) => <CustomTabBar {...props} />}
+            screenOptions={{ swipeEnabled: true, animationEnabled: true }}
+            screenListeners={{
+              // タブの状態(どのタブがアクティブか)が変わるたびに発火する。
+              // タップでの切り替え・スワイプでの切り替えのどちらでも、切り替えが
+              // 確定したタイミングで呼ばれる(react-navigation標準のイベント)。
+              state: (e) => {
+                const navState = e.data.state as { index: number; routes: { name: string }[] } | undefined;
+                const name = navState?.routes[navState.index]?.name as keyof MainTabParamList | undefined;
+                if (name) setActiveTabName(name);
+              },
+            }}
+          >
+            {/*
+              地図画面だけはタブ全体のスワイプ切り替え(swipeEnabled)を無効にする。
+              地図はネイティブのパン/ピンチジェスチャーで自前にドラッグを処理するため、
+              同じ画面内にタブ切り替え用のスワイプも有効にしていると、
+              地図をドラッグしようとした操作がタブ切り替えのジェスチャーと競合し、
+              意図せずタブが切り替わってしまうことがあった。
+              （タブ内の検索バー部分だけをスワイプ対象にする、という部分的な制御は
+              ページャーが画面単位でしかジェスチャーを持てないため実現できないが、
+              タブ自体はアイコンタップでいつでも切り替えられる）
+            */}
+            <Tab.Screen name="MapTab" component={MapScreen} options={{ title: '地図', swipeEnabled: false }} />
+            <Tab.Screen name="FeedTab" component={FeedScreen} options={{ title: 'フィード' }} />
+            <Tab.Screen name="SearchTab" component={SearchScreen} options={{ title: '検索' }} />
+            <Tab.Screen name="ArticlesTab" component={ArticlesScreen} options={{ title: 'コラム' }} />
+            <Tab.Screen name="MyPageTab" component={MyPageScreen} options={{ title: 'マイページ' }} />
+          </Tab.Navigator>
+
+          {/*
+            ロゴ(と、マイページタブの時だけのハンバーガーボタン)は、タブのページャー
+            (Tab.Navigator)の外側・最前面に重ねて描画する。こうすることで、各タブ画面の
+            中身がスワイプで横にスライドしても、ヘッダー自体は再マウントされず
+            常に画面の同じ位置に固定されたまま表示される。
+          */}
+          <AppHeader
+            rightAction={activeTabName === 'MyPageTab' ? 'menu' : 'none'}
+            onMenuPress={() => setMenuVisible(true)}
+          />
+        </View>
       </View>
 
       {/* Web版限定: ブラウザで開いた際、トップ画面(このMainTabNavigatorが

@@ -67,6 +67,7 @@ const dictionary = {
       help: '使い方',
       about: 'リミナルスペースとは',
       addToHomeScreen: 'ホーム画面に追加',
+      getApp: 'アプリを入手',
       blockedUsers: 'ブロック中のユーザー',
       contact: 'お問い合わせ',
       adminInbox: '問い合わせ管理',
@@ -91,6 +92,17 @@ const dictionary = {
       popupLeadIos: '画面下部の共有アイコンから「ホーム画面に追加」を選ぶと、アプリのようにすぐ開けるようになります。',
       popupLeadAndroid: 'ホーム画面に追加すると、アプリのようにすぐ開けるようになります。',
       popupLater: '後で',
+      // iOSアプリのリリース後、iOS端末ではPWAの手順ではなくApp Storeへ誘導する
+      iosAppHeading: 'iPhone・iPadの場合',
+      iosAppLead: 'LIMapはApp Storeでアプリとして公開しています。アプリ版なら地図の動作が軽く、写真の投稿もよりスムーズです。',
+      iosAppButton: 'App Storeで見る',
+      iosAppNote: 'アプリを入れずにこのままブラウザで使い続けることもできます。',
+    },
+    appBanner: {
+      title: 'LIMap',
+      subtitle: 'App Storeでアプリを入手',
+      action: '入手',
+      close: '閉じる',
     },
     articles: {
       pageTitle: 'コラム',
@@ -199,6 +211,7 @@ const dictionary = {
       help: 'Help',
       about: 'What is a Liminal Space?',
       addToHomeScreen: 'Add to Home Screen',
+      getApp: 'Get the App',
       blockedUsers: 'Blocked Users',
       contact: 'Contact Us',
       adminInbox: 'Admin Inbox',
@@ -223,6 +236,17 @@ const dictionary = {
       popupLeadIos: 'Tap the Share icon at the bottom of the screen and choose "Add to Home Screen" to open it instantly, just like an app.',
       popupLeadAndroid: 'Add it to your home screen to open it instantly, just like an app.',
       popupLater: 'Later',
+      // iOSアプリのリリース後、iOS端末ではPWAの手順ではなくApp Storeへ誘導する
+      iosAppHeading: 'On iPhone / iPad',
+      iosAppLead: 'LIMap is available as an app on the App Store. The app runs the map more smoothly and makes posting photos easier.',
+      iosAppButton: 'View on the App Store',
+      iosAppNote: 'You can also keep using LIMap in your browser without installing the app.',
+    },
+    appBanner: {
+      title: 'LIMap',
+      subtitle: 'Get the app on the App Store',
+      action: 'Get',
+      close: 'Close',
     },
     articles: {
       pageTitle: 'Articles',

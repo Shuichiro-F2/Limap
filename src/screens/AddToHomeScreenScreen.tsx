@@ -6,10 +6,13 @@ import Text from '../components/AppText';
 import { useTranslation } from '../lib/i18n';
 import { colors } from '../lib/theme';
 import { isStandaloneDisplay, isIOSDevice, usePwaInstallPrompt } from '../lib/pwaInstall';
+import { openAppStore } from '../lib/appStore';
 
-// Web版限定の「ホーム画面に追加」案内ページ。
-// iOSはOSレベルで「追加」を直接呼び出すJS APIが存在しないため手順を案内する形にし、
-// Android(Chrome等)はbeforeinstallpromptイベントを使って実際にダイアログを呼び出せるようにする。
+// Web版限定の案内ページ。
+// iOSアプリのリリース(2026年9月)以降、iOS端末ではPWAとしてホーム画面に追加する手順ではなく、
+// App Storeのアプリ版を案内する。
+// Android(Chrome等)はネイティブアプリを提供していないため、従来どおり
+// beforeinstallpromptイベントを使って「ホーム画面に追加」ダイアログを呼び出せるようにする。
 export default function AddToHomeScreenScreen() {
   const t = useTranslation();
   const { canPromptInstall, promptInstall } = usePwaInstallPrompt();
@@ -25,8 +28,8 @@ export default function AddToHomeScreenScreen() {
   return (
     <SafeAreaView style={styles.container} edges={['left', 'right', 'bottom']}>
       <ScrollView contentContainerStyle={styles.scroll}>
-        <Text style={styles.heading}>{t.addToHome.heading}</Text>
-        <Text style={styles.lead}>{t.addToHome.lead}</Text>
+        <Text style={styles.heading}>{ios ? t.myPage.getApp : t.addToHome.heading}</Text>
+        <Text style={styles.lead}>{ios ? t.addToHome.iosAppLead : t.addToHome.lead}</Text>
 
         {alreadyStandalone ? (
           <View style={styles.doneBox}>
@@ -37,10 +40,11 @@ export default function AddToHomeScreenScreen() {
           <>
             {ios && (
               <View style={styles.section}>
-                <Text style={styles.sectionHeading}>{t.addToHome.iosHeading}</Text>
-                <Step index={1} icon="share-outline" text={t.addToHome.iosStep1} />
-                <Step index={2} icon="add-circle-outline" text={t.addToHome.iosStep2} />
-                <Step index={3} icon="checkmark-outline" text={t.addToHome.iosStep3} />
+                <Text style={styles.sectionHeading}>{t.addToHome.iosAppHeading}</Text>
+                <Pressable style={styles.installButton} onPress={openAppStore}>
+                  <Ionicons name="logo-apple" size={18} color={colors.accentText} />
+                  <Text style={styles.installButtonText}>{t.addToHome.iosAppButton}</Text>
+                </Pressable>
               </View>
             )}
 
@@ -64,24 +68,12 @@ export default function AddToHomeScreenScreen() {
             )}
 
             {ios && (
-              <Text style={[styles.hintText, styles.otherHint]}>{t.addToHome.otherHint}</Text>
+              <Text style={[styles.hintText, styles.otherHint]}>{t.addToHome.iosAppNote}</Text>
             )}
           </>
         )}
       </ScrollView>
     </SafeAreaView>
-  );
-}
-
-function Step({ index, icon, text }: { index: number; icon: keyof typeof Ionicons.glyphMap; text: string }) {
-  return (
-    <View style={styles.step}>
-      <View style={styles.stepNumber}>
-        <Text style={styles.stepNumberText}>{index}</Text>
-      </View>
-      <Ionicons name={icon} size={20} color={colors.textSecondary} style={styles.stepIcon} />
-      <Text style={styles.stepText}>{text}</Text>
-    </View>
   );
 }
 
@@ -92,23 +84,6 @@ const styles = StyleSheet.create({
   lead: { color: colors.textSecondary, fontSize: 14, lineHeight: 22, marginBottom: 24 },
   section: { marginBottom: 22 },
   sectionHeading: { color: colors.accent, fontSize: 15, fontWeight: '700', marginBottom: 14 },
-  step: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 10,
-    marginBottom: 14,
-  },
-  stepNumber: {
-    width: 22,
-    height: 22,
-    borderRadius: 11,
-    backgroundColor: colors.surface,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  stepNumberText: { color: colors.textPrimary, fontSize: 12, fontWeight: '700' },
-  stepIcon: { width: 20 },
-  stepText: { color: colors.textSecondary, fontSize: 13, lineHeight: 20, flex: 1 },
   installButton: {
     flexDirection: 'row',
     alignItems: 'center',
