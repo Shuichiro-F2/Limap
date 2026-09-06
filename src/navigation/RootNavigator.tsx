@@ -10,6 +10,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Ionicons } from '@expo/vector-icons';
 import { useAuth } from '../lib/AuthContext';
 import AuthScreen from '../screens/AuthScreen';
+import IntroScreen from '../screens/IntroScreen';
 import WelcomeScreen from '../screens/WelcomeScreen';
 import MainTabNavigator from './MainTabNavigator';
 import SpotDetailScreen from '../screens/SpotDetailScreen';
@@ -115,15 +116,20 @@ export default function RootNavigator() {
     applyThemeColorForRoute(navigationRef.getCurrentRoute()?.name);
   };
 
-  if (loading || !minTimeElapsed || welcomeSeen === null) {
+  // インストール後の初回起動(かつ未ログイン)かどうか。
+  // Web版では hasSeenWelcome() が常にtrueを返すため、ここは必ずfalseになる。
+  const isFirstLaunch = welcomeSeen === false && !session;
+
+  // 初回起動時はこの直後にオープニング演出(IntroScreen)が始まるため、
+  // 演出用の最低表示時間(MIN_LOADING_SCREEN_MS)は待たない。
+  // 暗いローディング画面のあとに黄色い画面が続くと、スプラッシュが二重に見えてしまうため。
+  if (loading || welcomeSeen === null || (!isFirstLaunch && !minTimeElapsed)) {
     return <LoadingScreen />;
   }
 
-  // インストール後の初回起動(かつ未ログイン)のときだけ、Welcome画面から始める。
   // initialRouteNameはNavigatorの初回マウント時にしか評価されないため、
   // 上のローディングゲートで判定が確定してから描画するのが前提。
-  // Web版では hasSeenWelcome() が常にtrueを返すため、ここは必ず 'Main' になる。
-  const initialRoute = !welcomeSeen && !session ? 'Welcome' : 'Main';
+  const initialRoute = isFirstLaunch ? 'Intro' : 'Main';
 
   // 地図・検索・スポット詳細の閲覧はログイン不要。投稿など会員限定の操作をしようとした
   // タイミングでのみ、モーダルとしてAuth画面へ遷移する（各画面側でガードする）。
@@ -148,9 +154,11 @@ export default function RootNavigator() {
           headerBackButtonDisplayMode: 'minimal',
         }}
       >
-        {/* 初回起動時の導入画面。initialRouteNameで選ばれたときだけ最初に表示される
-            (どのボタンを押してもreplaceで置き換わるので、戻ってくることはない)。
+        {/* 初回起動時のオープニング演出 → 導入画面。initialRouteNameで選ばれたときだけ
+            最初に表示され、Intro→Welcome→(Auth|Main)とreplaceで置き換わっていくので、
+            あとから戻ってくることはない。
             Web版では表示されないため、linkingのURL定義も意図的に用意していない。 */}
+        <Stack.Screen name="Intro" component={IntroScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Welcome" component={WelcomeScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Main" component={MainTabNavigator} options={{ headerShown: false }} />
         {/*

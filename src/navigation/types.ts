@@ -25,7 +25,9 @@ export type RootStackParamList = {
     | { initialLat?: number; initialLng?: number; returnTo?: 'CreateSpot' | 'EditSpot'; spotId?: string }
     | undefined;
   UserProfile: { userId: string };
-  // ネイティブアプリ限定。インストール後の初回起動時のみ、RootStackの初期ルートとして表示する。
+  // ネイティブアプリ限定。インストール後の初回起動時のみ、RootStackの初期ルートとして
+  // Intro(オープニング演出) → Welcome(アカウント作成/ログインの案内) の順に表示する。
+  Intro: undefined;
   Welcome: undefined;
   // modeは開いた直後のタブ(ログイン/新規登録)。未指定ならログイン。
   Auth: { mode?: 'signin' | 'signup' } | undefined;
