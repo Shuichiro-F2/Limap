@@ -1,54 +1,68 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Animated, Image, Pressable, StyleSheet, View } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-import Text from '../components/AppText';
+import Text from './AppText';
 import { colors } from '../lib/theme';
-import type { RootStackScreenProps } from '../navigation/types';
 
-// ネイティブアプリ限定: インストール後の初回起動時にだけ流すオープニング演出。
+// ネイティブアプリ限定のオープニング演出。
 // 黄色(ブランドカラー)の背景に、ドットフォントで
-//   1. 「ようこそ」        …1文字ずつタイプされる
-//   2. 「避難しよう。」     …同上（キャッチコピー）
-//   3. LIMapロゴ           …フェードイン
-// の順で表示し、終わったらWelcome画面(アカウント作成/ログインの案内)へ置き換える。
+//   1. 「ようこそ」      …インストール後の初回起動時のみ
+//   2. 「避難しよう。」   …キャッチコピー。毎回表示する
+//   3. LIMapロゴ         …フェードイン/アウト。毎回表示する
+// の順に流し、終わったら onDone() を呼ぶ(呼び出し側で通常のローディング画面へ進む)。
 //
-// 画面のどこをタップしても、その時点で演出を打ち切ってWelcome画面へ進める。
-// 2回目以降の起動ではそもそもこの画面に来ない(RootNavigatorのinitialRouteName参照)。
+// 1と2は1文字ずつタイプされる。画面のどこをタップしてもその場で演出を打ち切れる。
+// Web版では呼び出し側(RootNavigator)がこの画面自体をマウントしない。
 
-const TEXTS = ['ようこそ', '避難しよう。'];
+const GREETING = 'ようこそ';
+const TAGLINE = '避難しよう。';
 
-// 演出のタイミング(ms)。全体で約5.2秒。
+// 演出のタイミング(ms)。初回は約5.2秒、2回目以降は約3.6秒。
 const TYPE_MS = 130; // 1文字あたりの表示間隔
+const FADE_IN_MS = 120; // テキストの下地のフェードイン
 const HOLD_MS = 800; // 打ち終わってから消え始めるまで
 const FADE_OUT_MS = 300;
 const LOGO_IN_MS = 500;
 const LOGO_HOLD_MS = 850;
 const LOGO_OUT_MS = 350;
 
-export default function IntroScreen({ navigation }: RootStackScreenProps<'Intro'>) {
-  // 0,1 = TEXTS のインデックス / TEXTS.length = ロゴ
+type Props = {
+  // 初回起動時のみtrue。「ようこそ」から始めるかどうか。
+  // 判定(AsyncStorageの読み取り)がまだ終わっていない間はnullを渡す。
+  // その間この画面は黄色の背景だけを出して待ち、確定してから演出を始める。
+  showGreeting: boolean | null;
+  onDone: () => void;
+};
+
+export default function IntroScreen({ showGreeting, onDone }: Props) {
+  const texts = useMemo(
+    () => (showGreeting === null ? null : showGreeting ? [GREETING, TAGLINE] : [TAGLINE]),
+    [showGreeting]
+  );
+
+  // 0..texts.length-1 = テキスト / texts.length = ロゴ
   const [step, setStep] = useState(0);
   const [typedCount, setTypedCount] = useState(0);
   const opacity = useRef(new Animated.Value(0)).current;
-  // 二重遷移を防ぐためのフラグ(タップスキップと演出完了が競合しうるため)
+  // タップスキップと演出完了が競合しうるため、onDoneは一度だけ呼ぶ
   const finished = useRef(false);
 
   const finish = useCallback(() => {
     if (finished.current) return;
     finished.current = true;
-    navigation.replace('Welcome');
-  }, [navigation]);
+    onDone();
+  }, [onDone]);
 
   // stepが変わるたびに、そのステップの演出を最初から再生する
   useEffect(() => {
-    if (finished.current) return;
+    if (finished.current || texts === null) return;
     const timers: ReturnType<typeof setTimeout>[] = [];
     opacity.setValue(0);
 
-    if (step < TEXTS.length) {
-      const text = TEXTS[step];
+    if (step < texts.length) {
+      const text = texts[step];
       setTypedCount(0);
-      Animated.timing(opacity, { toValue: 1, duration: 120, useNativeDriver: true }).start();
+      Animated.timing(opacity, { toValue: 1, duration: FADE_IN_MS, useNativeDriver: true }).start();
 
       for (let i = 1; i <= text.length; i += 1) {
         timers.push(setTimeout(() => setTypedCount(i), TYPE_MS * i));
@@ -61,9 +75,8 @@ export default function IntroScreen({ navigation }: RootStackScreenProps<'Intro'
               toValue: 0,
               duration: FADE_OUT_MS,
               useNativeDriver: true,
-              // タップスキップでアンマウントされた場合は done が false になるので、
-              // そのときは次のステップへ進めない
             }).start(({ finished: done }) => {
+              // タップスキップで中断された場合は done が false になり、次へ進めない
               if (done && !finished.current) setStep((s) => s + 1);
             });
           },
@@ -86,9 +99,9 @@ export default function IntroScreen({ navigation }: RootStackScreenProps<'Intro'
     }
 
     return () => timers.forEach(clearTimeout);
-  }, [step, opacity, finish]);
+  }, [step, texts, opacity, finish]);
 
-  const isLogo = step >= TEXTS.length;
+  const isLogo = texts !== null && step >= texts.length;
 
   return (
     <Pressable style={styles.container} onPress={finish} accessibilityLabel="スキップ">
@@ -103,7 +116,7 @@ export default function IntroScreen({ navigation }: RootStackScreenProps<'Intro'
               resizeMode="contain"
             />
           ) : (
-            <Text style={styles.text}>{TEXTS[step].slice(0, typedCount)}</Text>
+            <Text style={styles.text}>{texts ? texts[step].slice(0, typedCount) : ''}</Text>
           )}
         </Animated.View>
       </View>

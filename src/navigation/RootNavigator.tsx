@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Pressable } from 'react-native';
+import { Platform, Pressable } from 'react-native';
 import {
   NavigationContainer,
   DarkTheme,
@@ -10,7 +10,6 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Ionicons } from '@expo/vector-icons';
 import { useAuth } from '../lib/AuthContext';
 import AuthScreen from '../screens/AuthScreen';
-import IntroScreen from '../screens/IntroScreen';
 import WelcomeScreen from '../screens/WelcomeScreen';
 import MainTabNavigator from './MainTabNavigator';
 import SpotDetailScreen from '../screens/SpotDetailScreen';
@@ -32,6 +31,7 @@ import ContactScreen from '../screens/ContactScreen';
 import AdminInboxScreen from '../screens/AdminInboxScreen';
 import AdminThreadScreen from '../screens/AdminThreadScreen';
 import LoadingScreen from '../components/LoadingScreen';
+import IntroScreen from '../components/IntroScreen';
 import { colors } from '../lib/theme';
 import { applyThemeColorForRoute } from '../lib/seo';
 import { hasSeenWelcome } from '../lib/firstLaunch';
@@ -96,15 +96,22 @@ const navTheme = {
 export default function RootNavigator() {
   const { loading, session } = useAuth();
   const [minTimeElapsed, setMinTimeElapsed] = useState(false);
-  // ネイティブアプリの初回起動判定。読み終わるまではローディング画面を出したままにして、
-  // 一瞬地図が見えてからWelcome画面が被さる、というちらつきを防ぐ。
+  // インストール後の初回起動かどうか。Web版では hasSeenWelcome() が常にtrueを返す。
+  // 「ようこそ」を出すかどうかと、Welcome画面から始めるかどうかの両方に使う。
   const [welcomeSeen, setWelcomeSeen] = useState<boolean | null>(null);
+  // オープニング演出(IntroScreen)が終わったか。ネイティブでは毎回の起動で再生するため、
+  // 初期値はfalse。Web版では演出自体を行わないので最初からtrueにしておく。
+  const [introDone, setIntroDone] = useState(Platform.OS === 'web');
   const navigationRef = useNavigationContainerRef<RootStackParamList>();
 
+  // ローディング画面の最低表示時間は「演出が終わってから」数え始める。
+  // マウント直後から数えると、演出中にタイマーを消化してしまい、
+  // 演出のあとのローディング画面が一瞬で消えてしまうため。
   useEffect(() => {
+    if (!introDone) return;
     const timer = setTimeout(() => setMinTimeElapsed(true), MIN_LOADING_SCREEN_MS);
     return () => clearTimeout(timer);
-  }, []);
+  }, [introDone]);
 
   useEffect(() => {
     hasSeenWelcome().then(setWelcomeSeen);
@@ -116,20 +123,29 @@ export default function RootNavigator() {
     applyThemeColorForRoute(navigationRef.getCurrentRoute()?.name);
   };
 
-  // インストール後の初回起動(かつ未ログイン)かどうか。
-  // Web版では hasSeenWelcome() が常にtrueを返すため、ここは必ずfalseになる。
-  const isFirstLaunch = welcomeSeen === false && !session;
+  // 起動時の流れ(ネイティブ):
+  //   オープニング演出 → 通常のローディング画面 → 初回のみWelcome画面 → 本体
+  // Web版では演出をスキップするため、従来どおりローディング画面から始まる。
+  if (!introDone) {
+    // 「ようこそ」を出すかどうかは初回起動かどうかで決まる。判定が終わるまでは
+    // showGreetingにnullを渡し、IntroScreen側で黄色の背景のまま待たせる
+    // (通常は数十msで確定する)。
+    return (
+      <IntroScreen
+        showGreeting={welcomeSeen === null ? null : !welcomeSeen}
+        onDone={() => setIntroDone(true)}
+      />
+    );
+  }
 
-  // 初回起動時はこの直後にオープニング演出(IntroScreen)が始まるため、
-  // 演出用の最低表示時間(MIN_LOADING_SCREEN_MS)は待たない。
-  // 暗いローディング画面のあとに黄色い画面が続くと、スプラッシュが二重に見えてしまうため。
-  if (loading || welcomeSeen === null || (!isFirstLaunch && !minTimeElapsed)) {
+  if (loading || welcomeSeen === null || !minTimeElapsed) {
     return <LoadingScreen />;
   }
 
+  // インストール後の初回起動(かつ未ログイン)のときだけ、Welcome画面から始める。
   // initialRouteNameはNavigatorの初回マウント時にしか評価されないため、
   // 上のローディングゲートで判定が確定してから描画するのが前提。
-  const initialRoute = isFirstLaunch ? 'Intro' : 'Main';
+  const initialRoute = welcomeSeen === false && !session ? 'Welcome' : 'Main';
 
   // 地図・検索・スポット詳細の閲覧はログイン不要。投稿など会員限定の操作をしようとした
   // タイミングでのみ、モーダルとしてAuth画面へ遷移する（各画面側でガードする）。
@@ -154,11 +170,9 @@ export default function RootNavigator() {
           headerBackButtonDisplayMode: 'minimal',
         }}
       >
-        {/* 初回起動時のオープニング演出 → 導入画面。initialRouteNameで選ばれたときだけ
-            最初に表示され、Intro→Welcome→(Auth|Main)とreplaceで置き換わっていくので、
-            あとから戻ってくることはない。
+        {/* 初回起動時の導入画面。initialRouteNameで選ばれたときだけ最初に表示され、
+            Welcome→(Auth|Main)とreplaceで置き換わるので、あとから戻ってくることはない。
             Web版では表示されないため、linkingのURL定義も意図的に用意していない。 */}
-        <Stack.Screen name="Intro" component={IntroScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Welcome" component={WelcomeScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Main" component={MainTabNavigator} options={{ headerShown: false }} />
         {/*
