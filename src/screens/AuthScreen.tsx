@@ -10,9 +10,10 @@ import { translateAuthError } from '../lib/authErrors';
 import { colors } from '../lib/theme';
 import type { RootStackScreenProps } from '../navigation/types';
 
-export default function AuthScreen({ navigation }: RootStackScreenProps<'Auth'>) {
+export default function AuthScreen({ navigation, route }: RootStackScreenProps<'Auth'>) {
   const { signInWithEmail, signUpWithEmail, signInWithOAuth, signInWithApple } = useAuth();
-  const [mode, setMode] = useState<'signin' | 'signup'>('signin');
+  // 初回起動時のWelcome画面から「アカウントを作成」で来た場合は、最初から新規登録モードで開く。
+  const [mode, setMode] = useState<'signin' | 'signup'>(route.params?.mode ?? 'signin');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');

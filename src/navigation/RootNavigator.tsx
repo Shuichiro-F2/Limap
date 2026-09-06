@@ -10,6 +10,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Ionicons } from '@expo/vector-icons';
 import { useAuth } from '../lib/AuthContext';
 import AuthScreen from '../screens/AuthScreen';
+import WelcomeScreen from '../screens/WelcomeScreen';
 import MainTabNavigator from './MainTabNavigator';
 import SpotDetailScreen from '../screens/SpotDetailScreen';
 import CreateSpotScreen from '../screens/CreateSpotScreen';
@@ -32,6 +33,7 @@ import AdminThreadScreen from '../screens/AdminThreadScreen';
 import LoadingScreen from '../components/LoadingScreen';
 import { colors } from '../lib/theme';
 import { applyThemeColorForRoute } from '../lib/seo';
+import { hasSeenWelcome } from '../lib/firstLaunch';
 import type { RootStackParamList } from './types';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -91,13 +93,20 @@ const navTheme = {
 };
 
 export default function RootNavigator() {
-  const { loading } = useAuth();
+  const { loading, session } = useAuth();
   const [minTimeElapsed, setMinTimeElapsed] = useState(false);
+  // ネイティブアプリの初回起動判定。読み終わるまではローディング画面を出したままにして、
+  // 一瞬地図が見えてからWelcome画面が被さる、というちらつきを防ぐ。
+  const [welcomeSeen, setWelcomeSeen] = useState<boolean | null>(null);
   const navigationRef = useNavigationContainerRef<RootStackParamList>();
 
   useEffect(() => {
     const timer = setTimeout(() => setMinTimeElapsed(true), MIN_LOADING_SCREEN_MS);
     return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    hasSeenWelcome().then(setWelcomeSeen);
   }, []);
 
   // 画面(現在フォーカスされているルート)が変わるたびに、ブラウザのtheme-colorを
@@ -106,9 +115,15 @@ export default function RootNavigator() {
     applyThemeColorForRoute(navigationRef.getCurrentRoute()?.name);
   };
 
-  if (loading || !minTimeElapsed) {
+  if (loading || !minTimeElapsed || welcomeSeen === null) {
     return <LoadingScreen />;
   }
+
+  // インストール後の初回起動(かつ未ログイン)のときだけ、Welcome画面から始める。
+  // initialRouteNameはNavigatorの初回マウント時にしか評価されないため、
+  // 上のローディングゲートで判定が確定してから描画するのが前提。
+  // Web版では hasSeenWelcome() が常にtrueを返すため、ここは必ず 'Main' になる。
+  const initialRoute = !welcomeSeen && !session ? 'Welcome' : 'Main';
 
   // 地図・検索・スポット詳細の閲覧はログイン不要。投稿など会員限定の操作をしようとした
   // タイミングでのみ、モーダルとしてAuth画面へ遷移する（各画面側でガードする）。
@@ -121,6 +136,7 @@ export default function RootNavigator() {
       onStateChange={syncThemeColor}
     >
       <Stack.Navigator
+        initialRouteName={initialRoute}
         screenOptions={{
           headerStyle: { backgroundColor: colors.background },
           headerTintColor: colors.textPrimary,
@@ -132,6 +148,10 @@ export default function RootNavigator() {
           headerBackButtonDisplayMode: 'minimal',
         }}
       >
+        {/* 初回起動時の導入画面。initialRouteNameで選ばれたときだけ最初に表示される
+            (どのボタンを押してもreplaceで置き換わるので、戻ってくることはない)。
+            Web版では表示されないため、linkingのURL定義も意図的に用意していない。 */}
+        <Stack.Screen name="Welcome" component={WelcomeScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Main" component={MainTabNavigator} options={{ headerShown: false }} />
         {/*
           投稿詳細画面は、他画面(地図・フィード等)と全く同じロゴ位置・レイアウトの
