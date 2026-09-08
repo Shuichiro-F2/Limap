@@ -46,17 +46,52 @@ export default function IntroScreen({ showGreeting, onDone }: Props) {
   const opacity = useRef(new Animated.Value(0)).current;
   // タップスキップと演出完了が競合しうるため、onDoneは一度だけ呼ぶ
   const finished = useRef(false);
+  // 実行中のタイマー。演出の途中で親が再レンダーされても止めたくないので、
+  // effectのクリーンアップではなくアンマウント時にだけ片付ける。
+  const timers = useRef<ReturnType<typeof setTimeout>[]>([]);
+  // すでに開始済みのステップ。同じステップの演出を二重に始めないための目印。
+  const startedKey = useRef<string | null>(null);
+
+  // onDone は呼び出し側でインライン関数として渡されることがあり、
+  // 親(RootNavigator)が再レンダーされるたびに別物になる。これをそのまま
+  // useCallbackやeffectの依存配列に入れると、演出中に親が再レンダーされた瞬間に
+  // 演出のeffectが再実行され、文字が最初から流れ直してしまう。
+  // (起動直後はセッション取得・プロフィール取得などで親が数回再レンダーされるため、
+  //  実際に「途中まで流れて最初に戻る」現象が起きていた。)
+  // そのため onDone は ref に逃がし、finish 自体は不変にしておく。
+  const onDoneRef = useRef(onDone);
+  useEffect(() => {
+    onDoneRef.current = onDone;
+  }, [onDone]);
 
   const finish = useCallback(() => {
     if (finished.current) return;
     finished.current = true;
-    onDone();
-  }, [onDone]);
+    timers.current.forEach(clearTimeout);
+    timers.current = [];
+    onDoneRef.current();
+  }, []);
 
-  // stepが変わるたびに、そのステップの演出を最初から再生する
+  // アンマウント時にだけタイマーを止める
+  useEffect(() => () => timers.current.forEach(clearTimeout), []);
+
+  // stepが変わったときだけ、そのステップの演出を頭から再生する。
+  // 依存はstepとtextsのみ(どちらも再レンダーでは変化しない)。さらにstartedKeyで
+  // 二重開始も防いでいるので、親の再レンダーで演出が巻き戻ることはない。
   useEffect(() => {
     if (finished.current || texts === null) return;
-    const timers: ReturnType<typeof setTimeout>[] = [];
+
+    const key = `${texts.join('|')}#${step}`;
+    if (startedKey.current === key) return;
+    startedKey.current = key;
+
+    // 前のステップの取りこぼしがあれば片付けてから始める
+    timers.current.forEach(clearTimeout);
+    timers.current = [];
+    const push = (fn: () => void, ms: number) => {
+      timers.current.push(setTimeout(fn, ms));
+    };
+
     opacity.setValue(0);
 
     if (step < texts.length) {
@@ -65,40 +100,31 @@ export default function IntroScreen({ showGreeting, onDone }: Props) {
       Animated.timing(opacity, { toValue: 1, duration: FADE_IN_MS, useNativeDriver: true }).start();
 
       for (let i = 1; i <= text.length; i += 1) {
-        timers.push(setTimeout(() => setTypedCount(i), TYPE_MS * i));
+        push(() => setTypedCount(i), TYPE_MS * i);
       }
 
-      timers.push(
-        setTimeout(
-          () => {
-            Animated.timing(opacity, {
-              toValue: 0,
-              duration: FADE_OUT_MS,
-              useNativeDriver: true,
-            }).start(({ finished: done }) => {
-              // タップスキップで中断された場合は done が false になり、次へ進めない
-              if (done && !finished.current) setStep((s) => s + 1);
-            });
-          },
-          TYPE_MS * text.length + HOLD_MS
-        )
-      );
+      push(() => {
+        Animated.timing(opacity, {
+          toValue: 0,
+          duration: FADE_OUT_MS,
+          useNativeDriver: true,
+        }).start(({ finished: done }) => {
+          // タップスキップで中断された場合は done が false になり、次へ進めない
+          if (done && !finished.current) setStep((s) => s + 1);
+        });
+      }, TYPE_MS * text.length + HOLD_MS);
     } else {
       Animated.timing(opacity, { toValue: 1, duration: LOGO_IN_MS, useNativeDriver: true }).start();
-      timers.push(
-        setTimeout(() => {
-          Animated.timing(opacity, {
-            toValue: 0,
-            duration: LOGO_OUT_MS,
-            useNativeDriver: true,
-          }).start(({ finished: done }) => {
-            if (done) finish();
-          });
-        }, LOGO_IN_MS + LOGO_HOLD_MS)
-      );
+      push(() => {
+        Animated.timing(opacity, {
+          toValue: 0,
+          duration: LOGO_OUT_MS,
+          useNativeDriver: true,
+        }).start(({ finished: done }) => {
+          if (done) finish();
+        });
+      }, LOGO_IN_MS + LOGO_HOLD_MS);
     }
-
-    return () => timers.forEach(clearTimeout);
   }, [step, texts, opacity, finish]);
 
   const isLogo = texts !== null && step >= texts.length;

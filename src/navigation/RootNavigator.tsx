@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Platform, Pressable } from 'react-native';
 import {
   NavigationContainer,
@@ -117,6 +117,10 @@ export default function RootNavigator() {
     hasSeenWelcome().then(setWelcomeSeen);
   }, []);
 
+  // IntroScreenへ毎回新しい関数を渡さないようにする(演出が巻き戻る原因になるため)。
+  // 起動直後はセッション・プロフィール取得などでこのコンポーネントが数回再レンダーされる。
+  const handleIntroDone = useCallback(() => setIntroDone(true), []);
+
   // 画面(現在フォーカスされているルート)が変わるたびに、ブラウザのtheme-colorを
   // そのページの実際の背景色に合わせて切り替える(Web版のみ、ネイティブでは何もしない)
   const syncThemeColor = () => {
@@ -131,10 +135,7 @@ export default function RootNavigator() {
     // showGreetingにnullを渡し、IntroScreen側で黄色の背景のまま待たせる
     // (通常は数十msで確定する)。
     return (
-      <IntroScreen
-        showGreeting={welcomeSeen === null ? null : !welcomeSeen}
-        onDone={() => setIntroDone(true)}
-      />
+      <IntroScreen showGreeting={welcomeSeen === null ? null : !welcomeSeen} onDone={handleIntroDone} />
     );
   }
 
