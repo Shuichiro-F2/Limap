@@ -4,7 +4,6 @@ import {
   Pressable,
   StyleSheet,
   ScrollView,
-  Image,
   ActivityIndicator,
   KeyboardAvoidingView,
   Platform,
@@ -18,6 +17,8 @@ import InstagramEmbed from '../components/InstagramEmbed';
 import XEmbed from '../components/XEmbed';
 import { supabase } from '../lib/supabase';
 import { fetchSpotBySlug, updateSpot, spotImageThumbUrl } from '../lib/spots';
+import type { UpdateSpotImageRef } from '../lib/spots';
+import PhotoEditList, { movePhoto } from '../components/PhotoEditList';
 import { resizeImageForUpload, extensionForContentType, THUMBNAIL_RESIZE_OPTIONS } from '../lib/imageResize';
 import { fetchAllTags, findOrCreateTag } from '../lib/tags';
 import { detectEmbedUrl, MAX_SNS_EMBEDS, type DetectedEmbed } from '../lib/embeds';
@@ -40,6 +41,13 @@ function fmt(template: string, n: number): string {
 
 type Props = RootStackScreenProps<'EditSpot'>;
 
+// 編集画面では「もともと登録されている画像」と「今回追加した画像」を
+// 1つの配列でまとめて扱う。こうすることで、両者をまたいだ並べ替えができる
+// (以前は既存画像・新規画像が別々の配列で、新規は必ず既存の後ろに付いていた)。
+type EditableImage =
+  | { kind: 'existing'; image: SpotImage }
+  | { kind: 'new'; asset: ImagePicker.ImagePickerAsset };
+
 export default function EditSpotScreen({ navigation, route }: Props) {
   const { spotId } = route.params;
   const { session } = useAuth();
@@ -57,8 +65,7 @@ export default function EditSpotScreen({ navigation, route }: Props) {
   const [tagInput, setTagInput] = useState('');
   const [allTags, setAllTags] = useState<Tag[]>([]);
   const [addingTag, setAddingTag] = useState(false);
-  const [existingImages, setExistingImages] = useState<SpotImage[]>([]);
-  const [newImages, setNewImages] = useState<ImagePicker.ImagePickerAsset[]>([]);
+  const [imageItems, setImageItems] = useState<EditableImage[]>([]);
   const [coords, setCoords] = useState<{ lat: number; lng: number } | null>(null);
   const [embeds, setEmbeds] = useState<DetectedEmbed[]>([]);
   const [embedInput, setEmbedInput] = useState('');
@@ -99,7 +106,11 @@ export default function EditSpotScreen({ navigation, route }: Props) {
         setVisitTime(data.recommended_visit_time ?? null);
         setGoogleMapsUrl(data.google_maps_url ?? '');
         setSelectedTags(data.tags ?? []);
-        setExistingImages([...(data.images ?? [])].sort((a, b) => a.position - b.position));
+        setImageItems(
+          [...(data.images ?? [])]
+            .sort((a, b) => a.position - b.position)
+            .map((image) => ({ kind: 'existing' as const, image }))
+        );
         setCoords({ lat: data.lat, lng: data.lng });
         setEmbeds((data.embeds ?? []).map((e) => ({ platform: e.platform, url: e.url })));
       })
@@ -118,7 +129,7 @@ export default function EditSpotScreen({ navigation, route }: Props) {
     }
   }, [route.params?.pickedLat, route.params?.pickedLng]);
 
-  const totalImageCount = existingImages.length + newImages.length;
+  const totalImageCount = imageItems.length;
 
   const pickImages = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -136,16 +147,19 @@ export default function EditSpotScreen({ navigation, route }: Props) {
       selectionLimit: remaining,
     });
     if (!result.canceled) {
-      setNewImages((prev) => [...prev, ...result.assets].slice(0, remaining));
+      const added = result.assets
+        .slice(0, remaining)
+        .map((asset) => ({ kind: 'new' as const, asset }));
+      setImageItems((prev) => [...prev, ...added].slice(0, MAX_PHOTOS));
     }
   };
 
-  const removeExistingImage = (id: string) => {
-    setExistingImages((prev) => prev.filter((img) => img.id !== id));
+  const removeImage = (index: number) => {
+    setImageItems((prev) => prev.filter((_, i) => i !== index));
   };
 
-  const removeNewImage = (index: number) => {
-    setNewImages((prev) => prev.filter((_, i) => i !== index));
+  const moveImage = (index: number, direction: -1 | 1) => {
+    setImageItems((prev) => movePhoto(prev, index, direction));
   };
 
   const useCurrentLocation = async () => {
@@ -268,7 +282,7 @@ export default function EditSpotScreen({ navigation, route }: Props) {
     }
 
     // 写真・SNS投稿のどちらか一方は必須(何のメディアも無い投稿を防ぐため)
-    if (existingImages.length === 0 && newImages.length === 0 && finalEmbeds.length === 0) {
+    if (imageItems.length === 0 && finalEmbeds.length === 0) {
       notify(t.createSpot.mediaRequiredTitle);
       return;
     }
@@ -281,8 +295,15 @@ export default function EditSpotScreen({ navigation, route }: Props) {
 
     setSubmitting(true);
     try {
-      const newImagePaths: { path: string; thumbnailPath: string | null }[] = [];
-      for (const asset of newImages) {
+      // 画面上の並び順のまま処理する。新規画像はここでアップロードし、
+      // 既存画像はidのまま並びに残すことで、両者が混在した順番を保てる。
+      const imageOrder: UpdateSpotImageRef[] = [];
+      for (const item of imageItems) {
+        if (item.kind === 'existing') {
+          imageOrder.push({ kind: 'existing', id: item.image.id });
+          continue;
+        }
+        const asset = item.asset;
         if (!asset.base64) continue;
         const [full, thumbnail] = await Promise.all([
           resizeImageForUpload(asset.uri, asset.base64),
@@ -310,7 +331,7 @@ export default function EditSpotScreen({ navigation, route }: Props) {
           }
         }
 
-        newImagePaths.push({ path: fullPath, thumbnailPath });
+        imageOrder.push({ kind: 'new', path: fullPath, thumbnailPath });
       }
 
       const derivedTitle = title.trim() || description.trim().slice(0, 40) || '無題の投稿';
@@ -324,8 +345,7 @@ export default function EditSpotScreen({ navigation, route }: Props) {
         lat: coords.lat,
         lng: coords.lng,
         tagIds: selectedTags.map((tag) => tag.id),
-        keepImageIds: existingImages.map((img) => img.id),
-        newImagePaths,
+        imageOrder,
         embedUrls: finalEmbeds.map((e) => e.url),
       });
 
@@ -440,24 +460,15 @@ export default function EditSpotScreen({ navigation, route }: Props) {
       <Pressable style={styles.secondaryButton} onPress={pickImages} disabled={totalImageCount >= MAX_PHOTOS}>
         <Text style={styles.secondaryButtonText}>{t.createSpot.pickPhotos}</Text>
       </Pressable>
-      <ScrollView horizontal style={{ marginTop: 12 }}>
-        {existingImages.map((img) => (
-          <View key={img.id} style={styles.thumbWrap}>
-            <Image source={{ uri: spotImageThumbUrl(img) }} style={styles.thumb} />
-            <Pressable style={styles.thumbRemove} onPress={() => removeExistingImage(img.id)} hitSlop={8}>
-              <Text style={styles.thumbRemoveText}>✕</Text>
-            </Pressable>
-          </View>
-        ))}
-        {newImages.map((img, i) => (
-          <View key={`new-${i}`} style={styles.thumbWrap}>
-            <Image source={{ uri: img.uri }} style={styles.thumb} />
-            <Pressable style={styles.thumbRemove} onPress={() => removeNewImage(i)} hitSlop={8}>
-              <Text style={styles.thumbRemoveText}>✕</Text>
-            </Pressable>
-          </View>
-        ))}
-      </ScrollView>
+      <PhotoEditList
+        items={imageItems.map((item) =>
+          item.kind === 'existing'
+            ? { uri: spotImageThumbUrl(item.image) }
+            : { uri: item.asset.uri }
+        )}
+        onRemove={removeImage}
+        onMove={moveImage}
+      />
 
       <SectionLabel label={t.createSpot.embeds} help={fmt(t.createSpot.embedsHelp, MAX_SNS_EMBEDS)} />
 
@@ -694,20 +705,6 @@ const styles = StyleSheet.create({
   embedUrlText: { flex: 1, color: colors.textSecondary, fontSize: 12, marginRight: 8 },
   embedRemoveText: { color: colors.textMuted, fontSize: 14 },
   embedPreviewBox: { borderRadius: 10, overflow: 'hidden', backgroundColor: colors.background },
-  thumbWrap: { marginRight: 8 },
-  thumb: { width: 80, height: 80, borderRadius: 8 },
-  thumbRemove: {
-    position: 'absolute',
-    top: -6,
-    right: -6,
-    width: 22,
-    height: 22,
-    borderRadius: 11,
-    backgroundColor: colors.background,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  thumbRemoveText: { color: colors.textPrimary, fontSize: 12 },
   submitButton: {
     backgroundColor: colors.accent,
     borderRadius: 10,

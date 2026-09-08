@@ -4,7 +4,6 @@ import {
   Pressable,
   StyleSheet,
   ScrollView,
-  Image,
   ActivityIndicator,
   KeyboardAvoidingView,
   Platform,
@@ -19,6 +18,7 @@ import XEmbed from '../components/XEmbed';
 import { supabase } from '../lib/supabase';
 import { createSpot, findNearbySpots, type NearbySpotMatch } from '../lib/spots';
 import { resizeImageForUpload, extensionForContentType, THUMBNAIL_RESIZE_OPTIONS } from '../lib/imageResize';
+import PhotoEditList, { movePhoto } from '../components/PhotoEditList';
 import { fetchAllTags, findOrCreateTag } from '../lib/tags';
 import { detectEmbedUrl, MAX_SNS_EMBEDS, type DetectedEmbed } from '../lib/embeds';
 import { isValidHttpUrl } from '../lib/url';
@@ -162,6 +162,14 @@ export default function CreateSpotScreen({ navigation, route }: Props) {
     if (!result.canceled) {
       setImages((prev) => [...prev, ...result.assets].slice(0, MAX_PHOTOS));
     }
+  };
+
+  const removeImage = (index: number) => {
+    setImages((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const moveImage = (index: number, direction: -1 | 1) => {
+    setImages((prev) => movePhoto(prev, index, direction));
   };
 
   const useCurrentLocation = async () => {
@@ -465,11 +473,11 @@ export default function CreateSpotScreen({ navigation, route }: Props) {
       <Pressable style={styles.secondaryButton} onPress={pickImages}>
         <Text style={styles.secondaryButtonText}>{t.createSpot.pickPhotos}</Text>
       </Pressable>
-      <ScrollView horizontal style={{ marginTop: 12 }}>
-        {images.map((img, i) => (
-          <Image key={i} source={{ uri: img.uri }} style={styles.thumb} />
-        ))}
-      </ScrollView>
+      <PhotoEditList
+        items={images.map((img) => ({ uri: img.uri }))}
+        onRemove={removeImage}
+        onMove={moveImage}
+      />
 
       <SectionLabel label={t.createSpot.embeds} help={fmt(t.createSpot.embedsHelp, MAX_SNS_EMBEDS)} />
 
@@ -712,7 +720,6 @@ const styles = StyleSheet.create({
   embedUrlText: { flex: 1, color: colors.textSecondary, fontSize: 12, marginRight: 8 },
   embedRemoveText: { color: colors.textMuted, fontSize: 14 },
   embedPreviewBox: { borderRadius: 10, overflow: 'hidden', backgroundColor: colors.background },
-  thumb: { width: 80, height: 80, borderRadius: 8, marginRight: 8 },
   submitButton: {
     backgroundColor: colors.accent,
     borderRadius: 10,

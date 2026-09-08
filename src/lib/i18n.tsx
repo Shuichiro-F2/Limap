@@ -104,6 +104,13 @@ const dictionary = {
       action: '入手',
       close: '閉じる',
     },
+    // 投稿作成・編集画面の写真リスト(削除・並べ替え)
+    photoEdit: {
+      remove: 'この写真を削除',
+      moveLeft: '前へ移動',
+      moveRight: '後ろへ移動',
+      coverNote: '✕で削除、◀▶で並べ替えできます。1枚目が一覧やSNSでの表紙になります。',
+    },
     articles: {
       pageTitle: 'コラム',
       pageLead: 'リミナルスペースにまつわる読み物を集めました。',
@@ -247,6 +254,13 @@ const dictionary = {
       subtitle: 'Get the app on the App Store',
       action: 'Get',
       close: 'Close',
+    },
+    // 投稿作成・編集画面の写真リスト(削除・並べ替え)
+    photoEdit: {
+      remove: 'Remove this photo',
+      moveLeft: 'Move earlier',
+      moveRight: 'Move later',
+      coverNote: 'Tap ✕ to remove, ◀▶ to reorder. The first photo is used as the cover in lists and shares.',
     },
     articles: {
       pageTitle: 'Articles',

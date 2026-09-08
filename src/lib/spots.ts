@@ -382,6 +382,13 @@ export async function createSpot(authorId: string, input: CreateSpotInput): Prom
   return fetchSpotBySlug(spot.slug);
 }
 
+// 投稿編集時に指定する、画像1枚ぶんの参照。
+// 既存の画像は id、今回アップロードした画像は Storage 上のパスで表す。
+// UpdateSpotInput.imageOrder の並び順がそのまま spot_images.position になる。
+export type UpdateSpotImageRef =
+  | { kind: 'existing'; id: string }
+  | { kind: 'new'; path: string; thumbnailPath: string | null };
+
 export interface UpdateSpotInput {
   title: string;
   description?: string;
@@ -391,10 +398,10 @@ export interface UpdateSpotInput {
   lat: number;
   lng: number;
   tagIds: number[];
-  // 既存画像のうち残すものの id 一覧。それ以外の既存画像(id)は削除される
-  keepImageIds: string[];
-  // 今回新たにアップロードした画像。既存の残す画像の後ろに追加される
-  newImagePaths: { path: string; thumbnailPath: string | null }[];
+  // 画像の最終的な並び。この配列の順番がそのまま position になる。
+  // 既存画像はid、今回アップロードした画像はStorage上のパスで指定する。
+  // ここに含まれない既存画像は削除される(Storage上のファイルも消す)。
+  imageOrder: UpdateSpotImageRef[];
   embedUrls?: string[];
 }
 
@@ -442,10 +449,13 @@ export async function updateSpot(spot: Spot, input: UpdateSpotInput): Promise<Sp
     if (tagError) throw tagError;
   }
 
-  // 画像: 残す指定のなかった既存画像は削除(Storage上のファイルも消す)、
-  // 残す画像はposition を詰め直し、新規画像はその後ろに追加する
+  // 画像: imageOrder の並びがそのまま position になる。
+  // imageOrder に含まれない既存画像は削除する(Storage上のファイルも消す)。
   const existingImages = spot.images ?? [];
-  const removedImages = existingImages.filter((img) => !input.keepImageIds.includes(img.id));
+  const keptImageIds = new Set(
+    input.imageOrder.flatMap((ref) => (ref.kind === 'existing' ? [ref.id] : []))
+  );
+  const removedImages = existingImages.filter((img) => !keptImageIds.has(img.id));
   if (removedImages.length > 0) {
     const removedIds = removedImages.map((img) => img.id);
     const removedPaths = removedImages
@@ -459,23 +469,40 @@ export async function updateSpot(spot: Spot, input: UpdateSpotInput): Promise<Sp
     if (delImgError) throw delImgError;
   }
 
-  const keptImages = existingImages.filter((img) => input.keepImageIds.includes(img.id));
-  for (let i = 0; i < keptImages.length; i++) {
-    if (keptImages[i].position !== i) {
-      const { error: posError } = await supabase.from('spot_images').update({ position: i }).eq('id', keptImages[i].id);
-      if (posError) console.warn('画像position更新エラー', posError);
+  // 既存画像は imageOrder 内での位置に position を合わせ、
+  // 新規画像は同じ位置番号で挿入する(既存と新規が入れ替わっていても順番どおりになる)。
+  const existingById = new Map(existingImages.map((img) => [img.id, img]));
+  const newImageRows: {
+    spot_id: string;
+    storage_path: string;
+    thumbnail_path: string | null;
+    position: number;
+  }[] = [];
+
+  for (let i = 0; i < input.imageOrder.length; i++) {
+    const ref = input.imageOrder[i];
+    if (ref.kind === 'existing') {
+      const current = existingById.get(ref.id);
+      // 既に削除済み等で見つからない場合は何もしない(並びから落ちるだけ)
+      if (current && current.position !== i) {
+        const { error: posError } = await supabase
+          .from('spot_images')
+          .update({ position: i })
+          .eq('id', ref.id);
+        if (posError) console.warn('画像position更新エラー', posError);
+      }
+    } else {
+      newImageRows.push({
+        spot_id: spot.id,
+        storage_path: ref.path,
+        thumbnail_path: ref.thumbnailPath,
+        position: i,
+      });
     }
   }
 
-  if (input.newImagePaths.length > 0) {
-    const { error: imgError } = await supabase.from('spot_images').insert(
-      input.newImagePaths.map((img, i) => ({
-        spot_id: spot.id,
-        storage_path: img.path,
-        thumbnail_path: img.thumbnailPath,
-        position: keptImages.length + i,
-      }))
-    );
+  if (newImageRows.length > 0) {
+    const { error: imgError } = await supabase.from('spot_images').insert(newImageRows);
     if (imgError) throw imgError;
   }
 
