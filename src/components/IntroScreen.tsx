@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Animated, Image, Pressable, StyleSheet, View } from 'react-native';
+import { Animated, Image, Platform, Pressable, StyleSheet, View } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import Text from './AppText';
 import { colors } from '../lib/theme';
@@ -74,6 +74,20 @@ export default function IntroScreen({ showGreeting, onDone }: Props) {
 
   // アンマウント時にだけタイマーを止める
   useEffect(() => () => timers.current.forEach(clearTimeout), []);
+
+  // Web版: 演出中はブラウザのアドレスバーの色も黄色に合わせ、離れたら元に戻す。
+  // (画面遷移ごとの切り替えは applyThemeColorForRoute が担当するが、
+  //  この演出はNavigationContainerの外側で描画されるため、ここで面倒を見る)
+  useEffect(() => {
+    if (Platform.OS !== 'web' || typeof document === 'undefined') return;
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (!meta) return;
+    const prev = meta.getAttribute('content');
+    meta.setAttribute('content', colors.accent);
+    return () => {
+      if (prev !== null) meta.setAttribute('content', prev);
+    };
+  }, []);
 
   // stepが変わったときだけ、そのステップの演出を頭から再生する。
   // 依存はstepとtextsのみ(どちらも再レンダーでは変化しない)。さらにstartedKeyで

@@ -28,3 +28,45 @@ export async function markWelcomeSeen(): Promise<void> {
     // 書き込めなくても致命的ではない(次回また表示されるだけ)
   }
 }
+
+// ============================================================
+// オープニング演出(IntroScreen)を再生するかどうか
+// ============================================================
+//
+// ネイティブ: 毎回の起動で再生する。
+// Web版: 「トップページ」または「共有リンクで開かれるスポット詳細」を
+//        直接開いたときだけ、かつブラウザのセッション中1回だけ再生する。
+//        マイページ・ログイン・利用規約など目的が明確な画面では挟まない。
+//
+// セッションの記録キーは public/index.html 側のロード画面スクリプトとも共有している
+// (演出が続く場合はHTML側のロード画面の最低表示時間をなくすため)。変更する場合は両方直すこと。
+const WEB_INTRO_SESSION_KEY = 'limap-intro-played';
+
+// 演出を挟んでよいパスかどうか。トップと /spot/<id> のみ。
+function isIntroPath(pathname: string): boolean {
+  if (pathname === '' || pathname === '/') return true;
+  return /^\/spot\/[^/]+\/?$/.test(pathname);
+}
+
+export function shouldPlayIntro(): boolean {
+  if (Platform.OS !== 'web') return true;
+  if (typeof window === 'undefined') return false;
+  if (!isIntroPath(window.location.pathname)) return false;
+  try {
+    return window.sessionStorage.getItem(WEB_INTRO_SESSION_KEY) !== '1';
+  } catch {
+    // sessionStorageが使えない環境では、毎回流れてしまうより出さない方を選ぶ
+    return false;
+  }
+}
+
+// 「このセッションでは再生済み」と記録する(Web版のみ)。
+// 演出の途中でリロードされても再生し直さないよう、再生を決めた時点で呼ぶ。
+export function markIntroPlayed(): void {
+  if (Platform.OS !== 'web' || typeof window === 'undefined') return;
+  try {
+    window.sessionStorage.setItem(WEB_INTRO_SESSION_KEY, '1');
+  } catch {
+    // 記録できなくても致命的ではない(同じセッションでまた出るだけ)
+  }
+}

@@ -34,7 +34,7 @@ import LoadingScreen from '../components/LoadingScreen';
 import IntroScreen from '../components/IntroScreen';
 import { colors } from '../lib/theme';
 import { applyThemeColorForRoute } from '../lib/seo';
-import { hasSeenWelcome } from '../lib/firstLaunch';
+import { hasSeenWelcome, markIntroPlayed, shouldPlayIntro } from '../lib/firstLaunch';
 import type { RootStackParamList } from './types';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -99,9 +99,11 @@ export default function RootNavigator() {
   // インストール後の初回起動かどうか。Web版では hasSeenWelcome() が常にtrueを返す。
   // 「ようこそ」を出すかどうかと、Welcome画面から始めるかどうかの両方に使う。
   const [welcomeSeen, setWelcomeSeen] = useState<boolean | null>(null);
-  // オープニング演出(IntroScreen)が終わったか。ネイティブでは毎回の起動で再生するため、
-  // 初期値はfalse。Web版では演出自体を行わないので最初からtrueにしておく。
-  const [introDone, setIntroDone] = useState(Platform.OS === 'web');
+  // 今回の起動でオープニング演出を再生するか(初回レンダー時に一度だけ決める)。
+  // ネイティブは毎回、Web版はトップ/スポット詳細をセッション中初めて開いたときだけ。
+  const [playIntro] = useState(shouldPlayIntro);
+  // 演出が終わったか。再生しない場合は最初から終わった扱いにする。
+  const [introDone, setIntroDone] = useState(!playIntro);
   const navigationRef = useNavigationContainerRef<RootStackParamList>();
 
   // ローディング画面の最低表示時間は「演出が終わってから」数え始める。
@@ -116,6 +118,12 @@ export default function RootNavigator() {
   useEffect(() => {
     hasSeenWelcome().then(setWelcomeSeen);
   }, []);
+
+  // Web版のみ、再生すると決まった時点で「このセッションでは再生済み」と記録する。
+  // 演出の途中でリロードされても、もう一度頭から流れないようにするため。
+  useEffect(() => {
+    if (playIntro) markIntroPlayed();
+  }, [playIntro]);
 
   // IntroScreenへ毎回新しい関数を渡さないようにする(演出が巻き戻る原因になるため)。
   // 起動直後はセッション・プロフィール取得などでこのコンポーネントが数回再レンダーされる。
@@ -139,7 +147,12 @@ export default function RootNavigator() {
     );
   }
 
-  if (loading || welcomeSeen === null || !minTimeElapsed) {
+  // 演出のあとにもう一度ローディング画面を見せるのはネイティブだけにする。
+  // Web版は index.html 側のロード画面がすでにその役割を果たしているため、
+  // 演出が終わったらそのまま本体へ進む(暗い→黄色→暗い、と往復させない)。
+  const needsMinLoading = !(Platform.OS === 'web' && playIntro);
+
+  if (loading || welcomeSeen === null || (needsMinLoading && !minTimeElapsed)) {
     return <LoadingScreen />;
   }
 

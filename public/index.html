@@ -159,8 +159,23 @@
         var root = document.getElementById('root');
         if (!splash || !root) return;
 
-        // 演出として、実際のロードが早く終わっても最低これだけは表示し続ける
-        var MIN_DISPLAY_MS = 1200;
+        // このあとオープニング演出(黄色い画面)が続けて再生されるかどうか。
+        // src/lib/firstLaunch.ts の shouldPlayIntro() と同じ条件・同じキーを見ている
+        // (静的HTML側からアプリのコードを読めないため、ここだけ二重管理になっている)。
+        function willPlayIntro() {
+          try {
+            var p = window.location.pathname;
+            var onIntroPath = p === '/' || p === '' || /^\/spot\/[^/]+\/?$/.test(p);
+            return onIntroPath && window.sessionStorage.getItem('limap-intro-played') !== '1';
+          } catch (e) {
+            return false;
+          }
+        }
+
+        // 演出として、実際のロードが早く終わっても最低これだけは表示し続ける。
+        // ただし直後にオープニング演出が続く場合は、暗い画面 → 黄色い画面と
+        // スプラッシュが二重に見えてしまうため、Reactがマウントし次第すぐ引き渡す。
+        var MIN_DISPLAY_MS = willPlayIntro() ? 0 : 1200;
         var startTime = Date.now();
         var mounted = false;
         var removed = false;
