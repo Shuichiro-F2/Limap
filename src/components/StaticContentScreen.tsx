@@ -7,7 +7,14 @@ import type { StaticPageContent } from '../content/staticPages';
 
 // 「リミナルスペースとは」「使い方」など、静的な読み物ページの共通レイアウト。
 // 見出し・本文セクション・FAQを1つのコンポーネントで描画する。
-export default function StaticContentScreen({ content }: { content: StaticPageContent }) {
+// footer: 本文・FAQの後ろに差し込む任意の要素(例: Aboutページの支援カード)
+export default function StaticContentScreen({
+  content,
+  footer,
+}: {
+  content: StaticPageContent;
+  footer?: React.ReactNode;
+}) {
   return (
     <SafeAreaView style={styles.container} edges={['left', 'right', 'bottom']}>
       <ScrollView contentContainerStyle={styles.scroll}>
@@ -32,6 +39,8 @@ export default function StaticContentScreen({ content }: { content: StaticPageCo
             ))}
           </View>
         )}
+
+        {footer}
       </ScrollView>
     </SafeAreaView>
   );

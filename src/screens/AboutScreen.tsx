@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import StaticContentScreen from '../components/StaticContentScreen';
+import SupportCard from '../components/SupportCard';
 import { ABOUT_PAGE } from '../content/staticPages';
 import { applyStaticPageSeo, resetSeo } from '../lib/seo';
 
@@ -10,5 +11,6 @@ export default function AboutScreen() {
     return () => resetSeo();
   }, []);
 
-  return <StaticContentScreen content={ABOUT_PAGE} />;
+  // 末尾にKo-fiでの支援カードを表示する(Web版のみ。ネイティブではSupportCardがnullを返す)
+  return <StaticContentScreen content={ABOUT_PAGE} footer={<SupportCard />} />;
 }

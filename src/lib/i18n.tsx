@@ -68,6 +68,7 @@ const dictionary = {
       about: 'リミナルスペースとは',
       addToHomeScreen: 'ホーム画面に追加',
       getApp: 'アプリを入手',
+      support: 'LIMapを支援する',
       blockedUsers: 'ブロック中のユーザー',
       contact: 'お問い合わせ',
       adminInbox: '問い合わせ管理',
@@ -97,6 +98,12 @@ const dictionary = {
       iosAppLead: 'LIMapはApp Storeでアプリとして公開しています。アプリ版なら地図の動作が軽く、写真の投稿もよりスムーズです。',
       iosAppButton: 'App Storeで見る',
       iosAppNote: 'アプリを入れずにこのままブラウザで使い続けることもできます。',
+    },
+    // Ko-fiでの支援の案内(Web版のみ表示)
+    support: {
+      title: 'この地図の明かりを灯す',
+      body: 'LIMapは広告を載せずに運営しています。リミナルスペースの静かな空気を守るためです。もしこの場所を気に入っていただけたら、小さなご支援をいただけると励みになります。いただいたご支援は、サーバーや地図の維持費と新しい機能の開発に使わせていただきます。',
+      action: '明かりを灯す（Ko-fi）',
     },
     appBanner: {
       title: 'LIMap',
@@ -219,6 +226,7 @@ const dictionary = {
       about: 'What is a Liminal Space?',
       addToHomeScreen: 'Add to Home Screen',
       getApp: 'Get the App',
+      support: 'Support LIMap',
       blockedUsers: 'Blocked Users',
       contact: 'Contact Us',
       adminInbox: 'Admin Inbox',
@@ -248,6 +256,12 @@ const dictionary = {
       iosAppLead: 'LIMap is available as an app on the App Store. The app runs the map more smoothly and makes posting photos easier.',
       iosAppButton: 'View on the App Store',
       iosAppNote: 'You can also keep using LIMap in your browser without installing the app.',
+    },
+    // Ko-fiでの支援の案内(Web版のみ表示)
+    support: {
+      title: 'Keep the lights on',
+      body: 'LIMap runs without ads, to preserve the quiet atmosphere of liminal spaces. If this place means something to you, a small contribution helps it stay that way. Your support goes toward server and map costs, and toward building new features.',
+      action: 'Support on Ko-fi',
     },
     appBanner: {
       title: 'LIMap',

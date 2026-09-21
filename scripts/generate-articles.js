@@ -22,6 +22,9 @@ const SITE_URL = 'https://limap.jp';
 // (記事ページはReactアプリとは別の静的HTMLのため、定数を共有できず二重管理になる。
 //  App IDを変える場合は両方を更新すること)。
 const APP_STORE_URL = 'https://apps.apple.com/jp/app/id6805902713';
+// Ko-fi(投げ銭)のページ。src/lib/support.ts と同じURLを指す(二重管理)。
+// 記事ページはWeb専用の静的HTMLなので、iOSアプリ内に表示されることはない。
+const KOFI_URL = 'https://ko-fi.com/limap';
 
 // iOS向けApp Store誘導バナー。
 // アプリ本体(src/components/AppStoreBanner.tsx)と同じ構成・同じ文言・同じ
@@ -171,6 +174,20 @@ function ctaBlock(lang) {
       </div>`;
 }
 
+// 記事末尾の控えめな支援リンク。CTA(地図への誘導)より目立たせないよう、テキスト主体にしている。
+function supportBlock(lang) {
+  if (lang === 'ja') {
+    return `      <p class="support-note">
+        この記事が、あなたの知らない場所への入口になっていれば幸いです。<br />
+        <a href="${KOFI_URL}" target="_blank" rel="noopener">LIMapの運営を支援する（Ko-fi）→</a>
+      </p>`;
+  }
+  return `      <p class="support-note">
+        If this article opened a door to somewhere new,<br />
+        <a href="${KOFI_URL}" target="_blank" rel="noopener">you can support LIMap on Ko-fi →</a>
+      </p>`;
+}
+
 function heroImageOf(article) {
   return (article.images || []).find((img) => img.afterSection === -1);
 }
@@ -222,6 +239,7 @@ function langBlock(lang, article, all) {
 ${imageBlock(heroImage, lang, 'hero')}
 ${langSections(content.sections, article.images, lang)}
 ${ctaBlock(lang)}
+${supportBlock(lang)}
 ${relatedBlock(article, all, lang)}
     </div>`;
 }

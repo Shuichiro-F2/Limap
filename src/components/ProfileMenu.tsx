@@ -10,6 +10,7 @@ import { useAuth } from '../lib/AuthContext';
 import { notify } from '../lib/notify';
 import { colors } from '../lib/theme';
 import { isStandaloneDisplay, isIOSDevice } from '../lib/pwaInstall';
+import { isSupportAvailable, openSupportPage } from '../lib/support';
 import type { RootStackParamList } from '../navigation/types';
 
 type Props = {
@@ -124,6 +125,17 @@ export default function ProfileMenu({ visible, onClose, navigation, isAdmin }: P
             <MenuItem icon="information-circle-outline" label={t.myPage.about} onPress={() => go('About')} />
             <MenuItem icon="ban-outline" label={t.myPage.blockedUsers} onPress={() => go('BlockedUsers')} />
             <MenuItem icon="mail-outline" label={t.myPage.contact} onPress={() => go('Contact')} />
+            {/* Ko-fiでの支援。App Storeの審査ガイドラインを考慮し、Web版のみ表示する(lib/support.ts参照) */}
+            {isSupportAvailable && (
+              <MenuItem
+                icon="bulb-outline"
+                label={t.myPage.support}
+                onPress={() => {
+                  onClose();
+                  openSupportPage();
+                }}
+              />
+            )}
             {/* 運営(is_admin)本人のアカウントでログインしている場合のみ表示する
                 (見た目上も隠しておき、実際のアクセス制御はRLS側で行う)。 */}
             {isAdmin && (
