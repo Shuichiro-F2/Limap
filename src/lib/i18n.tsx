@@ -104,6 +104,9 @@ const dictionary = {
       title: 'この地図の明かりを灯す',
       body: 'LIMapは広告を載せずに運営しています。リミナルスペースの静かな空気を守るためです。もしこの場所を気に入っていただけたら、小さなご支援をいただけると励みになります。いただいたご支援は、サーバーや地図の維持費と新しい機能の開発に使わせていただきます。',
       action: '明かりを灯す（Ko-fi）',
+      popupLead: 'LIMapは広告なしで、個人で運営しています。この場所を気に入っていただけたら、小さなご支援で明かりを灯していただけると嬉しいです。',
+      later: '後で',
+      close: '閉じる',
     },
     appBanner: {
       title: 'LIMap',
@@ -262,6 +265,9 @@ const dictionary = {
       title: 'Keep the lights on',
       body: 'LIMap runs without ads, to preserve the quiet atmosphere of liminal spaces. If this place means something to you, a small contribution helps it stay that way. Your support goes toward server and map costs, and toward building new features.',
       action: 'Support on Ko-fi',
+      popupLead: 'LIMap is ad-free and run by one person. If this place means something to you, a small contribution helps keep the lights on.',
+      later: 'Later',
+      close: 'Close',
     },
     appBanner: {
       title: 'LIMap',

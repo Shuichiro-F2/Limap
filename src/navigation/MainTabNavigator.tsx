@@ -16,6 +16,7 @@ import MyPageScreen from '../screens/MyPageScreen';
 import AppHeader from '../components/AppHeader';
 import ProfileMenu from '../components/ProfileMenu';
 import AddToHomeScreenPopup from '../components/AddToHomeScreenPopup';
+import SupportPopup from '../components/SupportPopup';
 import AppStoreBanner from '../components/AppStoreBanner';
 import { useAuth } from '../lib/AuthContext';
 import { colors } from '../lib/theme';
@@ -180,6 +181,10 @@ export default function MainTabNavigator() {
           既にホーム画面から起動している場合や、一度閉じた場合はこの端末では表示しない。
           外側のオーバーハングしない箱に置くことで、下端付近の位置ズレを避ける。 */}
       <AddToHomeScreenPopup />
+
+      {/* Web版限定: Ko-fiでの支援の案内ポップアップ。2回目以降の訪問で、控えめな頻度で表示する
+          (表示ルールはSupportPopup.tsx参照)。ホーム画面追加ポップアップとは重ならないようにしている。 */}
+      <SupportPopup />
 
       {/* マイページタブ専用のハンバーガーメニュー。ハンバーガーボタン自体が
           マイページタブの時にしか表示されないため、他タブ表示中に開くことはない。 */}

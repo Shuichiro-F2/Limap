@@ -35,6 +35,14 @@ function setDismissed() {
   }
 }
 
+// この起動でホーム画面追加ポップアップが出る条件を満たしているか。
+// 支援ポップアップ(SupportPopup)が同じタイミングで重なって出ないよう、外からも参照する。
+export function willShowAddToHomeScreenPopup(): boolean {
+  if (Platform.OS !== 'web') return false;
+  if (isIOSDevice()) return false;
+  return !isStandaloneDisplay() && !isDismissed();
+}
+
 export default function AddToHomeScreenPopup() {
   const t = useTranslation();
   const [visible, setVisible] = useState(false);
@@ -42,10 +50,8 @@ export default function AddToHomeScreenPopup() {
   const { canPromptInstall, promptInstall } = usePwaInstallPrompt();
 
   useEffect(() => {
-    if (Platform.OS !== 'web') return;
     // iOSはApp Storeアプリへ誘導するため、このポップアップは出さない(AppStoreBannerが担当)
-    if (isIOSDevice()) return;
-    if (isStandaloneDisplay() || isDismissed()) return;
+    if (!willShowAddToHomeScreenPopup()) return;
     const timer = setTimeout(() => setVisible(true), SHOW_DELAY_MS);
     return () => clearTimeout(timer);
   }, []);
