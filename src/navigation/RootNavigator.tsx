@@ -106,7 +106,9 @@ export default function RootNavigator() {
   // 演出が終わったか。再生しない場合は最初から終わった扱いにする。
   const [introDone, setIntroDone] = useState(!playIntro);
   const navigationRef = useNavigationContainerRef<RootStackParamList>();
-  const staticPageText = useTranslation().staticPage;
+  // ヘッダーのタイトルも表示言語に合わせて切り替える。フックなので下の早期returnより前で呼ぶ
+  const t = useTranslation();
+  const staticPageText = t.staticPage;
 
   // ローディング画面の最低表示時間は「演出が終わってから」数え始める。
   // マウント直後から数えると、演出中にタイマーを消化してしまい、
@@ -200,13 +202,13 @@ export default function RootNavigator() {
           共通のAppHeaderを重ねて描画する。
         */}
         <Stack.Screen name="SpotDetail" component={SpotDetailScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="CreateSpot" component={CreateSpotScreen} options={{ title: '投稿する' }} />
-        <Stack.Screen name="AddReview" component={AddReviewScreen} options={{ title: 'レビューを投稿' }} />
-        <Stack.Screen name="EditSpot" component={EditSpotScreen} options={{ title: '投稿を編集' }} />
+        <Stack.Screen name="CreateSpot" component={CreateSpotScreen} options={{ title: t.createSpot.headerTitle }} />
+        <Stack.Screen name="AddReview" component={AddReviewScreen} options={{ title: t.addReview.headerTitle }} />
+        <Stack.Screen name="EditSpot" component={EditSpotScreen} options={{ title: t.createSpot.editHeaderTitle }} />
         <Stack.Screen
           name="LocationPicker"
           component={LocationPickerScreen}
-          options={{ title: '場所を選択' }}
+          options={{ title: t.navigation.locationPicker }}
         />
         <Stack.Screen
           name="UserProfile"
@@ -234,13 +236,13 @@ export default function RootNavigator() {
           component={AddToHomeScreenScreen}
           // iOSではPWAの追加手順ではなくApp Storeのアプリ版を案内するページになるため、
           // 画面タイトルも中身に合わせて切り替える(判定はUA由来の同期関数なのでここで呼んで問題ない)。
-          options={{ title: isIOSDevice() ? 'アプリを入手' : 'ホーム画面に追加' }}
+          options={{ title: isIOSDevice() ? t.myPage.getApp : t.addToHome.headerTitle }}
         />
         <Stack.Screen
           name="EditProfile"
           component={EditProfileScreen}
           options={{
-            title: 'プロフィールを編集',
+            title: t.navigation.editProfile,
             headerStyle: { backgroundColor: colors.background },
             headerTintColor: colors.textPrimary,
           }}
@@ -258,7 +260,7 @@ export default function RootNavigator() {
           name="BlockedUsers"
           component={BlockedUsersScreen}
           options={{
-            title: 'ブロック中のユーザー',
+            title: t.myPage.blockedUsers,
             headerStyle: { backgroundColor: colors.background },
             headerTintColor: colors.textPrimary,
           }}
@@ -267,7 +269,7 @@ export default function RootNavigator() {
           name="Contact"
           component={ContactScreen}
           options={{
-            title: 'お問い合わせ',
+            title: t.myPage.contact,
             headerStyle: { backgroundColor: colors.background },
             headerTintColor: colors.textPrimary,
           }}
@@ -276,7 +278,7 @@ export default function RootNavigator() {
           name="AdminInbox"
           component={AdminInboxScreen}
           options={{
-            title: '問い合わせ管理',
+            title: t.myPage.adminInbox,
             headerStyle: { backgroundColor: colors.background },
             headerTintColor: colors.textPrimary,
           }}
@@ -294,7 +296,7 @@ export default function RootNavigator() {
           name="Auth"
           component={AuthScreen}
           options={({ navigation }) => ({
-            title: 'ログイン',
+            title: t.navigation.login,
             // 以前はpresentation: 'modal'(iOSのシート表示)にしていたが、下にスワイプすると
             // 意図せず前の画面に戻ってしまい、前の画面が下に少しはみ出して見える見た目にも
             // なることがあったため、他の画面と同じ通常のプッシュ遷移(既定値)に統一した。

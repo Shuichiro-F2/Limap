@@ -5,6 +5,7 @@ import Text from '../components/AppText';
 import { UsernameWithBadge } from '../components/UserBadge';
 import { fetchFollowers, fetchFollowing } from '../lib/profiles';
 import { useAuth } from '../lib/AuthContext';
+import { useTranslation } from '../lib/i18n';
 import { colors } from '../lib/theme';
 import type { Profile } from '../types/database';
 import type { RootStackScreenProps } from '../navigation/types';
@@ -17,9 +18,15 @@ export default function FollowListScreen({ route, navigation }: Props) {
   const { session } = useAuth();
   const [users, setUsers] = useState<Profile[]>([]);
   const [loading, setLoading] = useState(true);
+  const t = useTranslation();
+  const title = mode === 'followers' ? t.myPage.followers : t.myPage.following;
+
+  // 言語を切り替えたときに一覧を取り直さないよう、タイトルの設定は別のeffectにする
+  useEffect(() => {
+    navigation.setOptions({ title });
+  }, [title]);
 
   useEffect(() => {
-    navigation.setOptions({ title: mode === 'followers' ? 'フォロワー' : 'フォロー中' });
     const fetcher = mode === 'followers' ? fetchFollowers : fetchFollowing;
     setLoading(true);
     fetcher(userId)

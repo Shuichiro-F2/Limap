@@ -19,6 +19,7 @@ import AddToHomeScreenPopup from '../components/AddToHomeScreenPopup';
 import SupportPopup from '../components/SupportPopup';
 import AppStoreBanner from '../components/AppStoreBanner';
 import { useAuth } from '../lib/AuthContext';
+import { useTranslation } from '../lib/i18n';
 import { colors } from '../lib/theme';
 import { WEB_SAFE_BOTTOM_OVERHANG } from '../lib/safeAreaWeb';
 import type { MainTabParamList, RootStackParamList } from './types';
@@ -37,7 +38,7 @@ const TAB_ICONS: Record<keyof MainTabParamList, keyof typeof Ionicons.glyphMap> 
   MyPageTab: 'person-outline',
 };
 
-function CustomTabBar({ state, navigation, position }: MaterialTopTabBarProps) {
+function CustomTabBar({ state, descriptors, navigation, position }: MaterialTopTabBarProps) {
   const insets = useSafeAreaInsets();
   const { width: screenWidth } = useWindowDimensions();
   const routeCount = state.routes.length;
@@ -68,6 +69,9 @@ function CustomTabBar({ state, navigation, position }: MaterialTopTabBarProps) {
         {state.routes.map((route, index) => {
           const focused = focusedIndex === index;
           const iconName = TAB_ICONS[route.name as keyof MainTabParamList] ?? 'ellipse-outline';
+          // タブ名は画面には出さないが、アイコンだけでは読み上げで区別できないため
+          // スクリーンリーダー向けのラベルとして使う
+          const label = descriptors[route.key].options.title;
 
           const onPress = () => {
             const event = navigation.emit({ type: 'tabPress', target: route.key, canPreventDefault: true });
@@ -77,7 +81,17 @@ function CustomTabBar({ state, navigation, position }: MaterialTopTabBarProps) {
           };
 
           return (
-            <Pressable key={route.key} style={styles.tabItem} onPress={onPress} hitSlop={8}>
+            <Pressable
+              key={route.key}
+              style={styles.tabItem}
+              onPress={onPress}
+              hitSlop={8}
+              accessibilityRole="tab"
+              accessibilityLabel={label}
+              // accessibilityState は react-native-web では aria-selected に変換されないため、
+              // ネイティブ・Web の両方で効く aria-selected を使う
+              aria-selected={focused}
+            >
               <Ionicons name={iconName} size={24} color={focused ? colors.accent : colors.textMuted} />
             </Pressable>
           );
@@ -114,6 +128,7 @@ export default function MainTabNavigator() {
   const [activeTabName, setActiveTabName] = useState<keyof MainTabParamList>('MapTab');
   const [menuVisible, setMenuVisible] = useState(false);
   const { isAdmin } = useAuth();
+  const t = useTranslation();
   // Main画面(Stack.Screen)として登録されているため、useNavigation()で
   // 親のRootStack側のnavigationを取得できる(About/Contact等はRootStack側のルート)。
   const rootNavigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
@@ -156,11 +171,11 @@ export default function MainTabNavigator() {
               ページャーが画面単位でしかジェスチャーを持てないため実現できないが、
               タブ自体はアイコンタップでいつでも切り替えられる）
             */}
-            <Tab.Screen name="MapTab" component={MapScreen} options={{ title: '地図', swipeEnabled: false }} />
-            <Tab.Screen name="FeedTab" component={FeedScreen} options={{ title: 'フィード' }} />
-            <Tab.Screen name="SearchTab" component={SearchScreen} options={{ title: '検索' }} />
-            <Tab.Screen name="ArticlesTab" component={ArticlesScreen} options={{ title: 'コラム' }} />
-            <Tab.Screen name="MyPageTab" component={MyPageScreen} options={{ title: 'マイページ' }} />
+            <Tab.Screen name="MapTab" component={MapScreen} options={{ title: t.navigation.tabMap, swipeEnabled: false }} />
+            <Tab.Screen name="FeedTab" component={FeedScreen} options={{ title: t.navigation.tabFeed }} />
+            <Tab.Screen name="SearchTab" component={SearchScreen} options={{ title: t.navigation.tabSearch }} />
+            <Tab.Screen name="ArticlesTab" component={ArticlesScreen} options={{ title: t.navigation.tabArticles }} />
+            <Tab.Screen name="MyPageTab" component={MyPageScreen} options={{ title: t.navigation.tabMyPage }} />
           </Tab.Navigator>
 
           {/*

@@ -248,6 +248,18 @@ const dictionary = {
       headerPrivacy: 'プライバシーポリシー',
       headerTerms: '利用規約',
     },
+    // 画面ヘッダーのタイトルと下タブの名前(RootNavigator・MainTabNavigator)。
+    // 各画面の専用セクションに見出しがあるものはそちらを使う
+    navigation: {
+      locationPicker: '場所を選択',
+      editProfile: 'プロフィールを編集',
+      login: 'ログイン',
+      tabMap: '地図',
+      tabFeed: 'フィード',
+      tabSearch: '検索',
+      tabArticles: 'コラム',
+      tabMyPage: 'マイページ',
+    },
   },
   en: {
     map: {
@@ -449,6 +461,16 @@ const dictionary = {
       headerHelp: 'Help',
       headerPrivacy: 'Privacy Policy',
       headerTerms: 'Terms of Service',
+    },
+    navigation: {
+      locationPicker: 'Choose Location',
+      editProfile: 'Edit Profile',
+      login: 'Log In',
+      tabMap: 'Map',
+      tabFeed: 'Feed',
+      tabSearch: 'Search',
+      tabArticles: 'Articles',
+      tabMyPage: 'My Page',
     },
   },
 } as const;
