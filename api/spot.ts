@@ -73,10 +73,53 @@ type SpotBodyInput = {
   authorName: string | null;
   createdAt: string | null;
   reviews: ReviewBodyInput[];
+  nearby: NearbySpot[];
 };
+
+type NearbySpot = { slug: string; title: string; distanceKm: number };
 
 // サーバー側HTMLに載せるレビューの上限（HTMLが肥大化しないように）
 const MAX_REVIEWS_IN_HTML = 20;
+
+// 「近くのリミナルスペース」の件数と、候補を探す範囲（緯度経度の±度数。1度 ≒ 約100km）
+const MAX_NEARBY_SPOTS = 8;
+const NEARBY_SEARCH_DEGREES = 1;
+
+// 2点間の距離(km)。近い順に並べるための概算なので球面近似で十分
+function distanceKm(lat1: number, lng1: number, lat2: number, lng2: number): number {
+  const toRad = (d: number) => (d * Math.PI) / 180;
+  const dLat = toRad(lat2 - lat1);
+  const dLng = toRad(lng2 - lng1);
+  const a = Math.sin(dLat / 2) ** 2 + Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLng / 2) ** 2;
+  return 6371 * 2 * Math.asin(Math.sqrt(a));
+}
+
+type NearbyRow = { id: string; slug: string; title: string | null; description: string | null; lat: number; lng: number };
+
+function pickNearest(rows: NearbyRow[], lat: number, lng: number, excludeId: string): NearbySpot[] {
+  return rows
+    .filter((r) => r.id !== excludeId)
+    .map((r) => ({
+      slug: r.slug,
+      // リンク文字列の中で改行されないよう、空白・改行は1つの空白にまとめる
+      title: ((r.title || '').trim() || (r.description || '').trim().slice(0, 40) || '無題の投稿').replace(/\s+/g, ' '),
+      distanceKm: distanceKm(lat, lng, r.lat, r.lng),
+    }))
+    .sort((a, b) => a.distanceKm - b.distanceKm)
+    .slice(0, MAX_NEARBY_SPOTS);
+}
+
+// 近くのスポットへの内部リンク。クローラーがスポット同士をたどれるようにする
+function buildNearbySection(nearby: NearbySpot[]): string {
+  const items = nearby
+    .map((n) => {
+      const km =
+        n.distanceKm < 0.1 ? '&lt;0.1' : n.distanceKm < 10 ? n.distanceKm.toFixed(1) : Math.round(n.distanceKm).toString();
+      return `<li><a href="/spot/${encodeURIComponent(n.slug)}">${escapeHtml(truncate(n.title, 60))}</a>（${km} km）</li>`;
+    })
+    .join('\n');
+  return `<section>\n<h2>近くのリミナルスペース / Nearby spots</h2>\n<ul>\n${items}\n</ul>\n</section>`;
+}
 
 // アプリの「みんなの投稿」欄と同じ内容（新しい順）
 function buildReviewsSection(title: string, reviews: ReviewBodyInput[]): string {
@@ -135,6 +178,7 @@ function buildSpotBody(s: SpotBodyInput): string {
   }
   if (details.length) parts.push(`<dl>${details.join('')}</dl>`);
   if (s.reviews.length) parts.push(buildReviewsSection(s.title, s.reviews));
+  if (s.nearby.length) parts.push(buildNearbySection(s.nearby));
 
   parts.push(
     '<nav><a href="/">LIMapの地図でリミナルスペースを探す / Explore the map</a> ・ <a href="/articles/">コラム / Articles</a></nav>'
@@ -322,6 +366,21 @@ export default async function handler(req: any, res: any) {
     const tagNames = tagRows
       .map((row) => (Array.isArray(row.tag) ? row.tag[0]?.name : row.tag?.name))
       .filter((name): name is string => !!name);
+    // 近くのスポット。取得に失敗しても本文の他の部分は出す
+    let nearby: NearbySpot[] = [];
+    if (typeof spot.lat === 'number' && typeof spot.lng === 'number') {
+      const { data: nearbyRows } = await supabase
+        .from('spots')
+        .select('id, slug, title, description, lat, lng')
+        .eq('status', 'published')
+        .gte('lat', spot.lat - NEARBY_SEARCH_DEGREES)
+        .lte('lat', spot.lat + NEARBY_SEARCH_DEGREES)
+        .gte('lng', spot.lng - NEARBY_SEARCH_DEGREES)
+        .lte('lng', spot.lng + NEARBY_SEARCH_DEGREES)
+        .limit(200);
+      nearby = pickNearest((nearbyRows || []) as NearbyRow[], spot.lat, spot.lng, spot.id);
+    }
+
     const body = buildSpotBody({
       title: rawTitle,
       place,
@@ -338,6 +397,7 @@ export default async function handler(req: any, res: any) {
         (spot.reviews || []) as ReviewRow[],
         (path) => supabase.storage.from('spot-images').getPublicUrl(path).data.publicUrl
       ),
+      nearby,
     });
     // 置換文字列中の $ が特殊扱いされないよう関数で渡す
     html = html.replace(/<div id="root"><\/div>/, () => `<div id="root">${body}</div>`);
