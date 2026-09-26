@@ -3,6 +3,10 @@
   "installCommand": "npm install --legacy-peer-deps",
   "outputDirectory": "dist",
   "framework": null,
+  "redirects": [
+    { "source": "/:page(about|help|privacy|terms)/", "destination": "/:page", "permanent": true },
+    { "source": "/spot/:id/", "destination": "/spot/:id", "permanent": true }
+  ],
   "rewrites": [
     { "source": "/sitemap.xml", "destination": "/api/sitemap" },
     { "source": "/spot/:id", "destination": "/api/spot?id=:id" },
