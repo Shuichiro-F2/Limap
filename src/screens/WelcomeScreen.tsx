@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
   logo: { width: 180, height: 114, marginBottom: 28 },
   heading: {
     color: colors.textPrimary,
-    fontSize: 21,
+    fontSize: 22,
     lineHeight: 32,
     textAlign: 'center',
     marginBottom: 14,

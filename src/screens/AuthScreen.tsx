@@ -98,7 +98,7 @@ export default function AuthScreen({ navigation, route }: RootStackScreenProps<'
         <TextInput
           style={styles.input}
           placeholder="ユーザー名"
-          placeholderTextColor="#666"
+          placeholderTextColor={colors.placeholder}
           value={username}
           onChangeText={setUsername}
           autoCapitalize="none"
@@ -107,7 +107,7 @@ export default function AuthScreen({ navigation, route }: RootStackScreenProps<'
       <TextInput
         style={styles.input}
         placeholder="メールアドレス"
-        placeholderTextColor="#666"
+        placeholderTextColor={colors.placeholder}
         value={email}
         onChangeText={setEmail}
         autoCapitalize="none"
@@ -116,7 +116,7 @@ export default function AuthScreen({ navigation, route }: RootStackScreenProps<'
       <TextInput
         style={styles.input}
         placeholder="パスワード"
-        placeholderTextColor="#666"
+        placeholderTextColor={colors.placeholder}
         value={password}
         onChangeText={setPassword}
         secureTextEntry

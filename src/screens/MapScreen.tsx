@@ -1,15 +1,5 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import {
-  View,
-  StyleSheet,
-  Pressable,
-  ActivityIndicator,
-  FlatList,
-  Keyboard,
-  Platform,
-  Linking,
-} from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { View, StyleSheet, Pressable, Keyboard, Platform, Linking } from 'react-native';
 import Mapbox, { Camera, MapView, UserLocation, ShapeSource, CircleLayer, SymbolLayer } from '@rnmapbox/maps';
 import { Ionicons } from '@expo/vector-icons';
 import * as Location from 'expo-location';
@@ -18,13 +8,11 @@ import { fetchSpotsInBounds } from '../lib/spots';
 import { filterBlockedAuthors } from '../lib/moderation';
 import { spotsToFeatureCollection } from '../lib/geo';
 import { generateSessionToken, suggestPlaces, retrievePlace, type SuggestResult } from '../lib/mapboxSearch';
-import SpotPreviewSheet from '../components/SpotPreviewSheet';
-import Text from '../components/AppText';
-import TextInput from '../components/AppTextInput';
-import { HEADER_CONTENT_HEIGHT } from '../components/AppHeader';
+import MapTopBar, { spotMatchesFilter } from '../components/MapTopBar';
+import MapSpotCard from '../components/MapSpotCard';
 import { useAuth } from '../lib/AuthContext';
-import { useTranslation } from '../lib/i18n';
-import { colors } from '../lib/theme';
+import { useLanguage, useTranslation } from '../lib/i18n';
+import { colors, radius, space } from '../lib/theme';
 import type { Spot } from '../types/database';
 import type { MainTabScreenProps } from '../navigation/types';
 
@@ -33,26 +21,39 @@ Mapbox.setAccessToken(MAPBOX_ACCESS_TOKEN);
 // リミナルスペースらしい、彩度を落とした暗めのマップスタイル
 const MAP_STYLE = 'mapbox://styles/mapbox/dark-v11';
 
-// 近接する投稿をまとめて円＋件数で表示するクラスタリング設定
+// 近接する投稿をまとめて円＋件数で表示するクラスタリング設定（Web版と同じ見た目）。
+// クラスタは暗い円に黄色の縁と数字、個別のスポットは黄色の点に暗い縁取り。
 const clusterCircleStyle = {
-  circleColor: colors.accent,
+  circleColor: colors.surface,
   circleRadius: ['step', ['get', 'point_count'], 16, 10, 20, 30, 26] as any,
-  circleOpacity: 0.92,
   circleStrokeWidth: 2,
-  circleStrokeColor: '#fff',
+  circleStrokeColor: colors.accent,
 };
 const clusterCountStyle = {
   textField: ['get', 'point_count_abbreviated'] as any,
   textSize: 13,
-  textColor: '#2a2a2a',
+  textColor: colors.accent,
   textAllowOverlap: true,
   textIgnorePlacement: true,
 };
 const pointStyle = {
   circleColor: colors.accent,
   circleRadius: 7,
+  circleStrokeWidth: 3,
+  circleStrokeColor: colors.background,
+};
+// 選択中のスポットは、大きめの点に黄色の外輪を付けて目立たせる
+const selectedStyle = {
+  circleColor: colors.accent,
+  circleRadius: 11,
+  circleStrokeWidth: 4,
+  circleStrokeColor: colors.background,
+};
+const selectedRingStyle = {
+  circleColor: 'rgba(0,0,0,0)',
+  circleRadius: 17,
   circleStrokeWidth: 2,
-  circleStrokeColor: '#fff',
+  circleStrokeColor: colors.accent,
 };
 
 // ShapeSource#onPress のイベント型（@rnmapbox/maps はルートからexportしていないため独自定義）
@@ -67,6 +68,7 @@ type Props = MainTabScreenProps<'MapTab'>;
 export default function MapScreen({ navigation, route }: Props) {
   const { session, blockedUserIds } = useAuth();
   const t = useTranslation();
+  const { language } = useLanguage();
   const [spots, setSpots] = useState<Spot[]>([]);
   const mapRef = useRef<MapView>(null);
   const cameraRef = useRef<Camera>(null);
@@ -78,7 +80,17 @@ export default function MapScreen({ navigation, route }: Props) {
   const [lastCenter, setLastCenter] = useState({ lat: 35.681, lng: 139.767 });
   const sessionTokenRef = useRef(generateSessionToken());
   const [locationGranted, setLocationGranted] = useState(false);
-  const [selectedSpotId, setSelectedSpotId] = useState<string | null>(null);
+  const [selectedSpot, setSelectedSpot] = useState<Spot | null>(null);
+  const [filter, setFilter] = useState<string | null>(null);
+  const [cardHeight, setCardHeight] = useState(114);
+
+  // 選んだ種類のタグが付いたスポットだけを地図に出す
+  const visibleSpots = useMemo(
+    () => spots.filter((spot) => spotMatchesFilter((spot.tags ?? []).map((tag) => tag.name), filter)),
+    [spots, filter]
+  );
+  const featureCollection = useMemo(() => spotsToFeatureCollection(visibleSpots), [visibleSpots]);
+  const selectedFilter = ['all', ['!', ['has', 'point_count']], ['==', ['get', 'slug'], selectedSpot?.slug ?? '']] as any;
 
   // 現在地マーカー表示のための許可確認と、起動時に現在地を中心にするための初期カメラ移動
   useEffect(() => {
@@ -177,7 +189,7 @@ export default function MapScreen({ navigation, route }: Props) {
     }
   };
 
-  // クラスタ（複数投稿の集合）をタップしたら拡大、個別ポイントをタップしたら詳細シートを開く
+  // クラスタ（複数投稿の集合）をタップしたら拡大、個別ポイントをタップしたら下にカードを出す
   const onSpotsPress = useCallback(async (event: SpotsSourcePressEvent) => {
     const feature = event.features[0];
     if (!feature) return;
@@ -195,8 +207,8 @@ export default function MapScreen({ navigation, route }: Props) {
       }
       return;
     }
-    if (props.slug) setSelectedSpotId(props.slug);
-  }, []);
+    if (props.slug) setSelectedSpot(spots.find((spot) => spot.slug === props.slug) ?? null);
+  }, [spots]);
 
   return (
     <View style={styles.container}>
@@ -204,6 +216,8 @@ export default function MapScreen({ navigation, route }: Props) {
         ref={mapRef}
         style={styles.map}
         styleURL={MAP_STYLE}
+        // 地図上の地名をアプリの表示言語に合わせる
+        localizeLabels={{ locale: language }}
         onMapIdle={loadForBounds}
         onDidFinishLoadingMap={loadForBounds}
         scaleBarPosition={{ bottom: 46, left: 8 }}
@@ -213,7 +227,7 @@ export default function MapScreen({ navigation, route }: Props) {
         <ShapeSource
           ref={shapeSourceRef}
           id="spots-source"
-          shape={spotsToFeatureCollection(spots)}
+          shape={featureCollection}
           cluster
           clusterRadius={50}
           clusterMaxZoomLevel={14}
@@ -222,107 +236,62 @@ export default function MapScreen({ navigation, route }: Props) {
           <CircleLayer id="clusters" filter={['has', 'point_count']} style={clusterCircleStyle} />
           <SymbolLayer id="cluster-count" filter={['has', 'point_count']} style={clusterCountStyle} />
           <CircleLayer id="unclustered-point" filter={['!', ['has', 'point_count']]} style={pointStyle} />
+          <CircleLayer id="selected-point-ring" filter={selectedFilter} style={selectedRingStyle} />
+          <CircleLayer id="selected-point" filter={selectedFilter} style={selectedStyle} />
         </ShapeSource>
       </MapView>
 
-      <SafeAreaView style={styles.topOverlay} pointerEvents="box-none">
-        {/* 共通ヘッダー(ロゴ)が最前面に重なっているため、その高さ分だけ空けてから検索バーを配置する */}
-        <View style={{ height: HEADER_CONTENT_HEIGHT }} pointerEvents="none" />
-
-        <View style={styles.searchBar}>
-          <TextInput
-            style={styles.searchInput}
-            value={query}
-            onChangeText={setQuery}
-            placeholder={t.map.searchPlaceholder}
-            placeholderTextColor="#666"
-            onSubmitEditing={search}
-            returnKeyType="search"
-          />
-          <Pressable style={styles.searchButton} onPress={search} hitSlop={8}>
-            {searching ? (
-              <ActivityIndicator color={colors.accentText} size="small" />
-            ) : (
-              <Ionicons name="search-outline" size={18} color={colors.accentText} />
-            )}
-          </Pressable>
-        </View>
-
-        {results.length > 0 && (
-          <FlatList
-            style={styles.resultList}
-            data={results}
-            keyExtractor={(item) => item.mapboxId}
-            renderItem={({ item }) => (
-              <Pressable style={styles.resultItem} onPress={() => selectResult(item)}>
-                <Text style={styles.resultName} numberOfLines={1}>
-                  {item.name}
-                </Text>
-                {!!item.placeFormatted && (
-                  <Text style={styles.resultText} numberOfLines={1}>
-                    {item.placeFormatted}
-                  </Text>
-                )}
-              </Pressable>
-            )}
-          />
-        )}
-      </SafeAreaView>
-
-      {/* iOSのみ: ネイティブのApple Mapsアプリを、今表示している地図の中心座標で開く */}
-      {Platform.OS === 'ios' && (
-        <Pressable style={styles.appleMapsButton} onPress={openInAppleMaps} hitSlop={8}>
-          <Ionicons name="map-outline" size={20} color={colors.textPrimary} />
-        </Pressable>
-      )}
-
-      <Pressable style={styles.locateButton} onPress={goToMyLocation} hitSlop={8}>
-        <Ionicons name="locate-outline" size={20} color={colors.textPrimary} />
-      </Pressable>
-
-      <Pressable
-        style={styles.fab}
-        onPress={() => navigation.navigate(session?.user ? 'CreateSpot' : 'Auth')}
-      >
-        <Text style={styles.fabText}>＋</Text>
-      </Pressable>
-
-      <SpotPreviewSheet
-        spotId={selectedSpotId}
-        onClose={() => setSelectedSpotId(null)}
-        onViewOnMap={(lat, lng) => {
-          setSelectedSpotId(null);
-          cameraRef.current?.setCamera({
-            centerCoordinate: [lng, lat],
-            zoomLevel: 15,
-            animationDuration: 500,
-          });
+      <MapTopBar
+        query={query}
+        onChangeQuery={setQuery}
+        onSubmit={search}
+        onClear={() => {
+          setQuery('');
+          setResults([]);
         }}
-        onTagPress={(tagId) => {
-          setSelectedSpotId(null);
-          navigation.navigate('Main', { screen: 'SearchTab', params: { tagId } });
-        }}
-        onAuthorPress={(userId) => {
-          setSelectedSpotId(null);
-          if (session?.user?.id === userId) {
-            navigation.navigate('Main', { screen: 'MyPageTab' });
-          } else {
-            navigation.navigate('UserProfile', { userId });
-          }
-        }}
-        onEdit={(slug) => {
-          setSelectedSpotId(null);
-          navigation.navigate('EditSpot', { spotId: slug });
-        }}
-        onAddReview={(slug) => {
-          setSelectedSpotId(null);
-          navigation.navigate('AddReview', { spotId: slug });
-        }}
-        onDeleted={() => {
-          setSelectedSpotId(null);
-          loadForBounds();
-        }}
+        searching={searching}
+        results={results}
+        onSelectResult={selectResult}
+        filter={filter}
+        onFilterChange={setFilter}
       />
+
+      {/* 右下のボタン列。スポットのカードを出している間は、その上に逃がす */}
+      <View style={[styles.sideButtons, { bottom: selectedSpot ? cardHeight + space.m * 2 : space.xl }]} pointerEvents="box-none">
+        {/* iOSのみ: ネイティブのApple Mapsアプリを、今表示している地図の中心座標で開く */}
+        {Platform.OS === 'ios' && (
+          <Pressable style={styles.roundButton} onPress={openInAppleMaps} hitSlop={8}>
+            <Ionicons name="map-outline" size={20} color={colors.textPrimary} />
+          </Pressable>
+        )}
+        <Pressable
+          style={styles.roundButton}
+          onPress={goToMyLocation}
+          hitSlop={8}
+          accessibilityRole="button"
+          accessibilityLabel={t.map.locate}
+        >
+          <Ionicons name="locate-outline" size={20} color={colors.textPrimary} />
+        </Pressable>
+        <Pressable
+          style={styles.fab}
+          onPress={() => navigation.navigate(session?.user ? 'CreateSpot' : 'Auth')}
+          accessibilityRole="button"
+          accessibilityLabel={t.map.post}
+        >
+          <Ionicons name="add" size={28} color={colors.accentText} />
+        </Pressable>
+      </View>
+
+      {selectedSpot && (
+        <View style={styles.cardWrap} onLayout={(e) => setCardHeight(e.nativeEvent.layout.height)}>
+          <MapSpotCard
+            spot={selectedSpot}
+            onPress={() => navigation.navigate('SpotDetail', { spotId: selectedSpot.slug })}
+            onClose={() => setSelectedSpot(null)}
+          />
+        </View>
+      )}
     </View>
   );
 }
@@ -330,71 +299,29 @@ export default function MapScreen({ navigation, route }: Props) {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.background },
   map: { flex: 1 },
-  topOverlay: { position: 'absolute', top: 0, left: 0, right: 0 },
-  searchBar: { flexDirection: 'row', padding: 12, gap: 8 },
-  searchInput: {
-    flex: 1,
-    backgroundColor: 'rgba(61,61,61,0.95)',
-    color: colors.textPrimary,
-    borderRadius: 10,
-    paddingHorizontal: 14,
-    paddingVertical: 10,
-    fontSize: 14,
-  },
-  searchButton: {
+  sideButtons: { position: 'absolute', right: space.l, alignItems: 'center', gap: space.m },
+  roundButton: {
     width: 44,
-    backgroundColor: colors.accent,
-    borderRadius: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  resultList: {
-    maxHeight: 260,
-    backgroundColor: 'rgba(58,58,58,0.97)',
-    marginHorizontal: 12,
-    borderRadius: 10,
-  },
-  resultItem: {
-    paddingHorizontal: 14,
-    paddingVertical: 12,
-    borderBottomWidth: 1,
-    borderBottomColor: colors.border,
-  },
-  resultName: { color: colors.textPrimary, fontSize: 14, fontWeight: '600', marginBottom: 2 },
-  resultText: { color: colors.textSecondary, fontSize: 12 },
-  locateButton: {
-    position: 'absolute',
-    right: 16,
-    bottom: 96,
-    width: 40,
-    height: 40,
-    backgroundColor: 'rgba(61,61,61,0.92)',
-    borderRadius: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  appleMapsButton: {
-    position: 'absolute',
-    right: 16,
-    bottom: 144,
-    width: 40,
-    height: 40,
-    backgroundColor: 'rgba(61,61,61,0.92)',
-    borderRadius: 20,
+    height: 44,
+    borderRadius: radius.pill,
+    backgroundColor: colors.surface,
+    borderWidth: 1,
+    borderColor: colors.border,
     alignItems: 'center',
     justifyContent: 'center',
   },
   fab: {
-    position: 'absolute',
-    right: 20,
-    bottom: 24,
     width: 56,
     height: 56,
-    borderRadius: 28,
+    borderRadius: radius.pill,
     backgroundColor: colors.accent,
     alignItems: 'center',
     justifyContent: 'center',
-    elevation: 4,
+    shadowColor: '#000',
+    shadowOpacity: 0.45,
+    shadowRadius: 20,
+    shadowOffset: { width: 0, height: 6 },
+    elevation: 6,
   },
-  fabText: { color: colors.accentText, fontSize: 28, marginTop: -2 },
+  cardWrap: { position: 'absolute', left: space.m, right: space.m, bottom: space.m },
 });

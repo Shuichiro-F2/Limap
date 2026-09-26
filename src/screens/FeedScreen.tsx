@@ -130,7 +130,7 @@ export default function FeedScreen({ navigation }: Props) {
                   <UsernameWithBadge username={item.author?.username} badge={item.author?.badge} textStyle={styles.authorText} />
                 </Pressable>
                 {item.description ? (
-                  <Text style={styles.description} numberOfLines={2}>
+                  <Text variant="body" style={styles.description} numberOfLines={2}>
                     {item.description}
                   </Text>
                 ) : null}

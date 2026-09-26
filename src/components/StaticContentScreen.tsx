@@ -21,12 +21,12 @@ export default function StaticContentScreen({
     <SafeAreaView style={styles.container} edges={['left', 'right', 'bottom']}>
       <ScrollView contentContainerStyle={styles.scroll}>
         <Text style={styles.heading}>{content.heading}</Text>
-        <Text style={styles.lead}>{content.lead}</Text>
+        <Text variant="body" style={styles.lead}>{content.lead}</Text>
 
         {content.sections.map((section) => (
           <View key={section.heading} style={styles.section}>
             <Text style={styles.sectionHeading}>{section.heading}</Text>
-            <Text style={styles.sectionBody}>{section.body}</Text>
+            <Text variant="body" style={styles.sectionBody}>{section.body}</Text>
           </View>
         ))}
 
@@ -36,7 +36,7 @@ export default function StaticContentScreen({
             {content.faq.map((item) => (
               <View key={item.question} style={styles.faqItem}>
                 <Text style={styles.faqQuestion}>Q. {item.question}</Text>
-                <Text style={styles.faqAnswer}>A. {item.answer}</Text>
+                <Text variant="body" style={styles.faqAnswer}>A. {item.answer}</Text>
               </View>
             ))}
           </View>

@@ -88,7 +88,7 @@ export default function ContactThreadView({
             value={draft}
             onChangeText={setDraft}
             placeholder="メッセージを入力"
-            placeholderTextColor="#666"
+            placeholderTextColor={colors.placeholder}
             multiline
           />
           <Pressable style={styles.sendButton} onPress={submit} disabled={sending || !draft.trim()}>
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
   bubble: { maxWidth: '80%', borderRadius: 12, paddingHorizontal: 14, paddingVertical: 10 },
   bubbleOther: { backgroundColor: colors.surface, borderTopLeftRadius: 2 },
   bubbleOwn: { backgroundColor: colors.accent, borderTopRightRadius: 2 },
-  bubbleLabel: { color: colors.textMuted, fontSize: 10, marginBottom: 4 },
+  bubbleLabel: { color: colors.textMuted, fontSize: 11, marginBottom: 4 },
   bubbleTextOther: { color: colors.textPrimary, fontSize: 14, lineHeight: 20 },
   bubbleTextOwn: { color: colors.accentText, fontSize: 14, lineHeight: 20 },
   composer: {

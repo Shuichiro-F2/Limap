@@ -226,7 +226,7 @@ const styles = StyleSheet.create({
   divider: { height: StyleSheet.hairlineWidth, backgroundColor: colors.border, marginVertical: 4, marginHorizontal: 4 },
   item: { flexDirection: 'row', alignItems: 'center', gap: 10, paddingVertical: 10, paddingHorizontal: 10, borderRadius: 8 },
   itemIcon: { width: 22 },
-  itemText: { color: colors.textPrimary, fontSize: 13.5 },
+  itemText: { color: colors.textPrimary, fontSize: 13 },
   itemTextDanger: { color: colors.danger },
   deleteConfirmPanel: { padding: 6 },
   deleteConfirmTitle: { color: colors.textPrimary, fontWeight: '600', marginBottom: 10, fontSize: 14 },

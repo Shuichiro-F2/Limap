@@ -90,7 +90,7 @@ export default function EditProfileScreen({ navigation }: Props) {
         value={displayName}
         onChangeText={setDisplayName}
         placeholder="表示名を入力（未設定でも可）"
-        placeholderTextColor="#666"
+        placeholderTextColor={colors.placeholder}
         maxLength={40}
       />
 
@@ -100,7 +100,7 @@ export default function EditProfileScreen({ navigation }: Props) {
         value={bio}
         onChangeText={(t) => setBio(t.slice(0, BIO_MAX))}
         placeholder="自己紹介文を入力（未設定でも可）"
-        placeholderTextColor="#666"
+        placeholderTextColor={colors.placeholder}
         multiline
       />
       <Text style={styles.bioCounter}>

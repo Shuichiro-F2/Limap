@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  indexBadgeText: { color: colors.textPrimary, fontSize: 10, lineHeight: 14 },
+  indexBadgeText: { color: colors.textPrimary, fontSize: 11, lineHeight: 14 },
   removeButton: {
     position: 'absolute',
     right: 4,

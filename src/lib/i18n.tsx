@@ -48,6 +48,14 @@ const dictionary = {
   ja: {
     map: {
       searchPlaceholder: '住所や施設名で検索',
+      filterAll: 'すべて',
+      // 地図の絞り込みボタン。キーは tags テーブルのタグ名（日本語）
+      filterLabels: { 廃墟: '廃墟', 地下: '地下', 駅: '駅', 集合住宅: '集合住宅', 廃工場: '廃工場' } as Record<string, string>,
+      likes: 'いいね {n}',
+      locate: '現在地',
+      post: '投稿する',
+      clearSearch: '検索語を消す',
+      closeCard: '閉じる',
     },
     feed: {
       loggedOutMessage: 'ログインすると、フォロー中のユーザーの投稿や、おすすめの投稿がここに表示されます。',
@@ -60,6 +68,13 @@ const dictionary = {
     search: {
       placeholder: 'タイトルや説明文で検索',
       empty: '該当するスポットが見つかりませんでした',
+      sectionCategory: '種類',
+      sectionPrefecture: '都道府県',
+      sectionOverseas: '海外',
+      showAll: 'すべて見る',
+      showLess: '閉じる',
+      overseasAll: '海外のリミナルスペース',
+      overseasSummary: '{list} ほか',
     },
     myPage: {
       followers: 'フォロワー',
@@ -239,6 +254,17 @@ const dictionary = {
       reportReceivedTitle: '通報を受け付けました',
       reportReceivedMessage: 'ご協力ありがとうございます。',
       errorTitle: 'エラー',
+      back: '戻る',
+      share: '共有',
+      moreMenu: 'その他のメニュー',
+      like: 'いいね',
+      wantToGo: '行きたい',
+      directions: '経路を見る',
+      locationHint: 'タップすると地図で開きます',
+      nearbyHeading: '近くのリミナルスペース',
+      reviewsCount: '{count}件',
+      reviewsEmptyLead: 'まだ投稿がありません。\nあなたが見たこの場所を記録してみませんか。',
+      photoCounter: '{index} / {total}',
     },
     // 読み物ページ（リミナルスペースとは・使い方・プライバシーポリシー・利用規約）。本文は content/staticPages.ts
     staticPage: {
@@ -264,6 +290,13 @@ const dictionary = {
   en: {
     map: {
       searchPlaceholder: 'Search by address or place name',
+      filterAll: 'All',
+      filterLabels: { 廃墟: 'Abandoned', 地下: 'Underground', 駅: 'Stations', 集合住宅: 'Housing', 廃工場: 'Factories' } as Record<string, string>,
+      likes: '{n} likes',
+      locate: 'My location',
+      post: 'Post a spot',
+      clearSearch: 'Clear search',
+      closeCard: 'Close',
     },
     feed: {
       loggedOutMessage: 'Log in to see posts from people you follow, plus recommended posts, right here.',
@@ -276,6 +309,13 @@ const dictionary = {
     search: {
       placeholder: 'Search by title or description',
       empty: 'No matching spots found',
+      sectionCategory: 'Type',
+      sectionPrefecture: 'Prefecture',
+      sectionOverseas: 'Overseas',
+      showAll: 'Show all',
+      showLess: 'Show less',
+      overseasAll: 'Liminal spaces outside Japan',
+      overseasSummary: '{list} and more',
     },
     myPage: {
       followers: 'Followers',
@@ -454,6 +494,17 @@ const dictionary = {
       reportReceivedTitle: 'Report received',
       reportReceivedMessage: 'Thank you for your help.',
       errorTitle: 'Error',
+      back: 'Back',
+      share: 'Share',
+      moreMenu: 'More',
+      like: 'Like',
+      wantToGo: 'Want to go',
+      directions: 'Directions',
+      locationHint: 'Tap to open on the map',
+      nearbyHeading: 'Nearby liminal spaces',
+      reviewsCount: '{count}',
+      reviewsEmptyLead: 'No posts yet.\nHave you been here? Share what you saw.',
+      photoCounter: '{index} / {total}',
     },
     staticPage: {
       faqTitle: 'FAQ',

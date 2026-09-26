@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   title: { color: colors.textPrimary, fontSize: 15, fontWeight: '700', flexShrink: 1 },
-  lead: { color: colors.textSecondary, fontSize: 12.5, lineHeight: 18, marginTop: 10 },
+  lead: { color: colors.textSecondary, fontSize: 13, lineHeight: 18, marginTop: 10 },
   matchList: { marginTop: 14, gap: 8 },
   matchRow: {
     flexDirection: 'row',
@@ -113,8 +113,8 @@ const styles = StyleSheet.create({
   matchThumb: { width: 44, height: 44, borderRadius: 8 },
   matchThumbEmpty: { backgroundColor: colors.border },
   matchTextWrap: { flex: 1 },
-  matchTitle: { color: colors.textPrimary, fontSize: 13.5, fontWeight: '600' },
-  matchDistance: { color: colors.textMuted, fontSize: 11.5, marginTop: 2 },
+  matchTitle: { color: colors.textPrimary, fontSize: 13, fontWeight: '600' },
+  matchDistance: { color: colors.textMuted, fontSize: 11, marginTop: 2 },
   continueButton: { marginTop: 16, alignItems: 'center' },
   continueText: { color: colors.textMuted, fontSize: 13, fontWeight: '600' },
 });

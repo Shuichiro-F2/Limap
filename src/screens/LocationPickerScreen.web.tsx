@@ -86,7 +86,7 @@ export default function LocationPickerScreen({ navigation, route }: Props) {
           value={query}
           onChangeText={setQuery}
           placeholder="住所や地名で検索"
-          placeholderTextColor="#666"
+          placeholderTextColor={colors.placeholder}
           onSubmitEditing={search}
           returnKeyType="search"
         />

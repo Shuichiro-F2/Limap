@@ -9,18 +9,19 @@ import {
   Linking,
   Platform,
   useWindowDimensions,
-  type NativeScrollEvent,
-  type NativeSyntheticEvent,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { MAPBOX_ACCESS_TOKEN } from '@env';
 import Text from './AppText';
 import { UsernameWithBadge } from './UserBadge';
 import InstagramEmbed from './InstagramEmbed';
 import XEmbed from './XEmbed';
-import { spotImageUrl, spotImageThumbUrl } from '../lib/spots';
+import { spotImageUrl, spotImageThumbUrl, spotThumbnailUrl } from '../lib/spots';
 import { shareSpot, copyLink } from '../lib/share';
-import { colors } from '../lib/theme';
+import { colors, gradientBackground, radius, space, type } from '../lib/theme';
 import { useTranslation } from '../lib/i18n';
+import { spotPlace } from '../content/spotSeo';
+import { prefectureFullName } from '../content/japan';
 import type { Spot, SpotImage, SpotEmbed, SpotReview, ReportReason } from '../types/database';
 
 // 画像・SNS埋め込み(Instagram/X)を「メディア」として一つの横スクロールにまとめて扱うための型。
@@ -30,26 +31,25 @@ type MediaItem = { kind: 'image'; image: SpotImage } | { kind: 'embed'; embed: S
 // PC/Web表示時に画像・本文が横に広がりすぎないようにする最大幅。
 const MAX_CONTENT_WIDTH = 640;
 
-// 画像の高さは基本的に元画像の縦横比に合わせて表示し、上下がカットされないようにする。
-// ただし極端に縦長な画像の場合はこの倍率(横幅比)を上限に高さをクランプし、はみ出た分だけカットする。
-const MAX_IMAGE_ASPECT_RATIO = 1.5;
+// 先頭の写真は画面の端から端まで大きく見せる。高さは先頭画像の縦横比に合わせつつ、
+// 横長すぎ・縦長すぎの写真でも極端な高さにならないよう、横幅に対する比率で上下限を付ける。
+const MIN_HERO_RATIO = 0.6;
+const MAX_HERO_RATIO = 1.25;
+// 開いた瞬間にタイトルも少し見えるよう、画面の高さに対しても上限を付ける
+const MAX_HERO_SCREEN_RATIO = 0.6;
 
 // SNS埋め込み(Instagram/X)の実測高さがまだ届いていない間の仮の高さ。
 // react-native-webview版のDEFAULT_HEIGHTと合わせておく。
 const EMBED_FALLBACK_HEIGHT = 420;
 
-// メディアカルーセルを「ピーク表示」(隣のスライドが少しだけ見える)にするための余白。
-// MEDIA_PEEKが各スライドの左右の隙間、MEDIA_GAPがスライド間の間隔。
-// MEDIA_PEEK > MEDIA_GAP にすることで、隣のスライドの端が (MEDIA_PEEK - MEDIA_GAP) 分だけ覗く。
-const MEDIA_PEEK = 24;
-const MEDIA_GAP = 10;
-
-// 縦長画像やリール埋め込みなど、カルーセルの必要な高さが非常に大きくなるケース向けの上限。
-// 画面高さに対する比率で決め、開いた瞬間に本文の冒頭も見える程度の余白を残す。
-const MAX_MEDIA_HEIGHT_RATIO = 0.55;
-
 // 通報理由の表示順。ラベルは i18n の spotDetail.reportReasons
 const REPORT_REASONS: ReportReason[] = ['privacy', 'wrong_location', 'inappropriate', 'spam', 'other'];
+
+// 写真の上に重ねるボタン・枚数表示の下地（黄色背景の墨色を半透明にしたもの）
+const OVERLAY_BG = 'rgba(29,27,14,0.72)';
+const heroScrim = gradientBackground('linear-gradient(rgba(29,27,14,0.6), rgba(29,27,14,0))');
+
+export type NearbySpot = Spot & { distanceKm: number };
 
 type Props = {
   spot: Spot | null;
@@ -61,9 +61,9 @@ type Props = {
   onLike: () => void;
   onBookmark: () => void;
   onReport: (reason: ReportReason) => void;
-  imageHeight?: number;
-  scrollEnabled?: boolean;
-  onScroll?: (e: NativeSyntheticEvent<NativeScrollEvent>) => void;
+  onBack?: () => void;
+  // 写真の上のロゴをタップしたとき（このスポットを中心にした地図へ戻る）
+  onLogoPress?: () => void;
   onViewOnMap?: () => void;
   onTagPress?: (tagId: number) => void;
   onAuthorPress?: (userId: string) => void;
@@ -71,12 +71,14 @@ type Props = {
   onEdit?: () => void;
   onDelete?: () => void;
   deleting?: boolean;
-  // 上に重なる固定ヘッダー(AppHeader)の高さ分だけ、先頭のメディアが隠れないよう空ける余白。
-  // フル画面の詳細画面でのみ指定し、プレビューシート側は0のまま(独自のハンドルバーがある)。
+  // ステータスバーの高さ分。写真の上に重ねる戻る・共有ボタンがステータスバーと被らないようにする
   topInset?: number;
-  // ホームインジケーターなど下部の安全領域分の余白。フル画面の詳細画面でのみ指定し、
+  // ホームインジケーターなど下部の安全領域分の余白。
   // 末尾の「みんなの投稿」セクションが画面下端で見切れてスクロールしきれなくなるのを防ぐ。
   bottomInset?: number;
+  // 「近くのリミナルスペース」に並べるスポット（近い順）
+  nearbySpots?: NearbySpot[];
+  onSpotPress?: (slug: string) => void;
   // 「みんなの投稿」セクション(既存スポットへの他ユーザーによるレビュー投稿)。
   // 未ログイン時などonAddReviewを渡さない場合は投稿ボタンを表示しない。
   reviews?: SpotReview[];
@@ -95,8 +97,48 @@ function formatReviewDate(iso: string, locale: string): string {
   }
 }
 
-// スポット詳細の中身（画像カルーセル＋本文）だけを描画する表示専用コンポーネント。
-// フル画面の詳細画面と、地図画面のプレビューシートの両方で使い回す。
+function formatDistance(km: number): string {
+  return km < 1 ? `${Math.round(km * 100) * 10} m` : `${km.toFixed(1)} km`;
+}
+
+// 位置を示す小さな地図（Mapbox Static Images API の画像。表示するだけで保存はしない）
+function staticMapUrl(lat: number, lng: number): string {
+  const pin = `pin-l+dece32(${lng},${lat})`;
+  return `https://api.mapbox.com/styles/v1/mapbox/dark-v11/static/${pin}/${lng},${lat},14,0/640x300@2x?access_token=${MAPBOX_ACCESS_TOKEN}`;
+}
+
+// 「みんなの投稿」が空のときに出す、ドット絵の扉（16×16マスを小さな四角で描く）
+const DOOR_RECTS: { x: number; y: number; w: number; h: number; fill: 'ink' | 'paper' }[] = [
+  { x: 3, y: 2, w: 10, h: 12, fill: 'ink' },
+  { x: 4, y: 3, w: 8, h: 10, fill: 'paper' },
+  { x: 7, y: 5, w: 2, h: 2, fill: 'ink' },
+  { x: 6, y: 7, w: 3, h: 3, fill: 'ink' },
+  { x: 5, y: 10, w: 2, h: 2, fill: 'ink' },
+  { x: 8, y: 10, w: 2, h: 2, fill: 'ink' },
+];
+function PixelDoor({ size = 40 }: { size?: number }) {
+  const unit = size / 16;
+  return (
+    <View style={{ width: size, height: size }}>
+      {DOOR_RECTS.map((r, i) => (
+        <View
+          key={i}
+          style={{
+            position: 'absolute',
+            left: r.x * unit,
+            top: r.y * unit,
+            width: r.w * unit,
+            height: r.h * unit,
+            backgroundColor: r.fill === 'ink' ? colors.accentText : colors.accent,
+          }}
+        />
+      ))}
+    </View>
+  );
+}
+
+// スポット詳細の中身。黄色の地に、端から端までの写真・タイトル・場所の地図・近くのスポット・
+// みんなの投稿を縦に並べる。
 export default function SpotDetailContent({
   spot,
   loading,
@@ -107,9 +149,8 @@ export default function SpotDetailContent({
   onLike,
   onBookmark,
   onReport,
-  imageHeight = 280,
-  scrollEnabled = true,
-  onScroll,
+  onBack,
+  onLogoPress,
   onViewOnMap,
   onTagPress,
   onAuthorPress,
@@ -119,6 +160,8 @@ export default function SpotDetailContent({
   deleting = false,
   topInset = 0,
   bottomInset = 0,
+  nearbySpots = [],
+  onSpotPress,
   reviews = [],
   reviewsLoading = false,
   currentUserId,
@@ -132,24 +175,17 @@ export default function SpotDetailContent({
   const { width: screenWidth, height: screenHeight } = useWindowDimensions();
   // PCなど横幅の広い画面では、画像や本文が横に間延びしないよう最大幅で中央寄せする。
   const contentWidth = Math.min(screenWidth, MAX_CONTENT_WIDTH);
-  // 各スライドの実際の幅。両端にMEDIA_PEEK分の隙間を作ることで、
-  // 隣にもスライドがあることがひと目でわかるようにする。
-  const mediaItemWidth = Math.max(contentWidth - MEDIA_PEEK * 2, 0);
   const [showMenu, setShowMenu] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
-  // 現在表示中のメディア(画像/SNS埋め込み)のインデックス。下のドットインジケーターに使う。
+  // 現在表示中のメディア(画像/SNS埋め込み)のインデックス。右下の「1 / 3」表示に使う。
   const [activeMediaIndex, setActiveMediaIndex] = useState(0);
-  // 先頭画像の縦横比（高さ÷幅）。取得できるまではimageHeightのデフォルト値で表示する。
+  // 先頭画像の縦横比（高さ÷幅）。取得できるまでは仮の高さで表示する。
   const [imageAspectRatio, setImageAspectRatio] = useState<number | null>(null);
   // SNS埋め込み(Instagram/X)ごとの実測高さ(embed.idをキーに保持)。
-  // ウィジェット全体が見切れないよう、カルーセルの高さはこれらの最大値を含めて決める。
   const [embedHeights, setEmbedHeights] = useState<Record<string, number>>({});
   // 通報理由パネルを開いているレビューのID(一度に1件のみ開ける)
   const [reportingReviewId, setReportingReviewId] = useState<string | null>(null);
 
-  // 画像とSNS埋め込み(Instagram/X)をまとめて1つの横スライドで扱う。
-  // 表示順は画像→SNS埋め込み。カルーセル全体の高さは(下記の通り)先頭画像の
-  // 縦横比に合わせるため、画像がある場合は画像を先に並べるのが自然な見た目になる。
   const sortedImages = spot?.images ? [...spot.images].sort((a, b) => a.position - b.position) : [];
   const sortedEmbeds = spot?.embeds
     ? [...spot.embeds]
@@ -179,38 +215,27 @@ export default function SpotDetailContent({
     };
   }, [firstImagePath]);
 
-  // スポットが切り替わったら、前のスポットのSNS埋め込み(Instagram/X)の実測高さを引き継がない。
+  // スポットが切り替わったら、前のスポットの状態を引き継がない
   useEffect(() => {
     setEmbedHeights({});
     setActiveMediaIndex(0);
+    setShowMenu(false);
+    setShowDeleteConfirm(false);
   }, [spot?.id]);
 
-  // 画像側の希望の高さ。縦横比が判明していれば、上下がカットされないよう実寸に合わせる。
-  // 極端に縦長な場合はMAX_IMAGE_ASPECT_RATIOを超えないようクランプし、その分だけカットする。
-  // 画像が1枚もない場合はSNS埋め込み(Instagram/X)の高さだけで決まるので0として扱う。
-  const baseImageHeight =
-    sortedImages.length === 0
-      ? 0
-      : imageAspectRatio
-        ? Math.min(mediaItemWidth * imageAspectRatio, mediaItemWidth * MAX_IMAGE_ASPECT_RATIO)
-        : imageHeight;
-
-  // SNS埋め込み(Instagram/X)の実測高さの最大値。ウィジェット全体(キャプション等含む)が
-  // 見切れないよう、カルーセルの高さはこれを下回らないようにする。
-  // 実測がまだ届いていない埋め込みがあればEMBED_FALLBACK_HEIGHTを仮の高さとして使う。
-  const maxEmbedHeight =
-    sortedEmbeds.length === 0
-      ? 0
-      : Math.max(...sortedEmbeds.map((e) => embedHeights[e.id] ?? EMBED_FALLBACK_HEIGHT));
-
-  // カルーセル全体で共有する高さ。画像だけの縦横比ではなく、SNS埋め込み(Instagram/X)の
-  // 実際の高さも含めた最大値に合わせることで、埋め込みが枠内で見切れないようにする。
-  // ただし、縦長画像やリール埋め込みなどでこの値が非常に大きくなる場合、開いた瞬間に
-  // ほぼメディアだけで画面が埋まってしまうため、画面高さに対する上限でクランプする
-  // (はみ出た分は中央基準でカットされるだけで、下にスクロールすれば見える)。
-  const rawDisplayedHeight = mediaItems.length === 0 ? imageHeight : Math.max(baseImageHeight, maxEmbedHeight);
-  const displayedImageHeight =
-    mediaItems.length === 0 ? rawDisplayedHeight : Math.min(rawDisplayedHeight, screenHeight * MAX_MEDIA_HEIGHT_RATIO);
+  // 写真の高さ。画像があれば先頭画像の縦横比に合わせ（上下限あり）、
+  // SNS埋め込みだけの場合はその実測高さに合わせる。
+  const maxHeroHeight = Math.min(contentWidth * MAX_HERO_RATIO, screenHeight * MAX_HERO_SCREEN_RATIO);
+  const heroHeight =
+    sortedImages.length > 0
+      ? Math.max(
+          contentWidth * MIN_HERO_RATIO,
+          Math.min(contentWidth * (imageAspectRatio ?? 0.75), maxHeroHeight)
+        )
+      : Math.min(
+          Math.max(0, ...sortedEmbeds.map((e) => embedHeights[e.id] ?? EMBED_FALLBACK_HEIGHT)),
+          screenHeight * 0.7
+        );
 
   if (loading || !spot) {
     return (
@@ -221,9 +246,9 @@ export default function SpotDetailContent({
   }
 
   // 投稿者がGoogleマップのリンクを指定していればそちらを優先し、
-  // 未指定の場合は従来通り緯度経度から生成したリンクを開く
+  // 未指定の場合は緯度経度から経路案内のリンクを作って開く
   const openInGoogleMaps = () => {
-    const url = spot.google_maps_url || `https://www.google.com/maps/search/?api=1&query=${spot.lat},${spot.lng}`;
+    const url = spot.google_maps_url || `https://www.google.com/maps/dir/?api=1&destination=${spot.lat},${spot.lng}`;
     Linking.openURL(url).catch(() => {});
   };
 
@@ -240,322 +265,434 @@ export default function SpotDetailContent({
   const handleShare = () => shareSpot(spot.title, spot.slug);
   const handleCopyLink = () => copyLink(spot.slug);
 
+  // パンくず（日本 › 東京都 / 海外 › アメリカ）。タグが付いていればタップでそのタグの一覧へ
+  const tags = spot.tags ?? [];
+  const tagNames = tags.map((tag) => tag.name);
+  const place = spotPlace(tagNames, spot.city, spot.country);
+  const tagByName = (name: string) => tags.find((tag) => tag.name === name);
+  const crumbs: { label: string; tagId?: number }[] =
+    place.prefectures.length > 0
+      ? [
+          { label: '日本', tagId: tagByName('日本')?.id },
+          ...place.prefectures.map((p) => ({ label: prefectureFullName(p), tagId: tagByName(p)?.id })),
+        ]
+      : place.country
+        ? [
+            ...(tagByName('海外') ? [{ label: '海外', tagId: tagByName('海外')?.id }] : []),
+            { label: place.country, tagId: tagByName(place.country)?.id },
+          ]
+        : [];
+
+  const author = spot.author;
+  const authorInitial = (author?.display_name || author?.username || '?').slice(0, 1);
+
+  // 写真の上(写真が無ければ黄色の地の上)に重ねる、戻る・ロゴ・共有の並び
+  const topBar = (overPhoto: boolean) => (
+    <View style={[styles.topBar, { top: topInset + space.s }]} pointerEvents="box-none">
+      {onBack ? (
+        <Pressable style={styles.overlayButton} onPress={onBack} hitSlop={6} accessibilityRole="button" accessibilityLabel={t.back}>
+          <Ionicons name="chevron-back" size={22} color={colors.accent} />
+        </Pressable>
+      ) : (
+        <View style={styles.overlayButtonSpacer} />
+      )}
+      <Pressable onPress={onLogoPress} disabled={!onLogoPress} hitSlop={6}>
+        <Image
+          source={overPhoto ? require('../../assets/logo-header.png') : require('../../assets/logo-header-dark.png')}
+          style={styles.topLogo}
+          resizeMode="contain"
+        />
+      </Pressable>
+      <Pressable style={styles.overlayButton} onPress={handleShare} hitSlop={6} accessibilityRole="button" accessibilityLabel={t.share}>
+        <Ionicons name="share-social-outline" size={20} color={colors.accent} />
+      </Pressable>
+    </View>
+  );
+
   return (
     <ScrollView
       style={styles.container}
-      contentContainerStyle={[
-        styles.scrollContent,
-        topInset ? { paddingTop: topInset } : null,
-        { paddingBottom: 32 + bottomInset },
-      ]}
-      scrollEnabled={scrollEnabled}
-      onScroll={onScroll}
+      contentContainerStyle={[styles.scrollContent, { paddingBottom: space.xxl + bottomInset }]}
       scrollEventThrottle={16}
     >
       <View style={[styles.contentWrapper, { maxWidth: MAX_CONTENT_WIDTH }]}>
-        {mediaItems.length > 0 && (
-          <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            decelerationRate="fast"
-            snapToInterval={mediaItemWidth + MEDIA_GAP}
-            snapToAlignment="start"
-            // 1回のスワイプで複数枚分スクロールしてしまうことがないようにし、
-            // 必ず1枚単位でぴったり止まる(中途半端な位置で止まらない)ようにする。
-            disableIntervalMomentum
-            onScroll={(e) => {
-              const x = e.nativeEvent.contentOffset.x;
-              const index = Math.round(x / (mediaItemWidth + MEDIA_GAP));
-              const clamped = Math.max(0, Math.min(mediaItems.length - 1, index));
-              setActiveMediaIndex((prev) => (prev === clamped ? prev : clamped));
-            }}
-            scrollEventThrottle={16}
-            style={{ width: contentWidth }}
-            contentContainerStyle={{ paddingHorizontal: MEDIA_PEEK }}
-          >
-            {mediaItems.map((item, index) => {
-              const isLast = index === mediaItems.length - 1;
-              const itemStyle = {
-                width: mediaItemWidth,
-                height: displayedImageHeight,
-                marginRight: isLast ? 0 : MEDIA_GAP,
-              };
-              if (item.kind === 'image') {
+        {mediaItems.length > 0 ? (
+          <View style={[styles.hero, { height: heroHeight }]}>
+            <ScrollView
+              horizontal
+              pagingEnabled
+              showsHorizontalScrollIndicator={false}
+              onScroll={(e) => {
+                const index = Math.round(e.nativeEvent.contentOffset.x / contentWidth);
+                const clamped = Math.max(0, Math.min(mediaItems.length - 1, index));
+                setActiveMediaIndex((prev) => (prev === clamped ? prev : clamped));
+              }}
+              scrollEventThrottle={16}
+              style={{ width: contentWidth, height: heroHeight }}
+            >
+              {mediaItems.map((item) => {
+                const itemStyle = { width: contentWidth, height: heroHeight };
+                if (item.kind === 'image') {
+                  return (
+                    <Image
+                      key={`image-${item.image.id}`}
+                      source={{ uri: spotImageUrl(item.image.storage_path) }}
+                      style={[styles.heroImage, itemStyle]}
+                      // 写真の上下左右が切れないよう"contain"にする。縦横比が枠と合わない場合の
+                      // 余白は、墨色の地がそのまま額縁のように見える。
+                      resizeMode="contain"
+                    />
+                  );
+                }
+
+                // SNS埋め込み(Instagram/X)が枠より高い場合は、縦横比を保ったまま縮小して枠内に収める
+                const naturalHeight = embedHeights[item.embed.id] ?? EMBED_FALLBACK_HEIGHT;
+                const embedScale = naturalHeight > heroHeight ? heroHeight / naturalHeight : 1;
                 return (
-                  <Image
-                    key={`image-${item.image.id}`}
-                    source={{ uri: spotImageUrl(item.image.storage_path) }}
-                    style={[styles.image, itemStyle]}
-                    // "cover"だと箱の縦横比に合わせて上下(または左右)が切れてしまうため、
-                    // 画像全体が必ず収まる"contain"にする。余白は画像自体の余白としてではなく
-                    // このスライドの背景色(黄色)がそのまま見えるだけなので違和感は出ない。
-                    resizeMode="contain"
-                  />
-                );
-              }
-
-              // SNS埋め込み(Instagram/X)は実測の自然な高さ(naturalHeight)を持つが、
-              // カルーセルの共有高さ(displayedImageHeight、画面高さで上限クランプ済み)より
-              // 高い場合、そのままではみ出た分がクリップされ見切れてしまう。
-              // そこで、はみ出るケースだけ自然なサイズのまま描画したうえで縦横比を保ったまま
-              // 均一に縮小(scale)し、共有高さの枠内に必ず収まるようにする。
-              const naturalHeight = embedHeights[item.embed.id] ?? EMBED_FALLBACK_HEIGHT;
-              const embedScale = naturalHeight > displayedImageHeight ? displayedImageHeight / naturalHeight : 1;
-              return (
-                <View key={`embed-${item.embed.id}`} style={[styles.embedSlide, itemStyle]}>
-                  <View style={{ width: mediaItemWidth, height: naturalHeight, transform: [{ scale: embedScale }] }}>
-                    {item.embed.platform === 'instagram' ? (
-                      <InstagramEmbed
-                        url={item.embed.url}
-                        onHeightChange={(height) =>
-                          setEmbedHeights((prev) => (prev[item.embed.id] === height ? prev : { ...prev, [item.embed.id]: height }))
-                        }
-                      />
-                    ) : (
-                      <XEmbed
-                        url={item.embed.url}
-                        onHeightChange={(height) =>
-                          setEmbedHeights((prev) => (prev[item.embed.id] === height ? prev : { ...prev, [item.embed.id]: height }))
-                        }
-                      />
-                    )}
+                  <View key={`embed-${item.embed.id}`} style={[styles.embedSlide, itemStyle]}>
+                    <View style={{ width: contentWidth, height: naturalHeight, transform: [{ scale: embedScale }] }}>
+                      {item.embed.platform === 'instagram' ? (
+                        <InstagramEmbed
+                          url={item.embed.url}
+                          onHeightChange={(height) =>
+                            setEmbedHeights((prev) => (prev[item.embed.id] === height ? prev : { ...prev, [item.embed.id]: height }))
+                          }
+                        />
+                      ) : (
+                        <XEmbed
+                          url={item.embed.url}
+                          onHeightChange={(height) =>
+                            setEmbedHeights((prev) => (prev[item.embed.id] === height ? prev : { ...prev, [item.embed.id]: height }))
+                          }
+                        />
+                      )}
+                    </View>
                   </View>
-                </View>
-              );
-            })}
-          </ScrollView>
-        )}
+                );
+              })}
+            </ScrollView>
 
-        {/* Instagramの投稿と同じように、何枚あるか・今どれを見ているかをドットで伝える */}
-        {mediaItems.length > 1 && (
-          <View style={styles.dotsRow}>
-            {mediaItems.map((_, i) => (
-              <View key={i} style={[styles.dot, i === activeMediaIndex && styles.dotActive]} />
-            ))}
+            {/* ボタンが写真の明るい部分に埋もれないよう、上端だけ暗くする */}
+            <View style={[styles.heroScrim, heroScrim, { height: topInset + 100 }]} pointerEvents="none" />
+            {topBar(true)}
+
+            {mediaItems.length > 1 && (
+              <View style={styles.counter} pointerEvents="none">
+                <Text style={styles.counterText}>
+                  {t.photoCounter
+                    .replace('{index}', String(activeMediaIndex + 1))
+                    .replace('{total}', String(mediaItems.length))}
+                </Text>
+              </View>
+            )}
           </View>
+        ) : (
+          <View style={{ height: topInset + space.s + 44 + space.s }}>{topBar(false)}</View>
         )}
 
         <View style={styles.body}>
-          {spot.title && <Text style={styles.titleText}>{spot.title}</Text>}
-
-          <View style={styles.metaRow}>
-            {(spot.city || spot.country) && (
-              <Text style={styles.meta}>
-                {spot.city ?? ''} {spot.country ?? ''}
-              </Text>
-            )}
-            {spot.author?.username &&
-              (onAuthorPress ? (
-                <Pressable onPress={() => onAuthorPress(spot.author_id)} hitSlop={6}>
-                  <UsernameWithBadge username={spot.author.username} badge={spot.author.badge} textStyle={styles.authorText} />
-                </Pressable>
-              ) : (
-                <UsernameWithBadge username={spot.author.username} badge={spot.author.badge} textStyle={styles.authorText} />
+          {crumbs.length > 0 && (
+            <View style={styles.breadcrumb}>
+              {crumbs.map((crumb, i) => (
+                <React.Fragment key={crumb.label}>
+                  {i > 0 && <Text variant="body" style={styles.crumbText}>›</Text>}
+                  {crumb.tagId != null && onTagPress ? (
+                    <Pressable onPress={() => onTagPress(crumb.tagId!)} hitSlop={6}>
+                      <Text variant="body" style={styles.crumbText}>{crumb.label}</Text>
+                    </Pressable>
+                  ) : (
+                    <Text variant="body" style={styles.crumbText}>{crumb.label}</Text>
+                  )}
+                </React.Fragment>
               ))}
-          </View>
+            </View>
+          )}
 
-        {spot.tags && spot.tags.length > 0 && (
-          <View style={styles.tagRow}>
-            {spot.tags.map((tag) =>
-              onTagPress ? (
-                <Pressable key={tag.id} style={styles.tagChip} onPress={() => onTagPress(tag.id)}>
-                  <Text style={styles.tagChipText}>{tag.name}</Text>
-                </Pressable>
-              ) : (
-                <View key={tag.id} style={styles.tagChip}>
-                  <Text style={styles.tagChipText}>{tag.name}</Text>
-                </View>
-              )
+          {/* タイトルに空行が入っている投稿があり、見出しが間延びするため空行は詰める */}
+          {!!spot.title && <Text style={styles.titleText}>{spot.title.trim().replace(/\n\s*\n+/g, '\n')}</Text>}
+
+          <Pressable
+            style={styles.authorRow}
+            onPress={() => onAuthorPress?.(spot.author_id)}
+            disabled={!onAuthorPress}
+          >
+            {author?.avatar_url ? (
+              <Image source={{ uri: author.avatar_url }} style={styles.avatar} />
+            ) : (
+              <View style={[styles.avatar, styles.avatarFallback]}>
+                <Text style={styles.avatarInitial}>{authorInitial}</Text>
+              </View>
             )}
-          </View>
-        )}
+            <View>
+              {author?.username && (
+                <UsernameWithBadge username={author.username} badge={author.badge} textStyle={styles.authorText} />
+              )}
+              <Text variant="body" style={styles.dateText}>
+                {formatReviewDate(spot.created_at, t.dateLocale)}
+              </Text>
+            </View>
+          </Pressable>
 
-        {spot.description && <Text style={styles.description}>{spot.description}</Text>}
-
-        {spot.access && (
-          <View style={styles.accessBox}>
-            <Text style={styles.accessLabel}>{t.access}</Text>
-            <Text style={styles.accessText}>{spot.access}</Text>
-          </View>
-        )}
-
-        {spot.recommended_visit_time && (
-          <View style={styles.accessBox}>
-            <Text style={styles.accessLabel}>{t.visitTime}</Text>
-            <Text style={styles.accessText}>{visitTimeLabel(spot.recommended_visit_time)}</Text>
-          </View>
-        )}
-
-        <View style={styles.actionRow}>
-          <View style={styles.iconButtonsRow}>
-            <Pressable style={styles.iconButtonWithCount} onPress={onLike} hitSlop={10}>
-              <Ionicons
-                name={liked ? 'heart' : 'heart-outline'}
-                size={26}
-                color={liked ? colors.danger : colors.accentText}
-              />
-              {spot.like_count > 0 && <Text style={styles.iconCountText}>{spot.like_count}</Text>}
+          <View style={styles.actionRow}>
+            <Pressable
+              style={[styles.actionButton, liked && styles.actionButtonActive]}
+              onPress={onLike}
+              accessibilityRole="button"
+              aria-selected={liked}
+            >
+              <Ionicons name={liked ? 'heart' : 'heart-outline'} size={18} color={liked ? colors.accent : colors.accentText} />
+              <Text style={[styles.actionText, liked && styles.actionTextActive]}>
+                {spot.like_count > 0 ? `${t.like} ${spot.like_count}` : t.like}
+              </Text>
             </Pressable>
-            <Pressable style={styles.iconButtonWithCount} onPress={onBookmark} hitSlop={10}>
+            <Pressable
+              style={[styles.actionButton, bookmarked && styles.actionButtonActive]}
+              onPress={onBookmark}
+              accessibilityRole="button"
+              aria-selected={bookmarked}
+            >
               <Ionicons
                 name={bookmarked ? 'bookmark' : 'bookmark-outline'}
-                size={24}
-                color={colors.accentText}
+                size={17}
+                color={bookmarked ? colors.accent : colors.accentText}
               />
-              {spot.bookmark_count > 0 && <Text style={styles.iconCountText}>{spot.bookmark_count}</Text>}
+              <Text style={[styles.actionText, bookmarked && styles.actionTextActive]}>
+                {spot.bookmark_count > 0 ? `${t.wantToGo} ${spot.bookmark_count}` : t.wantToGo}
+              </Text>
             </Pressable>
-            <Pressable style={styles.iconButton} onPress={handleShare} hitSlop={10}>
-              <Ionicons name="share-social-outline" size={24} color={colors.accentText} />
+            <Pressable
+              style={styles.menuButton}
+              onPress={() => setShowMenu((v) => !v)}
+              accessibilityRole="button"
+              accessibilityLabel={t.moreMenu}
+            >
+              <Ionicons name="ellipsis-horizontal" size={18} color={colors.accentText} />
             </Pressable>
           </View>
-          <Pressable style={styles.menuButton} onPress={() => setShowMenu((v) => !v)} hitSlop={10}>
-            <Ionicons name="ellipsis-horizontal" size={22} color={colors.accentText} />
-          </Pressable>
+
+          {showMenu && (
+            <View style={styles.menuPanel}>
+              {onViewOnMap && (
+                <Pressable
+                  style={styles.menuItem}
+                  onPress={() => {
+                    setShowMenu(false);
+                    onViewOnMap();
+                  }}
+                >
+                  <Ionicons name="map-outline" size={18} color={colors.textPrimary} />
+                  <Text style={styles.menuItemText}>{t.viewOnMap}</Text>
+                </Pressable>
+              )}
+              {Platform.OS === 'web' && (
+                <Pressable
+                  style={styles.menuItem}
+                  onPress={() => {
+                    setShowMenu(false);
+                    handleCopyLink();
+                  }}
+                >
+                  <Ionicons name="link-outline" size={18} color={colors.textPrimary} />
+                  <Text style={styles.menuItemText}>{t.copyLink}</Text>
+                </Pressable>
+              )}
+              {isOwner && onEdit && (
+                <Pressable
+                  style={styles.menuItem}
+                  onPress={() => {
+                    setShowMenu(false);
+                    onEdit();
+                  }}
+                >
+                  <Ionicons name="create-outline" size={18} color={colors.textPrimary} />
+                  <Text style={styles.menuItemText}>{t.edit}</Text>
+                </Pressable>
+              )}
+              {isOwner && onDelete ? (
+                <Pressable
+                  style={[styles.menuItem, styles.menuItemLast]}
+                  onPress={() => {
+                    setShowMenu(false);
+                    setShowDeleteConfirm(true);
+                  }}
+                >
+                  <Ionicons name="trash-outline" size={18} color={colors.danger} />
+                  <Text style={[styles.menuItemText, styles.menuItemDangerText]}>{t.delete}</Text>
+                </Pressable>
+              ) : (
+                <Pressable
+                  style={[styles.menuItem, styles.menuItemLast]}
+                  onPress={() => {
+                    setShowMenu(false);
+                    onToggleReport();
+                  }}
+                >
+                  <Ionicons name="flag-outline" size={18} color={colors.danger} />
+                  <Text style={[styles.menuItemText, styles.menuItemDangerText]}>{t.report}</Text>
+                </Pressable>
+              )}
+            </View>
+          )}
+
+          {showReport && (
+            <View style={styles.darkPanel}>
+              <Text style={styles.panelTitle}>{t.reportTitle}</Text>
+              {REPORT_REASONS.map((reason) => (
+                <Pressable key={reason} style={styles.reportOption} onPress={() => onReport(reason)}>
+                  <Text variant="body" style={styles.reportOptionText}>{t.reportReasons[reason]}</Text>
+                </Pressable>
+              ))}
+            </View>
+          )}
+
+          {showDeleteConfirm && (
+            <View style={styles.darkPanel}>
+              <Text style={styles.panelTitle}>{t.deleteConfirmTitle}</Text>
+              <Text variant="body" style={styles.deleteConfirmDesc}>{t.deleteConfirmDesc}</Text>
+              <View style={styles.deleteConfirmRow}>
+                <Pressable
+                  style={styles.deleteCancelButton}
+                  onPress={() => setShowDeleteConfirm(false)}
+                  disabled={deleting}
+                >
+                  <Text style={styles.deleteCancelText}>{t.cancel}</Text>
+                </Pressable>
+                <Pressable style={styles.deleteConfirmButton} onPress={onDelete} disabled={deleting}>
+                  {deleting ? (
+                    <ActivityIndicator color="#fff" size="small" />
+                  ) : (
+                    <Text style={styles.deleteConfirmButtonText}>{t.delete}</Text>
+                  )}
+                </Pressable>
+              </View>
+            </View>
+          )}
+
+          {!!spot.description && (
+            <Text variant="body" style={styles.description}>
+              {spot.description}
+            </Text>
+          )}
+
+          {!!spot.access && (
+            <View style={styles.infoBox}>
+              <Text style={styles.infoLabel}>{t.access}</Text>
+              <Text variant="body" style={styles.infoText}>{spot.access}</Text>
+            </View>
+          )}
+
+          {!!spot.recommended_visit_time && (
+            <View style={styles.infoBox}>
+              <Text style={styles.infoLabel}>{t.visitTime}</Text>
+              <Text style={styles.infoText}>{visitTimeLabel(spot.recommended_visit_time)}</Text>
+            </View>
+          )}
+
+          {tags.length > 0 && (
+            <View style={styles.tagRow}>
+              {tags.map((tag) => (
+                <Pressable
+                  key={tag.id}
+                  style={styles.tagChip}
+                  onPress={() => onTagPress?.(tag.id)}
+                  disabled={!onTagPress}
+                >
+                  <Text style={styles.tagChipText}>#{tag.name}</Text>
+                </Pressable>
+              ))}
+            </View>
+          )}
         </View>
 
-        {/* アイコンだけだと何のボタンか判断しづらいとの指摘があったため、
-            よく使われるGoogleマップ導線だけは文字付きの単独ボタンにする。
-            iOSでは、Appleの審査ガイドライン4(位置情報機能はサードパーティの地図アプリのみに
-            限定せず、ネイティブのApple Mapsアプリも起動できる選択肢を用意すること)に対応するため、
-            Apple Mapsで開くボタンも並べて表示する(Android/Web版にはApple Mapsアプリ自体が
-            存在しないため表示しない)。 */}
-        <View style={styles.mapsButtonRow}>
-          <Pressable style={styles.mapsButton} onPress={openInGoogleMaps} hitSlop={6}>
-            <Ionicons name="navigate-outline" size={16} color={colors.accent} />
-            <Text style={styles.mapsButtonText}>{t.openInGoogleMaps}</Text>
+        {/* 場所: 小さな地図(タップで地図タブへ)と、経路案内のボタン */}
+        <View style={styles.locationCard}>
+          <Pressable onPress={onViewOnMap} disabled={!onViewOnMap} accessibilityRole="button" accessibilityLabel={t.viewOnMap}>
+            <Image source={{ uri: staticMapUrl(spot.lat, spot.lng) }} style={styles.locationMap} />
           </Pressable>
+          <View style={styles.locationFooter}>
+            <View style={styles.locationTextCol}>
+              <Text style={styles.locationPlace} numberOfLines={1}>
+                {place.label ?? t.viewOnMap}
+              </Text>
+              {onViewOnMap && (
+                <Text variant="body" style={styles.locationHint}>
+                  {t.locationHint}
+                </Text>
+              )}
+            </View>
+            <Pressable style={styles.directionsButton} onPress={openInGoogleMaps} hitSlop={4}>
+              <Ionicons name="navigate-outline" size={16} color={colors.accentText} />
+              <Text style={styles.directionsText}>{t.directions}</Text>
+            </Pressable>
+          </View>
           {Platform.OS === 'ios' && (
-            <Pressable style={styles.mapsButton} onPress={openInAppleMaps} hitSlop={6}>
-              <Ionicons name="map-outline" size={16} color={colors.accent} />
-              <Text style={styles.mapsButtonText}>{t.openInAppleMaps}</Text>
+            <Pressable style={styles.appleMapsRow} onPress={openInAppleMaps}>
+              <Ionicons name="map-outline" size={16} color={colors.textSecondary} />
+              <Text style={styles.appleMapsText}>{t.openInAppleMaps}</Text>
             </Pressable>
           )}
         </View>
 
-        {showMenu && (
-          <View style={styles.menuPanel}>
-            {onViewOnMap && (
-              <Pressable
-                style={styles.menuItem}
-                onPress={() => {
-                  setShowMenu(false);
-                  onViewOnMap();
-                }}
-              >
-                <Ionicons name="map-outline" size={18} color={colors.textPrimary} />
-                <Text style={styles.menuItemText}>{t.viewOnMap}</Text>
-              </Pressable>
-            )}
-            {Platform.OS === 'web' && (
-              <Pressable
-                style={styles.menuItem}
-                onPress={() => {
-                  setShowMenu(false);
-                  handleCopyLink();
-                }}
-              >
-                <Ionicons name="link-outline" size={18} color={colors.textPrimary} />
-                <Text style={styles.menuItemText}>{t.copyLink}</Text>
-              </Pressable>
-            )}
-            {isOwner && onEdit && (
-              <Pressable
-                style={styles.menuItem}
-                onPress={() => {
-                  setShowMenu(false);
-                  onEdit();
-                }}
-              >
-                <Ionicons name="create-outline" size={18} color={colors.textPrimary} />
-                <Text style={styles.menuItemText}>{t.edit}</Text>
-              </Pressable>
-            )}
-            {isOwner && onDelete ? (
-              <Pressable
-                style={[styles.menuItem, styles.menuItemLast]}
-                onPress={() => {
-                  setShowMenu(false);
-                  setShowDeleteConfirm(true);
-                }}
-              >
-                <Ionicons name="trash-outline" size={18} color={colors.danger} />
-                <Text style={[styles.menuItemText, styles.menuItemDangerText]}>{t.delete}</Text>
-              </Pressable>
-            ) : (
-              <Pressable
-                style={[styles.menuItem, styles.menuItemLast]}
-                onPress={() => {
-                  setShowMenu(false);
-                  onToggleReport();
-                }}
-              >
-                <Ionicons name="flag-outline" size={18} color={colors.danger} />
-                <Text style={[styles.menuItemText, styles.menuItemDangerText]}>{t.report}</Text>
-              </Pressable>
-            )}
-          </View>
-        )}
-
-        {showReport && (
-          <View style={styles.reportPanel}>
-            <Text style={styles.reportTitle}>{t.reportTitle}</Text>
-            {REPORT_REASONS.map((reason) => (
-              <Pressable key={reason} style={styles.reportOption} onPress={() => onReport(reason)}>
-                <Text style={styles.reportOptionText}>{t.reportReasons[reason]}</Text>
-              </Pressable>
-            ))}
-          </View>
-        )}
-
-        {showDeleteConfirm && (
-          <View style={styles.reportPanel}>
-            <Text style={styles.reportTitle}>{t.deleteConfirmTitle}</Text>
-            <Text style={styles.deleteConfirmDesc}>{t.deleteConfirmDesc}</Text>
-            <View style={styles.deleteConfirmRow}>
-              <Pressable
-                style={styles.deleteCancelButton}
-                onPress={() => setShowDeleteConfirm(false)}
-                disabled={deleting}
-              >
-                <Text style={styles.deleteCancelText}>{t.cancel}</Text>
-              </Pressable>
-              <Pressable
-                style={styles.deleteConfirmButton}
-                onPress={onDelete}
-                disabled={deleting}
-              >
-                {deleting ? (
-                  <ActivityIndicator color="#fff" size="small" />
-                ) : (
-                  <Text style={styles.deleteConfirmButtonText}>{t.delete}</Text>
-                )}
-              </Pressable>
+        {nearbySpots.length > 0 && (
+          <View style={styles.section}>
+            <Text style={styles.sectionHeading}>{t.nearbyHeading}</Text>
+            <View>
+              {nearbySpots.map((near, i) => {
+                const thumb = spotThumbnailUrl(near);
+                return (
+                  <Pressable
+                    key={near.id}
+                    style={[styles.nearbyRow, i > 0 && styles.nearbyDivider]}
+                    onPress={() => onSpotPress?.(near.slug)}
+                    disabled={!onSpotPress}
+                  >
+                    {thumb ? (
+                      <Image source={{ uri: thumb }} style={styles.nearbyThumb} />
+                    ) : (
+                      <View style={styles.nearbyThumb} />
+                    )}
+                    <Text variant="body" style={styles.nearbyTitle} numberOfLines={2}>
+                      {near.title || near.description || ''}
+                    </Text>
+                    <Text style={styles.nearbyDistance}>{formatDistance(near.distanceKm)}</Text>
+                  </Pressable>
+                );
+              })}
             </View>
           </View>
         )}
 
         {/* 「みんなの投稿」: 他ユーザーがこのスポットに追加したレビュー(写真・SNS埋め込み・
-            コメント・訪問時間帯)を本文の下に一覧で並べる。onAddReviewが渡っている場合のみ
-            投稿ボタンを表示する(未ログイン時は親側でボタンごと出し分ける想定)。 */}
-        <View style={styles.reviewsSection}>
+            コメント・訪問時間帯)。onAddReviewが渡っている場合のみ投稿ボタンを表示する。 */}
+        <View style={styles.section}>
           <View style={styles.reviewsHeaderRow}>
-            <Text style={styles.reviewsHeading}>
-              {reviews.length > 0
-                ? t.reviewsHeadingWithCount.replace('{count}', String(reviews.length))
-                : t.reviewsHeading}
-            </Text>
-            {onAddReview && (
-              <Pressable style={styles.addReviewButton} onPress={onAddReview} hitSlop={6}>
+            <Text style={styles.sectionHeading}>{t.reviewsHeading}</Text>
+            {reviews.length > 0 && onAddReview ? (
+              <Pressable style={styles.addReviewSmall} onPress={onAddReview} hitSlop={6}>
                 <Ionicons name="add" size={15} color={colors.accent} />
-                <Text style={styles.addReviewButtonText}>{t.addReview}</Text>
+                <Text style={styles.addReviewSmallText}>{t.addReview}</Text>
               </Pressable>
+            ) : (
+              <Text variant="body" style={styles.reviewsCount}>
+                {t.reviewsCount.replace('{count}', String(reviews.length))}
+              </Text>
             )}
           </View>
 
           {reviewsLoading ? (
-            <ActivityIndicator color={colors.background} style={{ marginTop: 14 }} />
+            <ActivityIndicator color={colors.accentText} style={{ marginTop: space.m }} />
           ) : reviews.length === 0 ? (
-            <Text style={styles.reviewsEmptyText}>{t.reviewsEmpty}</Text>
+            <View style={styles.reviewsEmpty}>
+              <PixelDoor />
+              <Text variant="body" style={styles.reviewsEmptyText}>
+                {t.reviewsEmptyLead}
+              </Text>
+              {onAddReview && (
+                <Pressable style={styles.addReviewButton} onPress={onAddReview}>
+                  <Text style={styles.addReviewButtonText}>{t.addReview}</Text>
+                </Pressable>
+              )}
+            </View>
           ) : (
             reviews.map((review) => {
               const reviewMedia = [
@@ -580,7 +717,9 @@ export default function SpotDetailContent({
                     ) : (
                       <View />
                     )}
-                    <Text style={styles.reviewDate}>{formatReviewDate(review.created_at, t.dateLocale)}</Text>
+                    <Text variant="body" style={styles.reviewDate}>
+                      {formatReviewDate(review.created_at, t.dateLocale)}
+                    </Text>
                   </View>
 
                   {review.recommended_visit_time && (
@@ -603,17 +742,21 @@ export default function SpotDetailContent({
                     </ScrollView>
                   )}
 
-                  {review.description && <Text style={styles.reviewDescription}>{review.description}</Text>}
+                  {review.description && (
+                    <Text variant="body" style={styles.reviewDescription}>
+                      {review.description}
+                    </Text>
+                  )}
 
                   {currentUserId && review.author_id === currentUserId && onDeleteReview && (
-                    <Pressable style={styles.reviewDeleteButton} onPress={() => onDeleteReview(review)} hitSlop={6}>
+                    <Pressable style={styles.reviewSmallButton} onPress={() => onDeleteReview(review)} hitSlop={6}>
                       <Text style={styles.reviewDeleteText}>{t.delete}</Text>
                     </Pressable>
                   )}
 
                   {(!currentUserId || review.author_id !== currentUserId) && onReportReview && (
                     <Pressable
-                      style={styles.reviewDeleteButton}
+                      style={styles.reviewSmallButton}
                       onPress={() => setReportingReviewId((id) => (id === review.id ? null : review.id))}
                       hitSlop={6}
                     >
@@ -623,7 +766,7 @@ export default function SpotDetailContent({
 
                   {reportingReviewId === review.id && onReportReview && (
                     <View style={styles.reviewReportPanel}>
-                      <Text style={styles.reportTitle}>{t.reportTitle}</Text>
+                      <Text style={styles.panelTitle}>{t.reportTitle}</Text>
                       {REPORT_REASONS.map((reason) => (
                         <Pressable
                           key={reason}
@@ -633,7 +776,7 @@ export default function SpotDetailContent({
                             setReportingReviewId(null);
                           }}
                         >
-                          <Text style={styles.reportOptionText}>{t.reportReasons[reason]}</Text>
+                          <Text variant="body" style={styles.reportOptionText}>{t.reportReasons[reason]}</Text>
                         </Pressable>
                       ))}
                     </View>
@@ -642,7 +785,6 @@ export default function SpotDetailContent({
               );
             })
           )}
-        </View>
         </View>
       </View>
     </ScrollView>
@@ -660,147 +802,215 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingVertical: 60,
   },
-  // resizeMode="contain"で画像の縦横比を保ったまま表示するため、箱の縦横比と合わない場合に
-  // 余白ができる。この余白がスライドの黄色い背景と同じ色になるよう明示しておく。
-  image: { borderRadius: 14, backgroundColor: colors.accent },
-  // SNS埋め込み(Instagram/X)も画像と同じ横スライドの中で扱うための枠。
-  // カルーセルの高さ自体を埋め込みの実測高さに合わせて広げているため、
-  // 通常はここでクリップされることはない(overflow:hiddenは計測が届く前の一瞬の保険)。
-  // 他のスライド(画像や、より縦長の別の埋め込み)に合わせて枠の方が高くなった場合は
-  // 埋め込みを縦中央に配置する。背景は詳細画面の黄色と揃え、余白部分が別の色に
-  // 見えてしまわないようにする。
-  embedSlide: { backgroundColor: colors.accent, overflow: 'hidden', justifyContent: 'center', borderRadius: 14 },
-  dotsRow: { flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: 6, marginTop: 10 },
-  dot: { width: 6, height: 6, borderRadius: 3, backgroundColor: colors.accentTextMuted },
-  dotActive: { backgroundColor: colors.accentText },
-  body: { padding: 20, backgroundColor: colors.accent },
-  titleText: { fontSize: 20, fontWeight: '700', color: colors.accentText, marginBottom: 8 },
-  metaRow: { flexDirection: 'row', alignItems: 'center', flexWrap: 'wrap', gap: 8 },
-  meta: { fontSize: 13, color: colors.accentTextMuted },
-  authorText: { fontSize: 13, color: colors.accentText, fontWeight: '600' },
-  tagRow: { flexDirection: 'row', flexWrap: 'wrap', marginTop: 14, gap: 8 },
-  tagChip: {
-    backgroundColor: colors.background,
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 16,
-    marginRight: 8,
-    marginBottom: 8,
-  },
-  tagChipText: { color: colors.accent, fontSize: 12, fontWeight: '600' },
-  description: { fontSize: 15, color: colors.accentText, marginTop: 16, lineHeight: 22 },
-  // colors.background(暗い色)を背景にする箱なので、文字色は黄色背景用の
-  // accentText系ではなく、暗い背景の上で読める明るい色を使う
-  accessBox: {
-    marginTop: 16,
-    padding: 12,
-    borderRadius: 10,
-    backgroundColor: colors.background,
-  },
-  accessLabel: { fontSize: 12, fontWeight: '700', color: colors.accent, marginBottom: 4 },
-  accessText: { fontSize: 14, color: colors.textPrimary, lineHeight: 20 },
-  actionRow: {
+
+  // 写真
+  hero: { backgroundColor: colors.accentText, overflow: 'hidden' },
+  heroImage: { backgroundColor: colors.accentText },
+  embedSlide: { backgroundColor: colors.accentText, overflow: 'hidden', justifyContent: 'center' },
+  heroScrim: { position: 'absolute', top: 0, left: 0, right: 0 },
+  topBar: {
+    position: 'absolute',
+    left: space.m,
+    right: space.m,
     flexDirection: 'row',
-    marginTop: 24,
     alignItems: 'center',
     justifyContent: 'space-between',
   },
-  iconButtonsRow: { flexDirection: 'row', gap: 18 },
-  iconButton: { padding: 2 },
-  iconButtonWithCount: { flexDirection: 'row', alignItems: 'center', gap: 4, padding: 2 },
-  iconCountText: { color: colors.accentText, fontSize: 13, fontWeight: '600' },
-  menuButton: { padding: 6 },
-  mapsButtonRow: { flexDirection: 'row', gap: 10, marginTop: 12 },
-  mapsButton: {
+  overlayButton: {
+    width: 44,
+    height: 44,
+    borderRadius: radius.pill,
+    backgroundColor: OVERLAY_BG,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  overlayButtonSpacer: { width: 44, height: 44 },
+  topLogo: { width: 72, height: 40 },
+  counter: {
+    position: 'absolute',
+    right: space.l,
+    bottom: space.l,
+    paddingHorizontal: 10,
+    paddingVertical: space.xs,
+    borderRadius: radius.pill,
+    backgroundColor: OVERLAY_BG,
+  },
+  counterText: { color: colors.accent, fontSize: type.caption },
+
+  // 本文
+  body: { paddingHorizontal: 20, paddingTop: 20, gap: 14 },
+  breadcrumb: { flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', gap: 6 },
+  crumbText: { color: colors.accentTextMuted, fontSize: 12 },
+  titleText: { fontSize: type.display, lineHeight: 33, color: colors.accentText },
+  authorRow: { flexDirection: 'row', alignItems: 'center', gap: 10, alignSelf: 'flex-start' },
+  avatar: { width: 32, height: 32, borderRadius: radius.pill },
+  avatarFallback: { backgroundColor: colors.accentText, alignItems: 'center', justifyContent: 'center' },
+  avatarInitial: { color: colors.accent, fontSize: type.small },
+  authorText: { fontSize: type.small, color: colors.accentText },
+  dateText: { fontSize: 12, color: colors.accentTextMuted },
+  actionRow: { flexDirection: 'row', gap: space.s },
+  actionButton: {
     flex: 1,
+    height: 44,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     gap: 6,
-    paddingVertical: 10,
-    borderRadius: 10,
-    backgroundColor: colors.background,
+    borderRadius: radius.pill,
+    borderWidth: 1.5,
+    borderColor: colors.accentOutline,
   },
-  mapsButtonText: { color: colors.accent, fontSize: 13, fontWeight: '600' },
-  menuPanel: {
-    marginTop: 10,
-    backgroundColor: colors.background,
-    borderRadius: 12,
-    overflow: 'hidden',
+  actionButtonActive: { backgroundColor: colors.accentText, borderColor: colors.accentText },
+  actionText: { color: colors.accentText, fontSize: 14 },
+  actionTextActive: { color: colors.accent },
+  menuButton: {
+    width: 44,
+    height: 44,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: radius.pill,
+    borderWidth: 1.5,
+    borderColor: colors.accentOutline,
   },
+  menuPanel: { backgroundColor: colors.accentText, borderRadius: radius.m, overflow: 'hidden' },
   menuItem: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 10,
-    paddingHorizontal: 16,
+    paddingHorizontal: space.l,
     paddingVertical: 13,
-    borderBottomWidth: 1,
+    borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: colors.border,
   },
   menuItemLast: { borderBottomWidth: 0 },
-  menuItemText: { color: colors.textPrimary, fontSize: 14, fontWeight: '600' },
+  menuItemText: { color: colors.textPrimary, fontSize: 14 },
   menuItemDangerText: { color: colors.danger },
-  reportPanel: { marginTop: 16, backgroundColor: colors.background, borderRadius: 12, padding: 16 },
-  reportTitle: { color: colors.textPrimary, fontWeight: '600', marginBottom: 10 },
+  darkPanel: { backgroundColor: colors.accentText, borderRadius: radius.m, padding: space.l },
+  panelTitle: { color: colors.textPrimary, fontSize: type.body, marginBottom: 10 },
   reportOption: { paddingVertical: 10 },
   reportOptionText: { color: colors.textSecondary, fontSize: 14 },
-  deleteConfirmDesc: { color: colors.textSecondary, fontSize: 13, lineHeight: 19, marginBottom: 16 },
+  deleteConfirmDesc: { color: colors.textSecondary, fontSize: type.small, lineHeight: 20, marginBottom: space.l },
   deleteConfirmRow: { flexDirection: 'row', gap: 10 },
   deleteCancelButton: {
     flex: 1,
-    borderRadius: 10,
+    borderRadius: radius.pill,
     paddingVertical: 12,
     alignItems: 'center',
     backgroundColor: colors.surface,
   },
-  deleteCancelText: { color: colors.textSecondary, fontSize: 14, fontWeight: '600' },
+  deleteCancelText: { color: colors.textSecondary, fontSize: 14 },
   deleteConfirmButton: {
     flex: 1,
-    borderRadius: 10,
+    borderRadius: radius.pill,
     paddingVertical: 12,
     alignItems: 'center',
     backgroundColor: colors.danger,
   },
-  deleteConfirmButtonText: { color: '#fff', fontSize: 14, fontWeight: '700' },
-  reviewsSection: {
-    marginTop: 32,
-    paddingTop: 20,
-    borderTopWidth: 1,
-    borderTopColor: 'rgba(0,0,0,0.12)',
+  deleteConfirmButtonText: { color: '#fff', fontSize: 14 },
+  description: { fontSize: type.body, lineHeight: 28, color: colors.accentText },
+  // 墨色の箱なので、文字色は暗い背景の上で読める明るい色を使う
+  infoBox: { padding: 14, borderRadius: radius.m, backgroundColor: colors.accentText, gap: space.xs },
+  infoLabel: { fontSize: 12, color: colors.accent },
+  infoText: { fontSize: 14, color: colors.textPrimary, lineHeight: 22 },
+  tagRow: { flexDirection: 'row', flexWrap: 'wrap', gap: space.s },
+  tagChip: {
+    height: 30,
+    paddingHorizontal: 12,
+    justifyContent: 'center',
+    borderRadius: radius.pill,
+    backgroundColor: colors.accentText,
   },
+  tagChipText: { color: colors.accent, fontSize: type.small },
+
+  // 場所
+  locationCard: {
+    marginTop: 28,
+    marginHorizontal: 20,
+    borderRadius: radius.m,
+    backgroundColor: colors.accentText,
+    overflow: 'hidden',
+  },
+  locationMap: { width: '100%', aspectRatio: 640 / 300, backgroundColor: colors.background },
+  locationFooter: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: space.m,
+    paddingHorizontal: space.l,
+    paddingVertical: 14,
+  },
+  locationTextCol: { flex: 1, minWidth: 0, gap: 2 },
+  locationPlace: { color: colors.textPrimary, fontSize: type.body },
+  locationHint: { color: colors.textSecondary, fontSize: 12 },
+  directionsButton: {
+    height: 40,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    paddingHorizontal: space.l,
+    borderRadius: radius.pill,
+    backgroundColor: colors.accent,
+  },
+  directionsText: { color: colors.accentText, fontSize: type.small },
+  appleMapsRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 6,
+    paddingVertical: space.m,
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopColor: colors.border,
+  },
+  appleMapsText: { color: colors.textSecondary, fontSize: type.small },
+
+  // 近くのスポット・みんなの投稿
+  section: { marginTop: space.xxl, marginHorizontal: 20, gap: space.m },
+  sectionHeading: { color: colors.accentText, fontSize: type.heading },
+  nearbyRow: { flexDirection: 'row', alignItems: 'center', gap: space.m, paddingVertical: 10 },
+  nearbyDivider: { borderTopWidth: 1, borderTopColor: colors.accentLine },
+  nearbyThumb: { width: 44, height: 44, borderRadius: radius.s, backgroundColor: colors.accentLine },
+  nearbyTitle: { flex: 1, color: colors.accentText, fontSize: 14, lineHeight: 20 },
+  nearbyDistance: { color: colors.accentTextMuted, fontSize: 12 },
   reviewsHeaderRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
-  reviewsHeading: { color: colors.accentText, fontSize: 15, fontWeight: '700' },
-  addReviewButton: {
+  reviewsCount: { color: colors.accentTextMuted, fontSize: 12 },
+  addReviewSmall: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 3,
-    backgroundColor: colors.background,
-    borderRadius: 999,
+    backgroundColor: colors.accentText,
+    borderRadius: radius.pill,
     paddingVertical: 6,
-    paddingHorizontal: 12,
+    paddingHorizontal: space.m,
   },
-  addReviewButtonText: { color: colors.accent, fontSize: 12.5, fontWeight: '700' },
-  reviewsEmptyText: { color: colors.accentTextMuted, fontSize: 13, marginTop: 14, lineHeight: 19 },
-  reviewCard: {
-    backgroundColor: colors.background,
-    borderRadius: 12,
-    padding: 14,
-    marginTop: 14,
+  addReviewSmallText: { color: colors.accent, fontSize: type.small },
+  reviewsEmpty: {
+    alignItems: 'center',
+    gap: space.m,
+    paddingVertical: 28,
+    paddingHorizontal: 20,
+    borderRadius: radius.m,
+    borderWidth: 1.5,
+    borderStyle: 'dashed',
+    borderColor: colors.accentOutline,
   },
+  reviewsEmptyText: { color: 'rgba(29,27,14,0.78)', fontSize: 14, lineHeight: 24, textAlign: 'center' },
+  addReviewButton: {
+    height: 44,
+    paddingHorizontal: 20,
+    justifyContent: 'center',
+    borderRadius: radius.pill,
+    backgroundColor: colors.accentText,
+  },
+  addReviewButtonText: { color: colors.accent, fontSize: 14 },
+  reviewCard: { backgroundColor: colors.accentText, borderRadius: radius.m, padding: 14 },
   reviewHeaderRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
-  reviewAuthorText: { fontSize: 13, color: colors.accent, fontWeight: '700' },
-  reviewDate: { fontSize: 11, color: colors.textMuted },
-  reviewVisitTime: { fontSize: 12, color: colors.accent, marginTop: 6, fontWeight: '600' },
+  reviewAuthorText: { fontSize: type.small, color: colors.accent },
+  reviewDate: { fontSize: type.caption, color: colors.textMuted },
+  reviewVisitTime: { fontSize: 12, color: colors.accent, marginTop: 6 },
   reviewMediaRow: { marginTop: 10 },
-  reviewImage: { width: 96, height: 96, borderRadius: 8, marginRight: 8, backgroundColor: colors.surfaceAlt },
-  reviewDescription: { fontSize: 13.5, color: colors.textPrimary, lineHeight: 19, marginTop: 10 },
-  reviewDeleteButton: { marginTop: 10, alignSelf: 'flex-start' },
+  reviewImage: { width: 96, height: 96, borderRadius: radius.s, marginRight: space.s, backgroundColor: colors.surfaceAlt },
+  reviewDescription: { fontSize: 14, color: colors.textPrimary, lineHeight: 22, marginTop: 10 },
+  reviewSmallButton: { marginTop: 10, alignSelf: 'flex-start' },
   reviewReportText: { color: colors.textMuted, fontSize: 12, textDecorationLine: 'underline' },
-  reviewReportPanel: {
-    marginTop: 10,
-    backgroundColor: colors.surfaceAlt,
-    borderRadius: 8,
-    padding: 12,
-  },
-  reviewDeleteText: { color: colors.danger, fontSize: 12, fontWeight: '600' },
+  reviewReportPanel: { marginTop: 10, backgroundColor: colors.surfaceAlt, borderRadius: radius.s, padding: space.m },
+  reviewDeleteText: { color: colors.danger, fontSize: 12 },
 });

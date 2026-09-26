@@ -39,6 +39,35 @@ export async function fetchSpotsInBounds(bounds: {
   return normalizeSpots(data ?? []);
 }
 
+// 2点間の距離(km)。近くのスポットを並べる程度の用途なので、球面の近似式で十分
+export function distanceKm(a: { lat: number; lng: number }, b: { lat: number; lng: number }): number {
+  const toRad = (d: number) => (d * Math.PI) / 180;
+  const dLat = toRad(b.lat - a.lat);
+  const dLng = toRad(b.lng - a.lng);
+  const h = Math.sin(dLat / 2) ** 2 + Math.cos(toRad(a.lat)) * Math.cos(toRad(b.lat)) * Math.sin(dLng / 2) ** 2;
+  return 6371 * 2 * Math.asin(Math.sqrt(h));
+}
+
+// スポット詳細の「近くのリミナルスペース」用。周囲およそ20km四方の投稿から、近い順に返す
+export async function fetchNearbySpots(
+  origin: { id: string; lat: number; lng: number },
+  limit = 4
+): Promise<(Spot & { distanceKm: number })[]> {
+  const dLat = 0.18;
+  const dLng = 0.18 / Math.max(Math.cos((origin.lat * Math.PI) / 180), 0.2);
+  const spots = await fetchSpotsInBounds({
+    minLat: origin.lat - dLat,
+    maxLat: origin.lat + dLat,
+    minLng: origin.lng - dLng,
+    maxLng: origin.lng + dLng,
+  });
+  return spots
+    .filter((spot) => spot.id !== origin.id)
+    .map((spot) => ({ ...spot, distanceKm: distanceKm(origin, spot) }))
+    .sort((a, b) => a.distanceKm - b.distanceKm)
+    .slice(0, limit);
+}
+
 // URLのスラッグ（LIMap ID）から投稿を取得する
 export async function fetchSpotBySlug(slug: string): Promise<Spot> {
   const { data, error } = await supabase

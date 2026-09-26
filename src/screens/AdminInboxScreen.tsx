@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
   statusBadge: { borderRadius: 6, paddingHorizontal: 8, paddingVertical: 3 },
   statusOpen: { backgroundColor: colors.accent },
   statusClosed: { backgroundColor: colors.surface },
-  statusTextOpen: { color: colors.accentText, fontSize: 10, fontWeight: '600' },
-  statusTextClosed: { color: colors.textSecondary, fontSize: 10, fontWeight: '600' },
+  statusTextOpen: { color: colors.accentText, fontSize: 11, fontWeight: '600' },
+  statusTextClosed: { color: colors.textSecondary, fontSize: 11, fontWeight: '600' },
   emptyText: { color: colors.textMuted, textAlign: 'center', marginTop: 40, fontSize: 13 },
 });

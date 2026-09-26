@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useSpotDetail } from '../hooks/useSpotDetail';
-import SpotDetailContent from '../components/SpotDetailContent';
-import AppHeader, { HEADER_CONTENT_HEIGHT } from '../components/AppHeader';
+import SpotDetailContent, { type NearbySpot } from '../components/SpotDetailContent';
 import { useAuth } from '../lib/AuthContext';
+import { fetchNearbySpots } from '../lib/spots';
+import { filterBlockedAuthors } from '../lib/moderation';
 import { colors } from '../lib/theme';
 import { WEB_SAFE_BOTTOM_OVERHANG } from '../lib/safeAreaWeb';
 import { applySpotSeo, resetSeo } from '../lib/seo';
@@ -15,7 +16,7 @@ type Props = RootStackScreenProps<'SpotDetail'>;
 
 export default function SpotDetailScreen({ route, navigation }: Props) {
   const { spotId } = route.params;
-  const { session } = useAuth();
+  const { session, blockedUserIds } = useAuth();
   const insets = useSafeAreaInsets();
   const {
     spot,
@@ -46,6 +47,37 @@ export default function SpotDetailScreen({ route, navigation }: Props) {
   useEffect(() => {
     return () => resetSeo();
   }, []);
+
+  // 「近くのリミナルスペース」。本文の表示を待たせないよう、スポット本体の取得後に別で読み込む
+  const [nearbySpots, setNearbySpots] = useState<NearbySpot[]>([]);
+  const spotKey = spot ? `${spot.id}:${spot.lat}:${spot.lng}` : null;
+  useEffect(() => {
+    if (!spot) return;
+    let cancelled = false;
+    setNearbySpots([]);
+    fetchNearbySpots(spot, 8)
+      .then((items) => {
+        if (!cancelled) setNearbySpots(filterBlockedAuthors(items, blockedUserIds).slice(0, 4));
+      })
+      .catch((e) => console.warn('近くのスポット取得エラー', e));
+    return () => {
+      cancelled = true;
+    };
+    // spot オブジェクトはいいね等で作り直されるため、位置が変わったときだけ読み直す
+  }, [spotKey, blockedUserIds]);
+
+  // 戻れる場合は前の画面へ、URLから直接開いた場合などは地図へ
+  const goBack = () => {
+    if (navigation.canGoBack()) {
+      navigation.goBack();
+    } else {
+      navigation.navigate('Main', { screen: 'MapTab' });
+    }
+  };
+
+  const goToSpot = (slug: string) => {
+    navigation.push('SpotDetail', { spotId: slug });
+  };
 
   const goToMap = () => {
     if (!spot) return;
@@ -130,6 +162,8 @@ export default function SpotDetailScreen({ route, navigation }: Props) {
         onLike={handleLike}
         onBookmark={handleBookmark}
         onReport={handleReport}
+        onBack={goBack}
+        onLogoPress={goToMap}
         onViewOnMap={goToMap}
         onTagPress={goToTag}
         onAuthorPress={goToAuthor}
@@ -137,22 +171,16 @@ export default function SpotDetailScreen({ route, navigation }: Props) {
         onEdit={goToEdit}
         onDelete={onDelete}
         deleting={deleting}
-        topInset={insets.top + HEADER_CONTENT_HEIGHT}
+        topInset={insets.top}
         bottomInset={insets.bottom}
+        nearbySpots={nearbySpots}
+        onSpotPress={goToSpot}
         reviews={reviews}
         reviewsLoading={reviewsLoading}
         currentUserId={session?.user?.id}
         onAddReview={goToAddReview}
         onDeleteReview={handleDeleteReview}
         onReportReview={handleReportReview}
-      />
-      {/* 他の画面(地図・フィード等)と全く同じレイアウトのヘッダーにするため、
-          個別のnative-stackヘッダーではなく共通のAppHeaderをそのまま重ねて使う。
-          黄色背景に合わせて濃色ロゴを使い、タップで(このスポットの位置を中心にした)地図へ戻る。 */}
-      <AppHeader
-        logoSource={require('../../assets/logo-header-dark.png')}
-        backgroundColor={colors.accent}
-        onLogoPress={goToMap}
       />
     </View>
   );

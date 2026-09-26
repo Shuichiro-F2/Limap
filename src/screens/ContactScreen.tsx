@@ -146,7 +146,7 @@ export default function ContactScreen(_props: Props) {
             value={firstMessage}
             onChangeText={(t) => setFirstMessage(t.slice(0, MESSAGE_MAX))}
             placeholder="内容をご記入ください"
-            placeholderTextColor="#666"
+            placeholderTextColor={colors.placeholder}
             multiline
           />
           <Text style={styles.counter}>

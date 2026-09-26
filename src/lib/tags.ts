@@ -1,5 +1,17 @@
 import { supabase } from './supabase';
+import { TAG_SPOT_SELECT, fetchAllRows, summarizeTags, type TagSpotRow } from '../content/tagPages';
 import type { Tag } from '../types/database';
+
+export type TagWithCount = Tag & { count: number };
+
+// 公開スポットが1件以上付いたタグを、件数つき・件数の多い順で返す（検索タブの一覧用）。
+// 集計はタグ別ページ(api/tag.ts)と同じ処理を使う
+export async function fetchTagsWithCounts(): Promise<TagWithCount[]> {
+  const rows = await fetchAllRows<TagSpotRow>((from, to) =>
+    supabase.from('spot_tags').select(TAG_SPOT_SELECT).eq('spot.status', 'published').range(from, to)
+  );
+  return summarizeTags(rows).map((t) => ({ id: t.id, name: t.name, count: t.count }));
+}
 
 // タグは固定リストではなく、ユーザーが自由に追加できるマスタデータ。
 // 投稿時の候補表示や検索タブの絞り込みチップに使う。

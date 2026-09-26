@@ -307,7 +307,7 @@ export default function AddReviewScreen({ navigation, route }: Props) {
             value={embedInput}
             onChangeText={setEmbedInput}
             placeholder={t.createSpot.embedPlaceholder}
-            placeholderTextColor="#666"
+            placeholderTextColor={colors.placeholder}
             autoCapitalize="none"
             autoCorrect={false}
             onSubmitEditing={addEmbedUrl}
@@ -329,7 +329,7 @@ export default function AddReviewScreen({ navigation, route }: Props) {
         value={description}
         onChangeText={setDescription}
         placeholder={t.addReview.commentPlaceholder}
-        placeholderTextColor="#666"
+        placeholderTextColor={colors.placeholder}
         multiline
       />
 
@@ -385,7 +385,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   helpButtonActive: { backgroundColor: colors.textPrimary, borderColor: colors.textPrimary },
-  helpButtonText: { color: colors.textPrimary, fontSize: 10, fontWeight: '700' },
+  helpButtonText: { color: colors.textPrimary, fontSize: 11, fontWeight: '700' },
   helpButtonTextActive: { color: colors.accentText },
   helpText: { color: colors.textMuted, fontSize: 12, lineHeight: 17, marginBottom: 8 },
   input: {

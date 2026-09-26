@@ -389,7 +389,7 @@ export default function EditSpotScreen({ navigation, route }: Props) {
         value={title}
         onChangeText={setTitle}
         placeholder={t.createSpot.namePlaceholder}
-        placeholderTextColor="#666"
+        placeholderTextColor={colors.placeholder}
         maxLength={60}
       />
 
@@ -424,7 +424,7 @@ export default function EditSpotScreen({ navigation, route }: Props) {
         value={googleMapsUrl}
         onChangeText={setGoogleMapsUrl}
         placeholder={t.createSpot.googleMapsUrlPlaceholder}
-        placeholderTextColor="#666"
+        placeholderTextColor={colors.placeholder}
         autoCapitalize="none"
         autoCorrect={false}
       />
@@ -435,7 +435,7 @@ export default function EditSpotScreen({ navigation, route }: Props) {
         value={access}
         onChangeText={setAccess}
         placeholder={t.createSpot.accessPlaceholder}
-        placeholderTextColor="#666"
+        placeholderTextColor={colors.placeholder}
         multiline
       />
 
@@ -502,7 +502,7 @@ export default function EditSpotScreen({ navigation, route }: Props) {
             value={embedInput}
             onChangeText={setEmbedInput}
             placeholder={t.createSpot.embedPlaceholder}
-            placeholderTextColor="#666"
+            placeholderTextColor={colors.placeholder}
             autoCapitalize="none"
             autoCorrect={false}
             onSubmitEditing={addEmbedUrl}
@@ -544,7 +544,7 @@ export default function EditSpotScreen({ navigation, route }: Props) {
               value={tagInput}
               onChangeText={setTagInput}
               placeholder={t.createSpot.hashtagPlaceholder}
-              placeholderTextColor="#666"
+              placeholderTextColor={colors.placeholder}
               onSubmitEditing={addTagFromInput}
               returnKeyType="done"
             />
@@ -579,7 +579,7 @@ export default function EditSpotScreen({ navigation, route }: Props) {
         value={description}
         onChangeText={setDescription}
         placeholder={t.createSpot.descriptionPlaceholder}
-        placeholderTextColor="#666"
+        placeholderTextColor={colors.placeholder}
         multiline
       />
 
@@ -642,7 +642,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   helpButtonActive: { backgroundColor: colors.textPrimary, borderColor: colors.textPrimary },
-  helpButtonText: { color: colors.textPrimary, fontSize: 10, fontWeight: '700' },
+  helpButtonText: { color: colors.textPrimary, fontSize: 11, fontWeight: '700' },
   helpButtonTextActive: { color: colors.accentText },
   helpText: { color: colors.textMuted, fontSize: 12, lineHeight: 17, marginBottom: 8 },
   mediaRequiredNote: { color: colors.accent, fontSize: 12, marginTop: 20 },
