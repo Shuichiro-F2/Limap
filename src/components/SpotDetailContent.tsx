@@ -20,6 +20,7 @@ import XEmbed from './XEmbed';
 import { spotImageUrl, spotImageThumbUrl } from '../lib/spots';
 import { shareSpot, copyLink } from '../lib/share';
 import { colors } from '../lib/theme';
+import { useTranslation } from '../lib/i18n';
 import type { Spot, SpotImage, SpotEmbed, SpotReview, ReportReason } from '../types/database';
 
 // 画像・SNS埋め込み(Instagram/X)を「メディア」として一つの横スクロールにまとめて扱うための型。
@@ -47,21 +48,8 @@ const MEDIA_GAP = 10;
 // 画面高さに対する比率で決め、開いた瞬間に本文の冒頭も見える程度の余白を残す。
 const MAX_MEDIA_HEIGHT_RATIO = 0.55;
 
-// おすすめの訪問時間帯(DBには英語キーで保存)の表示ラベル
-const VISIT_TIME_LABELS: Record<string, string> = {
-  morning: '朝',
-  daytime: '昼',
-  dusk: '夕方',
-  night: '夜',
-};
-
-const REPORT_REASONS: { value: ReportReason; label: string }[] = [
-  { value: 'privacy', label: 'プライバシー・私有地の懸念' },
-  { value: 'wrong_location', label: '位置情報が誤っている' },
-  { value: 'inappropriate', label: '不適切なコンテンツ' },
-  { value: 'spam', label: 'スパム・宣伝' },
-  { value: 'other', label: 'その他' },
-];
+// 通報理由の表示順。ラベルは i18n の spotDetail.reportReasons
+const REPORT_REASONS: ReportReason[] = ['privacy', 'wrong_location', 'inappropriate', 'spam', 'other'];
 
 type Props = {
   spot: Spot | null;
@@ -99,9 +87,9 @@ type Props = {
   onReportReview?: (review: SpotReview, reason: ReportReason) => void;
 };
 
-function formatReviewDate(iso: string): string {
+function formatReviewDate(iso: string, locale: string): string {
   try {
-    return new Date(iso).toLocaleDateString('ja-JP', { year: 'numeric', month: 'short', day: 'numeric' });
+    return new Date(iso).toLocaleDateString(locale, { year: 'numeric', month: 'short', day: 'numeric' });
   } catch {
     return '';
   }
@@ -138,6 +126,9 @@ export default function SpotDetailContent({
   onDeleteReview,
   onReportReview,
 }: Props) {
+  const t = useTranslation().spotDetail;
+  // おすすめの訪問時間帯はDBに英語キーで保存されている。未知の値はそのまま表示する
+  const visitTimeLabel = (key: string) => (t.visitTimes as Record<string, string>)[key] ?? key;
   const { width: screenWidth, height: screenHeight } = useWindowDimensions();
   // PCなど横幅の広い画面では、画像や本文が横に間延びしないよう最大幅で中央寄せする。
   const contentWidth = Math.min(screenWidth, MAX_CONTENT_WIDTH);
@@ -383,17 +374,15 @@ export default function SpotDetailContent({
 
         {spot.access && (
           <View style={styles.accessBox}>
-            <Text style={styles.accessLabel}>アクセス</Text>
+            <Text style={styles.accessLabel}>{t.access}</Text>
             <Text style={styles.accessText}>{spot.access}</Text>
           </View>
         )}
 
         {spot.recommended_visit_time && (
           <View style={styles.accessBox}>
-            <Text style={styles.accessLabel}>おすすめの訪問時間帯</Text>
-            <Text style={styles.accessText}>
-              {VISIT_TIME_LABELS[spot.recommended_visit_time] ?? spot.recommended_visit_time}
-            </Text>
+            <Text style={styles.accessLabel}>{t.visitTime}</Text>
+            <Text style={styles.accessText}>{visitTimeLabel(spot.recommended_visit_time)}</Text>
           </View>
         )}
 
@@ -433,12 +422,12 @@ export default function SpotDetailContent({
         <View style={styles.mapsButtonRow}>
           <Pressable style={styles.mapsButton} onPress={openInGoogleMaps} hitSlop={6}>
             <Ionicons name="navigate-outline" size={16} color={colors.accent} />
-            <Text style={styles.mapsButtonText}>Googleマップで見る</Text>
+            <Text style={styles.mapsButtonText}>{t.openInGoogleMaps}</Text>
           </Pressable>
           {Platform.OS === 'ios' && (
             <Pressable style={styles.mapsButton} onPress={openInAppleMaps} hitSlop={6}>
               <Ionicons name="map-outline" size={16} color={colors.accent} />
-              <Text style={styles.mapsButtonText}>Appleマップで見る</Text>
+              <Text style={styles.mapsButtonText}>{t.openInAppleMaps}</Text>
             </Pressable>
           )}
         </View>
@@ -454,7 +443,7 @@ export default function SpotDetailContent({
                 }}
               >
                 <Ionicons name="map-outline" size={18} color={colors.textPrimary} />
-                <Text style={styles.menuItemText}>地図で見る</Text>
+                <Text style={styles.menuItemText}>{t.viewOnMap}</Text>
               </Pressable>
             )}
             {Platform.OS === 'web' && (
@@ -466,7 +455,7 @@ export default function SpotDetailContent({
                 }}
               >
                 <Ionicons name="link-outline" size={18} color={colors.textPrimary} />
-                <Text style={styles.menuItemText}>リンクをコピー</Text>
+                <Text style={styles.menuItemText}>{t.copyLink}</Text>
               </Pressable>
             )}
             {isOwner && onEdit && (
@@ -478,7 +467,7 @@ export default function SpotDetailContent({
                 }}
               >
                 <Ionicons name="create-outline" size={18} color={colors.textPrimary} />
-                <Text style={styles.menuItemText}>編集する</Text>
+                <Text style={styles.menuItemText}>{t.edit}</Text>
               </Pressable>
             )}
             {isOwner && onDelete ? (
@@ -490,7 +479,7 @@ export default function SpotDetailContent({
                 }}
               >
                 <Ionicons name="trash-outline" size={18} color={colors.danger} />
-                <Text style={[styles.menuItemText, styles.menuItemDangerText]}>削除する</Text>
+                <Text style={[styles.menuItemText, styles.menuItemDangerText]}>{t.delete}</Text>
               </Pressable>
             ) : (
               <Pressable
@@ -501,7 +490,7 @@ export default function SpotDetailContent({
                 }}
               >
                 <Ionicons name="flag-outline" size={18} color={colors.danger} />
-                <Text style={[styles.menuItemText, styles.menuItemDangerText]}>通報する</Text>
+                <Text style={[styles.menuItemText, styles.menuItemDangerText]}>{t.report}</Text>
               </Pressable>
             )}
           </View>
@@ -509,10 +498,10 @@ export default function SpotDetailContent({
 
         {showReport && (
           <View style={styles.reportPanel}>
-            <Text style={styles.reportTitle}>通報理由を選択</Text>
-            {REPORT_REASONS.map((r) => (
-              <Pressable key={r.value} style={styles.reportOption} onPress={() => onReport(r.value)}>
-                <Text style={styles.reportOptionText}>{r.label}</Text>
+            <Text style={styles.reportTitle}>{t.reportTitle}</Text>
+            {REPORT_REASONS.map((reason) => (
+              <Pressable key={reason} style={styles.reportOption} onPress={() => onReport(reason)}>
+                <Text style={styles.reportOptionText}>{t.reportReasons[reason]}</Text>
               </Pressable>
             ))}
           </View>
@@ -520,15 +509,15 @@ export default function SpotDetailContent({
 
         {showDeleteConfirm && (
           <View style={styles.reportPanel}>
-            <Text style={styles.reportTitle}>この投稿を削除しますか？</Text>
-            <Text style={styles.deleteConfirmDesc}>削除すると元に戻せません。写真や説明文もすべて削除されます。</Text>
+            <Text style={styles.reportTitle}>{t.deleteConfirmTitle}</Text>
+            <Text style={styles.deleteConfirmDesc}>{t.deleteConfirmDesc}</Text>
             <View style={styles.deleteConfirmRow}>
               <Pressable
                 style={styles.deleteCancelButton}
                 onPress={() => setShowDeleteConfirm(false)}
                 disabled={deleting}
               >
-                <Text style={styles.deleteCancelText}>キャンセル</Text>
+                <Text style={styles.deleteCancelText}>{t.cancel}</Text>
               </Pressable>
               <Pressable
                 style={styles.deleteConfirmButton}
@@ -538,7 +527,7 @@ export default function SpotDetailContent({
                 {deleting ? (
                   <ActivityIndicator color="#fff" size="small" />
                 ) : (
-                  <Text style={styles.deleteConfirmButtonText}>削除する</Text>
+                  <Text style={styles.deleteConfirmButtonText}>{t.delete}</Text>
                 )}
               </Pressable>
             </View>
@@ -551,12 +540,14 @@ export default function SpotDetailContent({
         <View style={styles.reviewsSection}>
           <View style={styles.reviewsHeaderRow}>
             <Text style={styles.reviewsHeading}>
-              みんなの投稿{reviews.length > 0 ? `(${reviews.length})` : ''}
+              {reviews.length > 0
+                ? t.reviewsHeadingWithCount.replace('{count}', String(reviews.length))
+                : t.reviewsHeading}
             </Text>
             {onAddReview && (
               <Pressable style={styles.addReviewButton} onPress={onAddReview} hitSlop={6}>
                 <Ionicons name="add" size={15} color={colors.accent} />
-                <Text style={styles.addReviewButtonText}>投稿を追加</Text>
+                <Text style={styles.addReviewButtonText}>{t.addReview}</Text>
               </Pressable>
             )}
           </View>
@@ -564,9 +555,7 @@ export default function SpotDetailContent({
           {reviewsLoading ? (
             <ActivityIndicator color={colors.background} style={{ marginTop: 14 }} />
           ) : reviews.length === 0 ? (
-            <Text style={styles.reviewsEmptyText}>
-              まだ投稿がありません。最初の投稿を追加してみましょう。
-            </Text>
+            <Text style={styles.reviewsEmptyText}>{t.reviewsEmpty}</Text>
           ) : (
             reviews.map((review) => {
               const reviewMedia = [
@@ -591,12 +580,12 @@ export default function SpotDetailContent({
                     ) : (
                       <View />
                     )}
-                    <Text style={styles.reviewDate}>{formatReviewDate(review.created_at)}</Text>
+                    <Text style={styles.reviewDate}>{formatReviewDate(review.created_at, t.dateLocale)}</Text>
                   </View>
 
                   {review.recommended_visit_time && (
                     <Text style={styles.reviewVisitTime}>
-                      おすすめ: {VISIT_TIME_LABELS[review.recommended_visit_time] ?? review.recommended_visit_time}
+                      {t.reviewVisitTime.replace('{time}', visitTimeLabel(review.recommended_visit_time))}
                     </Text>
                   )}
 
@@ -618,7 +607,7 @@ export default function SpotDetailContent({
 
                   {currentUserId && review.author_id === currentUserId && onDeleteReview && (
                     <Pressable style={styles.reviewDeleteButton} onPress={() => onDeleteReview(review)} hitSlop={6}>
-                      <Text style={styles.reviewDeleteText}>削除する</Text>
+                      <Text style={styles.reviewDeleteText}>{t.delete}</Text>
                     </Pressable>
                   )}
 
@@ -628,23 +617,23 @@ export default function SpotDetailContent({
                       onPress={() => setReportingReviewId((id) => (id === review.id ? null : review.id))}
                       hitSlop={6}
                     >
-                      <Text style={styles.reviewReportText}>通報する</Text>
+                      <Text style={styles.reviewReportText}>{t.report}</Text>
                     </Pressable>
                   )}
 
                   {reportingReviewId === review.id && onReportReview && (
                     <View style={styles.reviewReportPanel}>
-                      <Text style={styles.reportTitle}>通報理由を選択</Text>
-                      {REPORT_REASONS.map((r) => (
+                      <Text style={styles.reportTitle}>{t.reportTitle}</Text>
+                      {REPORT_REASONS.map((reason) => (
                         <Pressable
-                          key={r.value}
+                          key={reason}
                           style={styles.reportOption}
                           onPress={() => {
-                            onReportReview(review, r.value);
+                            onReportReview(review, reason);
                             setReportingReviewId(null);
                           }}
                         >
-                          <Text style={styles.reportOptionText}>{r.label}</Text>
+                          <Text style={styles.reportOptionText}>{t.reportReasons[reason]}</Text>
                         </Pressable>
                       ))}
                     </View>

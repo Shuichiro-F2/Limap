@@ -12,6 +12,7 @@ import {
 import { fetchSpotReviews, deleteSpotReview } from '../lib/spotReviews';
 import { reportReview, filterBlockedAuthors } from '../lib/moderation';
 import { useAuth } from '../lib/AuthContext';
+import { useTranslation } from '../lib/i18n';
 import type { Spot, SpotReview, ReportReason } from '../types/database';
 
 // スポット詳細の取得といいね・行きたい・通報の操作をまとめたフック。
@@ -20,6 +21,7 @@ import type { Spot, SpotReview, ReportReason } from '../types/database';
 // FK制約が内部の主キー(id)を参照しているため、取得したspot.idを使う。
 export function useSpotDetail(slug: string | null) {
   const { session, blockedUserIds } = useAuth();
+  const t = useTranslation().spotDetail;
   const [spot, setSpot] = useState<Spot | null>(null);
   const [liked, setLiked] = useState(false);
   const [bookmarked, setBookmarked] = useState(false);
@@ -70,27 +72,27 @@ export function useSpotDetail(slug: string | null) {
       await deleteSpotReview(review);
       setReviews((prev) => prev.filter((r) => r.id !== review.id));
     } catch (e: any) {
-      notify('削除に失敗しました', e.message);
+      notify(t.deleteFailedTitle, e.message);
     }
   };
 
   const handleReportReview = async (review: SpotReview, reason: ReportReason) => {
     if (!session?.user) {
-      notify('ログインが必要です');
+      notify(t.loginRequiredTitle);
       return;
     }
     try {
       await reportReview(session.user.id, review.id, reason);
-      notify('通報を受け付けました', 'ご協力ありがとうございます。');
+      notify(t.reportReceivedTitle, t.reportReceivedMessage);
     } catch (e: any) {
-      notify('エラー', e.message);
+      notify(t.errorTitle, e.message);
     }
   };
 
   const handleLike = async () => {
     if (!spot) return;
     if (!session?.user) {
-      notify('ログインが必要です');
+      notify(t.loginRequiredTitle);
       return;
     }
     const next = !liked;
@@ -108,7 +110,7 @@ export function useSpotDetail(slug: string | null) {
   const handleBookmark = async () => {
     if (!spot) return;
     if (!session?.user) {
-      notify('ログインが必要です');
+      notify(t.loginRequiredTitle);
       return;
     }
     const next = !bookmarked;
@@ -125,15 +127,15 @@ export function useSpotDetail(slug: string | null) {
   const handleReport = async (reason: ReportReason) => {
     if (!spot) return;
     if (!session?.user) {
-      notify('ログインが必要です');
+      notify(t.loginRequiredTitle);
       return;
     }
     try {
       await reportSpot(session.user.id, spot.id, reason);
       setShowReport(false);
-      notify('通報を受け付けました', 'ご協力ありがとうございます。');
+      notify(t.reportReceivedTitle, t.reportReceivedMessage);
     } catch (e: any) {
-      notify('エラー', e.message);
+      notify(t.errorTitle, e.message);
     }
   };
 
@@ -147,7 +149,7 @@ export function useSpotDetail(slug: string | null) {
       await deleteSpot(spot);
       return true;
     } catch (e: any) {
-      notify('削除に失敗しました', e.message);
+      notify(t.deleteFailedTitle, e.message);
       return false;
     } finally {
       setDeleting(false);
