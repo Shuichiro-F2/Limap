@@ -47,12 +47,15 @@ supabase/migrations/  DB変更の履歴（連番SQL）
 ```bash
 npm run web            # Web版をローカル起動（まずここで確認）
 npm run ios            # 開発ビルドで起動（Mapbox はネイティブモジュールのため Expo Go 不可）
-APP_VARIANT=development npx expo run:ios  # 開発ビルドを作ってシミュレーターに入れる（初回・ネイティブ変更後。/ios は Git 管理外）
 npm run articles:build # 記事HTMLを再生成（content/articles.json → public/articles/）
 npx tsc --noEmit       # 型チェック
 ```
 
-- `npm run ios`（= `expo start --ios`）は開発ビルドがシミュレーターに入っている前提。`APP_VARIANT=development` を付けてビルドすると bundleId `com.v.xo2.limap.dev`・名前「Limap Dev」の別アプリになり、配布版と共存する（`app.config.js`。EAS の `development` プロファイルは自動で付く）。付け忘れると配布版と同じ bundleId で上書きされる
+- 動作確認は基本 `npm run web` で行う。開発ビルド（`npm run ios`）は 2026年7月以降ほとんど使っていない
+- 開発ビルドは EAS の `development` プロファイルで作る：`npx eas-cli build --profile development --platform ios`（`eas build` なので実行前に Shu に確認）。`APP_VARIANT=development` が付き、bundleId `com.v.xo2.limap.dev`・名前「Limap Dev」の別アプリとして配布版と共存する（`app.config.js`）
+- `development` プロファイルは `ios.simulator` の指定がないため**実機向け**（internal 配布）。実機の Limap Dev で開くときは `npx expo start` で起動して接続する。`npm run ios` はシミュレーターを開くので、シミュレーター用の開発ビルドが別途必要
+- ネイティブモジュールを追加・更新したら開発ビルドも作り直しが必要。2026-08-27 に `expo-apple-authentication` の追加などがあったため、それより前の開発ビルドは今のコードでは動かない
+- ローカルで `npx expo run:ios` するなら `APP_VARIANT=development` を付ける（付けないと配布版と同じ bundleId になる）
 - 依存は `legacy-peer-deps` 前提（`.npmrc`／Vercel の installCommand も同じ）。peer 依存の警告で止まったら、まずこの設定が効いているか確認する
 
 環境変数は `.env`（Git管理外）。キー一覧は `.env.example`。**`.env` の中身を表示・コミットしないこと。**
