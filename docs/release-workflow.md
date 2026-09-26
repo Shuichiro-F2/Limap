@@ -6,7 +6,7 @@
 |---|---|
 | リポジトリ | `~/Developer/limap` → `github.com/Shuichiro-F2/Limap`（`main` のみ） |
 | フレームワーク | Expo SDK 57 / React Native 0.86 / react-native-web |
-| Web ホスティング | Vercel。`main` への push で自動デプロイ。ビルド = `npx expo export --platform web` → `dist` |
+| Web ホスティング | Vercel。`main` への push で自動デプロイ。ビルド = `npx expo export --platform web && node scripts/build-top-page.js` → `dist`（`vercel.json` の buildCommand） |
 | アプリ配信 | EAS Build + EAS Submit + **EAS Update**（`expo-updates` 導入済み） |
 | EAS projectId | `cfe0c767-a429-4d68-8550-4ed4da2cf1d3` |
 | production ビルドの channel | `production`（`eas.json`） |

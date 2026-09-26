@@ -6,7 +6,7 @@
 // 通常ユーザーの表示・挙動は一切変わらない（クローラー/SNSシェア向けの初期HTMLだけが変わる）。
 //
 // なぜこうするか:
-// - vercel.json は全ルートを /index.html にrewriteする静的SPAのため、
+// - vercel.json は全ルートを /app.html（SPAのひな形）にrewriteする静的SPAのため、
 //   これまでは /spot/xxxx へのアクセスも常に同じ汎用のtitle/meta/OGPしか返せなかった。
 // - クローラーやSNSの展開（LINE/X/Facebookなど）の多くはJSを実行しない、
 //   または実行が不安定なため、最初のHTMLレスポンス自体にスポット固有の情報が
@@ -193,7 +193,8 @@ export default async function handler(req: any, res: any) {
   const origin = `${proto}://${host}`;
 
   try {
-    const baseHtmlRes = await fetch(`${origin}/index.html`);
+    // index.html はトップページの本文入りのため、本文の無いひな形 app.html を使う（scripts/build-top-page.js）
+    const baseHtmlRes = await fetch(`${origin}/app.html`);
     let html = await baseHtmlRes.text();
 
     if (!id || !SUPABASE_URL || !SUPABASE_ANON_KEY) {
@@ -359,7 +360,7 @@ export default async function handler(req: any, res: any) {
     res.status(200).send(html);
   } catch (e) {
     try {
-      const fallbackRes = await fetch(`${origin}/index.html`);
+      const fallbackRes = await fetch(`${origin}/app.html`);
       const fallbackHtml = await fallbackRes.text();
       res.setHeader('Content-Type', 'text/html; charset=utf-8');
       res.status(200).send(fallbackHtml);

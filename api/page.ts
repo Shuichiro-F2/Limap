@@ -30,7 +30,8 @@ export default async function handler(req: any, res: any) {
   const origin = `${proto}://${host}`;
 
   try {
-    const baseHtmlRes = await fetch(`${origin}/index.html`);
+    // index.html はトップページの本文入りのため、本文の無いひな形 app.html を使う（scripts/build-top-page.js）
+    const baseHtmlRes = await fetch(`${origin}/app.html`);
     let html = await baseHtmlRes.text();
 
     const page: StaticPageContent | null =
@@ -103,7 +104,7 @@ export default async function handler(req: any, res: any) {
     res.status(200).send(html);
   } catch (e) {
     try {
-      const fallbackRes = await fetch(`${origin}/index.html`);
+      const fallbackRes = await fetch(`${origin}/app.html`);
       const fallbackHtml = await fallbackRes.text();
       res.setHeader('Content-Type', 'text/html; charset=utf-8');
       res.status(200).send(fallbackHtml);

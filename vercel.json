@@ -1,5 +1,5 @@
 {
-  "buildCommand": "npx expo export --platform web",
+  "buildCommand": "npx expo export --platform web && node scripts/build-top-page.js",
   "installCommand": "npm install --legacy-peer-deps",
   "outputDirectory": "dist",
   "framework": null,
@@ -10,6 +10,6 @@
     { "source": "/help", "destination": "/api/page?slug=help" },
     { "source": "/privacy", "destination": "/api/page?slug=privacy" },
     { "source": "/terms", "destination": "/api/page?slug=terms" },
-    { "source": "/(.*)", "destination": "/index.html" }
+    { "source": "/(.*)", "destination": "/app.html" }
   ]
 }

@@ -15,7 +15,7 @@
 | 領域 | 使用技術 |
 |---|---|
 | アプリ本体 | Expo SDK 57 / React Native 0.86 / React 19 / TypeScript |
-| Web | react-native-web → `npx expo export --platform web` → `dist/` を Vercel でホスト |
+| Web | react-native-web → `npx expo export --platform web` → `node scripts/build-top-page.js` → `dist/` を Vercel でホスト |
 | 地図 | ネイティブ：`@rnmapbox/maps`（`MapScreen.tsx`）／Web：`mapbox-gl` + `react-map-gl`（`MapScreen.web.tsx`） |
 | バックエンド | Supabase（Auth / Postgres / Storage）。Web とアプリで**同じプロジェクト**を参照 |
 | サーバー関数 | `api/*.ts`（Vercel Functions。`sitemap.ts`、`spot.ts`＝スポットページのOGP、`page.ts`＝about/help/privacy/terms、`instagram-oembed.ts`・`x-oembed.ts`、`delete-account.ts`）。URL との対応は `vercel.json` の rewrites |
@@ -41,6 +41,7 @@ supabase/migrations/  DB変更の履歴（連番SQL）
 - 多言語：`src/lib/i18n.tsx`（`useLanguage()`）。**固定UI文言は必ず日英両方を用意する**。ユーザー投稿文は翻訳しない
 - 色・フォントは `src/lib/theme.ts` に集約。ダークテーマ固定、フォントは DotGothic16
 - Web とネイティブで挙動を変えるときは、`*.web.tsx` か `Platform.OS === 'web'` で分岐する
+- Web の初期HTML：`dist/index.html` はトップページ専用（ビルド後に `scripts/build-top-page.js` が本文を入れる）。SPA の各画面と `api/spot.ts`・`api/page.ts` は、本文の無いひな形 `dist/app.html` を使う（`vercel.json` の rewrites）。`public/index.html` の `<div id="root"></div>` はこの仕組みの目印なので形を変えない
 
 ## よく使うコマンド
 

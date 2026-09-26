@@ -1,0 +1,158 @@
+#!/usr/bin/env node
+/**
+ * `npx expo export --platform web` の後に実行し、トップページ(/)の初期HTMLに本文を入れるスクリプト。
+ *
+ * 使い方: node scripts/build-top-page.js（vercel.json の buildCommand から呼ばれる）
+ *
+ * - dist/index.html は、Vercel 上で「/」にそのまま返される静的ファイル。
+ *   ここの #root にサイト紹介・新着スポット・コラム記事・各ページへのリンクを入れ、
+ *   JSを実行しないクローラーでも本文とリンクを読めるようにする。
+ * - 一方で、SPAの各画面(vercel.json の rewrites)と api/spot.ts・api/page.ts は
+ *   本文の入っていない「ひな形」が必要なため、元の dist/index.html を dist/app.html として残す。
+ * - 新着スポットはビルド時点のもの（デプロイのたびに更新される）。
+ *   Supabase に接続できない場合はその部分だけ省き、ビルドは止めない。
+ *
+ * 通常のブラウザでは、ロード画面(#limap-splash)が全面を覆っている間に React が
+ * #root の中身を丸ごと置き換えるため、ユーザーの見た目は変わらない（api/spot.ts と同じ考え方）。
+ */
+
+const fs = require('fs');
+const path = require('path');
+
+try {
+  // ローカル実行時は .env から読む（Vercel では環境変数が直接渡される）
+  require('dotenv').config();
+} catch {
+  // dotenv が無くても process.env だけで動く
+}
+
+const ROOT = path.resolve(__dirname, '..');
+const DIST = path.join(ROOT, 'dist');
+const INDEX_PATH = path.join(DIST, 'index.html');
+const SHELL_PATH = path.join(DIST, 'app.html');
+const ARTICLES_PATH = path.join(ROOT, 'content', 'articles.json');
+
+// src/lib/appStore.ts と同じURL（静的HTML側からアプリのコードを読めないため二重管理）
+const APP_STORE_URL = 'https://apps.apple.com/jp/app/id6805902713';
+const MAX_SPOTS = 30;
+
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+async function fetchLatestSpots() {
+  const url = process.env.SUPABASE_URL;
+  const key = process.env.SUPABASE_ANON_KEY;
+  if (!url || !key) {
+    console.warn('[build-top-page] SUPABASE_URL / SUPABASE_ANON_KEY が無いため、新着スポットは省きます');
+    return [];
+  }
+  try {
+    const res = await fetch(
+      `${url}/rest/v1/spots?select=slug,title,description&status=eq.published&order=created_at.desc&limit=${MAX_SPOTS}`,
+      { headers: { apikey: key, Authorization: `Bearer ${key}` } }
+    );
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    return await res.json();
+  } catch (e) {
+    console.warn(`[build-top-page] 新着スポットの取得に失敗したため省きます: ${e.message}`);
+    return [];
+  }
+}
+
+function loadArticles() {
+  const articles = JSON.parse(fs.readFileSync(ARTICLES_PATH, 'utf8'));
+  // 記事一覧と同じく公開日の新しい順
+  return [...articles].sort((a, b) => (a.publishedDate < b.publishedDate ? 1 : -1));
+}
+
+function spotTitle(spot) {
+  // api/spot.ts の rawTitle と同じ決め方
+  return (spot.title || '').trim() || (spot.description || '').trim().slice(0, 40) || '無題の投稿';
+}
+
+function buildBody(spots, articles) {
+  const parts = [];
+  parts.push('<h1>LIMap（リマップ） | リミナルスペースを記録・共有する地図アプリ</h1>');
+  parts.push(
+    '<p>LIMapは、廃墟や無人駅、深夜の駐車場など「リミナルスペース」を写真と場所で記録・共有できる地図アプリです。' +
+      '街や旅先に潜む不思議な空間を、みんなで見つけて地図に残しましょう。</p>'
+  );
+  parts.push(
+    '<p lang="en">LIMap is a map for finding and sharing liminal spaces — abandoned buildings, empty stations, ' +
+      'late-night parking lots and other eerie, nostalgic places — with photos and locations.</p>'
+  );
+
+  if (spots.length) {
+    const items = spots
+      .map((s) => `<li><a href="/spot/${encodeURIComponent(s.slug)}">${escapeHtml(spotTitle(s))}</a></li>`)
+      .join('\n');
+    parts.push(`<h2>新着のリミナルスペース / Latest spots</h2>\n<ul>\n${items}\n</ul>`);
+  }
+
+  if (articles.length) {
+    const items = articles
+      .map((a) => `<li><a href="/articles/${encodeURIComponent(a.slug)}/">${escapeHtml(a.ja.title)}</a></li>`)
+      .join('\n');
+    parts.push(
+      `<h2>コラム / Articles</h2>\n<ul>\n${items}\n</ul>\n<p><a href="/articles/">コラム一覧 / All articles</a></p>`
+    );
+  }
+
+  parts.push(
+    '<nav>' +
+      [
+        '<a href="/about">リミナルスペースとは / About</a>',
+        '<a href="/help">使い方 / Help</a>',
+        '<a href="/privacy">プライバシーポリシー / Privacy</a>',
+        '<a href="/terms">利用規約 / Terms</a>',
+        `<a href="${APP_STORE_URL}">iOSアプリ / iOS app</a>`,
+      ].join(' ・ ') +
+      '</nav>'
+  );
+
+  return `<main id="limap-ssr">\n${parts.join('\n')}\n</main>`;
+}
+
+// api/spot.ts の SSR_HEAD と同じ内容（本文の見た目と、JS無効時にロード画面を隠す指定）
+const SSR_HEAD = `<style>
+      #limap-ssr { max-width: 720px; margin: 0 auto; padding: 24px 16px; color: #e8e8e8; line-height: 1.8; }
+      #limap-ssr a { color: #dece32; }
+      #limap-ssr ul { padding-left: 1.2em; }
+    </style>
+    <noscript><style>#limap-splash { display: none; }</style></noscript>`;
+
+async function main() {
+  if (!fs.existsSync(INDEX_PATH)) {
+    throw new Error(`${INDEX_PATH} がありません。先に npx expo export --platform web を実行してください`);
+  }
+  const shell = fs.readFileSync(INDEX_PATH, 'utf8');
+  // 再実行しても壊れないよう、ひな形は常に本文の無い状態から作る
+  if (shell.includes('id="limap-ssr"')) {
+    throw new Error('dist/index.html に既に本文が入っています。expo export からやり直してください');
+  }
+  fs.writeFileSync(SHELL_PATH, shell);
+
+  const marker = '<div id="root"></div>';
+  if (!shell.includes(marker)) {
+    console.warn('[build-top-page] dist/index.html に <div id="root"></div> が見つからないため、本文は入れません');
+    return;
+  }
+
+  const [spots, articles] = await Promise.all([fetchLatestSpots(), Promise.resolve(loadArticles())]);
+  const html = shell
+    .replace('</head>', () => `  ${SSR_HEAD}\n  </head>`)
+    .replace(marker, () => `<div id="root">${buildBody(spots, articles)}</div>`);
+  fs.writeFileSync(INDEX_PATH, html);
+  console.log(`[build-top-page] トップページに本文を追加しました（新着スポット ${spots.length} 件・記事 ${articles.length} 本）`);
+}
+
+main().catch((e) => {
+  console.error(`[build-top-page] ${e.message}`);
+  process.exit(1);
+});
