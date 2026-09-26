@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
+  Animated,
   View,
   StyleSheet,
   ScrollView,
@@ -9,6 +10,8 @@ import {
   Linking,
   Platform,
   useWindowDimensions,
+  type NativeScrollEvent,
+  type NativeSyntheticEvent,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { MAPBOX_ACCESS_TOKEN } from '@env';
@@ -44,8 +47,12 @@ const REPORT_REASONS: ReportReason[] = ['privacy', 'wrong_location', 'inappropri
 // 戻る・共有ボタンや写真の枚数表示の下地（黄色背景の墨色を半透明にしたもの）
 const OVERLAY_BG = 'rgba(29,27,14,0.72)';
 
-// 画面上部に固定するヘッダー（戻る・ロゴ・共有）の高さ。ステータスバーの高さは含まない
+// 画面上部に重ねるヘッダー（戻る・ロゴ・共有）の高さ。ステータスバーの高さは含まない
 export const SPOT_HEADER_HEIGHT = 56;
+// 下へスクロールしてからヘッダーを隠すまでの待ち時間(ms)。すぐ消えると落ち着かないため少し遅らせる
+const HEADER_HIDE_DELAY = 350;
+// これより小さいスクロール量は、指の揺れとみなしてヘッダーの表示を切り替えない
+const HEADER_SCROLL_THRESHOLD = 4;
 
 export type NearbySpot = Spot & { distanceKm: number };
 
@@ -185,6 +192,56 @@ export default function SpotDetailContent({
   // 通報理由パネルを開いているレビューのID(一度に1件のみ開ける)
   const [reportingReviewId, setReportingReviewId] = useState<string | null>(null);
 
+  // ヘッダーの表示・非表示。下へスクロールすると少し遅れて消え、上へ戻すとすぐ出る
+  const [headerVisible, setHeaderVisible] = useState(true);
+  const headerAnim = useRef(new Animated.Value(1)).current;
+  const lastScrollY = useRef(0);
+  const hideTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    Animated.timing(headerAnim, {
+      toValue: headerVisible ? 1 : 0,
+      duration: 220,
+      useNativeDriver: Platform.OS !== 'web',
+    }).start();
+  }, [headerVisible, headerAnim]);
+
+  useEffect(
+    () => () => {
+      if (hideTimer.current) clearTimeout(hideTimer.current);
+    },
+    []
+  );
+
+  const showHeader = () => {
+    if (hideTimer.current) {
+      clearTimeout(hideTimer.current);
+      hideTimer.current = null;
+    }
+    setHeaderVisible(true);
+  };
+
+  const onMainScroll = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
+    const y = e.nativeEvent.contentOffset.y;
+    const dy = y - lastScrollY.current;
+    lastScrollY.current = y;
+    // 一番上付近では常に表示する
+    if (y <= SPOT_HEADER_HEIGHT) {
+      showHeader();
+      return;
+    }
+    if (dy > HEADER_SCROLL_THRESHOLD) {
+      if (!hideTimer.current) {
+        hideTimer.current = setTimeout(() => {
+          hideTimer.current = null;
+          setHeaderVisible(false);
+        }, HEADER_HIDE_DELAY);
+      }
+    } else if (dy < -HEADER_SCROLL_THRESHOLD) {
+      showHeader();
+    }
+  };
+
   const sortedImages = spot?.images ? [...spot.images].sort((a, b) => a.position - b.position) : [];
   const sortedEmbeds = spot?.embeds
     ? [...spot.embeds]
@@ -225,10 +282,22 @@ export default function SpotDetailContent({
     Math.min(contentWidth * (imageAspectRatio ?? 0.75), maxHeroHeight)
   );
 
-  // 画面上部に固定するヘッダー。スクロールしても常に見えるよう、スクロール領域の外に重ねる
+  // 画面上部に重ねるヘッダー。背景は透明で、ロゴとボタンだけを置く。
+  // スクロール領域の外に重ねることで、中身と一緒に流れず決まった位置に留まる
   const header = (
-    <View style={[styles.header, { paddingTop: topInset, height: topInset + SPOT_HEADER_HEIGHT }]}>
-      <View style={[styles.headerRow, { maxWidth: MAX_CONTENT_WIDTH }]}>
+    <Animated.View
+      pointerEvents={headerVisible ? 'box-none' : 'none'}
+      style={[
+        styles.header,
+        {
+          paddingTop: topInset,
+          height: topInset + SPOT_HEADER_HEIGHT,
+          opacity: headerAnim,
+          transform: [{ translateY: headerAnim.interpolate({ inputRange: [0, 1], outputRange: [-16, 0] }) }],
+        },
+      ]}
+    >
+      <View style={[styles.headerRow, { maxWidth: MAX_CONTENT_WIDTH }]} pointerEvents="box-none">
         {onBack ? (
           <Pressable style={styles.headerButton} onPress={onBack} hitSlop={6} accessibilityRole="button" accessibilityLabel={t.back}>
             <Ionicons name="chevron-back" size={22} color={colors.accent} />
@@ -253,7 +322,7 @@ export default function SpotDetailContent({
           <View style={styles.headerButtonSpacer} />
         )}
       </View>
-    </View>
+    </Animated.View>
   );
 
   if (loading || !spot) {
@@ -368,6 +437,7 @@ export default function SpotDetailContent({
           styles.scrollContent,
           { paddingTop: topInset + SPOT_HEADER_HEIGHT, paddingBottom: space.xxl + bottomInset },
         ]}
+        onScroll={onMainScroll}
         scrollEventThrottle={16}
       >
         <View style={[styles.contentWrapper, { maxWidth: MAX_CONTENT_WIDTH }]}>
@@ -836,9 +906,6 @@ const styles = StyleSheet.create({
     top: 0,
     left: 0,
     right: 0,
-    backgroundColor: colors.accent,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: colors.accentLine,
     alignItems: 'center',
   },
   headerRow: {
