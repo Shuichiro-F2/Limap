@@ -248,7 +248,7 @@ export default async function handler(_req: any, res: any) {
 
     const domestic = all.filter((s) => tagNamesOf(s).some((n) => JAPAN_PREFECTURES.includes(n)));
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
-    res.setHeader('Cache-Control', 'public, max-age=0, s-maxage=3600, stale-while-revalidate=86400');
+    res.setHeader('Cache-Control', 'public, max-age=0, s-maxage=3600, stale-while-revalidate=2592000');
     res.status(200).send(renderJapanPage(domestic, tagPageCounts));
   } catch {
     res.status(500).send('Internal Server Error');

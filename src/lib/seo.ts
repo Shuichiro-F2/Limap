@@ -3,13 +3,13 @@ import { spotImageUrl } from './spots';
 import { colors } from './theme';
 import type { Spot } from '../types/database';
 import type { StaticPageContent } from '../content/staticPages';
+import { SITE_NAME, spotPageDescription, spotPageTitle, spotPlace, spotRawTitle } from '../content/spotSeo';
 
 // public/index.html の静的な値と揃えておく（Webでスポット詳細から離脱した際に戻す用）
 const DEFAULT_TITLE = 'LIMap（リマップ） | 日本のリミナルスペースを地図で探す';
 const DEFAULT_DESCRIPTION =
   'LIMapは、日本各地の廃墟や無人駅、地下通路、団地、深夜の駐車場など「リミナルスペース」を写真と場所で探し、記録・共有できる地図アプリです。バックルームズや『8番出口』を思わせる場所も登録されています。';
 const DEFAULT_OG_IMAGE = 'https://limap.jp/og-image.png';
-const SITE_NAME = 'LIMap（リマップ）';
 const JSONLD_ID = 'limap-spot-jsonld';
 
 function setMetaContent(selector: string, content: string) {
@@ -17,10 +17,6 @@ function setMetaContent(selector: string, content: string) {
   if (el) el.setAttribute('content', content);
 }
 
-function truncate(str: string, max: number): string {
-  const trimmed = str.trim();
-  return trimmed.length > max ? `${trimmed.slice(0, max)}…` : trimmed;
-}
 
 // SPA内の画面遷移（クライアントサイドルーティング）で /spot/:id を開いた場合、
 // サーバー側(api/spot.ts)のHTML注入は最初の1回のHTTPリクエストにしか効かないため、
@@ -29,13 +25,18 @@ function truncate(str: string, max: number): string {
 export function applySpotSeo(spot: Spot) {
   if (Platform.OS !== 'web' || typeof document === 'undefined') return;
 
-  const place = [spot.city, spot.country].filter(Boolean).join(', ');
-  const rawTitle = (spot.title || '').trim() || (spot.description || '').trim().slice(0, 40) || '無題の投稿';
-  const pageTitle = `${truncate(rawTitle, 40)} | ${SITE_NAME}`;
+  // タイトル・説明文・地名はサーバー側(api/spot.ts)と共通の処理で作る（初期HTMLと表示後で文言をそろえる）
+  const place = spotPlace(
+    (spot.tags || []).map((t) => t.name),
+    spot.city,
+    spot.country
+  );
+  const rawTitle = spotRawTitle(spot);
+  const pageTitle = spotPageTitle(rawTitle, place);
+  const pageDescription = spotPageDescription(spot.description, place);
   const descBase =
     (spot.description || '').trim() ||
     'リミナルスペースを記録した投稿です。写真と場所の詳細はLIMapでご覧いただけます。';
-  const pageDescription = truncate(place ? `${place}にあるリミナルスペースの記録。${descBase}` : descBase, 120);
 
   const firstImage = (spot.images || []).slice().sort((a, b) => a.position - b.position)[0];
   const ogImage = firstImage ? spotImageUrl(firstImage.storage_path) : DEFAULT_OG_IMAGE;

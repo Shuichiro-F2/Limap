@@ -14,11 +14,12 @@
 
 import { createClient } from '@supabase/supabase-js';
 import { MIN_SPOTS_FOR_TAG_PAGE, fetchAllRows, tagPagePath } from '../src/content/tagPages';
+import { prefectureFullName } from '../src/content/japan';
+import { spotPageDescription, spotPageTitle, spotPlace, spotRawTitle } from '../src/content/spotSeo';
 
 const SUPABASE_URL = process.env.SUPABASE_URL || '';
 const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY || '';
 
-const SITE_NAME = 'LIMap（リマップ）';
 const DEFAULT_OG_IMAGE = 'https://limap.jp/og-image.png';
 
 function escapeHtml(str: string): string {
@@ -63,9 +64,12 @@ type ReviewBodyInput = {
   createdAt: string | null;
 };
 
+type Crumb = { name: string; url: string };
+
 type SpotBodyInput = {
   title: string;
   place: string;
+  breadcrumb: Crumb[];
   description: string;
   access: string | null;
   visitTime: string | null;
@@ -152,6 +156,17 @@ function buildReviewsSection(title: string, reviews: ReviewBodyInput[]): string 
 // React が createRoot で #root の中身を丸ごと置き換えるため、ユーザーの見た目は変わらない。
 function buildSpotBody(s: SpotBodyInput): string {
   const parts: string[] = [];
+  // パンくず（最後の要素＝このスポット自身はリンクにしない）
+  if (s.breadcrumb.length > 1) {
+    const crumbs = s.breadcrumb
+      .map((c, i) =>
+        i === s.breadcrumb.length - 1
+          ? `<span aria-current="page">${escapeHtml(c.name)}</span>`
+          : `<a href="${escapeHtml(c.url.replace('https://limap.jp', '') || '/')}">${escapeHtml(c.name)}</a>`
+      )
+      .join(' › ');
+    parts.push(`<nav aria-label="パンくずリスト / Breadcrumb" class="limap-ssr-meta">${crumbs}</nav>`);
+  }
   parts.push(`<h1>${escapeHtml(s.title)}</h1>`);
   if (s.place) parts.push(`<p class="limap-ssr-place">${escapeHtml(s.place)}</p>`);
   s.imageUrls.forEach((url, i) => {
@@ -220,6 +235,24 @@ function buildReviewInputs(rows: ReviewRow[], imageUrl: (path: string) => string
     .slice(0, MAX_REVIEWS_IN_HTML);
 }
 
+// SPAのひな形（app.html）。同じ関数インスタンスが続けて呼ばれたときは取得し直さず使い回す
+const SHELL_TTL_MS = 10 * 60 * 1000;
+let shellCache: { origin: string; html: string; fetchedAt: number } | null = null;
+
+async function getShell(origin: string): Promise<string> {
+  if (shellCache && shellCache.origin === origin && Date.now() - shellCache.fetchedAt < SHELL_TTL_MS) {
+    return shellCache.html;
+  }
+  // index.html はトップページの本文入りのため、本文の無いひな形 app.html を使う（scripts/build-top-page.js）
+  const html = await (await fetch(`${origin}/app.html`)).text();
+  shellCache = { origin, html, fetchedAt: Date.now() };
+  return html;
+}
+
+// CDNに1時間キャッシュし、期限切れ後も最大30日は古い版をすぐ返しつつ裏で更新する
+// （クローラーが毎回、関数の実行を待たされないようにするため）
+const CACHE_CONTROL = 'public, max-age=0, s-maxage=3600, stale-while-revalidate=2592000';
+
 export default async function handler(req: any, res: any) {
   const idParam = req.query?.id;
   const id = Array.isArray(idParam) ? idParam[0] : idParam;
@@ -229,18 +262,15 @@ export default async function handler(req: any, res: any) {
   const origin = `${proto}://${host}`;
 
   try {
-    // index.html はトップページの本文入りのため、本文の無いひな形 app.html を使う（scripts/build-top-page.js）
-    const baseHtmlRes = await fetch(`${origin}/app.html`);
-    let html = await baseHtmlRes.text();
-
     if (!id || !SUPABASE_URL || !SUPABASE_ANON_KEY) {
       res.setHeader('Content-Type', 'text/html; charset=utf-8');
-      res.status(200).send(html);
+      res.status(200).send(await getShell(origin));
       return;
     }
 
     const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-    const { data: spot, error } = await supabase
+    // ひな形の取得とスポットの取得は同時に行う
+    const spotQuery = supabase
       .from('spots')
       .select(
         `
@@ -260,6 +290,8 @@ export default async function handler(req: any, res: any) {
       .eq('slug', id)
       .eq('status', 'published')
       .maybeSingle();
+    const [shell, { data: spot, error }] = await Promise.all([getShell(origin), spotQuery]);
+    let html = shell;
 
     if (error || !spot) {
       res.setHeader('Content-Type', 'text/html; charset=utf-8');
@@ -273,13 +305,24 @@ export default async function handler(req: any, res: any) {
       | { username?: string; display_name?: string | null }
       | undefined;
 
-    const place = [spot.city, spot.country].filter(Boolean).join(', ');
-    const rawTitle = (spot.title || '').trim() || (spot.description || '').trim().slice(0, 40) || '無題の投稿';
-    const pageTitle = `${truncate(rawTitle, 40)} | ${SITE_NAME}`;
+    type TagRef = { id: number; name: string };
+    const tagRows = (spot.tags || []) as { tag: TagRef | TagRef[] | null }[];
+    const spotTags = tagRows
+      .map((row) => (Array.isArray(row.tag) ? row.tag[0] : row.tag))
+      .filter((tag): tag is TagRef => !!tag);
+
+    // タイトル・説明文・地名は Web版アプリ(src/lib/seo.ts)と共通の処理で作る
+    const place = spotPlace(
+      spotTags.map((t) => t.name),
+      spot.city,
+      spot.country
+    );
+    const rawTitle = spotRawTitle(spot);
+    const pageTitle = spotPageTitle(rawTitle, place);
+    const pageDescription = spotPageDescription(spot.description, place);
     const descBase =
       (spot.description || '').trim() ||
       'リミナルスペースを記録した投稿です。写真と場所の詳細はLIMapでご覧いただけます。';
-    const pageDescription = truncate(place ? `${place}にあるリミナルスペースの記録。${descBase}` : descBase, 120);
 
     const images = (spot.images || []) as { storage_path: string; position: number }[];
     const sortedImages = [...images].sort((a, b) => (a.position ?? 0) - (b.position ?? 0));
@@ -357,7 +400,11 @@ export default async function handler(req: any, res: any) {
         latitude: spot.lat,
         longitude: spot.lng,
       },
-      ...(place ? { address: { '@type': 'PostalAddress', addressLocality: spot.city || undefined, addressCountry: spot.country || undefined } } : {}),
+      ...(place.prefectures.length
+        ? { address: { '@type': 'PostalAddress', addressRegion: place.label, addressCountry: 'JP' } }
+        : place.country
+          ? { address: { '@type': 'PostalAddress', addressLocality: spot.city || undefined, addressCountry: place.country } }
+          : {}),
       dateCreated: spot.created_at,
       dateModified: spot.updated_at,
       ...(author?.username
@@ -367,15 +414,11 @@ export default async function handler(req: any, res: any) {
     const jsonLdScript = `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>\n  </head>`;
     html = html.replace(/<\/head>/, jsonLdScript);
 
-    type TagRef = { id: number; name: string };
-    const tagRows = (spot.tags || []) as { tag: TagRef | TagRef[] | null }[];
-    const spotTags = tagRows
-      .map((row) => (Array.isArray(row.tag) ? row.tag[0] : row.tag))
-      .filter((tag): tag is TagRef => !!tag);
-
-    // 各タグの公開スポット数を数え、タグ別ページがあるかを判定する。失敗したらリンクにしないだけ
-    const tagCounts = new Map<number, number>();
-    if (spotTags.length) {
+    // 各タグの公開スポット数（タグ別ページがあるかの判定用）と近くのスポットは、同時に取得する。
+    // どちらも失敗したら、タグをリンクにしない・近くのスポットを出さないだけで本文の他の部分は出す
+    const tagCountsPromise = (async () => {
+      const counts = new Map<number, number>();
+      if (!spotTags.length) return counts;
       try {
         const countRows = await fetchAllRows<{ tag_id: number }>((from, to) =>
           supabase
@@ -388,18 +431,14 @@ export default async function handler(req: any, res: any) {
             .eq('spot.status', 'published')
             .range(from, to)
         );
-        for (const row of countRows) tagCounts.set(row.tag_id, (tagCounts.get(row.tag_id) ?? 0) + 1);
+        for (const row of countRows) counts.set(row.tag_id, (counts.get(row.tag_id) ?? 0) + 1);
       } catch {
         // 件数が取れなければタグはリンクにしない
       }
-    }
-    const tagsForBody = spotTags.map((t) => ({
-      name: t.name,
-      hasPage: (tagCounts.get(t.id) ?? 0) >= MIN_SPOTS_FOR_TAG_PAGE,
-    }));
-    // 近くのスポット。取得に失敗しても本文の他の部分は出す
-    let nearby: NearbySpot[] = [];
-    if (typeof spot.lat === 'number' && typeof spot.lng === 'number') {
+      return counts;
+    })();
+    const nearbyPromise = (async (): Promise<NearbySpot[]> => {
+      if (typeof spot.lat !== 'number' || typeof spot.lng !== 'number') return [];
       const { data: nearbyRows } = await supabase
         .from('spots')
         .select('id, slug, title, description, lat, lng')
@@ -409,12 +448,42 @@ export default async function handler(req: any, res: any) {
         .gte('lng', spot.lng - NEARBY_SEARCH_DEGREES)
         .lte('lng', spot.lng + NEARBY_SEARCH_DEGREES)
         .limit(200);
-      nearby = pickNearest((nearbyRows || []) as NearbyRow[], spot.lat, spot.lng, spot.id);
+      return pickNearest((nearbyRows || []) as NearbyRow[], spot.lat, spot.lng, spot.id);
+    })();
+    const [tagCounts, nearby] = await Promise.all([tagCountsPromise, nearbyPromise]);
+    const hasTagPage = (name: string) => {
+      const tag = spotTags.find((t) => t.name === name);
+      return !!tag && (tagCounts.get(tag.id) ?? 0) >= MIN_SPOTS_FOR_TAG_PAGE;
+    };
+    const tagsForBody = spotTags.map((t) => ({ name: t.name, hasPage: hasTagPage(t.name) }));
+
+    // パンくず: LIMap › 日本のリミナルスペース一覧 › 都道府県 › スポット（海外は LIMap › 海外 › 国 › スポット）
+    const breadcrumb: Crumb[] = [{ name: 'LIMap', url: 'https://limap.jp/' }];
+    if (place.prefectures.length) {
+      breadcrumb.push({ name: '日本のリミナルスペース一覧', url: 'https://limap.jp/japan' });
+      const pref = place.prefectures[0];
+      breadcrumb.push({
+        name: prefectureFullName(pref),
+        url: hasTagPage(pref) ? `https://limap.jp${tagPagePath(pref)}` : `https://limap.jp/japan#pref-${encodeURIComponent(pref)}`,
+      });
+    } else if (place.country && place.country !== '日本') {
+      if (hasTagPage('海外')) breadcrumb.push({ name: '海外', url: `https://limap.jp${tagPagePath('海外')}` });
+      if (hasTagPage(place.country)) {
+        breadcrumb.push({ name: place.country, url: `https://limap.jp${tagPagePath(place.country)}` });
+      }
     }
+    breadcrumb.push({ name: rawTitle, url: pageUrl });
+    const breadcrumbLd = {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: breadcrumb.map((c, i) => ({ '@type': 'ListItem', position: i + 1, name: c.name, item: c.url })),
+    };
+    html = html.replace(/<\/head>/, () => `<script type="application/ld+json">${JSON.stringify(breadcrumbLd)}</script>\n  </head>`);
 
     const body = buildSpotBody({
       title: rawTitle,
-      place,
+      place: place.label ?? '',
+      breadcrumb,
       description: spot.description || '',
       access: spot.access,
       visitTime: spot.recommended_visit_time,
@@ -434,14 +503,12 @@ export default async function handler(req: any, res: any) {
     html = html.replace(/<div id="root"><\/div>/, () => `<div id="root">${body}</div>`);
 
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
-    res.setHeader('Cache-Control', 'public, max-age=0, s-maxage=600, stale-while-revalidate=3600');
+    res.setHeader('Cache-Control', CACHE_CONTROL);
     res.status(200).send(html);
   } catch (e) {
     try {
-      const fallbackRes = await fetch(`${origin}/app.html`);
-      const fallbackHtml = await fallbackRes.text();
       res.setHeader('Content-Type', 'text/html; charset=utf-8');
-      res.status(200).send(fallbackHtml);
+      res.status(200).send(await getShell(origin));
     } catch {
       res.status(500).send('Internal Server Error');
     }

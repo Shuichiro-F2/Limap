@@ -210,7 +210,7 @@ function relatedTags(tag: TagSummary, rows: TagSpotRow[], pageTags: TagSummary[]
 function sendHtml(res: any, status: number, html: string) {
   res.setHeader('Content-Type', 'text/html; charset=utf-8');
   if (status === 200) {
-    res.setHeader('Cache-Control', 'public, max-age=0, s-maxage=3600, stale-while-revalidate=86400');
+    res.setHeader('Cache-Control', 'public, max-age=0, s-maxage=3600, stale-while-revalidate=2592000');
   }
   res.status(status).send(html);
 }
