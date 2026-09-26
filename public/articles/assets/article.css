@@ -1,8 +1,10 @@
-/* LIMap 読み物記事用スタイル。
-   アプリ本体（DotGothic16のドットフォント）とは意図的に切り離し、
-   長文でも読み疲れしにくい可読性重視のタイポグラフィにしている。 */
+/* LIMap 読み物記事用スタイル（記事・記事一覧のほか、タグ別ページ・日本の一覧ページでも使う）。
+   見出し（タイトル・章見出し・カードのタイトルなど）はアプリ本体と同じドットフォント(DotGothic16)にそろえ、
+   本文は長文でも読み疲れしにくいよう、ドットを使わない Noto Sans JP にしている。
+   DotGothic16 は太字が無いため、見出しは font-weight: 400 にする（擬似太字でドットがにじむのを避ける）。 */
 
 :root {
+  --font-heading: "DotGothic16", "Noto Sans JP", sans-serif;
   --bg: #16130f;
   --surface: #211c16;
   --surface-alt: #2a241c;
@@ -202,11 +204,11 @@ main {
 }
 
 h1.article-title {
-  font-family: "Noto Serif JP", "Hiragino Mincho ProN", serif;
+  font-family: var(--font-heading);
   font-size: 28px;
   line-height: 1.5;
   margin: 0 0 12px;
-  font-weight: 700;
+  font-weight: 400;
 }
 
 .article-meta {
@@ -272,7 +274,8 @@ article section.article-section {
 }
 
 h2.section-heading {
-  font-family: "Noto Serif JP", "Hiragino Mincho ProN", serif;
+  font-family: var(--font-heading);
+  font-weight: 400;
   font-size: 20px;
   line-height: 1.6;
   margin: 0 0 14px;
@@ -377,7 +380,8 @@ h3.faq-question::before {
 }
 
 .cta-block h2 {
-  font-family: "Noto Serif JP", "Hiragino Mincho ProN", serif;
+  font-family: var(--font-heading);
+  font-weight: 400;
   color: var(--accent-text);
   font-size: 19px;
   margin: 0 0 8px;
@@ -420,7 +424,8 @@ h3.faq-question::before {
 }
 
 .related-block h2 {
-  font-family: "Noto Serif JP", "Hiragino Mincho ProN", serif;
+  font-family: var(--font-heading);
+  font-weight: 400;
   font-size: 18px;
   margin: 0 0 16px;
 }
@@ -469,6 +474,11 @@ h3.faq-question::before {
   font-size: 11px;
   font-weight: 700;
   margin-bottom: 6px;
+}
+
+.related-list .related-item-title {
+  font-family: var(--font-heading);
+  font-size: 14.5px;
 }
 
 footer.site-footer {
@@ -527,7 +537,8 @@ footer.site-footer a:hover {
 }
 
 .hub-list .hub-item-title {
-  font-family: "Noto Serif JP", "Hiragino Mincho ProN", serif;
+  font-family: var(--font-heading);
+  font-weight: 400;
   font-size: 17px;
   margin: 4px 0 8px;
 }

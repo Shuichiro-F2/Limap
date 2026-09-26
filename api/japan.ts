@@ -55,17 +55,11 @@ function tagNamesOf(spot: JapanSpot): string[] {
     .filter((n): n is string => !!n);
 }
 
-// 見出しはアプリ本体と同じドットフォント(DotGothic16)にする。
-// 記事ページ(article.css)は長文の読みやすさのため明朝体だが、この一覧はアプリの世界観に合わせる
-const FONT_HEAD = `    <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet" />
-`;
-
 const PAGE_STYLE = `      <style>
-        h1.article-title, h2.section-heading { font-family: "DotGothic16", "Noto Sans JP", sans-serif; font-weight: 400; }
         .jp-stats { color: var(--text-secondary); font-size: 14px; margin: 0 0 20px; }
         .jp-region { margin-top: 36px; }
         .jp-pref { margin-top: 24px; }
-        .jp-pref h3 { font-size: 17px; margin: 0 0 8px; }
+        .jp-pref h3 { font-family: var(--font-heading); font-weight: 400; font-size: 17px; margin: 0 0 8px; }
         .jp-pref h3 a { color: var(--text-primary); }
         .jp-pref h3 span { color: var(--text-muted); font-size: 13px; font-weight: 400; margin-left: 6px; }
         .jp-spots { list-style: none; padding: 0; margin: 0; }
@@ -202,7 +196,6 @@ ${RELATED_ARTICLES.map((a) => `          <li><a href="/articles/${a.slug}/">${es
     description,
     url: PAGE_URL,
     body,
-    headExtra: FONT_HEAD,
     jsonLd: [
       {
         '@context': 'https://schema.org',
