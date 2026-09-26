@@ -54,6 +54,14 @@ const VISIT_TIME_LABELS: Record<string, string> = {
   night: '夜 / Night',
 };
 
+type ReviewBodyInput = {
+  description: string;
+  visitTime: string | null;
+  imageUrls: string[];
+  authorName: string | null;
+  createdAt: string | null;
+};
+
 type SpotBodyInput = {
   title: string;
   place: string;
@@ -64,7 +72,35 @@ type SpotBodyInput = {
   imageUrls: string[];
   authorName: string | null;
   createdAt: string | null;
+  reviews: ReviewBodyInput[];
 };
+
+// サーバー側HTMLに載せるレビューの上限（HTMLが肥大化しないように）
+const MAX_REVIEWS_IN_HTML = 20;
+
+// アプリの「みんなの投稿」欄と同じ内容（新しい順）
+function buildReviewsSection(title: string, reviews: ReviewBodyInput[]): string {
+  const articles = reviews.map((r) => {
+    const meta = [
+      r.authorName ? escapeHtml(r.authorName) : null,
+      r.createdAt ? `<time datetime="${escapeHtml(r.createdAt.slice(0, 10))}">${escapeHtml(r.createdAt.slice(0, 10))}</time>` : null,
+      r.visitTime && VISIT_TIME_LABELS[r.visitTime] ? `訪問時間帯 / Best Time to Visit: ${VISIT_TIME_LABELS[r.visitTime]}` : null,
+    ].filter(Boolean);
+    const imgs = r.imageUrls.map(
+      (url) => `<img src="${escapeHtml(url)}" alt="${escapeHtml(title)}" loading="lazy" decoding="async" />`
+    );
+    return [
+      '<article>',
+      meta.length ? `<p class="limap-ssr-meta">${meta.join(' ・ ')}</p>` : '',
+      ...imgs,
+      r.description.trim() ? toParagraphs(r.description) : '',
+      '</article>',
+    ]
+      .filter(Boolean)
+      .join('\n');
+  });
+  return `<section>\n<h2>みんなの投稿 / Posts from others (${reviews.length})</h2>\n${articles.join('\n')}\n</section>`;
+}
 
 // #root の中に入れる、スポットの本文HTML。
 // JSを実行しないクローラー/SNSでも本文を読めるようにするためのもの。
@@ -98,12 +134,41 @@ function buildSpotBody(s: SpotBodyInput): string {
     details.push(`<dt>投稿日 / Posted on</dt><dd><time datetime="${escapeHtml(date)}">${escapeHtml(date)}</time></dd>`);
   }
   if (details.length) parts.push(`<dl>${details.join('')}</dl>`);
+  if (s.reviews.length) parts.push(buildReviewsSection(s.title, s.reviews));
 
   parts.push(
     '<nav><a href="/">LIMapの地図でリミナルスペースを探す / Explore the map</a> ・ <a href="/articles/">コラム / Articles</a></nav>'
   );
 
   return `<main id="limap-ssr">\n${parts.join('\n')}\n</main>`;
+}
+
+type ReviewRow = {
+  description: string | null;
+  recommended_visit_time: string | null;
+  created_at: string;
+  images: { storage_path: string; thumbnail_path: string | null; position: number }[] | null;
+  author: { username?: string; display_name?: string | null } | { username?: string; display_name?: string | null }[] | null;
+};
+
+// 新しい順に並べ、本文も写真も無いものは除く。
+// 写真はアプリのレビュー欄と同じくサムネイルを使う（無ければ元画像）
+function buildReviewInputs(rows: ReviewRow[], imageUrl: (path: string) => string): ReviewBodyInput[] {
+  return [...rows]
+    .sort((a, b) => (a.created_at < b.created_at ? 1 : -1))
+    .map((r) => {
+      const author = Array.isArray(r.author) ? r.author[0] : r.author;
+      const images = [...(r.images || [])].sort((a, b) => (a.position ?? 0) - (b.position ?? 0));
+      return {
+        description: r.description || '',
+        visitTime: r.recommended_visit_time,
+        imageUrls: images.map((img) => imageUrl(img.thumbnail_path || img.storage_path)),
+        authorName: author ? author.display_name || author.username || null : null,
+        createdAt: r.created_at,
+      };
+    })
+    .filter((r) => r.description.trim() || r.imageUrls.length)
+    .slice(0, MAX_REVIEWS_IN_HTML);
 }
 
 // JSが無効な環境では、ロード画面が本文を覆ったまま消えないため隠す。
@@ -114,6 +179,8 @@ const SSR_HEAD = `<style>
       #limap-ssr a { color: #dece32; }
       #limap-ssr dt { margin-top: 12px; opacity: 0.7; }
       #limap-ssr dd { margin: 0; }
+      #limap-ssr article { border-top: 1px solid #333; margin-top: 16px; padding-top: 8px; }
+      #limap-ssr .limap-ssr-meta { opacity: 0.7; font-size: 0.9em; }
     </style>
     <noscript><style>#limap-splash { display: none; }</style></noscript>`;
 
@@ -144,7 +211,12 @@ export default async function handler(req: any, res: any) {
         access, recommended_visit_time,
         images:spot_images(storage_path, position),
         tags:spot_tags(tag:tags(name)),
-        author:profiles!spots_author_id_fkey(username, display_name)
+        author:profiles!spots_author_id_fkey(username, display_name),
+        reviews:spot_reviews(
+          description, recommended_visit_time, created_at,
+          images:spot_review_images(storage_path, thumbnail_path, position),
+          author:profiles!spot_reviews_author_id_fkey(username, display_name)
+        )
       `
       )
       // URLの:idはLIMap ID(slug)。内部の主キー(id)とは別物。
@@ -274,6 +346,10 @@ export default async function handler(req: any, res: any) {
       ),
       authorName: author ? author.display_name || author.username || null : null,
       createdAt: spot.created_at,
+      reviews: buildReviewInputs(
+        (spot.reviews || []) as ReviewRow[],
+        (path) => supabase.storage.from('spot-images').getPublicUrl(path).data.publicUrl
+      ),
     });
     // 置換文字列中の $ が特殊扱いされないよう関数で渡す
     html = html.replace(/<div id="root"><\/div>/, () => `<div id="root">${body}</div>`);
