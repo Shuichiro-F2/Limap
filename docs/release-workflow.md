@@ -40,7 +40,9 @@ Web とアプリは同一コードベースだが、**配信経路が完全に�
 ```bash
 cd ~/Developer/limap
 # 変更 → 記事の場合は npm run articles:build
-git add -A && git commit -m "..." && git push origin main
+git status                      # 意図しないファイルが混ざっていないか確認
+git add <変更したファイル>       # -A は使わない（作業の残骸まで入るため）
+git commit -m "..." && git push origin main
 ```
 Vercel が自動でデプロイ。1〜2分で https://limap.jp に反映。
 
@@ -128,5 +130,5 @@ App Store 版はユーザーが更新しない限り古いバイナリが端末�
 ## メモ
 
 - EAS CLI はグローバル未導入の場合 `npx eas-cli <command>` で実行可能。
-- `dist-check/` 〜 `dist-check39/` はビルド検証の残骸。`.gitignore` 済み。削除して問題ない。
+- `dist-check*/` はビルド検証の残骸、`Claude outputs/` は Claude の作業用出力。どちらも `.gitignore` 済み。削除して問題ない。
 - Android 版（`com.v.xo2.limap`）の設定は `app.json` に入っているが、Google Play への提出はまだ。出す場合は `--platform android` で同じフローが使える。

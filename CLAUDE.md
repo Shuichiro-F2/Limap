@@ -18,7 +18,7 @@
 | Web | react-native-web → `npx expo export --platform web` → `dist/` を Vercel でホスト |
 | 地図 | ネイティブ：`@rnmapbox/maps`（`MapScreen.tsx`）／Web：`mapbox-gl` + `react-map-gl`（`MapScreen.web.tsx`） |
 | バックエンド | Supabase（Auth / Postgres / Storage）。Web とアプリで**同じプロジェクト**を参照 |
-| サーバー関数 | `api/*.ts`（Vercel Functions：sitemap、スポットページのOGP、oEmbed、アカウント削除 など） |
+| サーバー関数 | `api/*.ts`（Vercel Functions。`sitemap.ts`、`spot.ts`＝スポットページのOGP、`page.ts`＝about/help/privacy/terms、`instagram-oembed.ts`・`x-oembed.ts`、`delete-account.ts`）。URL との対応は `vercel.json` の rewrites |
 | アプリ配信 | EAS Build / Submit / Update（`expo-updates` 導入済み、channel `production`） |
 
 Expo の API は `AGENTS.md` の指示どおり v57 のドキュメントを確認してから使うこと。
@@ -47,11 +47,20 @@ supabase/migrations/  DB変更の履歴（連番SQL）
 ```bash
 npm run web            # Web版をローカル起動（まずここで確認）
 npm run ios            # 開発ビルドで起動（Mapbox はネイティブモジュールのため Expo Go 不可）
+APP_VARIANT=development npx expo run:ios  # 開発ビルドを作ってシミュレーターに入れる（初回・ネイティブ変更後。/ios は Git 管理外）
 npm run articles:build # 記事HTMLを再生成（content/articles.json → public/articles/）
 npx tsc --noEmit       # 型チェック
 ```
 
-環境変数は `.env`（Git管理外）。キー一覧は `.env.example`。`MAPBOX_DOWNLOAD_TOKEN` は `app.config.js` が読み込む。**`.env` の中身を表示・コミットしないこと。**
+- `npm run ios`（= `expo start --ios`）は開発ビルドがシミュレーターに入っている前提。`APP_VARIANT=development` を付けてビルドすると bundleId `com.v.xo2.limap.dev`・名前「Limap Dev」の別アプリになり、配布版と共存する（`app.config.js`。EAS の `development` プロファイルは自動で付く）。付け忘れると配布版と同じ bundleId で上書きされる
+- 依存は `legacy-peer-deps` 前提（`.npmrc`／Vercel の installCommand も同じ）。peer 依存の警告で止まったら、まずこの設定が効いているか確認する
+
+環境変数は `.env`（Git管理外）。キー一覧は `.env.example`。**`.env` の中身を表示・コミットしないこと。**
+
+- アプリ側（`src/`）は `EXPO_PUBLIC_*` ではなく、`import { … } from '@env'`（react-native-dotenv、`babel.config.js`）でバンドル時に `.env` から埋め込む。そのため `eas update` はローカルの `.env` の値でバンドルされる（`--environment production` は EAS 側の環境変数の指定で、これとは別物）
+- `.env` を変えても反映されないときは `npx expo start --clear` でキャッシュを消す
+- `MAPBOX_DOWNLOAD_TOKEN` はネイティブビルド時に `app.config.js` が読み込む
+- `api/*.ts` は Vercel の環境変数を読む（`SUPABASE_SERVICE_ROLE_KEY` は Vercel にのみ設定）
 
 ## リリース（最重要）
 
