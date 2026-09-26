@@ -9,6 +9,9 @@
  *   JSを実行しないクローラーでも本文とリンクを読めるようにする。
  * - 一方で、SPAの各画面(vercel.json の rewrites)と api/spot.ts・api/page.ts は
  *   本文の入っていない「ひな形」が必要なため、元の dist/index.html を dist/app.html として残す。
+ * - 存在しないURLに返す dist/404.html も、同じひな形から作る（Vercel が 404 ステータスで返す）。
+ *   vercel.json の rewrites に画面のURLを書き漏らしても、ユーザーにはアプリがそのまま表示され、
+ *   検索エンジンに登録されなくなるだけで済むようにするため。
  * - 新着スポットはビルド時点のもの（デプロイのたびに更新される）。
  *   Supabase に接続できない場合はその部分だけ省き、ビルドは止めない。
  *
@@ -30,6 +33,7 @@ const ROOT = path.resolve(__dirname, '..');
 const DIST = path.join(ROOT, 'dist');
 const INDEX_PATH = path.join(DIST, 'index.html');
 const SHELL_PATH = path.join(DIST, 'app.html');
+const NOT_FOUND_PATH = path.join(DIST, '404.html');
 const ARTICLES_PATH = path.join(ROOT, 'content', 'articles.json');
 
 // src/lib/appStore.ts と同じURL（静的HTML側からアプリのコードを読めないため二重管理）
@@ -129,6 +133,11 @@ async function main() {
     throw new Error('dist/index.html に既に本文が入っています。expo export からやり直してください');
   }
   fs.writeFileSync(SHELL_PATH, shell);
+  // 404ページは検索結果に出さない（ステータスでも伝わるが念のため明示する）
+  fs.writeFileSync(
+    NOT_FOUND_PATH,
+    shell.replace('</head>', () => '  <meta name="robots" content="noindex" />\n  </head>')
+  );
 
   const marker = '<div id="root"></div>';
   if (!shell.includes(marker)) {

@@ -42,6 +42,7 @@ supabase/migrations/  DB変更の履歴（連番SQL）
 - 色・フォントは `src/lib/theme.ts` に集約。ダークテーマ固定、フォントは DotGothic16
 - Web とネイティブで挙動を変えるときは、`*.web.tsx` か `Platform.OS === 'web'` で分岐する
 - Web の初期HTML：`dist/index.html` はトップページ専用（ビルド後に `scripts/build-top-page.js` が本文を入れる）。SPA の各画面と `api/spot.ts`・`api/page.ts` は、本文の無いひな形 `dist/app.html` を使う（`vercel.json` の rewrites）。`public/index.html` の `<div id="root"></div>` はこの仕組みの目印なので形を変えない。サーバー側で入れる本文（`#limap-ssr`）の見た目は `public/index.html` の `#limap-ssr-style` に集約してある
+- **アプリに画面（URL）を追加・変更したら、`src/navigation/RootNavigator.tsx` の `linking` と合わせて `vercel.json` の rewrites にも追加する。** 列挙していないURLは 404 ステータス（中身はアプリのひな形 `dist/404.html`）になるため、画面自体は開けるが検索エンジンには登録されない
 
 ## よく使うコマンド
 
