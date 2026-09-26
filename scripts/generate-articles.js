@@ -192,6 +192,34 @@ function heroImageOf(article) {
   return (article.images || []).find((img) => img.afterSection === -1);
 }
 
+function commonsImageUrl(image, width) {
+  return `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(image.file)}?width=${width}`;
+}
+
+// 最終更新日。本文を直したときは articles.json の updatedDate を更新する（無ければ公開日）
+function modifiedDateOf(article) {
+  return article.updatedDate || article.publishedDate;
+}
+
+// 「よくある質問」。articles.json の ja.faq / en.faq（{ q, a } の配列）を本文の末尾に出す。
+// 同じ内容を FAQPage の構造化データとしても出すため、ページ上の表示と必ず一致させること。
+function faqBlock(faq, lang) {
+  if (!faq || faq.length === 0) return '';
+  const heading = lang === 'ja' ? 'よくある質問' : 'FAQ';
+  const items = faq
+    .map(
+      (item) => `        <div class="faq-item">
+          <h3 class="faq-question">${escapeHtml(item.q)}</h3>
+          <p>${escapeHtml(item.a)}</p>
+        </div>`
+    )
+    .join('\n');
+  return `      <section class="article-section faq-section">
+        <h2 class="section-heading">${heading}</h2>
+${items}
+      </section>`;
+}
+
 function cardThumbImg(image, lang) {
   if (!image) return '';
   const alt = lang === 'ja' ? image.altJa : image.altEn;
@@ -226,10 +254,11 @@ ${items}
 function langBlock(lang, article, all) {
   const content = article[lang];
   const categoryLabel = lang === 'ja' ? article.category : article.categoryEn;
+  const updated = article.updatedDate && article.updatedDate !== article.publishedDate ? article.updatedDate : null;
   const dateLabel =
     lang === 'ja'
-      ? `公開日: ${article.publishedDate}`
-      : `Published: ${article.publishedDate}`;
+      ? `公開日: ${article.publishedDate}${updated ? ` ／ 更新日: ${updated}` : ''}`
+      : `Published: ${article.publishedDate}${updated ? ` / Updated: ${updated}` : ''}`;
   const heroImage = (article.images || []).find((img) => img.afterSection === -1);
   return `    <div data-lang="${lang}">
       <span class="article-category">${escapeHtml(categoryLabel)}</span>
@@ -238,6 +267,7 @@ function langBlock(lang, article, all) {
       <p class="article-lead">${escapeHtml(content.lead)}</p>
 ${imageBlock(heroImage, lang, 'hero')}
 ${langSections(content.sections, article.images, lang)}
+${faqBlock(content.faq, lang)}
 ${ctaBlock(lang)}
 ${supportBlock(lang)}
 ${relatedBlock(article, all, lang)}
@@ -246,24 +276,45 @@ ${relatedBlock(article, all, lang)}
 
 function articleJsonLd(article) {
   const url = `${SITE_URL}/articles/${article.slug}/`;
+  const hero = heroImageOf(article);
+  const organization = {
+    '@type': 'Organization',
+    name: 'LIMap',
+    url: `${SITE_URL}/`,
+    logo: `${SITE_URL}/apple-touch-icon.png`,
+  };
   const data = {
     '@context': 'https://schema.org',
     '@type': 'Article',
     headline: article.ja.h1,
     description: article.ja.metaDescription,
     datePublished: article.publishedDate,
-    dateModified: article.publishedDate,
+    dateModified: modifiedDateOf(article),
     inLanguage: 'ja',
     url,
-    image: `${SITE_URL}/og-image.png`,
-    publisher: {
-      '@type': 'Organization',
-      name: 'LIMap',
-      url: `${SITE_URL}/`,
-      logo: `${SITE_URL}/apple-touch-icon.png`,
-    },
+    mainEntityOfPage: url,
+    image: hero ? commonsImageUrl(hero, 1200) : `${SITE_URL}/og-image.png`,
+    // 記事はLIMap運営が編集しているため、著者・発行元ともに組織とする
+    author: organization,
+    publisher: organization,
   };
-  return `    <script type="application/ld+json">${escapeJsonLd(data)}</script>\n`;
+  let out = `    <script type="application/ld+json">${escapeJsonLd(data)}</script>\n`;
+
+  // ページに表示している日本語のFAQと同じ内容（faqBlock参照）
+  const faq = article.ja.faq || [];
+  if (faq.length > 0) {
+    const faqData = {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: faq.map((item) => ({
+        '@type': 'Question',
+        name: item.q,
+        acceptedAnswer: { '@type': 'Answer', text: item.a },
+      })),
+    };
+    out += `    <script type="application/ld+json">${escapeJsonLd(faqData)}</script>\n`;
+  }
+  return out;
 }
 
 function renderArticlePage(article, all) {
@@ -428,6 +479,51 @@ ${items}
 `;
 }
 
+// AI向けのサイト案内（https://llmstxt.org/ の形式）。public/llms.txt として出力する。
+// 記事一覧は articles.json から作るため、記事を追加して articles:build すれば自動で更新される。
+// サイトの説明文を変えるときは、トップページ(scripts/build-top-page.js)・about と食い違わないようにする。
+function renderLlmsTxt(all) {
+  const articleLines = all
+    .map((a) => `- [${a.ja.title}](${SITE_URL}/articles/${a.slug}/): ${a.ja.metaDescription}`)
+    .join('\n');
+  const articleLinesEn = all
+    .map((a) => `- [${a.en.title}](${SITE_URL}/articles/${a.slug}/)`)
+    .join('\n');
+  return `# LIMap（リマップ）
+
+> LIMap は、リミナルスペース（人の気配が消えた、どこか不気味で懐かしい場所）を写真と位置情報で地図に記録・共有するサービスです。Web 版（${SITE_URL}/）と iOS アプリがあり、日本語と英語に対応しています。
+
+- 廃墟、無人駅、深夜の駐車場、地下通路、閉店後の商業施設などのリミナルスペースを、ユーザーと LIMap 運営が地図に登録しています。日本各地のほか海外のスポットもあります。
+- 各スポットのページ（${SITE_URL}/spot/<ID>）には、写真、説明、アクセス、おすすめの訪問時間帯、タグ、近くのスポットが載っています。
+- 地図の閲覧と検索はログインなしで使えます。投稿・いいね・行きたい場所への保存・フォローには無料のアカウント登録が必要です。
+- 私有地や立入禁止区域への立ち入りを助長する投稿は利用規約で禁止しています。
+
+## 主なページ
+
+- [トップ（地図）](${SITE_URL}/): 登録されたリミナルスペースを地図で探せるトップページ。新着スポットとコラム記事への入口
+- [リミナルスペースとは](${SITE_URL}/about): リミナルスペースの意味・特徴・日本の実例と、よくある質問
+- [LIMapの使い方](${SITE_URL}/help): 地図での探し方、投稿、いいね・行きたい場所、フォロー機能
+- [コラム一覧](${SITE_URL}/articles/): リミナルスペースやバックルームズに関する読みもの
+- [iOSアプリ](${APP_STORE_URL}): App Store の LIMap
+
+## コラム記事
+
+${articleLines}
+
+## English
+
+LIMap is a map for finding and sharing liminal spaces: abandoned buildings, empty stations, late-night parking lots and other eerie, nostalgic places. Each article page also contains an English version (switch with the language toggle at the top of the page).
+
+${articleLinesEn}
+
+## Optional
+
+- [サイトマップ](${SITE_URL}/sitemap.xml): すべてのスポットページ・記事・主なページの一覧
+- [プライバシーポリシー](${SITE_URL}/privacy)
+- [利用規約](${SITE_URL}/terms)
+`;
+}
+
 function main() {
   // 記事一覧ハブ・関連記事ブロックともに新着順(publishedDateの降順)で並べる。
   // Array#sortは安定なので、同じ公開日の記事はarticles.jsonに書いた順のまま。
@@ -447,6 +543,9 @@ function main() {
 
   fs.writeFileSync(path.join(OUT_DIR, 'index.html'), renderHubPage(articles), 'utf8');
   console.log('generated:', 'public/articles/index.html');
+
+  fs.writeFileSync(path.join(ROOT, 'public', 'llms.txt'), renderLlmsTxt(articles), 'utf8');
+  console.log('generated:', 'public/llms.txt');
 
   // sitemap.tsで使う一覧をコンソールに出しておく（api/sitemap.tsへの反映は手動）
   console.log('\nslugs:', articles.map((a) => a.slug).join(', '));

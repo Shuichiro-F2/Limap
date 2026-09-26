@@ -1,0 +1,72 @@
+# LIMap（リマップ）
+
+> LIMap は、リミナルスペース（人の気配が消えた、どこか不気味で懐かしい場所）を写真と位置情報で地図に記録・共有するサービスです。Web 版（https://limap.jp/）と iOS アプリがあり、日本語と英語に対応しています。
+
+- 廃墟、無人駅、深夜の駐車場、地下通路、閉店後の商業施設などのリミナルスペースを、ユーザーと LIMap 運営が地図に登録しています。日本各地のほか海外のスポットもあります。
+- 各スポットのページ（https://limap.jp/spot/<ID>）には、写真、説明、アクセス、おすすめの訪問時間帯、タグ、近くのスポットが載っています。
+- 地図の閲覧と検索はログインなしで使えます。投稿・いいね・行きたい場所への保存・フォローには無料のアカウント登録が必要です。
+- 私有地や立入禁止区域への立ち入りを助長する投稿は利用規約で禁止しています。
+
+## 主なページ
+
+- [トップ（地図）](https://limap.jp/): 登録されたリミナルスペースを地図で探せるトップページ。新着スポットとコラム記事への入口
+- [リミナルスペースとは](https://limap.jp/about): リミナルスペースの意味・特徴・日本の実例と、よくある質問
+- [LIMapの使い方](https://limap.jp/help): 地図での探し方、投稿、いいね・行きたい場所、フォロー機能
+- [コラム一覧](https://limap.jp/articles/): リミナルスペースやバックルームズに関する読みもの
+- [iOSアプリ](https://apps.apple.com/jp/app/id6805902713): App Store の LIMap
+
+## コラム記事
+
+- [映画『バックルームズ』は怖い？ネタバレなしで、怖さの種類を説明します](https://limap.jp/articles/is-backrooms-movie-scary/): 映画『バックルームズ』はどのくらい怖いのか。ネタバレを一切含めず、この作品の怖さがジャンプスケア型ではなく空間型であること、評価が割れている理由、ホラーが苦手な人向けの目安を整理しました。
+- [映画を観たあとに行きたい、東京の「バックルームズ的」な場所](https://limap.jp/articles/backrooms-spots-tokyo/): 映画『バックルームズ』を観たあと、街の見え方が少し変わった人へ。東京にある、あの空気感に近い実在の場所をLIMapの登録スポットから紹介します。地下通路、団地、閉じた駅など。
+- [バックルームズの「レベル」とは？レベル0からThe Endまでと、公式設定が存在しない理由](https://limap.jp/articles/backrooms-levels-explained/): バックルームズの「レベル(階層)」を、レベル0からThe Endまで代表的なものに絞って整理しました。あわせて、なぜwikiごとに設定が食い違うのか、どれが正しいのかという疑問にも答えます。
+- [プールルーム（Poolrooms）とは？青いタイルの水の空間の正体と、日本で近い場所](https://limap.jp/articles/poolrooms-explained/): バックルームズのレベル37としても知られるプールルーム。青いタイルと生ぬるい水の空間はどこから生まれたのか、なぜ怖いのに懐かしいのか。成り立ちと、日本で似た空気に出会える場所を紹介します。
+- [バックルームズの元ネタ写真はどこで撮られた？2024年に特定された実在の建物](https://limap.jp/articles/backrooms-original-photo-location/): 2019年に4chanへ投稿され、バックルームズという都市伝説を生んだ1枚の写真。その撮影場所は5年間不明でしたが、2024年に特定されました。どこで、いつ、なぜ撮られた写真だったのかをまとめます。
+- [バックルームズと『8番出口』は何が違う？似ているようで正反対な2つの無限空間](https://limap.jp/articles/backrooms-vs-exit-8/): 無人の空間、終わらない通路、出口の見えなさ。バックルームズと『8番出口』はよく並べて語られますが、恐怖の構造は正反対です。両者の成り立ちと決定的な違いを整理しました。
+- [Kane Pixels（ケイン・パーソンズ）とは何者か？16歳の投稿から映画監督になるまで](https://limap.jp/articles/who-is-kane-pixels/): バックルームズを映像として定義し、20歳でA24の長編監督になったKane Pixelsことケイン・パーソンズ。経歴、代表作、Blender1本で作る制作手法、生成AIへの発言までをまとめました。
+- [ノークリップ（noclip）とは？ゲーム用語が「現実の裏側」を意味するようになるまで](https://limap.jp/articles/what-is-noclip/): バックルームズの説明に必ず登場する「ノークリップ」。もとは壁をすり抜けるゲームのデバッグ機能でした。用語の由来から、なぜこの言葉がネット都市伝説の核心になったのかまで解説します。
+- [映画『バックルームズ』に予習は必要？元ネタ・原作YouTube・監督を公開日にまとめる](https://limap.jp/articles/backrooms-movie-guide/): 2026年9月4日公開の映画『バックルームズ』。予習は必要なのか、という疑問に答えつつ、2019年の4chan発の都市伝説としての歴史、原作となったKane PixelsのYouTubeシリーズ、20歳でA24デビューした監督ケイン・パーソンズまでを整理しました。
+- [「8番出口」は現実にあるのか？似た空気感の実在スポットを探す](https://limap.jp/articles/is-exit-8-real/): ホラーゲーム・映画『8番出口』のような、同じ通路が続く不思議な感覚。モデル駅探しではなく、似た空気感を持つ実在スポットをLIMapの実例とともに紹介します。
+- [バックルームズは日本に実在する？「黄色い部屋」に近い空気の場所を探して](https://limap.jp/articles/backrooms-in-japan/): 4chan発の都市伝説「バックルームズ」。あの黄色い部屋は日本にも実在するのか？都市伝説としての成り立ちを整理しつつ、似た雰囲気を味わえる実在スポットをLIMapから紹介します。
+- [心霊スポットじゃない、「なんとなく怖い」不思議な場所の探し方](https://limap.jp/articles/not-haunted-just-eerie-spots/): 心霊が苦手でも、なぜか惹かれる「不思議な場所」がある。オカルトではなく、写真映えや雰囲気を楽しむための不思議スポットの探し方と、実際に登録されている場所を紹介します。
+- [廃墟の撮影スポットを地図で探す。心霊目当てじゃない、日本各地の廃墟案内](https://limap.jp/articles/haikyo-photo-spots-japan/): 廃墟を撮りたいけど心霊スポット巡りはしたくない。そんな人向けに、写真映えを重視した日本各地の廃墟をLIMapから紹介。気になる場所はそのまま地図で確認できます。
+- [リミナルスペースとは？意味・語源・具体例をわかりやすく解説](https://limap.jp/articles/what-is-liminal-space/): 「リミナルスペース」の意味や語源、なぜインターネットで話題になったのかを解説。廃墟や無人駅、深夜のショッピングモールなど、身近にある具体例も紹介します。
+- [日本のリミナルスペースとは？特徴と代表的な場所の例](https://limap.jp/articles/liminal-spaces-in-japan/): 深夜の無人駅、地下街、団地、閉店後のショッピングモールなど、日本ならではのリミナルスペースの特徴と具体的な場所の例を紹介します。
+- [リミナルスペースとバックルームの違いとは？](https://limap.jp/articles/liminal-space-vs-backrooms/): 見た目は似ているのに何が違う？「リミナルスペース」と「バックルームズ（The Backrooms）」の違いを、成り立ちや物語性の観点からわかりやすく解説します。
+- [リミナルスペースとドリームコアの違いとは？](https://limap.jp/articles/liminal-space-vs-dreamcore/): リミナルスペース・ドリームコア・ウィアードコア、似ているようで違う3つのインターネット美学の違いをわかりやすく解説します。
+- [なぜリミナルスペースに恐怖や不安を感じるのか](https://limap.jp/articles/why-liminal-spaces-feel-scary/): 誰もいないだけの場所なのに、なぜか怖い。リミナルスペースが不安を引き起こす心理的な理由を、脳の仕組みの観点からわかりやすく解説します。
+- [リミナルスペースはどう生まれ、なぜ流行したのか](https://limap.jp/articles/history-of-liminal-space-trend/): 2019年のインターネット掲示板への1枚の投稿から始まり、コロナ禍を経て世界的なトレンドになった「リミナルスペース」。誕生から流行までの流れを解説します。
+- [リミナルスペースの見つけ方・撮り方のコツ](https://limap.jp/articles/how-to-find-liminal-spaces/): 身近な街の中からリミナルスペースを見つけて撮影するための視点とコツ、撮影・記録時に気をつけたいマナーを紹介します。
+- [世界の有名なリミナルスペース事例](https://limap.jp/articles/famous-liminal-spaces-around-the-world/): SNSで話題になった世界各地のリミナルスペースの事例を紹介しながら、共通する特徴を解説します。
+
+## English
+
+LIMap is a map for finding and sharing liminal spaces: abandoned buildings, empty stations, late-night parking lots and other eerie, nostalgic places. Each article page also contains an English version (switch with the language toggle at the top of the page).
+
+- [Is the Backrooms Movie Scary? A Spoiler-Free Guide to What Kind of Fear It Uses](https://limap.jp/articles/is-backrooms-movie-scary/)
+- [Where to Go in Tokyo After Watching the Backrooms Movie](https://limap.jp/articles/backrooms-spots-tokyo/)
+- [What Are the Backrooms Levels? From Level 0 to The End — and Why There Is No Official Canon](https://limap.jp/articles/backrooms-levels-explained/)
+- [What Are the Poolrooms? Where the Blue-Tiled Water Spaces Came From](https://limap.jp/articles/poolrooms-explained/)
+- [Where Was the Original Backrooms Photo Taken? The Real Building, Identified in 2024](https://limap.jp/articles/backrooms-original-photo-location/)
+- [Backrooms vs Exit 8: Two Endless Spaces That Work in Opposite Ways](https://limap.jp/articles/backrooms-vs-exit-8/)
+- [Who Is Kane Pixels? From a Post at Sixteen to Directing for A24](https://limap.jp/articles/who-is-kane-pixels/)
+- [What Does Noclip Mean? How a Game Dev Term Came to Describe the Back of Reality](https://limap.jp/articles/what-is-noclip/)
+- [Do You Need to Do Homework Before Watching Backrooms? The Legend, the YouTube Series, and the Director](https://limap.jp/articles/backrooms-movie-guide/)
+- [Is "Exit 8" Real? Looking for Actual Places With the Same Eerie Vibe](https://limap.jp/articles/is-exit-8-real/)
+- [Do the Backrooms Exist in Japan? Looking for Places With That "Yellow Room" Feeling](https://limap.jp/articles/backrooms-in-japan/)
+- [Not a Haunted Spot, Just Eerie: How to Find "Strangely Unsettling" Places](https://limap.jp/articles/not-haunted-just-eerie-spots/)
+- [Finding Abandoned Buildings on a Map: Japan's Ruins, Without the Haunted-House Angle](https://limap.jp/articles/haikyo-photo-spots-japan/)
+- [What Is a Liminal Space? Meaning, Origin, and Real-World Examples](https://limap.jp/articles/what-is-liminal-space/)
+- [Liminal Spaces in Japan: What Makes Them Different](https://limap.jp/articles/liminal-spaces-in-japan/)
+- [Liminal Space vs. the Backrooms: What's the Difference?](https://limap.jp/articles/liminal-space-vs-backrooms/)
+- [Liminal Space vs. Dreamcore: What's the Difference?](https://limap.jp/articles/liminal-space-vs-dreamcore/)
+- [Why Do Liminal Spaces Feel Scary or Unsettling?](https://limap.jp/articles/why-liminal-spaces-feel-scary/)
+- [How Liminal Spaces Became a Trend: A Brief History](https://limap.jp/articles/history-of-liminal-space-trend/)
+- [How to Find and Photograph Liminal Spaces](https://limap.jp/articles/how-to-find-liminal-spaces/)
+- [Famous Liminal Spaces from Around the World](https://limap.jp/articles/famous-liminal-spaces-around-the-world/)
+
+## Optional
+
+- [サイトマップ](https://limap.jp/sitemap.xml): すべてのスポットページ・記事・主なページの一覧
+- [プライバシーポリシー](https://limap.jp/privacy)
+- [利用規約](https://limap.jp/terms)

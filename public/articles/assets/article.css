@@ -287,6 +287,28 @@ h2.section-heading {
   margin: 0 0 16px;
 }
 
+/* よくある質問（generate-articles.js の faqBlock） */
+.faq-item {
+  margin-top: 18px;
+}
+
+h3.faq-question {
+  font-size: 15.5px;
+  font-weight: 700;
+  line-height: 1.6;
+  margin: 0 0 6px;
+  color: var(--text-primary);
+}
+
+h3.faq-question::before {
+  content: "Q. ";
+  color: var(--accent);
+}
+
+.faq-item p {
+  color: var(--text-secondary);
+}
+
 .spot-cards {
   display: grid;
   grid-template-columns: repeat(2, 1fr);

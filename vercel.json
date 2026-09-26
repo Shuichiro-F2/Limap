@@ -3,6 +3,9 @@
   "installCommand": "npm install --legacy-peer-deps",
   "outputDirectory": "dist",
   "framework": null,
+  "headers": [
+    { "source": "/llms.txt", "headers": [{ "key": "Content-Type", "value": "text/plain; charset=utf-8" }] }
+  ],
   "redirects": [
     { "source": "/:page(about|help|privacy|terms)/", "destination": "/:page", "permanent": true },
     { "source": "/spot/:id/", "destination": "/spot/:id", "permanent": true }

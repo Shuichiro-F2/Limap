@@ -20,7 +20,7 @@ Expo（React Native Web）製のアプリ本体とは別に、SEO記事は静的
 | 1 | `content/articles.json` | 記事本文（日英）。静的HTML生成の元データ | 記事ページ自体が生成されない |
 | 2 | `src/lib/articles.ts` の `ARTICLE_ENTRIES` | **アプリ内コラムタブの一覧表示用**の軽量サマリー | URL直打ちでは読めるのに、**コラムタブの一覧に出てこない** |
 | 3 | `api/sitemap.ts` の `ARTICLE_SLUGS` | sitemap.xml に載せるスラッグ一覧 | Googleにクロール候補として通知されない |
-| 4 | `public/articles/` | 生成物（手書きせず `npm run articles:build` で再生成） | ページが古いまま |
+| 4 | `public/articles/` と `public/llms.txt` | 生成物（手書きせず `npm run articles:build` で再生成） | ページが古いまま／AI向けの案内(llms.txt)に記事が載らない |
 
 ### 手順
 
@@ -28,9 +28,9 @@ Expo（React Native Web）製のアプリ本体とは別に、SEO記事は静的
 2. `src/lib/articles.ts` の `ARTICLE_ENTRIES` に `ArticleSummary` を追記（`content/articles.json` と同じ順序で）
 3. `api/sitemap.ts` の `ARTICLE_SLUGS` にスラッグを追記
 4. `npm run articles:build` を実行（= `node scripts/generate-articles.js`）
-   → `public/articles/<slug>/index.html` と記事一覧ハブ `public/articles/index.html` が再生成される
+   → `public/articles/<slug>/index.html` と記事一覧ハブ `public/articles/index.html`、AI向けのサイト案内 `public/llms.txt` が再生成される
 5. `node scripts/check-articles.js` で4箇所の整合性を確認（OK が出ればよい）
-6. `git add content/articles.json src/lib/articles.ts api/sitemap.ts public/articles` → commit → `git push origin main`
+6. `git add content/articles.json src/lib/articles.ts api/sitemap.ts public/articles public/llms.txt` → commit → `git push origin main`
    → Vercel が自動デプロイ（**ここまでで反映されるのは Web のみ**）
 7. **アプリ（iOS）にも反映する**
    ```bash
@@ -47,6 +47,7 @@ push と `eas update` は実行前に Shu に確認を取る。
 ```
 {
   slug, category, categoryEn, publishedDate,   // publishedDate は "YYYY-MM-DD"
+  updatedDate?,                                // 任意。本文を直したときの更新日 "YYYY-MM-DD"
   ja: { title, metaDescription, h1, lead, sections: [...] },
   en: { title, metaDescription, h1, lead, sections: [...] },
   images: [...]
@@ -64,7 +65,8 @@ push と `eas update` は実行前に Shu に確認を取る。
   - 画像は **Wikimedia Commons のファイル名**を指定し、`Special:FilePath` 経由で読み込まれる。ライセンス表記は自動出力されるので、`author` / `license` / `licenseUrl` / `sourceUrl` を正しく入れること。新しい画像は Commons のファイルページで author / license を確認してから入れる。
   - **既に他記事で使っているファイルを再利用する場合は、メタデータをそのままコピーする**（記憶で書くと著者名やライセンスを間違える）。
   - `afterSection: -1` がヒーロー画像（記事冒頭）。0以上はそのセクションの直後に挿入。
-- `ja.faq` というキーが初期の記事に残っているが、**現在のジェネレータは使用していない**。
+- `ja.faq` / `en.faq`（`{ q, a }` の配列、任意）は本文の末尾に「よくある質問」として表示され、日本語版は FAQPage の構造化データにもなる。**ページに出る内容なので、事実関係は本文と同じ基準で確認する**。
+- `updatedDate`（`"YYYY-MM-DD"`、任意）：公開後に本文を直したときに入れる。記事の日付表示に「更新日」が出て、構造化データの `dateModified` になる。誤字の修正だけなら入れなくてよい。
 
 ## サマリーのスキーマ（`src/lib/articles.ts`）
 

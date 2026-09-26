@@ -20,6 +20,10 @@ jsonSlugs.filter((s) => !sitemap.includes(`'${s}'`)).forEach((s) => problems.pus
 jsonSlugs
   .filter((s) => !fs.existsSync(`public/articles/${s}/index.html`))
   .forEach((s) => problems.push(`HTML未生成（npm run articles:build）: ${s}`));
+const llms = fs.existsSync('public/llms.txt') ? fs.readFileSync('public/llms.txt', 'utf8') : '';
+jsonSlugs
+  .filter((s) => !llms.includes(`/articles/${s}/`))
+  .forEach((s) => problems.push(`llms.txt に無い（npm run articles:build）: ${s}`));
 
 if (problems.length) {
   console.log(problems.join('\n'));
