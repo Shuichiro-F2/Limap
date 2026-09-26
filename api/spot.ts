@@ -1,7 +1,8 @@
 // Vercel Serverless Function
 // /spot/:id へのアクセスを vercel.json の rewrites で /api/spot?id=:id にルーティングし、
 // ここで「そのスポット固有」のtitle/description/OGP/Twitter Card/canonical/JSON-LD(Place)を
-// 埋め込んだHTMLを返す。SPA自体（同じJSバンドル）はそのまま読み込むので、
+// 埋め込んだHTMLを返す。あわせて #root の中にスポットの本文（タイトル・写真・説明・アクセス等）も入れる。
+// SPA自体（同じJSバンドル）はそのまま読み込むので、
 // 通常ユーザーの表示・挙動は一切変わらない（クローラー/SNSシェア向けの初期HTMLだけが変わる）。
 //
 // なぜこうするか:
@@ -37,6 +38,85 @@ function replaceTag(html: string, regex: RegExp, replacement: string): string {
   return regex.test(html) ? html.replace(regex, replacement) : html;
 }
 
+// 投稿文の改行を段落/改行タグにする（エスケープ済みの文字列を返す）
+function toParagraphs(str: string): string {
+  return str
+    .trim()
+    .split(/\n{2,}/)
+    .map((p) => `<p>${escapeHtml(p).replace(/\n/g, '<br />')}</p>`)
+    .join('\n');
+}
+
+const VISIT_TIME_LABELS: Record<string, string> = {
+  morning: '朝 / Morning',
+  daytime: '昼 / Daytime',
+  dusk: '夕方 / Dusk',
+  night: '夜 / Night',
+};
+
+type SpotBodyInput = {
+  title: string;
+  place: string;
+  description: string;
+  access: string | null;
+  visitTime: string | null;
+  tags: string[];
+  imageUrls: string[];
+  authorName: string | null;
+  createdAt: string | null;
+};
+
+// #root の中に入れる、スポットの本文HTML。
+// JSを実行しないクローラー/SNSでも本文を読めるようにするためのもの。
+// 通常のブラウザではロード画面(#limap-splash)が全面を覆っている間に
+// React が createRoot で #root の中身を丸ごと置き換えるため、ユーザーの見た目は変わらない。
+function buildSpotBody(s: SpotBodyInput): string {
+  const parts: string[] = [];
+  parts.push(`<h1>${escapeHtml(s.title)}</h1>`);
+  if (s.place) parts.push(`<p class="limap-ssr-place">${escapeHtml(s.place)}</p>`);
+  s.imageUrls.forEach((url, i) => {
+    const alt = i === 0 ? s.title : `${s.title} (${i + 1})`;
+    parts.push(`<img src="${escapeHtml(url)}" alt="${escapeHtml(alt)}" loading="lazy" decoding="async" />`);
+  });
+  if (s.description.trim()) parts.push(toParagraphs(s.description));
+
+  const details: string[] = [];
+  if (s.access?.trim()) {
+    details.push(`<dt>アクセス / Access</dt><dd>${escapeHtml(s.access.trim()).replace(/\n/g, '<br />')}</dd>`);
+  }
+  if (s.visitTime && VISIT_TIME_LABELS[s.visitTime]) {
+    details.push(`<dt>訪問時間帯 / Best Time to Visit</dt><dd>${VISIT_TIME_LABELS[s.visitTime]}</dd>`);
+  }
+  if (s.tags.length) {
+    details.push(`<dt>タグ / Tags</dt><dd>${s.tags.map((t) => `#${escapeHtml(t)}`).join(' ')}</dd>`);
+  }
+  if (s.authorName) {
+    details.push(`<dt>投稿者 / Posted by</dt><dd>${escapeHtml(s.authorName)}</dd>`);
+  }
+  if (s.createdAt) {
+    const date = s.createdAt.slice(0, 10);
+    details.push(`<dt>投稿日 / Posted on</dt><dd><time datetime="${escapeHtml(date)}">${escapeHtml(date)}</time></dd>`);
+  }
+  if (details.length) parts.push(`<dl>${details.join('')}</dl>`);
+
+  parts.push(
+    '<nav><a href="/">LIMapの地図でリミナルスペースを探す / Explore the map</a> ・ <a href="/articles/">コラム / Articles</a></nav>'
+  );
+
+  return `<main id="limap-ssr">\n${parts.join('\n')}\n</main>`;
+}
+
+// JSが無効な環境では、ロード画面が本文を覆ったまま消えないため隠す。
+// 本文もアプリの配色(暗い背景)で読めるようにしておく。
+const SSR_HEAD = `<style>
+      #limap-ssr { max-width: 720px; margin: 0 auto; padding: 24px 16px; color: #e8e8e8; line-height: 1.8; }
+      #limap-ssr img { max-width: 100%; height: auto; display: block; margin: 16px 0; }
+      #limap-ssr a { color: #dece32; }
+      #limap-ssr dt { margin-top: 12px; opacity: 0.7; }
+      #limap-ssr dd { margin: 0; }
+    </style>
+    <noscript><style>#limap-splash { display: none; }</style></noscript>`;
+
 export default async function handler(req: any, res: any) {
   const idParam = req.query?.id;
   const id = Array.isArray(idParam) ? idParam[0] : idParam;
@@ -61,7 +141,9 @@ export default async function handler(req: any, res: any) {
       .select(
         `
         id, slug, title, description, lat, lng, country, city, status, created_at, updated_at,
+        access, recommended_visit_time,
         images:spot_images(storage_path, position),
+        tags:spot_tags(tag:tags(name)),
         author:profiles!spots_author_id_fkey(username, display_name)
       `
       )
@@ -173,8 +255,28 @@ export default async function handler(req: any, res: any) {
         ? { author: { '@type': 'Person', name: author.display_name || author.username } }
         : {}),
     };
-    const jsonLdScript = `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>\n  </head>`;
+    const jsonLdScript = `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>\n    ${SSR_HEAD}\n  </head>`;
     html = html.replace(/<\/head>/, jsonLdScript);
+
+    const tagRows = (spot.tags || []) as { tag: { name: string } | { name: string }[] | null }[];
+    const tagNames = tagRows
+      .map((row) => (Array.isArray(row.tag) ? row.tag[0]?.name : row.tag?.name))
+      .filter((name): name is string => !!name);
+    const body = buildSpotBody({
+      title: rawTitle,
+      place,
+      description: spot.description || '',
+      access: spot.access,
+      visitTime: spot.recommended_visit_time,
+      tags: tagNames,
+      imageUrls: sortedImages.map(
+        (img) => supabase.storage.from('spot-images').getPublicUrl(img.storage_path).data.publicUrl
+      ),
+      authorName: author ? author.display_name || author.username || null : null,
+      createdAt: spot.created_at,
+    });
+    // 置換文字列中の $ が特殊扱いされないよう関数で渡す
+    html = html.replace(/<div id="root"><\/div>/, () => `<div id="root">${body}</div>`);
 
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
     res.setHeader('Cache-Control', 'public, max-age=0, s-maxage=600, stale-while-revalidate=3600');
