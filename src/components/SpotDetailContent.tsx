@@ -18,15 +18,11 @@ import InstagramEmbed from './InstagramEmbed';
 import XEmbed from './XEmbed';
 import { spotImageUrl, spotImageThumbUrl, spotThumbnailUrl } from '../lib/spots';
 import { shareSpot, copyLink } from '../lib/share';
-import { colors, gradientBackground, radius, space, type } from '../lib/theme';
+import { colors, radius, space, type } from '../lib/theme';
 import { useTranslation } from '../lib/i18n';
 import { spotPlace } from '../content/spotSeo';
 import { prefectureFullName } from '../content/japan';
-import type { Spot, SpotImage, SpotEmbed, SpotReview, ReportReason } from '../types/database';
-
-// 画像・SNS埋め込み(Instagram/X)を「メディア」として一つの横スクロールにまとめて扱うための型。
-// 表示順は画像(position順)→SNS埋め込み(position順)。
-type MediaItem = { kind: 'image'; image: SpotImage } | { kind: 'embed'; embed: SpotEmbed };
+import type { Spot, SpotEmbed, SpotReview, ReportReason } from '../types/database';
 
 // PC/Web表示時に画像・本文が横に広がりすぎないようにする最大幅。
 const MAX_CONTENT_WIDTH = 640;
@@ -45,9 +41,11 @@ const EMBED_FALLBACK_HEIGHT = 420;
 // 通報理由の表示順。ラベルは i18n の spotDetail.reportReasons
 const REPORT_REASONS: ReportReason[] = ['privacy', 'wrong_location', 'inappropriate', 'spam', 'other'];
 
-// 写真の上に重ねるボタン・枚数表示の下地（黄色背景の墨色を半透明にしたもの）
+// 戻る・共有ボタンや写真の枚数表示の下地（黄色背景の墨色を半透明にしたもの）
 const OVERLAY_BG = 'rgba(29,27,14,0.72)';
-const heroScrim = gradientBackground('linear-gradient(rgba(29,27,14,0.6), rgba(29,27,14,0))');
+
+// 画面上部に固定するヘッダー（戻る・ロゴ・共有）の高さ。ステータスバーの高さは含まない
+export const SPOT_HEADER_HEIGHT = 56;
 
 export type NearbySpot = Spot & { distanceKm: number };
 
@@ -62,7 +60,7 @@ type Props = {
   onBookmark: () => void;
   onReport: (reason: ReportReason) => void;
   onBack?: () => void;
-  // 写真の上のロゴをタップしたとき（このスポットを中心にした地図へ戻る）
+  // ヘッダーのロゴをタップしたとき（このスポットを中心にした地図へ戻る）
   onLogoPress?: () => void;
   onViewOnMap?: () => void;
   onTagPress?: (tagId: number) => void;
@@ -71,7 +69,7 @@ type Props = {
   onEdit?: () => void;
   onDelete?: () => void;
   deleting?: boolean;
-  // ステータスバーの高さ分。写真の上に重ねる戻る・共有ボタンがステータスバーと被らないようにする
+  // ステータスバーの高さ分。固定ヘッダーをその下に置く
   topInset?: number;
   // ホームインジケーターなど下部の安全領域分の余白。
   // 末尾の「みんなの投稿」セクションが画面下端で見切れてスクロールしきれなくなるのを防ぐ。
@@ -177,8 +175,9 @@ export default function SpotDetailContent({
   const contentWidth = Math.min(screenWidth, MAX_CONTENT_WIDTH);
   const [showMenu, setShowMenu] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
-  // 現在表示中のメディア(画像/SNS埋め込み)のインデックス。右下の「1 / 3」表示に使う。
-  const [activeMediaIndex, setActiveMediaIndex] = useState(0);
+  // 表示中の写真・SNS埋め込みの番号。「1 / 3」の表示に使う。
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const [activeEmbedIndex, setActiveEmbedIndex] = useState(0);
   // 先頭画像の縦横比（高さ÷幅）。取得できるまでは仮の高さで表示する。
   const [imageAspectRatio, setImageAspectRatio] = useState<number | null>(null);
   // SNS埋め込み(Instagram/X)ごとの実測高さ(embed.idをキーに保持)。
@@ -192,11 +191,6 @@ export default function SpotDetailContent({
         .filter((e) => e.platform === 'instagram' || e.platform === 'x')
         .sort((a, b) => a.position - b.position)
     : [];
-  const mediaItems: MediaItem[] = [
-    ...sortedImages.map((image) => ({ kind: 'image' as const, image })),
-    ...sortedEmbeds.map((embed) => ({ kind: 'embed' as const, embed })),
-  ];
-
   const firstImagePath = sortedImages[0]?.storage_path ?? null;
 
   useEffect(() => {
@@ -218,29 +212,57 @@ export default function SpotDetailContent({
   // スポットが切り替わったら、前のスポットの状態を引き継がない
   useEffect(() => {
     setEmbedHeights({});
-    setActiveMediaIndex(0);
+    setActiveImageIndex(0);
+    setActiveEmbedIndex(0);
     setShowMenu(false);
     setShowDeleteConfirm(false);
   }, [spot?.id]);
 
-  // 写真の高さ。画像があれば先頭画像の縦横比に合わせ（上下限あり）、
-  // SNS埋め込みだけの場合はその実測高さに合わせる。
+  // 写真の高さ。先頭画像の縦横比に合わせつつ、上下限を付ける
   const maxHeroHeight = Math.min(contentWidth * MAX_HERO_RATIO, screenHeight * MAX_HERO_SCREEN_RATIO);
-  const heroHeight =
-    sortedImages.length > 0
-      ? Math.max(
-          contentWidth * MIN_HERO_RATIO,
-          Math.min(contentWidth * (imageAspectRatio ?? 0.75), maxHeroHeight)
-        )
-      : Math.min(
-          Math.max(0, ...sortedEmbeds.map((e) => embedHeights[e.id] ?? EMBED_FALLBACK_HEIGHT)),
-          screenHeight * 0.7
-        );
+  const heroHeight = Math.max(
+    contentWidth * MIN_HERO_RATIO,
+    Math.min(contentWidth * (imageAspectRatio ?? 0.75), maxHeroHeight)
+  );
+
+  // 画面上部に固定するヘッダー。スクロールしても常に見えるよう、スクロール領域の外に重ねる
+  const header = (
+    <View style={[styles.header, { paddingTop: topInset, height: topInset + SPOT_HEADER_HEIGHT }]}>
+      <View style={[styles.headerRow, { maxWidth: MAX_CONTENT_WIDTH }]}>
+        {onBack ? (
+          <Pressable style={styles.headerButton} onPress={onBack} hitSlop={6} accessibilityRole="button" accessibilityLabel={t.back}>
+            <Ionicons name="chevron-back" size={22} color={colors.accent} />
+          </Pressable>
+        ) : (
+          <View style={styles.headerButtonSpacer} />
+        )}
+        <Pressable onPress={onLogoPress} disabled={!onLogoPress} hitSlop={6}>
+          <Image source={require('../../assets/logo-header-dark.png')} style={styles.headerLogo} resizeMode="contain" />
+        </Pressable>
+        {spot ? (
+          <Pressable
+            style={styles.headerButton}
+            onPress={() => shareSpot(spot.title, spot.slug)}
+            hitSlop={6}
+            accessibilityRole="button"
+            accessibilityLabel={t.share}
+          >
+            <Ionicons name="share-social-outline" size={20} color={colors.accent} />
+          </Pressable>
+        ) : (
+          <View style={styles.headerButtonSpacer} />
+        )}
+      </View>
+    </View>
+  );
 
   if (loading || !spot) {
     return (
-      <View style={styles.center}>
-        <ActivityIndicator color={colors.accentText} />
+      <View style={styles.container}>
+        <View style={styles.center}>
+          <ActivityIndicator color={colors.accentText} />
+        </View>
+        {header}
       </View>
     );
   }
@@ -262,7 +284,6 @@ export default function SpotDetailContent({
     Linking.openURL(url).catch(() => {});
   };
 
-  const handleShare = () => shareSpot(spot.title, spot.slug);
   const handleCopyLink = () => copyLink(spot.slug);
 
   // パンくず（日本 › 東京都 / 海外 › アメリカ）。タグが付いていればタップでそのタグの一覧へ
@@ -286,508 +307,514 @@ export default function SpotDetailContent({
   const author = spot.author;
   const authorInitial = (author?.display_name || author?.username || '?').slice(0, 1);
 
-  // 写真の上(写真が無ければ黄色の地の上)に重ねる、戻る・ロゴ・共有の並び
-  const topBar = (overPhoto: boolean) => (
-    <View style={[styles.topBar, { top: topInset + space.s }]} pointerEvents="box-none">
-      {onBack ? (
-        <Pressable style={styles.overlayButton} onPress={onBack} hitSlop={6} accessibilityRole="button" accessibilityLabel={t.back}>
-          <Ionicons name="chevron-back" size={22} color={colors.accent} />
-        </Pressable>
-      ) : (
-        <View style={styles.overlayButtonSpacer} />
-      )}
-      <Pressable onPress={onLogoPress} disabled={!onLogoPress} hitSlop={6}>
-        <Image
-          source={overPhoto ? require('../../assets/logo-header.png') : require('../../assets/logo-header-dark.png')}
-          style={styles.topLogo}
-          resizeMode="contain"
-        />
-      </Pressable>
-      <Pressable style={styles.overlayButton} onPress={handleShare} hitSlop={6} accessibilityRole="button" accessibilityLabel={t.share}>
-        <Ionicons name="share-social-outline" size={20} color={colors.accent} />
-      </Pressable>
-    </View>
-  );
+  // SNS埋め込み(Instagram/X)。埋め込みは投稿者名・本文・画像が一体になったカードなので、
+  // 写真のように端から端へは広げず、左右に余白を取ったブロックとして置く。
+  // 複数ある場合は横にめくれるようにし、枠の高さは表示中の埋め込みの実測高さに合わせる。
+  const embedWidth = contentWidth - 40;
+  const activeEmbed = sortedEmbeds[Math.min(activeEmbedIndex, sortedEmbeds.length - 1)];
+  const embedBoxHeight = activeEmbed ? (embedHeights[activeEmbed.id] ?? EMBED_FALLBACK_HEIGHT) : 0;
+  const renderEmbed = (embed: SpotEmbed) => {
+    const onHeightChange = (height: number) =>
+      setEmbedHeights((prev) => (prev[embed.id] === height ? prev : { ...prev, [embed.id]: height }));
+    return embed.platform === 'instagram' ? (
+      <InstagramEmbed url={embed.url} onHeightChange={onHeightChange} />
+    ) : (
+      <XEmbed url={embed.url} onHeightChange={onHeightChange} />
+    );
+  };
+  const embedsBlock =
+    sortedEmbeds.length === 0 ? null : sortedEmbeds.length === 1 ? (
+      <View style={[styles.embedsBlock, { width: embedWidth }]}>{renderEmbed(sortedEmbeds[0])}</View>
+    ) : (
+      <View style={[styles.embedsBlock, { width: embedWidth }]}>
+        <ScrollView
+          horizontal
+          pagingEnabled
+          showsHorizontalScrollIndicator={false}
+          onScroll={(e) => {
+            const index = Math.round(e.nativeEvent.contentOffset.x / embedWidth);
+            const clamped = Math.max(0, Math.min(sortedEmbeds.length - 1, index));
+            setActiveEmbedIndex((prev) => (prev === clamped ? prev : clamped));
+          }}
+          scrollEventThrottle={16}
+          style={{ width: embedWidth, height: embedBoxHeight }}
+          contentContainerStyle={{ alignItems: 'flex-start' }}
+        >
+          {sortedEmbeds.map((embed) => (
+            <View key={embed.id} style={{ width: embedWidth }}>
+              {renderEmbed(embed)}
+            </View>
+          ))}
+        </ScrollView>
+        <View style={styles.embedPager}>
+          {sortedEmbeds.map((embed, i) => (
+            <View key={embed.id} style={[styles.dot, i === activeEmbedIndex && styles.dotActive]} />
+          ))}
+          <Text style={styles.embedPagerText}>
+            {t.photoCounter
+              .replace('{index}', String(activeEmbedIndex + 1))
+              .replace('{total}', String(sortedEmbeds.length))}
+          </Text>
+        </View>
+      </View>
+    );
+  const hasImages = sortedImages.length > 0;
 
   return (
-    <ScrollView
-      style={styles.container}
-      contentContainerStyle={[styles.scrollContent, { paddingBottom: space.xxl + bottomInset }]}
-      scrollEventThrottle={16}
-    >
-      <View style={[styles.contentWrapper, { maxWidth: MAX_CONTENT_WIDTH }]}>
-        {mediaItems.length > 0 ? (
-          <View style={[styles.hero, { height: heroHeight }]}>
-            <ScrollView
-              horizontal
-              pagingEnabled
-              showsHorizontalScrollIndicator={false}
-              onScroll={(e) => {
-                const index = Math.round(e.nativeEvent.contentOffset.x / contentWidth);
-                const clamped = Math.max(0, Math.min(mediaItems.length - 1, index));
-                setActiveMediaIndex((prev) => (prev === clamped ? prev : clamped));
-              }}
-              scrollEventThrottle={16}
-              style={{ width: contentWidth, height: heroHeight }}
-            >
-              {mediaItems.map((item) => {
-                const itemStyle = { width: contentWidth, height: heroHeight };
-                if (item.kind === 'image') {
-                  return (
-                    <Image
-                      key={`image-${item.image.id}`}
-                      source={{ uri: spotImageUrl(item.image.storage_path) }}
-                      style={[styles.heroImage, itemStyle]}
-                      // 写真の上下左右が切れないよう"contain"にする。縦横比が枠と合わない場合の
-                      // 余白は、墨色の地がそのまま額縁のように見える。
-                      resizeMode="contain"
-                    />
-                  );
-                }
+    <View style={styles.container}>
+      <ScrollView
+        style={styles.container}
+        contentContainerStyle={[
+          styles.scrollContent,
+          { paddingTop: topInset + SPOT_HEADER_HEIGHT, paddingBottom: space.xxl + bottomInset },
+        ]}
+        scrollEventThrottle={16}
+      >
+        <View style={[styles.contentWrapper, { maxWidth: MAX_CONTENT_WIDTH }]}>
+          {hasImages ? (
+            <View style={[styles.hero, { height: heroHeight }]}>
+              <ScrollView
+                horizontal
+                pagingEnabled
+                showsHorizontalScrollIndicator={false}
+                onScroll={(e) => {
+                  const index = Math.round(e.nativeEvent.contentOffset.x / contentWidth);
+                  const clamped = Math.max(0, Math.min(sortedImages.length - 1, index));
+                  setActiveImageIndex((prev) => (prev === clamped ? prev : clamped));
+                }}
+                scrollEventThrottle={16}
+                style={{ width: contentWidth, height: heroHeight }}
+              >
+                {sortedImages.map((image) => (
+                  <Image
+                    key={image.id}
+                    source={{ uri: spotImageUrl(image.storage_path) }}
+                    style={[styles.heroImage, { width: contentWidth, height: heroHeight }]}
+                    // 写真の上下左右が切れないよう"contain"にする。縦横比が枠と合わない場合の
+                    // 余白は、墨色の地がそのまま額縁のように見える。
+                    resizeMode="contain"
+                  />
+                ))}
+              </ScrollView>
 
-                // SNS埋め込み(Instagram/X)が枠より高い場合は、縦横比を保ったまま縮小して枠内に収める
-                const naturalHeight = embedHeights[item.embed.id] ?? EMBED_FALLBACK_HEIGHT;
-                const embedScale = naturalHeight > heroHeight ? heroHeight / naturalHeight : 1;
-                return (
-                  <View key={`embed-${item.embed.id}`} style={[styles.embedSlide, itemStyle]}>
-                    <View style={{ width: contentWidth, height: naturalHeight, transform: [{ scale: embedScale }] }}>
-                      {item.embed.platform === 'instagram' ? (
-                        <InstagramEmbed
-                          url={item.embed.url}
-                          onHeightChange={(height) =>
-                            setEmbedHeights((prev) => (prev[item.embed.id] === height ? prev : { ...prev, [item.embed.id]: height }))
-                          }
-                        />
-                      ) : (
-                        <XEmbed
-                          url={item.embed.url}
-                          onHeightChange={(height) =>
-                            setEmbedHeights((prev) => (prev[item.embed.id] === height ? prev : { ...prev, [item.embed.id]: height }))
-                          }
-                        />
-                      )}
-                    </View>
-                  </View>
-                );
-              })}
-            </ScrollView>
-
-            {/* ボタンが写真の明るい部分に埋もれないよう、上端だけ暗くする */}
-            <View style={[styles.heroScrim, heroScrim, { height: topInset + 100 }]} pointerEvents="none" />
-            {topBar(true)}
-
-            {mediaItems.length > 1 && (
-              <View style={styles.counter} pointerEvents="none">
-                <Text style={styles.counterText}>
-                  {t.photoCounter
-                    .replace('{index}', String(activeMediaIndex + 1))
-                    .replace('{total}', String(mediaItems.length))}
-                </Text>
-              </View>
-            )}
-          </View>
-        ) : (
-          <View style={{ height: topInset + space.s + 44 + space.s }}>{topBar(false)}</View>
-        )}
-
-        <View style={styles.body}>
-          {crumbs.length > 0 && (
-            <View style={styles.breadcrumb}>
-              {crumbs.map((crumb, i) => (
-                <React.Fragment key={crumb.label}>
-                  {i > 0 && <Text variant="body" style={styles.crumbText}>›</Text>}
-                  {crumb.tagId != null && onTagPress ? (
-                    <Pressable onPress={() => onTagPress(crumb.tagId!)} hitSlop={6}>
-                      <Text variant="body" style={styles.crumbText}>{crumb.label}</Text>
-                    </Pressable>
-                  ) : (
-                    <Text variant="body" style={styles.crumbText}>{crumb.label}</Text>
-                  )}
-                </React.Fragment>
-              ))}
-            </View>
-          )}
-
-          {/* タイトルに空行が入っている投稿があり、見出しが間延びするため空行は詰める */}
-          {!!spot.title && <Text style={styles.titleText}>{spot.title.trim().replace(/\n\s*\n+/g, '\n')}</Text>}
-
-          <Pressable
-            style={styles.authorRow}
-            onPress={() => onAuthorPress?.(spot.author_id)}
-            disabled={!onAuthorPress}
-          >
-            {author?.avatar_url ? (
-              <Image source={{ uri: author.avatar_url }} style={styles.avatar} />
-            ) : (
-              <View style={[styles.avatar, styles.avatarFallback]}>
-                <Text style={styles.avatarInitial}>{authorInitial}</Text>
-              </View>
-            )}
-            <View>
-              {author?.username && (
-                <UsernameWithBadge username={author.username} badge={author.badge} textStyle={styles.authorText} />
-              )}
-              <Text variant="body" style={styles.dateText}>
-                {formatReviewDate(spot.created_at, t.dateLocale)}
-              </Text>
-            </View>
-          </Pressable>
-
-          <View style={styles.actionRow}>
-            <Pressable
-              style={[styles.actionButton, liked && styles.actionButtonActive]}
-              onPress={onLike}
-              accessibilityRole="button"
-              aria-selected={liked}
-            >
-              <Ionicons name={liked ? 'heart' : 'heart-outline'} size={18} color={liked ? colors.accent : colors.accentText} />
-              <Text style={[styles.actionText, liked && styles.actionTextActive]}>
-                {spot.like_count > 0 ? `${t.like} ${spot.like_count}` : t.like}
-              </Text>
-            </Pressable>
-            <Pressable
-              style={[styles.actionButton, bookmarked && styles.actionButtonActive]}
-              onPress={onBookmark}
-              accessibilityRole="button"
-              aria-selected={bookmarked}
-            >
-              <Ionicons
-                name={bookmarked ? 'bookmark' : 'bookmark-outline'}
-                size={17}
-                color={bookmarked ? colors.accent : colors.accentText}
-              />
-              <Text style={[styles.actionText, bookmarked && styles.actionTextActive]}>
-                {spot.bookmark_count > 0 ? `${t.wantToGo} ${spot.bookmark_count}` : t.wantToGo}
-              </Text>
-            </Pressable>
-            <Pressable
-              style={styles.menuButton}
-              onPress={() => setShowMenu((v) => !v)}
-              accessibilityRole="button"
-              accessibilityLabel={t.moreMenu}
-            >
-              <Ionicons name="ellipsis-horizontal" size={18} color={colors.accentText} />
-            </Pressable>
-          </View>
-
-          {showMenu && (
-            <View style={styles.menuPanel}>
-              {onViewOnMap && (
-                <Pressable
-                  style={styles.menuItem}
-                  onPress={() => {
-                    setShowMenu(false);
-                    onViewOnMap();
-                  }}
-                >
-                  <Ionicons name="map-outline" size={18} color={colors.textPrimary} />
-                  <Text style={styles.menuItemText}>{t.viewOnMap}</Text>
-                </Pressable>
-              )}
-              {Platform.OS === 'web' && (
-                <Pressable
-                  style={styles.menuItem}
-                  onPress={() => {
-                    setShowMenu(false);
-                    handleCopyLink();
-                  }}
-                >
-                  <Ionicons name="link-outline" size={18} color={colors.textPrimary} />
-                  <Text style={styles.menuItemText}>{t.copyLink}</Text>
-                </Pressable>
-              )}
-              {isOwner && onEdit && (
-                <Pressable
-                  style={styles.menuItem}
-                  onPress={() => {
-                    setShowMenu(false);
-                    onEdit();
-                  }}
-                >
-                  <Ionicons name="create-outline" size={18} color={colors.textPrimary} />
-                  <Text style={styles.menuItemText}>{t.edit}</Text>
-                </Pressable>
-              )}
-              {isOwner && onDelete ? (
-                <Pressable
-                  style={[styles.menuItem, styles.menuItemLast]}
-                  onPress={() => {
-                    setShowMenu(false);
-                    setShowDeleteConfirm(true);
-                  }}
-                >
-                  <Ionicons name="trash-outline" size={18} color={colors.danger} />
-                  <Text style={[styles.menuItemText, styles.menuItemDangerText]}>{t.delete}</Text>
-                </Pressable>
-              ) : (
-                <Pressable
-                  style={[styles.menuItem, styles.menuItemLast]}
-                  onPress={() => {
-                    setShowMenu(false);
-                    onToggleReport();
-                  }}
-                >
-                  <Ionicons name="flag-outline" size={18} color={colors.danger} />
-                  <Text style={[styles.menuItemText, styles.menuItemDangerText]}>{t.report}</Text>
-                </Pressable>
-              )}
-            </View>
-          )}
-
-          {showReport && (
-            <View style={styles.darkPanel}>
-              <Text style={styles.panelTitle}>{t.reportTitle}</Text>
-              {REPORT_REASONS.map((reason) => (
-                <Pressable key={reason} style={styles.reportOption} onPress={() => onReport(reason)}>
-                  <Text variant="body" style={styles.reportOptionText}>{t.reportReasons[reason]}</Text>
-                </Pressable>
-              ))}
-            </View>
-          )}
-
-          {showDeleteConfirm && (
-            <View style={styles.darkPanel}>
-              <Text style={styles.panelTitle}>{t.deleteConfirmTitle}</Text>
-              <Text variant="body" style={styles.deleteConfirmDesc}>{t.deleteConfirmDesc}</Text>
-              <View style={styles.deleteConfirmRow}>
-                <Pressable
-                  style={styles.deleteCancelButton}
-                  onPress={() => setShowDeleteConfirm(false)}
-                  disabled={deleting}
-                >
-                  <Text style={styles.deleteCancelText}>{t.cancel}</Text>
-                </Pressable>
-                <Pressable style={styles.deleteConfirmButton} onPress={onDelete} disabled={deleting}>
-                  {deleting ? (
-                    <ActivityIndicator color="#fff" size="small" />
-                  ) : (
-                    <Text style={styles.deleteConfirmButtonText}>{t.delete}</Text>
-                  )}
-                </Pressable>
-              </View>
-            </View>
-          )}
-
-          {!!spot.description && (
-            <Text variant="body" style={styles.description}>
-              {spot.description}
-            </Text>
-          )}
-
-          {!!spot.access && (
-            <View style={styles.infoBox}>
-              <Text style={styles.infoLabel}>{t.access}</Text>
-              <Text variant="body" style={styles.infoText}>{spot.access}</Text>
-            </View>
-          )}
-
-          {!!spot.recommended_visit_time && (
-            <View style={styles.infoBox}>
-              <Text style={styles.infoLabel}>{t.visitTime}</Text>
-              <Text style={styles.infoText}>{visitTimeLabel(spot.recommended_visit_time)}</Text>
-            </View>
-          )}
-
-          {tags.length > 0 && (
-            <View style={styles.tagRow}>
-              {tags.map((tag) => (
-                <Pressable
-                  key={tag.id}
-                  style={styles.tagChip}
-                  onPress={() => onTagPress?.(tag.id)}
-                  disabled={!onTagPress}
-                >
-                  <Text style={styles.tagChipText}>#{tag.name}</Text>
-                </Pressable>
-              ))}
-            </View>
-          )}
-        </View>
-
-        {/* 場所: 小さな地図(タップで地図タブへ)と、経路案内のボタン */}
-        <View style={styles.locationCard}>
-          <Pressable onPress={onViewOnMap} disabled={!onViewOnMap} accessibilityRole="button" accessibilityLabel={t.viewOnMap}>
-            <Image source={{ uri: staticMapUrl(spot.lat, spot.lng) }} style={styles.locationMap} />
-          </Pressable>
-          <View style={styles.locationFooter}>
-            <View style={styles.locationTextCol}>
-              <Text style={styles.locationPlace} numberOfLines={1}>
-                {place.label ?? t.viewOnMap}
-              </Text>
-              {onViewOnMap && (
-                <Text variant="body" style={styles.locationHint}>
-                  {t.locationHint}
-                </Text>
-              )}
-            </View>
-            <Pressable style={styles.directionsButton} onPress={openInGoogleMaps} hitSlop={4}>
-              <Ionicons name="navigate-outline" size={16} color={colors.accentText} />
-              <Text style={styles.directionsText}>{t.directions}</Text>
-            </Pressable>
-          </View>
-          {Platform.OS === 'ios' && (
-            <Pressable style={styles.appleMapsRow} onPress={openInAppleMaps}>
-              <Ionicons name="map-outline" size={16} color={colors.textSecondary} />
-              <Text style={styles.appleMapsText}>{t.openInAppleMaps}</Text>
-            </Pressable>
-          )}
-        </View>
-
-        {nearbySpots.length > 0 && (
-          <View style={styles.section}>
-            <Text style={styles.sectionHeading}>{t.nearbyHeading}</Text>
-            <View>
-              {nearbySpots.map((near, i) => {
-                const thumb = spotThumbnailUrl(near);
-                return (
-                  <Pressable
-                    key={near.id}
-                    style={[styles.nearbyRow, i > 0 && styles.nearbyDivider]}
-                    onPress={() => onSpotPress?.(near.slug)}
-                    disabled={!onSpotPress}
-                  >
-                    {thumb ? (
-                      <Image source={{ uri: thumb }} style={styles.nearbyThumb} />
-                    ) : (
-                      <View style={styles.nearbyThumb} />
-                    )}
-                    <Text variant="body" style={styles.nearbyTitle} numberOfLines={2}>
-                      {near.title || near.description || ''}
-                    </Text>
-                    <Text style={styles.nearbyDistance}>{formatDistance(near.distanceKm)}</Text>
-                  </Pressable>
-                );
-              })}
-            </View>
-          </View>
-        )}
-
-        {/* 「みんなの投稿」: 他ユーザーがこのスポットに追加したレビュー(写真・SNS埋め込み・
-            コメント・訪問時間帯)。onAddReviewが渡っている場合のみ投稿ボタンを表示する。 */}
-        <View style={styles.section}>
-          <View style={styles.reviewsHeaderRow}>
-            <Text style={styles.sectionHeading}>{t.reviewsHeading}</Text>
-            {reviews.length > 0 && onAddReview ? (
-              <Pressable style={styles.addReviewSmall} onPress={onAddReview} hitSlop={6}>
-                <Ionicons name="add" size={15} color={colors.accent} />
-                <Text style={styles.addReviewSmallText}>{t.addReview}</Text>
-              </Pressable>
-            ) : (
-              <Text variant="body" style={styles.reviewsCount}>
-                {t.reviewsCount.replace('{count}', String(reviews.length))}
-              </Text>
-            )}
-          </View>
-
-          {reviewsLoading ? (
-            <ActivityIndicator color={colors.accentText} style={{ marginTop: space.m }} />
-          ) : reviews.length === 0 ? (
-            <View style={styles.reviewsEmpty}>
-              <PixelDoor />
-              <Text variant="body" style={styles.reviewsEmptyText}>
-                {t.reviewsEmptyLead}
-              </Text>
-              {onAddReview && (
-                <Pressable style={styles.addReviewButton} onPress={onAddReview}>
-                  <Text style={styles.addReviewButtonText}>{t.addReview}</Text>
-                </Pressable>
+              {sortedImages.length > 1 && (
+                <View style={styles.counter} pointerEvents="none">
+                  <Text style={styles.counterText}>
+                    {t.photoCounter
+                      .replace('{index}', String(activeImageIndex + 1))
+                      .replace('{total}', String(sortedImages.length))}
+                  </Text>
+                </View>
               )}
             </View>
           ) : (
-            reviews.map((review) => {
-              const reviewMedia = [
-                ...(review.images ?? []).map((img) => ({
-                  key: `img-${img.id}`,
-                  uri: spotImageThumbUrl(img),
-                  url: null as string | null,
-                })),
-                ...(review.embeds ?? [])
-                  .filter((e) => e.thumbnail_url)
-                  .map((e) => ({ key: `embed-${e.id}`, uri: e.thumbnail_url as string, url: e.url })),
-              ];
-              return (
-                <View key={review.id} style={styles.reviewCard}>
-                  <View style={styles.reviewHeaderRow}>
-                    {review.author?.username ? (
-                      <UsernameWithBadge
-                        username={review.author.username}
-                        badge={review.author.badge}
-                        textStyle={styles.reviewAuthorText}
-                      />
-                    ) : (
-                      <View />
-                    )}
-                    <Text variant="body" style={styles.reviewDate}>
-                      {formatReviewDate(review.created_at, t.dateLocale)}
-                    </Text>
-                  </View>
-
-                  {review.recommended_visit_time && (
-                    <Text style={styles.reviewVisitTime}>
-                      {t.reviewVisitTime.replace('{time}', visitTimeLabel(review.recommended_visit_time))}
-                    </Text>
-                  )}
-
-                  {reviewMedia.length > 0 && (
-                    <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.reviewMediaRow}>
-                      {reviewMedia.map((m) =>
-                        m.url ? (
-                          <Pressable key={m.key} onPress={() => Linking.openURL(m.url!).catch(() => {})}>
-                            <Image source={{ uri: m.uri }} style={styles.reviewImage} />
-                          </Pressable>
-                        ) : (
-                          <Image key={m.key} source={{ uri: m.uri }} style={styles.reviewImage} />
-                        )
-                      )}
-                    </ScrollView>
-                  )}
-
-                  {review.description && (
-                    <Text variant="body" style={styles.reviewDescription}>
-                      {review.description}
-                    </Text>
-                  )}
-
-                  {currentUserId && review.author_id === currentUserId && onDeleteReview && (
-                    <Pressable style={styles.reviewSmallButton} onPress={() => onDeleteReview(review)} hitSlop={6}>
-                      <Text style={styles.reviewDeleteText}>{t.delete}</Text>
-                    </Pressable>
-                  )}
-
-                  {(!currentUserId || review.author_id !== currentUserId) && onReportReview && (
-                    <Pressable
-                      style={styles.reviewSmallButton}
-                      onPress={() => setReportingReviewId((id) => (id === review.id ? null : review.id))}
-                      hitSlop={6}
-                    >
-                      <Text style={styles.reviewReportText}>{t.report}</Text>
-                    </Pressable>
-                  )}
-
-                  {reportingReviewId === review.id && onReportReview && (
-                    <View style={styles.reviewReportPanel}>
-                      <Text style={styles.panelTitle}>{t.reportTitle}</Text>
-                      {REPORT_REASONS.map((reason) => (
-                        <Pressable
-                          key={reason}
-                          style={styles.reportOption}
-                          onPress={() => {
-                            onReportReview(review, reason);
-                            setReportingReviewId(null);
-                          }}
-                        >
-                          <Text variant="body" style={styles.reportOptionText}>{t.reportReasons[reason]}</Text>
-                        </Pressable>
-                      ))}
-                    </View>
-                  )}
-                </View>
-              );
-            })
+            // 写真が無くSNS埋め込みだけの投稿は、埋め込みを先頭に置く
+            embedsBlock && <View style={styles.embedsTop}>{embedsBlock}</View>
           )}
+
+          <View style={styles.body}>
+            {crumbs.length > 0 && (
+              <View style={styles.breadcrumb}>
+                {crumbs.map((crumb, i) => (
+                  <React.Fragment key={crumb.label}>
+                    {i > 0 && <Text variant="body" style={styles.crumbText}>›</Text>}
+                    {crumb.tagId != null && onTagPress ? (
+                      <Pressable onPress={() => onTagPress(crumb.tagId!)} hitSlop={6}>
+                        <Text variant="body" style={styles.crumbText}>{crumb.label}</Text>
+                      </Pressable>
+                    ) : (
+                      <Text variant="body" style={styles.crumbText}>{crumb.label}</Text>
+                    )}
+                  </React.Fragment>
+                ))}
+              </View>
+            )}
+
+            {/* タイトルに空行が入っている投稿があり、見出しが間延びするため空行は詰める */}
+            {!!spot.title && <Text style={styles.titleText}>{spot.title.trim().replace(/\n\s*\n+/g, '\n')}</Text>}
+
+            <Pressable
+              style={styles.authorRow}
+              onPress={() => onAuthorPress?.(spot.author_id)}
+              disabled={!onAuthorPress}
+            >
+              {author?.avatar_url ? (
+                <Image source={{ uri: author.avatar_url }} style={styles.avatar} />
+              ) : (
+                <View style={[styles.avatar, styles.avatarFallback]}>
+                  <Text style={styles.avatarInitial}>{authorInitial}</Text>
+                </View>
+              )}
+              <View>
+                {author?.username && (
+                  <UsernameWithBadge username={author.username} badge={author.badge} textStyle={styles.authorText} />
+                )}
+                <Text variant="body" style={styles.dateText}>
+                  {formatReviewDate(spot.created_at, t.dateLocale)}
+                </Text>
+              </View>
+            </Pressable>
+
+            <View style={styles.actionRow}>
+              <Pressable
+                style={[styles.actionButton, liked && styles.actionButtonActive]}
+                onPress={onLike}
+                accessibilityRole="button"
+                aria-selected={liked}
+              >
+                <Ionicons name={liked ? 'heart' : 'heart-outline'} size={18} color={liked ? colors.accent : colors.accentText} />
+                <Text style={[styles.actionText, liked && styles.actionTextActive]}>
+                  {spot.like_count > 0 ? `${t.like} ${spot.like_count}` : t.like}
+                </Text>
+              </Pressable>
+              <Pressable
+                style={[styles.actionButton, bookmarked && styles.actionButtonActive]}
+                onPress={onBookmark}
+                accessibilityRole="button"
+                aria-selected={bookmarked}
+              >
+                <Ionicons
+                  name={bookmarked ? 'bookmark' : 'bookmark-outline'}
+                  size={17}
+                  color={bookmarked ? colors.accent : colors.accentText}
+                />
+                <Text style={[styles.actionText, bookmarked && styles.actionTextActive]}>
+                  {spot.bookmark_count > 0 ? `${t.wantToGo} ${spot.bookmark_count}` : t.wantToGo}
+                </Text>
+              </Pressable>
+              <Pressable
+                style={styles.menuButton}
+                onPress={() => setShowMenu((v) => !v)}
+                accessibilityRole="button"
+                accessibilityLabel={t.moreMenu}
+              >
+                <Ionicons name="ellipsis-horizontal" size={18} color={colors.accentText} />
+              </Pressable>
+            </View>
+
+            {showMenu && (
+              <View style={styles.menuPanel}>
+                {onViewOnMap && (
+                  <Pressable
+                    style={styles.menuItem}
+                    onPress={() => {
+                      setShowMenu(false);
+                      onViewOnMap();
+                    }}
+                  >
+                    <Ionicons name="map-outline" size={18} color={colors.textPrimary} />
+                    <Text style={styles.menuItemText}>{t.viewOnMap}</Text>
+                  </Pressable>
+                )}
+                {Platform.OS === 'web' && (
+                  <Pressable
+                    style={styles.menuItem}
+                    onPress={() => {
+                      setShowMenu(false);
+                      handleCopyLink();
+                    }}
+                  >
+                    <Ionicons name="link-outline" size={18} color={colors.textPrimary} />
+                    <Text style={styles.menuItemText}>{t.copyLink}</Text>
+                  </Pressable>
+                )}
+                {isOwner && onEdit && (
+                  <Pressable
+                    style={styles.menuItem}
+                    onPress={() => {
+                      setShowMenu(false);
+                      onEdit();
+                    }}
+                  >
+                    <Ionicons name="create-outline" size={18} color={colors.textPrimary} />
+                    <Text style={styles.menuItemText}>{t.edit}</Text>
+                  </Pressable>
+                )}
+                {isOwner && onDelete ? (
+                  <Pressable
+                    style={[styles.menuItem, styles.menuItemLast]}
+                    onPress={() => {
+                      setShowMenu(false);
+                      setShowDeleteConfirm(true);
+                    }}
+                  >
+                    <Ionicons name="trash-outline" size={18} color={colors.danger} />
+                    <Text style={[styles.menuItemText, styles.menuItemDangerText]}>{t.delete}</Text>
+                  </Pressable>
+                ) : (
+                  <Pressable
+                    style={[styles.menuItem, styles.menuItemLast]}
+                    onPress={() => {
+                      setShowMenu(false);
+                      onToggleReport();
+                    }}
+                  >
+                    <Ionicons name="flag-outline" size={18} color={colors.danger} />
+                    <Text style={[styles.menuItemText, styles.menuItemDangerText]}>{t.report}</Text>
+                  </Pressable>
+                )}
+              </View>
+            )}
+
+            {showReport && (
+              <View style={styles.darkPanel}>
+                <Text style={styles.panelTitle}>{t.reportTitle}</Text>
+                {REPORT_REASONS.map((reason) => (
+                  <Pressable key={reason} style={styles.reportOption} onPress={() => onReport(reason)}>
+                    <Text variant="body" style={styles.reportOptionText}>{t.reportReasons[reason]}</Text>
+                  </Pressable>
+                ))}
+              </View>
+            )}
+
+            {showDeleteConfirm && (
+              <View style={styles.darkPanel}>
+                <Text style={styles.panelTitle}>{t.deleteConfirmTitle}</Text>
+                <Text variant="body" style={styles.deleteConfirmDesc}>{t.deleteConfirmDesc}</Text>
+                <View style={styles.deleteConfirmRow}>
+                  <Pressable
+                    style={styles.deleteCancelButton}
+                    onPress={() => setShowDeleteConfirm(false)}
+                    disabled={deleting}
+                  >
+                    <Text style={styles.deleteCancelText}>{t.cancel}</Text>
+                  </Pressable>
+                  <Pressable style={styles.deleteConfirmButton} onPress={onDelete} disabled={deleting}>
+                    {deleting ? (
+                      <ActivityIndicator color="#fff" size="small" />
+                    ) : (
+                      <Text style={styles.deleteConfirmButtonText}>{t.delete}</Text>
+                    )}
+                  </Pressable>
+                </View>
+              </View>
+            )}
+
+            {!!spot.description && (
+              <Text variant="body" style={styles.description}>
+                {spot.description}
+              </Text>
+            )}
+
+            {!!spot.access && (
+              <View style={styles.infoBox}>
+                <Text style={styles.infoLabel}>{t.access}</Text>
+                <Text variant="body" style={styles.infoText}>{spot.access}</Text>
+              </View>
+            )}
+
+            {!!spot.recommended_visit_time && (
+              <View style={styles.infoBox}>
+                <Text style={styles.infoLabel}>{t.visitTime}</Text>
+                <Text style={styles.infoText}>{visitTimeLabel(spot.recommended_visit_time)}</Text>
+              </View>
+            )}
+
+            {tags.length > 0 && (
+              <View style={styles.tagRow}>
+                {tags.map((tag) => (
+                  <Pressable
+                    key={tag.id}
+                    style={styles.tagChip}
+                    onPress={() => onTagPress?.(tag.id)}
+                    disabled={!onTagPress}
+                  >
+                    <Text style={styles.tagChipText}>#{tag.name}</Text>
+                  </Pressable>
+                ))}
+              </View>
+            )}
+          </View>
+
+          {/* 写真とSNS埋め込みの両方がある投稿は、埋め込みを本文の後に置く */}
+          {hasImages && embedsBlock && <View style={styles.embedsAfter}>{embedsBlock}</View>}
+
+          {/* 場所: 小さな地図(タップで地図タブへ)と、経路案内のボタン */}
+          <View style={styles.locationCard}>
+            <Pressable onPress={onViewOnMap} disabled={!onViewOnMap} accessibilityRole="button" accessibilityLabel={t.viewOnMap}>
+              <Image source={{ uri: staticMapUrl(spot.lat, spot.lng) }} style={styles.locationMap} />
+            </Pressable>
+            <View style={styles.locationFooter}>
+              <View style={styles.locationTextCol}>
+                <Text style={styles.locationPlace} numberOfLines={1}>
+                  {place.label ?? t.viewOnMap}
+                </Text>
+                {onViewOnMap && (
+                  <Text variant="body" style={styles.locationHint}>
+                    {t.locationHint}
+                  </Text>
+                )}
+              </View>
+              <Pressable style={styles.directionsButton} onPress={openInGoogleMaps} hitSlop={4}>
+                <Ionicons name="navigate-outline" size={16} color={colors.accentText} />
+                <Text style={styles.directionsText}>{t.directions}</Text>
+              </Pressable>
+            </View>
+            {Platform.OS === 'ios' && (
+              <Pressable style={styles.appleMapsRow} onPress={openInAppleMaps}>
+                <Ionicons name="map-outline" size={16} color={colors.textSecondary} />
+                <Text style={styles.appleMapsText}>{t.openInAppleMaps}</Text>
+              </Pressable>
+            )}
+          </View>
+
+          {nearbySpots.length > 0 && (
+            <View style={styles.section}>
+              <Text style={styles.sectionHeading}>{t.nearbyHeading}</Text>
+              <View>
+                {nearbySpots.map((near, i) => {
+                  const thumb = spotThumbnailUrl(near);
+                  return (
+                    <Pressable
+                      key={near.id}
+                      style={[styles.nearbyRow, i > 0 && styles.nearbyDivider]}
+                      onPress={() => onSpotPress?.(near.slug)}
+                      disabled={!onSpotPress}
+                    >
+                      {thumb ? (
+                        <Image source={{ uri: thumb }} style={styles.nearbyThumb} />
+                      ) : (
+                        <View style={styles.nearbyThumb} />
+                      )}
+                      <Text variant="body" style={styles.nearbyTitle} numberOfLines={2}>
+                        {near.title || near.description || ''}
+                      </Text>
+                      <Text style={styles.nearbyDistance}>{formatDistance(near.distanceKm)}</Text>
+                    </Pressable>
+                  );
+                })}
+              </View>
+            </View>
+          )}
+
+          {/* 「みんなの投稿」: 他ユーザーがこのスポットに追加したレビュー(写真・SNS埋め込み・
+              コメント・訪問時間帯)。onAddReviewが渡っている場合のみ投稿ボタンを表示する。 */}
+          <View style={styles.section}>
+            <View style={styles.reviewsHeaderRow}>
+              <Text style={styles.sectionHeading}>{t.reviewsHeading}</Text>
+              {reviews.length > 0 && onAddReview ? (
+                <Pressable style={styles.addReviewSmall} onPress={onAddReview} hitSlop={6}>
+                  <Ionicons name="add" size={15} color={colors.accent} />
+                  <Text style={styles.addReviewSmallText}>{t.addReview}</Text>
+                </Pressable>
+              ) : (
+                <Text variant="body" style={styles.reviewsCount}>
+                  {t.reviewsCount.replace('{count}', String(reviews.length))}
+                </Text>
+              )}
+            </View>
+
+            {reviewsLoading ? (
+              <ActivityIndicator color={colors.accentText} style={{ marginTop: space.m }} />
+            ) : reviews.length === 0 ? (
+              <View style={styles.reviewsEmpty}>
+                <PixelDoor />
+                <Text variant="body" style={styles.reviewsEmptyText}>
+                  {t.reviewsEmptyLead}
+                </Text>
+                {onAddReview && (
+                  <Pressable style={styles.addReviewButton} onPress={onAddReview}>
+                    <Text style={styles.addReviewButtonText}>{t.addReview}</Text>
+                  </Pressable>
+                )}
+              </View>
+            ) : (
+              reviews.map((review) => {
+                const reviewMedia = [
+                  ...(review.images ?? []).map((img) => ({
+                    key: `img-${img.id}`,
+                    uri: spotImageThumbUrl(img),
+                    url: null as string | null,
+                  })),
+                  ...(review.embeds ?? [])
+                    .filter((e) => e.thumbnail_url)
+                    .map((e) => ({ key: `embed-${e.id}`, uri: e.thumbnail_url as string, url: e.url })),
+                ];
+                return (
+                  <View key={review.id} style={styles.reviewCard}>
+                    <View style={styles.reviewHeaderRow}>
+                      {review.author?.username ? (
+                        <UsernameWithBadge
+                          username={review.author.username}
+                          badge={review.author.badge}
+                          textStyle={styles.reviewAuthorText}
+                        />
+                      ) : (
+                        <View />
+                      )}
+                      <Text variant="body" style={styles.reviewDate}>
+                        {formatReviewDate(review.created_at, t.dateLocale)}
+                      </Text>
+                    </View>
+
+                    {review.recommended_visit_time && (
+                      <Text style={styles.reviewVisitTime}>
+                        {t.reviewVisitTime.replace('{time}', visitTimeLabel(review.recommended_visit_time))}
+                      </Text>
+                    )}
+
+                    {reviewMedia.length > 0 && (
+                      <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.reviewMediaRow}>
+                        {reviewMedia.map((m) =>
+                          m.url ? (
+                            <Pressable key={m.key} onPress={() => Linking.openURL(m.url!).catch(() => {})}>
+                              <Image source={{ uri: m.uri }} style={styles.reviewImage} />
+                            </Pressable>
+                          ) : (
+                            <Image key={m.key} source={{ uri: m.uri }} style={styles.reviewImage} />
+                          )
+                        )}
+                      </ScrollView>
+                    )}
+
+                    {review.description && (
+                      <Text variant="body" style={styles.reviewDescription}>
+                        {review.description}
+                      </Text>
+                    )}
+
+                    {currentUserId && review.author_id === currentUserId && onDeleteReview && (
+                      <Pressable style={styles.reviewSmallButton} onPress={() => onDeleteReview(review)} hitSlop={6}>
+                        <Text style={styles.reviewDeleteText}>{t.delete}</Text>
+                      </Pressable>
+                    )}
+
+                    {(!currentUserId || review.author_id !== currentUserId) && onReportReview && (
+                      <Pressable
+                        style={styles.reviewSmallButton}
+                        onPress={() => setReportingReviewId((id) => (id === review.id ? null : review.id))}
+                        hitSlop={6}
+                      >
+                        <Text style={styles.reviewReportText}>{t.report}</Text>
+                      </Pressable>
+                    )}
+
+                    {reportingReviewId === review.id && onReportReview && (
+                      <View style={styles.reviewReportPanel}>
+                        <Text style={styles.panelTitle}>{t.reportTitle}</Text>
+                        {REPORT_REASONS.map((reason) => (
+                          <Pressable
+                            key={reason}
+                            style={styles.reportOption}
+                            onPress={() => {
+                              onReportReview(review, reason);
+                              setReportingReviewId(null);
+                            }}
+                          >
+                            <Text variant="body" style={styles.reportOptionText}>{t.reportReasons[reason]}</Text>
+                          </Pressable>
+                        ))}
+                      </View>
+                    )}
+                  </View>
+                );
+              })
+            )}
+          </View>
         </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+      {header}
+    </View>
   );
 }
 
@@ -804,28 +831,38 @@ const styles = StyleSheet.create({
   },
 
   // 写真
-  hero: { backgroundColor: colors.accentText, overflow: 'hidden' },
-  heroImage: { backgroundColor: colors.accentText },
-  embedSlide: { backgroundColor: colors.accentText, overflow: 'hidden', justifyContent: 'center' },
-  heroScrim: { position: 'absolute', top: 0, left: 0, right: 0 },
-  topBar: {
+  header: {
     position: 'absolute',
-    left: space.m,
-    right: space.m,
+    top: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: colors.accent,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: colors.accentLine,
+    alignItems: 'center',
+  },
+  headerRow: {
+    flex: 1,
+    width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    paddingHorizontal: space.m,
   },
-  overlayButton: {
-    width: 44,
-    height: 44,
+  headerButton: {
+    width: 40,
+    height: 40,
     borderRadius: radius.pill,
     backgroundColor: OVERLAY_BG,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  overlayButtonSpacer: { width: 44, height: 44 },
-  topLogo: { width: 72, height: 40 },
+  headerButtonSpacer: { width: 40, height: 40 },
+  headerLogo: { width: 72, height: 40 },
+
+  // 写真
+  hero: { backgroundColor: colors.accentText, overflow: 'hidden' },
+  heroImage: { backgroundColor: colors.accentText },
   counter: {
     position: 'absolute',
     right: space.l,
@@ -836,6 +873,15 @@ const styles = StyleSheet.create({
     backgroundColor: OVERLAY_BG,
   },
   counterText: { color: colors.accent, fontSize: type.caption },
+
+  // SNS埋め込み
+  embedsTop: { alignItems: 'center', paddingTop: space.l },
+  embedsAfter: { alignItems: 'center', marginTop: 28 },
+  embedsBlock: { overflow: 'hidden' },
+  embedPager: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6, marginTop: 10 },
+  dot: { width: 6, height: 6, borderRadius: 3, backgroundColor: colors.accentOutline },
+  dotActive: { backgroundColor: colors.accentText },
+  embedPagerText: { color: colors.accentTextMuted, fontSize: type.caption, marginLeft: space.xs },
 
   // 本文
   body: { paddingHorizontal: 20, paddingTop: 20, gap: 14 },

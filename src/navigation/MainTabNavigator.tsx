@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Pressable, StyleSheet } from 'react-native';
+import { Animated, View, Pressable, StyleSheet, useWindowDimensions } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import {
@@ -18,19 +18,18 @@ import ProfileMenu from '../components/ProfileMenu';
 import AddToHomeScreenPopup from '../components/AddToHomeScreenPopup';
 import SupportPopup from '../components/SupportPopup';
 import AppStoreBanner from '../components/AppStoreBanner';
-import Text from '../components/AppText';
 import { useAuth } from '../lib/AuthContext';
 import { useTranslation } from '../lib/i18n';
-import { colors, type } from '../lib/theme';
+import { colors } from '../lib/theme';
 import { WEB_SAFE_BOTTOM_OVERHANG } from '../lib/safeAreaWeb';
 import type { MainTabParamList, RootStackParamList } from './types';
 
 const Tab = createMaterialTopTabNavigator<MainTabParamList>();
 
-const TAB_HEIGHT = 58;
+const TAB_HEIGHT = 54;
 
-// アイコン＋文字ラベルのタブ。アイコンだけでは「フィード」「コラム」などが初見で伝わりにくいため、
-// 下に短い名前を添える。選択中のタブはアイコンと文字を黄色にする。
+// アイコンのみのタブ（ラベルなし）。マイページ内のスワイプ切り替えと同じ見た目・挙動にするため、
+// タブバーは自前で描画し、スワイプ位置(position)に連動してハイライトと下線を滑らかに動かす。
 const TAB_ICONS: Record<keyof MainTabParamList, keyof typeof Ionicons.glyphMap> = {
   MapTab: 'map-outline',
   FeedTab: 'people-outline',
@@ -39,48 +38,65 @@ const TAB_ICONS: Record<keyof MainTabParamList, keyof typeof Ionicons.glyphMap> 
   MyPageTab: 'person-outline',
 };
 
-function CustomTabBar({ state, descriptors, navigation }: MaterialTopTabBarProps) {
+function CustomTabBar({ state, descriptors, navigation, position }: MaterialTopTabBarProps) {
   const insets = useSafeAreaInsets();
+  const { width: screenWidth } = useWindowDimensions();
+  const routeCount = state.routes.length;
+  const tabWidth = screenWidth / routeCount;
 
-  // どのタブが選択中かは、react-navigationが渡してくるstate.index(常に正確)を直接使う。
-  // (Animatedのposition.addListener()はネイティブ駆動のアニメーションでは呼ばれないことがあり、
-  // 色が切り替わらない不具合の原因になっていたため使わない)
+  // アイコンの色分け(どのタブが選択中か)は、react-navigationが渡してくる
+  // state.index(通常のReact props、常に正確)を直接使う。
+  // 以前はAnimatedのposition.addListener()で見た目のスワイプ位置から
+  // activeIndexを算出していたが、position.addListener()はネイティブ駆動の
+  // アニメーションに対しては呼び出されないことがあり、それが原因でアイコンの
+  // 色が切り替わらない不具合になっていた(下線インジケーターの方はAnimated.Viewの
+  // styleに直接positionをbindしているだけなので、この問題の影響を受けず正しく動く)。
   const focusedIndex = state.index;
+
+  const indicatorTranslateX = position.interpolate({
+    inputRange: state.routes.map((_, i) => i),
+    outputRange: state.routes.map((_, i) => i * tabWidth),
+  });
 
   return (
     <View style={[styles.tabBar, { height: TAB_HEIGHT + insets.bottom, paddingBottom: insets.bottom }]}>
-      {state.routes.map((route, index) => {
-        const focused = focusedIndex === index;
-        const iconName = TAB_ICONS[route.name as keyof MainTabParamList] ?? 'ellipse-outline';
-        const label = descriptors[route.key].options.title;
-        const color = focused ? colors.accent : colors.textMuted;
+      <View style={styles.indicatorTrack}>
+        <Animated.View
+          style={[styles.indicator, { width: tabWidth, transform: [{ translateX: indicatorTranslateX }] }]}
+        />
+      </View>
+      <View style={styles.tabRow}>
+        {state.routes.map((route, index) => {
+          const focused = focusedIndex === index;
+          const iconName = TAB_ICONS[route.name as keyof MainTabParamList] ?? 'ellipse-outline';
+          // タブ名は画面には出さないが、アイコンだけでは読み上げで区別できないため
+          // スクリーンリーダー向けのラベルとして使う
+          const label = descriptors[route.key].options.title;
 
-        const onPress = () => {
-          const event = navigation.emit({ type: 'tabPress', target: route.key, canPreventDefault: true });
-          if (state.index !== index && !event.defaultPrevented) {
-            navigation.navigate(route.name);
-          }
-        };
+          const onPress = () => {
+            const event = navigation.emit({ type: 'tabPress', target: route.key, canPreventDefault: true });
+            if (state.index !== index && !event.defaultPrevented) {
+              navigation.navigate(route.name);
+            }
+          };
 
-        return (
-          <Pressable
-            key={route.key}
-            style={styles.tabItem}
-            onPress={onPress}
-            hitSlop={4}
-            accessibilityRole="tab"
-            accessibilityLabel={label}
-            // accessibilityState は react-native-web では aria-selected に変換されないため、
-            // ネイティブ・Web の両方で効く aria-selected を使う
-            aria-selected={focused}
-          >
-            <Ionicons name={iconName} size={22} color={color} />
-            <Text style={[styles.tabLabel, { color }]} numberOfLines={1}>
-              {label}
-            </Text>
-          </Pressable>
-        );
-      })}
+          return (
+            <Pressable
+              key={route.key}
+              style={styles.tabItem}
+              onPress={onPress}
+              hitSlop={8}
+              accessibilityRole="tab"
+              accessibilityLabel={label}
+              // accessibilityState は react-native-web では aria-selected に変換されないため、
+              // ネイティブ・Web の両方で効く aria-selected を使う
+              aria-selected={focused}
+            >
+              <Ionicons name={iconName} size={24} color={focused ? colors.accent : colors.textMuted} />
+            </Pressable>
+          );
+        })}
+      </View>
     </View>
   );
 }
@@ -199,11 +215,10 @@ export default function MainTabNavigator() {
 
 const styles = StyleSheet.create({
   tabBar: {
-    flexDirection: 'row',
     backgroundColor: colors.background,
-    borderTopWidth: StyleSheet.hairlineWidth,
-    borderTopColor: colors.border,
   },
-  tabItem: { flex: 1, alignItems: 'center', justifyContent: 'center', gap: 3 },
-  tabLabel: { fontSize: type.caption },
+  indicatorTrack: { height: 2, backgroundColor: colors.border },
+  indicator: { height: 2, backgroundColor: colors.accent },
+  tabRow: { flex: 1, flexDirection: 'row' },
+  tabItem: { flex: 1, alignItems: 'center', justifyContent: 'center' },
 });

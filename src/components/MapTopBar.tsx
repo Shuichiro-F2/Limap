@@ -22,7 +22,7 @@ export function spotMatchesFilter(tagNames: string[], filter: string | null): bo
 
 // ロゴ・検索バー・絞り込みボタンの下に敷く、上から下へ透明になっていく暗い帯。
 // 地図の明るい部分とロゴや文字が重なっても読めるようにする。
-const scrimStyle = gradientBackground('linear-gradient(rgba(26,26,26,0.94) 50%, rgba(26,26,26,0))');
+const scrimStyle = gradientBackground('linear-gradient(rgba(26,26,26,0.72) 40%, rgba(26,26,26,0))');
 
 type Props = {
   query: string;
