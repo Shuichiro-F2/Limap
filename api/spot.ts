@@ -171,19 +171,6 @@ function buildReviewInputs(rows: ReviewRow[], imageUrl: (path: string) => string
     .slice(0, MAX_REVIEWS_IN_HTML);
 }
 
-// JSが無効な環境では、ロード画面が本文を覆ったまま消えないため隠す。
-// 本文もアプリの配色(暗い背景)で読めるようにしておく。
-const SSR_HEAD = `<style>
-      #limap-ssr { max-width: 720px; margin: 0 auto; padding: 24px 16px; color: #e8e8e8; line-height: 1.8; }
-      #limap-ssr img { max-width: 100%; height: auto; display: block; margin: 16px 0; }
-      #limap-ssr a { color: #dece32; }
-      #limap-ssr dt { margin-top: 12px; opacity: 0.7; }
-      #limap-ssr dd { margin: 0; }
-      #limap-ssr article { border-top: 1px solid #333; margin-top: 16px; padding-top: 8px; }
-      #limap-ssr .limap-ssr-meta { opacity: 0.7; font-size: 0.9em; }
-    </style>
-    <noscript><style>#limap-splash { display: none; }</style></noscript>`;
-
 export default async function handler(req: any, res: any) {
   const idParam = req.query?.id;
   const id = Array.isArray(idParam) ? idParam[0] : idParam;
@@ -328,7 +315,7 @@ export default async function handler(req: any, res: any) {
         ? { author: { '@type': 'Person', name: author.display_name || author.username } }
         : {}),
     };
-    const jsonLdScript = `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>\n    ${SSR_HEAD}\n  </head>`;
+    const jsonLdScript = `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>\n  </head>`;
     html = html.replace(/<\/head>/, jsonLdScript);
 
     const tagRows = (spot.tags || []) as { tag: { name: string } | { name: string }[] | null }[];

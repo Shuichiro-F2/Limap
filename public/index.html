@@ -135,6 +135,27 @@
         }
       }
     </style>
+    <!-- LIMap: サーバー側で #root に入れる本文(#limap-ssr)の見た目。
+         トップ(scripts/build-top-page.js)・スポット(api/spot.ts)・読み物ページ(api/page.ts)で共通。
+         通常はロード画面に隠れたままReactに置き換わるため、主にJS無効時の表示用。 -->
+    <style id="limap-ssr-style">
+      #limap-ssr { max-width: 720px; margin: 0 auto; padding: 24px 16px; color: #e8e8e8; line-height: 1.8; }
+      #limap-ssr img { max-width: 100%; height: auto; display: block; margin: 16px 0; }
+      #limap-ssr a { color: #dece32; }
+      #limap-ssr ul { padding-left: 1.2em; }
+      #limap-ssr dt { margin-top: 12px; opacity: 0.7; }
+      #limap-ssr dd { margin: 0; }
+      #limap-ssr article { border-top: 1px solid #333; margin-top: 16px; padding-top: 8px; }
+      #limap-ssr .limap-ssr-meta { opacity: 0.7; font-size: 0.9em; }
+    </style>
+    <!-- JS無効時はロード画面が消えず本文を覆ってしまうため隠し、長い本文をスクロールできるようにする -->
+    <noscript>
+      <style>
+        #limap-splash { display: none; }
+        body { overflow: auto; }
+        #root { display: block; height: auto; }
+      </style>
+    </noscript>
   </head>
 
   <body>

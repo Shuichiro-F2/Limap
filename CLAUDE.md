@@ -41,7 +41,7 @@ supabase/migrations/  DB変更の履歴（連番SQL）
 - 多言語：`src/lib/i18n.tsx`（`useLanguage()`）。**固定UI文言は必ず日英両方を用意する**。ユーザー投稿文は翻訳しない
 - 色・フォントは `src/lib/theme.ts` に集約。ダークテーマ固定、フォントは DotGothic16
 - Web とネイティブで挙動を変えるときは、`*.web.tsx` か `Platform.OS === 'web'` で分岐する
-- Web の初期HTML：`dist/index.html` はトップページ専用（ビルド後に `scripts/build-top-page.js` が本文を入れる）。SPA の各画面と `api/spot.ts`・`api/page.ts` は、本文の無いひな形 `dist/app.html` を使う（`vercel.json` の rewrites）。`public/index.html` の `<div id="root"></div>` はこの仕組みの目印なので形を変えない
+- Web の初期HTML：`dist/index.html` はトップページ専用（ビルド後に `scripts/build-top-page.js` が本文を入れる）。SPA の各画面と `api/spot.ts`・`api/page.ts` は、本文の無いひな形 `dist/app.html` を使う（`vercel.json` の rewrites）。`public/index.html` の `<div id="root"></div>` はこの仕組みの目印なので形を変えない。サーバー側で入れる本文（`#limap-ssr`）の見た目は `public/index.html` の `#limap-ssr-style` に集約してある
 
 ## よく使うコマンド
 

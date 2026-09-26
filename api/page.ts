@@ -1,8 +1,8 @@
 // Vercel Serverless Function
 // /about, /help へのアクセスを vercel.json の rewrites で /api/page?slug=about|help に
 // ルーティングし、各ページ固有のtitle/description/OGP/canonical/FAQPage(JSON-LD)を
-// 埋め込んだHTMLを返す。api/spot.tsと同じ考え方で、内容はDBではなく
-// src/content/staticPages.ts の静的データを使う。
+// 埋め込んだHTMLを返す。あわせて #root の中に本文（見出し・各セクション・FAQ）も入れる。
+// api/spot.tsと同じ考え方で、内容はDBではなく src/content/staticPages.ts の静的データを使う。
 
 import { STATIC_PAGES, type StaticPageContent } from '../src/content/staticPages';
 
@@ -19,6 +19,48 @@ function escapeHtml(str: string): string {
 
 function replaceTag(html: string, regex: RegExp, replacement: string): string {
   return regex.test(html) ? html.replace(regex, replacement) : html;
+}
+
+// 改行を段落/改行タグにする（エスケープ済みの文字列を返す）
+function toParagraphs(str: string): string {
+  return str
+    .trim()
+    .split(/\n{2,}/)
+    .map((p) => `<p>${escapeHtml(p).replace(/\n/g, '<br />')}</p>`)
+    .join('\n');
+}
+
+const PAGE_LINKS: { slug: StaticPageContent['slug']; label: string }[] = [
+  { slug: 'about', label: 'リミナルスペースとは / About' },
+  { slug: 'help', label: '使い方 / Help' },
+  { slug: 'privacy', label: 'プライバシーポリシー / Privacy' },
+  { slug: 'terms', label: '利用規約 / Terms' },
+];
+
+// #root の中に入れる本文HTML。アプリの StaticContentScreen と同じ構成
+// （見出し・リード文・各セクション・よくある質問）。
+// 通常のブラウザではロード画面が覆っている間に React が #root を置き換えるため、見た目は変わらない。
+function buildPageBody(page: StaticPageContent): string {
+  const parts: string[] = [];
+  parts.push(`<h1>${escapeHtml(page.heading)}</h1>`);
+  parts.push(toParagraphs(page.lead));
+  for (const section of page.sections) {
+    parts.push(`<h2>${escapeHtml(section.heading)}</h2>`);
+    parts.push(toParagraphs(section.body));
+  }
+  if (page.faq.length > 0) {
+    const items = page.faq
+      .map((item) => `<dt>Q. ${escapeHtml(item.question)}</dt><dd>A. ${escapeHtml(item.answer)}</dd>`)
+      .join('');
+    parts.push(`<h2>よくある質問 / FAQ</h2>\n<dl>${items}</dl>`);
+  }
+  const links = [
+    '<a href="/">LIMapの地図でリミナルスペースを探す / Explore the map</a>',
+    '<a href="/articles/">コラム / Articles</a>',
+    ...PAGE_LINKS.filter((l) => l.slug !== page.slug).map((l) => `<a href="/${l.slug}">${l.label}</a>`),
+  ];
+  parts.push(`<nav>${links.join(' ・ ')}</nav>`);
+  return `<main id="limap-ssr">\n${parts.join('\n')}\n</main>`;
 }
 
 export default async function handler(req: any, res: any) {
@@ -98,6 +140,9 @@ export default async function handler(req: any, res: any) {
       const jsonLdScript = `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>\n  </head>`;
       html = html.replace(/<\/head>/, jsonLdScript);
     }
+
+    // 置換文字列中の $ が特殊扱いされないよう関数で渡す
+    html = html.replace(/<div id="root"><\/div>/, () => `<div id="root">${buildPageBody(page)}</div>`);
 
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
     res.setHeader('Cache-Control', 'public, max-age=0, s-maxage=3600, stale-while-revalidate=86400');

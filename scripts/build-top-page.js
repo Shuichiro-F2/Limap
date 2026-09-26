@@ -119,14 +119,6 @@ function buildBody(spots, articles) {
   return `<main id="limap-ssr">\n${parts.join('\n')}\n</main>`;
 }
 
-// api/spot.ts の SSR_HEAD と同じ内容（本文の見た目と、JS無効時にロード画面を隠す指定）
-const SSR_HEAD = `<style>
-      #limap-ssr { max-width: 720px; margin: 0 auto; padding: 24px 16px; color: #e8e8e8; line-height: 1.8; }
-      #limap-ssr a { color: #dece32; }
-      #limap-ssr ul { padding-left: 1.2em; }
-    </style>
-    <noscript><style>#limap-splash { display: none; }</style></noscript>`;
-
 async function main() {
   if (!fs.existsSync(INDEX_PATH)) {
     throw new Error(`${INDEX_PATH} がありません。先に npx expo export --platform web を実行してください`);
@@ -145,9 +137,8 @@ async function main() {
   }
 
   const [spots, articles] = await Promise.all([fetchLatestSpots(), Promise.resolve(loadArticles())]);
-  const html = shell
-    .replace('</head>', () => `  ${SSR_HEAD}\n  </head>`)
-    .replace(marker, () => `<div id="root">${buildBody(spots, articles)}</div>`);
+  // 本文の見た目は public/index.html の #limap-ssr-style で指定している
+  const html = shell.replace(marker, () => `<div id="root">${buildBody(spots, articles)}</div>`);
   fs.writeFileSync(INDEX_PATH, html);
   console.log(`[build-top-page] トップページに本文を追加しました（新着スポット ${spots.length} 件・記事 ${articles.length} 本）`);
 }
