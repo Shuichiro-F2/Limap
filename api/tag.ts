@@ -20,122 +20,24 @@ import {
   type TagSpotRow,
   type TagSummary,
 } from '../src/content/tagPages';
+import {
+  CHIP_STYLE,
+  SITE_NAME,
+  SITE_URL,
+  breadcrumbJsonLd,
+  escapeHtml,
+  excerpt,
+  renderPage,
+  spotTitle,
+  tagChips,
+} from '../src/content/ssrPage';
 
 const SUPABASE_URL = process.env.SUPABASE_URL || '';
 const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY || '';
 
-const SITE_URL = 'https://limap.jp';
-const SITE_NAME = 'LIMap（リマップ）';
 // 1ページに並べるスポットの上限。超えた分は件数だけ示し、地図へ誘導する
 const MAX_SPOTS_ON_PAGE = 100;
 const MAX_RELATED_TAGS = 8;
-
-function escapeHtml(str: string): string {
-  return str
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;');
-}
-
-function escapeJsonLd(obj: unknown): string {
-  // </script> によるHTML解釈崩れを防ぐ
-  return JSON.stringify(obj).replace(/</g, '\\u003c');
-}
-
-function excerpt(str: string, max: number): string {
-  const s = str.replace(/\s+/g, ' ').trim();
-  return s.length > max ? `${s.slice(0, max)}…` : s;
-}
-
-function spotTitle(spot: { title: string | null; description: string | null }): string {
-  // api/spot.ts の rawTitle と同じ決め方（改行は空白にまとめる）
-  return ((spot.title || '').trim() || (spot.description || '').trim().slice(0, 40) || '無題の投稿').replace(/\s+/g, ' ');
-}
-
-// 記事ページ(public/articles/assets/article.css)と同じ見た目の外枠
-function renderPage(opts: {
-  title: string;
-  description: string;
-  url: string;
-  jsonLd: unknown[];
-  body: string;
-  noindex?: boolean;
-}): string {
-  const jsonLdTags = opts.jsonLd
-    .map((d) => `    <script type="application/ld+json">${escapeJsonLd(d)}</script>`)
-    .join('\n');
-  return `<!DOCTYPE html>
-<html lang="ja">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover" />
-    <title>${escapeHtml(opts.title)}</title>
-    <meta name="description" content="${escapeHtml(opts.description)}" />
-${opts.noindex ? '    <meta name="robots" content="noindex" />\n' : ''}    <link rel="canonical" href="${escapeHtml(opts.url)}" />
-    <meta name="theme-color" content="#16130f" />
-    <link rel="apple-touch-icon" href="${SITE_URL}/apple-touch-icon.png" />
-    <link rel="icon" href="${SITE_URL}/apple-touch-icon.png" />
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="LIMap" />
-    <meta property="og:url" content="${escapeHtml(opts.url)}" />
-    <meta property="og:title" content="${escapeHtml(opts.title)}" />
-    <meta property="og:description" content="${escapeHtml(opts.description)}" />
-    <meta property="og:image" content="${SITE_URL}/og-image.png" />
-    <meta property="og:locale" content="ja_JP" />
-${jsonLdTags}
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@600;700&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="/articles/assets/article.css" />
-  </head>
-  <body>
-    <header class="site-header">
-      <a class="brand" href="${SITE_URL}/">
-        <img src="/articles/assets/logo-header.png" alt="LIMap" class="brand-logo" />
-      </a>
-    </header>
-    <main>
-${opts.body}
-    </main>
-    <footer class="site-footer">
-      <a href="${SITE_URL}/">LIMapトップへ</a>
-      <a href="${SITE_URL}/tags">タグ一覧</a>
-      <a href="${SITE_URL}/articles/">記事一覧</a>
-      <a href="${SITE_URL}/about">リミナルスペースとは</a>
-    </footer>
-  </body>
-</html>
-`;
-}
-
-function breadcrumbJsonLd(items: { name: string; url: string }[]) {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'BreadcrumbList',
-    itemListElement: items.map((item, i) => ({ '@type': 'ListItem', position: i + 1, name: item.name, item: item.url })),
-  };
-}
-
-function tagLinks(tags: TagSummary[]): string {
-  return tags
-    .map((t) => `<a class="tag-chip" href="${tagPagePath(t.name)}">#${escapeHtml(t.name)}<span>${t.count}</span></a>`)
-    .join('\n');
-}
-
-// タグ別ページ用の追加スタイル（記事ページのCSS変数を使う）
-const TAG_PAGE_STYLE = `      <style>
-        .tag-chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 28px; }
-        .tag-chip { display: inline-flex; gap: 6px; align-items: center; padding: 6px 12px; border: 1px solid var(--border); border-radius: 999px; color: var(--text-primary); text-decoration: none; font-size: 14px; }
-        .tag-chip span { color: var(--text-muted); font-size: 12px; }
-        .tag-note { color: var(--text-secondary); font-size: 14px; }
-        .tag-cta { margin: 28px 0; }
-        .tag-cta a { color: var(--accent); }
-      </style>`;
 
 function renderIndexPage(tags: TagSummary[]): string {
   const url = `${SITE_URL}/tags`;
@@ -144,12 +46,12 @@ function renderIndexPage(tags: TagSummary[]): string {
     .slice(0, 6)
     .map((t) => t.name)
     .join('、')}などのタグがあります。`;
-  const body = `${TAG_PAGE_STYLE}
+  const body = `${CHIP_STYLE}
       <h1 class="article-title">タグから探す</h1>
       <p class="hub-lead">LIMapに登録されたリミナルスペースを、タグ別に一覧できます（スポットが${MIN_SPOTS_FOR_TAG_PAGE}件以上のタグ）。</p>
       <p class="hub-lead" lang="en">Browse liminal spaces on LIMap by tag.</p>
       <div class="tag-chips">
-${tagLinks(tags)}
+${tagChips(tags)}
       </div>`;
   return renderPage({
     title,
@@ -224,11 +126,11 @@ function renderTagPage(
   const relatedBlock = related.length
     ? `      <h2 class="section-heading">関連するタグ / Related tags</h2>
       <div class="tag-chips">
-${tagLinks(related)}
+${tagChips(related)}
       </div>\n`
     : '';
 
-  const body = `${TAG_PAGE_STYLE}
+  const body = `${CHIP_STYLE}
       <span class="article-category">タグ / Tag</span>
       <h1 class="article-title">#${escapeHtml(tag.name)} のリミナルスペース</h1>
       <p class="hub-lead">LIMapに登録された、「${escapeHtml(tag.name)}」タグの付いたリミナルスペース${

@@ -115,15 +115,18 @@ function spotTitle(spot) {
 
 function buildBody(spots, articles, tags) {
   const parts = [];
-  parts.push('<h1>LIMap（リマップ） | リミナルスペースを記録・共有する地図アプリ</h1>');
+  parts.push('<h1>LIMap（リマップ） | 日本のリミナルスペースを地図で探す</h1>');
+  // 説明文は public/index.html の description・src/lib/seo.ts の DEFAULT_DESCRIPTION と同じ内容にしている
   parts.push(
-    '<p>LIMapは、廃墟や無人駅、深夜の駐車場など「リミナルスペース」を写真と場所で記録・共有できる地図アプリです。' +
-      '街や旅先に潜む不思議な空間を、みんなで見つけて地図に残しましょう。</p>'
+    '<p>LIMapは、日本各地の廃墟や無人駅、地下通路、団地、深夜の駐車場など「リミナルスペース」を写真と場所で探し、記録・共有できる地図アプリです。' +
+      'バックルームズや『8番出口』を思わせる場所も登録されています。</p>'
   );
   parts.push(
-    '<p lang="en">LIMap is a map for finding and sharing liminal spaces — abandoned buildings, empty stations, ' +
-      'late-night parking lots and other eerie, nostalgic places — with photos and locations.</p>'
+    '<p lang="en">LIMap is a map for finding and sharing liminal spaces in Japan — abandoned buildings, empty stations, ' +
+      'underground passages and other eerie, nostalgic places — with photos and locations.</p>'
   );
+  // 「リミナルスペース 日本」系の検索の受け皿になる柱ページ(api/japan.ts)へ
+  parts.push('<p><a href="/japan">日本のリミナルスペース一覧（都道府県別） / Liminal spaces in Japan by prefecture</a></p>');
 
   if (spots.length) {
     const items = spots

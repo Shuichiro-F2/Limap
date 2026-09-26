@@ -56,6 +56,7 @@ function buildPageBody(page: StaticPageContent): string {
   }
   const links = [
     '<a href="/">LIMapの地図でリミナルスペースを探す / Explore the map</a>',
+    '<a href="/japan">日本のリミナルスペース一覧 / Liminal spaces in Japan</a>',
     '<a href="/articles/">コラム / Articles</a>',
     ...PAGE_LINKS.filter((l) => l.slug !== page.slug).map((l) => `<a href="/${l.slug}">${l.label}</a>`),
   ];

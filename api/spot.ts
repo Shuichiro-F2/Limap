@@ -186,7 +186,7 @@ function buildSpotBody(s: SpotBodyInput): string {
   if (s.nearby.length) parts.push(buildNearbySection(s.nearby));
 
   parts.push(
-    '<nav><a href="/">LIMapの地図でリミナルスペースを探す / Explore the map</a> ・ <a href="/articles/">コラム / Articles</a></nav>'
+    '<nav><a href="/">LIMapの地図でリミナルスペースを探す / Explore the map</a> ・ <a href="/japan">日本のリミナルスペース一覧 / Liminal spaces in Japan</a> ・ <a href="/articles/">コラム / Articles</a></nav>'
   );
 
   return `<main id="limap-ssr">\n${parts.join('\n')}\n</main>`;

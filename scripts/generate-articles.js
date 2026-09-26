@@ -383,6 +383,7 @@ ${langBlock('en', article, all)}
       <a href="${SITE_URL}/">LIMapトップへ</a>
       <a href="${SITE_URL}/articles/">記事一覧</a>
       <a href="${SITE_URL}/about">リミナルスペースとは</a>
+      <a href="${SITE_URL}/japan">日本のリミナルスペース一覧</a>
     </footer>
 
     <script src="/articles/assets/article.js"></script>
@@ -471,6 +472,7 @@ ${items}
     <footer class="site-footer">
       <a href="${SITE_URL}/">LIMapトップへ</a>
       <a href="${SITE_URL}/about">リミナルスペースとは</a>
+      <a href="${SITE_URL}/japan">日本のリミナルスペース一覧</a>
     </footer>
 
     <script src="/articles/assets/article.js"></script>
@@ -503,6 +505,7 @@ function renderLlmsTxt(all) {
 - [トップ（地図）](${SITE_URL}/): 登録されたリミナルスペースを地図で探せるトップページ。新着スポットとコラム記事への入口
 - [リミナルスペースとは](${SITE_URL}/about): リミナルスペースの意味・特徴・日本の実例と、よくある質問
 - [LIMapの使い方](${SITE_URL}/help): 地図での探し方、投稿、いいね・行きたい場所、フォロー機能
+- [日本のリミナルスペース一覧](${SITE_URL}/japan): 日本に実在するリミナルスペースを都道府県別に一覧できるページ（投稿が増えると自動で更新）
 - [タグから探す](${SITE_URL}/tags): 廃工場・駅・団地・廃校など、タグ別のスポット一覧（投稿が増えると自動で更新）
 - [コラム一覧](${SITE_URL}/articles/): リミナルスペースやバックルームズに関する読みもの
 - [iOSアプリ](${APP_STORE_URL}): App Store の LIMap

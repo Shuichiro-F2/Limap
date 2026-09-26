@@ -56,6 +56,7 @@ function escapeXml(str: string): string {
 export default async function handler(req: any, res: any) {
   const staticUrls = [
     { loc: 'https://limap.jp/', changefreq: 'daily', priority: '1.0' },
+    { loc: 'https://limap.jp/japan', changefreq: 'daily', priority: '0.9' },
     { loc: 'https://limap.jp/about', changefreq: 'monthly', priority: '0.6' },
     { loc: 'https://limap.jp/help', changefreq: 'monthly', priority: '0.5' },
     { loc: 'https://limap.jp/privacy', changefreq: 'yearly', priority: '0.3' },
