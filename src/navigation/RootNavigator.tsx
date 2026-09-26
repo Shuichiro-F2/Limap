@@ -168,6 +168,9 @@ export default function RootNavigator() {
       ref={navigationRef}
       theme={navTheme}
       linking={linking}
+      // Web版のタブのタイトルは lib/seo.ts が管理する。React Navigation の既定では
+      // 画面遷移のたびに「SpotDetail」「地図」など画面名で上書きされ、SEOに悪影響があるため無効にする
+      documentTitle={{ enabled: false }}
       onReady={syncThemeColor}
       onStateChange={syncThemeColor}
     >
