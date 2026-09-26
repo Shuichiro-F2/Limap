@@ -18,7 +18,7 @@
 | Web | react-native-web → `npx expo export --platform web` → `node scripts/build-top-page.js` → `dist/` を Vercel でホスト |
 | 地図 | ネイティブ：`@rnmapbox/maps`（`MapScreen.tsx`）／Web：`mapbox-gl` + `react-map-gl`（`MapScreen.web.tsx`） |
 | バックエンド | Supabase（Auth / Postgres / Storage）。Web とアプリで**同じプロジェクト**を参照 |
-| サーバー関数 | `api/*.ts`（Vercel Functions。`sitemap.ts`、`spot.ts`＝スポットページのOGP、`page.ts`＝about/help/privacy/terms、`tag.ts`＝タグ別ページ（`/tags`、スポット3件以上のタグだけ。集計は `src/content/tagPages.ts`）、`japan.ts`＝日本のリミナルスペース一覧（`/japan`、都道府県タグで国内判定。**都道府県タグの無い投稿は載らない**）、`instagram-oembed.ts`・`x-oembed.ts`、`delete-account.ts`）。URL との対応は `vercel.json` の rewrites |
+| サーバー関数 | `api/*.ts`（Vercel Functions。実行地域は Supabase（東京 ap-northeast-1）に合わせて `vercel.json` の `regions` で東京 `hnd1`。`sitemap.ts`、`spot.ts`＝スポットページのOGP、`page.ts`＝about/help/privacy/terms、`tag.ts`＝タグ別ページ（`/tags`、スポット3件以上のタグだけ。集計は `src/content/tagPages.ts`）、`japan.ts`＝日本のリミナルスペース一覧（`/japan`、都道府県タグで国内判定。**都道府県タグの無い投稿は載らない**）、`instagram-oembed.ts`・`x-oembed.ts`、`delete-account.ts`）。URL との対応は `vercel.json` の rewrites |
 | アプリ配信 | EAS Build / Submit / Update（`expo-updates` 導入済み、channel `production`） |
 
 Expo の API は `AGENTS.md` の指示どおり v57 のドキュメントを確認してから使うこと。
