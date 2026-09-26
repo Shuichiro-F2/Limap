@@ -16,7 +16,7 @@ import TextInput from '../components/AppTextInput';
 import InstagramEmbed from '../components/InstagramEmbed';
 import XEmbed from '../components/XEmbed';
 import { supabase } from '../lib/supabase';
-import { fetchSpotBySlug, updateSpot, spotImageThumbUrl } from '../lib/spots';
+import { fetchSpotBySlug, updateSpot, spotImageThumbUrl, MAX_TAGS_PER_SPOT } from '../lib/spots';
 import type { UpdateSpotImageRef } from '../lib/spots';
 import PhotoEditList, { movePhoto } from '../components/PhotoEditList';
 import { resizeImageForUpload, extensionForContentType, THUMBNAIL_RESIZE_OPTIONS } from '../lib/imageResize';
@@ -30,7 +30,7 @@ import { colors } from '../lib/theme';
 import type { Tag, VisitTime, Spot, SpotImage } from '../types/database';
 import type { RootStackScreenProps } from '../navigation/types';
 
-const MAX_TAGS = 5;
+const MAX_TAGS = MAX_TAGS_PER_SPOT;
 const MAX_PHOTOS = 5;
 const VISIT_TIME_OPTIONS: VisitTime[] = ['morning', 'daytime', 'dusk', 'night'];
 

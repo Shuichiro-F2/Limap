@@ -3,6 +3,10 @@ import { detectEmbedUrl, MAX_SNS_EMBEDS } from './embeds';
 import { fetchEmbedThumbnail } from './embedThumbnail';
 import type { Spot, SpotImage, ReportReason, VisitTime } from '../types/database';
 
+// 1スポットに付けられるタグの上限（投稿・編集画面と共通）。
+// 公式スポットの都道府県・種類・海外などのタグ付けで5個を超えるものがあるため8にしている
+export const MAX_TAGS_PER_SPOT = 8;
+
 // profiles とは spots.author_id 経由の他に likes テーブルを介した間接的な関連もあり、
 // PostgREST がどちらか一意に判断できずエラーになるため、FK制約名で明示的に指定する
 const SPOT_SELECT = `
@@ -309,8 +313,8 @@ export interface CreateSpotInput {
 }
 
 export async function createSpot(authorId: string, input: CreateSpotInput): Promise<Spot> {
-  if (input.tagIds.length > 5) {
-    throw new Error('タグは5個までしか設定できません');
+  if (input.tagIds.length > MAX_TAGS_PER_SPOT) {
+    throw new Error(`タグは${MAX_TAGS_PER_SPOT}個までしか設定できません`);
   }
   const embedUrls = input.embedUrls ?? [];
   if (embedUrls.length > MAX_SNS_EMBEDS) {
@@ -408,8 +412,8 @@ export interface UpdateSpotInput {
 // 投稿者本人による投稿編集。spotsテーブルの更新に加え、タグ・画像・SNS埋め込みも
 // 送信された内容に合わせて入れ替える(タグ/埋め込みは全削除→再挿入、画像は差分のみ処理)。
 export async function updateSpot(spot: Spot, input: UpdateSpotInput): Promise<Spot> {
-  if (input.tagIds.length > 5) {
-    throw new Error('タグは5個までしか設定できません');
+  if (input.tagIds.length > MAX_TAGS_PER_SPOT) {
+    throw new Error(`タグは${MAX_TAGS_PER_SPOT}個までしか設定できません`);
   }
   const embedUrls = input.embedUrls ?? [];
   if (embedUrls.length > MAX_SNS_EMBEDS) {
