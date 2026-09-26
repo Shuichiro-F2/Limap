@@ -63,6 +63,8 @@ export function renderPage(opts: {
   jsonLd: unknown[];
   body: string;
   noindex?: boolean;
+  // ページ固有で <head> に足すもの（フォントの読み込みなど）
+  headExtra?: string;
 }): string {
   const jsonLdTags = opts.jsonLd
     .map((d) => `    <script type="application/ld+json">${escapeJsonLd(d)}</script>`)
@@ -93,7 +95,7 @@ ${jsonLdTags}
       rel="stylesheet"
     />
     <link rel="stylesheet" href="/articles/assets/article.css" />
-  </head>
+${opts.headExtra ?? ''}  </head>
   <body>
     <header class="site-header">
       <a class="brand" href="${SITE_URL}/">
