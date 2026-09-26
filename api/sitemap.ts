@@ -5,6 +5,14 @@
 // 個別の投稿ページがGoogleにクロール候補として一切知らされていなかった。
 
 import { createClient } from '@supabase/supabase-js';
+import {
+  TAG_SPOT_SELECT,
+  fetchAllRows,
+  summarizeTags,
+  tagPagePath,
+  tagsWithPages,
+  type TagSpotRow,
+} from '../src/content/tagPages';
 
 const SUPABASE_URL = process.env.SUPABASE_URL || '';
 const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY || '';
@@ -53,6 +61,7 @@ export default async function handler(req: any, res: any) {
     { loc: 'https://limap.jp/privacy', changefreq: 'yearly', priority: '0.3' },
     { loc: 'https://limap.jp/terms', changefreq: 'yearly', priority: '0.3' },
     { loc: 'https://limap.jp/articles/', changefreq: 'weekly', priority: '0.6' },
+    { loc: 'https://limap.jp/tags', changefreq: 'weekly', priority: '0.5' },
     ...ARTICLE_SLUGS.map((slug) => ({
       loc: `https://limap.jp/articles/${slug}/`,
       changefreq: 'monthly',
@@ -61,6 +70,7 @@ export default async function handler(req: any, res: any) {
   ];
 
   let spotUrls: { loc: string; lastmod: string; changefreq: string; priority: string }[] = [];
+  let tagUrls: { loc: string; lastmod: string; changefreq: string; priority: string }[] = [];
 
   try {
     if (SUPABASE_URL && SUPABASE_ANON_KEY) {
@@ -85,11 +95,29 @@ export default async function handler(req: any, res: any) {
     // Supabaseへの問い合わせに失敗しても、ルートURLだけのsitemapは返す
   }
 
+  // タグ別ページ（api/tag.ts）。更新日はタグ内でいちばん新しいスポットの更新日
+  try {
+    if (SUPABASE_URL && SUPABASE_ANON_KEY) {
+      const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      const rows = await fetchAllRows<TagSpotRow>((from, to) =>
+        supabase.from('spot_tags').select(TAG_SPOT_SELECT).eq('spot.status', 'published').range(from, to)
+      );
+      tagUrls = tagsWithPages(summarizeTags(rows)).map((t) => ({
+        loc: `https://limap.jp${tagPagePath(t.name)}`,
+        lastmod: new Date(t.lastmod).toISOString().slice(0, 10),
+        changefreq: 'weekly',
+        priority: '0.5',
+      }));
+    }
+  } catch {
+    // タグの集計に失敗しても、他のURLは返す
+  }
+
   const urlEntries = [
     ...staticUrls.map(
       (u) => `  <url>\n    <loc>${escapeXml(u.loc)}</loc>\n    <changefreq>${u.changefreq}</changefreq>\n    <priority>${u.priority}</priority>\n  </url>`
     ),
-    ...spotUrls.map(
+    ...[...spotUrls, ...tagUrls].map(
       (u) =>
         `  <url>\n    <loc>${escapeXml(u.loc)}</loc>\n    <lastmod>${u.lastmod}</lastmod>\n    <changefreq>${u.changefreq}</changefreq>\n    <priority>${u.priority}</priority>\n  </url>`
     ),

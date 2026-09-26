@@ -13,6 +13,7 @@
 //   含まれている必要がある。
 
 import { createClient } from '@supabase/supabase-js';
+import { MIN_SPOTS_FOR_TAG_PAGE, fetchAllRows, tagPagePath } from '../src/content/tagPages';
 
 const SUPABASE_URL = process.env.SUPABASE_URL || '';
 const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY || '';
@@ -68,7 +69,7 @@ type SpotBodyInput = {
   description: string;
   access: string | null;
   visitTime: string | null;
-  tags: string[];
+  tags: { name: string; hasPage: boolean }[];
   imageUrls: string[];
   authorName: string | null;
   createdAt: string | null;
@@ -167,7 +168,11 @@ function buildSpotBody(s: SpotBodyInput): string {
     details.push(`<dt>訪問時間帯 / Best Time to Visit</dt><dd>${VISIT_TIME_LABELS[s.visitTime]}</dd>`);
   }
   if (s.tags.length) {
-    details.push(`<dt>タグ / Tags</dt><dd>${s.tags.map((t) => `#${escapeHtml(t)}`).join(' ')}</dd>`);
+    // タグ別ページ(api/tag.ts)があるタグはリンクにする
+    const tagHtml = s.tags
+      .map((t) => (t.hasPage ? `<a href="${tagPagePath(t.name)}">#${escapeHtml(t.name)}</a>` : `#${escapeHtml(t.name)}`))
+      .join(' ');
+    details.push(`<dt>タグ / Tags</dt><dd>${tagHtml}</dd>`);
   }
   if (s.authorName) {
     details.push(`<dt>投稿者 / Posted by</dt><dd>${escapeHtml(s.authorName)}</dd>`);
@@ -242,7 +247,7 @@ export default async function handler(req: any, res: any) {
         id, slug, title, description, lat, lng, country, city, status, created_at, updated_at,
         access, recommended_visit_time,
         images:spot_images(storage_path, position),
-        tags:spot_tags(tag:tags(name)),
+        tags:spot_tags(tag:tags(id, name)),
         author:profiles!spots_author_id_fkey(username, display_name),
         reviews:spot_reviews(
           description, recommended_visit_time, created_at,
@@ -362,10 +367,36 @@ export default async function handler(req: any, res: any) {
     const jsonLdScript = `<script type="application/ld+json">${JSON.stringify(jsonLd)}</script>\n  </head>`;
     html = html.replace(/<\/head>/, jsonLdScript);
 
-    const tagRows = (spot.tags || []) as { tag: { name: string } | { name: string }[] | null }[];
-    const tagNames = tagRows
-      .map((row) => (Array.isArray(row.tag) ? row.tag[0]?.name : row.tag?.name))
-      .filter((name): name is string => !!name);
+    type TagRef = { id: number; name: string };
+    const tagRows = (spot.tags || []) as { tag: TagRef | TagRef[] | null }[];
+    const spotTags = tagRows
+      .map((row) => (Array.isArray(row.tag) ? row.tag[0] : row.tag))
+      .filter((tag): tag is TagRef => !!tag);
+
+    // 各タグの公開スポット数を数え、タグ別ページがあるかを判定する。失敗したらリンクにしないだけ
+    const tagCounts = new Map<number, number>();
+    if (spotTags.length) {
+      try {
+        const countRows = await fetchAllRows<{ tag_id: number }>((from, to) =>
+          supabase
+            .from('spot_tags')
+            .select('tag_id, spot:spots!inner(status)')
+            .in(
+              'tag_id',
+              spotTags.map((t) => t.id)
+            )
+            .eq('spot.status', 'published')
+            .range(from, to)
+        );
+        for (const row of countRows) tagCounts.set(row.tag_id, (tagCounts.get(row.tag_id) ?? 0) + 1);
+      } catch {
+        // 件数が取れなければタグはリンクにしない
+      }
+    }
+    const tagsForBody = spotTags.map((t) => ({
+      name: t.name,
+      hasPage: (tagCounts.get(t.id) ?? 0) >= MIN_SPOTS_FOR_TAG_PAGE,
+    }));
     // 近くのスポット。取得に失敗しても本文の他の部分は出す
     let nearby: NearbySpot[] = [];
     if (typeof spot.lat === 'number' && typeof spot.lng === 'number') {
@@ -387,7 +418,7 @@ export default async function handler(req: any, res: any) {
       description: spot.description || '',
       access: spot.access,
       visitTime: spot.recommended_visit_time,
-      tags: tagNames,
+      tags: tagsForBody,
       imageUrls: sortedImages.map(
         (img) => supabase.storage.from('spot-images').getPublicUrl(img.storage_path).data.publicUrl
       ),

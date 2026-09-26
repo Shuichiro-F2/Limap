@@ -8,7 +8,9 @@
   ],
   "redirects": [
     { "source": "/:page(about|help|privacy|terms)/", "destination": "/:page", "permanent": true },
-    { "source": "/spot/:id/", "destination": "/spot/:id", "permanent": true }
+    { "source": "/spot/:id/", "destination": "/spot/:id", "permanent": true },
+    { "source": "/tags/", "destination": "/tags", "permanent": true },
+    { "source": "/tags/:tag/", "destination": "/tags/:tag", "permanent": true }
   ],
   "rewrites": [
     { "source": "/sitemap.xml", "destination": "/api/sitemap" },
@@ -17,6 +19,8 @@
     { "source": "/help", "destination": "/api/page?slug=help" },
     { "source": "/privacy", "destination": "/api/page?slug=privacy" },
     { "source": "/terms", "destination": "/api/page?slug=terms" },
+    { "source": "/tags", "destination": "/api/tag" },
+    { "source": "/tags/:tag", "destination": "/api/tag?tag=:tag" },
     { "source": "/:tab(map|feed|search|columns|mypage)", "destination": "/app.html" },
     { "source": "/:page(create|location-picker|login|add-to-home-screen|edit-profile|blocked-users|contact)", "destination": "/app.html" },
     { "source": "/spot/:spotId/:action(review|edit)", "destination": "/app.html" },

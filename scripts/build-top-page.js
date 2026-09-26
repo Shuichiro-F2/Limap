@@ -39,6 +39,8 @@ const ARTICLES_PATH = path.join(ROOT, 'content', 'articles.json');
 // src/lib/appStore.ts と同じURL（静的HTML側からアプリのコードを読めないため二重管理）
 const APP_STORE_URL = 'https://apps.apple.com/jp/app/id6805902713';
 const MAX_SPOTS = 30;
+// src/content/tagPages.ts の MIN_SPOTS_FOR_TAG_PAGE と同じ値（JSからTSを読めないため二重管理）
+const MIN_SPOTS_FOR_TAG_PAGE = 3;
 
 function escapeHtml(str) {
   return String(str)
@@ -69,6 +71,37 @@ async function fetchLatestSpots() {
   }
 }
 
+// タグ別ページ(/tags/<タグ名>)があるタグを、スポットの多い順に返す
+async function fetchPageTags() {
+  const url = process.env.SUPABASE_URL;
+  const key = process.env.SUPABASE_ANON_KEY;
+  if (!url || !key) return [];
+  try {
+    const counts = new Map();
+    // PostgREST は1回最大1000行のため、offset で区切って全件を数える
+    for (let offset = 0; ; offset += 1000) {
+      const res = await fetch(
+        `${url}/rest/v1/spot_tags?select=tag:tags(name),spot:spots!inner(status)&spot.status=eq.published&limit=1000&offset=${offset}`,
+        { headers: { apikey: key, Authorization: `Bearer ${key}` } }
+      );
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const rows = await res.json();
+      for (const row of rows) {
+        const name = row.tag && row.tag.name;
+        if (name) counts.set(name, (counts.get(name) || 0) + 1);
+      }
+      if (rows.length < 1000) break;
+    }
+    return [...counts.entries()]
+      .filter(([, count]) => count >= MIN_SPOTS_FOR_TAG_PAGE)
+      .sort((a, b) => b[1] - a[1])
+      .map(([name, count]) => ({ name, count }));
+  } catch (e) {
+    console.warn(`[build-top-page] タグの集計に失敗したため省きます: ${e.message}`);
+    return [];
+  }
+}
+
 function loadArticles() {
   const articles = JSON.parse(fs.readFileSync(ARTICLES_PATH, 'utf8'));
   // 記事一覧と同じく公開日の新しい順
@@ -80,7 +113,7 @@ function spotTitle(spot) {
   return (spot.title || '').trim() || (spot.description || '').trim().slice(0, 40) || '無題の投稿';
 }
 
-function buildBody(spots, articles) {
+function buildBody(spots, articles, tags) {
   const parts = [];
   parts.push('<h1>LIMap（リマップ） | リミナルスペースを記録・共有する地図アプリ</h1>');
   parts.push(
@@ -97,6 +130,15 @@ function buildBody(spots, articles) {
       .map((s) => `<li><a href="/spot/${encodeURIComponent(s.slug)}">${escapeHtml(spotTitle(s))}</a></li>`)
       .join('\n');
     parts.push(`<h2>新着のリミナルスペース / Latest spots</h2>\n<ul>\n${items}\n</ul>`);
+  }
+
+  if (tags.length) {
+    const items = tags
+      .map((t) => `<li><a href="/tags/${encodeURIComponent(t.name)}">#${escapeHtml(t.name)}</a>（${t.count}）</li>`)
+      .join('\n');
+    parts.push(
+      `<h2>タグから探す / Browse by tag</h2>\n<ul>\n${items}\n</ul>\n<p><a href="/tags">タグ一覧 / All tags</a></p>`
+    );
   }
 
   if (articles.length) {
@@ -145,11 +187,13 @@ async function main() {
     return;
   }
 
-  const [spots, articles] = await Promise.all([fetchLatestSpots(), Promise.resolve(loadArticles())]);
+  const [spots, articles, tags] = await Promise.all([fetchLatestSpots(), Promise.resolve(loadArticles()), fetchPageTags()]);
   // 本文の見た目は public/index.html の #limap-ssr-style で指定している
-  const html = shell.replace(marker, () => `<div id="root">${buildBody(spots, articles)}</div>`);
+  const html = shell.replace(marker, () => `<div id="root">${buildBody(spots, articles, tags)}</div>`);
   fs.writeFileSync(INDEX_PATH, html);
-  console.log(`[build-top-page] トップページに本文を追加しました（新着スポット ${spots.length} 件・記事 ${articles.length} 本）`);
+  console.log(
+    `[build-top-page] トップページに本文を追加しました（新着スポット ${spots.length} 件・タグ ${tags.length} 個・記事 ${articles.length} 本）`
+  );
 }
 
 main().catch((e) => {
