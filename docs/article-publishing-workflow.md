@@ -20,7 +20,7 @@ Expo（React Native Web）製のアプリ本体とは別に、SEO記事は静的
 | 1 | `content/articles.json` | 記事本文（日英）。静的HTML生成の元データ | 記事ページ自体が生成されない |
 | 2 | `src/lib/articles.ts` の `ARTICLE_ENTRIES` | **アプリ内コラムタブの一覧表示用**の軽量サマリー | URL直打ちでは読めるのに、**コラムタブの一覧に出てこない** |
 | 3 | `api/sitemap.ts` の `ARTICLE_SLUGS` | sitemap.xml に載せるスラッグ一覧 | Googleにクロール候補として通知されない |
-| 4 | `public/articles/` と `public/llms.txt` | 生成物（手書きせず `npm run articles:build` で再生成） | ページが古いまま／AI向けの案内(llms.txt)に記事が載らない |
+| 4 | `public/articles/`・`public/en/articles/`（英語版）と `public/llms.txt` | 生成物（手書きせず `npm run articles:build` で再生成） | ページが古いまま／AI向けの案内(llms.txt)に記事が載らない |
 
 ### 手順
 
@@ -28,9 +28,9 @@ Expo（React Native Web）製のアプリ本体とは別に、SEO記事は静的
 2. `src/lib/articles.ts` の `ARTICLE_ENTRIES` に `ArticleSummary` を追記（`content/articles.json` と同じ順序で）
 3. `api/sitemap.ts` の `ARTICLE_SLUGS` にスラッグを追記
 4. `npm run articles:build` を実行（= `node scripts/generate-articles.js`）
-   → `public/articles/<slug>/index.html` と記事一覧ハブ `public/articles/index.html`、AI向けのサイト案内 `public/llms.txt` が再生成される
+   → 日本語版 `public/articles/<slug>/index.html`・英語版 `public/en/articles/<slug>/index.html`（別URL。hreflang で結ぶ）、それぞれの記事一覧ハブ、AI向けのサイト案内 `public/llms.txt` が再生成される
 5. `node scripts/check-articles.js` で4箇所の整合性を確認（OK が出ればよい）
-6. `git add content/articles.json src/lib/articles.ts api/sitemap.ts public/articles public/llms.txt` → commit → `git push origin main`
+6. `git add content/articles.json src/lib/articles.ts api/sitemap.ts public/articles public/en public/llms.txt` → commit → `git push origin main`
    → Vercel が自動デプロイ（**ここまでで反映されるのは Web のみ**）
 7. **アプリ（iOS）にも反映する**
    ```bash

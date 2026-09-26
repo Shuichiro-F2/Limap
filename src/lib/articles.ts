@@ -312,6 +312,7 @@ export function articleThumbnailUrl(file: string, width = 600): string {
   return `https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(file)}?width=${width}`;
 }
 
-export function articleUrl(slug: string): string {
-  return `https://limap.jp/articles/${slug}/`;
+// 英語版は別URL（/en/articles/）。アプリの表示言語に合わせて開く
+export function articleUrl(slug: string, language: 'ja' | 'en' = 'ja'): string {
+  return language === 'en' ? `https://limap.jp/en/articles/${slug}/` : `https://limap.jp/articles/${slug}/`;
 }

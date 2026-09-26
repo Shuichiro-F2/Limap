@@ -17,7 +17,7 @@ export default function ArticlesScreen({}: Props) {
   const t = useTranslation();
 
   const openArticle = (slug: string) => {
-    Linking.openURL(articleUrl(slug)).catch(() => {});
+    Linking.openURL(articleUrl(slug, language)).catch(() => {});
   };
 
   return (

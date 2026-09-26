@@ -43,29 +43,29 @@
 
 ## English
 
-LIMap is a map for finding and sharing liminal spaces: abandoned buildings, empty stations, late-night parking lots and other eerie, nostalgic places. Each article page also contains an English version (switch with the language toggle at the top of the page).
+LIMap is a map for finding and sharing liminal spaces: abandoned buildings, empty stations, late-night parking lots and other eerie, nostalgic places. English versions of the articles are at https://limap.jp/en/articles/ (each page links to its Japanese version with hreflang).
 
-- [Is the Backrooms Movie Scary? A Spoiler-Free Guide to What Kind of Fear It Uses](https://limap.jp/articles/is-backrooms-movie-scary/)
-- [Where to Go in Tokyo After Watching the Backrooms Movie](https://limap.jp/articles/backrooms-spots-tokyo/)
-- [What Are the Backrooms Levels? From Level 0 to The End — and Why There Is No Official Canon](https://limap.jp/articles/backrooms-levels-explained/)
-- [What Are the Poolrooms? Where the Blue-Tiled Water Spaces Came From](https://limap.jp/articles/poolrooms-explained/)
-- [Where Was the Original Backrooms Photo Taken? The Real Building, Identified in 2024](https://limap.jp/articles/backrooms-original-photo-location/)
-- [Backrooms vs Exit 8: Two Endless Spaces That Work in Opposite Ways](https://limap.jp/articles/backrooms-vs-exit-8/)
-- [Who Is Kane Pixels? From a Post at Sixteen to Directing for A24](https://limap.jp/articles/who-is-kane-pixels/)
-- [What Does Noclip Mean? How a Game Dev Term Came to Describe the Back of Reality](https://limap.jp/articles/what-is-noclip/)
-- [Do You Need to Do Homework Before Watching Backrooms? The Legend, the YouTube Series, and the Director](https://limap.jp/articles/backrooms-movie-guide/)
-- [Is "Exit 8" Real? Looking for Actual Places With the Same Eerie Vibe](https://limap.jp/articles/is-exit-8-real/)
-- [Do the Backrooms Exist in Japan? Looking for Places With That "Yellow Room" Feeling](https://limap.jp/articles/backrooms-in-japan/)
-- [Not a Haunted Spot, Just Eerie: How to Find "Strangely Unsettling" Places](https://limap.jp/articles/not-haunted-just-eerie-spots/)
-- [Finding Abandoned Buildings on a Map: Japan's Ruins, Without the Haunted-House Angle](https://limap.jp/articles/haikyo-photo-spots-japan/)
-- [What Is a Liminal Space? Meaning, Origin, and Real-World Examples](https://limap.jp/articles/what-is-liminal-space/)
-- [Liminal Spaces in Japan: What Makes Them Different](https://limap.jp/articles/liminal-spaces-in-japan/)
-- [Liminal Space vs. the Backrooms: What's the Difference?](https://limap.jp/articles/liminal-space-vs-backrooms/)
-- [Liminal Space vs. Dreamcore: What's the Difference?](https://limap.jp/articles/liminal-space-vs-dreamcore/)
-- [Why Do Liminal Spaces Feel Scary or Unsettling?](https://limap.jp/articles/why-liminal-spaces-feel-scary/)
-- [How Liminal Spaces Became a Trend: A Brief History](https://limap.jp/articles/history-of-liminal-space-trend/)
-- [How to Find and Photograph Liminal Spaces](https://limap.jp/articles/how-to-find-liminal-spaces/)
-- [Famous Liminal Spaces from Around the World](https://limap.jp/articles/famous-liminal-spaces-around-the-world/)
+- [Is the Backrooms Movie Scary? A Spoiler-Free Guide to What Kind of Fear It Uses](https://limap.jp/en/articles/is-backrooms-movie-scary/): How frightening is Backrooms, really? With no plot spoilers at all: why its fear is spatial rather than jump-scare based, why reviews are split, and how to tell whether it is for you if horror is not your thing.
+- [Where to Go in Tokyo After Watching the Backrooms Movie](https://limap.jp/en/articles/backrooms-spots-tokyo/): If the film changed how your commute looks, here are real places in Tokyo with a similar atmosphere, taken from spots actually recorded on LIMap: underground passages, housing estates and closed transit sites.
+- [What Are the Backrooms Levels? From Level 0 to The End — and Why There Is No Official Canon](https://limap.jp/en/articles/backrooms-levels-explained/): A plain-language guide to the Backrooms levels, from Level 0 to The End, covering only the ones people actually talk about. Plus an answer to the real question: why do the wikis contradict each other?
+- [What Are the Poolrooms? Where the Blue-Tiled Water Spaces Came From](https://limap.jp/en/articles/poolrooms-explained/): Also known as Backrooms Level 37, the Poolrooms are among the most shared liminal images online. Here is where they actually came from, why they feel frightening and nostalgic at once, and where to find that atmosphere in Japan.
+- [Where Was the Original Backrooms Photo Taken? The Real Building, Identified in 2024](https://limap.jp/en/articles/backrooms-original-photo-location/): One photograph posted to 4chan in 2019 created the Backrooms. Its location stayed unknown for five years, until internet researchers pinned it down in 2024. Here is where, when, and why that picture was taken.
+- [Backrooms vs Exit 8: Two Endless Spaces That Work in Opposite Ways](https://limap.jp/en/articles/backrooms-vs-exit-8/): Empty, uniform, no visible way out. The Backrooms and Exit 8 get compared constantly, but their fear is structured in opposite ways. Here is how each came about, and what actually separates them.
+- [Who Is Kane Pixels? From a Post at Sixteen to Directing for A24](https://limap.jp/en/articles/who-is-kane-pixels/): Kane Parsons, known online as Kane Pixels, defined what the Backrooms looks like and became an A24 feature director at twenty. His background, key works, the Blender-only workflow, and his stance on generative AI.
+- [What Does Noclip Mean? How a Game Dev Term Came to Describe the Back of Reality](https://limap.jp/en/articles/what-is-noclip/): Every explanation of the Backrooms uses the word noclip. It started as a debug feature for walking through walls. Here is where the term came from, and why one word became the core of an internet legend.
+- [Do You Need to Do Homework Before Watching Backrooms? The Legend, the YouTube Series, and the Director](https://limap.jp/en/articles/backrooms-movie-guide/): Backrooms opened in Japan on September 4, 2026. Do you need to know anything going in? We answer that, then trace the 2019 4chan urban legend, the Kane Pixels YouTube series the film is based on, and director Kane Parsons, who debuted with A24 at twenty.
+- [Is "Exit 8" Real? Looking for Actual Places With the Same Eerie Vibe](https://limap.jp/en/articles/is-exit-8-real/): The horror game (and film) Exit 8 feels unsettlingly real. Instead of hunting for "the one station," we round up real places in Japan with that same liminal vibe, mapped on LIMap.
+- [Do the Backrooms Exist in Japan? Looking for Places With That "Yellow Room" Feeling](https://limap.jp/en/articles/backrooms-in-japan/): The urban legend "Backrooms" started on 4chan. Does that yellow room really exist somewhere in Japan? We trace the legend's origins and round up real places with a similar unsettling vibe, mapped on LIMap.
+- [Not a Haunted Spot, Just Eerie: How to Find "Strangely Unsettling" Places](https://limap.jp/en/articles/not-haunted-just-eerie-spots/): Some places feel eerie without being haunted. Here's how to find "strangely unsettling" spots you can enjoy for the atmosphere and photos alone — no ghost stories required — plus real examples from LIMap.
+- [Finding Abandoned Buildings on a Map: Japan's Ruins, Without the Haunted-House Angle](https://limap.jp/en/articles/haikyo-photo-spots-japan/): Want to photograph abandoned buildings without a haunted-spot tour? Here's a guide to photogenic ruins across Japan, mapped on LIMap so you can check the exact location.
+- [What Is a Liminal Space? Meaning, Origin, and Real-World Examples](https://limap.jp/en/articles/what-is-liminal-space/): A clear explanation of what a liminal space is, where the term comes from, and everyday examples like empty malls, deserted train platforms, and parking garages.
+- [Liminal Spaces in Japan: What Makes Them Different](https://limap.jp/en/articles/liminal-spaces-in-japan/): From deserted train stations to closed shopping malls and danchi housing blocks, here's what makes Japan's liminal spaces distinctive, with real examples.
+- [Liminal Space vs. the Backrooms: What's the Difference?](https://limap.jp/en/articles/liminal-space-vs-backrooms/): They look alike, but they're not the same thing. Here's how liminal spaces differ from the Backrooms, based on their origins and whether a story is involved.
+- [Liminal Space vs. Dreamcore: What's the Difference?](https://limap.jp/en/articles/liminal-space-vs-dreamcore/): Liminal space, dreamcore, and weirdcore all sit in similar territory online — here's a clear breakdown of what separates these three internet aesthetics.
+- [Why Do Liminal Spaces Feel Scary or Unsettling?](https://limap.jp/en/articles/why-liminal-spaces-feel-scary/): There's no monster in the photo, so why does it feel unsettling? Here's what psychology says about why empty, familiar places trigger unease.
+- [How Liminal Spaces Became a Trend: A Brief History](https://limap.jp/en/articles/history-of-liminal-space-trend/): From a single 2019 forum post to a worldwide phenomenon accelerated by the pandemic — here's how the liminal space trend actually came to be.
+- [How to Find and Photograph Liminal Spaces](https://limap.jp/en/articles/how-to-find-liminal-spaces/): A practical guide to spotting liminal spaces in your own city, tips for photographing them well, and etiquette to keep in mind while you're out looking.
+- [Famous Liminal Spaces from Around the World](https://limap.jp/en/articles/famous-liminal-spaces-around-the-world/): A look at the types of liminal spaces that keep going viral online, from dead malls to abandoned amusement parks, and what they have in common.
 
 ## Optional
 

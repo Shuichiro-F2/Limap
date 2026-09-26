@@ -68,6 +68,13 @@ export default async function handler(req: any, res: any) {
       changefreq: 'monthly',
       priority: '0.6',
     })),
+    // 英語版の記事（scripts/generate-articles.js が public/en/articles/ に生成。日本語版と hreflang で結んでいる）
+    { loc: 'https://limap.jp/en/articles/', changefreq: 'weekly', priority: '0.5' },
+    ...ARTICLE_SLUGS.map((slug) => ({
+      loc: `https://limap.jp/en/articles/${slug}/`,
+      changefreq: 'monthly',
+      priority: '0.5',
+    })),
   ];
 
   let spotUrls: { loc: string; lastmod: string; changefreq: string; priority: string }[] = [];

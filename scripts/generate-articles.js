@@ -1,7 +1,9 @@
 #!/usr/bin/env node
 /**
- * content/articles.json を元に、public/articles/<slug>/index.html と
- * public/articles/index.html（記事一覧ハブ）を静的HTMLとして生成するスクリプト。
+ * content/articles.json を元に、記事ページと記事一覧ハブを静的HTMLとして生成するスクリプト。
+ *   日本語版: public/articles/<slug>/index.html、public/articles/index.html
+ *   英語版:   public/en/articles/<slug>/index.html、public/en/articles/index.html
+ * 日英は別URLにして hreflang で結び、あわせて AI 向けの案内 public/llms.txt も生成する。
  *
  * 使い方: node scripts/generate-articles.js
  *
@@ -17,6 +19,7 @@ const path = require('path');
 const ROOT = path.resolve(__dirname, '..');
 const DATA_PATH = path.join(ROOT, 'content', 'articles.json');
 const OUT_DIR = path.join(ROOT, 'public', 'articles');
+const OUT_DIR_EN = path.join(ROOT, 'public', 'en', 'articles');
 const SITE_URL = 'https://limap.jp';
 // iOSアプリのApp Storeページ。src/lib/appStore.ts と同じURLを指す
 // (記事ページはReactアプリとは別の静的HTMLのため、定数を共有できず二重管理になる。
@@ -30,18 +33,19 @@ const KOFI_URL = 'https://ko-fi.com/limap';
 // アプリ本体(src/components/AppStoreBanner.tsx)と同じ構成・同じ文言・同じ
 // localStorageキーで動く。既定はhiddenで、iOS端末のブラウザで開いたときだけ
 // article.js側が表示する(非iOS端末で一瞬ちらつくのを避けるため)。
-// 記事ページの言語切り替えに追従できるよう、文言は既存の [data-lang] の仕組みに乗せる。
-function appBannerBlock() {
+// 文言はページの言語（日本語版 /articles/、英語版 /en/articles/）に合わせて出し分ける。
+function appBannerBlock(lang) {
+  const ja = lang !== 'en';
   return `    <aside class="app-banner" id="app-banner" hidden>
-      <button type="button" class="app-banner-close" id="app-banner-close" aria-label="閉じる">
+      <button type="button" class="app-banner-close" id="app-banner-close" aria-label="${ja ? '閉じる' : 'Close'}">
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18" /></svg>
       </button>
       <img src="${SITE_URL}/apple-touch-icon.png" alt="" class="app-banner-icon" />
       <div class="app-banner-text">
         <p class="app-banner-title">LIMap</p>
-        <p class="app-banner-subtitle"><span data-lang="ja">App Storeでアプリを入手</span><span data-lang="en">Get the app on the App Store</span></p>
+        <p class="app-banner-subtitle">${ja ? 'App Storeでアプリを入手' : 'Get the app on the App Store'}</p>
       </div>
-      <a class="app-banner-action" href="${APP_STORE_URL}" target="_blank" rel="noopener"><span data-lang="ja">入手</span><span data-lang="en">Get</span></a>
+      <a class="app-banner-action" href="${APP_STORE_URL}" target="_blank" rel="noopener">${ja ? '入手' : 'Get'}</a>
     </aside>`;
 }
 
@@ -228,6 +232,67 @@ function cardThumbImg(image, lang) {
   )}?width=600" alt="${escapeHtml(alt)}" loading="lazy" onerror="this.style.display='none'" />`;
 }
 
+// ---- 言語ごとのURL ----
+// 日本語版は /articles/<slug>/、英語版は /en/articles/<slug>/。
+// 以前は1つのURLに日英の本文を両方入れてJSで切り替えていたが、英語の検索で評価されるよう、
+// 言語ごとに別のページとして出力し、hreflang で互いを別言語版として示す。
+function articlePath(slug, lang) {
+  return lang === 'en' ? `/en/articles/${slug}/` : `/articles/${slug}/`;
+}
+
+function hubPath(lang) {
+  return lang === 'en' ? '/en/articles/' : '/articles/';
+}
+
+// hreflang（x-default は日本語版）
+function hreflangLinks(jaPath, enPath) {
+  return `    <link rel="alternate" hreflang="ja" href="${SITE_URL}${jaPath}" />
+    <link rel="alternate" hreflang="en" href="${SITE_URL}${enPath}" />
+    <link rel="alternate" hreflang="x-default" href="${SITE_URL}${jaPath}" />
+`;
+}
+
+// 言語の切り替え: 表示中の言語はボタン風の表示、もう一方は相手のURLへのリンク
+function langSwitch(lang, jaPath, enPath) {
+  const item = (code, label, href) =>
+    code === lang
+      ? `<span class="active" aria-current="true">${label}</span>`
+      : `<a href="${href}" hreflang="${code}" lang="${code}">${label}</a>`;
+  return `      <nav class="lang-switch" aria-label="Language">
+        ${item('ja', '日本語', jaPath)}
+        ${item('en', 'English', enPath)}
+      </nav>`;
+}
+
+// 記事・一覧ページ共通の <head> 内のフォント・CSS（キャッシュの古いJS/CSSを使わないよう版番号を付ける）
+const ASSET_VERSION = '2';
+
+function fontAndStyleLinks() {
+  return `    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=DotGothic16&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/articles/assets/article.css?v=${ASSET_VERSION}" />`;
+}
+
+function siteFooter(lang) {
+  if (lang === 'en') {
+    return `    <footer class="site-footer">
+      <a href="${SITE_URL}/">LIMap home</a>
+      <a href="${SITE_URL}${hubPath('en')}">All articles</a>
+      <a href="${SITE_URL}/japan">Liminal spaces in Japan</a>
+    </footer>`;
+  }
+  return `    <footer class="site-footer">
+      <a href="${SITE_URL}/">LIMapトップへ</a>
+      <a href="${SITE_URL}${hubPath('ja')}">記事一覧</a>
+      <a href="${SITE_URL}/about">リミナルスペースとは</a>
+      <a href="${SITE_URL}/japan">日本のリミナルスペース一覧</a>
+    </footer>`;
+}
+
 function relatedBlock(current, all, lang) {
   const others = all.filter((a) => a.slug !== current.slug).slice(0, 4);
   if (others.length === 0) return '';
@@ -236,7 +301,7 @@ function relatedBlock(current, all, lang) {
     .map((a) => {
       const t = lang === 'ja' ? a.ja : a.en;
       const cat = lang === 'ja' ? a.category : a.categoryEn;
-      return `          <a href="${SITE_URL}/articles/${a.slug}/">
+      return `          <a href="${SITE_URL}${articlePath(a.slug, lang)}">
             ${cardThumbImg(heroImageOf(a), lang)}
             <span class="related-category">${escapeHtml(cat)}</span>
             <span class="related-item-title">${escapeHtml(t.h1)}</span>
@@ -260,7 +325,7 @@ function langBlock(lang, article, all) {
       ? `公開日: ${article.publishedDate}${updated ? ` ／ 更新日: ${updated}` : ''}`
       : `Published: ${article.publishedDate}${updated ? ` / Updated: ${updated}` : ''}`;
   const heroImage = (article.images || []).find((img) => img.afterSection === -1);
-  return `    <div data-lang="${lang}">
+  return `    <div class="article-body">
       <span class="article-category">${escapeHtml(categoryLabel)}</span>
       <h1 class="article-title">${escapeHtml(content.h1)}</h1>
       <p class="article-meta">${dateLabel}</p>
@@ -274,8 +339,9 @@ ${relatedBlock(article, all, lang)}
     </div>`;
 }
 
-function articleJsonLd(article) {
-  const url = `${SITE_URL}/articles/${article.slug}/`;
+function articleJsonLd(article, lang) {
+  const content = article[lang];
+  const url = `${SITE_URL}${articlePath(article.slug, lang)}`;
   const hero = heroImageOf(article);
   const organization = {
     '@type': 'Organization',
@@ -286,11 +352,11 @@ function articleJsonLd(article) {
   const data = {
     '@context': 'https://schema.org',
     '@type': 'Article',
-    headline: article.ja.h1,
-    description: article.ja.metaDescription,
+    headline: content.h1,
+    description: content.metaDescription,
     datePublished: article.publishedDate,
     dateModified: modifiedDateOf(article),
-    inLanguage: 'ja',
+    inLanguage: lang,
     url,
     mainEntityOfPage: url,
     image: hero ? commonsImageUrl(hero, 1200) : `${SITE_URL}/og-image.png`,
@@ -300,8 +366,8 @@ function articleJsonLd(article) {
   };
   let out = `    <script type="application/ld+json">${escapeJsonLd(data)}</script>\n`;
 
-  // ページに表示している日本語のFAQと同じ内容（faqBlock参照）
-  const faq = article.ja.faq || [];
+  // ページに表示しているFAQと同じ内容（faqBlock参照）
+  const faq = content.faq || [];
   if (faq.length > 0) {
     const faqData = {
       '@context': 'https://schema.org',
@@ -317,19 +383,23 @@ function articleJsonLd(article) {
   return out;
 }
 
-function renderArticlePage(article, all) {
-  const ja = article.ja;
-  const url = `${SITE_URL}/articles/${article.slug}/`;
+function renderArticlePage(article, all, lang) {
+  const content = article[lang];
+  const jaPath = articlePath(article.slug, 'ja');
+  const enPath = articlePath(article.slug, 'en');
+  const url = `${SITE_URL}${articlePath(article.slug, lang)}`;
+  const hero = heroImageOf(article);
+  const ogImage = hero ? commonsImageUrl(hero, 1200) : `${SITE_URL}/og-image.png`;
 
   return `<!DOCTYPE html>
-<html lang="ja">
+<html lang="${lang}">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover" />
-    <title>${escapeHtml(ja.title)} | LIMap</title>
-    <meta name="description" content="${escapeHtml(ja.metaDescription)}" />
+    <title>${escapeHtml(content.title)} | LIMap</title>
+    <meta name="description" content="${escapeHtml(content.metaDescription)}" />
     <link rel="canonical" href="${url}" />
-    <meta name="theme-color" content="#16130f" />
+${hreflangLinks(jaPath, enPath)}    <meta name="theme-color" content="#16130f" />
     <link rel="apple-touch-icon" href="${SITE_URL}/apple-touch-icon.png" />
     <link rel="icon" href="${SITE_URL}/apple-touch-icon.png" />
     <link rel="manifest" href="${SITE_URL}/manifest.json" />
@@ -341,92 +411,91 @@ function renderArticlePage(article, all) {
     <meta property="og:type" content="article" />
     <meta property="og:site_name" content="LIMap" />
     <meta property="og:url" content="${url}" />
-    <meta property="og:title" content="${escapeHtml(ja.title)}" />
-    <meta property="og:description" content="${escapeHtml(ja.metaDescription)}" />
-    <meta property="og:image" content="${SITE_URL}/og-image.png" />
-    <meta property="og:locale" content="ja_JP" />
+    <meta property="og:title" content="${escapeHtml(content.title)}" />
+    <meta property="og:description" content="${escapeHtml(content.metaDescription)}" />
+    <meta property="og:image" content="${escapeHtml(ogImage)}" />
+    <meta property="og:locale" content="${lang === 'en' ? 'en_US' : 'ja_JP'}" />
+    <meta property="og:locale:alternate" content="${lang === 'en' ? 'ja_JP' : 'en_US'}" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="${escapeHtml(ja.title)}" />
-    <meta name="twitter:description" content="${escapeHtml(ja.metaDescription)}" />
-    <meta name="twitter:image" content="${SITE_URL}/og-image.png" />
+    <meta name="twitter:title" content="${escapeHtml(content.title)}" />
+    <meta name="twitter:description" content="${escapeHtml(content.metaDescription)}" />
+    <meta name="twitter:image" content="${escapeHtml(ogImage)}" />
 
-${articleJsonLd(article)}
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=DotGothic16&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="/articles/assets/article.css" />
+${articleJsonLd(article, lang)}${fontAndStyleLinks()}
   </head>
   <body>
-${appBannerBlock()}
+${appBannerBlock(lang)}
     <header class="site-header">
       <a class="brand" href="${SITE_URL}/">
         <img src="/articles/assets/logo-header.png" alt="LIMap" class="brand-logo" />
       </a>
-      <div class="lang-switch">
-        <button type="button" data-set-lang="ja">日本語</button>
-        <button type="button" data-set-lang="en">English</button>
-      </div>
+${langSwitch(lang, jaPath, enPath)}
     </header>
 
     <main>
       <article>
-${langBlock('ja', article, all)}
-${langBlock('en', article, all)}
+${langBlock(lang, article, all)}
       </article>
     </main>
 
-    <footer class="site-footer">
-      <a href="${SITE_URL}/">LIMapトップへ</a>
-      <a href="${SITE_URL}/articles/">記事一覧</a>
-      <a href="${SITE_URL}/about">リミナルスペースとは</a>
-      <a href="${SITE_URL}/japan">日本のリミナルスペース一覧</a>
-    </footer>
+${siteFooter(lang)}
 
-    <script src="/articles/assets/article.js"></script>
+    <script src="/articles/assets/article.js?v=${ASSET_VERSION}"></script>
   </body>
 </html>
 `;
 }
 
-function renderHubPage(all) {
-  const url = `${SITE_URL}/articles/`;
-  const title = 'リミナルスペース読みもの | LIMap';
-  const description =
-    'リミナルスペースの意味や語源、バックルームズ・ドリームコアとの違い、日本での事例まで。LIMapがまとめる読みもの記事の一覧です。';
+const HUB_TEXT = {
+  ja: {
+    title: 'リミナルスペース読みもの | LIMap',
+    description:
+      'リミナルスペースの意味や語源、バックルームズ・ドリームコアとの違い、日本での事例まで。LIMapがまとめる読みもの記事の一覧です。',
+    h1: 'リミナルスペース読みもの',
+    lead: 'リミナルスペースの意味や語源、似た言葉との違い、日本での事例まで。気になるテーマから読んでみてください。',
+  },
+  en: {
+    title: 'Reading on Liminal Spaces | LIMap',
+    description:
+      'What liminal spaces are, where the word comes from, how they differ from the Backrooms and dreamcore, and real examples in Japan. Articles by LIMap.',
+    h1: 'Reading on Liminal Spaces',
+    lead: 'What liminal spaces mean, where the idea comes from, how it differs from similar terms, and real examples in Japan. Start with whatever catches your eye.',
+  },
+};
 
+function renderHubPage(all, lang) {
+  const text = HUB_TEXT[lang];
+  const url = `${SITE_URL}${hubPath(lang)}`;
   const items = all
-    .map(
-      (a) => `        <a href="/articles/${a.slug}/">
-          ${cardThumbImg(heroImageOf(a), 'ja')}
-          <span class="related-category">${escapeHtml(a.category)}</span>
-          <p class="hub-item-title">${escapeHtml(a.ja.h1)}</p>
-          <p class="hub-item-desc">${escapeHtml(a.ja.metaDescription)}</p>
-        </a>`
-    )
+    .map((a) => {
+      const t = lang === 'ja' ? a.ja : a.en;
+      const cat = lang === 'ja' ? a.category : a.categoryEn;
+      return `        <a href="${articlePath(a.slug, lang)}">
+          ${cardThumbImg(heroImageOf(a), lang)}
+          <span class="related-category">${escapeHtml(cat)}</span>
+          <p class="hub-item-title">${escapeHtml(t.h1)}</p>
+          <p class="hub-item-desc">${escapeHtml(t.metaDescription)}</p>
+        </a>`;
+    })
     .join('\n');
-
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
-    name: title,
-    description,
+    name: text.title,
+    description: text.description,
     url,
-    inLanguage: 'ja',
+    inLanguage: lang,
   };
-
   return `<!DOCTYPE html>
-<html lang="ja">
+<html lang="${lang}">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover" />
-    <title>${escapeHtml(title)}</title>
-    <meta name="description" content="${escapeHtml(description)}" />
+    <title>${escapeHtml(text.title)}</title>
+    <meta name="description" content="${escapeHtml(text.description)}" />
     <link rel="canonical" href="${url}" />
-    <meta name="theme-color" content="#16130f" />
+${hreflangLinks(hubPath('ja'), hubPath('en'))}    <meta name="theme-color" content="#16130f" />
     <link rel="apple-touch-icon" href="${SITE_URL}/apple-touch-icon.png" />
     <link rel="icon" href="${SITE_URL}/apple-touch-icon.png" />
     <link rel="manifest" href="${SITE_URL}/manifest.json" />
@@ -434,48 +503,36 @@ function renderHubPage(all) {
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="LIMap" />
-
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="LIMap" />
     <meta property="og:url" content="${url}" />
-    <meta property="og:title" content="${escapeHtml(title)}" />
-    <meta property="og:description" content="${escapeHtml(description)}" />
+    <meta property="og:title" content="${escapeHtml(text.title)}" />
+    <meta property="og:description" content="${escapeHtml(text.description)}" />
     <meta property="og:image" content="${SITE_URL}/og-image.png" />
-    <meta property="og:locale" content="ja_JP" />
-
+    <meta property="og:locale" content="${lang === 'en' ? 'en_US' : 'ja_JP'}" />
     <script type="application/ld+json">${escapeJsonLd(jsonLd)}</script>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=DotGothic16&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="/articles/assets/article.css" />
+${fontAndStyleLinks()}
   </head>
   <body>
-${appBannerBlock()}
+${appBannerBlock(lang)}
     <header class="site-header">
       <a class="brand" href="${SITE_URL}/">
         <img src="/articles/assets/logo-header.png" alt="LIMap" class="brand-logo" />
       </a>
+${langSwitch(lang, hubPath('ja'), hubPath('en'))}
     </header>
 
     <main>
-      <h1 class="article-title">リミナルスペース読みもの</h1>
-      <p class="hub-lead">リミナルスペースの意味や語源、似た言葉との違い、日本での事例まで。気になるテーマから読んでみてください。</p>
+      <h1 class="article-title">${escapeHtml(text.h1)}</h1>
+      <p class="hub-lead">${escapeHtml(text.lead)}</p>
       <div class="hub-list">
 ${items}
       </div>
     </main>
 
-    <footer class="site-footer">
-      <a href="${SITE_URL}/">LIMapトップへ</a>
-      <a href="${SITE_URL}/about">リミナルスペースとは</a>
-      <a href="${SITE_URL}/japan">日本のリミナルスペース一覧</a>
-    </footer>
+${siteFooter(lang)}
 
-    <script src="/articles/assets/article.js"></script>
+    <script src="/articles/assets/article.js?v=${ASSET_VERSION}"></script>
   </body>
 </html>
 `;
@@ -489,7 +546,7 @@ function renderLlmsTxt(all) {
     .map((a) => `- [${a.ja.title}](${SITE_URL}/articles/${a.slug}/): ${a.ja.metaDescription}`)
     .join('\n');
   const articleLinesEn = all
-    .map((a) => `- [${a.en.title}](${SITE_URL}/articles/${a.slug}/)`)
+    .map((a) => `- [${a.en.title}](${SITE_URL}/en/articles/${a.slug}/): ${a.en.metaDescription}`)
     .join('\n');
   return `# LIMap（リマップ）
 
@@ -516,7 +573,7 @@ ${articleLines}
 
 ## English
 
-LIMap is a map for finding and sharing liminal spaces: abandoned buildings, empty stations, late-night parking lots and other eerie, nostalgic places. Each article page also contains an English version (switch with the language toggle at the top of the page).
+LIMap is a map for finding and sharing liminal spaces: abandoned buildings, empty stations, late-night parking lots and other eerie, nostalgic places. English versions of the articles are at ${SITE_URL}/en/articles/ (each page links to its Japanese version with hreflang).
 
 ${articleLinesEn}
 
@@ -536,17 +593,19 @@ function main() {
     b.publishedDate.localeCompare(a.publishedDate)
   );
 
-  fs.mkdirSync(OUT_DIR, { recursive: true });
-
-  for (const article of articles) {
-    const dir = path.join(OUT_DIR, article.slug);
-    fs.mkdirSync(dir, { recursive: true });
-    fs.writeFileSync(path.join(dir, 'index.html'), renderArticlePage(article, articles), 'utf8');
-    console.log('generated:', `public/articles/${article.slug}/index.html`);
+  // 日本語版は public/articles/、英語版は public/en/articles/ に出力する
+  for (const lang of ['ja', 'en']) {
+    const outDir = lang === 'en' ? OUT_DIR_EN : OUT_DIR;
+    fs.mkdirSync(outDir, { recursive: true });
+    for (const article of articles) {
+      const dir = path.join(outDir, article.slug);
+      fs.mkdirSync(dir, { recursive: true });
+      fs.writeFileSync(path.join(dir, 'index.html'), renderArticlePage(article, articles, lang), 'utf8');
+      console.log('generated:', path.relative(ROOT, path.join(dir, 'index.html')));
+    }
+    fs.writeFileSync(path.join(outDir, 'index.html'), renderHubPage(articles, lang), 'utf8');
+    console.log('generated:', path.relative(ROOT, path.join(outDir, 'index.html')));
   }
-
-  fs.writeFileSync(path.join(OUT_DIR, 'index.html'), renderHubPage(articles), 'utf8');
-  console.log('generated:', 'public/articles/index.html');
 
   fs.writeFileSync(path.join(ROOT, 'public', 'llms.txt'), renderLlmsTxt(articles), 'utf8');
   console.log('generated:', 'public/llms.txt');

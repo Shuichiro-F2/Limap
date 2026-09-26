@@ -188,6 +188,21 @@ span[data-lang].lang-active {
   color: var(--accent-text);
 }
 
+/* 言語の切り替え（日本語版・英語版は別URL。表示中の言語は span、もう一方は a） */
+.lang-switch a,
+.lang-switch span {
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 14px;
+  text-decoration: none;
+}
+
+.lang-switch span.active {
+  background-color: var(--accent);
+  color: var(--accent-text);
+}
+
 main {
   max-width: var(--max-width);
   margin: 0 auto;
