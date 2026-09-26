@@ -240,6 +240,14 @@ const dictionary = {
       reportReceivedMessage: 'ご協力ありがとうございます。',
       errorTitle: 'エラー',
     },
+    // 読み物ページ（リミナルスペースとは・使い方・プライバシーポリシー・利用規約）。本文は content/staticPages.ts
+    staticPage: {
+      faqTitle: 'よくある質問',
+      headerAbout: 'リミナルスペースとは',
+      headerHelp: '使い方',
+      headerPrivacy: 'プライバシーポリシー',
+      headerTerms: '利用規約',
+    },
   },
   en: {
     map: {
@@ -434,6 +442,13 @@ const dictionary = {
       reportReceivedTitle: 'Report received',
       reportReceivedMessage: 'Thank you for your help.',
       errorTitle: 'Error',
+    },
+    staticPage: {
+      faqTitle: 'FAQ',
+      headerAbout: 'What is a Liminal Space?',
+      headerHelp: 'Help',
+      headerPrivacy: 'Privacy Policy',
+      headerTerms: 'Terms of Service',
     },
   },
 } as const;

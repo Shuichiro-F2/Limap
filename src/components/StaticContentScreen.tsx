@@ -3,6 +3,7 @@ import { View, ScrollView, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Text from './AppText';
 import { colors } from '../lib/theme';
+import { useTranslation } from '../lib/i18n';
 import type { StaticPageContent } from '../content/staticPages';
 
 // 「リミナルスペースとは」「使い方」など、静的な読み物ページの共通レイアウト。
@@ -15,6 +16,7 @@ export default function StaticContentScreen({
   content: StaticPageContent;
   footer?: React.ReactNode;
 }) {
+  const t = useTranslation().staticPage;
   return (
     <SafeAreaView style={styles.container} edges={['left', 'right', 'bottom']}>
       <ScrollView contentContainerStyle={styles.scroll}>
@@ -30,7 +32,7 @@ export default function StaticContentScreen({
 
         {content.faq.length > 0 && (
           <View style={styles.faqBlock}>
-            <Text style={styles.faqTitle}>よくある質問</Text>
+            <Text style={styles.faqTitle}>{t.faqTitle}</Text>
             {content.faq.map((item) => (
               <View key={item.question} style={styles.faqItem}>
                 <Text style={styles.faqQuestion}>Q. {item.question}</Text>

@@ -34,6 +34,7 @@ import LoadingScreen from '../components/LoadingScreen';
 import IntroScreen from '../components/IntroScreen';
 import { colors } from '../lib/theme';
 import { applyThemeColorForRoute } from '../lib/seo';
+import { useTranslation } from '../lib/i18n';
 import { hasSeenWelcome, markIntroPlayed, shouldPlayIntro } from '../lib/firstLaunch';
 import type { RootStackParamList } from './types';
 
@@ -105,6 +106,7 @@ export default function RootNavigator() {
   // 演出が終わったか。再生しない場合は最初から終わった扱いにする。
   const [introDone, setIntroDone] = useState(!playIntro);
   const navigationRef = useNavigationContainerRef<RootStackParamList>();
+  const staticPageText = useTranslation().staticPage;
 
   // ローディング画面の最低表示時間は「演出が終わってから」数え始める。
   // マウント直後から数えると、演出中にタイマーを消化してしまい、
@@ -218,15 +220,15 @@ export default function RootNavigator() {
         <Stack.Screen
           name="About"
           component={AboutScreen}
-          options={{ title: 'リミナルスペースとは' }}
+          options={{ title: staticPageText.headerAbout }}
         />
-        <Stack.Screen name="Help" component={HelpScreen} options={{ title: '使い方' }} />
+        <Stack.Screen name="Help" component={HelpScreen} options={{ title: staticPageText.headerHelp }} />
         <Stack.Screen
           name="Privacy"
           component={PrivacyScreen}
-          options={{ title: 'プライバシーポリシー' }}
+          options={{ title: staticPageText.headerPrivacy }}
         />
-        <Stack.Screen name="Terms" component={TermsScreen} options={{ title: '利用規約' }} />
+        <Stack.Screen name="Terms" component={TermsScreen} options={{ title: staticPageText.headerTerms }} />
         <Stack.Screen
           name="AddToHomeScreen"
           component={AddToHomeScreenScreen}

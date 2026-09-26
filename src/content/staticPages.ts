@@ -227,3 +227,217 @@ export const STATIC_PAGES: Record<'about' | 'help' | 'privacy' | 'terms', Static
   privacy: PRIVACY_PAGE,
   terms: TERMS_PAGE,
 };
+
+// ---- 英語版（アプリの表示言語が英語のときに使う） ----
+// サーバー側(api/page.ts)が返す初期HTMLは日本語版のまま。
+// プライバシーポリシー・利用規約は日本語版を正とし、英語版は参考訳として冒頭でその旨を明記する。
+// 日本語版の内容を変えたときは、英語版も合わせて更新すること。
+
+const TRANSLATION_NOTE =
+  'This English version is a translation provided for reference. The Japanese version is the official version, and it prevails in the event of any discrepancy.';
+
+export const ABOUT_PAGE_EN: StaticPageContent = {
+  slug: 'about',
+  path: 'about',
+  metaTitle: 'What Is a Liminal Space? Meaning, Characteristics and Examples in Japan',
+  metaDescription:
+    'Learn what liminal spaces are, what makes them distinctive, and real examples across Japan, plus how to record and share abandoned buildings, empty stations and late-night parking lots on the LIMap map.',
+  heading: 'What is a Liminal Space?',
+  lead: 'A "liminal space" is a place that drifts between the everyday and the extraordinary, filled with an uncanny sense of déjà vu and stillness. It describes a "threshold" space that feels as though people should be there, yet no one is.',
+  sections: [
+    {
+      heading: 'What "Liminal Space" Means',
+      body: 'The word "liminal" means "on a boundary" or "transitional," and comes from the Latin limen, meaning "threshold." A liminal space is a place caught partway between one state and another, such as a shopping mall at an hour when no one is there, a parking lot before opening time, or a station platform after the last train. The term has spread widely in recent years, mainly on the internet.',
+    },
+    {
+      heading: 'What Makes a Liminal Space',
+      body: 'A place that should be bustling but shows no sign of people, a stillness as if time has stopped, and the glow of fluorescent lights or the color of the wallpaper that feels somehow nostalgic and yet slightly unsettling. This "uncanny déjà vu" is the unique appeal of liminal spaces, and they have become a popular genre of photos and videos around the world.',
+    },
+    {
+      heading: 'Examples of Liminal Spaces in Japan',
+      body: 'Japan has many places that could be called liminal spaces: abandoned facilities, rural stations that empty out late at night, shopping streets after closing, deserted multi-story parking garages, and expressway service areas in the early morning. Spaces with a distinctive atmosphere are found not only in cities but also in the countryside and the suburbs.',
+    },
+    {
+      heading: 'Record and Share Liminal Spaces with LIMap',
+      body: 'LIMap is a map app where you can record the liminal spaces you find on a map, with photos and locations, and share them with other users. You can browse the map and search posts freely without logging in, and you can "like" the posts you enjoy or save them to your list of places you want to visit.',
+    },
+  ],
+  faq: [
+    {
+      question: 'What does "liminal space" mean?',
+      answer:
+        'The term comes from a Latin word meaning "threshold," and refers to a space with an uncanny sense of déjà vu, as if it sits between the everyday and the extraordinary. Typical examples include abandoned buildings, empty facilities, and commercial spaces outside business hours.',
+    },
+    {
+      question: 'Where can I see photos of liminal spaces in Japan?',
+      answer:
+        "On LIMap's map screen, you can see photos and locations of liminal spaces across Japan posted by users. You can also narrow them down by keyword or tag in the Search tab.",
+    },
+    {
+      question: 'Can I post liminal spaces I have found?',
+      answer: 'Yes. Create a free LIMap account, and you can post by choosing a photo and a location.',
+    },
+  ],
+};
+
+export const HELP_PAGE_EN: StaticPageContent = {
+  slug: 'help',
+  path: 'help',
+  metaTitle: 'How to Use LIMap: Posting, Browsing the Map and Following',
+  metaDescription:
+    'A guide to using LIMap: how to find liminal spaces on the map, how to post photos, how to use likes and your list of places to visit (bookmarks), and how to follow other users.',
+  heading: 'How to Use LIMap',
+  lead: 'LIMap is a map app for recording and sharing liminal spaces with photos and locations. Here is an introduction to the basics.',
+  sections: [
+    {
+      heading: 'Find Liminal Spaces on the Map',
+      body: 'The map screen shows liminal spaces posted so far as pins. Tap a pin to see its details. In the Search tab you can also narrow down posts by keyword or tag. You can browse the map and search posts freely without logging in.',
+    },
+    {
+      heading: 'Posting',
+      body: 'Posting requires a free account. From the post button, choose a photo, a location, a short description and tags, then post. There is no separate title field; the beginning of the description is automatically used as the title shown in lists.',
+    },
+    {
+      heading: 'Likes and Places to Visit (Bookmarks)',
+      body: 'Tap the heart icon to "like" a post, or the bookmark icon to save it as a place you want to visit. You can look back at saved posts anytime from My Page.',
+    },
+    {
+      heading: 'Following',
+      body: "Tap the username shown on a post's detail screen to open that user's profile, where you can follow them. You can check how many people you follow and how many followers you have on My Page.",
+    },
+    {
+      heading: 'If You Find an Inappropriate Post',
+      body: "You can report it from the menu on the post's detail screen. We will review the content and take appropriate action.",
+    },
+  ],
+  faq: [
+    {
+      question: 'Do I need to log in to use LIMap?',
+      answer:
+        'You can browse the map and search posts without logging in. Posting, liking, bookmarking and following require a free account.',
+    },
+    {
+      question: 'Do posts need a title?',
+      answer: 'No. You can post by entering just a description, and a title for lists is generated automatically.',
+    },
+    {
+      question: 'How do I follow other users?',
+      answer:
+        "Tap the username (shown starting with @) on a post's detail screen to open their profile, and follow them from there.",
+    },
+  ],
+};
+
+export const PRIVACY_PAGE_EN: StaticPageContent = {
+  slug: 'privacy',
+  path: 'privacy',
+  metaTitle: 'Privacy Policy',
+  metaDescription:
+    'The privacy policy of LIMap, describing the types of information we collect, the purposes for which we use it, and whether it is provided to third parties.',
+  heading: 'Privacy Policy',
+  lead: `The LIMap operator (the "Operator") sets out this privacy policy (the "Policy") regarding the handling of user information in the service "LIMap" (the "Service"). ${TRANSLATION_NOTE}`,
+  sections: [
+    {
+      heading: 'Article 1 (Basic Policy)',
+      body: 'The Operator recognizes the importance of the user information it collects in providing the Service, complies with applicable laws and regulations, and strives to collect, use and manage such information appropriately.',
+    },
+    {
+      heading: 'Article 2 (Information We Collect)',
+      body: 'In providing the Service, the Operator may collect the following information: (1) account registration information such as your email address, username and password (stored in encrypted form); (2) posted content such as photos, location information (latitude and longitude), descriptions and tags; (3) when you log in with a Google account, information provided by Google, such as your name, email address and profile picture; and (4) log information such as how you use the app, device information and IP address.',
+    },
+    {
+      heading: 'Article 3 (Purposes of Use)',
+      body: 'We use the information we collect for the following purposes: (1) identity verification and account management; (2) providing the features of the Service, such as posting, browsing, likes, bookmarks and following; (3) responding to inquiries; (4) preventing misuse and dealing with posts that violate the Terms of Service; and (5) maintaining and improving the Service and considering new features.',
+    },
+    {
+      heading: 'Article 4 (Provision to Third Parties and Use of External Services)',
+      body: 'Except as required by law, the Operator will not provide personal information to third parties without your consent. However, the Service uses the external services Supabase (for its database and authentication) and Mapbox (for map display), and information is sent to and stored by these service providers to the extent necessary to provide those features. In addition, if you log in with a Google account, Google\'s privacy policy also applies.',
+    },
+    {
+      heading: 'Article 5 (Use of Cookies and Similar Technologies)',
+      body: 'The web version of the Service may use cookies and similar technologies to the extent necessary to provide the Service, such as keeping you logged in. These do not contain information that identifies individuals.',
+    },
+    {
+      heading: 'Article 6 (Security of Information)',
+      body: 'The Operator takes necessary and appropriate measures to prevent the leakage, loss or damage of the information it collects and otherwise to manage it securely.',
+    },
+    {
+      heading: 'Article 7 (Requests for Disclosure, Correction, Deletion, etc.)',
+      body: 'You may request disclosure, correction, suspension of use or deletion of your information held by the Operator. To make a request, please contact us through the contact feature in the app. We will review your request and respond to the extent reasonable.',
+    },
+    {
+      heading: 'Article 8 (Use by Minors)',
+      body: 'If you are a minor, please obtain the consent of a parent or guardian before using the Service.',
+    },
+    {
+      heading: 'Article 9 (Changes to This Policy)',
+      body: 'The Operator may change the contents of this Policy as necessary. The revised Policy takes effect when it is posted on the Service.',
+    },
+    {
+      heading: 'Article 10 (Contact)',
+      body: 'For inquiries regarding this Policy, please contact us through the contact feature in the app.',
+    },
+  ],
+  faq: [],
+};
+
+export const TERMS_PAGE_EN: StaticPageContent = {
+  slug: 'terms',
+  path: 'terms',
+  metaTitle: 'Terms of Service',
+  metaDescription:
+    'The Terms of Service of LIMap, covering account registration, prohibited conduct, the handling of posted content, disclaimers and more.',
+  heading: 'Terms of Service',
+  lead: `These Terms of Service (the "Terms") set out the conditions for using "LIMap" (the "Service") provided by the LIMap operator (the "Operator"). All users of the Service ("Users") are asked to agree to these Terms before using the Service. ${TRANSLATION_NOTE}`,
+  sections: [
+    {
+      heading: 'Article 1 (Application)',
+      body: 'These Terms apply to all relationships between Users and the Operator relating to the use of the Service.',
+    },
+    {
+      heading: 'Article 2 (Account Registration)',
+      body: 'Some features of the Service (such as posting, likes, bookmarks and following) require account registration. Users shall register true and accurate information and shall promptly update it if it changes.',
+    },
+    {
+      heading: 'Article 3 (Prohibited Conduct)',
+      body: 'When using the Service, Users shall not: (1) act in violation of laws, regulations or public order and morals; (2) infringe the rights (including copyright, portrait rights and privacy) of other Users, owners or managers of facilities, or any other third party; (3) gain unauthorized access to or otherwise interfere with the operation of the Service; (4) post content that encourages or promotes illegal entry onto private property or restricted areas, or any other illegal act; (5) impersonate themselves or any third party, or register false information; (6) engage in spam, or in advertising or solicitation for commercial purposes (except where approved by the Operator); or (7) engage in any other conduct that the Operator deems inappropriate.',
+    },
+    {
+      heading: 'Article 4 (Handling of Posted Content)',
+      body: 'Copyright in photos, text and other content that Users post to the Service belongs to the User who posted it. However, Users grant the Operator, free of charge, the right to use such content (including reproducing, displaying, distributing and editing it) to the extent necessary to provide, improve and promote the Service.',
+    },
+    {
+      heading: 'Article 5 (Removal of Content and Suspension of Use)',
+      body: 'If the Operator determines that posted content violates these Terms, it may, without prior notice, remove the content, suspend the User\'s account, or take any other necessary measures.',
+    },
+    {
+      heading: 'Article 6 (Disclaimer)',
+      body: 'The Operator makes no guarantee as to the accuracy, safety or timeliness of information posted to the Service (including locations, photos and descriptions). Visiting posted places is at each User\'s own discretion and responsibility, and the Operator bears no responsibility whatsoever for entry onto private property or for any accidents or trouble at a location. In addition, the Operator shall not be liable for any damage arising from use of the Service, except in cases of intentional misconduct or gross negligence by the Operator.',
+    },
+    {
+      heading: 'Article 7 (Changes, Interruption and Termination of the Service)',
+      body: 'The Operator may change the contents of the Service, or interrupt or terminate the Service, without prior notice to Users. The Operator shall not be liable for any damage to Users arising from this.',
+    },
+    {
+      heading: 'Article 8 (Changes to These Terms)',
+      body: 'The Operator may change these Terms without notice to Users when it deems necessary. The revised Terms take effect when they are posted on the Service.',
+    },
+    {
+      heading: 'Article 9 (Governing Law and Jurisdiction)',
+      body: 'These Terms shall be governed by and construed in accordance with the laws of Japan. Any dispute relating to the Service shall be subject to the exclusive jurisdiction of the court having jurisdiction over the location of the Operator.',
+    },
+  ],
+  faq: [],
+};
+
+export const STATIC_PAGES_EN: Record<'about' | 'help' | 'privacy' | 'terms', StaticPageContent> = {
+  about: ABOUT_PAGE_EN,
+  help: HELP_PAGE_EN,
+  privacy: PRIVACY_PAGE_EN,
+  terms: TERMS_PAGE_EN,
+};
+
+// 表示言語に応じたページ内容を返す（i18n.tsx は React に依存するため、言語はリテラル型で受ける）
+export function getStaticPage(slug: StaticPageContent['slug'], language: 'ja' | 'en'): StaticPageContent {
+  return language === 'en' ? STATIC_PAGES_EN[slug] : STATIC_PAGES[slug];
+}

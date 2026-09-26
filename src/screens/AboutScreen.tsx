@@ -1,16 +1,20 @@
 import React, { useEffect } from 'react';
 import StaticContentScreen from '../components/StaticContentScreen';
 import SupportCard from '../components/SupportCard';
-import { ABOUT_PAGE } from '../content/staticPages';
+import { getStaticPage } from '../content/staticPages';
+import { useLanguage } from '../lib/i18n';
 import { applyStaticPageSeo, resetSeo } from '../lib/seo';
 
 // 「リミナルスペースとは」解説ページ。ログイン不要で誰でも閲覧できる。
 export default function AboutScreen() {
+  const { language } = useLanguage();
+  const page = getStaticPage('about', language);
+
   useEffect(() => {
-    applyStaticPageSeo(ABOUT_PAGE);
+    applyStaticPageSeo(page);
     return () => resetSeo();
-  }, []);
+  }, [page]);
 
   // 末尾にKo-fiでの支援カードを表示する(Web版のみ。ネイティブではSupportCardがnullを返す)
-  return <StaticContentScreen content={ABOUT_PAGE} footer={<SupportCard />} />;
+  return <StaticContentScreen content={page} footer={<SupportCard />} />;
 }
