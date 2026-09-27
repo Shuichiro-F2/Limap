@@ -20,6 +20,7 @@ import { UsernameWithBadge } from './UserBadge';
 import InstagramEmbed from './InstagramEmbed';
 import XEmbed from './XEmbed';
 import PixelDoor from './PixelDoor';
+import VerticalFade from './VerticalFade';
 import { spotImageUrl, spotImageThumbUrl, spotThumbnailUrl } from '../lib/spots';
 import { shareSpot, copyLink } from '../lib/share';
 import { colors, radius, space, type } from '../lib/theme';
@@ -165,6 +166,9 @@ export default function SpotDetailContent({
 
   // ヘッダーの表示・非表示。下へスクロールすると少し遅れて消え、上へ戻すとすぐ出る
   const [headerVisible, setHeaderVisible] = useState(true);
+  // 一番上から離れているか。離れているときだけ、ヘッダーの後ろに黄色のぼかしを敷いて
+  // ロゴ・ボタン・ステータスバーが本文の文字と重ならないようにする（一番上では透明のまま）
+  const [scrolledDown, setScrolledDown] = useState(false);
   const headerAnim = useRef(new Animated.Value(1)).current;
   const lastScrollY = useRef(0);
   const hideTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -196,6 +200,8 @@ export default function SpotDetailContent({
     const y = e.nativeEvent.contentOffset.y;
     const dy = y - lastScrollY.current;
     lastScrollY.current = y;
+    const away = y > SPOT_HEADER_HEIGHT;
+    setScrolledDown((prev) => (prev === away ? prev : away));
     // 一番上付近では常に表示する
     if (y <= SPOT_HEADER_HEIGHT) {
       showHeader();
@@ -268,6 +274,14 @@ export default function SpotDetailContent({
         },
       ]}
     >
+      {scrolledDown && (
+        <VerticalFade
+          height={topInset + SPOT_HEADER_HEIGHT + space.xl}
+          rgb={[222, 206, 50]}
+          maxOpacity={0.96}
+          solidUntil={0.7}
+        />
+      )}
       <View style={[styles.headerRow, { maxWidth: MAX_CONTENT_WIDTH }]} pointerEvents="box-none">
         {onBack ? (
           <Pressable style={styles.headerButton} onPress={onBack} hitSlop={6} accessibilityRole="button" accessibilityLabel={t.back}>
