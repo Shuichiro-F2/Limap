@@ -299,6 +299,34 @@ const ARTICLE_ENTRIES: ArticleSummary[] = [
     thumbnailFile: 'Old TV sets.jpg',
   },
   {
+    slug: 'liminal-spots-tokai',
+    publishedDate: '2026-09-28',
+    categoryJa: '実在スポット',
+    categoryEn: 'Real Spots',
+    titleJa: '静岡・東海のリミナルスペース｜光のエスカレーターから昭和の駅舎まで、実在する8か所',
+    titleEn:
+      'Liminal Spaces in Shizuoka and Tokai: 8 Real Places, From Escalators of Light to a Showa-Era Station',
+    leadJa:
+      '山の中を上る光のエスカレーター、平衡感覚がずれる作品、工場の光を見下ろす展望室、昭和の駅舎。静岡・岐阜・三重で実際に行けるリミナルスペースを、LIMapの登録スポットから選びました。',
+    leadEn:
+      'Escalators of light climbing into a mountain, an artwork that throws off your balance, an observation room over factory lights and a Showa-era station: real liminal spaces you can visit in Shizuoka, Gifu and Mie.',
+    thumbnailFile: '養老天命反転地01.jpg',
+  },
+  {
+    slug: 'liminal-spots-kitakanto',
+    publishedDate: '2026-09-28',
+    categoryJa: '実在スポット',
+    categoryEn: 'Real Spots',
+    titleJa: '北関東のリミナルスペース｜地下の採掘場跡から県庁の最上階まで、実在する9か所',
+    titleEn:
+      'Liminal Spaces in North Kanto: 9 Real Places, From an Underground Quarry to the Top Floors of Prefectural Offices',
+    leadJa:
+      '計画都市の沈んだ広場、石を掘り出した地下空間、夜まで無料の県庁の最上階、廃線跡のめがね橋。茨城・栃木・群馬で実際に行けるリミナルスペースを、LIMapの登録スポットから選びました。',
+    leadEn:
+      "A sunken plaza in a planned city, an underground quarry, prefectural office top floors open late for free and a disused railway's arch bridge: real liminal spaces you can visit in Ibaraki, Tochigi and Gunma.",
+    thumbnailFile: 'Inside of the Oya History Museum 20251012c.jpg',
+  },
+  {
     slug: 'liminal-spots-okinawa',
     publishedDate: '2026-09-28',
     categoryJa: '実在スポット',

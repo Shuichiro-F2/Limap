@@ -114,6 +114,6 @@ push と `eas update` は実行前に Shu に確認を取る。
 ## 今後の記事候補（未着手）
 
 - バックルームズのエンティティ（怪物）解説 — wiki ごとに設定が食い違い、一次情報が弱いため保留中
-- 他の地方版の「◯◯のリミナルスペース」（関西 `liminal-spots-kansai`・名古屋 `liminal-spots-nagoya`・北海道 `liminal-spots-hokkaido`・九州 `liminal-spots-kyushu`・東北 `liminal-spots-tohoku`・中国四国 `liminal-spots-chugoku-shikoku`・北陸甲信越 `liminal-spots-hokuriku-koshinetsu`・沖縄 `liminal-spots-okinawa` は公開済み）
+- 他の地方版の「◯◯のリミナルスペース」（関西 `liminal-spots-kansai`・名古屋 `liminal-spots-nagoya`・北海道 `liminal-spots-hokkaido`・九州 `liminal-spots-kyushu`・東北 `liminal-spots-tohoku`・中国四国 `liminal-spots-chugoku-shikoku`・北陸甲信越 `liminal-spots-hokuriku-koshinetsu`・沖縄 `liminal-spots-okinawa`・北関東 `liminal-spots-kitakanto`・静岡東海 `liminal-spots-tokai` は公開済み）
 - 『Pools』『Escape the Backrooms』などゲーム側からの流入記事
 - 映画『バックルームズ』のネタバレ考察 — 書くなら Shu が実際に観てから

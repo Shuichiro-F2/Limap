@@ -2928,6 +2928,552 @@
     ]
   },
   {
+    "slug": "liminal-spots-tokai",
+    "category": "実在スポット",
+    "categoryEn": "Real Spots",
+    "publishedDate": "2026-09-28",
+    "ja": {
+      "title": "静岡・東海のリミナルスペース｜光のエスカレーターから昭和の駅舎まで、実在する8か所",
+      "metaDescription": "静岡・岐阜・三重で「リミナルスペース」を感じられる実在の場所を、LIMapの登録スポットから8か所紹介します。静岡県庁の無料展望ロビー、MOA美術館のエスカレーター、養老天命反転地、柳ケ瀬のアーケード、セラミックパークMINO、四日市港の展望室、宇治山田駅、徳山ダム。行くときの注意点も。",
+      "h1": "静岡・東海のリミナルスペース——光のエスカレーターから昭和の駅舎まで、実在する8か所",
+      "lead": "静岡・岐阜・三重には、山の中を延々と上っていく光のエスカレーターや、平衡感覚がずれていく体験型の作品、伊勢参りの人の波が引いた昭和の駅舎が、今も誰でも行ける場所としてあります。人の少ない時間に訪れると、現実から少しだけずれたような場所の静けさが見えてきます。LIMapに登録した8か所を紹介します。",
+      "sections": [
+        {
+          "heading": "静岡・東海のリミナルスペースは「移動のための空間」と「作られた風景」に多い",
+          "paragraphs": [
+            "静岡・東海で見つかるリミナルスペースには、二つの特徴があります。ひとつは、どこかへ向かう途中の空間です。美術館へ上っていく長いエスカレーター、古い駅舎のコンコース、県庁や港のビルの最上階。人の少ない時間には、通り過ぎるためだけの空間の静けさが際立ちます。",
+            "もうひとつは、人の手で作られた風景です。斜面に広がる体験型の作品、谷に沿った巨大な建築、湖の底に村が沈んだダム。この記事では、静岡・岐阜・三重で「今、誰でも行けること」を条件に選んだ場所を紹介します。"
+          ]
+        },
+        {
+          "heading": "静岡：光のエスカレーターと、県庁の最上階",
+          "paragraphs": [
+            "熱海のMOA美術館は、1982年に開館しました。入口から山の上の本館まで、高低差48.5mを上下8基のエスカレーターで上っていきます。光の色が変わる長いエスカレーターの通路と、途中にある直径約20mの地下のドームは、行き先の見えない光の中を延々と移動していく空間になっています。",
+            "1996年に完成した静岡県庁別館の最上階、21階には展望ロビーがあります。予約も受付もなしで誰でも無料で上がれ、晴れた日には富士山や駿河湾が見えます。平日の夕方など人の少ない時間には、役所らしい飾り気のない内装と、窓一面の景色だけが妙に静かに広がります。"
+          ],
+          "spots": [
+            {
+              "title": "MOA美術館 エスカレーター通路と円形ホール",
+              "slug": "LVa5rVA7",
+              "thumbnailUrl": "https://pbs.twimg.com/media/Gk4b-u4WIAAXl_6.jpg"
+            },
+            {
+              "title": "静岡県庁別館 21階 富士山展望ロビー",
+              "slug": "GUck25bU",
+              "thumbnailUrl": "https://pbs.twimg.com/media/G-oIbX0bkAAoXyj.jpg"
+            }
+          ]
+        },
+        {
+          "heading": "岐阜：平衡感覚がずれる作品と、谷の中の巨大な建築",
+          "paragraphs": [
+            "養老天命反転地は、美術家の荒川修作とマドリン・ギンズが構想し、1995年に開園した体験型の作品です。すり鉢状の地面に、傾いた壁や曲がりくねった148本の通路、5つの日本列島の模型が広がり、歩いているうちに平衡感覚が少しずつずれていきます。人の少ない時間に斜面を歩いていると、夢の中の地形に迷い込んだように感じます。",
+            "多治見市のセラミックパークMINOは、2002年に開館した陶磁器の複合施設です。磯崎新アトリエ・熊谷建築設計室の設計で、石とタイルで覆われた巨大な建物と広場、長い通路が丘陵の谷に沿って広がります。催しのない日にはほとんど人がおらず、建物だけが残った遺跡のような静けさがあります。"
+          ],
+          "spots": [
+            {
+              "title": "養老天命反転地",
+              "slug": "23rLw54S",
+              "thumbnailUrl": "https://pbs.twimg.com/media/G6_ZKyHbgAAMCJD.jpg"
+            },
+            {
+              "title": "セラミックパークMINO",
+              "slug": "Y2m7YAaB",
+              "thumbnailUrl": "https://pbs.twimg.com/media/GqFL_8iaoAAVX78.jpg"
+            }
+          ]
+        },
+        {
+          "heading": "岐阜の繁華街のアーケードと、湖に沈んだ村",
+          "paragraphs": [
+            "岐阜市の柳ケ瀬は、昭和の歌謡曲「柳ヶ瀬ブルース」で全国に名を知られた繁華街です。1960年に柳ケ瀬通りに県内で初めての全天候型アーケードが架けられました。百貨店が去ったあと、シャッターの目立つ長い屋根の下に、昼でも薄暗い通りが続いています。北側の一部のアーケードは、老朽化のため10年ほどかけて撤去される予定です。",
+            "揖斐川町の徳山ダムは、2008年に完成したダムです。その湖の底には、かつての徳山村の集落が沈んでいます。水位が下がる時期には、集落があった土地の輪郭がうっすらと湖面から姿を見せることがあります。静かな湖面の下に、かつての暮らしの跡が眠っています。"
+          ],
+          "spots": [
+            {
+              "title": "柳ケ瀬商店街（柳ケ瀬本通り）",
+              "slug": "eiSnWa89",
+              "thumbnailUrl": "https://pbs.twimg.com/media/GRY1yloawAAwWYI.jpg"
+            },
+            {
+              "title": "徳山ダム（旧徳山村水没跡）",
+              "slug": "o5t5vXLu"
+            }
+          ]
+        },
+        {
+          "heading": "三重：工場の光を見下ろす展望室と、昭和の駅舎",
+          "paragraphs": [
+            "四日市港ポートビルは、四日市港の開港100周年を記念して1999年に建てられた高さ100mのビルです。14階の展望展示室「うみてらす14」からは、地上約90mの窓の外に港と石油化学コンビナートが広がり、夜は工場群の光だけが静かにまたたきます。平日の展望室は人が少なく、働き続ける工場を見下ろす誰もいない部屋になります。",
+            "伊勢の近鉄・宇治山田駅は、1931年に開業した駅です。設計は久野節で、幅128mの外壁はクリーム色のテラコッタのタイルで覆われ、屋根にはスペイン瓦が載ります。国の登録有形文化財で、今も駅として使われています。伊勢参りの人の波が引いた夜、天井の高いコンコースには、いつの時代なのか分からなくなるような静けさが残ります。"
+          ],
+          "spots": [
+            {
+              "title": "四日市港ポートビル うみてらす14",
+              "slug": "Ej6x5s75",
+              "thumbnailUrl": "https://pbs.twimg.com/media/GVv4V_Xa8AIudBR.jpg"
+            },
+            {
+              "title": "近鉄 宇治山田駅",
+              "slug": "kFtXvGrQ",
+              "thumbnailUrl": "https://pbs.twimg.com/media/HTLweZ6aEAEpeS7.jpg"
+            }
+          ]
+        },
+        {
+          "heading": "行くときの、現実的な注意点",
+          "paragraphs": [
+            "県庁や駅、商店街は、今も人が働き、使っている場所です。撮影するときは、職員や乗客、通る人の顔が写らないように気をつけてください。MOA美術館では、フラッシュや三脚、自撮り棒が館内すべてで禁止されています。",
+            "静岡県庁の展望ロビーは毎月第3土曜とその翌日の日曜が休館です。養老天命反転地には斜面やくぼ地があるので、歩きやすい靴で出かけてください。柳ケ瀬のアーケードは、これから少しずつ撤去される予定です。徳山ダムの周辺は冬に雪で通れなくなる道があります。"
+          ]
+        },
+        {
+          "heading": "撮ったら、地図に残してください",
+          "paragraphs": [
+            "静岡・東海には、まだ記録されていない古い駅舎や、人の手で作られた不思議な風景がたくさんあります。いつも使う駅のコンコースも、夜遅くに歩くと別の場所に見えるかもしれません。",
+            "LIMapは、そうした場所を写真と位置つきで残していく地図です。見つけた場所があれば、ぜひ登録してください。"
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "静岡で無料で行ける場所はありますか？",
+          "a": "静岡県庁別館21階の富士山展望ロビーは、予約も受付もなしで無料で上がれます。JR静岡駅北口から歩いて約15分で、平日は8:30から18:00、土日祝は10:00から18:00まで開いています。"
+        },
+        {
+          "q": "有料の場所はいくらかかりますか？",
+          "a": "MOA美術館は一般2,000円、養老天命反転地は大人850円、四日市港ポートビルのうみてらす14は一般310円です。柳ケ瀬のアーケード、セラミックパークMINOの屋外の広場、宇治山田駅の改札の外のコンコースは無料で歩けます。"
+        },
+        {
+          "q": "柳ケ瀬のアーケードはなくなるのですか？",
+          "a": "北側の一部のアーケードを、老朽化のため10年ほどかけて撤去する方針が2025年に報道されています。今はまだ残っていますが、行く前に最新の状況を確かめてください。"
+        }
+      ]
+    },
+    "en": {
+      "title": "Liminal Spaces in Shizuoka and Tokai: 8 Real Places, From Escalators of Light to a Showa-Era Station",
+      "metaDescription": "Eight real places in Shizuoka, Gifu and Mie where you can feel the atmosphere of a liminal space, chosen from spots registered on LIMap: the free observation lobby of the Shizuoka Prefectural Office, the escalators of the MOA Museum of Art, the Site of Reversible Destiny, Yanagase arcade, Ceramic Park MINO, a harbor observation room in Yokkaichi, Ujiyamada Station and Tokuyama Dam. With tips for visiting.",
+      "h1": "Liminal Spaces in Shizuoka and Tokai: 8 Real Places, From Escalators of Light to a Showa-Era Station",
+      "lead": "In Shizuoka, Gifu and Mie, escalators of light that climb endlessly into a mountain, an experiential artwork that throws off your sense of balance and a Showa-era station building after the pilgrims have gone are all places anyone can visit. At a quiet hour, you can feel the stillness of places slightly out of step with reality. Here are eight places registered on LIMap.",
+      "sections": [
+        {
+          "heading": "In Shizuoka and Tokai, Liminal Spaces Gather in Spaces for Passing Through and in Made Landscapes",
+          "paragraphs": [
+            "The liminal spaces you find in Shizuoka and Tokai have two main features. The first is spaces on the way somewhere: long escalators climbing to a museum, the concourse of an old station, the top floors of a prefectural office and a harbor building. When few people are around, the stillness of spaces meant only for passing through stands out.",
+            "The second is landscapes made by people: an experiential artwork spread across a slope, huge architecture following a valley, a dam whose lake covers a village. This article introduces places in Shizuoka, Gifu and Mie chosen on one condition: anyone can go there today."
+          ]
+        },
+        {
+          "heading": "Shizuoka: Escalators of Light and the Top of a Prefectural Office",
+          "paragraphs": [
+            "The MOA Museum of Art in Atami opened in 1982. From the entrance to the main building on the hill, you ride a long series of escalators up a height difference of 48.5 meters. The long escalator passage with shifting colored light, and a 20-meter underground dome partway up, become a space where you keep moving through light toward a destination you cannot see.",
+            "On the 21st floor, the top of the Shizuoka Prefectural Office annex completed in 1996, is an observation lobby. Anyone can go up for free without a reservation or sign-in, and on clear days you can see Mt. Fuji and Suruga Bay. On a quiet weekday evening, only the plain government interior and the wall-to-wall view spread out in an oddly quiet way."
+          ],
+          "spots": [
+            {
+              "title": "MOA Museum of Art Escalator Passage and Round Hall",
+              "slug": "LVa5rVA7",
+              "thumbnailUrl": "https://pbs.twimg.com/media/Gk4b-u4WIAAXl_6.jpg"
+            },
+            {
+              "title": "Shizuoka Prefectural Office Annex 21st-Floor Observation Lobby",
+              "slug": "GUck25bU",
+              "thumbnailUrl": "https://pbs.twimg.com/media/G-oIbX0bkAAoXyj.jpg"
+            }
+          ]
+        },
+        {
+          "heading": "Gifu: An Artwork That Throws Off Your Balance, and Huge Architecture in a Valley",
+          "paragraphs": [
+            "The Site of Reversible Destiny, conceived by artists Shusaku Arakawa and Madeline Gins, opened in 1995 as an experiential work. Across a bowl-shaped terrain spread tilted walls, 148 winding paths and five models of the Japanese archipelago, and as you walk your sense of balance slowly shifts. Walking its slopes at a quiet hour feels like wandering into the terrain of a dream.",
+            "Ceramic Park MINO in Tajimi is a ceramics complex that opened in 2002. Designed by Arata Isozaki & Associates with Kumagai Architects, it spreads huge stone- and tile-clad buildings, plazas and long passages along a valley in the hills. On days without events there is almost no one there, and it has the stillness of ruins where only the buildings remain."
+          ],
+          "spots": [
+            {
+              "title": "Site of Reversible Destiny, Yoro Park",
+              "slug": "23rLw54S",
+              "thumbnailUrl": "https://pbs.twimg.com/media/G6_ZKyHbgAAMCJD.jpg"
+            },
+            {
+              "title": "Ceramic Park MINO",
+              "slug": "Y2m7YAaB",
+              "thumbnailUrl": "https://pbs.twimg.com/media/GqFL_8iaoAAVX78.jpg"
+            }
+          ]
+        },
+        {
+          "heading": "An Arcade in Gifu's Nightlife District, and a Village Beneath a Lake",
+          "paragraphs": [
+            "Yanagase in Gifu City is a nightlife district made famous nationwide by the Showa-era song \"Yanagase Blues.\" In 1960, Yanagase-dori got the first all-weather arcade roof in the prefecture. Since the department stores left, a street that is dim even by day runs on under the long roof, with many shutters down. Part of the northern arcade is scheduled to be removed over about ten years because of its age.",
+            "Tokuyama Dam in Ibigawa was completed in 2008. At the bottom of its lake lie the settlements of the former village of Tokuyama. When the water level drops, the outlines of the land where the settlements stood sometimes faintly appear above the surface. Beneath the quiet lake, the traces of past lives lie sleeping."
+          ],
+          "spots": [
+            {
+              "title": "Yanagase Shopping Street",
+              "slug": "eiSnWa89",
+              "thumbnailUrl": "https://pbs.twimg.com/media/GRY1yloawAAwWYI.jpg"
+            },
+            {
+              "title": "Tokuyama Dam (Submerged Former Tokuyama Village)",
+              "slug": "o5t5vXLu"
+            }
+          ]
+        },
+        {
+          "heading": "Mie: An Observation Room Over Factory Lights, and a Showa-Era Station",
+          "paragraphs": [
+            "The Yokkaichi Port Building is a 100-meter tower built in 1999 to mark the 100th anniversary of the opening of Yokkaichi Port. From its 14th-floor observation room, Umiterasu 14, about 90 meters up, the harbor and the petrochemical complex spread out beyond the windows, and at night only the factory lights quietly flicker. On weekdays the room is nearly empty, a vacant space looking down on factories that never stop.",
+            "Kintetsu's Ujiyamada Station in Ise opened in 1931. Designed by Setsu Kuno, its 128-meter-wide facade is covered in cream terracotta tiles under a roof of Spanish tiles. It is a Registered Tangible Cultural Property and is still in use as a station. At night, after the waves of Ise pilgrims have gone, its high-ceilinged concourse holds a stillness in which you can no longer tell what era it is."
+          ],
+          "spots": [
+            {
+              "title": "Yokkaichi Port Building Umiterasu 14",
+              "slug": "Ej6x5s75",
+              "thumbnailUrl": "https://pbs.twimg.com/media/GVv4V_Xa8AIudBR.jpg"
+            },
+            {
+              "title": "Kintetsu Ujiyamada Station",
+              "slug": "kFtXvGrQ",
+              "thumbnailUrl": "https://pbs.twimg.com/media/HTLweZ6aEAEpeS7.jpg"
+            }
+          ]
+        },
+        {
+          "heading": "Practical Notes for Visiting",
+          "paragraphs": [
+            "Government offices, stations and shopping streets are places people still work in and use. When taking photos, take care not to capture staff, passengers or passersby clearly. The MOA Museum of Art bans flash, tripods and selfie sticks throughout the building.",
+            "The Shizuoka Prefectural Office observation lobby is closed on the third Saturday of each month and the following Sunday. The Site of Reversible Destiny has slopes and hollows, so wear comfortable shoes. The Yanagase arcade is scheduled to be removed little by little. Some roads around Tokuyama Dam close for snow in winter."
+          ]
+        },
+        {
+          "heading": "If You Shoot It, Put It on the Map",
+          "paragraphs": [
+            "Shizuoka and Tokai still have many old station buildings and strange made landscapes that no one has recorded. The station concourse you use every day may look like a different place late at night.",
+            "LIMap is a map for recording those places with photos and locations. If you find one, please add it."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is there a free place to visit in Shizuoka?",
+          "a": "The Mt. Fuji observation lobby on the 21st floor of the Shizuoka Prefectural Office annex is free and needs no reservation or sign-in. It is about a 15-minute walk from the north exit of JR Shizuoka Station and is open 8:30 to 18:00 on weekdays and 10:00 to 18:00 on weekends and holidays."
+        },
+        {
+          "q": "How much do the paid places cost?",
+          "a": "The MOA Museum of Art costs 2,000 yen, the Site of Reversible Destiny 850 yen and Umiterasu 14 at the Yokkaichi Port Building 310 yen for adults. The Yanagase arcade, the outdoor plazas of Ceramic Park MINO and the concourse outside the ticket gates at Ujiyamada Station are free."
+        },
+        {
+          "q": "Is the Yanagase arcade going away?",
+          "a": "In 2025 it was reported that part of the northern arcade will be removed over about ten years because of its age. It is still standing for now, but check the latest situation before you go."
+        }
+      ]
+    },
+    "images": [
+      {
+        "file": "養老天命反転地01.jpg",
+        "author": "おはぐろ蜻蛉",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:%E9%A4%8A%E8%80%81%E5%A4%A9%E5%91%BD%E5%8F%8D%E8%BB%A2%E5%9C%B001.jpg",
+        "altJa": "山を背にした養老天命反転地。すり鉢状の地面に通路と建物が広がる",
+        "altEn": "The Site of Reversible Destiny against the mountains, with paths and structures spread across a bowl-shaped terrain",
+        "captionJa": "養老天命反転地。すり鉢状の地面に、傾いた壁や曲がりくねった通路が広がる。",
+        "captionEn": "The Site of Reversible Destiny, where tilted walls and winding paths spread across a bowl-shaped terrain.",
+        "afterSection": -1
+      },
+      {
+        "file": "Ujiyamada Station 2018-04.jpg",
+        "author": "Qurren",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Ujiyamada_Station_2018-04.jpg",
+        "altJa": "近鉄宇治山田駅の駅舎。クリーム色の横長の建物と塔",
+        "altEn": "The Kintetsu Ujiyamada Station building, a long cream-colored building with a tower",
+        "captionJa": "近鉄宇治山田駅。1931年に開業した駅舎が、今も駅として使われている。",
+        "captionEn": "Kintetsu Ujiyamada Station, whose 1931 station building is still in use.",
+        "afterSection": 4
+      }
+    ]
+  },
+  {
+    "slug": "liminal-spots-kitakanto",
+    "category": "実在スポット",
+    "categoryEn": "Real Spots",
+    "publishedDate": "2026-09-28",
+    "ja": {
+      "title": "北関東のリミナルスペース｜地下の採掘場跡から県庁の最上階まで、実在する9か所",
+      "metaDescription": "茨城・栃木・群馬で「リミナルスペース」を感じられる実在の場所を、LIMapの登録スポットから9か所紹介します。つくばセンター広場、水戸芸術館の塔、大谷資料館の地下空間、夜まで開く県庁の展望室、群馬音楽センター、めがね橋と廃線跡。行くときの注意点も。",
+      "h1": "北関東のリミナルスペース——地下の採掘場跡から県庁の最上階まで、実在する9か所",
+      "lead": "茨城・栃木・群馬には、計画都市の沈んだ広場や、石を掘り出したあとの巨大な地下空間、夜遅くまで無料で開いている県庁の最上階が、今も誰でも行ける場所としてあります。人の少ない時間に訪れると、使い道の分からない広さと静けさだけがそこに残っています。LIMapに登録した9か所を紹介します。",
+      "sections": [
+        {
+          "heading": "北関東のリミナルスペースは「人工的な建築」と「役目を終えた線路と地下」に多い",
+          "paragraphs": [
+            "北関東で見つかるリミナルスペースには、二つの特徴があります。ひとつは、計画都市や公共建築の人工的な空間です。研究学園都市の広場、幾何学だけでできた塔、夜遅くまで開いている県庁の最上階。人の少ない時間には、誰のために用意されたのか分からない空間だけが残ります。",
+            "もうひとつは、役目を終えたあとも残された線路や地下空間です。石を掘り出した跡の地下、廃線になった鉄道の橋とトンネル、線路のなくなった駅のホーム。この記事では、茨城・栃木・群馬で「今、誰でも行けること」を条件に選んだ場所を紹介します。"
+          ]
+        },
+        {
+          "heading": "茨城：沈んだ広場と、ねじれた塔",
+          "paragraphs": [
+            "つくばセンター広場は、筑波研究学園都市の中心に1983年に完成したつくばセンタービルの広場です。設計は磯崎新で、ローマのカンピドリオ広場を反転させ、周りより一段低く沈めた楕円形の広場の中心に噴水を置いています。イベントのない平日の早朝や雨の夜には、石の階段と壁に囲まれた広場に、ひとりだけ取り残されたような静けさが訪れます。",
+            "水戸芸術館の塔は、1990年に完成した高さ100mの塔で、同じく磯崎新の設計です。正三角形のチタンのパネルをねじるように積み上げた、らせん状の形をしています。ガラス張りのエレベーターで上がる地上86.4mの展望室は定員19名の小さな部屋で、小さな窓から街を見下ろすと、幾何学の中に閉じ込められたような気分になります。"
+          ],
+          "spots": [
+            {
+              "title": "つくばセンター広場",
+              "slug": "3S4gV2nM",
+              "thumbnailUrl": "https://pbs.twimg.com/media/GFkqArDbkAAEVgK.jpg"
+            },
+            {
+              "title": "水戸芸術館 シンボルタワー",
+              "slug": "b9ekkcic",
+              "thumbnailUrl": "https://pbs.twimg.com/media/G_B2Vpsb0AAvv3n.jpg"
+            }
+          ]
+        },
+        {
+          "heading": "栃木：地下の神殿と、夜の県庁",
+          "paragraphs": [
+            "宇都宮の大谷資料館は、1919年から1986年まで約70年かけて大谷石を掘り出した跡の地下空間です。広さは約2万㎡、深いところで地下60mに達し、坑内は1年を通して8℃前後に保たれています。直線で切り出された巨大な石の壁と柱が薄暗い照明の中にどこまでも続き、地底に置き忘れられた神殿に迷い込んだような空間になっています。",
+            "2007年に完成した栃木県庁本館の15階には、回廊式の展望ロビーがあります。地上約65mのガラス張りの廊下が建物をぐるりと囲み、平日も休日も夜9時まで無料で開放されています。閉庁後、人のいない役所の廊下から宇都宮の夜景を眺める時間は、少しだけ現実から外れた場所にいるように感じます。"
+          ],
+          "spots": [
+            {
+              "title": "大谷資料館（大谷石地下採掘場跡）",
+              "slug": "dh6nPPd6",
+              "thumbnailUrl": "https://pbs.twimg.com/media/F_svLD6awAAydT0.jpg"
+            },
+            {
+              "title": "栃木県庁 15階展望ロビー",
+              "slug": "qT48wnpH",
+              "thumbnailUrl": "https://pbs.twimg.com/media/HCy40_TbIAACRcL.jpg"
+            }
+          ]
+        },
+        {
+          "heading": "群馬：153mの県庁と、照明を落としたホール",
+          "paragraphs": [
+            "前橋の群馬県庁は、1999年に完成した高さ153.8mの庁舎です。32階の展望ホールは地上127mのフロア全体が無料で開放され、夜10時まで入れます。人のいない夜のフロアから上毛三山と関東平野の灯りを見下ろしていると、役所の中にいることを忘れてしまいます。",
+            "高崎の群馬音楽センターは、1961年に完成したアントニン・レーモンド設計の音楽ホールです。建設費3億円のうち1億円を市民の寄付でまかない、屏風を折ったようなコンクリートの構造で、柱のない大きな客席を覆っています。催しのない見学日には、照明を落としたままの誰もいない客席とロビーを歩くことができます。"
+          ],
+          "spots": [
+            {
+              "title": "群馬県庁 32階展望ホール",
+              "slug": "piDZag2m",
+              "thumbnailUrl": "https://pbs.twimg.com/media/F2H6QbzbYAAJNL_.jpg"
+            },
+            {
+              "title": "群馬音楽センター",
+              "slug": "74Dex6Z8",
+              "thumbnailUrl": "https://pbs.twimg.com/media/F0rDm4AagAAFTlx.jpg"
+            }
+          ]
+        },
+        {
+          "heading": "役目を終えた線路：めがね橋から熊ノ平へ、真壁駅跡のホーム",
+          "paragraphs": [
+            "群馬県安中市の碓氷第三橋梁、通称めがね橋は、1893年に完成した旧信越本線のレンガ造りのアーチ橋です。長さ91m、川底からの高さ31mで、約200万個のレンガが使われています。廃線になった線路跡は、横川駅から熊ノ平駅跡までの約6kmが遊歩道「アプトの道」になり、橋の上やいくつものトンネルを歩いて抜けられます。終点の熊ノ平駅跡には、苔むしたホームや変電所の建物、トンネルの坑口が残っています。",
+            "茨城県桜川市の真壁駅跡は、1987年に廃止された筑波鉄道の駅の跡です。線路は撤去されましたが、ホームはそのまま残され、今はサイクリングロード「つくば霞ヶ浦りんりんロード」の休憩所になっています。列車の来ないまっすぐな道の途中に、ホームだけが静かに残っています。"
+          ],
+          "spots": [
+            {
+              "title": "碓氷第三橋梁（めがね橋）とアプトの道",
+              "slug": "n5PKtWce",
+              "thumbnailUrl": "https://pbs.twimg.com/media/FR5lF52VUAITeqI.jpg"
+            },
+            {
+              "title": "熊ノ平駅跡（旧国鉄信越本線）",
+              "slug": "TcnQTVk5",
+              "thumbnailUrl": "https://pbs.twimg.com/media/Gqa21ewWEAAHd_a.jpg"
+            },
+            {
+              "title": "筑波鉄道 真壁駅跡",
+              "slug": "gf7SinSV"
+            }
+          ]
+        },
+        {
+          "heading": "行くときの、現実的な注意点",
+          "paragraphs": [
+            "県庁の展望室は、今も人が働く役所の中にあります。職員や来庁者、併設のカフェの利用者を写さないように気をつけてください。群馬音楽センターの館内を見学できるのは、催しのない指定日だけです。行く前に高崎財団のサイトで見学日を確認してください。",
+            "大谷資料館の坑内は1年中寒いので、夏でも上着を持っていきましょう。アプトの道のトンネルの照明は7時から18時までなので、暗くなってからは歩かないでください。水戸芸術館の塔は、悪天候の日は上れないことがあります。"
+          ]
+        },
+        {
+          "heading": "撮ったら、地図に残してください",
+          "paragraphs": [
+            "北関東には、まだ記録されていない計画都市の広場や、役目を終えた線路の跡がたくさんあります。いつも通る駅前の広場も、早朝に歩くと別の場所に見えるかもしれません。",
+            "LIMapは、そうした場所を写真と位置つきで残していく地図です。見つけた場所があれば、ぜひ登録してください。"
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "夜に行ける場所はありますか？",
+          "a": "栃木県庁の15階展望ロビーは夜9時まで、群馬県庁の32階展望ホールは夜10時まで、どちらも無料で開いています。つくばセンター広場は屋外の広場で、いつでも入れます。"
+        },
+        {
+          "q": "無料で入れる場所はありますか？",
+          "a": "つくばセンター広場、栃木県庁と群馬県庁の展望室、アプトの道、真壁駅跡は無料です。水戸芸術館の塔は大人200円、大谷資料館は大人1,000円です。"
+        },
+        {
+          "q": "群馬音楽センターの中はいつでも見られますか？",
+          "a": "館内を見学できるのは、催し物や点検のない指定日だけです。見学できる日は高崎財団のサイトで案内されています。建物の外観はいつでも見られます。"
+        }
+      ]
+    },
+    "en": {
+      "title": "Liminal Spaces in North Kanto: 9 Real Places, From an Underground Quarry to the Top Floors of Prefectural Offices",
+      "metaDescription": "Nine real places in Ibaraki, Tochigi and Gunma where you can feel the atmosphere of a liminal space, chosen from spots registered on LIMap: Tsukuba Center Square, the Art Tower Mito, the underground quarry of the Oya History Museum, prefectural office observation decks open late, the Gunma Music Center, and the Megane Bridge and disused railway. With tips for visiting.",
+      "h1": "Liminal Spaces in North Kanto: 9 Real Places, From an Underground Quarry to the Top Floors of Prefectural Offices",
+      "lead": "In Ibaraki, Tochigi and Gunma, a sunken plaza in a planned city, a vast underground space left after stone was quarried out and the top floors of prefectural offices open free until late at night are all places anyone can visit. At a quiet hour, only an unexplained spaciousness and stillness remain. Here are nine places registered on LIMap.",
+      "sections": [
+        {
+          "heading": "In North Kanto, Liminal Spaces Gather in Artificial Architecture and in Retired Railways and Underground Spaces",
+          "paragraphs": [
+            "The liminal spaces you find in North Kanto have two main features. The first is the artificial spaces of planned cities and public buildings: a plaza in a research city, a tower made purely of geometry, the top floor of a prefectural office open late. When few people are around, only spaces whose purpose is unclear remain.",
+            "The second is railway lines and underground spaces left behind after their work ended: the underground left by quarrying, the bridges and tunnels of a closed railway, a platform without tracks. This article introduces places in Ibaraki, Tochigi and Gunma chosen on one condition: anyone can go there today."
+          ]
+        },
+        {
+          "heading": "Ibaraki: A Sunken Plaza and a Twisting Tower",
+          "paragraphs": [
+            "Tsukuba Center Square is the plaza of the Tsukuba Center Building, completed in 1983 at the heart of Tsukuba Science City. Designed by Arata Isozaki, it inverts Rome's Piazza del Campidoglio, sinking an oval plaza below its surroundings with a fountain at the center. Early on weekday mornings without events, or on rainy nights, the plaza enclosed by stone steps and walls takes on the stillness of a place where you have been left behind alone.",
+            "The tower of Art Tower Mito, 100 meters tall and completed in 1990, was also designed by Arata Isozaki. It is a spiral built by stacking equilateral triangular titanium panels in a twist. The observation room, 86.4 meters up and reached by a glass elevator, is a small space for 19 people, and looking down on the city through its small windows feels like being shut inside geometry."
+          ],
+          "spots": [
+            {
+              "title": "Tsukuba Center Square",
+              "slug": "3S4gV2nM",
+              "thumbnailUrl": "https://pbs.twimg.com/media/GFkqArDbkAAEVgK.jpg"
+            },
+            {
+              "title": "Art Tower Mito Symbol Tower",
+              "slug": "b9ekkcic",
+              "thumbnailUrl": "https://pbs.twimg.com/media/G_B2Vpsb0AAvv3n.jpg"
+            }
+          ]
+        },
+        {
+          "heading": "Tochigi: An Underground Temple and a Prefectural Office at Night",
+          "paragraphs": [
+            "The Oya History Museum in Utsunomiya is an underground space left by about 70 years of quarrying Oya stone, from 1919 to 1986. It covers about 20,000 square meters, reaches 60 meters below ground at its deepest and stays around 8°C all year. Huge walls and pillars cut in straight lines stretch on under dim lights, like a temple forgotten underground.",
+            "On the 15th floor of the Tochigi Prefectural Office main building, completed in 2007, is a corridor-style observation lobby. A glass-walled hallway about 65 meters up wraps around the building and is open free until 9 p.m. every day. After office hours, looking out at Utsunomiya's night view from an empty government corridor feels slightly outside reality."
+          ],
+          "spots": [
+            {
+              "title": "Oya History Museum (Former Oya Stone Quarry)",
+              "slug": "dh6nPPd6",
+              "thumbnailUrl": "https://pbs.twimg.com/media/F_svLD6awAAydT0.jpg"
+            },
+            {
+              "title": "Tochigi Prefectural Office 15th-Floor Observation Lobby",
+              "slug": "qT48wnpH",
+              "thumbnailUrl": "https://pbs.twimg.com/media/HCy40_TbIAACRcL.jpg"
+            }
+          ]
+        },
+        {
+          "heading": "Gunma: A 153-Meter Prefectural Office and a Hall With the Lights Down",
+          "paragraphs": [
+            "The Gunma Prefectural Office in Maebashi is a 153.8-meter building completed in 1999. The entire 32nd floor, 127 meters up, is a free observation hall open until 10 p.m. Looking down on the Jomo mountains and the lights of the Kanto Plain from the empty floor at night, you forget you are inside a government building.",
+            "The Gunma Music Center in Takasaki is a concert hall designed by Antonin Raymond and completed in 1961. Local citizens donated 100 million of its 300-million-yen construction cost, and a folded concrete structure like a folding screen covers a large auditorium without columns. On designated visiting days without events, you can walk through the empty seats and lobby with the lights left down."
+          ],
+          "spots": [
+            {
+              "title": "Gunma Prefectural Office 32nd-Floor Observation Hall",
+              "slug": "piDZag2m",
+              "thumbnailUrl": "https://pbs.twimg.com/media/F2H6QbzbYAAJNL_.jpg"
+            },
+            {
+              "title": "Gunma Music Center",
+              "slug": "74Dex6Z8",
+              "thumbnailUrl": "https://pbs.twimg.com/media/F0rDm4AagAAFTlx.jpg"
+            }
+          ]
+        },
+        {
+          "heading": "Retired Railways: From the Megane Bridge to Kumanodaira, and the Platform at Makabe",
+          "paragraphs": [
+            "The Usui No. 3 Bridge in Annaka, Gunma, known as the Megane Bridge, is a brick arch bridge on the former Shin'etsu Main Line completed in 1893. It is 91 meters long and 31 meters above the river, built from about two million bricks. About 6 kilometers of the abandoned line, from Yokokawa Station to the site of Kumanodaira Station, have become the Abt Road walking path, where you can walk across the bridge and through a series of tunnels. At the end, the Kumanodaira site still has mossy platforms, a substation building and tunnel portals.",
+            "The site of Makabe Station in Sakuragawa, Ibaraki, was a station on the Tsukuba Railway, which closed in 1987. The tracks are gone, but the platform remains and now serves as a rest stop on the Tsukuba-Kasumigaura Rinrin Road cycling route. Partway along a straight path where no train will come, only the platform stands quietly."
+          ],
+          "spots": [
+            {
+              "title": "Usui No. 3 Bridge (Megane Bridge) and the Abt Road",
+              "slug": "n5PKtWce",
+              "thumbnailUrl": "https://pbs.twimg.com/media/FR5lF52VUAITeqI.jpg"
+            },
+            {
+              "title": "Former Kumanodaira Station",
+              "slug": "TcnQTVk5",
+              "thumbnailUrl": "https://pbs.twimg.com/media/Gqa21ewWEAAHd_a.jpg"
+            },
+            {
+              "title": "Former Makabe Station (Tsukuba Railway)",
+              "slug": "gf7SinSV"
+            }
+          ]
+        },
+        {
+          "heading": "Practical Notes for Visiting",
+          "paragraphs": [
+            "The prefectural office observation decks are inside working government buildings. Take care not to photograph staff, visitors or people at the attached cafés. The interior of the Gunma Music Center can only be visited on designated days without events; check the Takasaki Foundation website before you go.",
+            "The Oya quarry is cold all year, so bring a jacket even in summer. The tunnel lights on the Abt Road are on only from 7:00 to 18:00, so do not walk it after dark. The Art Tower Mito may be closed to visitors in bad weather."
+          ]
+        },
+        {
+          "heading": "If You Shoot It, Put It on the Map",
+          "paragraphs": [
+            "North Kanto still has many planned-city plazas and retired railway sites that no one has recorded. The station plaza you pass every day may look like a different place early in the morning.",
+            "LIMap is a map for recording those places with photos and locations. If you find one, please add it."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Are there places I can visit at night?",
+          "a": "The Tochigi Prefectural Office observation lobby is open until 9 p.m. and the Gunma Prefectural Office observation hall until 10 p.m., both free. Tsukuba Center Square is an outdoor plaza you can enter at any time."
+        },
+        {
+          "q": "Are there places I can visit for free?",
+          "a": "Tsukuba Center Square, the Tochigi and Gunma prefectural office observation decks, the Abt Road and the Makabe Station site are free. The Art Tower Mito costs 200 yen for adults, and the Oya History Museum costs 1,000 yen."
+        },
+        {
+          "q": "Can I see inside the Gunma Music Center at any time?",
+          "a": "The interior is open only on designated days without events or inspections, which are listed on the Takasaki Foundation website. You can see the exterior at any time."
+        }
+      ]
+    },
+    "images": [
+      {
+        "file": "Inside of the Oya History Museum 20251012c.jpg",
+        "author": "掬茶",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Inside_of_the_Oya_History_Museum_20251012c.jpg",
+        "altJa": "大谷資料館の地下空間。薄暗い照明の中に石の壁が続く",
+        "altEn": "The underground space of the Oya History Museum, with stone walls stretching on under dim lights",
+        "captionJa": "大谷資料館の地下。約70年かけて掘られた石の空間が、奥へ奥へと続く。",
+        "captionEn": "Underground at the Oya History Museum, where a space quarried over about 70 years runs on and on.",
+        "afterSection": -1
+      },
+      {
+        "file": "Gunma Music Center 2009.jpg",
+        "author": "Wiiii",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Gunma_Music_Center_2009.jpg",
+        "altJa": "群馬音楽センターの外観。屏風を折ったようなコンクリートの壁",
+        "altEn": "The exterior of the Gunma Music Center, with concrete walls folded like a screen",
+        "captionJa": "群馬音楽センター。1961年に完成した、レーモンド設計のホール。",
+        "captionEn": "The Gunma Music Center, a hall designed by Antonin Raymond and completed in 1961.",
+        "afterSection": 3
+      }
+    ]
+  },
+  {
     "slug": "liminal-spots-okinawa",
     "category": "実在スポット",
     "categoryEn": "Real Spots",

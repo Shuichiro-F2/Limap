@@ -42,6 +42,8 @@ const ARTICLE_SLUGS = [
   'backrooms-vs-exit-8',
   'who-is-kane-pixels',
   'what-is-noclip',
+  'liminal-spots-tokai',
+  'liminal-spots-kitakanto',
   'liminal-spots-okinawa',
   'liminal-spots-hokuriku-koshinetsu',
   'liminal-spots-chugoku-shikoku',
