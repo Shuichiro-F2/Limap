@@ -147,10 +147,11 @@ for (const [i, e] of embeds.entries()) {
     r = { status: 'unknown', note: `未対応: ${e.platform}` };
   }
   results.push({ ...e, ...r });
-  process.stdout.write(`\r${i + 1}/${embeds.length}`);
+  // 端末で実行したときだけ進み具合を表示する（ログに流すと1行につながって読みにくいため）
+  if (process.stdout.isTTY) process.stdout.write(`\r${i + 1}/${embeds.length}`);
 }
 await chrome?.close();
-process.stdout.write('\n');
+if (process.stdout.isTTY) process.stdout.write('\n');
 
 // スポット単位で「写真も無く、見られる埋め込みが1つも無い」ものを、中身が空になったスポットとして印を付ける
 const bySpot = new Map();
