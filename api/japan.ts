@@ -8,7 +8,7 @@
 // そのため、都道府県タグの無い投稿はこのページに載らない。
 
 import { createClient } from '@supabase/supabase-js';
-import { JAPAN_PREFECTURES, JAPAN_REGIONS, prefectureFullName } from '../src/content/japan';
+import { JAPAN_PREFECTURES, JAPAN_REGIONS, prefectureFullName, regionalArticlesFor } from '../src/content/japan';
 import {
   CHIP_STYLE,
   SITE_NAME,
@@ -68,6 +68,8 @@ const PAGE_STYLE = `      <style>
         .jp-spots p { margin: 4px 0 0; font-size: 13.5px; color: var(--text-secondary); }
         .jp-faq dt { margin-top: 16px; font-weight: 700; }
         .jp-faq dd { margin: 6px 0 0; color: var(--text-secondary); }
+        .jp-articles { margin: 0 0 8px; font-size: 14px; color: var(--text-secondary); }
+        .jp-articles a { color: var(--accent); }
       </style>`;
 
 function renderJapanPage(spots: JapanSpot[], tagPageCounts: Map<string, number>): string {
@@ -125,9 +127,15 @@ ${items}
         </section>`;
       })
       .join('\n');
+    const articles = regionalArticlesFor(prefectures);
+    const articleLine = articles.length
+      ? `        <p class="jp-articles">この地方の記事：${articles
+          .map((a) => `<a href="/articles/${a.slug}/">${escapeHtml(a.label)}</a>`)
+          .join('、')}</p>\n`
+      : '';
     return `      <section class="jp-region">
         <h2 class="section-heading">${region}</h2>
-${prefBlocks}
+${articleLine}${prefBlocks}
       </section>`;
   }).join('\n');
 

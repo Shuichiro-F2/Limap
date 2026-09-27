@@ -28,6 +28,14 @@ jsonSlugs
   .filter((s) => !llms.includes(`/articles/${s}/`))
   .forEach((s) => problems.push(`llms.txt に無い（npm run articles:build）: ${s}`));
 
+// /japan とタグ別ページからリンクしている地方の記事（src/content/japan.ts の REGIONAL_ARTICLES）
+const japan = fs.readFileSync('src/content/japan.ts', 'utf8');
+const regionalBlock = japan.slice(japan.indexOf('REGIONAL_ARTICLES'), japan.indexOf('export function regionalArticlesFor'));
+[...regionalBlock.matchAll(/slug: '([^']+)'/g)]
+  .map((m) => m[1])
+  .filter((s) => !jsonSlugs.includes(s))
+  .forEach((s) => problems.push(`src/content/japan.ts の REGIONAL_ARTICLES にある記事が articles.json に無い: ${s}`));
+
 if (problems.length) {
   console.log(problems.join('\n'));
   process.exit(1);

@@ -29,6 +29,7 @@ Expo（React Native Web）製のアプリ本体とは別に、SEO記事は静的
 3. `api/sitemap.ts` の `ARTICLE_SLUGS` にスラッグを追記
 4. `npm run articles:build` を実行（= `node scripts/generate-articles.js`）
    → 日本語版 `public/articles/<slug>/index.html`・英語版 `public/en/articles/<slug>/index.html`（別URL。hreflang で結ぶ）、それぞれの記事一覧ハブ、AI向けのサイト案内 `public/llms.txt` が再生成される
+   - 地方の実在スポット記事（〇〇のリミナルスペース）なら、`src/content/japan.ts` の `REGIONAL_ARTICLES` にも足す。`/japan` の地方の見出しと、都道府県のタグ別ページ（`/tags/北海道` など）からリンクされる（Web のみの変更）
 5. `node scripts/check-articles.js` で4箇所の整合性を確認（OK が出ればよい）
 6. `git add content/articles.json src/lib/articles.ts api/sitemap.ts public/articles public/en public/llms.txt` → commit → `git push origin main`
    → Vercel が自動デプロイ（**ここまでで反映されるのは Web のみ**）

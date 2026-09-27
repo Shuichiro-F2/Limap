@@ -31,6 +31,7 @@ import {
   spotTitle,
   tagChips,
 } from '../src/content/ssrPage';
+import { regionalArticlesFor } from '../src/content/japan';
 
 const SUPABASE_URL = process.env.SUPABASE_URL || '';
 const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY || '';
@@ -123,6 +124,15 @@ function renderTagPage(
         } more on the LIMap map.</p>\n`
       : '';
 
+  // 都道府県のタグなら、その県を扱う地方の記事へつなぐ
+  const articles = regionalArticlesFor([tag.name]);
+  const articleBlock = articles.length
+    ? `      <h2 class="section-heading">この地域の記事 / Articles</h2>
+      <ul>
+${articles.map((a) => `        <li><a href="/articles/${a.slug}/">${escapeHtml(a.label)}</a></li>`).join('\n')}
+      </ul>\n`
+    : '';
+
   const relatedBlock = related.length
     ? `      <h2 class="section-heading">関連するタグ / Related tags</h2>
       <div class="tag-chips">
@@ -143,7 +153,7 @@ ${tagChips(related)}
 ${items}
       </div>
 ${more}      <p class="tag-cta"><a href="${SITE_URL}/">LIMapの地図でリミナルスペースを探す / Explore the map</a></p>
-${relatedBlock}      <p><a href="${SITE_URL}/tags">タグ一覧へ / All tags</a></p>`;
+${articleBlock}${relatedBlock}      <p><a href="${SITE_URL}/tags">タグ一覧へ / All tags</a></p>`;
 
   return renderPage({
     title,
