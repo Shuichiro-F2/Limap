@@ -12,6 +12,13 @@
         "APP_VARIANT": "development"
       }
     },
+    "development-simulator": {
+      "extends": "development",
+      "environment": "production",
+      "ios": {
+        "simulator": true
+      }
+    },
     "preview": {
       "distribution": "internal",
       "android": {

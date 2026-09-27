@@ -56,6 +56,7 @@ npx tsc --noEmit       # 型チェック
 - 動作確認は基本 `npm run web` で行う。開発ビルド（`npm run ios`）は 2026年7月以降ほとんど使っていない
 - 開発ビルドは EAS の `development` プロファイルで作る：`npx eas-cli build --profile development --platform ios`（`eas build` なので実行前に Shu に確認）。`APP_VARIANT=development` が付き、bundleId `com.v.xo2.limap.dev`・名前「Limap Dev」の別アプリとして配布版と共存する（`app.config.js`）
 - `development` プロファイルは `ios.simulator` の指定がないため**実機向け**（internal 配布）。実機の Limap Dev で開くときは `npx expo start` で起動して接続する。`npm run ios` はシミュレーターを開くので、シミュレーター用の開発ビルドが別途必要
+- シミュレーター用は `development-simulator` プロファイル：`npx eas-cli build --profile development-simulator --platform ios`（`eas build` なので実行前に Shu に確認）。EAS の `development` 環境には変数が無いため、このプロファイルはネイティブのビルドに必要なトークンを `production` 環境から読む（アプリの JS は手元の Metro から読むので本番データの設定とは無関係）。できた `.tar.gz` を展開して `xcrun simctl install booted LimapDev.app`、`npx expo start --dev-client` で接続する。この Mac には CocoaPods が無いため、ローカルの `expo run:ios` ではなく EAS でビルドしている
 - ネイティブモジュールを追加・更新したら開発ビルドも作り直しが必要。2026-08-27 に `expo-apple-authentication` の追加などがあったため、それより前の開発ビルドは今のコードでは動かない
 - ローカルで `npx expo run:ios` するなら `APP_VARIANT=development` を付ける（付けないと配布版と同じ bundleId になる）
 - 依存は `legacy-peer-deps` 前提（`.npmrc`／Vercel の installCommand も同じ）。peer 依存の警告で止まったら、まずこの設定が効いているか確認する
