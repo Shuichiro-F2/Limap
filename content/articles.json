@@ -2928,6 +2928,552 @@
     ]
   },
   {
+    "slug": "liminal-spots-chugoku-shikoku",
+    "category": "実在スポット",
+    "categoryEn": "Real Spots",
+    "publishedDate": "2026-09-28",
+    "ja": {
+      "title": "中国・四国のリミナルスペース｜丹下健三の県庁舎から廃線跡まで、実在する9か所",
+      "metaDescription": "中国・四国で「リミナルスペース」を感じられる実在の場所を、LIMapの登録スポットから9か所紹介します。高松の長いアーケードと香川県庁舎、広島のごみ処理工場の通路と地下街、旧大社駅、若桜駅、倉吉線廃線跡、眉山ロープウェイ、別子銅山の東平。行くときの注意点も。",
+      "h1": "中国・四国のリミナルスペース——丹下健三の県庁舎から廃線跡まで、実在する9か所",
+      "lead": "中国・四国には、戦後に建てられて今も使われている公共建築や、列車が来なくなったあとも残された駅と線路が、誰でも行ける場所としてあります。人の少ない時間に訪れると、使われている場所と使われなくなった場所の両方に、同じような静けさが流れていることに気づきます。LIMapに登録した9か所を紹介します。",
+      "sections": [
+        {
+          "heading": "中国・四国のリミナルスペースは「戦後の公共建築」と「役目を終えた鉄道」に多い",
+          "paragraphs": [
+            "中国・四国で見つかるリミナルスペースには、二つの特徴があります。ひとつは、戦後から平成にかけて建てられた公共建築や通路です。県庁舎のピロティ、ごみ処理工場の見学通路、長いアーケード。人の少ない時間には、大きく開かれた空間だけが残ります。",
+            "もうひとつは、役目を終えた鉄道です。廃止された路線の終着駅、蒸気機関車の時代の設備が残る終着駅、線路の上を竹林が覆う廃線跡。この記事では、香川・広島・島根・鳥取・徳島・愛媛で「今、誰でも行けること」を条件に選んだ場所を紹介します。"
+          ]
+        },
+        {
+          "heading": "高松：約2.7kmのアーケードと、丹下健三の県庁舎",
+          "paragraphs": [
+            "高松中央商店街は、8つの商店街がつながり、総延長約2.7kmにわたってアーケードが続く商店街です。丸亀町の北の端には、高さ32.2mのガラスのドームがかかる広場があります。店のシャッターが下りた早朝や夜には、明るい屋根の下に人のいない通りがどこまでも延び、大きなドームの下の広場がかえって空っぽさを際立たせます。",
+            "香川県庁舎東館は、1958年に完成した丹下健三設計の県庁舎です。2022年に、戦後の庁舎建築として初めて国の重要文化財に指定されました。打ち放しコンクリートの柱が並ぶピロティと1階のロビーには猪熊弦一郎の壁画があり、平日の開庁時間には誰でも見学できます。人の少ない時間のロビーには、戦後に思い描かれた「開かれた役所」の空気が静かに漂っています。"
+          ],
+          "spots": [
+            {
+              "title": "高松丸亀町壱番街前ドーム広場（高松中央商店街）",
+              "slug": "ZARd5zBd",
+              "thumbnailUrl": "https://pbs.twimg.com/media/HNO-fVwbYAApVSn.jpg"
+            },
+            {
+              "title": "香川県庁舎東館",
+              "slug": "zodpUKpy",
+              "thumbnailUrl": "https://pbs.twimg.com/media/HGvoa92bcAEn29f.jpg"
+            }
+          ]
+        },
+        {
+          "heading": "広島：ごみ処理工場を突き抜ける通路と、十字の地下街",
+          "paragraphs": [
+            "広島市環境局中工場は、2004年に完成した谷口吉生設計のごみ処理工場です。平和記念公園から海へ向かう軸線が建物の中を突き抜けるように設計されていて、誰でも入れるガラス張りの見学空間「エコリアム」を通り、動いている設備を見下ろしながら海の見える側へ歩いて抜けられます。予約なしで9:00から16:30まで見学できます。",
+            "紙屋町シャレオは、広島の中心、紙屋町交差点の地下を十字に走る地下街で、2001年に開業しました。店が開く前や閉まったあとには、明るい照明だけが残る長い通路と広場が、行き先の分からない地下の空間になります。"
+          ],
+          "spots": [
+            {
+              "title": "広島市環境局中工場（エコリアム）",
+              "slug": "tWaY3hCp",
+              "thumbnailUrl": "https://pbs.twimg.com/media/EvpnPv3U8AIdFfM.jpg"
+            },
+            {
+              "title": "紙屋町シャレオ（地下街）",
+              "slug": "SrKMLupa",
+              "thumbnailUrl": "https://pbs.twimg.com/media/FNelfmTVEAAjhfm.jpg"
+            }
+          ]
+        },
+        {
+          "heading": "役目を終えた駅と線路：旧大社駅、若桜駅、倉吉線",
+          "paragraphs": [
+            "島根県出雲市の旧大社駅は、1990年に廃止された旧国鉄大社線の終着駅です。1924年に建てられた、出雲大社を思わせる和風の木造駅舎は国の重要文化財で、ホームや蒸気機関車D51もそのまま残されています。保存修理を終えて2026年4月に公開が再開されました。列車が二度と来ないホームに立つと、時間が途中で止まったように感じます。",
+            "鳥取県の若桜駅は、1930年に開業した若桜鉄道の終着駅で、中国地方でいちばん東にある駅です。線路の奥には手回しの転車台や給水塔、給炭台、蒸気機関車C12が残っています。同じ鳥取県の旧国鉄倉吉線は1985年に廃止されましたが、関金から山守にかけての廃線跡が整備され、竹林に覆われたレールの上を歩くことができます。"
+          ],
+          "spots": [
+            {
+              "title": "旧大社駅",
+              "slug": "8hv3niCX",
+              "thumbnailUrl": "https://pbs.twimg.com/media/G-CuzRLbEAA6mR-.jpg"
+            },
+            {
+              "title": "若桜駅（若桜鉄道）",
+              "slug": "8pmZvV4M",
+              "thumbnailUrl": "https://pbs.twimg.com/media/HIQShkJaEAAN7Y-.jpg"
+            },
+            {
+              "title": "旧国鉄倉吉線廃線跡（竹林）",
+              "slug": "gE3dSWYN"
+            }
+          ]
+        },
+        {
+          "heading": "山の上へ：ビルの中の駅から出るロープウェイと、山の中の鉱山の町の跡",
+          "paragraphs": [
+            "徳島の眉山ロープウェイは、1957年に開業しました。山麓駅は阿波おどり会館の建物の中にあり、ビルの上の階から乗り込むと、約6分で標高290mの山頂に着きます。ビルの中の駅と、人の少ない夕方の山頂駅は、どこへ向かう途中なのか分からなくなるような場所です。",
+            "愛媛県新居浜市の旧別子銅山 東平地区は、大正から昭和のはじめにかけて採鉱本部が置かれた山の中の町の跡で、「東洋のマチュピチュ」とも呼ばれます。赤レンガや石積みの貯鉱庫、インクラインの跡が急な斜面に残り、霧の出た朝には、どこか遠い国の遺跡に迷い込んだように見えます。"
+          ],
+          "spots": [
+            {
+              "title": "眉山ロープウェイ（阿波おどり会館 山麓駅）",
+              "slug": "oVquLazQ",
+              "thumbnailUrl": "https://pbs.twimg.com/media/HH_qhazbgAAjXPd.jpg"
+            },
+            {
+              "title": "旧別子銅山 東平地区",
+              "slug": "C3r5rXkW",
+              "thumbnailUrl": "https://pbs.twimg.com/media/HLdxB6gaEAAg6Bd.jpg"
+            }
+          ]
+        },
+        {
+          "heading": "行くときの、現実的な注意点",
+          "paragraphs": [
+            "県庁舎、ごみ処理工場、アーケード、地下街、駅は、どれも今も人が働き、使っている場所です。撮影するときは、職員や通る人の顔が写らないように気をつけてください。香川県庁舎東館の見学は平日の開庁時間に限られ、中工場の工場内部の見学には予約が必要です。若桜駅の構内の奥を見学するときは、窓口で入構券を買い、係員の指示に従ってください。",
+            "旧大社駅は2026年4月の公開再開から有料になりました。眉山ロープウェイは年に一度、検査のため運休する期間があります。倉吉線の廃線跡や東平のような山あいの場所は、足元が悪いところもあるので、歩きやすい靴で出かけてください。"
+          ]
+        },
+        {
+          "heading": "撮ったら、地図に残してください",
+          "paragraphs": [
+            "中国・四国には、まだ記録されていない戦後の公共建築や、役目を終えた駅がたくさんあります。いつも通るアーケードや地下街も、朝早くに歩くと別の場所に見えるかもしれません。",
+            "LIMapは、そうした場所を写真と位置つきで残していく地図です。見つけた場所があれば、ぜひ登録してください。"
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "香川県庁舎東館は誰でも見学できますか？",
+          "a": "はい。ピロティや1階ロビーなどの共用部分は、平日の開庁時間（8:30〜17:15）に自由に見学できます。執務室には入れません。今も使われている県庁舎なので、職員や来庁者を写さないように気をつけてください。"
+        },
+        {
+          "q": "無料で入れる場所はありますか？",
+          "a": "高松中央商店街のアーケード、香川県庁舎東館の共用部分、広島市環境局中工場のエコリアム、紙屋町シャレオの通路、倉吉線の廃線跡は無料で歩けます。旧大社駅は一般300円、若桜駅の構内見学は入構券300円、眉山ロープウェイは往復1,500円です。"
+        },
+        {
+          "q": "旧大社駅は今も見学できますか？",
+          "a": "はい。保存修理工事を終えて、2026年4月に公開が再開されました。9:00〜16:30で、水曜は休館です。再開後は有料（一般300円）になっています。"
+        }
+      ]
+    },
+    "en": {
+      "title": "Liminal Spaces in Chugoku and Shikoku: 9 Real Places, From Kenzo Tange's Prefectural Office to Abandoned Railway Lines",
+      "metaDescription": "Nine real places in the Chugoku and Shikoku regions of Japan where you can feel the atmosphere of a liminal space, chosen from spots registered on LIMap: Takamatsu's long arcade and the Kagawa Prefectural Office, a waste plant walkway and an underground mall in Hiroshima, the former Taisha Station, Wakasa Station, the former Kurayoshi Line, the Bizan Ropeway and Besshi's Tonaru. With tips for visiting.",
+      "h1": "Liminal Spaces in Chugoku and Shikoku: 9 Real Places, From Kenzo Tange's Prefectural Office to Abandoned Railway Lines",
+      "lead": "In Chugoku and Shikoku, postwar public buildings still in use and stations and tracks left behind after the trains stopped are places anyone can visit. At a quiet hour, you notice that the same kind of stillness runs through both the places still in use and the places no longer used. Here are nine places registered on LIMap.",
+      "sections": [
+        {
+          "heading": "In Chugoku and Shikoku, Liminal Spaces Gather in Postwar Public Buildings and Retired Railways",
+          "paragraphs": [
+            "The liminal spaces you find in Chugoku and Shikoku have two main features. The first is public buildings and passages built from the postwar years into the 2000s: the pilotis of a prefectural office, the visitor walkway of a waste-disposal plant, a long shopping arcade. When few people are around, only the wide-open spaces remain.",
+            "The second is railways that have finished their work: the terminus of an abolished line, a terminus where steam-era equipment still stands, and a disused line where bamboo grows over the rails. This article introduces places in Kagawa, Hiroshima, Shimane, Tottori, Tokushima and Ehime chosen on one condition: anyone can go there today."
+          ]
+        },
+        {
+          "heading": "Takamatsu: A 2.7-Kilometer Arcade and Kenzo Tange's Prefectural Office",
+          "paragraphs": [
+            "Takamatsu Central Shopping District links eight shopping streets under arcades that run for a total of about 2.7 kilometers. At the northern end of Marugamemachi is a plaza under a 32.2-meter glass dome. Early in the morning or at night, with the shutters down, empty streets stretch on under the bright roof, and the plaza beneath the huge dome only makes the emptiness stand out.",
+            "The East Building of the Kagawa Prefectural Office, designed by Kenzo Tange, was completed in 1958. In 2022 it became the first postwar government office building designated an Important Cultural Property of Japan. Its pilotis lined with bare concrete columns and its ground-floor lobby hold murals by Genichiro Inokuma, and anyone can visit during weekday office hours. When few people are around, the lobby quietly holds the air of the \"open government office\" imagined after the war."
+          ],
+          "spots": [
+            {
+              "title": "Takamatsu Marugamemachi Dome Plaza (Takamatsu Central Shopping District)",
+              "slug": "ZARd5zBd",
+              "thumbnailUrl": "https://pbs.twimg.com/media/HNO-fVwbYAApVSn.jpg"
+            },
+            {
+              "title": "Kagawa Prefectural Office East Building",
+              "slug": "zodpUKpy",
+              "thumbnailUrl": "https://pbs.twimg.com/media/HGvoa92bcAEn29f.jpg"
+            }
+          ]
+        },
+        {
+          "heading": "Hiroshima: A Walkway Through a Waste Plant, and a Cross-Shaped Underground Mall",
+          "paragraphs": [
+            "The Hiroshima City Naka Incineration Plant, designed by Yoshio Taniguchi, was completed in 2004. It was designed so that the axis running from the Peace Memorial Park toward the sea passes straight through the building. You can walk through the glass-walled visitor space called the Ecorium, looking down on working machinery, and come out on the side facing the sea. It is open without reservation from 9:00 to 16:30.",
+            "Kamiyacho Shareo is an underground mall that runs in a cross shape beneath the Kamiyacho intersection in central Hiroshima. It opened in 2001. Before the shops open or after they close, its long corridors and central plaza, lit only by bright lights, become an underground space with no clear destination."
+          ],
+          "spots": [
+            {
+              "title": "Hiroshima City Naka Incineration Plant (Ecorium)",
+              "slug": "tWaY3hCp",
+              "thumbnailUrl": "https://pbs.twimg.com/media/EvpnPv3U8AIdFfM.jpg"
+            },
+            {
+              "title": "Kamiyacho Shareo (Underground Mall)",
+              "slug": "SrKMLupa",
+              "thumbnailUrl": "https://pbs.twimg.com/media/FNelfmTVEAAjhfm.jpg"
+            }
+          ]
+        },
+        {
+          "heading": "Stations and Tracks That Have Finished Their Work: Taisha, Wakasa and the Kurayoshi Line",
+          "paragraphs": [
+            "The former Taisha Station in Izumo, Shimane Prefecture, was the terminus of the Taisha Line, abolished in 1990. Its Japanese-style wooden station building, built in 1924 and evoking Izumo Taisha shrine, is an Important Cultural Property of Japan, and its platforms and a D51 steam locomotive remain as they were. After conservation work, it reopened to the public in April 2026. Standing on a platform where no train will come again, it feels as if time stopped partway through.",
+            "Wakasa Station in Tottori Prefecture, opened in 1930, is the terminus of the Wakasa Railway and the easternmost station in the Chugoku region. Beyond the tracks stand a hand-operated turntable, a water tower, a coaling stage and a C12 steam locomotive. Also in Tottori, the former Kurayoshi Line closed in 1985, but the section from Sekigane to Yamamori has been maintained so you can walk along rails covered by bamboo groves."
+          ],
+          "spots": [
+            {
+              "title": "Former Taisha Station",
+              "slug": "8hv3niCX",
+              "thumbnailUrl": "https://pbs.twimg.com/media/G-CuzRLbEAA6mR-.jpg"
+            },
+            {
+              "title": "Wakasa Station (Wakasa Railway)",
+              "slug": "8pmZvV4M",
+              "thumbnailUrl": "https://pbs.twimg.com/media/HIQShkJaEAAN7Y-.jpg"
+            },
+            {
+              "title": "Former Kurayoshi Line (Bamboo Grove)",
+              "slug": "gE3dSWYN"
+            }
+          ]
+        },
+        {
+          "heading": "Up the Mountain: A Ropeway From a Station Inside a Building, and a Mining Town in the Hills",
+          "paragraphs": [
+            "The Bizan Ropeway in Tokushima opened in 1957. Its base station is inside the Awa Odori Kaikan building, and after boarding on an upper floor you reach the 290-meter summit in about six minutes. A station inside a building, and a summit station with few people in the evening, feel like somewhere partway to an unknown destination.",
+            "The Tonaru district of the former Besshi Copper Mine in Niihama, Ehime Prefecture, is the site of a mountain town where the mining headquarters stood from the Taisho era into the early Showa era, sometimes called the \"Machu Picchu of the East.\" Red-brick and stone ore bins and the remains of an incline line a steep slope, and on a foggy morning it looks like the ruins of some faraway country."
+          ],
+          "spots": [
+            {
+              "title": "Bizan Ropeway (Awa Odori Kaikan Base Station)",
+              "slug": "oVquLazQ",
+              "thumbnailUrl": "https://pbs.twimg.com/media/HH_qhazbgAAjXPd.jpg"
+            },
+            {
+              "title": "Former Besshi Copper Mine, Tonaru District",
+              "slug": "C3r5rXkW",
+              "thumbnailUrl": "https://pbs.twimg.com/media/HLdxB6gaEAAg6Bd.jpg"
+            }
+          ]
+        },
+        {
+          "heading": "Practical Notes for Visiting",
+          "paragraphs": [
+            "The prefectural office, the waste plant, the arcade, the underground mall and the stations are all places people still work in and use. When taking photos, take care not to capture staff or passersby clearly. Visits to the Kagawa Prefectural Office East Building are limited to weekday office hours, and tours inside the Naka plant require a reservation. To see the far end of the Wakasa Station yard, buy an admission ticket at the window and follow staff instructions.",
+            "The former Taisha Station has charged admission since it reopened in April 2026. The Bizan Ropeway is suspended once a year for inspection. Mountain sites such as the Kurayoshi Line trail and Tonaru can have uneven footing, so wear comfortable shoes."
+          ]
+        },
+        {
+          "heading": "If You Shoot It, Put It on the Map",
+          "paragraphs": [
+            "Chugoku and Shikoku still have many postwar public buildings and retired stations that no one has recorded. The arcade or underground mall you pass every day may look like a different place early in the morning.",
+            "LIMap is a map for recording those places with photos and locations. If you find one, please add it."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Can anyone visit the Kagawa Prefectural Office East Building?",
+          "a": "Yes. Shared areas such as the pilotis and the ground-floor lobby can be visited freely during weekday office hours (8:30 to 17:15). Offices are off-limits. It is still a working government building, so take care not to photograph staff or visitors."
+        },
+        {
+          "q": "Are there places I can visit for free?",
+          "a": "The Takamatsu Central Shopping District arcades, the shared areas of the Kagawa Prefectural Office East Building, the Ecorium at the Naka Incineration Plant, the Kamiyacho Shareo corridors and the former Kurayoshi Line trail are free. The former Taisha Station costs 300 yen for adults, a Wakasa Station yard admission ticket costs 300 yen, and a Bizan Ropeway round trip costs 1,500 yen."
+        },
+        {
+          "q": "Can I still visit the former Taisha Station?",
+          "a": "Yes. After conservation work, it reopened to the public in April 2026. It is open from 9:00 to 16:30 and closed on Wednesdays, and has charged admission (300 yen for adults) since reopening."
+        }
+      ]
+    },
+    "images": [
+      {
+        "file": "Kagawa Prefecture Office East Interior.JPG",
+        "author": "Wiiii",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Kagawa_Prefecture_Office_East_Interior.JPG",
+        "altJa": "香川県庁舎東館の1階ロビー。タイルの壁画と木のベンチが並ぶ",
+        "altEn": "The ground-floor lobby of the Kagawa Prefectural Office East Building, with tiled murals and wooden benches",
+        "captionJa": "香川県庁舎東館の1階ロビー。猪熊弦一郎の壁画が今も残る。",
+        "captionEn": "The lobby of the Kagawa Prefectural Office East Building, where murals by Genichiro Inokuma remain.",
+        "afterSection": -1
+      },
+      {
+        "file": "Naka Waste Incineration Plant 04.jpg",
+        "author": "Taisyo",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Naka_Waste_Incineration_Plant_04.jpg",
+        "altJa": "広島市環境局中工場を突き抜ける、まっすぐな通路",
+        "altEn": "A straight walkway running through the Hiroshima City Naka Incineration Plant",
+        "captionJa": "広島市環境局中工場。まっすぐな通路が、工場を突き抜けて海の方へ延びる。",
+        "captionEn": "The Naka Incineration Plant in Hiroshima, where a straight walkway runs through the plant toward the sea.",
+        "afterSection": 2
+      }
+    ]
+  },
+  {
+    "slug": "liminal-spots-tohoku",
+    "category": "実在スポット",
+    "categoryEn": "Real Spots",
+    "publishedDate": "2026-09-28",
+    "ja": {
+      "title": "東北のリミナルスペース｜もう出航しない連絡船から白い美術館まで、実在する8か所",
+      "metaDescription": "東北で「リミナルスペース」を感じられる実在の場所を、LIMapの登録スポットから8か所紹介します。青森の連絡船と美術館、せんだいメディアテーク、秋田の無料展望室、盛岡の旧銀行、山形の旧県庁舎、会津さざえ堂、花巻の百貨店大食堂。行くときの注意点も。",
+      "h1": "東北のリミナルスペース——もう出航しない連絡船から白い美術館まで、実在する8か所",
+      "lead": "東北には、役目を終えたあとも形をそのまま残して公開されている船や銀行、県庁舎と、白く広い現代の公共建築が、今も誰でも行ける場所としてあります。人の少ない時間に訪れると、使われなくなった時間と、まだ使い道の決まっていない空間の静けさが見えてきます。LIMapに登録した8か所を紹介します。",
+      "sections": [
+        {
+          "heading": "東北のリミナルスペースは「役目を終えた建物」と「白く広い公共空間」に多い",
+          "paragraphs": [
+            "東北で見つかるリミナルスペースには、二つの特徴があります。ひとつは、役目を終えたあとも保存され、公開されている建物や乗り物です。航路のなくなった連絡船、銀行でなくなった銀行、県庁でなくなった県庁舎。中を歩くと、働いていた人たちだけがいなくなったような空気が残っています。",
+            "もうひとつは、平成以降に建てられた白く広い公共建築です。美術館や図書館、展望タワーは、人が少ない時間になると、使い道の決まっていない広い空間だけが残ります。この記事では、青森・仙台・秋田・盛岡・山形・会津・花巻で「今、誰でも行けること」を条件に選んだ場所を紹介します。"
+          ]
+        },
+        {
+          "heading": "青森：もう出航しない連絡船と、白い迷路の美術館",
+          "paragraphs": [
+            "青森駅のすぐそばの岸壁には、青函連絡船の八甲田丸が係留されています。1964年に就航し、1988年3月まで青森と函館を結んだ船です。今はメモリアルシップとして公開され、列車ごと船に積み込んでいた車両甲板には、役目を終えた客車や貨車がそのまま並んでいます。昭和の青森駅前を人形で再現した展示もあり、出航しない船の中を歩くと、止まった時間の中に迷い込んだような気分になります。",
+            "三内丸山遺跡のとなりの青森県立美術館は、2006年に開館しました。設計は青木淳で、発掘現場のような土の溝に、白い箱をかぶせたような建物です。白い壁の通路や階段が入り組み、歩いているうちに自分がどこにいるのか分からなくなります。"
+          ],
+          "spots": [
+            {
+              "title": "青函連絡船メモリアルシップ八甲田丸",
+              "slug": "QLHdXHVt",
+              "thumbnailUrl": "https://pbs.twimg.com/media/FQvt-nBaUAEWkJj.jpg"
+            },
+            {
+              "title": "青森県立美術館",
+              "slug": "RKcSpTm3",
+              "thumbnailUrl": "https://pbs.twimg.com/media/EoeRtZPVEAEwqp1.jpg"
+            }
+          ]
+        },
+        {
+          "heading": "仙台と秋田：夜に浮かぶガラスの建物と、無料の展望室",
+          "paragraphs": [
+            "仙台・定禅寺通りのせんだいメディアテークは、2001年に開館した伊東豊雄設計の公共施設です。床を支えるのは、海草のようにゆらぐ13本の鉄骨のチューブだけ。ガラス越しに何層もの床が見え、夜になると光る水槽のように通りに浮かびます。誰でも無料で22時まで入れ、人の少ないフロアには、使い道の決まっていない広い空間が静かに広がっています。",
+            "秋田港の端に立つポートタワー セリオンは、1994年に開業した高さ143.6mのガラスのタワーです。地上100mの展望室は2007年から無料で開放されていて、夜や平日は人がまばらです。窓の外には日本海と港の明かりだけが広がります。"
+          ],
+          "spots": [
+            {
+              "title": "せんだいメディアテーク",
+              "slug": "UZJT2Ht2",
+              "thumbnailUrl": "https://pbs.twimg.com/media/HLX1_wfb0AA_9Pd.jpg"
+            },
+            {
+              "title": "秋田市ポートタワー セリオン",
+              "slug": "SAqp6opk",
+              "thumbnailUrl": "https://pbs.twimg.com/media/GKzQfe9bsAAqUCn.jpg"
+            }
+          ]
+        },
+        {
+          "heading": "盛岡と山形：客のいない銀行と、役人のいない県庁",
+          "paragraphs": [
+            "盛岡の岩手銀行赤レンガ館は、1911年に盛岡銀行の本店として建てられた、辰野金吾・葛西萬司設計の建物です。国の重要文化財で、2012年まで銀行として使われ、2016年から公開されています。高い天井の旧営業室には、客も行員もいないカウンターだけが残っています。",
+            "山形の文翔館は、1916年に建てられた旧県庁舎と県会議事堂です。国の重要文化財で、約10年かけて当時の姿に修復され、今は無料で公開されています。長い廊下の先に、誰も座っていない旧知事室や会議室が続き、役所としての役目だけが抜け落ちたような静けさがあります。"
+          ],
+          "spots": [
+            {
+              "title": "岩手銀行赤レンガ館（旧盛岡銀行本店本館）",
+              "slug": "HDnTRVqb",
+              "thumbnailUrl": "https://pbs.twimg.com/media/F6OVQCtbIAAFNd4.jpg"
+            },
+            {
+              "title": "山形県郷土館 文翔館（旧県庁舎・県会議事堂）",
+              "slug": "ZPX5ynHL",
+              "thumbnailUrl": "https://pbs.twimg.com/media/GMzd9y5bAAAd2Q3.jpg"
+            }
+          ]
+        },
+        {
+          "heading": "会津と花巻：すれ違わないらせんと、百貨店の大食堂",
+          "paragraphs": [
+            "会津若松の飯盛山にある会津さざえ堂は、1796年に建てられた六角三層の木造のお堂です。中は上りと下りが別になった二重らせんのスロープで、一方通行のため、ほかの参拝者とすれ違うことがありません。ぐるぐると上って下りるうちに、いつの間にか入口とは別の場所から外に出ています。",
+            "花巻駅から歩いて約10分のマルカンビル6階には、1973年に開業したマルカン百貨店の大食堂が残っています。百貨店は2016年に閉店しましたが、大食堂は地元の人たちの手で再び営業を始め、今も続いています。広い店内と高い天井には、昭和の百貨店の大食堂の空気がそのまま残っています。"
+          ],
+          "spots": [
+            {
+              "title": "会津さざえ堂（円通三匝堂）",
+              "slug": "Gi6qijiq",
+              "thumbnailUrl": "https://pbs.twimg.com/media/Gq6KS7xaEAAQ-ZV.jpg"
+            },
+            {
+              "title": "マルカンビル大食堂",
+              "slug": "sTsoVeXe"
+            }
+          ]
+        },
+        {
+          "heading": "行くときの、現実的な注意点",
+          "paragraphs": [
+            "ここで紹介した場所の多くは、今も人が働き、訪れる場所です。撮影するときは、職員や利用者、ほかの客の顔が写らないように気をつけ、三脚やフラッシュは使わないようにしてください。せんだいメディアテークには図書館があり、マルカンビル大食堂は営業中の食堂です。",
+            "美術館や資料館は、展示替えや工事で休館することがあり、八甲田丸は冬のあいだ休館日が増えます。東北の冬は雪が多く、日も短いので、時間と天候には余裕を持って出かけてください。"
+          ]
+        },
+        {
+          "heading": "撮ったら、地図に残してください",
+          "paragraphs": [
+            "東北には、まだ記録されていない古い公共建築や、役目を終えた建物がたくさんあります。雪の日にしか見えない景色も少なくありません。",
+            "LIMapは、そうした場所を写真と位置つきで残していく地図です。見つけた場所があれば、ぜひ登録してください。"
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "仙台で手軽にリミナルスペースを感じられる場所は？",
+          "a": "せんだいメディアテークがおすすめです。地下鉄南北線の勾当台公園駅から歩いて約7分で、9:00から22:00まで無料で入れます。ガラス張りの建物は夜に外から眺めるのもよく、人の少ない時間のフロアには独特の静けさがあります。"
+        },
+        {
+          "q": "無料で入れる場所はありますか？",
+          "a": "せんだいメディアテーク、セリオンの展望室、文翔館は入館無料です。八甲田丸、青森県立美術館のコレクション展、岩手銀行赤レンガ館、会津さざえ堂は有料です。"
+        },
+        {
+          "q": "冬に行っても大丈夫ですか？",
+          "a": "どこも冬も公開されていますが、八甲田丸は11月から3月まで月曜が休館になるなど、季節で時間や休みが変わる施設があります。雪で移動に時間がかかることもあるので、行く前に各施設の公式情報を確認してください。"
+        }
+      ]
+    },
+    "en": {
+      "title": "Liminal Spaces in Tohoku: 8 Real Places, From a Ferry That Will Never Sail to a White Art Museum",
+      "metaDescription": "Eight real places in the Tohoku region of Japan where you can feel the atmosphere of a liminal space, chosen from spots registered on LIMap: a museum ferry and an art museum in Aomori, Sendai Mediatheque, a free observation deck in Akita, a former bank in Morioka, a former prefectural office in Yamagata, Aizu's Sazaedo and a department store dining hall in Hanamaki. With tips for visiting.",
+      "h1": "Liminal Spaces in Tohoku: 8 Real Places, From a Ferry That Will Never Sail to a White Art Museum",
+      "lead": "In Tohoku, a ferry, a bank and a prefectural office that have finished their work are preserved just as they were and open to visitors, alongside wide white public buildings from recent decades. At a quiet hour, you can feel both the stillness of time no longer in use and of spaces whose purpose has not yet been decided. Here are eight places registered on LIMap.",
+      "sections": [
+        {
+          "heading": "In Tohoku, Liminal Spaces Gather in Retired Buildings and Wide White Public Spaces",
+          "paragraphs": [
+            "The liminal spaces you find in Tohoku have two main features. The first is buildings and vessels that were preserved and opened to the public after their work ended: a ferry whose route was abolished, a bank that is no longer a bank, a prefectural office that no longer houses the prefecture. Walking inside, it feels as if only the people who worked there have disappeared.",
+            "The second is wide white public buildings built from the 1990s onward. Art museums, libraries and observation towers, when few people are around, leave only wide spaces whose use has not been decided. This article introduces places in Aomori, Sendai, Akita, Morioka, Yamagata, Aizu and Hanamaki, chosen on one condition: anyone can go there today."
+          ]
+        },
+        {
+          "heading": "Aomori: A Ferry That Will Never Sail, and a White Maze of a Museum",
+          "paragraphs": [
+            "At a pier right next to Aomori Station, the Seikan ferry Hakkoda Maru is moored. It entered service in 1964 and linked Aomori and Hakodate until March 1988. It is now open as a memorial ship, and on the vehicle deck where whole trains were once loaded, retired passenger cars and freight wagons still stand in rows. There is also a display recreating the Showa-era area in front of Aomori Station with figures, and walking through a ship that will never sail feels like wandering into stopped time.",
+            "The Aomori Museum of Art, next to the Sannai-Maruyama archaeological site, opened in 2006. Designed by Jun Aoki, it looks like a white box placed over earthen trenches resembling an excavation site. White corridors and stairways interlock, and as you walk you lose track of where you are."
+          ],
+          "spots": [
+            {
+              "title": "Seikan Ferry Memorial Ship Hakkoda Maru",
+              "slug": "QLHdXHVt",
+              "thumbnailUrl": "https://pbs.twimg.com/media/FQvt-nBaUAEWkJj.jpg"
+            },
+            {
+              "title": "Aomori Museum of Art",
+              "slug": "RKcSpTm3",
+              "thumbnailUrl": "https://pbs.twimg.com/media/EoeRtZPVEAEwqp1.jpg"
+            }
+          ]
+        },
+        {
+          "heading": "Sendai and Akita: A Glass Building Floating at Night, and a Free Observation Deck",
+          "paragraphs": [
+            "Sendai Mediatheque on Jozenji-dori is a public facility designed by Toyo Ito that opened in 2001. Its floors are held up only by thirteen steel tubes that seem to sway like seaweed. Through the glass you can see floor after floor, and at night it floats on the avenue like a glowing aquarium. Anyone can enter for free until 22:00, and on quiet floors, wide spaces with no fixed purpose spread out in silence.",
+            "Port Tower Selion, at the edge of Akita Port, is a 143.6-meter glass tower opened in 1994. Its observation room, 100 meters up, has been free since 2007, and it is sparsely visited at night and on weekdays. Outside the windows there is nothing but the Sea of Japan and the harbor lights."
+          ],
+          "spots": [
+            {
+              "title": "Sendai Mediatheque",
+              "slug": "UZJT2Ht2",
+              "thumbnailUrl": "https://pbs.twimg.com/media/HLX1_wfb0AA_9Pd.jpg"
+            },
+            {
+              "title": "Akita Port Tower Selion",
+              "slug": "SAqp6opk",
+              "thumbnailUrl": "https://pbs.twimg.com/media/GKzQfe9bsAAqUCn.jpg"
+            }
+          ]
+        },
+        {
+          "heading": "Morioka and Yamagata: A Bank With No Customers, and a Prefectural Office With No Officials",
+          "paragraphs": [
+            "The Iwate Bank Red Brick Building in Morioka was built in 1911 as the head office of Morioka Bank, designed by Kingo Tatsuno and Manji Kasai. It is an Important Cultural Property of Japan, was used as a bank until 2012 and has been open to the public since 2016. In the high-ceilinged former banking hall, only the counters remain, with no customers and no clerks.",
+            "The Bunshokan in Yamagata is the former prefectural office and assembly hall built in 1916. It is an Important Cultural Property of Japan, was restored to its original appearance over about ten years and is now open free of charge. Beyond long corridors lie the former governor's office and meeting rooms where no one sits, filled with the stillness of a government building that has lost only its function."
+          ],
+          "spots": [
+            {
+              "title": "Iwate Bank Red Brick Building (Former Morioka Bank Head Office)",
+              "slug": "HDnTRVqb",
+              "thumbnailUrl": "https://pbs.twimg.com/media/F6OVQCtbIAAFNd4.jpg"
+            },
+            {
+              "title": "Bunshokan (Former Yamagata Prefectural Office)",
+              "slug": "ZPX5ynHL",
+              "thumbnailUrl": "https://pbs.twimg.com/media/GMzd9y5bAAAd2Q3.jpg"
+            }
+          ]
+        },
+        {
+          "heading": "Aizu and Hanamaki: A Spiral Where No One Passes, and a Department Store Dining Hall",
+          "paragraphs": [
+            "Aizu Sazaedo, on Mt. Iimori in Aizuwakamatsu, is a hexagonal three-tiered wooden hall built in 1796. Inside is a double-helix ramp with separate paths up and down, and because it is one-way, you never pass another visitor. After spiraling up and back down, you find yourself leaving by a different door from the one you came in.",
+            "On the sixth floor of the Marukan Building, about a ten-minute walk from Hanamaki Station, the grand dining hall of the Marukan Department Store, which opened in 1973, lives on. The department store closed in 2016, but local people reopened the dining hall, and it is still running. Its wide room and high ceiling hold the air of a Showa-era department store dining hall just as it was."
+          ],
+          "spots": [
+            {
+              "title": "Aizu Sazaedo",
+              "slug": "Gi6qijiq",
+              "thumbnailUrl": "https://pbs.twimg.com/media/Gq6KS7xaEAAQ-ZV.jpg"
+            },
+            {
+              "title": "Marukan Building Grand Dining Hall",
+              "slug": "sTsoVeXe"
+            }
+          ]
+        },
+        {
+          "heading": "Practical Notes for Visiting",
+          "paragraphs": [
+            "Most of the places in this article are still places where people work and visit. When taking photos, take care not to capture staff, users or other visitors clearly, and avoid tripods and flash. Sendai Mediatheque houses a library, and the Marukan dining hall is a working restaurant.",
+            "Museums may close for exhibition changes or construction, and the Hakkoda Maru has more closing days in winter. Winters in Tohoku bring heavy snow and short days, so leave plenty of margin for time and weather."
+          ]
+        },
+        {
+          "heading": "If You Shoot It, Put It on the Map",
+          "paragraphs": [
+            "Tohoku still has many old public buildings and retired structures that no one has recorded, and some views only appear on snowy days.",
+            "LIMap is a map for recording those places with photos and locations. If you find one, please add it."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Where can I easily experience a liminal space in Sendai?",
+          "a": "Try Sendai Mediatheque. It is about a seven-minute walk from Kotodai-Koen Station on the Namboku subway line, and you can enter for free from 9:00 to 22:00. The glass building is worth seeing from outside at night, and its floors have a particular stillness when few people are around."
+        },
+        {
+          "q": "Are there places I can visit for free?",
+          "a": "Sendai Mediatheque, the Selion observation room and the Bunshokan are free to enter. The Hakkoda Maru, the Aomori Museum of Art's collection exhibition, the Iwate Bank Red Brick Building and Aizu Sazaedo charge admission."
+        },
+        {
+          "q": "Is it okay to visit in winter?",
+          "a": "All of these places are open in winter, but some change their hours or closing days by season; for example, the Hakkoda Maru closes on Mondays from November to March. Snow can also slow travel, so check each facility's official information before you go."
+        }
+      ]
+    },
+    "images": [
+      {
+        "file": "140913 Aomori Museum of Art Japan02bs3.jpg",
+        "author": "663highland",
+        "license": "CC BY 2.5",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.5/",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:140913_Aomori_Museum_of_Art_Japan02bs3.jpg",
+        "altJa": "芝生の向こうに建つ、白い箱のような青森県立美術館",
+        "altEn": "The Aomori Museum of Art, a white box-like building beyond a lawn",
+        "captionJa": "青森県立美術館。白い箱のような建物の中を、白い通路が迷路のように続く。",
+        "captionEn": "The Aomori Museum of Art, where white corridors run like a maze inside a white box.",
+        "afterSection": -1
+      },
+      {
+        "file": "Hakkoda Maru moored at the port of Aomori 20200621b.jpg",
+        "author": "掬茶",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Hakkoda_Maru_moored_at_the_port_of_Aomori_20200621b.jpg",
+        "altJa": "青森港の岸壁に係留された八甲田丸",
+        "altEn": "The Hakkoda Maru moored at a pier in the port of Aomori",
+        "captionJa": "青森港に係留された八甲田丸。もう出航することのない連絡船。",
+        "captionEn": "The Hakkoda Maru, moored in Aomori Port: a ferry that will never sail again.",
+        "afterSection": 1
+      }
+    ]
+  },
+  {
     "slug": "liminal-spots-kyushu",
     "category": "実在スポット",
     "categoryEn": "Real Spots",

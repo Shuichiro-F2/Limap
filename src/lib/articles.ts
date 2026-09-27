@@ -299,6 +299,34 @@ const ARTICLE_ENTRIES: ArticleSummary[] = [
     thumbnailFile: 'Old TV sets.jpg',
   },
   {
+    slug: 'liminal-spots-chugoku-shikoku',
+    publishedDate: '2026-09-28',
+    categoryJa: '実在スポット',
+    categoryEn: 'Real Spots',
+    titleJa: '中国・四国のリミナルスペース｜丹下健三の県庁舎から廃線跡まで、実在する9か所',
+    titleEn:
+      "Liminal Spaces in Chugoku and Shikoku: 9 Real Places, From Kenzo Tange's Prefectural Office to Abandoned Railway Lines",
+    leadJa:
+      '丹下健三の県庁舎、ごみ処理工場を突き抜ける通路、列車の来ない終着駅、竹林の廃線跡。中国・四国で実際に行けるリミナルスペースを、LIMapの登録スポットから選びました。',
+    leadEn:
+      "Kenzo Tange's prefectural office, a walkway through a waste plant, termini no train will reach and a disused line under bamboo: real liminal spaces you can visit in Chugoku and Shikoku.",
+    thumbnailFile: 'Kagawa Prefecture Office East Interior.JPG',
+  },
+  {
+    slug: 'liminal-spots-tohoku',
+    publishedDate: '2026-09-28',
+    categoryJa: '実在スポット',
+    categoryEn: 'Real Spots',
+    titleJa: '東北のリミナルスペース｜もう出航しない連絡船から白い美術館まで、実在する8か所',
+    titleEn:
+      'Liminal Spaces in Tohoku: 8 Real Places, From a Ferry That Will Never Sail to a White Art Museum',
+    leadJa:
+      'もう出航しない連絡船、白い迷路の美術館、客のいない銀行、すれ違わないらせんのお堂。東北で実際に行けるリミナルスペースを、LIMapの登録スポットから選びました。',
+    leadEn:
+      'A ferry that will never sail, a white maze of a museum, a bank with no customers and a spiral hall where no one passes: real liminal spaces you can visit in Tohoku.',
+    thumbnailFile: '140913 Aomori Museum of Art Japan02bs3.jpg',
+  },
+  {
     slug: 'liminal-spots-kyushu',
     publishedDate: '2026-09-28',
     categoryJa: '実在スポット',
