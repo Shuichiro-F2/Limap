@@ -3,7 +3,7 @@ import { View, Image, Pressable, ScrollView, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import Text from './AppText';
 import { useTranslation } from '../lib/i18n';
-import { colors } from '../lib/theme';
+import { colors, radius } from '../lib/theme';
 
 // 投稿作成・レビュー投稿・投稿編集の3画面で共通して使う、選択済み写真の一覧。
 // 並び順そのものが「表紙(1枚目)」を決めるため、削除(✕)と左右の入れ替え(◀ ▶)を
@@ -61,7 +61,7 @@ export default function PhotoEditList({ items, onRemove, onMove }: Props) {
                 hitSlop={8}
                 accessibilityLabel={t.photoEdit.remove}
               >
-                <Ionicons name="close" size={13} color={colors.textPrimary} />
+                <Ionicons name="close" size={14} color={colors.textPrimary} />
               </Pressable>
 
               <View style={styles.moveRow}>
@@ -95,20 +95,20 @@ export default function PhotoEditList({ items, onRemove, onMove }: Props) {
           );
         })}
       </ScrollView>
-      <Text style={styles.coverNote}>{t.photoEdit.coverNote}</Text>
+      <Text variant="body" style={styles.coverNote}>{t.photoEdit.coverNote}</Text>
     </View>
   );
 }
 
-const THUMB_SIZE = 92;
+const THUMB_SIZE = 104;
 
 const styles = StyleSheet.create({
-  row: { marginTop: 12 },
-  itemWrap: { width: THUMB_SIZE, marginRight: 8 },
+  row: { marginTop: 2 },
+  itemWrap: { width: THUMB_SIZE, marginRight: 10 },
   thumb: {
     width: THUMB_SIZE,
     height: THUMB_SIZE,
-    borderRadius: 8,
+    borderRadius: radius.s,
     backgroundColor: colors.surfaceAlt,
   },
   indexBadge: {
@@ -128,9 +128,9 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 4,
     top: 4,
-    width: 20,
-    height: 20,
-    borderRadius: 10,
+    width: 24,
+    height: 24,
+    borderRadius: 12,
     backgroundColor: 'rgba(0,0,0,0.65)',
     alignItems: 'center',
     justifyContent: 'center',
@@ -142,10 +142,10 @@ const styles = StyleSheet.create({
     bottom: 0,
     flexDirection: 'row',
     backgroundColor: 'rgba(0,0,0,0.55)',
-    borderBottomLeftRadius: 8,
-    borderBottomRightRadius: 8,
+    borderBottomLeftRadius: radius.s,
+    borderBottomRightRadius: radius.s,
   },
-  moveButton: { flex: 1, alignItems: 'center', justifyContent: 'center', paddingVertical: 5 },
+  moveButton: { flex: 1, alignItems: 'center', justifyContent: 'center', paddingVertical: 7 },
   moveDivider: { width: StyleSheet.hairlineWidth, backgroundColor: 'rgba(255,255,255,0.25)' },
-  coverNote: { color: colors.textMuted, fontSize: 11, lineHeight: 17, marginTop: 6 },
+  coverNote: { color: colors.textMuted, fontSize: 12, lineHeight: 18, marginTop: 8 },
 });

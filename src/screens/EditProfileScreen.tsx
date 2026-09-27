@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import { View, Pressable, StyleSheet, Image, ScrollView, ActivityIndicator } from 'react-native';
+import { View, Pressable, StyleSheet, Image, ScrollView } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { Ionicons } from '@expo/vector-icons';
 import Text from '../components/AppText';
-import TextInput from '../components/AppTextInput';
+import { Button, FormField, FormInput, formStyles } from '../components/Form';
 import { updateProfile, uploadAvatar } from '../lib/profiles';
 import { useAuth } from '../lib/AuthContext';
 import { notify } from '../lib/notify';
-import { colors } from '../lib/theme';
+import { useTranslation } from '../lib/i18n';
+import { colors, radius, space } from '../lib/theme';
 import type { RootStackScreenProps } from '../navigation/types';
 
 const BIO_MAX = 200;
@@ -18,6 +19,7 @@ type Props = RootStackScreenProps<'EditProfile'>;
 // usernameそのものは他の場所（共有URLなど）から広く参照されるため、ここでは編集対象にしない。
 export default function EditProfileScreen({ navigation }: Props) {
   const { session, profile, refreshProfile } = useAuth();
+  const t = useTranslation().editProfile;
   const [displayName, setDisplayName] = useState(profile?.display_name ?? '');
   const [bio, setBio] = useState(profile?.bio ?? '');
   const [avatarUrl, setAvatarUrl] = useState(profile?.avatar_url ?? null);
@@ -27,7 +29,7 @@ export default function EditProfileScreen({ navigation }: Props) {
   const pickAvatar = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (status !== 'granted') {
-      notify('写真ライブラリへのアクセス許可が必要です');
+      notify(t.photoPermission);
       return;
     }
     const result = await ImagePicker.launchImageLibraryAsync({
@@ -60,104 +62,90 @@ export default function EditProfileScreen({ navigation }: Props) {
       await refreshProfile();
       navigation.goBack();
     } catch (e: any) {
-      notify('保存に失敗しました', e.message);
+      notify(t.saveFailedTitle, e.message);
     } finally {
       setSaving(false);
     }
   };
 
   return (
-    <ScrollView style={styles.container} contentContainerStyle={styles.content}>
-      <Pressable style={styles.avatarWrap} onPress={pickAvatar}>
-        {avatarUrl ? (
-          <Image source={{ uri: avatarUrl }} style={styles.avatar} />
-        ) : (
-          <View style={[styles.avatar, styles.avatarPlaceholder]}>
-            <Text style={styles.avatarPlaceholderText}>
-              {(profile?.username ?? '?').charAt(0).toUpperCase()}
-            </Text>
+    <ScrollView style={styles.container} contentContainerStyle={formStyles.content} keyboardShouldPersistTaps="handled">
+      <View style={styles.avatarBlock}>
+        <Pressable onPress={pickAvatar} accessibilityRole="button" accessibilityLabel={t.changePhoto}>
+          {avatarUrl ? (
+            <Image source={{ uri: avatarUrl }} style={styles.avatar} />
+          ) : (
+            <View style={[styles.avatar, styles.avatarPlaceholder]}>
+              <Text style={styles.avatarPlaceholderText}>
+                {(profile?.username ?? '?').charAt(0).toUpperCase()}
+              </Text>
+            </View>
+          )}
+          <View style={styles.avatarEditBadge}>
+            <Ionicons name="camera-outline" size={16} color={colors.accentText} />
           </View>
-        )}
-        <View style={styles.avatarEditBadge}>
-          <Ionicons name="camera-outline" size={16} color={colors.accentText} />
-        </View>
-      </Pressable>
-      <Text style={styles.avatarHint}>タップして画像を変更</Text>
+        </Pressable>
+        <Text variant="body" style={styles.avatarHint}>
+          {t.changePhoto}
+        </Text>
+      </View>
 
-      <Text style={styles.label}>表示名</Text>
-      <TextInput
-        style={styles.input}
-        value={displayName}
-        onChangeText={setDisplayName}
-        placeholder="表示名を入力（未設定でも可）"
-        placeholderTextColor={colors.placeholder}
-        maxLength={40}
-      />
+      <View style={styles.fields}>
+        <FormField label={t.displayName}>
+          <FormInput
+            value={displayName}
+            onChangeText={setDisplayName}
+            placeholder={t.displayNamePlaceholder}
+            maxLength={40}
+          />
+        </FormField>
 
-      <Text style={styles.label}>自己紹介</Text>
-      <TextInput
-        style={[styles.input, styles.bioInput]}
-        value={bio}
-        onChangeText={(t) => setBio(t.slice(0, BIO_MAX))}
-        placeholder="自己紹介文を入力（未設定でも可）"
-        placeholderTextColor={colors.placeholder}
-        multiline
-      />
-      <Text style={styles.bioCounter}>
-        {bio.length} / {BIO_MAX}
-      </Text>
+        <FormField label={t.bio}>
+          <FormInput
+            value={bio}
+            onChangeText={(text) => setBio(text.slice(0, BIO_MAX))}
+            placeholder={t.bioPlaceholder}
+            multiline
+          />
+          <Text variant="body" style={[formStyles.caption, styles.counter]}>
+            {bio.length} / {BIO_MAX}
+          </Text>
+        </FormField>
+      </View>
 
-      <Pressable style={styles.saveButton} onPress={save} disabled={saving}>
-        {saving ? (
-          <ActivityIndicator color={colors.accentText} />
-        ) : (
-          <Text style={styles.saveButtonText}>保存する</Text>
-        )}
-      </Pressable>
+      <Button label={t.save} onPress={save} loading={saving} style={styles.saveButton} />
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.background },
-  content: { padding: 20, alignItems: 'center' },
-  avatarWrap: { marginTop: 12 },
-  avatar: { width: 96, height: 96, borderRadius: 48 },
-  avatarPlaceholder: { backgroundColor: colors.accent, alignItems: 'center', justifyContent: 'center' },
-  avatarPlaceholderText: { color: colors.accentText, fontSize: 32, fontWeight: '700' },
+  avatarBlock: { alignItems: 'center', gap: 10, marginBottom: space.xxl },
+  avatar: { width: 104, height: 104, borderRadius: radius.pill },
+  // 画像未設定のときは、控えめな面にイニシャルを置く（黄色一色だと画面の中で目立ちすぎるため）
+  avatarPlaceholder: {
+    backgroundColor: colors.surface,
+    borderWidth: 1,
+    borderColor: colors.border,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  avatarPlaceholderText: { color: colors.accent, fontSize: 40 },
   avatarEditBadge: {
     position: 'absolute',
-    right: -2,
-    bottom: -2,
-    width: 28,
-    height: 28,
-    borderRadius: 14,
+    right: 0,
+    bottom: 0,
+    width: 32,
+    height: 32,
+    borderRadius: radius.pill,
     backgroundColor: colors.accent,
     alignItems: 'center',
     justifyContent: 'center',
-    borderWidth: 2,
+    borderWidth: 3,
     borderColor: colors.background,
   },
-  avatarHint: { color: colors.textMuted, fontSize: 11, marginTop: 8, marginBottom: 24 },
-  label: { color: colors.textSecondary, fontSize: 12, alignSelf: 'flex-start', marginBottom: 6, marginTop: 12 },
-  input: {
-    width: '100%',
-    backgroundColor: colors.surface,
-    color: colors.textPrimary,
-    borderRadius: 10,
-    paddingHorizontal: 14,
-    paddingVertical: 10,
-    fontSize: 14,
-  },
-  bioInput: { minHeight: 100, textAlignVertical: 'top', paddingTop: 10 },
-  bioCounter: { color: colors.textMuted, fontSize: 11, alignSelf: 'flex-end', marginTop: 4 },
-  saveButton: {
-    width: '100%',
-    backgroundColor: colors.accent,
-    borderRadius: 10,
-    paddingVertical: 14,
-    alignItems: 'center',
-    marginTop: 28,
-  },
-  saveButtonText: { color: colors.accentText, fontWeight: '600', fontSize: 15 },
+  avatarHint: { color: colors.textMuted, fontSize: 12 },
+  fields: { gap: 20 },
+  counter: { alignSelf: 'flex-end', marginTop: -4 },
+  saveButton: { marginTop: space.xxl },
 });

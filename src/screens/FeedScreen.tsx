@@ -3,6 +3,8 @@ import { View, Pressable, StyleSheet, FlatList, Image, ActivityIndicator, Refres
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useFocusEffect } from '@react-navigation/native';
 import Text from '../components/AppText';
+import PixelDoor from '../components/PixelDoor';
+import { Button } from '../components/Form';
 import { HEADER_CONTENT_HEIGHT } from '../components/AppHeader';
 import { UsernameWithBadge } from '../components/UserBadge';
 import { fetchFollowingFeed, fetchRandomSpots, spotThumbnailUrl } from '../lib/spots';
@@ -65,10 +67,11 @@ export default function FeedScreen({ navigation }: Props) {
         {/* 共通ヘッダー(ロゴ)が最前面に重なっているため、その高さ分だけ空ける */}
         <View style={{ height: HEADER_CONTENT_HEIGHT }} />
         <View style={styles.loggedOutBox}>
-          <Text style={styles.loggedOutText}>{t.feed.loggedOutMessage}</Text>
-          <Pressable style={styles.loginButton} onPress={() => navigation.navigate('Auth')}>
-            <Text style={styles.loginButtonText}>{t.feed.loginButton}</Text>
-          </Pressable>
+          <PixelDoor size={56} ink={colors.accent} paper={colors.background} />
+          <Text variant="body" style={styles.loggedOutText}>
+            {t.feed.loggedOutMessage}
+          </Text>
+          <Button label={t.feed.loginButton} onPress={() => navigation.navigate('Auth')} style={styles.loginButton} />
         </View>
       </SafeAreaView>
     );
@@ -154,10 +157,9 @@ export default function FeedScreen({ navigation }: Props) {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.background },
-  loggedOutBox: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: 32, gap: 16 },
-  loggedOutText: { color: colors.textSecondary, fontSize: 14, textAlign: 'center', lineHeight: 21 },
-  loginButton: { backgroundColor: colors.accent, borderRadius: 10, paddingVertical: 12, paddingHorizontal: 28 },
-  loginButtonText: { color: colors.accentText, fontWeight: '600', fontSize: 14 },
+  loggedOutBox: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: 32, gap: 20 },
+  loggedOutText: { color: colors.textSecondary, fontSize: 14, textAlign: 'center', lineHeight: 23, maxWidth: 320 },
+  loginButton: { width: '100%', maxWidth: 320 },
   modeTabs: { flexDirection: 'row', gap: 8, paddingHorizontal: 16, paddingBottom: 12 },
   modeTab: {
     paddingVertical: 8,

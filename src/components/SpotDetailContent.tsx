@@ -19,6 +19,7 @@ import Text from './AppText';
 import { UsernameWithBadge } from './UserBadge';
 import InstagramEmbed from './InstagramEmbed';
 import XEmbed from './XEmbed';
+import PixelDoor from './PixelDoor';
 import { spotImageUrl, spotImageThumbUrl, spotThumbnailUrl } from '../lib/spots';
 import { shareSpot, copyLink } from '../lib/share';
 import { colors, radius, space, type } from '../lib/theme';
@@ -110,36 +111,6 @@ function formatDistance(km: number): string {
 function staticMapUrl(lat: number, lng: number): string {
   const pin = `pin-l+dece32(${lng},${lat})`;
   return `https://api.mapbox.com/styles/v1/mapbox/dark-v11/static/${pin}/${lng},${lat},14,0/640x300@2x?access_token=${MAPBOX_ACCESS_TOKEN}`;
-}
-
-// 「みんなの投稿」が空のときに出す、ドット絵の扉（16×16マスを小さな四角で描く）
-const DOOR_RECTS: { x: number; y: number; w: number; h: number; fill: 'ink' | 'paper' }[] = [
-  { x: 3, y: 2, w: 10, h: 12, fill: 'ink' },
-  { x: 4, y: 3, w: 8, h: 10, fill: 'paper' },
-  { x: 7, y: 5, w: 2, h: 2, fill: 'ink' },
-  { x: 6, y: 7, w: 3, h: 3, fill: 'ink' },
-  { x: 5, y: 10, w: 2, h: 2, fill: 'ink' },
-  { x: 8, y: 10, w: 2, h: 2, fill: 'ink' },
-];
-function PixelDoor({ size = 40 }: { size?: number }) {
-  const unit = size / 16;
-  return (
-    <View style={{ width: size, height: size }}>
-      {DOOR_RECTS.map((r, i) => (
-        <View
-          key={i}
-          style={{
-            position: 'absolute',
-            left: r.x * unit,
-            top: r.y * unit,
-            width: r.w * unit,
-            height: r.h * unit,
-            backgroundColor: r.fill === 'ink' ? colors.accentText : colors.accent,
-          }}
-        />
-      ))}
-    </View>
-  );
 }
 
 // スポット詳細の中身。黄色の地に、端から端までの写真・タイトル・場所の地図・近くのスポット・
@@ -778,7 +749,7 @@ export default function SpotDetailContent({
               <ActivityIndicator color={colors.accentText} style={{ marginTop: space.m }} />
             ) : reviews.length === 0 ? (
               <View style={styles.reviewsEmpty}>
-                <PixelDoor />
+                <PixelDoor ink={colors.accentText} paper={colors.accent} />
                 <Text variant="body" style={styles.reviewsEmptyText}>
                   {t.reviewsEmptyLead}
                 </Text>

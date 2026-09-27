@@ -11,8 +11,8 @@ import {
 import * as ImagePicker from 'expo-image-picker';
 import * as Location from 'expo-location';
 import { decode } from 'base64-arraybuffer';
+import { Ionicons } from '@expo/vector-icons';
 import Text from '../components/AppText';
-import TextInput from '../components/AppTextInput';
 import InstagramEmbed from '../components/InstagramEmbed';
 import XEmbed from '../components/XEmbed';
 import { supabase } from '../lib/supabase';
@@ -26,7 +26,8 @@ import { isValidHttpUrl } from '../lib/url';
 import { useAuth } from '../lib/AuthContext';
 import { useTranslation } from '../lib/i18n';
 import { notify } from '../lib/notify';
-import { colors } from '../lib/theme';
+import { colors, radius, space, type } from '../lib/theme';
+import { Button, ChoiceRow, Chip, FormField, FormFooter, FormInput, FormSection, formStyles } from '../components/Form';
 import type { Tag, VisitTime, Spot, SpotImage } from '../types/database';
 import type { RootStackScreenProps } from '../navigation/types';
 
@@ -373,345 +374,246 @@ export default function EditSpotScreen({ navigation, route }: Props) {
   }
 
   return (
-    <KeyboardAvoidingView
-      style={{ flex: 1 }}
-      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-    >
-    <ScrollView
-      style={styles.container}
-      contentContainerStyle={{ padding: 20 }}
-      keyboardShouldPersistTaps="handled"
-      automaticallyAdjustKeyboardInsets
-    >
-      <SectionLabel label={t.createSpot.name} help={t.createSpot.nameHelp} />
-      <TextInput
-        style={styles.input}
-        value={title}
-        onChangeText={setTitle}
-        placeholder={t.createSpot.namePlaceholder}
-        placeholderTextColor={colors.placeholder}
-        maxLength={60}
-      />
-
-      <SectionLabel label={t.createSpot.location} help={t.createSpot.locationHelp} required />
-      {coords && (
-        <Text style={styles.coordsSetText}>
-          {t.createSpot.locationSet} ({coords.lat.toFixed(5)}, {coords.lng.toFixed(5)})
-        </Text>
-      )}
-      <View style={styles.locationRow}>
-        <Pressable style={[styles.secondaryButton, styles.locationButton]} onPress={useCurrentLocation}>
-          <Text style={styles.secondaryButtonText}>{t.createSpot.useCurrentLocation}</Text>
-        </Pressable>
-        <Pressable
-          style={[styles.secondaryButton, styles.locationButton]}
-          onPress={() =>
-            navigation.navigate('LocationPicker', {
-              initialLat: coords?.lat,
-              initialLng: coords?.lng,
-              returnTo: 'EditSpot',
-              spotId,
-            })
-          }
-        >
-          <Text style={styles.secondaryButtonText}>{t.createSpot.chooseOnMap}</Text>
-        </Pressable>
-      </View>
-
-      <SectionLabel label={t.createSpot.googleMapsUrl} help={t.createSpot.googleMapsUrlHelp} />
-      <TextInput
-        style={styles.input}
-        value={googleMapsUrl}
-        onChangeText={setGoogleMapsUrl}
-        placeholder={t.createSpot.googleMapsUrlPlaceholder}
-        placeholderTextColor={colors.placeholder}
-        autoCapitalize="none"
-        autoCorrect={false}
-      />
-
-      <SectionLabel label={t.createSpot.access} help={t.createSpot.accessHelp} />
-      <TextInput
-        style={styles.input}
-        value={access}
-        onChangeText={setAccess}
-        placeholder={t.createSpot.accessPlaceholder}
-        placeholderTextColor={colors.placeholder}
-        multiline
-      />
-
-      <SectionLabel label={t.createSpot.visitTime} help={t.createSpot.visitTimeHelp} />
-      <View style={styles.tagGrid}>
-        {VISIT_TIME_OPTIONS.map((opt) => (
-          <Pressable
-            key={opt}
-            style={[styles.tagOption, visitTime === opt && styles.tagOptionSelected]}
-            onPress={() => setVisitTime((prev) => (prev === opt ? null : opt))}
-          >
-            <Text style={visitTime === opt ? styles.tagOptionTextSelected : styles.tagOptionText}>
-              {visitTimeLabel(opt)}
-            </Text>
-          </Pressable>
-        ))}
-      </View>
-
-      <Text style={styles.mediaRequiredNote}>{t.createSpot.mediaRequiredNote}</Text>
-
-      <SectionLabel label={t.createSpot.photos} help={fmt(t.createSpot.photosHelp, MAX_PHOTOS)} />
-      <Pressable style={styles.secondaryButton} onPress={pickImages} disabled={totalImageCount >= MAX_PHOTOS}>
-        <Text style={styles.secondaryButtonText}>{t.createSpot.pickPhotos}</Text>
-      </Pressable>
-      <PhotoEditList
-        items={imageItems.map((item) =>
-          item.kind === 'existing'
-            ? { uri: spotImageThumbUrl(item.image) }
-            : { uri: item.asset.uri }
-        )}
-        onRemove={removeImage}
-        onMove={moveImage}
-      />
-
-      <SectionLabel label={t.createSpot.embeds} help={fmt(t.createSpot.embedsHelp, MAX_SNS_EMBEDS)} />
-
-      {embeds.length > 0 && (
-        <View style={{ marginBottom: 8 }}>
-          {embeds.map((e) => (
-            <View key={e.url} style={styles.embedPreviewWrap}>
-              <View style={styles.embedRow}>
-                <Text style={styles.embedPlatformTag}>{e.platform === 'instagram' ? 'Instagram' : 'X'}</Text>
-                <Text style={styles.embedUrlText} numberOfLines={1}>
-                  {e.url}
-                </Text>
-                <Pressable onPress={() => removeEmbedUrl(e.url)} hitSlop={8}>
-                  <Text style={styles.embedRemoveText}>✕</Text>
-                </Pressable>
-              </View>
-              <View style={styles.embedPreviewBox}>
-                {e.platform === 'instagram' ? <InstagramEmbed url={e.url} /> : <XEmbed url={e.url} />}
-              </View>
-            </View>
-          ))}
-        </View>
-      )}
-
-      {embeds.length >= MAX_SNS_EMBEDS ? (
-        <Text style={styles.tagLimitText}>{fmt(t.createSpot.embedLimitTemplate, MAX_SNS_EMBEDS)}</Text>
-      ) : (
-        <View style={styles.tagInputRow}>
-          <TextInput
-            style={[styles.input, styles.tagInput]}
-            value={embedInput}
-            onChangeText={setEmbedInput}
-            placeholder={t.createSpot.embedPlaceholder}
-            placeholderTextColor={colors.placeholder}
-            autoCapitalize="none"
-            autoCorrect={false}
-            onSubmitEditing={addEmbedUrl}
-            returnKeyType="done"
-          />
-          <Pressable
-            style={[styles.secondaryButton, styles.tagAddButton]}
-            onPress={addEmbedUrl}
-            disabled={!embedInput.trim()}
-          >
-            <Text style={styles.secondaryButtonText}>{t.createSpot.add}</Text>
-          </Pressable>
-        </View>
-      )}
-
-      <SectionLabel label={t.createSpot.hashtags} help={fmt(t.createSpot.hashtagsHelp, MAX_TAGS)} />
-
-      {selectedTags.length > 0 && (
-        <View style={styles.tagGrid}>
-          {selectedTags.map((tag) => (
-            <Pressable
-              key={tag.id}
-              style={[styles.tagOption, styles.tagOptionSelected]}
-              onPress={() => removeTag(tag.id)}
-            >
-              <Text style={styles.tagOptionTextSelected}>{tag.name} ✕</Text>
-            </Pressable>
-          ))}
-        </View>
-      )}
-
-      {selectedTags.length >= MAX_TAGS ? (
-        <Text style={styles.tagLimitText}>{fmt(t.createSpot.hashtagLimitTemplate, MAX_TAGS)}</Text>
-      ) : (
-        <>
-          <View style={styles.tagInputRow}>
-            <TextInput
-              style={[styles.input, styles.tagInput]}
-              value={tagInput}
-              onChangeText={setTagInput}
-              placeholder={t.createSpot.hashtagPlaceholder}
-              placeholderTextColor={colors.placeholder}
-              onSubmitEditing={addTagFromInput}
-              returnKeyType="done"
+    <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+      <ScrollView
+        style={styles.container}
+        contentContainerStyle={formStyles.content}
+        keyboardShouldPersistTaps="handled"
+        automaticallyAdjustKeyboardInsets
+      >
+        <FormSection first title={t.createSpot.sectionSpot}>
+          <FormField label={t.createSpot.name} help={t.createSpot.nameHelp}>
+            <FormInput
+              value={title}
+              onChangeText={setTitle}
+              placeholder={t.createSpot.namePlaceholder}
+              maxLength={60}
             />
-            <Pressable
-              style={[styles.secondaryButton, styles.tagAddButton]}
-              onPress={addTagFromInput}
-              disabled={addingTag || !tagInput.trim()}
-            >
-              {addingTag ? (
-                <ActivityIndicator color={colors.textSecondary} size="small" />
-              ) : (
-                <Text style={styles.secondaryButtonText}>{t.createSpot.add}</Text>
+          </FormField>
+
+          <FormField label={t.createSpot.description} help={t.createSpot.descriptionHelp}>
+            <FormInput
+              value={description}
+              onChangeText={setDescription}
+              placeholder={t.createSpot.descriptionPlaceholder}
+              multiline
+            />
+          </FormField>
+        </FormSection>
+
+        <FormSection title={t.createSpot.sectionMedia} note={t.createSpot.mediaRequiredNote}>
+          <FormField label={t.createSpot.photos} help={fmt(t.createSpot.photosHelp, MAX_PHOTOS)}>
+            <Button
+              variant="secondary"
+              icon="images-outline"
+              label={t.createSpot.pickPhotos}
+              onPress={pickImages}
+              disabled={totalImageCount >= MAX_PHOTOS}
+            />
+            <PhotoEditList
+              items={imageItems.map((item) =>
+                item.kind === 'existing' ? { uri: spotImageThumbUrl(item.image) } : { uri: item.asset.uri }
               )}
-            </Pressable>
-          </View>
+              onRemove={removeImage}
+              onMove={moveImage}
+            />
+          </FormField>
 
-          {tagSuggestions.length > 0 && (
-            <View style={styles.tagGrid}>
-              {tagSuggestions.map((tag) => (
-                <Pressable key={tag.id} style={styles.tagOption} onPress={() => addTag(tag)}>
-                  <Text style={styles.tagOptionText}>{tag.name}</Text>
-                </Pressable>
-              ))}
+          <FormField label={t.createSpot.embeds} help={fmt(t.createSpot.embedsHelp, MAX_SNS_EMBEDS)}>
+            {embeds.map((e) => (
+              <View key={e.url} style={styles.embedItem}>
+                <View style={styles.embedRow}>
+                  <Text style={styles.embedPlatformTag}>{e.platform === 'instagram' ? 'Instagram' : 'X'}</Text>
+                  <Text variant="body" style={styles.embedUrlText} numberOfLines={1}>
+                    {e.url}
+                  </Text>
+                  <Pressable onPress={() => removeEmbedUrl(e.url)} hitSlop={8} accessibilityRole="button">
+                    <Ionicons name="close" size={18} color={colors.textMuted} />
+                  </Pressable>
+                </View>
+                {/* 登録した投稿がどう見えるかその場で確認できるよう、実際の埋め込みをプレビュー表示する */}
+                <View style={styles.embedPreviewBox}>
+                  {e.platform === 'instagram' ? <InstagramEmbed url={e.url} /> : <XEmbed url={e.url} />}
+                </View>
+              </View>
+            ))}
+            {embeds.length >= MAX_SNS_EMBEDS ? (
+              <Text variant="body" style={formStyles.caption}>
+                {fmt(t.createSpot.embedLimitTemplate, MAX_SNS_EMBEDS)}
+              </Text>
+            ) : (
+              <View style={formStyles.inputRow}>
+                <FormInput
+                  style={styles.flex}
+                  value={embedInput}
+                  onChangeText={setEmbedInput}
+                  placeholder={t.createSpot.embedPlaceholder}
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  onSubmitEditing={addEmbedUrl}
+                  returnKeyType="done"
+                />
+                <Button
+                  compact
+                  variant="secondary"
+                  label={t.createSpot.add}
+                  onPress={addEmbedUrl}
+                  disabled={!embedInput.trim()}
+                />
+              </View>
+            )}
+          </FormField>
+        </FormSection>
+
+        <FormSection title={t.createSpot.sectionPlace}>
+          <FormField label={t.createSpot.location} help={t.createSpot.locationHelp} required>
+            {coords && (
+              <View style={styles.coordsRow}>
+                <Ionicons name="checkmark-circle" size={16} color={colors.accent} />
+                <Text variant="body" style={styles.coordsText}>
+                  {t.createSpot.locationSet} ({coords.lat.toFixed(5)}, {coords.lng.toFixed(5)})
+                </Text>
+              </View>
+            )}
+            <View style={styles.locationRow}>
+              <Button
+                style={styles.flex}
+                variant="secondary"
+                icon="locate-outline"
+                label={t.createSpot.useCurrentLocation}
+                onPress={useCurrentLocation}
+              />
+              <Button
+                style={styles.flex}
+                variant="secondary"
+                icon="map-outline"
+                label={t.createSpot.chooseOnMap}
+                onPress={() =>
+                  navigation.navigate('LocationPicker', {
+                    initialLat: coords?.lat,
+                    initialLng: coords?.lng,
+                    returnTo: 'EditSpot',
+                    spotId,
+                  })
+                }
+              />
             </View>
-          )}
-        </>
-      )}
+          </FormField>
 
-      <SectionLabel label={t.createSpot.description} help={t.createSpot.descriptionHelp} />
-      <TextInput
-        style={[styles.input, styles.textArea]}
-        value={description}
-        onChangeText={setDescription}
-        placeholder={t.createSpot.descriptionPlaceholder}
-        placeholderTextColor={colors.placeholder}
-        multiline
-      />
+          <FormField label={t.createSpot.googleMapsUrl} help={t.createSpot.googleMapsUrlHelp}>
+            <FormInput
+              value={googleMapsUrl}
+              onChangeText={setGoogleMapsUrl}
+              placeholder={t.createSpot.googleMapsUrlPlaceholder}
+              autoCapitalize="none"
+              autoCorrect={false}
+            />
+          </FormField>
 
-      <Pressable style={styles.submitButton} onPress={submit} disabled={submitting}>
-        {submitting ? (
-          <ActivityIndicator color={colors.accentText} />
-        ) : (
-          <Text style={styles.submitButtonText}>{t.createSpot.save}</Text>
-        )}
-      </Pressable>
-    </ScrollView>
+          <FormField label={t.createSpot.access} help={t.createSpot.accessHelp}>
+            <FormInput
+              style={styles.accessInput}
+              value={access}
+              onChangeText={setAccess}
+              placeholder={t.createSpot.accessPlaceholder}
+              multiline
+            />
+          </FormField>
+        </FormSection>
+
+        <FormSection title={t.createSpot.sectionMore}>
+          <FormField label={t.createSpot.visitTime} help={t.createSpot.visitTimeHelp}>
+            <ChoiceRow
+              options={VISIT_TIME_OPTIONS.map((opt) => ({ value: opt, label: visitTimeLabel(opt) }))}
+              value={visitTime}
+              onChange={setVisitTime}
+              allowDeselect
+            />
+          </FormField>
+
+          <FormField label={t.createSpot.hashtags} help={fmt(t.createSpot.hashtagsHelp, MAX_TAGS)}>
+            {selectedTags.length > 0 && (
+              <View style={formStyles.chipRow}>
+                {selectedTags.map((tag) => (
+                  <Chip key={tag.id} label={tag.name} selected removable onPress={() => removeTag(tag.id)} />
+                ))}
+              </View>
+            )}
+
+            {selectedTags.length >= MAX_TAGS ? (
+              <Text variant="body" style={formStyles.caption}>
+                {fmt(t.createSpot.hashtagLimitTemplate, MAX_TAGS)}
+              </Text>
+            ) : (
+              <>
+                <View style={formStyles.inputRow}>
+                  <FormInput
+                    style={styles.flex}
+                    value={tagInput}
+                    onChangeText={setTagInput}
+                    placeholder={t.createSpot.hashtagPlaceholder}
+                    onSubmitEditing={addTagFromInput}
+                    returnKeyType="done"
+                  />
+                  <Button
+                    compact
+                    variant="secondary"
+                    label={t.createSpot.add}
+                    onPress={addTagFromInput}
+                    loading={addingTag}
+                    disabled={!tagInput.trim()}
+                  />
+                </View>
+
+                {tagSuggestions.length > 0 && (
+                  <View style={formStyles.chipRow}>
+                    {tagSuggestions.map((tag) => (
+                      <Chip key={tag.id} label={tag.name} onPress={() => addTag(tag)} />
+                    ))}
+                  </View>
+                )}
+              </>
+            )}
+          </FormField>
+        </FormSection>
+      </ScrollView>
+
+      {/* 入力項目が多く縦に長い画面のため、送信ボタンは画面下に固定してスクロールせずに押せるようにする */}
+      <FormFooter>
+        <Button label={t.createSpot.save} onPress={submit} loading={submitting} />
+      </FormFooter>
     </KeyboardAvoidingView>
-  );
-}
-
-// セクション見出し＋(あれば)必須マーク＋「?」ボタン。
-// 「?」を押すとhelpの説明文だけがその場に展開される。デフォルトでは畳んだ状態にして
-// おくことで、投稿画面全体を細かい説明文だらけにせずミニマルな見た目に保つ。
-function SectionLabel({ label, help, required }: { label: string; help?: string; required?: boolean }) {
-  const [showHelp, setShowHelp] = useState(false);
-  return (
-    <View>
-      <View style={styles.sectionLabelRow}>
-        <Text style={styles.label}>{label}</Text>
-        {required && <Text style={styles.requiredMark}>*</Text>}
-        {help && (
-          <Pressable
-            onPress={() => setShowHelp((v) => !v)}
-            hitSlop={8}
-            style={[styles.helpButton, showHelp && styles.helpButtonActive]}
-          >
-            <Text style={[styles.helpButtonText, showHelp && styles.helpButtonTextActive]}>?</Text>
-          </Pressable>
-        )}
-      </View>
-      {help && showHelp && <Text style={styles.helpText}>{help}</Text>}
-    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.background },
   center: { flex: 1, backgroundColor: colors.background, alignItems: 'center', justifyContent: 'center' },
-  sectionLabelRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 6,
-    marginTop: 20,
-    marginBottom: 8,
-  },
-  label: { color: colors.textSecondary, fontSize: 13 },
-  requiredMark: { color: colors.accent, fontSize: 13, fontWeight: '700' },
-  helpButton: {
-    width: 16,
-    height: 16,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: colors.textPrimary,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  helpButtonActive: { backgroundColor: colors.textPrimary, borderColor: colors.textPrimary },
-  helpButtonText: { color: colors.textPrimary, fontSize: 11, fontWeight: '700' },
-  helpButtonTextActive: { color: colors.accentText },
-  helpText: { color: colors.textMuted, fontSize: 12, lineHeight: 17, marginBottom: 8 },
-  mediaRequiredNote: { color: colors.accent, fontSize: 12, marginTop: 20 },
-  input: {
-    backgroundColor: colors.surface,
-    color: colors.textPrimary,
-    borderRadius: 10,
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    fontSize: 15,
-  },
-  textArea: { height: 100, textAlignVertical: 'top' },
-  secondaryButton: {
-    backgroundColor: colors.surface,
-    borderRadius: 10,
-    paddingVertical: 12,
-    alignItems: 'center',
-  },
-  secondaryButtonText: { color: colors.textSecondary, fontSize: 14 },
-  locationRow: { flexDirection: 'row', gap: 10 },
-  locationButton: { flex: 1 },
-  coordsSetText: { color: colors.textSecondary, fontSize: 12, marginBottom: 8 },
-  tagGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
-  tagOption: {
-    borderWidth: 1,
-    borderColor: colors.border,
-    borderRadius: 16,
-    paddingHorizontal: 14,
-    paddingVertical: 8,
-    marginRight: 8,
-    marginBottom: 8,
-  },
-  tagOptionSelected: { backgroundColor: colors.accent, borderColor: colors.accent },
-  tagOptionText: { color: colors.textSecondary, fontSize: 13 },
-  tagOptionTextSelected: { color: colors.accentText, fontWeight: '600' },
-  tagInputRow: { flexDirection: 'row', gap: 8 },
-  tagInput: { flex: 1 },
-  tagAddButton: { paddingHorizontal: 18 },
-  tagLimitText: { color: colors.textMuted, fontSize: 12 },
-  embedPreviewWrap: { marginBottom: 14 },
+  flex: { flex: 1 },
+  accessInput: { minHeight: 80 },
+  locationRow: { flexDirection: 'row', gap: space.s },
+  coordsRow: { flexDirection: 'row', alignItems: 'center', gap: 6 },
+  coordsText: { color: colors.textSecondary, fontSize: type.small },
+  embedItem: { gap: space.s, marginBottom: space.s },
   embedRow: {
     flexDirection: 'row',
     alignItems: 'center',
+    gap: space.s,
     backgroundColor: colors.surface,
-    borderRadius: 8,
-    paddingVertical: 8,
-    paddingHorizontal: 12,
-    marginBottom: 6,
+    borderWidth: 1,
+    borderColor: colors.border,
+    borderRadius: radius.m,
+    paddingVertical: 10,
+    paddingHorizontal: space.m,
   },
   embedPlatformTag: {
     color: colors.textSecondary,
-    fontSize: 11,
-    fontWeight: '700',
-    backgroundColor: colors.background,
-    borderRadius: 4,
-    paddingHorizontal: 6,
+    fontSize: type.caption,
+    backgroundColor: colors.surfaceAlt,
+    borderRadius: radius.pill,
+    paddingHorizontal: space.s,
     paddingVertical: 2,
-    marginRight: 8,
   },
-  embedUrlText: { flex: 1, color: colors.textSecondary, fontSize: 12, marginRight: 8 },
-  embedRemoveText: { color: colors.textMuted, fontSize: 14 },
-  embedPreviewBox: { borderRadius: 10, overflow: 'hidden', backgroundColor: colors.background },
-  submitButton: {
-    backgroundColor: colors.accent,
-    borderRadius: 10,
-    paddingVertical: 14,
-    alignItems: 'center',
-    marginTop: 32,
-    marginBottom: 40,
-  },
-  submitButtonText: { color: colors.accentText, fontWeight: '600', fontSize: 16 },
+  embedUrlText: { flex: 1, color: colors.textSecondary, fontSize: type.small },
+  embedPreviewBox: { borderRadius: radius.m, overflow: 'hidden', backgroundColor: colors.background },
 });

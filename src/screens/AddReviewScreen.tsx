@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {
   View,
+  Image,
   Pressable,
   StyleSheet,
   ScrollView,
@@ -10,12 +11,12 @@ import {
 } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { decode } from 'base64-arraybuffer';
+import { Ionicons } from '@expo/vector-icons';
 import Text from '../components/AppText';
-import TextInput from '../components/AppTextInput';
 import InstagramEmbed from '../components/InstagramEmbed';
 import XEmbed from '../components/XEmbed';
 import { supabase } from '../lib/supabase';
-import { fetchSpotBySlug } from '../lib/spots';
+import { fetchSpotBySlug, spotThumbnailUrl } from '../lib/spots';
 import { createSpotReview } from '../lib/spotReviews';
 import { resizeImageForUpload, extensionForContentType, THUMBNAIL_RESIZE_OPTIONS } from '../lib/imageResize';
 import PhotoEditList, { movePhoto } from '../components/PhotoEditList';
@@ -24,7 +25,9 @@ import { takeReviewDraft } from '../lib/reviewDraft';
 import { useAuth } from '../lib/AuthContext';
 import { useTranslation } from '../lib/i18n';
 import { notify } from '../lib/notify';
-import { colors } from '../lib/theme';
+import { colors, radius, space, type } from '../lib/theme';
+import { Button, ChoiceRow, FormField, FormFooter, FormInput, FormSection, formStyles } from '../components/Form';
+import { spotRawTitle } from '../content/spotSeo';
 import type { VisitTime, Spot } from '../types/database';
 import type { RootStackScreenProps } from '../navigation/types';
 
@@ -237,133 +240,107 @@ export default function AddReviewScreen({ navigation, route }: Props) {
     );
   }
 
-  return (
-    <KeyboardAvoidingView
-      style={{ flex: 1 }}
-      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-    >
-    <ScrollView
-      style={styles.container}
-      contentContainerStyle={{ padding: 20 }}
-      keyboardShouldPersistTaps="handled"
-      automaticallyAdjustKeyboardInsets
-    >
-      <Text style={styles.lead}>{t.addReview.leadTemplate.replace('{name}', spot.title)}</Text>
+  const thumb = spotThumbnailUrl(spot);
 
-      <SectionLabel label={t.createSpot.visitTime} help={t.createSpot.visitTimeHelp} />
-      <View style={styles.tagGrid}>
-        {VISIT_TIME_OPTIONS.map((opt) => (
-          <Pressable
-            key={opt}
-            style={[styles.tagOption, visitTime === opt && styles.tagOptionSelected]}
-            onPress={() => setVisitTime((prev) => (prev === opt ? null : opt))}
-          >
-            <Text style={visitTime === opt ? styles.tagOptionTextSelected : styles.tagOptionText}>
-              {visitTimeLabel(opt)}
+  return (
+    <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+      <ScrollView
+        style={styles.container}
+        contentContainerStyle={formStyles.content}
+        keyboardShouldPersistTaps="handled"
+        automaticallyAdjustKeyboardInsets
+      >
+        {/* どのスポットへの投稿かが一目で分かるよう、写真付きの小さなカードで示す */}
+        <View style={styles.spotCard}>
+          {thumb ? <Image source={{ uri: thumb }} style={styles.spotThumb} /> : <View style={styles.spotThumb} />}
+          <View style={styles.spotCardBody}>
+            <Text style={styles.spotCardLabel}>{t.addReview.targetLabel}</Text>
+            <Text variant="body" style={styles.spotCardTitle} numberOfLines={2}>
+              {spotRawTitle(spot)}
             </Text>
-          </Pressable>
-        ))}
-      </View>
-
-      <SectionLabel label={t.createSpot.photos} help={fmt(t.createSpot.photosHelp, MAX_PHOTOS)} />
-      <Pressable style={styles.secondaryButton} onPress={pickImages}>
-        <Text style={styles.secondaryButtonText}>{t.createSpot.pickPhotos}</Text>
-      </Pressable>
-      <PhotoEditList
-        items={images.map((img) => ({ uri: img.uri }))}
-        onRemove={removeImage}
-        onMove={moveImage}
-      />
-
-      <SectionLabel label={t.createSpot.embeds} help={fmt(t.createSpot.embedsHelp, MAX_SNS_EMBEDS)} />
-
-      {embeds.length > 0 && (
-        <View style={{ marginBottom: 8 }}>
-          {embeds.map((e) => (
-            <View key={e.url} style={styles.embedPreviewWrap}>
-              <View style={styles.embedRow}>
-                <Text style={styles.embedPlatformTag}>{e.platform === 'instagram' ? 'Instagram' : 'X'}</Text>
-                <Text style={styles.embedUrlText} numberOfLines={1}>
-                  {e.url}
-                </Text>
-                <Pressable onPress={() => removeEmbedUrl(e.url)} hitSlop={8}>
-                  <Text style={styles.embedRemoveText}>✕</Text>
-                </Pressable>
-              </View>
-              <View style={styles.embedPreviewBox}>
-                {e.platform === 'instagram' ? <InstagramEmbed url={e.url} /> : <XEmbed url={e.url} />}
-              </View>
-            </View>
-          ))}
+          </View>
         </View>
-      )}
 
-      {embeds.length >= MAX_SNS_EMBEDS ? (
-        <Text style={styles.tagLimitText}>{fmt(t.createSpot.embedLimitTemplate, MAX_SNS_EMBEDS)}</Text>
-      ) : (
-        <View style={styles.tagInputRow}>
-          <TextInput
-            style={[styles.input, styles.tagInput]}
-            value={embedInput}
-            onChangeText={setEmbedInput}
-            placeholder={t.createSpot.embedPlaceholder}
-            placeholderTextColor={colors.placeholder}
-            autoCapitalize="none"
-            autoCorrect={false}
-            onSubmitEditing={addEmbedUrl}
-            returnKeyType="done"
-          />
-          <Pressable
-            style={[styles.secondaryButton, styles.tagAddButton]}
-            onPress={addEmbedUrl}
-            disabled={!embedInput.trim()}
-          >
-            <Text style={styles.secondaryButtonText}>{t.createSpot.add}</Text>
-          </Pressable>
-        </View>
-      )}
+        <FormSection first title={t.createSpot.sectionMedia} note={t.createSpot.mediaRequiredNote}>
+          <FormField label={t.createSpot.photos} help={fmt(t.createSpot.photosHelp, MAX_PHOTOS)}>
+            <Button variant="secondary" icon="images-outline" label={t.createSpot.pickPhotos} onPress={pickImages} />
+            <PhotoEditList
+              items={images.map((img) => ({ uri: img.uri }))}
+              onRemove={removeImage}
+              onMove={moveImage}
+            />
+          </FormField>
 
-      <SectionLabel label={t.addReview.comment} help={t.addReview.commentHelp} />
-      <TextInput
-        style={[styles.input, styles.textArea]}
-        value={description}
-        onChangeText={setDescription}
-        placeholder={t.addReview.commentPlaceholder}
-        placeholderTextColor={colors.placeholder}
-        multiline
-      />
+          <FormField label={t.createSpot.embeds} help={fmt(t.createSpot.embedsHelp, MAX_SNS_EMBEDS)}>
+            {embeds.map((e) => (
+              <View key={e.url} style={styles.embedItem}>
+                <View style={styles.embedRow}>
+                  <Text style={styles.embedPlatformTag}>{e.platform === 'instagram' ? 'Instagram' : 'X'}</Text>
+                  <Text variant="body" style={styles.embedUrlText} numberOfLines={1}>
+                    {e.url}
+                  </Text>
+                  <Pressable onPress={() => removeEmbedUrl(e.url)} hitSlop={8} accessibilityRole="button">
+                    <Ionicons name="close" size={18} color={colors.textMuted} />
+                  </Pressable>
+                </View>
+                <View style={styles.embedPreviewBox}>
+                  {e.platform === 'instagram' ? <InstagramEmbed url={e.url} /> : <XEmbed url={e.url} />}
+                </View>
+              </View>
+            ))}
+            {embeds.length >= MAX_SNS_EMBEDS ? (
+              <Text variant="body" style={formStyles.caption}>
+                {fmt(t.createSpot.embedLimitTemplate, MAX_SNS_EMBEDS)}
+              </Text>
+            ) : (
+              <View style={formStyles.inputRow}>
+                <FormInput
+                  style={styles.flex}
+                  value={embedInput}
+                  onChangeText={setEmbedInput}
+                  placeholder={t.createSpot.embedPlaceholder}
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  onSubmitEditing={addEmbedUrl}
+                  returnKeyType="done"
+                />
+                <Button
+                  compact
+                  variant="secondary"
+                  label={t.createSpot.add}
+                  onPress={addEmbedUrl}
+                  disabled={!embedInput.trim()}
+                />
+              </View>
+            )}
+          </FormField>
+        </FormSection>
 
-      <Pressable style={styles.submitButton} onPress={submit} disabled={submitting}>
-        {submitting ? (
-          <ActivityIndicator color={colors.accentText} />
-        ) : (
-          <Text style={styles.submitButtonText}>{t.addReview.submit}</Text>
-        )}
-      </Pressable>
-    </ScrollView>
+        <FormSection title={t.createSpot.sectionMore}>
+          <FormField label={t.addReview.comment} help={t.addReview.commentHelp}>
+            <FormInput
+              value={description}
+              onChangeText={setDescription}
+              placeholder={t.addReview.commentPlaceholder}
+              multiline
+            />
+          </FormField>
+
+          <FormField label={t.createSpot.visitTime} help={t.createSpot.visitTimeHelp}>
+            <ChoiceRow
+              options={VISIT_TIME_OPTIONS.map((opt) => ({ value: opt, label: visitTimeLabel(opt) }))}
+              value={visitTime}
+              onChange={setVisitTime}
+              allowDeselect
+            />
+          </FormField>
+        </FormSection>
+      </ScrollView>
+
+      <FormFooter>
+        <Button label={t.addReview.submit} onPress={submit} loading={submitting} />
+      </FormFooter>
     </KeyboardAvoidingView>
-  );
-}
-
-function SectionLabel({ label, help, required }: { label: string; help?: string; required?: boolean }) {
-  const [showHelp, setShowHelp] = useState(false);
-  return (
-    <View>
-      <View style={styles.sectionLabelRow}>
-        <Text style={styles.label}>{label}</Text>
-        {required && <Text style={styles.requiredMark}>*</Text>}
-        {help && (
-          <Pressable
-            onPress={() => setShowHelp((v) => !v)}
-            hitSlop={8}
-            style={[styles.helpButton, showHelp && styles.helpButtonActive]}
-          >
-            <Text style={[styles.helpButtonText, showHelp && styles.helpButtonTextActive]}>?</Text>
-          </Pressable>
-        )}
-      </View>
-      {help && showHelp && <Text style={styles.helpText}>{help}</Text>}
-    </View>
   );
 }
 
@@ -371,81 +348,42 @@ const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.background },
   centerContainer: { flex: 1, backgroundColor: colors.background, alignItems: 'center', justifyContent: 'center' },
   spotLoadFailedText: { color: colors.textSecondary, fontSize: 14 },
-  lead: { color: colors.textSecondary, fontSize: 13, lineHeight: 19, marginBottom: 8 },
-  sectionLabelRow: { flexDirection: 'row', alignItems: 'center', gap: 6, marginTop: 20, marginBottom: 8 },
-  label: { color: colors.textSecondary, fontSize: 13 },
-  requiredMark: { color: colors.accent, fontSize: 13, fontWeight: '700' },
-  helpButton: {
-    width: 16,
-    height: 16,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: colors.textPrimary,
+  flex: { flex: 1 },
+  spotCard: {
+    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
-  },
-  helpButtonActive: { backgroundColor: colors.textPrimary, borderColor: colors.textPrimary },
-  helpButtonText: { color: colors.textPrimary, fontSize: 11, fontWeight: '700' },
-  helpButtonTextActive: { color: colors.accentText },
-  helpText: { color: colors.textMuted, fontSize: 12, lineHeight: 17, marginBottom: 8 },
-  input: {
+    gap: space.m,
+    padding: space.m,
+    marginBottom: 36,
+    borderRadius: radius.m,
     backgroundColor: colors.surface,
-    color: colors.textPrimary,
-    borderRadius: 10,
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    fontSize: 15,
-  },
-  textArea: { height: 100, textAlignVertical: 'top' },
-  secondaryButton: { backgroundColor: colors.surface, borderRadius: 10, paddingVertical: 12, alignItems: 'center' },
-  secondaryButtonText: { color: colors.textSecondary, fontSize: 14 },
-  tagGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
-  tagOption: {
     borderWidth: 1,
     borderColor: colors.border,
-    borderRadius: 16,
-    paddingHorizontal: 14,
-    paddingVertical: 8,
-    marginRight: 8,
-    marginBottom: 8,
   },
-  tagOptionSelected: { backgroundColor: colors.accent, borderColor: colors.accent },
-  tagOptionText: { color: colors.textSecondary, fontSize: 13 },
-  tagOptionTextSelected: { color: colors.accentText, fontWeight: '600' },
-  tagInputRow: { flexDirection: 'row', gap: 8 },
-  tagInput: { flex: 1 },
-  tagAddButton: { paddingHorizontal: 18 },
-  tagLimitText: { color: colors.textMuted, fontSize: 12 },
-  embedPreviewWrap: { marginBottom: 14 },
+  spotThumb: { width: 56, height: 56, borderRadius: radius.s, backgroundColor: colors.surfaceAlt },
+  spotCardBody: { flex: 1, minWidth: 0, gap: space.xs },
+  spotCardLabel: { color: colors.accent, fontSize: type.caption },
+  spotCardTitle: { color: colors.textPrimary, fontSize: 14, lineHeight: 20 },
+  embedItem: { gap: space.s, marginBottom: space.s },
   embedRow: {
     flexDirection: 'row',
     alignItems: 'center',
+    gap: space.s,
     backgroundColor: colors.surface,
-    borderRadius: 8,
-    paddingVertical: 8,
-    paddingHorizontal: 12,
-    marginBottom: 6,
+    borderWidth: 1,
+    borderColor: colors.border,
+    borderRadius: radius.m,
+    paddingVertical: 10,
+    paddingHorizontal: space.m,
   },
   embedPlatformTag: {
     color: colors.textSecondary,
-    fontSize: 11,
-    fontWeight: '700',
-    backgroundColor: colors.background,
-    borderRadius: 4,
-    paddingHorizontal: 6,
+    fontSize: type.caption,
+    backgroundColor: colors.surfaceAlt,
+    borderRadius: radius.pill,
+    paddingHorizontal: space.s,
     paddingVertical: 2,
-    marginRight: 8,
   },
-  embedUrlText: { flex: 1, color: colors.textSecondary, fontSize: 12, marginRight: 8 },
-  embedRemoveText: { color: colors.textMuted, fontSize: 14 },
-  embedPreviewBox: { borderRadius: 10, overflow: 'hidden', backgroundColor: colors.background },
-  submitButton: {
-    backgroundColor: colors.accent,
-    borderRadius: 10,
-    paddingVertical: 14,
-    alignItems: 'center',
-    marginTop: 32,
-    marginBottom: 40,
-  },
-  submitButtonText: { color: colors.accentText, fontWeight: '600', fontSize: 16 },
+  embedUrlText: { flex: 1, color: colors.textSecondary, fontSize: type.small },
+  embedPreviewBox: { borderRadius: radius.m, overflow: 'hidden', backgroundColor: colors.background },
 });

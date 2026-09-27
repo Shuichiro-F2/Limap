@@ -10,7 +10,9 @@ import {
 } from 'react-native';
 import Text from './AppText';
 import TextInput from './AppTextInput';
-import { colors } from '../lib/theme';
+import { Ionicons } from '@expo/vector-icons';
+import { useTranslation } from '../lib/i18n';
+import { colors, radius, space, type } from '../lib/theme';
 import type { ContactMessage } from '../types/database';
 
 type Props = {
@@ -35,6 +37,7 @@ export default function ContactThreadView({
   disabled = false,
   disabledMessage,
 }: Props) {
+  const t = useTranslation().contact;
   const [draft, setDraft] = useState('');
   const listRef = useRef<FlatList>(null);
 
@@ -57,19 +60,25 @@ export default function ContactThreadView({
           keyExtractor={(item) => item.id}
           contentContainerStyle={styles.listContent}
           onContentSizeChange={() => listRef.current?.scrollToEnd({ animated: false })}
-          ListEmptyComponent={<Text style={styles.emptyText}>まだメッセージはありません</Text>}
+          ListEmptyComponent={
+            <Text variant="body" style={styles.emptyText}>
+              {t.threadEmpty}
+            </Text>
+          }
           renderItem={({ item }) => {
             const isOwn = item.sender_id === currentUserId;
             const label = isOwn
-              ? 'あなた'
+              ? t.you
               : item.is_admin
-                ? 'サポート'
-                : item.sender?.display_name || item.sender?.username || 'ユーザー';
+                ? t.support
+                : item.sender?.display_name || item.sender?.username || t.user;
             return (
               <View style={[styles.bubbleRow, isOwn && styles.bubbleRowOwn]}>
                 <View style={[styles.bubble, isOwn ? styles.bubbleOwn : styles.bubbleOther]}>
                   <Text style={styles.bubbleLabel}>{label}</Text>
-                  <Text style={isOwn ? styles.bubbleTextOwn : styles.bubbleTextOther}>{item.body}</Text>
+                  <Text variant="body" style={isOwn ? styles.bubbleTextOwn : styles.bubbleTextOther}>
+                    {item.body}
+                  </Text>
                 </View>
               </View>
             );
@@ -79,23 +88,31 @@ export default function ContactThreadView({
 
       {disabled ? (
         <View style={styles.disabledBar}>
-          <Text style={styles.disabledText}>{disabledMessage ?? 'このスレッドは対応完了になっています'}</Text>
+          <Text variant="body" style={styles.disabledText}>
+            {disabledMessage ?? t.threadClosed}
+          </Text>
         </View>
       ) : (
         <View style={styles.composer}>
           <TextInput
+            variant="body"
             style={styles.input}
             value={draft}
             onChangeText={setDraft}
-            placeholder="メッセージを入力"
-            placeholderTextColor={colors.placeholder}
+            placeholder={t.replyPlaceholder}
             multiline
           />
-          <Pressable style={styles.sendButton} onPress={submit} disabled={sending || !draft.trim()}>
+          <Pressable
+            style={[styles.sendButton, (sending || !draft.trim()) && styles.sendButtonDisabled]}
+            onPress={submit}
+            disabled={sending || !draft.trim()}
+            accessibilityRole="button"
+            accessibilityLabel={t.reply}
+          >
             {sending ? (
               <ActivityIndicator color={colors.accentText} size="small" />
             ) : (
-              <Text style={styles.sendButtonText}>送信</Text>
+              <Ionicons name="arrow-up" size={20} color={colors.accentText} />
             )}
           </Pressable>
         </View>
@@ -105,47 +122,51 @@ export default function ContactThreadView({
 }
 
 const styles = StyleSheet.create({
-  listContent: { padding: 16, flexGrow: 1 },
-  emptyText: { color: colors.textMuted, textAlign: 'center', marginTop: 40, fontSize: 13 },
-  bubbleRow: { flexDirection: 'row', marginBottom: 12 },
+  listContent: { padding: space.l, flexGrow: 1, width: '100%', maxWidth: 640, alignSelf: 'center' },
+  emptyText: { color: colors.textMuted, textAlign: 'center', marginTop: 40, fontSize: type.small },
+  bubbleRow: { flexDirection: 'row', marginBottom: space.m },
   bubbleRowOwn: { justifyContent: 'flex-end' },
-  bubble: { maxWidth: '80%', borderRadius: 12, paddingHorizontal: 14, paddingVertical: 10 },
-  bubbleOther: { backgroundColor: colors.surface, borderTopLeftRadius: 2 },
-  bubbleOwn: { backgroundColor: colors.accent, borderTopRightRadius: 2 },
-  bubbleLabel: { color: colors.textMuted, fontSize: 11, marginBottom: 4 },
-  bubbleTextOther: { color: colors.textPrimary, fontSize: 14, lineHeight: 20 },
-  bubbleTextOwn: { color: colors.accentText, fontSize: 14, lineHeight: 20 },
+  bubble: { maxWidth: '82%', borderRadius: radius.m, paddingHorizontal: 14, paddingVertical: 10 },
+  bubbleOther: { backgroundColor: colors.surface, borderWidth: 1, borderColor: colors.border, borderTopLeftRadius: 4 },
+  bubbleOwn: { backgroundColor: colors.accent, borderTopRightRadius: 4 },
+  bubbleLabel: { color: colors.textMuted, fontSize: type.caption, marginBottom: space.xs },
+  bubbleTextOther: { color: colors.textPrimary, fontSize: 14, lineHeight: 22 },
+  bubbleTextOwn: { color: colors.accentText, fontSize: 14, lineHeight: 22 },
   composer: {
     flexDirection: 'row',
     alignItems: 'flex-end',
-    gap: 8,
-    padding: 12,
-    borderTopWidth: 1,
+    gap: space.s,
+    padding: space.m,
+    borderTopWidth: StyleSheet.hairlineWidth,
     borderTopColor: colors.border,
     backgroundColor: colors.background,
   },
   input: {
     flex: 1,
-    backgroundColor: colors.surface,
-    color: colors.textPrimary,
-    borderRadius: 10,
-    paddingHorizontal: 14,
-    paddingVertical: 10,
-    fontSize: 14,
+    minHeight: 44,
     maxHeight: 120,
+    backgroundColor: colors.surface,
+    borderWidth: 1,
+    borderColor: colors.border,
+    borderRadius: 22,
+    paddingHorizontal: space.l,
+    paddingVertical: 10,
+    color: colors.textPrimary,
+    // 16px未満だとiOS Safariがフォーカス時に画面を自動で拡大してしまうため16にする
+    fontSize: 16,
   },
   sendButton: {
+    width: 44,
+    height: 44,
+    borderRadius: radius.pill,
     backgroundColor: colors.accent,
-    borderRadius: 10,
-    paddingHorizontal: 16,
-    paddingVertical: 12,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  sendButtonText: { color: colors.accentText, fontWeight: '600', fontSize: 14 },
+  sendButtonDisabled: { opacity: 0.45 },
   disabledBar: {
-    padding: 16,
-    borderTopWidth: 1,
+    padding: space.l,
+    borderTopWidth: StyleSheet.hairlineWidth,
     borderTopColor: colors.border,
     backgroundColor: colors.background,
   },

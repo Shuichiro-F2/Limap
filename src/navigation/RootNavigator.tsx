@@ -185,7 +185,10 @@ export default function RootNavigator() {
           headerTintColor: colors.textPrimary,
           // ヘッダータイトルはReact Navigation内部のTextで描画されるため、
           // アプリ全体のフォント差し替え（AppText）が効かない。ここで直接指定する。
-          headerTitleStyle: { fontFamily: 'DotGothic16_400Regular' },
+          headerTitleStyle: { fontFamily: 'DotGothic16_400Regular', fontSize: 17 },
+          // 見出しは中央に置き、下の区切り線は付けない（地図・スポット詳細などの新しいデザインに合わせる）
+          headerTitleAlign: 'center',
+          headerShadowVisible: false,
           // iOS標準では戻るボタンの矢印の横に遷移元画面のタイトル(例: "Main")が
           // 表示されるが、この文言はユーザーには不要な情報のため、矢印のみの表示にする。
           headerBackButtonDisplayMode: 'minimal',
@@ -197,9 +200,8 @@ export default function RootNavigator() {
         <Stack.Screen name="Welcome" component={WelcomeScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Main" component={MainTabNavigator} options={{ headerShown: false }} />
         {/*
-          投稿詳細画面は、他画面(地図・フィード等)と全く同じロゴ位置・レイアウトの
-          ヘッダーにするため、native-stackの既定ヘッダーは使わずSpotDetailScreen側で
-          共通のAppHeaderを重ねて描画する。
+          投稿詳細画面は、写真の上に戻る・ロゴ・共有を重ね、スクロールで隠れるヘッダーにするため、
+          native-stackの既定ヘッダーは使わずSpotDetailContent側で描画する。
         */}
         <Stack.Screen name="SpotDetail" component={SpotDetailScreen} options={{ headerShown: false }} />
         <Stack.Screen name="CreateSpot" component={CreateSpotScreen} options={{ title: t.createSpot.headerTitle }} />
