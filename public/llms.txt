@@ -19,6 +19,7 @@
 
 ## コラム記事
 
+- [名古屋のリミナルスペース｜地下街・昭和の庁舎など、実在する8か所](https://limap.jp/articles/liminal-spots-nagoya/): 名古屋で「リミナルスペース」を感じられる実在の場所を、LIMapの登録スポットから8か所紹介します。1957年開業の地下街、長い廊下の市役所、赤レンガの旧裁判所、ガラスの大屋根まで。行くときの注意点も。
 - [関西のリミナルスペース撮影スポット｜大阪・神戸・奈良・滋賀の実在する場所](https://limap.jp/articles/liminal-spots-kansai/): 関西で「リミナルスペース」を撮りに行ける実在の場所を、LIMapの登録スポットから紹介します。神戸の人工島、世界初のカプセルホテル、鉄橋や選鉱場の跡まで。行くときの注意点も。
 - [映画『バックルームズ』は怖い？ネタバレなしで、怖さの種類を説明します](https://limap.jp/articles/is-backrooms-movie-scary/): 映画『バックルームズ』はどのくらい怖いのか。ネタバレを一切含めず、この作品の怖さがジャンプスケア型ではなく空間型であること、評価が割れている理由、ホラーが苦手な人向けの目安を整理しました。
 - [映画を観たあとに行きたい、東京の「バックルームズ的」な場所](https://limap.jp/articles/backrooms-spots-tokyo/): 映画『バックルームズ』を観たあと、街の見え方が少し変わった人へ。東京にある、あの空気感に近い実在の場所をLIMapの登録スポットから紹介します。地下通路、団地、閉じた駅など。
@@ -46,6 +47,7 @@
 
 LIMap is a map for finding and sharing liminal spaces: abandoned buildings, empty stations, late-night parking lots and other eerie, nostalgic places. English versions of the articles are at https://limap.jp/en/articles/ (each page links to its Japanese version with hreflang).
 
+- [Liminal Spaces in Nagoya: 8 Real Places, From Underground Malls to Showa-Era Public Buildings](https://limap.jp/en/articles/liminal-spots-nagoya/): Eight real places in Nagoya where you can feel the atmosphere of a liminal space, chosen from spots registered on LIMap: underground malls from 1957, a city hall with a 100-meter corridor, a red-brick former courthouse and a glass roof covered in water. With tips for visiting.
 - [Liminal Space Photo Spots in Kansai: Real Places in Osaka, Kobe, Nara and Shiga](https://limap.jp/en/articles/liminal-spots-kansai/): Real liminal spaces you can visit in the Kansai region of Japan, chosen from spots registered on LIMap: an artificial island in Kobe, the world's first capsule hotel, the remains of a railway bridge and an ore-dressing plant, plus tips for visiting.
 - [Is the Backrooms Movie Scary? A Spoiler-Free Guide to What Kind of Fear It Uses](https://limap.jp/en/articles/is-backrooms-movie-scary/): How frightening is Backrooms, really? With no plot spoilers at all: why its fear is spatial rather than jump-scare based, why reviews are split, and how to tell whether it is for you if horror is not your thing.
 - [Where to Go in Tokyo After Watching the Backrooms Movie](https://limap.jp/en/articles/backrooms-spots-tokyo/): If the film changed how your commute looks, here are real places in Tokyo with a similar atmosphere, taken from spots actually recorded on LIMap: underground passages, housing estates and closed transit sites.

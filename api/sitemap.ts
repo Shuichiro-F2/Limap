@@ -42,6 +42,7 @@ const ARTICLE_SLUGS = [
   'backrooms-vs-exit-8',
   'who-is-kane-pixels',
   'what-is-noclip',
+  'liminal-spots-nagoya',
   'liminal-spots-kansai',
 ];
 

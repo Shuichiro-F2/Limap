@@ -299,6 +299,20 @@ const ARTICLE_ENTRIES: ArticleSummary[] = [
     thumbnailFile: 'Old TV sets.jpg',
   },
   {
+    slug: 'liminal-spots-nagoya',
+    publishedDate: '2026-09-27',
+    categoryJa: '実在スポット',
+    categoryEn: 'Real Spots',
+    titleJa: '名古屋のリミナルスペース｜地下街・昭和の庁舎など、実在する8か所',
+    titleEn:
+      'Liminal Spaces in Nagoya: 8 Real Places, From Underground Malls to Showa-Era Public Buildings',
+    leadJa:
+      '1957年開業の地下街、100mの廊下が続く市役所、赤レンガの旧裁判所。名古屋で実際に行けるリミナルスペースを、LIMapの登録スポットから選びました。',
+    leadEn:
+      'Underground malls from 1957, a city hall with a 100-meter corridor, a red-brick former courthouse: real liminal spaces you can visit in Nagoya.',
+    thumbnailFile: 'Fushimi Underground Shopping Street Passageway.jpg',
+  },
+  {
     slug: 'liminal-spots-kansai',
     publishedDate: '2026-09-27',
     categoryJa: '実在スポット',

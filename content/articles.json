@@ -2928,6 +2928,276 @@
     ]
   },
   {
+    "slug": "liminal-spots-nagoya",
+    "category": "実在スポット",
+    "categoryEn": "Real Spots",
+    "publishedDate": "2026-09-27",
+    "ja": {
+      "title": "名古屋のリミナルスペース｜地下街・昭和の庁舎など、実在する8か所",
+      "metaDescription": "名古屋で「リミナルスペース」を感じられる実在の場所を、LIMapの登録スポットから8か所紹介します。1957年開業の地下街、長い廊下の市役所、赤レンガの旧裁判所、ガラスの大屋根まで。行くときの注意点も。",
+      "h1": "名古屋のリミナルスペース——地下街から昭和の庁舎まで、実在する8か所",
+      "lead": "名古屋には、同じ景色がどこまでも続く地下街や、長い廊下をもつ古い公共建築が、今も日常の中で使われています。人の少ない時間に訪れると、見慣れたはずの場所が急に知らない場所に見える。LIMapに登録した、誰でも行ける8か所を紹介します。",
+      "sections": [
+        {
+          "heading": "名古屋のリミナルスペースは「地下」と「古い公共建築」に多い",
+          "paragraphs": [
+            "名古屋で見つかるリミナルスペースには、二つの特徴があります。ひとつは地下街です。名古屋駅や栄、伏見の地下には、昭和30年代から続く地下街が網の目のように広がり、同じ幅の通路と同じような店先が延々と続きます。",
+            "もうひとつは、昭和のはじめに建てられ、今も使われている公共建築です。長い廊下、同じ形の窓と扉、大理石の階段。役所や旧裁判所の中には、人の少ない時間にだけ現れる静けさがあります。この記事では、どれも「今、誰でも行けること」を条件に選んでいます。"
+          ]
+        },
+        {
+          "heading": "地下街：一直線の伏見と、カーブするサンロード",
+          "paragraphs": [
+            "伏見地下街（長者町地下街）は、地下鉄伏見駅から東へ一直線にのびる、全長240mの細長い地下街です。1957年、地上の長者町繊維街と駅を結ぶ地下の問屋街として生まれました。店が通路の片側にしか並ばず、黄緑と橙に塗られた壁とむき出しの配管が、開業当時の空気を残しています。",
+            "名駅地下街サンロードは、同じ1957年の3月に開業した、名古屋でいちばん古い地下街です。地下鉄東山線と一緒に造られたため、開業当時の通路は線路に沿って大きくカーブしています。先の見えない曲がった通路に同じような店先が続き、人の少ない時間には、どこまで歩いても同じ場所にいるような感覚になります。"
+          ],
+          "spots": [
+            {
+              "title": "伏見地下街（長者町地下街）",
+              "slug": "EuDSmVMc",
+              "thumbnailUrl": "https://pbs.twimg.com/media/GbgI4jMbEAEE1bD.jpg"
+            },
+            {
+              "title": "名駅地下街サンロード",
+              "slug": "jwojecgD",
+              "thumbnailUrl": "https://pbs.twimg.com/media/FrbY1gYaEAAh7nq.jpg"
+            }
+          ]
+        },
+        {
+          "heading": "昭和の公共建築：100mの廊下と、赤レンガの旧裁判所",
+          "paragraphs": [
+            "名古屋市役所本庁舎は、1933年に完成し、今も使われている市庁舎です。2014年に、隣の愛知県庁本庁舎とともに国の重要文化財に指定されました。北側の廊下は全長約100m。同じ窓と扉がどこまでも並ぶ景色は、映画やドラマの撮影にも使われています。平日の開庁時間なら、廊下や階段などの共用部分を見学できます。",
+            "近くの名古屋市市政資料館は、1922年に裁判所として建てられた赤レンガの建物です。1979年まで裁判所として使われ、今は市の資料館として無料で公開されています。大理石とステンドグラスの中央階段、再現された法廷、同じ扉が並ぶ廊下。役目を終えた建物の静けさが、館内に満ちています。"
+          ],
+          "spots": [
+            {
+              "title": "名古屋市役所本庁舎",
+              "slug": "3nQekYXT",
+              "thumbnailUrl": "https://pbs.twimg.com/media/GMTpatsaIAA66tm.jpg"
+            },
+            {
+              "title": "名古屋市市政資料館（旧名古屋控訴院）",
+              "slug": "VahpLYw4",
+              "thumbnailUrl": "https://pbs.twimg.com/media/FpzKNUMakAEZGb0.jpg"
+            }
+          ]
+        },
+        {
+          "heading": "水の屋根と、森の中の展望塔",
+          "paragraphs": [
+            "栄のオアシス21は、公園とバスターミナルと商業施設が一体になった立体公園で、2002年に開業しました。ガラスの大屋根「水の宇宙船」の上には薄く水が張られ、その下の吹き抜けの広場に光の模様が揺れます。朝早くや夜遅く、人のいない広場に立つと、昔思い描かれた未来の風景に取り残されたような気分になります。",
+            "東山スカイタワーは、東山公園の丘の上に立つ、高さ134mの展望塔です。名古屋市制100周年を記念して1989年に開業しました。駅から森の中の遊歩道を歩いてたどり着き、地上100mの展望室から街の明かりを見下ろす。平日の夜には、人影のまばらな静かな時間が流れます。"
+          ],
+          "spots": [
+            {
+              "title": "オアシス21",
+              "slug": "uW3b7GY2",
+              "thumbnailUrl": "https://pbs.twimg.com/media/HICFnRZbEAAOvHt.jpg"
+            },
+            {
+              "title": "東山スカイタワー",
+              "slug": "trD2fyrV",
+              "thumbnailUrl": "https://pbs.twimg.com/media/HN1x4gjbMAAVCkj.jpg"
+            }
+          ]
+        },
+        {
+          "heading": "博覧会の名残と、朝のアーケード",
+          "paragraphs": [
+            "鶴舞公園は、1909年に開かれた名古屋市で最初の公園です。その中心に立つ噴水塔は、翌1910年にこの公園で開かれた博覧会（第10回関西府県連合共進会）にあわせて造られました。地下鉄工事のため1973年にいったん解体されましたが、1977年に元の姿で復元されています。朝早く、円く並んだ列柱のまわりに誰もいないと、博覧会が終わった会場だけが残されたように見えます。",
+            "名古屋駅の東、那古野の円頓寺商店街は、江戸時代から続く商店街です。アーケードは1964年に架けられ、2015年に改修されました。日中はにぎわいますが、店が開く前の早朝には、長いアーケードの下にシャッターと看板だけが並ぶ、静かな通り抜けの空間になります。"
+          ],
+          "spots": [
+            {
+              "title": "鶴舞公園 噴水塔",
+              "slug": "ZSXELtqx",
+              "thumbnailUrl": "https://pbs.twimg.com/media/FxGgPK8aMAAkUvN.jpg"
+            },
+            {
+              "title": "円頓寺商店街",
+              "slug": "ZUcjGgAk",
+              "thumbnailUrl": "https://pbs.twimg.com/media/FNulVORVgAMGKwL.jpg"
+            }
+          ]
+        },
+        {
+          "heading": "行くときの、現実的な注意点",
+          "paragraphs": [
+            "地下街や商店街は、お店や通る人の生活の場です。撮影するときはお店や人の顔が写らないように気をつけ、通行の邪魔にならないようにしてください。伏見地下街は通れる時間が決まっていて、日曜・祝日は通れないことが多いので、事前に確認しておくと安心です。",
+            "名古屋市役所本庁舎の見学は、平日の開庁時間に、廊下や階段などの共用部分に限られます。職員や来庁者が写らないように撮影することが、市の見学のルールになっています。東山スカイタワーへの道は森の遊歩道を通るので、夕方以降に歩くときは気をつけてください。"
+          ]
+        },
+        {
+          "heading": "撮ったら、地図に残してください",
+          "paragraphs": [
+            "名古屋には、まだ記録されていない地下通路や古い建物がたくさんあります。毎日通る乗り換えの通路が、誰かにとっての探していた景色かもしれません。",
+            "LIMapは、そうした場所を写真と位置つきで残していく地図です。見つけた場所があれば、ぜひ登録してください。"
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "名古屋で手軽にリミナルスペースを感じられる場所は？",
+          "a": "名古屋駅や栄、伏見の地下街がおすすめです。1957年に開業した伏見地下街や名駅地下街サンロードは、駅から直接入れて、同じような通路が長く続く、名古屋らしいリミナルスペースです。"
+        },
+        {
+          "q": "名古屋市役所の中は見学できますか？",
+          "a": "平日の開庁時間（8:45〜17:15）であれば、廊下や階段などの共用部分を見学できます。執務室などには入れません。職員や来庁者が写らないように撮影するのが、市の見学のルールです。"
+        },
+        {
+          "q": "無料で入れる場所はありますか？",
+          "a": "名古屋市市政資料館は入館無料で、1922年に建てられた旧裁判所の中を見学できます。鶴舞公園は24時間無料で入れ、地下街や円頓寺商店街も自由に歩けます。"
+        }
+      ]
+    },
+    "en": {
+      "title": "Liminal Spaces in Nagoya: 8 Real Places, From Underground Malls to Showa-Era Public Buildings",
+      "metaDescription": "Eight real places in Nagoya where you can feel the atmosphere of a liminal space, chosen from spots registered on LIMap: underground malls from 1957, a city hall with a 100-meter corridor, a red-brick former courthouse and a glass roof covered in water. With tips for visiting.",
+      "h1": "Liminal Spaces in Nagoya: 8 Real Places, From Underground Malls to Showa-Era Public Buildings",
+      "lead": "Nagoya is full of underground malls where the same view repeats without end, and old public buildings with long corridors that are still in everyday use. Visit at a quiet hour and a familiar place can suddenly feel like somewhere you have never been. Here are eight places registered on LIMap that anyone can visit.",
+      "sections": [
+        {
+          "heading": "In Nagoya, Liminal Spaces Gather Underground and in Old Public Buildings",
+          "paragraphs": [
+            "The liminal spaces you find in Nagoya have two main features. The first is its underground malls. Beneath Nagoya Station, Sakae and Fushimi, malls dating back to the 1950s spread like a web, with corridors of the same width and similar shopfronts going on and on.",
+            "The second is public buildings from the early Showa era that are still in use: long corridors, identical windows and doors, marble staircases. Inside a city hall or a former courthouse, a particular stillness appears only when few people are around. Every place in this article was chosen on one condition: anyone can go there today."
+          ]
+        },
+        {
+          "heading": "Underground Malls: Straight-Line Fushimi and Curving Sunroad",
+          "paragraphs": [
+            "Fushimi Underground Mall (Choja-machi Underground Mall) runs in a straight line east from Fushimi subway station for 240 meters. It opened in 1957 as an underground wholesale street linking the station with the Choja-machi textile district above. Shops line only one side of the corridor, and the walls painted yellow-green and orange, with exposed pipes, keep the air of its opening years.",
+            "Meieki Underground Mall Sunroad opened in March of the same year and is the oldest underground mall in Nagoya. Because it was built together with the Higashiyama subway line, its original corridor curves along the tracks. With similar shopfronts continuing around a bend you cannot see past, it can feel as if you are walking without ever arriving anywhere."
+          ],
+          "spots": [
+            {
+              "title": "Fushimi Underground Mall (Choja-machi Underground Mall)",
+              "slug": "EuDSmVMc",
+              "thumbnailUrl": "https://pbs.twimg.com/media/GbgI4jMbEAEE1bD.jpg"
+            },
+            {
+              "title": "Meieki Underground Mall Sunroad",
+              "slug": "jwojecgD",
+              "thumbnailUrl": "https://pbs.twimg.com/media/FrbY1gYaEAAh7nq.jpg"
+            }
+          ]
+        },
+        {
+          "heading": "Showa-Era Public Buildings: A 100-Meter Corridor and a Red-Brick Former Courthouse",
+          "paragraphs": [
+            "Nagoya City Hall's main building was completed in 1933 and is still in use. In 2014 it was designated an Important Cultural Property of Japan together with the neighboring Aichi Prefectural Government building. Its north corridor is about 100 meters long, and its endless rows of identical windows and doors have been used for film and TV shoots. On weekdays during office hours, visitors can walk the corridors and staircases.",
+            "Nearby, the Nagoya City Archives occupies a red-brick building built as a courthouse in 1922. It served as a court until 1979 and is now open to the public free of charge. A central staircase of marble and stained glass, a reconstructed courtroom, corridors of identical doors: the building is filled with the quiet of a place that has finished its work."
+          ],
+          "spots": [
+            {
+              "title": "Nagoya City Hall Main Building",
+              "slug": "3nQekYXT",
+              "thumbnailUrl": "https://pbs.twimg.com/media/GMTpatsaIAA66tm.jpg"
+            },
+            {
+              "title": "Nagoya City Archives (Former Nagoya Court of Appeals)",
+              "slug": "VahpLYw4",
+              "thumbnailUrl": "https://pbs.twimg.com/media/FpzKNUMakAEZGb0.jpg"
+            }
+          ]
+        },
+        {
+          "heading": "A Roof of Water and an Observation Tower in the Woods",
+          "paragraphs": [
+            "Oasis 21 in Sakae, opened in 2002, combines a park, a bus terminal and shops in a single multi-level space. A thin layer of water runs across its glass roof, the \"Spaceship-Aqua,\" and patterns of light ripple across the sunken plaza below. Early in the morning or late at night, standing in the empty plaza can feel like being left behind inside a future imagined long ago.",
+            "Higashiyama Sky Tower is a 134-meter observation tower on a hill in Higashiyama Park, opened in 1989 to mark the 100th anniversary of the city. You reach it along a path through the woods from the station, and look down on the city lights from an observation room 100 meters up. On weekday evenings, only a few figures share the quiet."
+          ],
+          "spots": [
+            {
+              "title": "Oasis 21",
+              "slug": "uW3b7GY2",
+              "thumbnailUrl": "https://pbs.twimg.com/media/HICFnRZbEAAOvHt.jpg"
+            },
+            {
+              "title": "Higashiyama Sky Tower",
+              "slug": "trD2fyrV",
+              "thumbnailUrl": "https://pbs.twimg.com/media/HN1x4gjbMAAVCkj.jpg"
+            }
+          ]
+        },
+        {
+          "heading": "What an Exposition Left Behind, and an Arcade in the Morning",
+          "paragraphs": [
+            "Tsurumai Park, opened in 1909, was the first public park created by the city of Nagoya. The fountain tower at its center was built the following year for an exposition held in the park (the 10th Kansai Prefectural Joint Exhibition). It was dismantled in 1973 for subway construction and restored to its original form in 1977. Early in the morning, with no one around its ring of columns, it looks like the grounds left behind after an exposition has ended.",
+            "Endoji Shopping Street in Nagono, east of Nagoya Station, dates back to the Edo period. Its arcade roof was built in 1964 and renovated in 2015. It is lively during the day, but early in the morning, before the shops open, the long arcade becomes a quiet passage lined with nothing but shutters and signboards."
+          ],
+          "spots": [
+            {
+              "title": "Tsurumai Park Fountain Tower",
+              "slug": "ZSXELtqx",
+              "thumbnailUrl": "https://pbs.twimg.com/media/FxGgPK8aMAAkUvN.jpg"
+            },
+            {
+              "title": "Endoji Shopping Street",
+              "slug": "ZUcjGgAk",
+              "thumbnailUrl": "https://pbs.twimg.com/media/FNulVORVgAMGKwL.jpg"
+            }
+          ]
+        },
+        {
+          "heading": "Practical Notes for Visiting",
+          "paragraphs": [
+            "Underground malls and shopping streets are part of people's daily lives. When taking photos, take care not to capture shops or people's faces clearly, and do not block the way. Fushimi Underground Mall is only open to pass through at certain times and is often closed on Sundays and holidays, so check before you go.",
+            "Visits to Nagoya City Hall are limited to the shared corridors and staircases on weekdays during office hours, and the city asks visitors not to photograph staff or other visitors. The route to Higashiyama Sky Tower passes along a forest path, so take care if you walk it after dark."
+          ]
+        },
+        {
+          "heading": "If You Shoot It, Put It on the Map",
+          "paragraphs": [
+            "Nagoya still has many underground passages and old buildings that no one has recorded. The transfer corridor you walk through every day may be exactly the view someone else is looking for.",
+            "LIMap is a map for recording those places with photos and locations. If you find one, please add it."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Where can I easily experience a liminal space in Nagoya?",
+          "a": "Try the underground malls around Nagoya Station, Sakae and Fushimi. Fushimi Underground Mall and Meieki Underground Mall Sunroad, both opened in 1957, connect directly to the stations and have long, repetitive corridors that are typical of Nagoya."
+        },
+        {
+          "q": "Can I go inside Nagoya City Hall?",
+          "a": "On weekdays during office hours (8:45 to 17:15), you can walk the shared corridors and staircases. Offices are off-limits, and the city asks visitors not to photograph staff or other visitors."
+        },
+        {
+          "q": "Are there places I can visit for free?",
+          "a": "The Nagoya City Archives is free to enter, and you can see inside the former courthouse built in 1922. Tsurumai Park is open 24 hours for free, and the underground malls and Endoji Shopping Street are free to walk through."
+        }
+      ]
+    },
+    "images": [
+      {
+        "file": "Fushimi Underground Shopping Street Passageway.jpg",
+        "author": "Kiyok",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Fushimi_Underground_Shopping_Street_Passageway.jpg",
+        "altJa": "伏見地下街の通路。緑色の天井と市松模様の床が奥まで続く",
+        "altEn": "The corridor of Fushimi Underground Mall, with a green ceiling and a checkered floor stretching into the distance",
+        "captionJa": "伏見地下街。1957年の開業当時の空気を残す、一直線の地下通路。",
+        "captionEn": "Fushimi Underground Mall: a straight underground corridor that still carries the air of its 1957 opening.",
+        "afterSection": -1
+      },
+      {
+        "file": "Nagoya City Hall Main Building 2F 20221103-06.jpg",
+        "author": "円周率３パーセント",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Nagoya_City_Hall_Main_Building_2F_20221103-06.jpg",
+        "altJa": "名古屋市役所本庁舎2階の廊下",
+        "altEn": "A second-floor corridor of Nagoya City Hall's main building",
+        "captionJa": "名古屋市役所本庁舎の廊下。同じ窓と扉がどこまでも続く。",
+        "captionEn": "A corridor in Nagoya City Hall, where the same windows and doors repeat into the distance.",
+        "afterSection": 2
+      }
+    ]
+  },
+  {
     "slug": "liminal-spots-kansai",
     "category": "実在スポット",
     "categoryEn": "Real Spots",
