@@ -57,13 +57,3 @@ export const radius = {
   m: 14, // カード
   pill: 999, // ボタン・タグ
 } as const;
-
-// 上から下へ透明になっていく帯など、グラデーションの背景を描くスタイル。
-// ネイティブは RN の experimental_backgroundImage、Web は CSS の background-image で描く
-// （どちらも追加のネイティブモジュール不要）。css には CSS の linear-gradient(...) をそのまま渡す。
-export function gradientBackground(css: string): object {
-  return Platform.select({
-    web: { backgroundImage: css },
-    default: { experimental_backgroundImage: css },
-  }) as object;
-}

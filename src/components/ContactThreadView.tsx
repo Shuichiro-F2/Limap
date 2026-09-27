@@ -11,6 +11,7 @@ import {
 import Text from './AppText';
 import TextInput from './AppTextInput';
 import { Ionicons } from '@expo/vector-icons';
+import { useHeaderHeight } from '@react-navigation/elements';
 import { useTranslation } from '../lib/i18n';
 import { colors, radius, space, type } from '../lib/theme';
 import type { ContactMessage } from '../types/database';
@@ -38,6 +39,8 @@ export default function ContactThreadView({
   disabledMessage,
 }: Props) {
   const t = useTranslation().contact;
+  // 画面上部の見出し（ヘッダー）の高さ分を差し引かないと、キーボードが出たときに入力欄が隠れる
+  const headerHeight = useHeaderHeight();
   const [draft, setDraft] = useState('');
   const listRef = useRef<FlatList>(null);
 
@@ -50,7 +53,11 @@ export default function ContactThreadView({
   };
 
   return (
-    <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+    <KeyboardAvoidingView
+      style={{ flex: 1 }}
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      keyboardVerticalOffset={headerHeight}
+    >
       {loading ? (
         <ActivityIndicator color={colors.textPrimary} style={{ marginTop: 24 }} />
       ) : (

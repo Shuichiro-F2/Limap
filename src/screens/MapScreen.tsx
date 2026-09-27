@@ -63,6 +63,9 @@ type SpotsSourcePressEvent = {
   point: { x: number; y: number };
 };
 
+// 右下のボタン列の下端。Mapbox の出典マーク（i）の上に来るようにする
+const MAP_BUTTONS_BOTTOM = 44;
+
 type Props = MainTabScreenProps<'MapTab'>;
 
 export default function MapScreen({ navigation, route }: Props) {
@@ -256,8 +259,9 @@ export default function MapScreen({ navigation, route }: Props) {
         onFilterChange={setFilter}
       />
 
-      {/* 右下のボタン列。スポットのカードを出している間は、その上に逃がす */}
-      <View style={[styles.sideButtons, { bottom: selectedSpot ? cardHeight + space.m * 2 : space.xl }]} pointerEvents="box-none">
+      {/* 右下のボタン列。スポットのカードを出している間は、その上に逃がす。
+          カードが無いときも、右下の Mapbox の出典マーク（i）と重ならない高さに置く */}
+      <View style={[styles.sideButtons, { bottom: selectedSpot ? cardHeight + space.m * 2 : MAP_BUTTONS_BOTTOM }]} pointerEvents="box-none">
         {/* iOSのみ: ネイティブのApple Mapsアプリを、今表示している地図の中心座標で開く */}
         {Platform.OS === 'ios' && (
           <Pressable style={styles.roundButton} onPress={openInAppleMaps} hitSlop={8}>

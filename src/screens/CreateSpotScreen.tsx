@@ -5,8 +5,6 @@ import {
   StyleSheet,
   ScrollView,
   ActivityIndicator,
-  KeyboardAvoidingView,
-  Platform,
 } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import * as Location from 'expo-location';
@@ -29,7 +27,7 @@ import { useAuth } from '../lib/AuthContext';
 import { useTranslation } from '../lib/i18n';
 import { notify } from '../lib/notify';
 import { colors, radius, space, type } from '../lib/theme';
-import { Button, ChoiceRow, Chip, FormField, FormFooter, FormInput, FormSection, formStyles } from '../components/Form';
+import { Button, ChoiceRow, Chip, FormField, FormFooter, FormInput, FormScreen, FormSection, formStyles } from '../components/Form';
 import type { Tag, VisitTime } from '../types/database';
 import type { RootStackScreenProps } from '../navigation/types';
 
@@ -370,7 +368,7 @@ export default function CreateSpotScreen({ navigation, route }: Props) {
   };
 
   return (
-    <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+    <FormScreen>
       <ScrollView
         style={styles.container}
         contentContainerStyle={formStyles.content}
@@ -598,7 +596,7 @@ export default function CreateSpotScreen({ navigation, route }: Props) {
         onSelectMatch={selectDuplicateMatch}
         onDismiss={dismissDuplicatePopup}
       />
-    </KeyboardAvoidingView>
+    </FormScreen>
   );
 }
 

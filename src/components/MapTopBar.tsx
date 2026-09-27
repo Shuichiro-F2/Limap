@@ -8,7 +8,8 @@ import Text from './AppText';
 import TextInput from './AppTextInput';
 import { HEADER_CONTENT_HEIGHT } from './AppHeader';
 import { useTranslation } from '../lib/i18n';
-import { colors, gradientBackground, radius, space, type } from '../lib/theme';
+import { colors, radius, space, type } from '../lib/theme';
+import VerticalFade from './VerticalFade';
 import type { SuggestResult } from '../lib/mapboxSearch';
 
 // 絞り込みボタンに並べるタグ（tags テーブルのタグ名）。投稿数の多い「種類」のタグから選んでいる
@@ -19,10 +20,6 @@ export function spotMatchesFilter(tagNames: string[], filter: string | null): bo
   if (!filter) return true;
   return tagNames.some((name) => name.includes(filter));
 }
-
-// ロゴ・検索バー・絞り込みボタンの下に敷く、上から下へ透明になっていく暗い帯。
-// 地図の明るい部分とロゴや文字が重なっても読めるようにする。
-const scrimStyle = gradientBackground('linear-gradient(rgba(26,26,26,0.72) 40%, rgba(26,26,26,0))');
 
 type Props = {
   query: string;
@@ -52,10 +49,9 @@ export default function MapTopBar({
 
   return (
     <View style={styles.wrap} pointerEvents="box-none">
-      <View
-        style={[styles.scrim, scrimStyle, { height: insets.top + HEADER_CONTENT_HEIGHT + 150 }]}
-        pointerEvents="none"
-      />
+      {/* ロゴ・検索バー・絞り込みボタンの下に敷く、上から下へ透明になっていく暗い帯。
+          地図の明るい部分とロゴや文字が重なっても読めるようにする */}
+      <VerticalFade height={insets.top + HEADER_CONTENT_HEIGHT + 150} rgb={[26, 26, 26]} maxOpacity={0.72} solidUntil={0.4} />
 
       {/* 共通ヘッダー(ロゴ)が最前面に重なっているため、その高さ分だけ空けてから検索バーを配置する */}
       <View style={{ height: insets.top + HEADER_CONTENT_HEIGHT }} pointerEvents="none" />
@@ -141,7 +137,6 @@ export default function MapTopBar({
 
 const styles = StyleSheet.create({
   wrap: { position: 'absolute', top: 0, left: 0, right: 0 },
-  scrim: { position: 'absolute', top: 0, left: 0, right: 0 },
   inner: { paddingHorizontal: space.l, gap: space.m },
   // PCなど横長の画面で検索欄が画面いっぱいに間延びしないよう、幅に上限を付けて左に寄せる
   searchColumn: { width: '100%', maxWidth: 560, gap: space.m },

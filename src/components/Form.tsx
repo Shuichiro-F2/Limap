@@ -3,6 +3,8 @@
 import React, { useState } from 'react';
 import {
   ActivityIndicator,
+  KeyboardAvoidingView,
+  Platform,
   Pressable,
   StyleSheet,
   View,
@@ -11,6 +13,7 @@ import {
   type ViewStyle,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useHeaderHeight } from '@react-navigation/elements';
 import { Ionicons } from '@expo/vector-icons';
 import Text from './AppText';
 import TextInput from './AppTextInput';
@@ -210,6 +213,22 @@ export function Chip({
   );
 }
 
+// 入力画面の外枠。キーボードが出たときに、画面下に固定したボタン（FormFooter）ごと上に逃がす。
+// 画面上部の見出し（ヘッダー）の下から始まる画面では、その高さ分を差し引かないと
+// 持ち上げが足りずボタンがキーボードの裏に隠れるため、ヘッダーの高さを渡している。
+export function FormScreen({ children }: { children: React.ReactNode }) {
+  const headerHeight = useHeaderHeight();
+  return (
+    <KeyboardAvoidingView
+      style={formStyles.screen}
+      behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      keyboardVerticalOffset={headerHeight}
+    >
+      {children}
+    </KeyboardAvoidingView>
+  );
+}
+
 // 画面下に固定する、送信ボタンなどの帯。長い入力画面でも、スクロールせずに押せるようにする
 export function FormFooter({ children }: { children: React.ReactNode }) {
   const insets = useSafeAreaInsets();
@@ -221,6 +240,7 @@ export function FormFooter({ children }: { children: React.ReactNode }) {
 }
 
 export const formStyles = StyleSheet.create({
+  screen: { flex: 1, backgroundColor: colors.background },
   // 画面全体のスクロール領域の中身（左右の余白と最大幅）
   content: {
     paddingHorizontal: 20,
