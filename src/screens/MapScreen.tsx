@@ -261,7 +261,7 @@ export default function MapScreen({ navigation, route }: Props) {
 
       {/* 右下のボタン列。スポットのカードを出している間は、その上に逃がす。
           カードが無いときも、右下の Mapbox の出典マーク（i）と重ならない高さに置く */}
-      <View style={[styles.sideButtons, { bottom: selectedSpot ? cardHeight + space.m * 2 : MAP_BUTTONS_BOTTOM }]} pointerEvents="box-none">
+      <View style={[styles.sideButtons, { bottom: selectedSpot ? cardHeight + space.m * 2 : MAP_BUTTONS_BOTTOM }, { pointerEvents: 'box-none' }]}>
         {/* iOSのみ: ネイティブのApple Mapsアプリを、今表示している地図の中心座標で開く */}
         {Platform.OS === 'ios' && (
           <Pressable style={styles.roundButton} onPress={openInAppleMaps} hitSlop={8}>
@@ -321,11 +321,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.accent,
     alignItems: 'center',
     justifyContent: 'center',
-    shadowColor: '#000',
-    shadowOpacity: 0.45,
-    shadowRadius: 20,
-    shadowOffset: { width: 0, height: 6 },
-    elevation: 6,
+    // 影は iOS・Android・Web 共通の boxShadow で指定する（shadow*/elevation は非推奨）
+    boxShadow: '0px 6px 20px rgba(0, 0, 0, 0.45)',
   },
   cardWrap: { position: 'absolute', left: space.m, right: space.m, bottom: space.m },
 });

@@ -62,11 +62,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.surface,
     borderWidth: 1,
     borderColor: colors.border,
-    shadowColor: '#000',
-    shadowOpacity: 0.4,
-    shadowRadius: 16,
-    shadowOffset: { width: 0, height: 6 },
-    elevation: 6,
+    // 影は iOS・Android・Web 共通の boxShadow で指定する（shadow*/elevation は非推奨）
+    boxShadow: '0px 6px 16px rgba(0, 0, 0, 0.4)',
   },
   cardPressed: { backgroundColor: colors.surfaceAlt },
   thumb: { width: 88, height: 88, borderRadius: radius.s },

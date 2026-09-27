@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
   Animated,
+  ScrollView,
   View,
   Pressable,
   StyleSheet,
@@ -49,7 +50,7 @@ export default function MyPageScreen({ navigation }: Props) {
   const [pageIndex, setPageIndex] = useState(0);
   const [followCounts, setFollowCounts] = useState<FollowCounts>({ followers: 0, following: 0 });
 
-  const pagerRef = useRef<Animated.ScrollView>(null);
+  const pagerRef = useRef<ScrollView>(null);
   const scrollX = useRef(new Animated.Value(0)).current;
   const hasLoadedOnceRef = useRef(false);
 

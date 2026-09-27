@@ -263,10 +263,10 @@ export default function SpotDetailContent({
   // スクロール領域の外に重ねることで、中身と一緒に流れず決まった位置に留まる
   const header = (
     <Animated.View
-      pointerEvents={headerVisible ? 'box-none' : 'none'}
       style={[
         styles.header,
         {
+          pointerEvents: headerVisible ? 'box-none' : 'none',
           paddingTop: topInset,
           height: topInset + SPOT_HEADER_HEIGHT,
           opacity: headerAnim,
@@ -282,7 +282,7 @@ export default function SpotDetailContent({
           solidUntil={0.7}
         />
       )}
-      <View style={[styles.headerRow, { maxWidth: MAX_CONTENT_WIDTH }]} pointerEvents="box-none">
+      <View style={[styles.headerRow, { maxWidth: MAX_CONTENT_WIDTH }, { pointerEvents: 'box-none' }]}>
         {onBack ? (
           <Pressable style={styles.headerButton} onPress={onBack} hitSlop={6} accessibilityRole="button" accessibilityLabel={t.back}>
             <Ionicons name="chevron-back" size={22} color={colors.accent} />
@@ -453,7 +453,7 @@ export default function SpotDetailContent({
               </ScrollView>
 
               {sortedImages.length > 1 && (
-                <View style={styles.counter} pointerEvents="none">
+                <View style={[styles.counter, { pointerEvents: 'none' }]}>
                   <Text style={styles.counterText}>
                     {t.photoCounter
                       .replace('{index}', String(activeImageIndex + 1))

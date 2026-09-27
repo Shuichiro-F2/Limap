@@ -70,7 +70,7 @@ export default function ProfileMenu({ visible, onClose, navigation, isAdmin }: P
   const iosApp = showAddToHomeScreen && isIOSDevice();
 
   return (
-    <View style={styles.overlay} pointerEvents="box-none">
+    <View style={[styles.overlay, { pointerEvents: 'box-none' }]}>
       <Pressable style={StyleSheet.absoluteFill} onPress={closeMenu} />
       <View style={[styles.panel, showDeleteConfirm && styles.panelWide, { top: insets.top + HEADER_CONTENT_HEIGHT }]}>
         {showDeleteConfirm ? (
@@ -210,11 +210,8 @@ const styles = StyleSheet.create({
     borderRadius: 14,
     paddingVertical: 10,
     paddingHorizontal: 6,
-    shadowColor: '#000',
-    shadowOpacity: 0.3,
-    shadowRadius: 12,
-    shadowOffset: { width: 0, height: 4 },
-    elevation: 8,
+    // 影は iOS・Android・Web 共通の boxShadow で指定する（shadow*/elevation は非推奨）
+    boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.3)',
   },
   // 削除確認パネル表示中は、説明文が読みやすいよう少し幅を広げる
   panelWide: { width: 280 },

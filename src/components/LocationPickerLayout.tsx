@@ -47,13 +47,13 @@ export default function LocationPickerLayout({
 
         {/* 地図中央に固定表示するピン。地図側ではなくオーバーレイとして描画することで
             「地図を動かして中央に場所を合わせる」操作を実現している */}
-        <View pointerEvents="none" style={styles.centerPin}>
+        <View style={[styles.centerPin, { pointerEvents: 'none' }]}>
           <View style={styles.pinDot} />
           <View style={styles.pinStick} />
         </View>
 
         {/* 検索欄は地図の上に重ねる（地図画面の検索欄と同じ丸い形） */}
-        <View style={styles.top} pointerEvents="box-none">
+        <View style={[styles.top, { pointerEvents: 'box-none' }]}>
           <View style={styles.searchPill}>
             <Pressable onPress={onSearch} hitSlop={8} accessibilityRole="button" accessibilityLabel={t.searchPlaceholder}>
               {searching ? (

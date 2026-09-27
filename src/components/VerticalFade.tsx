@@ -21,12 +21,12 @@ export default function VerticalFade({ height, rgb, maxOpacity, solidUntil, styl
   const [r, g, b] = rgb;
   if (Platform.OS === 'web') {
     const css = `linear-gradient(rgba(${r},${g},${b},${maxOpacity}) ${solidUntil * 100}%, rgba(${r},${g},${b},0))`;
-    return <View pointerEvents="none" style={[styles.base, { height, backgroundImage: css } as object, style]} />;
+    return <View style={[styles.base, { height, backgroundImage: css } as object, style, { pointerEvents: 'none' }]} />;
   }
   const solidHeight = height * solidUntil;
   const stepHeight = (height - solidHeight) / STEPS;
   return (
-    <View pointerEvents="none" style={[styles.base, { height }, style]}>
+    <View style={[styles.base, { height }, style, { pointerEvents: 'none' }]}>
       <View style={{ height: solidHeight, backgroundColor: `rgba(${r},${g},${b},${maxOpacity})` }} />
       {Array.from({ length: STEPS }, (_, i) => (
         <View

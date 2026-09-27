@@ -48,16 +48,16 @@ export default function MapTopBar({
   const insets = useSafeAreaInsets();
 
   return (
-    <View style={styles.wrap} pointerEvents="box-none">
+    <View style={[styles.wrap, { pointerEvents: 'box-none' }]}>
       {/* ロゴ・検索バー・絞り込みボタンの下に敷く、上から下へ透明になっていく暗い帯。
           地図の明るい部分とロゴや文字が重なっても読めるようにする */}
       <VerticalFade height={insets.top + HEADER_CONTENT_HEIGHT + 150} rgb={[26, 26, 26]} maxOpacity={0.72} solidUntil={0.4} />
 
       {/* 共通ヘッダー(ロゴ)が最前面に重なっているため、その高さ分だけ空けてから検索バーを配置する */}
-      <View style={{ height: insets.top + HEADER_CONTENT_HEIGHT }} pointerEvents="none" />
+      <View style={[{ height: insets.top + HEADER_CONTENT_HEIGHT }, { pointerEvents: 'none' }]} />
 
-      <View style={styles.inner} pointerEvents="box-none">
-        <View style={styles.searchColumn} pointerEvents="box-none">
+      <View style={[styles.inner, { pointerEvents: 'box-none' }]}>
+        <View style={[styles.searchColumn, { pointerEvents: 'box-none' }]}>
           <View style={styles.searchPill}>
             <Pressable onPress={onSubmit} hitSlop={8} accessibilityRole="button" accessibilityLabel={t.map.searchPlaceholder}>
               {searching ? (

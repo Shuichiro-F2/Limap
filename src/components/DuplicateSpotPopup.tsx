@@ -20,7 +20,7 @@ export default function DuplicateSpotPopup({ visible, matches, onSelectMatch, on
   if (!visible || matches.length === 0) return null;
 
   return (
-    <View style={styles.overlay} pointerEvents="box-none">
+    <View style={[styles.overlay, { pointerEvents: 'box-none' }]}>
       <View style={styles.card}>
         <Pressable style={styles.closeButton} onPress={onDismiss} hitSlop={10}>
           <Ionicons name="close" size={16} color={colors.textMuted} />

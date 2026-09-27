@@ -90,7 +90,7 @@ export default function SupportPopup() {
   };
 
   return (
-    <View style={styles.overlay} pointerEvents="box-none">
+    <View style={[styles.overlay, { pointerEvents: 'box-none' }]}>
       <View style={styles.card}>
         <Pressable style={styles.closeButton} onPress={dismiss} hitSlop={10} accessibilityLabel={t.support.close}>
           <Ionicons name="close" size={16} color={colors.textMuted} />
@@ -137,11 +137,8 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     padding: 16,
     paddingTop: 18,
-    shadowColor: '#000',
-    shadowOpacity: 0.3,
-    shadowRadius: 12,
-    shadowOffset: { width: 0, height: 4 },
-    elevation: 6,
+    // 影は iOS・Android・Web 共通の boxShadow で指定する（shadow*/elevation は非推奨）
+    boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.3)',
   },
   closeButton: { position: 'absolute', right: 10, top: 10, padding: 6 },
   row: { flexDirection: 'row', gap: 12, paddingRight: 16 },

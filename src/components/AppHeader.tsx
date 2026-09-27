@@ -48,10 +48,9 @@ export default function AppHeader({ logoSource, backgroundColor, onLogoPress, ri
   return (
     <SafeAreaView
       edges={['top']}
-      style={[styles.wrapper, backgroundColor ? { backgroundColor } : null]}
-      pointerEvents="box-none"
+      style={[styles.wrapper, backgroundColor ? { backgroundColor } : null, { pointerEvents: 'box-none' }]}
     >
-      <View style={styles.row} pointerEvents="box-none">
+      <View style={[styles.row, { pointerEvents: 'box-none' }]}>
         {onLogoPress ? (
           <Pressable onPress={onLogoPress} hitSlop={10}>
             {logo}

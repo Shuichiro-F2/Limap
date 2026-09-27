@@ -2,8 +2,11 @@
 // アプリ名とパッケージ名を変えることで、配布用アプリと同じ端末に共存させられるようにする。
 // eas.json の "development" ビルドプロファイルで APP_VARIANT=development を設定している。
 //
-// また、Mapbox SDK のダウンロード用シークレットトークン（RNMapboxMapsDownloadToken）は
-// app.json に直接書かず、.env（Git管理外）から読み込んでここで注入する。
+// また、Mapbox SDK のダウンロード用シークレットトークンは app.json に直接書かない。
+// @rnmapbox/maps の現在の推奨は、環境変数 RNMAPBOX_MAPS_DOWNLOAD_TOKEN にトークンを入れておく方法
+// （ビルド中の pod install / Gradle がその環境変数を直接読む）。
+// その環境変数が無い環境（EAS に未登録など）では、従来どおり .env の MAPBOX_DOWNLOAD_TOKEN を
+// プラグインの設定（RNMapboxMapsDownloadToken。非推奨で警告が出る）として渡し、ビルドが通るようにしておく。
 require('dotenv').config();
 
 module.exports = ({ config }) => {
@@ -22,6 +25,7 @@ module.exports = ({ config }) => {
     },
     plugins: config.plugins.map((plugin) => {
       if (Array.isArray(plugin) && plugin[0] === '@rnmapbox/maps') {
+        if (process.env.RNMAPBOX_MAPS_DOWNLOAD_TOKEN) return plugin;
         return [
           '@rnmapbox/maps',
           {
