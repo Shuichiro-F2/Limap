@@ -30,7 +30,7 @@ export default function ProfileMenu({ visible, onClose, navigation, isAdmin }: P
   const insets = useSafeAreaInsets();
   const { language, setLanguage } = useLanguage();
   const t = useTranslation();
-  const { session, deleteAccount } = useAuth();
+  const { session, deleteAccount, signOut } = useAuth();
   // アカウント削除(退会)は取り消せない操作のため、メニュー内で一度
   // 確認パネルに切り替えてから実行する(投稿削除と同じ考え方)。
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
@@ -56,9 +56,9 @@ export default function ProfileMenu({ visible, onClose, navigation, isAdmin }: P
       setShowDeleteConfirm(false);
       onClose();
       navigation.navigate('Main', { screen: 'MapTab' });
-      notify('アカウントを削除しました', 'ご利用ありがとうございました。');
+      notify(t.myPage.deleteAccountDoneTitle, t.myPage.deleteAccountDoneMessage);
     } catch (e: any) {
-      notify('アカウントの削除に失敗しました', e.message);
+      notify(t.myPage.deleteAccountFailedTitle, e.message);
     } finally {
       setDeletingAccount(false);
     }
@@ -75,9 +75,9 @@ export default function ProfileMenu({ visible, onClose, navigation, isAdmin }: P
       <View style={[styles.panel, showDeleteConfirm && styles.panelWide, { top: insets.top + HEADER_CONTENT_HEIGHT }]}>
         {showDeleteConfirm ? (
           <View style={styles.deleteConfirmPanel}>
-            <Text style={styles.deleteConfirmTitle}>アカウントを削除しますか？</Text>
-            <Text style={styles.deleteConfirmDesc}>
-              削除すると元に戻せません。投稿・レビュー・いいね・フォロー等、このアカウントに紐づくすべてのデータが削除されます。
+            <Text style={styles.deleteConfirmTitle}>{t.myPage.deleteAccountTitle}</Text>
+            <Text variant="body" style={styles.deleteConfirmDesc}>
+              {t.myPage.deleteAccountDesc}
             </Text>
             <View style={styles.deleteConfirmRow}>
               <Pressable
@@ -85,7 +85,7 @@ export default function ProfileMenu({ visible, onClose, navigation, isAdmin }: P
                 onPress={() => setShowDeleteConfirm(false)}
                 disabled={deletingAccount}
               >
-                <Text style={styles.deleteCancelText}>キャンセル</Text>
+                <Text style={styles.deleteCancelText}>{t.myPage.deleteAccountCancel}</Text>
               </Pressable>
               <Pressable
                 style={styles.deleteConfirmButton}
@@ -95,7 +95,7 @@ export default function ProfileMenu({ visible, onClose, navigation, isAdmin }: P
                 {deletingAccount ? (
                   <ActivityIndicator color="#fff" size="small" />
                 ) : (
-                  <Text style={styles.deleteConfirmButtonText}>削除する</Text>
+                  <Text style={styles.deleteConfirmButtonText}>{t.myPage.deleteAccountConfirm}</Text>
                 )}
               </Pressable>
             </View>
@@ -149,14 +149,23 @@ export default function ProfileMenu({ visible, onClose, navigation, isAdmin }: P
                 onPress={() => go('AddToHomeScreen')}
               />
             )}
-            {/* アカウント削除。ログイン中のみ表示する(未ログインならそもそもこのメニュー自体が
-                開かれないはずだが、念のためsessionの有無でガードしておく)。 */}
+            {/* ログアウトとアカウント削除。ログイン中のみ表示する(未ログインならそもそもこのメニュー自体が
+                開かれないはずだが、念のためsessionの有無でガードしておく)。
+                ログアウトは以前マイページの右上に常に出していたが、誤って押さないようこちらに移した。 */}
             {session?.user && (
               <>
                 <View style={styles.divider} />
+                <MenuItem
+                  icon="log-out-outline"
+                  label={t.myPage.logout}
+                  onPress={() => {
+                    onClose();
+                    signOut();
+                  }}
+                />
                 <Pressable style={styles.item} onPress={() => setShowDeleteConfirm(true)} hitSlop={4}>
                   <Ionicons name="trash-outline" size={18} color={colors.danger} style={styles.itemIcon} />
-                  <Text style={[styles.itemText, styles.itemTextDanger]}>アカウントを削除</Text>
+                  <Text style={[styles.itemText, styles.itemTextDanger]}>{t.myPage.deleteAccount}</Text>
                 </Pressable>
               </>
             )}

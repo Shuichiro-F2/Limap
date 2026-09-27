@@ -7,12 +7,9 @@ import Text from './AppText';
 import { spotThumbnailUrl } from '../lib/spots';
 import { useTranslation } from '../lib/i18n';
 import { colors, radius, space, type } from '../lib/theme';
-import { JAPAN_PREFECTURES } from '../content/japan';
-import { COUNTRY_TAGS, spotPlace, spotRawTitle } from '../content/spotSeo';
+import { spotRawTitle } from '../content/spotSeo';
+import { spotKicker } from '../lib/spotLabels';
 import type { Spot } from '../types/database';
-
-// 「種類」ではないタグ（場所を表すタグなど）。カード上部の「地下通路・東京都」の種類部分から除く
-const NON_CATEGORY_TAGS = new Set<string>(['リミナルスペース', '日本', '海外', ...JAPAN_PREFECTURES, ...COUNTRY_TAGS]);
 
 type Props = {
   spot: Spot;
@@ -22,10 +19,7 @@ type Props = {
 
 export default function MapSpotCard({ spot, onPress, onClose }: Props) {
   const t = useTranslation();
-  const tagNames = (spot.tags ?? []).map((tag) => tag.name);
-  const category = tagNames.find((name) => !NON_CATEGORY_TAGS.has(name));
-  const place = spotPlace(tagNames, spot.city, spot.country).label;
-  const kicker = [category, place].filter(Boolean).join('・');
+  const kicker = spotKicker(spot);
   const thumb = spotThumbnailUrl(spot);
   const author = spot.author?.display_name || spot.author?.username;
   const meta = [author, t.map.likes.replace('{n}', String(spot.like_count ?? 0))].filter(Boolean).join('・');

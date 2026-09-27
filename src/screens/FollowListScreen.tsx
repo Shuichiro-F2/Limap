@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { View, Pressable, StyleSheet, FlatList, Image, ActivityIndicator } from 'react-native';
+import { StyleSheet, FlatList, ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Text from '../components/AppText';
-import { UsernameWithBadge } from '../components/UserBadge';
+import UserRow from '../components/UserRow';
 import { fetchFollowers, fetchFollowing } from '../lib/profiles';
 import { useAuth } from '../lib/AuthContext';
 import { useTranslation } from '../lib/i18n';
-import { colors } from '../lib/theme';
+import { colors, type } from '../lib/theme';
 import type { Profile } from '../types/database';
 import type { RootStackScreenProps } from '../navigation/types';
 
@@ -51,26 +51,14 @@ export default function FollowListScreen({ route, navigation }: Props) {
         <FlatList
           data={users}
           keyExtractor={(item) => item.id}
-          contentContainerStyle={{ padding: 12 }}
+          contentContainerStyle={styles.list}
           ListEmptyComponent={
-            <Text style={styles.emptyText}>
-              {mode === 'followers' ? 'フォロワーはまだいません' : 'フォロー中のユーザーはいません'}
+            <Text variant="body" style={styles.emptyText}>
+              {mode === 'followers' ? t.profile.followersEmpty : t.profile.followingEmpty}
             </Text>
           }
-          renderItem={({ item }) => (
-            <Pressable style={styles.row} onPress={() => goToProfile(item.id)}>
-              {item.avatar_url ? (
-                <Image source={{ uri: item.avatar_url }} style={styles.avatar} />
-              ) : (
-                <View style={[styles.avatar, styles.avatarPlaceholder]}>
-                  <Text style={styles.avatarPlaceholderText}>{item.username.charAt(0).toUpperCase()}</Text>
-                </View>
-              )}
-              <View style={{ flex: 1 }}>
-                <UsernameWithBadge username={item.username} badge={item.badge} textStyle={styles.username} />
-                {item.display_name ? <Text style={styles.displayName}>{item.display_name}</Text> : null}
-              </View>
-            </Pressable>
+          renderItem={({ item, index }) => (
+            <UserRow user={item} onPress={() => goToProfile(item.id)} divider={index > 0} />
           )}
         />
       )}
@@ -80,11 +68,6 @@ export default function FollowListScreen({ route, navigation }: Props) {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.background },
-  row: { flexDirection: 'row', alignItems: 'center', gap: 12, paddingVertical: 10, paddingHorizontal: 8 },
-  avatar: { width: 44, height: 44, borderRadius: 22 },
-  avatarPlaceholder: { backgroundColor: colors.accent, alignItems: 'center', justifyContent: 'center' },
-  avatarPlaceholderText: { color: colors.accentText, fontSize: 16, fontWeight: '700' },
-  username: { color: colors.textPrimary, fontSize: 14, fontWeight: '600' },
-  displayName: { color: colors.textSecondary, fontSize: 12, marginTop: 2 },
-  emptyText: { color: colors.textMuted, textAlign: 'center', marginTop: 40, fontSize: 13 },
+  list: { paddingHorizontal: 20, paddingVertical: 8, width: '100%', maxWidth: 640, alignSelf: 'center' },
+  emptyText: { color: colors.textMuted, textAlign: 'center', marginTop: 40, fontSize: type.small },
 });

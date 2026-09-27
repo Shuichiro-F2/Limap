@@ -2,7 +2,7 @@ import React from 'react';
 import { View, ScrollView, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Text from './AppText';
-import { colors } from '../lib/theme';
+import { colors, space, type } from '../lib/theme';
 import { useTranslation } from '../lib/i18n';
 import type { StaticPageContent } from '../content/staticPages';
 
@@ -25,7 +25,11 @@ export default function StaticContentScreen({
 
         {content.sections.map((section) => (
           <View key={section.heading} style={styles.section}>
-            <Text style={styles.sectionHeading}>{section.heading}</Text>
+            {/* 章見出し。Webの記事ページと同じく、頭に小さな黄色の四角（ドット）を置く */}
+            <View style={styles.sectionHeadingRow}>
+              <View style={styles.headingDot} />
+              <Text style={styles.sectionHeading}>{section.heading}</Text>
+            </View>
             <Text variant="body" style={styles.sectionBody}>{section.body}</Text>
           </View>
         ))}
@@ -50,15 +54,17 @@ export default function StaticContentScreen({
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.background },
-  scroll: { padding: 20, paddingBottom: 48 },
-  heading: { color: colors.textPrimary, fontSize: 22, fontWeight: '700', marginBottom: 12 },
-  lead: { color: colors.textSecondary, fontSize: 14, lineHeight: 22, marginBottom: 24 },
-  section: { marginBottom: 22 },
-  sectionHeading: { color: colors.accent, fontSize: 15, fontWeight: '700', marginBottom: 8 },
-  sectionBody: { color: colors.textSecondary, fontSize: 13, lineHeight: 21 },
-  faqBlock: { marginTop: 8, borderTopWidth: 1, borderTopColor: colors.border, paddingTop: 20 },
-  faqTitle: { color: colors.textPrimary, fontSize: 16, fontWeight: '700', marginBottom: 14 },
-  faqItem: { marginBottom: 16 },
-  faqQuestion: { color: colors.textPrimary, fontSize: 13, fontWeight: '600', marginBottom: 6 },
-  faqAnswer: { color: colors.textSecondary, fontSize: 13, lineHeight: 20 },
+  scroll: { paddingHorizontal: 20, paddingTop: space.xl, paddingBottom: 56, width: '100%', maxWidth: 680, alignSelf: 'center' },
+  heading: { color: colors.textPrimary, fontSize: type.displayL - 2, lineHeight: 36, marginBottom: space.m },
+  lead: { color: colors.textSecondary, fontSize: type.body, lineHeight: 26, marginBottom: space.xxl },
+  section: { marginBottom: space.xxl, gap: space.m },
+  sectionHeadingRow: { flexDirection: 'row', alignItems: 'center', gap: space.m },
+  headingDot: { width: 8, height: 8, backgroundColor: colors.accent },
+  sectionHeading: { flex: 1, color: colors.textPrimary, fontSize: type.heading, lineHeight: 27 },
+  sectionBody: { color: colors.textSecondary, fontSize: type.body, lineHeight: 27 },
+  faqBlock: { marginTop: space.s, borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: colors.border, paddingTop: space.xl },
+  faqTitle: { color: colors.textPrimary, fontSize: type.heading, marginBottom: space.l },
+  faqItem: { marginBottom: 20, gap: 6 },
+  faqQuestion: { color: colors.textPrimary, fontSize: type.body, lineHeight: 24 },
+  faqAnswer: { color: colors.textSecondary, fontSize: 14, lineHeight: 24 },
 });

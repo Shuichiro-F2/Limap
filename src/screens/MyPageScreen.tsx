@@ -15,12 +15,13 @@ import { useFocusEffect } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import Text from '../components/AppText';
 import { HEADER_CONTENT_HEIGHT } from '../components/AppHeader';
-import { UsernameWithBadge } from '../components/UserBadge';
 import { fetchSpotsByAuthor, fetchLikedSpots, fetchBookmarkedSpots, spotThumbnailUrl } from '../lib/spots';
 import { fetchFollowCounts, type FollowCounts } from '../lib/profiles';
 import { useAuth } from '../lib/AuthContext';
 import { useTranslation } from '../lib/i18n';
-import { colors } from '../lib/theme';
+import { colors, space, type } from '../lib/theme';
+import ProfileHeader from '../components/ProfileHeader';
+import { Button } from '../components/Form';
 import type { Spot } from '../types/database';
 import type { MainTabScreenProps } from '../navigation/types';
 
@@ -34,7 +35,7 @@ const TABS: { icon: keyof typeof Ionicons.glyphMap }[] = [
 ];
 
 export default function MyPageScreen({ navigation }: Props) {
-  const { profile, session, signOut } = useAuth();
+  const { profile, session } = useAuth();
   const { width: screenWidth } = useWindowDimensions();
   const t = useTranslation();
 
@@ -136,44 +137,27 @@ export default function MyPageScreen({ navigation }: Props) {
       {/* 共通ヘッダー(ロゴ+このタブの時だけのハンバーガーメニュー)が最前面に重なっているため、その高さ分だけ空ける */}
       <View style={{ height: HEADER_CONTENT_HEIGHT }} />
 
-      <View style={styles.header}>
-        {profile?.avatar_url ? (
-          <Image source={{ uri: profile.avatar_url }} style={styles.avatar} />
-        ) : (
-          <View style={[styles.avatar, styles.avatarPlaceholder]}>
-            <Text style={styles.avatarText}>{(profile?.username ?? '?').charAt(0).toUpperCase()}</Text>
-          </View>
-        )}
-        <View style={{ flex: 1 }}>
-          <UsernameWithBadge username={profile?.username} badge={profile?.badge} textStyle={styles.username} />
-          {profile?.display_name && <Text style={styles.displayName}>{profile.display_name}</Text>}
-        </View>
-        <Pressable onPress={() => navigation.navigate('EditProfile')} hitSlop={8} style={{ marginRight: 14 }}>
-          <Ionicons name="create-outline" size={20} color={colors.textSecondary} />
-        </Pressable>
-        <Pressable onPress={signOut}>
-          <Text style={styles.logoutText}>{t.myPage.logout}</Text>
-        </Pressable>
-      </View>
-
-      {profile?.bio ? <Text style={styles.bio}>{profile.bio}</Text> : null}
-
-      <View style={styles.countsRow}>
-        <Pressable
-          style={styles.countItem}
-          onPress={() => session?.user && navigation.navigate('FollowList', { userId: session.user.id, mode: 'followers' })}
-        >
-          <Text style={styles.countNumber}>{followCounts.followers}</Text>
-          <Text style={styles.countLabel}>{t.myPage.followers}</Text>
-        </Pressable>
-        <Pressable
-          style={styles.countItem}
-          onPress={() => session?.user && navigation.navigate('FollowList', { userId: session.user.id, mode: 'following' })}
-        >
-          <Text style={styles.countNumber}>{followCounts.following}</Text>
-          <Text style={styles.countLabel}>{t.myPage.following}</Text>
-        </Pressable>
-      </View>
+      <ProfileHeader
+        profile={profile}
+        posts={mineSpots.length}
+        followers={followCounts.followers}
+        following={followCounts.following}
+        onPressFollowers={() =>
+          session?.user && navigation.navigate('FollowList', { userId: session.user.id, mode: 'followers' })
+        }
+        onPressFollowing={() =>
+          session?.user && navigation.navigate('FollowList', { userId: session.user.id, mode: 'following' })
+        }
+      >
+        {/* ログアウトは誤って押さないよう、右上のメニューの中に移した */}
+        <Button
+          compact
+          variant="secondary"
+          icon="create-outline"
+          label={t.profile.editProfile}
+          onPress={() => navigation.navigate('EditProfile')}
+        />
+      </ProfileHeader>
 
       <View style={styles.tabRow}>
         {TABS.map((tab, index) => (
@@ -222,7 +206,7 @@ export default function MyPageScreen({ navigation }: Props) {
                   maxToRenderPerBatch={9}
                   windowSize={5}
                   removeClippedSubviews
-                  ListEmptyComponent={<Text style={styles.emptyText}>{t.myPage.empty}</Text>}
+                  ListEmptyComponent={<Text variant="body" style={styles.emptyText}>{t.myPage.empty}</Text>}
                   renderItem={({ item }) => (
                     <Pressable
                       style={styles.gridItem}
@@ -232,7 +216,7 @@ export default function MyPageScreen({ navigation }: Props) {
                         <Image source={{ uri: spotThumbnailUrl(item)! }} style={styles.gridImage} />
                       ) : (
                         <View style={[styles.gridImage, styles.noImage]}>
-                          <Text style={styles.noImageText} numberOfLines={2}>
+                          <Text variant="body" style={styles.noImageText} numberOfLines={3}>
                             {item.title}
                           </Text>
                         </View>
@@ -251,32 +235,6 @@ export default function MyPageScreen({ navigation }: Props) {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.background },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 20,
-    paddingTop: 12,
-    gap: 12,
-  },
-  avatar: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
-  },
-  avatarPlaceholder: {
-    backgroundColor: colors.accent,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  avatarText: { color: colors.accentText, fontSize: 18, fontWeight: '700' },
-  username: { color: colors.textPrimary, fontSize: 16, fontWeight: '600' },
-  displayName: { color: colors.textSecondary, fontSize: 13, marginTop: 2 },
-  bio: { color: colors.textSecondary, fontSize: 13, paddingHorizontal: 20, marginBottom: 12, lineHeight: 19 },
-  logoutText: { color: colors.textSecondary, fontSize: 12 },
-  countsRow: { flexDirection: 'row', paddingHorizontal: 20, gap: 28, marginBottom: 16 },
-  countItem: { alignItems: 'center' },
-  countNumber: { color: colors.textPrimary, fontSize: 16, fontWeight: '700' },
-  countLabel: { color: colors.textMuted, fontSize: 11, marginTop: 2 },
   tabRow: { flexDirection: 'row' },
   tabButton: { flex: 1, alignItems: 'center', justifyContent: 'center', paddingVertical: 10 },
   indicatorTrack: { height: 2, backgroundColor: colors.border },
@@ -285,9 +243,9 @@ const styles = StyleSheet.create({
   // 中のFlatListの高さが確定せず投稿が多くても縦にスクロールできなくなる
   pager: { flex: 1 },
   grid: { flex: 1 },
-  emptyText: { color: colors.textMuted, textAlign: 'center', marginTop: 40, fontSize: 13 },
+  emptyText: { color: colors.textMuted, textAlign: 'center', marginTop: 40, fontSize: type.small },
   gridItem: { width: '33.33%', aspectRatio: 1, padding: 2 },
-  gridImage: { flex: 1, borderRadius: 4 },
-  noImage: { backgroundColor: colors.surface, alignItems: 'center', justifyContent: 'center', padding: 6 },
-  noImageText: { color: colors.textMuted, fontSize: 11, textAlign: 'center' },
+  gridImage: { flex: 1, borderRadius: 6, backgroundColor: colors.surface },
+  noImage: { alignItems: 'center', justifyContent: 'center', padding: space.s },
+  noImageText: { color: colors.textMuted, fontSize: type.caption, lineHeight: 16, textAlign: 'center' },
 });

@@ -2,16 +2,19 @@ import React, { useCallback, useState } from 'react';
 import { View, Pressable, StyleSheet, FlatList, Image, ActivityIndicator, RefreshControl } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useFocusEffect } from '@react-navigation/native';
+import { Ionicons } from '@expo/vector-icons';
 import Text from '../components/AppText';
 import PixelDoor from '../components/PixelDoor';
+import Avatar from '../components/Avatar';
+import { spotKicker } from '../lib/spotLabels';
+import { spotRawTitle } from '../content/spotSeo';
 import { Button } from '../components/Form';
 import { HEADER_CONTENT_HEIGHT } from '../components/AppHeader';
-import { UsernameWithBadge } from '../components/UserBadge';
 import { fetchFollowingFeed, fetchRandomSpots, spotThumbnailUrl } from '../lib/spots';
 import { filterBlockedAuthors } from '../lib/moderation';
 import { useAuth } from '../lib/AuthContext';
 import { useTranslation } from '../lib/i18n';
-import { colors } from '../lib/theme';
+import { colors, radius, space, type } from '../lib/theme';
 import type { Spot } from '../types/database';
 import type { MainTabScreenProps } from '../navigation/types';
 
@@ -115,40 +118,69 @@ export default function FeedScreen({ navigation }: Props) {
           ListEmptyComponent={
             <Text style={styles.emptyText}>{mode === 'following' ? t.feed.empty : t.feed.recommendedEmpty}</Text>
           }
-          renderItem={({ item }) => (
-            <Pressable
-              style={styles.card}
-              onPress={() => navigation.navigate('SpotDetail', { spotId: item.slug })}
-            >
-              {spotThumbnailUrl(item) ? (
-                <Image source={{ uri: spotThumbnailUrl(item)! }} style={styles.cardImage} />
-              ) : (
-                <View style={[styles.cardImage, styles.noImage]} />
-              )}
-              <View style={styles.cardBody}>
-                <Pressable
-                  onPress={() => navigation.navigate('UserProfile', { userId: item.author_id })}
-                  hitSlop={4}
-                >
-                  <UsernameWithBadge username={item.author?.username} badge={item.author?.badge} textStyle={styles.authorText} />
-                </Pressable>
-                {item.description ? (
-                  <Text variant="body" style={styles.description} numberOfLines={2}>
-                    {item.description}
-                  </Text>
-                ) : null}
-                {item.tags && item.tags.length > 0 && (
-                  <View style={styles.tagRow}>
-                    {item.tags.slice(0, 4).map((tag) => (
-                      <View key={tag.id} style={styles.tagChip}>
-                        <Text style={styles.tagChipText}>{tag.name}</Text>
-                      </View>
-                    ))}
+          renderItem={({ item }) => {
+            const thumb = spotThumbnailUrl(item);
+            const kicker = spotKicker(item);
+            const author = item.author?.display_name || item.author?.username;
+            const embedPlatform = item.embeds?.find((e) => e.platform === 'instagram' || e.platform === 'x')?.platform;
+            return (
+              <Pressable
+                style={({ pressed }) => [styles.card, pressed && styles.cardPressed]}
+                onPress={() => navigation.navigate('SpotDetail', { spotId: item.slug })}
+              >
+                {thumb ? (
+                  <Image source={{ uri: thumb }} style={styles.cardImage} />
+                ) : (
+                  // 写真もSNS投稿の画像も無いとき（Instagramの投稿など）は、灰色の大きな箱ではなく
+                  // 低めの枠に「◯◯の投稿を見る」と出して、中身が詳細画面にあることを示す
+                  <View style={styles.noImage}>
+                    <Ionicons
+                      name={embedPlatform === 'instagram' ? 'logo-instagram' : embedPlatform === 'x' ? 'logo-x' : 'image-outline'}
+                      size={22}
+                      color={colors.textMuted}
+                    />
+                    {embedPlatform && (
+                      <Text variant="body" style={styles.noImageText}>
+                        {t.feed.embedPlaceholder.replace('{platform}', embedPlatform === 'instagram' ? 'Instagram' : 'X')}
+                      </Text>
+                    )}
                   </View>
                 )}
-              </View>
-            </Pressable>
-          )}
+                <View style={styles.cardBody}>
+                  {!!kicker && (
+                    <Text style={styles.kicker} numberOfLines={1}>
+                      {kicker}
+                    </Text>
+                  )}
+                  <Text style={styles.title} numberOfLines={2}>
+                    {spotRawTitle(item)}
+                  </Text>
+                  {!!item.description && (
+                    <Text variant="body" style={styles.description} numberOfLines={2}>
+                      {item.description}
+                    </Text>
+                  )}
+                  <View style={styles.metaRow}>
+                    <Pressable
+                      style={styles.authorRow}
+                      onPress={() => navigation.navigate('UserProfile', { userId: item.author_id })}
+                      hitSlop={6}
+                    >
+                      <Avatar url={item.author?.avatar_url} name={author} size={22} />
+                      <Text variant="body" style={styles.authorText} numberOfLines={1}>
+                        {author}
+                      </Text>
+                    </Pressable>
+                    {item.like_count > 0 && (
+                      <Text variant="body" style={styles.likes}>
+                        {t.feed.likes.replace('{n}', String(item.like_count))}
+                      </Text>
+                    )}
+                  </View>
+                </View>
+              </Pressable>
+            );
+          }}
         />
       )}
     </SafeAreaView>
@@ -160,29 +192,45 @@ const styles = StyleSheet.create({
   loggedOutBox: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: 32, gap: 20 },
   loggedOutText: { color: colors.textSecondary, fontSize: 14, textAlign: 'center', lineHeight: 23, maxWidth: 320 },
   loginButton: { width: '100%', maxWidth: 320 },
-  modeTabs: { flexDirection: 'row', gap: 8, paddingHorizontal: 16, paddingBottom: 12 },
+  modeTabs: { flexDirection: 'row', gap: space.s, paddingHorizontal: space.l, paddingBottom: space.m },
   modeTab: {
-    paddingVertical: 8,
-    paddingHorizontal: 18,
-    borderRadius: 18,
+    height: 34,
+    justifyContent: 'center',
+    paddingHorizontal: space.l,
+    borderRadius: radius.pill,
+    borderWidth: 1,
+    borderColor: colors.border,
     backgroundColor: colors.surface,
   },
-  modeTabActive: { backgroundColor: colors.accent },
-  modeTabText: { color: colors.textSecondary, fontSize: 13, fontWeight: '600' },
+  modeTabActive: { backgroundColor: colors.accent, borderColor: colors.accent },
+  modeTabText: { color: colors.textSecondary, fontSize: type.small },
   modeTabTextActive: { color: colors.accentText },
   emptyText: { color: colors.textMuted, textAlign: 'center', marginTop: 60, marginHorizontal: 32, fontSize: 13, lineHeight: 20 },
-  card: { marginHorizontal: 16, marginBottom: 20, borderRadius: 14, overflow: 'hidden', backgroundColor: colors.surface },
-  cardImage: { width: '100%', aspectRatio: 4 / 3 },
-  noImage: { backgroundColor: colors.surfaceAlt },
-  cardBody: { padding: 14 },
-  authorText: { color: colors.accent, fontSize: 13, fontWeight: '600', marginBottom: 6 },
-  description: { color: colors.textPrimary, fontSize: 14, lineHeight: 20 },
-  tagRow: { flexDirection: 'row', flexWrap: 'wrap', marginTop: 10, gap: 6 },
-  tagChip: {
-    backgroundColor: colors.surfaceAlt,
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-    borderRadius: 12,
+  card: {
+    marginHorizontal: space.l,
+    marginBottom: 20,
+    borderRadius: radius.m,
+    overflow: 'hidden',
+    backgroundColor: colors.surface,
+    borderWidth: 1,
+    borderColor: colors.border,
   },
-  tagChipText: { color: colors.textSecondary, fontSize: 11, fontWeight: '600' },
+  cardPressed: { opacity: 0.85 },
+  cardImage: { width: '100%', aspectRatio: 4 / 3, backgroundColor: colors.surfaceAlt },
+  noImage: {
+    height: 96,
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 6,
+    backgroundColor: colors.surfaceAlt,
+  },
+  noImageText: { color: colors.textMuted, fontSize: 12 },
+  cardBody: { padding: space.l, gap: space.s },
+  kicker: { color: colors.accent, fontSize: type.caption, letterSpacing: 0.6 },
+  title: { color: colors.textPrimary, fontSize: 17, lineHeight: 25 },
+  description: { color: colors.textSecondary, fontSize: 14, lineHeight: 22 },
+  metaRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: space.m, marginTop: space.xs },
+  authorRow: { flexDirection: 'row', alignItems: 'center', gap: space.s, flexShrink: 1 },
+  authorText: { color: colors.textSecondary, fontSize: 12, flexShrink: 1 },
+  likes: { color: colors.textMuted, fontSize: 12 },
 });
