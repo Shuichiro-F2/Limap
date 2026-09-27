@@ -298,6 +298,19 @@ const ARTICLE_ENTRIES: ArticleSummary[] = [
       'It began as a debug feature for walking through walls. Where the term came from, and why one word became the core of an internet legend.',
     thumbnailFile: 'Old TV sets.jpg',
   },
+  {
+    slug: 'liminal-spots-kansai',
+    publishedDate: '2026-09-27',
+    categoryJa: '実在スポット',
+    categoryEn: 'Real Spots',
+    titleJa: '関西のリミナルスペース撮影スポット｜大阪・神戸・奈良・滋賀の実在する場所',
+    titleEn: 'Liminal Space Photo Spots in Kansai: Real Places in Osaka, Kobe, Nara and Shiga',
+    leadJa:
+      '神戸の人工島、世界初のカプセルホテル、鉄橋や選鉱場の跡。関西で実際に行けるリミナルスペースを、LIMapの登録スポットから選びました。',
+    leadEn:
+      "Kobe's artificial island, the world's first capsule hotel, the remains of a viaduct and an ore plant: real liminal spaces you can visit in Kansai.",
+    thumbnailFile: 'River mall01s3200.jpg',
+  },
 ];
 
 // 一覧は新着順(publishedDate の降順)で表示する。Array#sort は安定なので、

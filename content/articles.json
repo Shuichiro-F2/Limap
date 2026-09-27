@@ -2926,5 +2926,271 @@
         "afterSection": -1
       }
     ]
+  },
+  {
+    "slug": "liminal-spots-kansai",
+    "category": "実在スポット",
+    "categoryEn": "Real Spots",
+    "publishedDate": "2026-09-27",
+    "ja": {
+      "title": "関西のリミナルスペース撮影スポット｜大阪・神戸・奈良・滋賀の実在する場所",
+      "metaDescription": "関西で「リミナルスペース」を撮りに行ける実在の場所を、LIMapの登録スポットから紹介します。神戸の人工島、世界初のカプセルホテル、鉄橋や選鉱場の跡まで。行くときの注意点も。",
+      "h1": "関西でリミナルスペースを撮るなら——大阪・兵庫・奈良・滋賀の実在スポット",
+      "lead": "リミナルスペースというと東京の地下通路を思い浮かべる人が多いかもしれません。けれど関西にも、人の気配が薄れた計画都市や、役目を終えた施設が静かに残っています。LIMapに登録されている場所から、実際に行けるところを選びました。",
+      "sections": [
+        {
+          "heading": "関西のリミナルスペースは「計画された街」と「役目を終えた場所」に多い",
+          "paragraphs": [
+            "関西で見つかるリミナルスペースには、大きく二つの傾向があります。ひとつは、大規模に計画された街や商業施設。人工島や駅直結の複合施設のように、大勢の人を迎える前提で作られた空間は、人が少ない時間帯に独特の空白を見せます。",
+            "もうひとつは、鉄道や鉱山のように、かつての役目を終えた場所です。機能は失われても、構造物だけがその場に残り、見る人に時間の経過を感じさせます。この記事では、どちらの場所も「実際に行けること」を条件に選んでいます。"
+          ]
+        },
+        {
+          "heading": "神戸：人工島の水路と、新幹線駅に直結した複合施設",
+          "paragraphs": [
+            "六甲アイランドは、神戸の沖に造られた人工島です。島の中心を流れるリバーモールは、住吉川の水を引いて造られた人工の水路で、北のゾーンが1990年、南のゾーンが1993年に完成しました。頭上を六甲ライナーの高架が走り、整然とした広場や彫刻が続きます。人が少ない時間帯には、手入れの行き届いた空間だけが残るような静けさがあります。",
+            "新神戸駅に直結する複合施設「新神戸オリエンタルシティ」も、関西らしいリミナルスペースのひとつです。ホテル・商業施設・劇場からなる大きな施設で、商業ゾーンは2019年に「コトノハコ神戸」として名称を変え、現在も営業しています。駅の目の前にありながら、時間帯によっては広い通路にほとんど人がいないこともあります。"
+          ],
+          "spots": [
+            {
+              "title": "六甲アイランド・リバーモール",
+              "slug": "NbGc4Sdz",
+              "thumbnailUrl": "https://pbs.twimg.com/media/GBj76E0asAASGMC.jpg"
+            },
+            {
+              "title": "新神戸オリエンタルシティ",
+              "slug": "XBXoFcN3"
+            }
+          ]
+        },
+        {
+          "heading": "大阪：世界初のカプセルホテルと、デパートの屋上遊園地",
+          "paragraphs": [
+            "梅田の「カプセル・イン大阪」は、建築家の黒川紀章が設計し、1979年に開業した世界初のカプセルホテルです。同じ形の寝台が整然と並ぶ通路は、今も現役の宿泊施設として使われています。見学ではなく、泊まって体験できるリミナルスペースです。",
+            "高槻市の松坂屋高槻店の屋上には、1979年から続く「屋上遊園スカイランド」があります。かつて各地の百貨店にあった屋上遊園地は、今では全国でも数えるほどしか残っていません。昭和の遊具がビルの屋上に並ぶ光景は、懐かしさと違和感が同時に訪れる場所です。"
+          ],
+          "spots": [
+            {
+              "title": "カプセルイン大阪（ニュージャパン梅田店）",
+              "slug": "77BLLqk2",
+              "thumbnailUrl": "https://pbs.twimg.com/media/G2oGVRAbIAETcxS.jpg"
+            },
+            {
+              "title": "屋上遊園スカイランド（松坂屋高槻店）",
+              "slug": "bRVna6ES"
+            }
+          ]
+        },
+        {
+          "heading": "兵庫の海と山：鉄橋の跡と、選鉱場の跡",
+          "paragraphs": [
+            "日本海側の香美町にある余部鉄橋「空の駅」は、1912年に完成した旧余部鉄橋の橋脚の一部を残して造られた展望施設です。鉄橋は2010年にコンクリート橋へ架け替えられましたが、餘部駅側の橋脚が保存され、地上約41メートルの高さから海を見渡せるようになりました。2017年からはエレベーターで上がることもできます。途中で途切れた線路の先に、海と空だけが広がります。",
+            "朝来市の神子畑選鉱場跡は、1919年に建てられた大規模な選鉱場の跡です。1987年に操業を止め、老朽化した建物は2004年に取り壊されました。現在は、山の斜面に階段状のコンクリートの基礎だけが残っています。建物が無いのに建物の形がわかる、不思議な光景です。"
+          ],
+          "spots": [
+            {
+              "title": "余部鉄橋「空の駅」展望施設",
+              "slug": "kk5yFE6g",
+              "thumbnailUrl": "https://pbs.twimg.com/media/GLbZ0u5aIAAgeUm.jpg"
+            },
+            {
+              "title": "神子畑選鉱場跡（東洋のマチュピチュ）",
+              "slug": "tZU5uY9m",
+              "thumbnailUrl": "https://pbs.twimg.com/media/FIkQS4YaUAk_Pma.jpg"
+            }
+          ]
+        },
+        {
+          "heading": "奈良・滋賀：白い岩山の地下壕と、かつての「明るい廃墟」",
+          "paragraphs": [
+            "奈良県香芝市の屯鶴峯は、白い凝灰岩がむき出しになった奇岩の山です。その地下には、太平洋戦争の末期に旧日本陸軍が掘った総延長約2キロの地下壕が残り、いくつかの坑口を外から見ることができます。白い岩肌と暗い坑口の対比が、強い非日常感を生みます。",
+            "滋賀県守山市のピエリ守山は、琵琶湖のほとりの大型商業施設です。2008年に開業したあと店舗の撤退が続き、ほとんどの店が閉まった館内の様子から「明るい廃墟」と呼ばれました。2014年12月にリニューアルし、現在は多くの店舗が営業しています。今は廃墟ではありませんが、広い吹き抜けと長い通路に、当時の記憶を重ねて歩くことができます。"
+          ],
+          "spots": [
+            {
+              "title": "屯鶴峯地下壕",
+              "slug": "es2eLiRx",
+              "thumbnailUrl": "https://pbs.twimg.com/media/G53MLgaaYAAIlMN.jpg"
+            },
+            {
+              "title": "ピエリ守山",
+              "slug": "GL4Ht6wV"
+            }
+          ]
+        },
+        {
+          "heading": "行くときの、現実的な注意点",
+          "paragraphs": [
+            "紹介した場所の多くは、営業中の施設や公共の空間です。お店やほかの利用者の迷惑にならないよう、施設ごとの撮影のルールを確認し、人の顔がはっきり写らないように気をつけてください。",
+            "屯鶴峯の地下壕は、坑口を外から見るだけにしてください。内部は崩落や足元の危険があり、一部は研究施設としても使われています。",
+            "LIMapには、立ち入りが禁止されている廃墟も記録として登録されています。この記事では、外から見られる場所と営業中の場所だけを選びました。私有地や立入禁止の場所には入らないでください。"
+          ]
+        },
+        {
+          "heading": "撮ったら、地図に残してください",
+          "paragraphs": [
+            "関西には、まだ記録されていない場所がたくさんあります。通勤で通る地下街や、休日のニュータウンが、誰かにとっての探していた景色かもしれません。",
+            "LIMapは、そうした場所を写真と位置つきで残していく地図です。見つけた場所があれば、ぜひ登録してください。"
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "関西で気軽にリミナルスペースを撮れる場所はありますか？",
+          "a": "営業中の施設や公共の空間がおすすめです。神戸・六甲アイランドのリバーモール、新神戸駅に直結した新神戸オリエンタルシティ、香美町の余部鉄橋「空の駅」などは、立ち入りの心配をせずに訪れることができます。"
+        },
+        {
+          "q": "大阪市内で行ける場所はどこですか？",
+          "a": "梅田にある「カプセル・イン大阪」は、1979年に開業した世界初のカプセルホテルで、現在も宿泊できます。少し足を延ばせば、高槻市の松坂屋高槻店の屋上遊園「スカイランド」もあります。"
+        },
+        {
+          "q": "廃墟の写真を撮りに行ってもいいですか？",
+          "a": "立ち入りが禁止されている場所や私有地には入らないでください。LIMapには記録として廃墟も登録されていますが、訪れる場合は外から見られる範囲にとどめてください。"
+        }
+      ]
+    },
+    "en": {
+      "title": "Liminal Space Photo Spots in Kansai: Real Places in Osaka, Kobe, Nara and Shiga",
+      "metaDescription": "Real liminal spaces you can visit in the Kansai region of Japan, chosen from spots registered on LIMap: an artificial island in Kobe, the world's first capsule hotel, the remains of a railway bridge and an ore-dressing plant, plus tips for visiting.",
+      "h1": "Where to Photograph Liminal Spaces in Kansai: Real Spots in Osaka, Hyogo, Nara and Shiga",
+      "lead": "When people think of liminal spaces in Japan, they often picture Tokyo's underground passages. But the Kansai region also has planned districts that have grown quiet and facilities that have outlived their original purpose. Here are places registered on LIMap that you can actually visit.",
+      "sections": [
+        {
+          "heading": "In Kansai, Liminal Spaces Gather in Planned Districts and Places That Have Finished Their Work",
+          "paragraphs": [
+            "The liminal spaces you find in Kansai tend to fall into two groups. The first is large, carefully planned districts and complexes. Spaces built to receive crowds, such as an artificial island or a complex connected directly to a station, show a peculiar emptiness when few people are around.",
+            "The second is places such as railways and mines that have finished the job they were built for. Their function is gone, but the structures remain, and they let you feel the passage of time. Every place in this article was chosen on one condition: you can actually go there."
+          ]
+        },
+        {
+          "heading": "Kobe: An Artificial Island's Waterway and a Complex Attached to the Shinkansen Station",
+          "paragraphs": [
+            "Rokko Island is an artificial island built off the coast of Kobe. The River Mall that runs through its center is a man-made waterway fed by water from the Sumiyoshi River; its northern section was completed in 1990 and its southern section in 1993. The elevated Rokko Liner runs overhead, above orderly plazas and sculptures. When few people are around, only the well-kept space itself seems to remain.",
+            "Shin-Kobe Oriental City, directly connected to Shin-Kobe Station, is another liminal space typical of Kansai. It is a large complex of a hotel, shops and a theater; the shopping zone was renamed KOTO no HAKO KOBE in 2019 and is still open. Although it sits right in front of the station, its wide corridors can be nearly empty at certain times of day."
+          ],
+          "spots": [
+            {
+              "title": "Rokko Island River Mall",
+              "slug": "NbGc4Sdz",
+              "thumbnailUrl": "https://pbs.twimg.com/media/GBj76E0asAASGMC.jpg"
+            },
+            {
+              "title": "Shin-Kobe Oriental City",
+              "slug": "XBXoFcN3"
+            }
+          ]
+        },
+        {
+          "heading": "Osaka: The World's First Capsule Hotel and a Department Store Rooftop Amusement Park",
+          "paragraphs": [
+            "Capsule Inn Osaka in Umeda, designed by the architect Kisho Kurokawa and opened in 1979, is the world's first capsule hotel. Its corridors of identical sleeping pods are still in use today. This is a liminal space you experience by staying the night rather than by visiting.",
+            "On the roof of the Matsuzakaya department store in Takatsuki is Skyland, a rooftop amusement park that has been open since 1979. Rooftop amusement parks were once common on department stores across Japan, but only a handful remain. Showa-era rides lined up on top of a building bring nostalgia and strangeness at the same time."
+          ],
+          "spots": [
+            {
+              "title": "Capsule Inn Osaka (New Japan Umeda)",
+              "slug": "77BLLqk2",
+              "thumbnailUrl": "https://pbs.twimg.com/media/G2oGVRAbIAETcxS.jpg"
+            },
+            {
+              "title": "Rooftop Amusement Park Skyland (Matsuzakaya Takatsuki)",
+              "slug": "bRVna6ES"
+            }
+          ]
+        },
+        {
+          "heading": "Hyogo's Sea and Mountains: The Remains of a Railway Bridge and an Ore-Dressing Plant",
+          "paragraphs": [
+            "Amarube Viaduct Sky Station, in Kami Town on the Sea of Japan coast, is an observation deck built on part of the old Amarube Viaduct, which was completed in 1912. The viaduct was replaced by a concrete bridge in 2010, but the piers on the Amarube Station side were preserved, giving a view of the sea from about 41 meters above the ground. Since 2017 you can also ride an elevator to the top. Beyond the point where the old track ends, there is nothing but sea and sky.",
+            "The Mikobata Ore-Dressing Plant Ruins in Asago are the remains of a large processing plant built in 1919. It stopped operating in 1987, and its aging buildings were demolished in 2004. Today only the stepped concrete foundations remain on the mountainside. The buildings are gone, yet you can still read their shape."
+          ],
+          "spots": [
+            {
+              "title": "Amarube Viaduct Sky Station",
+              "slug": "kk5yFE6g",
+              "thumbnailUrl": "https://pbs.twimg.com/media/GLbZ0u5aIAAgeUm.jpg"
+            },
+            {
+              "title": "Mikobata Ore-Dressing Plant Ruins",
+              "slug": "tZU5uY9m",
+              "thumbnailUrl": "https://pbs.twimg.com/media/FIkQS4YaUAk_Pma.jpg"
+            }
+          ]
+        },
+        {
+          "heading": "Nara and Shiga: Tunnels Under a White Rock Hill and a Former \"Bright Ruin\"",
+          "paragraphs": [
+            "Donzurubo in Kashiba, Nara, is a hill of exposed white tuff with strange rock formations. Beneath it lies a network of tunnels about 2 kilometers long, dug by the Imperial Japanese Army at the end of the Pacific War, and several of the entrances can be seen from outside. The contrast between the white rock and the dark openings is strongly unreal.",
+            "Pieri Moriyama in Moriyama, Shiga, is a large shopping mall on the shore of Lake Biwa. After opening in 2008 it lost tenant after tenant, and images of its nearly empty interior earned it the nickname \"the bright ruin.\" It reopened after a renovation in December 2014 and many shops now operate there. It is no longer a ruin, but you can walk its wide atriums and long corridors with that memory in mind."
+          ],
+          "spots": [
+            {
+              "title": "Donzurubo Underground Tunnels",
+              "slug": "es2eLiRx",
+              "thumbnailUrl": "https://pbs.twimg.com/media/G53MLgaaYAAIlMN.jpg"
+            },
+            {
+              "title": "Pieri Moriyama",
+              "slug": "GL4Ht6wV"
+            }
+          ]
+        },
+        {
+          "heading": "Practical Notes for Visiting",
+          "paragraphs": [
+            "Most of the places here are open facilities or public spaces. Check each facility's rules on photography so you do not disturb shops or other visitors, and take care not to capture people's faces clearly.",
+            "At Donzurubo, look at the tunnel entrances from outside only. The interior carries risks of collapse and uneven footing, and part of it is used as a research facility.",
+            "LIMap also records abandoned sites that are closed to the public. For this article we chose only places that can be seen from outside or that are open for business. Please do not enter private property or restricted areas."
+          ]
+        },
+        {
+          "heading": "If You Shoot It, Put It on the Map",
+          "paragraphs": [
+            "Much of Kansai is still unrecorded. The underground mall on your commute or a new town on a quiet weekend may be exactly the view someone else is looking for.",
+            "LIMap is a map for recording those places with photos and locations. If you find one, please add it."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Where can I easily photograph liminal spaces in Kansai?",
+          "a": "Open facilities and public spaces are the best choice. The River Mall on Rokko Island in Kobe, Shin-Kobe Oriental City next to Shin-Kobe Station and Amarube Viaduct Sky Station in Kami Town can all be visited without worrying about restricted access."
+        },
+        {
+          "q": "Is there anywhere I can go in central Osaka?",
+          "a": "Capsule Inn Osaka in Umeda, which opened in 1979 as the world's first capsule hotel, still takes guests today. A little farther out, there is the Skyland rooftop amusement park on the Matsuzakaya department store in Takatsuki."
+        },
+        {
+          "q": "Is it all right to go and photograph abandoned buildings?",
+          "a": "Please do not enter restricted areas or private property. LIMap records abandoned sites as well, but if you visit one, stay within what can be seen from outside."
+        }
+      ]
+    },
+    "images": [
+      {
+        "file": "River mall01s3200.jpg",
+        "author": "663highland",
+        "license": "CC BY 2.5",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.5/",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:River_mall01s3200.jpg",
+        "altJa": "六甲アイランドのリバーモール。石柱の噴水と六甲ライナーの高架",
+        "altEn": "The River Mall on Rokko Island, with stone-pillar fountains and the elevated Rokko Liner",
+        "captionJa": "神戸・六甲アイランドのリバーモール。計画された街の、人の少ない時間。",
+        "captionEn": "The River Mall on Rokko Island, Kobe: a planned district in a quiet hour.",
+        "afterSection": -1
+      },
+      {
+        "file": "Shin-Kobe Oriental City 1st floor.jpg",
+        "author": "Tokumeigakarinoaoshima",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Shin-Kobe_Oriental_City_1st_floor.jpg",
+        "altJa": "新神戸オリエンタルシティの1階部分",
+        "altEn": "The ground floor of Shin-Kobe Oriental City",
+        "captionJa": "新神戸駅に直結する新神戸オリエンタルシティ。",
+        "captionEn": "Shin-Kobe Oriental City, directly connected to Shin-Kobe Station.",
+        "afterSection": 1
+      }
+    ]
   }
 ]
