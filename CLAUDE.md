@@ -33,7 +33,7 @@ src/
   navigation/   React Navigation（RootNavigator, MainTabNavigator）
 api/            Vercel Functions
 content/        記事の元データ（articles.json）
-scripts/        generate-articles.js（記事HTML生成）、seed/（公式スポット投入などの運用スクリプト）
+scripts/        generate-articles.js（記事HTML生成）、seed/（公式スポット投入などの運用スクリプト）、check-embeds.mjs（SNS埋め込みが今も見られるかの点検。読むだけ）
 public/         Web の静的ファイル。public/articles/ は生成物なので手で編集しない
 supabase/migrations/  DB変更の履歴（連番SQL）
 ```
@@ -98,6 +98,12 @@ npx tsc --noEmit       # 型チェック
 追加後は `node scripts/check-articles.js` で4箇所の整合性を確認する。
 
 記事を出したら、push に加えて `eas update` までがワンセット（アプリのコラムタブに反映するため）。
+
+## SNS埋め込みの点検
+
+公開スポットのほとんどは X・Instagram の埋め込みだけで成り立っているため、元の投稿が消えるとスポットから写真が消える。ときどき `node --env-file=.env scripts/check-embeds.mjs <出力先.csv>` で点検する（データは変更しない）。Instagram の判定にはこの Mac の Google Chrome を画面なしで使う。
+
+- シミュレーターの WebView（埋め込みの中）では、日本語の一部が「?」の四角で表示される。シミュレーターに端末標準の日本語フォントが無いためで、実機では起きない
 
 ## DB（Supabase）
 

@@ -29,7 +29,7 @@ function buildHtml(url: string): string {
   </head>
   <body>
     <blockquote class="instagram-media" data-instgrm-permalink="${safeUrl}" data-instgrm-version="14" style="margin:0 auto; width:100%;"></blockquote>
-    <script async src="//www.instagram.com/embed.js"></script>
+    <script async src="https://www.instagram.com/embed.js"></script>
     <script>
       function sendHeight() {
         var height = document.body ? document.body.scrollHeight : 0;
@@ -47,6 +47,7 @@ function buildHtml(url: string): string {
       // OS側の設定(トラッキング防止など)によって、Instagram側のiframeサイズ通知が
       // ブロックされ高さが0のまま止まってしまうことがある。その場合は空白のまま
       // 放置せず、投稿への外部リンクに置き換える。
+      // 通信が遅いと正常な投稿でも読み込みに数秒かかるため、判定まで少し長めに待つ。
       setTimeout(function () {
         var iframe = document.querySelector('iframe');
         var h = iframe ? iframe.getBoundingClientRect().height : 0;
@@ -57,7 +58,7 @@ function buildHtml(url: string): string {
             window.ReactNativeWebView.postMessage('60');
           }
         }
-      }, 2500);
+      }, 6000);
     </script>
   </body>
 </html>`;
@@ -85,7 +86,11 @@ export default function InstagramEmbed({ url, onHeightChange }: Props) {
 
   return (
     <WebView
-      source={{ html: buildHtml(url) }}
+      // HTMLを文字列で渡すと、ページの住所(origin)が about:blank になる。
+      // 以前は embed.js を "//www.instagram.com/..." (https: を省いた書き方)で読んでいたため、
+      // about: の住所から解決されて読み込めず、すべての投稿がリンク表示に落ちていた。
+      // 読み込み先は https: を明記し、ページ自体にも https の住所を与えておく。
+      source={{ html: buildHtml(url), baseUrl: 'https://limap.jp/' }}
       style={[styles.webview, { height }]}
       originWhitelist={['*']}
       javaScriptEnabled
