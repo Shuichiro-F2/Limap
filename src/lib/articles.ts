@@ -299,6 +299,34 @@ const ARTICLE_ENTRIES: ArticleSummary[] = [
     thumbnailFile: 'Old TV sets.jpg',
   },
   {
+    slug: 'liminal-spots-okinawa',
+    publishedDate: '2026-09-28',
+    categoryJa: '実在スポット',
+    categoryEn: 'Real Spots',
+    titleJa: '沖縄のリミナルスペース｜高架の下のビーチから最南端のアーケードまで、実在する7か所',
+    titleEn:
+      "Liminal Spaces in Okinawa: 7 Real Places, From a Beach Under an Elevated Road to Japan's Southernmost Arcade",
+    leadJa:
+      '観光地の裏側のアーケード、高架の道路が横切るビーチ、海の上の一本道、海洋博の展示館。沖縄で実際に行けるリミナルスペースを、LIMapの登録スポットから選びました。',
+    leadEn:
+      'Arcades behind the tourist streets, a beach under an elevated road, a causeway across the sea and an expo-era exhibition hall: real liminal spaces you can visit in Okinawa.',
+    thumbnailFile: 'Naminoue Beach and Naminouebashi Bridge 20150317-1.JPG',
+  },
+  {
+    slug: 'liminal-spots-hokuriku-koshinetsu',
+    publishedDate: '2026-09-28',
+    categoryJa: '実在スポット',
+    categoryEn: 'Real Spots',
+    titleJa: '北陸・甲信越のリミナルスペース｜明治の鉄道トンネルから丸窓の図書館まで、実在する8か所',
+    titleEn:
+      'Liminal Spaces in Hokuriku and Koshinetsu: 8 Real Places, From a Meiji-Era Railway Tunnel to a Library of Round Windows',
+    leadJa:
+      '遊歩道になった明治の鉄道トンネル、光の通路、丸窓の白い図書館、駅とつながる文化施設。北陸・甲信越で実際に行けるリミナルスペースを、LIMapの登録スポットから選びました。',
+    leadEn:
+      'A Meiji-era railway tunnel turned walking path, a passage of light, a white library of round windows and a cultural center joined to a station: real liminal spaces you can visit in Hokuriku and Koshinetsu.',
+    thumbnailFile: 'Find47 Niigata-Kiyotsu Gorge Tunnel-m.jpg',
+  },
+  {
     slug: 'liminal-spots-chugoku-shikoku',
     publishedDate: '2026-09-28',
     categoryJa: '実在スポット',

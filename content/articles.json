@@ -2928,6 +2928,534 @@
     ]
   },
   {
+    "slug": "liminal-spots-okinawa",
+    "category": "実在スポット",
+    "categoryEn": "Real Spots",
+    "publishedDate": "2026-09-28",
+    "ja": {
+      "title": "沖縄のリミナルスペース｜高架の下のビーチから最南端のアーケードまで、実在する7か所",
+      "metaDescription": "沖縄で「リミナルスペース」を感じられる実在の場所を、LIMapの登録スポットから7か所紹介します。那覇とコザのアーケード、高架の道路が横切る波の上ビーチ、海の上の一本道、象設計集団の名護市庁舎、海洋博の展示館、石垣島の最南端のアーケード。行くときの注意点も。",
+      "h1": "沖縄のリミナルスペース——高架の下のビーチから最南端のアーケードまで、実在する7か所",
+      "lead": "南の島の沖縄にも、観光地の裏側に続く古いアーケードや、高架とコンクリートに囲まれたビーチ、博覧会の跡に残る展示館が、今も誰でも行ける場所としてあります。人の少ない朝や夜に訪れると、明るい南国のイメージとは違う、どこか途中で止まったような風景が見えてきます。LIMapに登録した7か所を紹介します。",
+      "sections": [
+        {
+          "heading": "沖縄のリミナルスペースは「アーケード」と「海辺の人工的な風景」に多い",
+          "paragraphs": [
+            "沖縄で見つかるリミナルスペースには、二つの特徴があります。ひとつは、強い日差しや雨をさえぎるアーケードの商店街です。観光客でにぎわう通りのすぐ裏に、閉じたシャッターと古い看板が続く長い屋根の下の通りがあります。",
+            "もうひとつは、海辺に人の手で造られた風景です。高架の道路が目の前を横切る人工のビーチ、遠浅の海に土手を築いた一本道、博覧会の跡に造られた公園。この記事では、那覇・沖縄市・うるま市・名護市・本部町・石垣市で「今、誰でも行けること」を条件に選んだ場所を紹介します。"
+          ]
+        },
+        {
+          "heading": "那覇とコザ：観光地の裏側に続くアーケード",
+          "paragraphs": [
+            "那覇のサンライズなは商店街は、国際通りの裏手、市場本通りから開南の方へ延びるアーケード商店街です。1950年代から続き、1988年にアーケードが架けられました。観光客でにぎわう通りから一本外れるだけで、閉じたシャッターと古い看板、蛍光灯の下に小さな店が点々と続く、観光地の裏側に迷い込んだような通りになります。",
+            "沖縄市コザの一番街は、長さ約300mのアーケード商店街です。1970年代半ばに沖縄で初めてアーケードが架けられ、1960〜70年代には沖縄中部でいちばんの商業地でした。1990年代以降は閉じた店が目立つようになり、今は新しい店と閉じたままの店が交互に並びます。長い屋根の下の静けさが、にぎやかだった頃の残響のように感じられます。"
+          ],
+          "spots": [
+            {
+              "title": "サンライズなは商店街",
+              "slug": "PHMGPkY3",
+              "thumbnailUrl": "https://pbs.twimg.com/media/EnLFYlbVkAEGSUV.jpg"
+            },
+            {
+              "title": "コザ一番街（中央一番街）",
+              "slug": "MTwmuvAh",
+              "thumbnailUrl": "https://pbs.twimg.com/media/G9ftUkKbUAExLtd.jpg"
+            }
+          ]
+        },
+        {
+          "heading": "高架の下のビーチと、海の上の一本道",
+          "paragraphs": [
+            "那覇の波の上ビーチは、市内でただひとつの海水浴場です。1991年に造られた人工のビーチで、すぐ目の前の海の上を高架の道路が横切り、岩の上には波上宮が立っています。泳ぐ人のいない早朝や夜には、南の島の砂浜が高架とコンクリートに囲まれて、どこか作り物めいた風景に見えます。",
+            "うるま市の海中道路は、与勝半島と平安座島を結ぶ、遠浅の海に土手を築いた約5kmの道路で、1972年に開通しました。両側に空と浅い海だけが広がる一本道の途中に、広い駐車場と海の駅がぽつんと浮かびます。人の少ない平日の夕方には、どこにも着かない道を走り続けているような感覚になります。"
+          ],
+          "spots": [
+            {
+              "title": "波の上ビーチ",
+              "slug": "NJjytELM",
+              "thumbnailUrl": "https://pbs.twimg.com/media/E0fpbdGUcAA2aa3.jpg"
+            },
+            {
+              "title": "海中道路（海の駅あやはし館）",
+              "slug": "PgKZ8Gxs",
+              "thumbnailUrl": "https://pbs.twimg.com/media/HJZVtMnaEAEhy_8.jpg"
+            }
+          ]
+        },
+        {
+          "heading": "風が抜ける市庁舎と、博覧会の跡の展示館",
+          "paragraphs": [
+            "名護市庁舎は、1981年に完成した象設計集団（Team Zoo）設計の市庁舎です。全国から308案が集まった設計競技で選ばれ、日本建築学会賞を受けました。コンクリートブロックの格子と日よけの棚が段々に重なり、建物のあちこちに風の通る半屋外の空間があります。人のいない休日や夕方、段状のテラスと長いスロープに風だけが抜けていく様子は、役所とも集落ともつかない不思議な空間に見えます。",
+            "本部町の海洋博公園にある海洋文化館は、1975年の沖縄国際海洋博覧会で政府の展示館として建てられた建物です。展示の多くは博覧会のときに作られたもので、大きなカヌーや半世紀前の展示が静かに並ぶ館内は、終わったお祭りの続きの中にいるような感覚になります。"
+          ],
+          "spots": [
+            {
+              "title": "名護市庁舎",
+              "slug": "GeYmXhaQ",
+              "thumbnailUrl": "https://pbs.twimg.com/media/G7b61XgbQAAyruJ.jpg"
+            },
+            {
+              "title": "海洋文化館（海洋博公園）",
+              "slug": "J7mcK3Ti",
+              "thumbnailUrl": "https://pbs.twimg.com/media/FoBO_U2aIAAh0G1.jpg"
+            }
+          ]
+        },
+        {
+          "heading": "石垣島：日本でいちばん南のアーケード",
+          "paragraphs": [
+            "石垣島の中心にあるユーグレナモールは、日本でいちばん南のアーケード商店街です。1988年と1989年に2本のアーケードが架けられ、そのあいだに公設市場がはさまっています。",
+            "昼は観光客でにぎわいますが、店が開く前の朝や閉まったあとには、南の島の強い日差しを屋根がさえぎった、薄暗く長い通路だけが残ります。日本の端にある、屋根の下の静かな通りです。"
+          ],
+          "spots": [
+            {
+              "title": "ユーグレナモール（石垣市）",
+              "slug": "BEkiN7yc",
+              "thumbnailUrl": "https://pbs.twimg.com/media/E2EGnLQVEAA7B_w.jpg"
+            }
+          ]
+        },
+        {
+          "heading": "行くときの、現実的な注意点",
+          "paragraphs": [
+            "アーケード商店街は、そこで働き暮らす人たちの場所です。店や店の人、通る人を写さないように気をつけてください。名護市庁舎は今も使われている市役所で、中に入れるのは平日の開庁時間だけです。波の上ビーチでは、泳いでいる人を写さないようにしてください。",
+            "海中道路では、道路の上で車を止めたり、車道に出て撮影したりしないでください。撮るなら海の駅や中央の広場からにしましょう。沖縄は夏から秋にかけて台風が多く、ビーチや公園が閉鎖されることもあります。日差しも強いので、水分と日よけの準備をして出かけてください。"
+          ]
+        },
+        {
+          "heading": "撮ったら、地図に残してください",
+          "paragraphs": [
+            "沖縄には、まだ記録されていない古いアーケードや、海辺の人工的な風景がたくさんあります。観光地のすぐ裏に、誰も撮っていない景色が残っているかもしれません。",
+            "LIMapは、そうした場所を写真と位置つきで残していく地図です。見つけた場所があれば、ぜひ登録してください。"
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "那覇で手軽にリミナルスペースを感じられる場所は？",
+          "a": "国際通りの裏手にあるサンライズなは商店街がおすすめです。ゆいレールの牧志駅から歩いて約9分で、観光客の多い通りから一本外れるだけで、静かなアーケードの通りになります。店が開く前の朝がとくに人の少ない時間です。"
+        },
+        {
+          "q": "無料で行ける場所はありますか？",
+          "a": "サンライズなは商店街、コザ一番街、ユーグレナモールのアーケード、波の上ビーチ、海中道路は無料です。海洋博公園の入園も無料ですが、海洋文化館は大人190円です。"
+        },
+        {
+          "q": "台風のときはどうなりますか？",
+          "a": "台風が近づくと、波の上ビーチが閉鎖されたり、海洋博公園の施設が休みになったりします。夏から秋に行くときは、天気予報と各施設の公式情報を確認してください。"
+        }
+      ]
+    },
+    "en": {
+      "title": "Liminal Spaces in Okinawa: 7 Real Places, From a Beach Under an Elevated Road to Japan's Southernmost Arcade",
+      "metaDescription": "Seven real places in Okinawa where you can feel the atmosphere of a liminal space, chosen from spots registered on LIMap: shopping arcades in Naha and Koza, Naminoue Beach with an elevated road in front, a causeway across the sea, Nago City Hall by Team Zoo, an exhibition hall from the 1975 Ocean Expo and Japan's southernmost arcade on Ishigaki Island. With tips for visiting.",
+      "h1": "Liminal Spaces in Okinawa: 7 Real Places, From a Beach Under an Elevated Road to Japan's Southernmost Arcade",
+      "lead": "Even in subtropical Okinawa, old arcades running behind the tourist streets, a beach hemmed in by an elevated road and concrete, and an exhibition hall left on the site of an expo are places anyone can visit. On a quiet morning or evening, you see a landscape that seems to have stopped partway, very different from the bright image of the tropics. Here are seven places registered on LIMap.",
+      "sections": [
+        {
+          "heading": "In Okinawa, Liminal Spaces Gather in Arcades and Man-Made Seaside Landscapes",
+          "paragraphs": [
+            "The liminal spaces you find in Okinawa have two main features. The first is shopping arcades that shelter people from strong sun and rain. Right behind the busy tourist streets, long covered streets run past closed shutters and old signboards.",
+            "The second is landscapes made by people at the water's edge: an artificial beach with an elevated road running just offshore, a causeway built across shallow sea, a park on the site of an exposition. This article introduces places in Naha, Okinawa City, Uruma, Nago, Motobu and Ishigaki chosen on one condition: anyone can go there today."
+          ]
+        },
+        {
+          "heading": "Naha and Koza: Arcades Behind the Tourist Streets",
+          "paragraphs": [
+            "Sunrise Naha is a covered shopping street behind Kokusai-dori in Naha, running from Ichiba-hondori toward Kainan. It dates back to the 1950s, and its arcade roof was built in 1988. Step one street away from the crowds and you find closed shutters, old signboards and small shops scattered under fluorescent lights, as if you had wandered into the back side of a tourist town.",
+            "Ichibangai in Koza, Okinawa City, is a covered shopping street about 300 meters long. In the mid-1970s it became the first shopping street in Okinawa to get an arcade roof, and in the 1960s and 70s it was the busiest commercial district in central Okinawa. From the 1990s on, closed shops became common, and today new shops and long-shuttered ones alternate. The quiet under the long roof feels like an echo of livelier days."
+          ],
+          "spots": [
+            {
+              "title": "Sunrise Naha Shopping Street",
+              "slug": "PHMGPkY3",
+              "thumbnailUrl": "https://pbs.twimg.com/media/EnLFYlbVkAEGSUV.jpg"
+            },
+            {
+              "title": "Koza Ichibangai (Chuo Ichibangai)",
+              "slug": "MTwmuvAh",
+              "thumbnailUrl": "https://pbs.twimg.com/media/G9ftUkKbUAExLtd.jpg"
+            }
+          ]
+        },
+        {
+          "heading": "A Beach Under an Elevated Road, and a Road Across the Sea",
+          "paragraphs": [
+            "Naminoue Beach is the only swimming beach in Naha. It is an artificial beach built in 1991, with an elevated road crossing the sea right in front of it and Naminoue Shrine standing on the rocks above. Early in the morning or at night, with no swimmers, the tropical sand hemmed in by the overpass and concrete looks somehow artificial, like a stage set.",
+            "The Kaichu Doro in Uruma is a road about 5 kilometers long built on an embankment across shallow sea, linking the Yokatsu Peninsula and Henza Island. It opened in 1972. Partway along a straight road with nothing but sky and shallow water on either side, a wide parking area and a roadside station float alone. On a quiet weekday evening, it feels like driving along a road that never arrives anywhere."
+          ],
+          "spots": [
+            {
+              "title": "Naminoue Beach",
+              "slug": "NJjytELM",
+              "thumbnailUrl": "https://pbs.twimg.com/media/E0fpbdGUcAA2aa3.jpg"
+            },
+            {
+              "title": "Kaichu Doro (Umi-no-Eki Ayahashi-kan)",
+              "slug": "PgKZ8Gxs",
+              "thumbnailUrl": "https://pbs.twimg.com/media/HJZVtMnaEAEhy_8.jpg"
+            }
+          ]
+        },
+        {
+          "heading": "A City Hall Open to the Wind, and an Exhibition Hall on an Expo Site",
+          "paragraphs": [
+            "Nago City Hall, designed by Team Zoo (Atelier Zo), was completed in 1981. It was chosen in a design competition that drew 308 entries from across Japan and won the Architectural Institute of Japan Prize. Concrete block lattices and sunshade trellises are stacked in tiers, and semi-outdoor spaces open to the breeze appear throughout the building. On a quiet holiday or in the evening, with only the wind passing over its stepped terraces and long ramp, it feels neither quite like a government office nor quite like a village.",
+            "The Oceanic Culture Museum in Ocean Expo Park, Motobu, was built as the government pavilion for the 1975 Okinawa International Ocean Exposition. Much of its exhibition dates from the expo itself, and walking among large canoes and half-century-old displays feels like lingering after a festival has ended."
+          ],
+          "spots": [
+            {
+              "title": "Nago City Hall",
+              "slug": "GeYmXhaQ",
+              "thumbnailUrl": "https://pbs.twimg.com/media/G7b61XgbQAAyruJ.jpg"
+            },
+            {
+              "title": "Oceanic Culture Museum (Ocean Expo Park)",
+              "slug": "J7mcK3Ti",
+              "thumbnailUrl": "https://pbs.twimg.com/media/FoBO_U2aIAAh0G1.jpg"
+            }
+          ]
+        },
+        {
+          "heading": "Ishigaki Island: Japan's Southernmost Arcade",
+          "paragraphs": [
+            "Euglena Mall, in the center of Ishigaki Island, is the southernmost covered shopping street in Japan. Its two arcades were built in 1988 and 1989, with the public market between them.",
+            "It is busy with tourists during the day, but before the shops open in the morning or after they close, only long, dim passages remain, their roofs blocking the strong island sun. A quiet covered street at the edge of Japan."
+          ],
+          "spots": [
+            {
+              "title": "Euglena Mall (Ishigaki)",
+              "slug": "BEkiN7yc",
+              "thumbnailUrl": "https://pbs.twimg.com/media/E2EGnLQVEAA7B_w.jpg"
+            }
+          ]
+        },
+        {
+          "heading": "Practical Notes for Visiting",
+          "paragraphs": [
+            "Shopping arcades are places where people work and live. Take care not to photograph shops, shopkeepers or passersby. Nago City Hall is a working city office, open to visitors only during weekday office hours. At Naminoue Beach, do not photograph people swimming.",
+            "On the Kaichu Doro, do not stop your car on the road or step into the roadway to take photos; shoot from the roadside station or the central plaza instead. Okinawa gets many typhoons from summer to autumn, and beaches and parks may close. The sun is strong, so bring water and shade."
+          ]
+        },
+        {
+          "heading": "If You Shoot It, Put It on the Map",
+          "paragraphs": [
+            "Okinawa still has many old arcades and man-made seaside landscapes that no one has recorded. Right behind a tourist spot, there may be a view no one has photographed yet.",
+            "LIMap is a map for recording those places with photos and locations. If you find one, please add it."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Where can I easily experience a liminal space in Naha?",
+          "a": "Try Sunrise Naha, the covered shopping street behind Kokusai-dori. It is about a nine-minute walk from Makishi Station on the Yui Rail, and one street away from the crowds it becomes a quiet arcade. Mornings before the shops open are especially empty."
+        },
+        {
+          "q": "Are there places I can visit for free?",
+          "a": "Sunrise Naha, Koza Ichibangai, the Euglena Mall arcades, Naminoue Beach and the Kaichu Doro are free. Ocean Expo Park is free to enter, but the Oceanic Culture Museum costs 190 yen for adults."
+        },
+        {
+          "q": "What happens during a typhoon?",
+          "a": "When a typhoon approaches, Naminoue Beach may close and facilities in Ocean Expo Park may shut. If you visit between summer and autumn, check the weather forecast and each facility's official information."
+        }
+      ]
+    },
+    "images": [
+      {
+        "file": "Naminoue Beach and Naminouebashi Bridge 20150317-1.JPG",
+        "author": "そらみみ",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Naminoue_Beach_and_Naminouebashi_Bridge_20150317-1.JPG",
+        "altJa": "人のいない朝の波の上ビーチ。奥に高架の橋と波上宮の岩が見える",
+        "altEn": "Naminoue Beach on an empty morning, with an elevated bridge and the rock of Naminoue Shrine in the distance",
+        "captionJa": "朝の波の上ビーチ。南の島の砂浜の目の前を、高架の道路が横切る。",
+        "captionEn": "Naminoue Beach in the morning, with an elevated road crossing right in front of the tropical sand.",
+        "afterSection": -1
+      },
+      {
+        "file": "Outside ramps of Nago City Office 202504.jpg",
+        "author": "Kugel~commonswiki",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Outside_ramps_of_Nago_City_Office_202504.jpg",
+        "altJa": "名護市庁舎の外側のスロープと、コンクリートブロックの手すり",
+        "altEn": "The outdoor ramps of Nago City Hall with concrete block railings",
+        "captionJa": "名護市庁舎の外のスロープ。風の通る半屋外の通路が建物をめぐる。",
+        "captionEn": "The outdoor ramps of Nago City Hall, where breezy semi-outdoor passages wrap around the building.",
+        "afterSection": 3
+      }
+    ]
+  },
+  {
+    "slug": "liminal-spots-hokuriku-koshinetsu",
+    "category": "実在スポット",
+    "categoryEn": "Real Spots",
+    "publishedDate": "2026-09-28",
+    "ja": {
+      "title": "北陸・甲信越のリミナルスペース｜明治の鉄道トンネルから丸窓の図書館まで、実在する8か所",
+      "metaDescription": "北陸・甲信越で「リミナルスペース」を感じられる実在の場所を、LIMapの登録スポットから8か所紹介します。遊歩道になった明治の鉄道トンネル、清津峡渓谷トンネル、金沢の図書館と美術館、富山の環水公園、新潟の無料展望室、茅野市民館、佐渡の選鉱場跡。行くときの注意点も。",
+      "h1": "北陸・甲信越のリミナルスペース——明治の鉄道トンネルから丸窓の図書館まで、実在する8か所",
+      "lead": "北陸・甲信越には、役目を終えたあと歩いて通れるようになったトンネルや、白く開かれた現代の図書館や美術館が、今も誰でも行ける場所としてあります。人の少ない時間に訪れると、長く続く通路や広い空間の中に、どこへ向かう途中なのか分からなくなるような静けさが見えてきます。LIMapに登録した8か所を紹介します。",
+      "sections": [
+        {
+          "heading": "北陸・甲信越のリミナルスペースは「歩いて抜けるトンネル」と「白く開かれた建築」に多い",
+          "paragraphs": [
+            "北陸・甲信越で見つかるリミナルスペースには、二つの特徴があります。ひとつは、歩いて抜けるための長いトンネルです。明治の鉄道トンネルが遊歩道になり、山の中を掘り進んだ観光用のトンネルが芸術作品として改修されています。照明が続くだけの一直線の通路は、終わりが見えないほど長く感じられます。",
+            "もうひとつは、平成以降に建てられた白く開かれた公共建築です。丸窓の並ぶ図書館、円形のガラスの美術館、駅とつながった文化施設。人の少ない時間には、使い道の決まっていない広い空間だけが残ります。この記事では、山梨・新潟・石川・富山・長野で「今、誰でも行けること」を条件に選んだ場所を紹介します。"
+          ]
+        },
+        {
+          "heading": "二本のトンネル：明治の鉄道トンネルと、光の通路",
+          "paragraphs": [
+            "山梨県甲州市の大日影トンネル遊歩道は、1903年に開通した中央本線の鉄道トンネルです。1997年に隣に新しいトンネルができて使われなくなり、今は全長約1.4kmの遊歩道として無料で歩けます。レンガの壁と蒸気機関車の煤、レールや標識が当時のまま残り、照明が等間隔に続く一直線の通路を、片道約30分かけて歩いていきます。",
+            "新潟県十日町市の清津峡渓谷トンネルは、落石事故で通れなくなった渓谷の遊歩道の代わりに、1996年に造られた全長750mの歩行者用トンネルです。2018年の大地の芸術祭で、マ・ヤンソン／MADアーキテクツの作品「Tunnel of Light」として改修されました。色の変わる照明が続く長い通路の先、終点では水を張った床に渓谷が鏡のように映ります。"
+          ],
+          "spots": [
+            {
+              "title": "大日影トンネル遊歩道",
+              "slug": "8dDucTfE",
+              "thumbnailUrl": "https://pbs.twimg.com/media/HRgC-YTa0AAa6e6.jpg"
+            },
+            {
+              "title": "清津峡渓谷トンネル",
+              "slug": "6sZbje49",
+              "thumbnailUrl": "https://pbs.twimg.com/media/G_uEdckbAAAM7lC.jpg"
+            }
+          ]
+        },
+        {
+          "heading": "金沢：丸窓の白い箱と、円形のガラスの美術館",
+          "paragraphs": [
+            "金沢海みらい図書館は、2011年に開館したシーラカンスK&H設計の図書館です。白い箱のような外壁に約6,000個の丸窓が並び、天井の高い大きな空間に、点のような光が静かに落ちてきます。郊外の広い空の下に置かれた白い箱は、外から眺めても、現実から少し離れた建物に見えます。館内の撮影には許可が必要です。",
+            "金沢21世紀美術館は、2004年に開館したSANAA設計の美術館です。直径112.5mの円形のガラスの建物の中を、白い通路と中庭が迷路のようにつなぎます。無料の交流ゾーンは夜22時まで開いていて、人の減った夜には、どちらが表でどちらが裏なのか分からなくなります。"
+          ],
+          "spots": [
+            {
+              "title": "金沢海みらい図書館",
+              "slug": "GSVYrtzL",
+              "thumbnailUrl": "https://pbs.twimg.com/media/DddDNODVAAASwux.jpg"
+            },
+            {
+              "title": "金沢21世紀美術館",
+              "slug": "dibLtfvP",
+              "thumbnailUrl": "https://pbs.twimg.com/media/GblwzXJaUAA-M_v.jpg"
+            }
+          ]
+        },
+        {
+          "heading": "富山と新潟：糸電話の橋と、無料の展望室",
+          "paragraphs": [
+            "富山駅の北にある富岩運河環水公園は、運河の船だまりの跡に1997年に開かれた、水辺の人工的な公園です。天門橋の両端には高さ約20mの展望塔が立ち、塔と塔は「赤い糸電話」でつながっています。夜や早朝、人のいない水面に橋の明かりだけが映る時間には、誰かのために用意されたまま忘れられた舞台のような静けさがあります。",
+            "新潟港に面した朱鷺メッセの万代島ビル31階には、地上約125mの無料の展望室があります。夜になると、ガラスに囲まれた静かなフロアから、街の灯りと暗い日本海だけが見えます。人の少ない夜の展望室は、どこへも向かわない待合室のように静まり返ります。"
+          ],
+          "spots": [
+            {
+              "title": "富岩運河環水公園 天門橋",
+              "slug": "JtXE5uD5",
+              "thumbnailUrl": "https://pbs.twimg.com/media/G9yjnSRasAEnf-A.jpg"
+            },
+            {
+              "title": "朱鷺メッセ Befcoばかうけ展望室",
+              "slug": "AreEbsxm",
+              "thumbnailUrl": "https://pbs.twimg.com/media/GIoa5hyb0AAcJhG.jpg"
+            }
+          ]
+        },
+        {
+          "heading": "駅とつながる文化施設と、佐渡の選鉱場跡",
+          "paragraphs": [
+            "長野県の茅野市民館は、2005年に開館した古谷誠章設計の文化施設です。茅野駅の橋上駅舎から通路がそのまま建物の中へ続き、駅と建物の境目がはっきりしません。駅のホームに沿って細長く延びる図書室は全面ガラス張りで、列車を待つ場所と本を読む場所が一枚のガラスを隔てて並んでいます。",
+            "佐渡島の北沢浮遊選鉱場跡は、佐渡金山の鉱石を処理した選鉱場の跡です。1937年から1940年にかけて整備され、1952年に廃止されました。今は山の斜面に階段状のコンクリートの躯体と、直径50mのシックナーが残り、「佐渡島のラピュタ」とも呼ばれています。前の広場は整備されていて、誰でも近くから眺められます。"
+          ],
+          "spots": [
+            {
+              "title": "茅野市民館",
+              "slug": "698Asdpz",
+              "thumbnailUrl": "https://pbs.twimg.com/media/G__IKRsbcAA4iZT.jpg"
+            },
+            {
+              "title": "北沢浮遊選鉱場跡",
+              "slug": "ncUNG4h3"
+            }
+          ]
+        },
+        {
+          "heading": "行くときの、現実的な注意点",
+          "paragraphs": [
+            "図書館や美術館、文化施設は、人が利用している場所です。金沢海みらい図書館は館内の撮影に許可証が必要で、図書コーナーは撮影できません。金沢21世紀美術館ではフラッシュや三脚、自撮り棒が禁止されています。どこでも、ほかの利用者の顔が写らないように気をつけてください。",
+            "大日影トンネル遊歩道は9時から16時まで、片道約30分かかります。清津峡渓谷トンネルは連休などに予約制の日があり、冬は雪で休むことがあります。金沢21世紀美術館は2027年5月から大規模修繕のため休館する予定です。北沢浮遊選鉱場跡の遺構は老朽化しているので、立ち入り禁止の場所には入らないでください。"
+          ]
+        },
+        {
+          "heading": "撮ったら、地図に残してください",
+          "paragraphs": [
+            "北陸・甲信越には、まだ記録されていないトンネルや、白く静かな公共建築がたくさんあります。雪の日にしか見えない景色も少なくありません。",
+            "LIMapは、そうした場所を写真と位置つきで残していく地図です。見つけた場所があれば、ぜひ登録してください。"
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "大日影トンネル遊歩道は誰でも歩けますか？",
+          "a": "はい。9:00から16:00まで無料で歩けます（年末年始は休み）。JR中央本線の勝沼ぶどう郷駅から歩いて約5分で、トンネルの長さは約1.4km、片道約30分かかります。"
+        },
+        {
+          "q": "無料で入れる場所はありますか？",
+          "a": "大日影トンネル遊歩道、環水公園の天門橋の展望塔、朱鷺メッセの展望室、金沢海みらい図書館、金沢21世紀美術館の交流ゾーンは無料です。清津峡渓谷トンネルは有料（一般1,200円、冬季1,000円）です。"
+        },
+        {
+          "q": "清津峡渓谷トンネルは予約が必要ですか？",
+          "a": "連休などの混み合う日だけ予約制になります。予約が必要な日は公式サイトで案内されています。人の少ない写真を撮りたいなら、平日の朝がおすすめです。"
+        }
+      ]
+    },
+    "en": {
+      "title": "Liminal Spaces in Hokuriku and Koshinetsu: 8 Real Places, From a Meiji-Era Railway Tunnel to a Library of Round Windows",
+      "metaDescription": "Eight real places in the Hokuriku and Koshinetsu regions of Japan where you can feel the atmosphere of a liminal space, chosen from spots registered on LIMap: a Meiji-era railway tunnel turned walking path, the Kiyotsu Gorge Tunnel, a library and art museum in Kanazawa, Toyama's Kansui Park, a free observation deck in Niigata, the Chino Cultural Complex and a mining ruin on Sado Island. With tips for visiting.",
+      "h1": "Liminal Spaces in Hokuriku and Koshinetsu: 8 Real Places, From a Meiji-Era Railway Tunnel to a Library of Round Windows",
+      "lead": "In Hokuriku and Koshinetsu, tunnels you can now walk through after their original work ended, and open white libraries and museums, are places anyone can visit. At a quiet hour, long passages and wide spaces take on a stillness where you lose track of where you are headed. Here are eight places registered on LIMap.",
+      "sections": [
+        {
+          "heading": "In Hokuriku and Koshinetsu, Liminal Spaces Gather in Walk-Through Tunnels and Open White Architecture",
+          "paragraphs": [
+            "The liminal spaces you find in Hokuriku and Koshinetsu have two main features. The first is long tunnels made for walking through. A Meiji-era railway tunnel has become a walking path, and a sightseeing tunnel dug into a mountain has been remade as a work of art. Straight passages with nothing but a line of lights feel so long you cannot see the end.",
+            "The second is open white public buildings from the 1990s onward: a library covered in round windows, a circular glass art museum, a cultural center joined to a station. When few people are around, only wide spaces with no fixed purpose remain. This article introduces places in Yamanashi, Niigata, Ishikawa, Toyama and Nagano chosen on one condition: anyone can go there today."
+          ]
+        },
+        {
+          "heading": "Two Tunnels: A Meiji-Era Railway Tunnel and a Passage of Light",
+          "paragraphs": [
+            "The Ohikage Tunnel Walking Path in Koshu, Yamanashi Prefecture, was a Chuo Main Line railway tunnel opened in 1903. It fell out of use in 1997 when a new tunnel was built alongside it, and today you can walk its roughly 1.4 kilometers for free. Brick walls, soot from steam locomotives, rails and signs remain as they were, and you walk for about 30 minutes each way along a straight passage lit at regular intervals.",
+            "The Kiyotsu Gorge Tunnel in Tokamachi, Niigata Prefecture, is a 750-meter pedestrian tunnel built in 1996 to replace a gorge trail closed after a rockfall accident. For the 2018 Echigo-Tsumari Art Field, it was remade as \"Tunnel of Light,\" a work by Ma Yansong / MAD Architects. At the end of a long passage of color-changing lights, the gorge is reflected like a mirror on a floor covered with water."
+          ],
+          "spots": [
+            {
+              "title": "Ohikage Tunnel Walking Path",
+              "slug": "8dDucTfE",
+              "thumbnailUrl": "https://pbs.twimg.com/media/HRgC-YTa0AAa6e6.jpg"
+            },
+            {
+              "title": "Kiyotsu Gorge Tunnel",
+              "slug": "6sZbje49",
+              "thumbnailUrl": "https://pbs.twimg.com/media/G_uEdckbAAAM7lC.jpg"
+            }
+          ]
+        },
+        {
+          "heading": "Kanazawa: A White Box of Round Windows, and a Circular Glass Museum",
+          "paragraphs": [
+            "The Kanazawa Umimirai Library, designed by Coelacanth K&H, opened in 2011. About 6,000 round windows line its white box-like walls, and dots of light fall quietly into a tall, wide space. Set under the wide suburban sky, the white box looks slightly removed from reality even from outside. Taking photos inside requires permission.",
+            "The 21st Century Museum of Contemporary Art, Kanazawa, designed by SANAA, opened in 2004. Inside a circular glass building 112.5 meters across, white corridors and courtyards connect like a maze. Its free public zone is open until 22:00, and at night, with fewer people around, you can no longer tell which side is the front and which is the back."
+          ],
+          "spots": [
+            {
+              "title": "Kanazawa Umimirai Library",
+              "slug": "GSVYrtzL",
+              "thumbnailUrl": "https://pbs.twimg.com/media/DddDNODVAAASwux.jpg"
+            },
+            {
+              "title": "21st Century Museum of Contemporary Art, Kanazawa",
+              "slug": "dibLtfvP",
+              "thumbnailUrl": "https://pbs.twimg.com/media/GblwzXJaUAA-M_v.jpg"
+            }
+          ]
+        },
+        {
+          "heading": "Toyama and Niigata: A Bridge With a String Telephone, and a Free Observation Deck",
+          "paragraphs": [
+            "Fugan Canal Kansui Park, north of Toyama Station, is an artificial waterside park opened in 1997 on the site of a canal basin. Observation towers about 20 meters tall stand at both ends of the Tenmon Bridge, connected by a \"red string telephone.\" At night or early in the morning, when only the bridge lights are reflected on the empty water, it has the stillness of a stage prepared for someone and then forgotten.",
+            "On the 31st floor of the Bandaijima Building at Toki Messe, facing Niigata Port, is a free observation room about 125 meters up. At night, from the quiet glass-walled floor, you see only the city lights and the dark Sea of Japan. When few people are there, the room falls as silent as a waiting room going nowhere."
+          ],
+          "spots": [
+            {
+              "title": "Fugan Canal Kansui Park, Tenmon Bridge",
+              "slug": "JtXE5uD5",
+              "thumbnailUrl": "https://pbs.twimg.com/media/G9yjnSRasAEnf-A.jpg"
+            },
+            {
+              "title": "Toki Messe Befco Bakauke Observation Room",
+              "slug": "AreEbsxm",
+              "thumbnailUrl": "https://pbs.twimg.com/media/GIoa5hyb0AAcJhG.jpg"
+            }
+          ]
+        },
+        {
+          "heading": "A Cultural Center Joined to a Station, and a Mining Ruin on Sado",
+          "paragraphs": [
+            "The Chino Cultural Complex in Nagano Prefecture, designed by Nobuaki Furuya, opened in 2005. A passage from the elevated Chino Station building runs straight into it, blurring the line between station and building. Its reading room, a long glass-walled space running beside the station platform, puts the place where you wait for a train and the place where you read on either side of a single pane of glass.",
+            "The Kitazawa Flotation Plant on Sado Island is the site of a processing plant for ore from the Sado gold mine. It was built between 1937 and 1940 and closed in 1952. Today, stepped concrete structures climb the hillside next to a 50-meter thickener, and the site is sometimes called \"Sado's Laputa.\" The plaza in front has been landscaped, so anyone can view it up close."
+          ],
+          "spots": [
+            {
+              "title": "Chino Cultural Complex",
+              "slug": "698Asdpz",
+              "thumbnailUrl": "https://pbs.twimg.com/media/G__IKRsbcAA4iZT.jpg"
+            },
+            {
+              "title": "Kitazawa Flotation Plant Ruins",
+              "slug": "ncUNG4h3"
+            }
+          ]
+        },
+        {
+          "heading": "Practical Notes for Visiting",
+          "paragraphs": [
+            "Libraries, museums and cultural centers are places people use. The Kanazawa Umimirai Library requires a permit to take photos inside and does not allow photography in the book areas. The 21st Century Museum bans flash, tripods and selfie sticks. Wherever you go, take care not to capture other visitors clearly.",
+            "The Ohikage Tunnel is open from 9:00 to 16:00 and takes about 30 minutes each way. The Kiyotsu Gorge Tunnel requires reservations on some busy days and may close for snow in winter. The 21st Century Museum is scheduled to close for major repairs from May 2027. The structures at the Kitazawa Flotation Plant are aging, so stay out of areas that are off-limits."
+          ]
+        },
+        {
+          "heading": "If You Shoot It, Put It on the Map",
+          "paragraphs": [
+            "Hokuriku and Koshinetsu still have many tunnels and quiet white public buildings that no one has recorded, and some views only appear on snowy days.",
+            "LIMap is a map for recording those places with photos and locations. If you find one, please add it."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Can anyone walk through the Ohikage Tunnel?",
+          "a": "Yes. It is free and open from 9:00 to 16:00 (closed over the New Year holidays). It is about a five-minute walk from Katsunuma-budokyo Station on the JR Chuo Main Line, and the tunnel is about 1.4 kilometers long, taking about 30 minutes each way."
+        },
+        {
+          "q": "Are there places I can visit for free?",
+          "a": "The Ohikage Tunnel Walking Path, the Tenmon Bridge observation towers at Kansui Park, the Toki Messe observation room, the Kanazawa Umimirai Library and the free zone of the 21st Century Museum are free. The Kiyotsu Gorge Tunnel charges admission (1,200 yen for adults, 1,000 yen in winter)."
+        },
+        {
+          "q": "Do I need a reservation for the Kiyotsu Gorge Tunnel?",
+          "a": "Only on busy days such as holidays, which are announced on the official website. For photos with few people, weekday mornings are best."
+        }
+      ]
+    },
+    "images": [
+      {
+        "file": "Find47 Niigata-Kiyotsu Gorge Tunnel-m.jpg",
+        "author": "Yasuyuki_Kawano",
+        "license": "CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Find47_Niigata-Kiyotsu_Gorge_Tunnel-m.jpg",
+        "altJa": "清津峡渓谷トンネルの終点。水を張った床に渓谷が映る",
+        "altEn": "The end of the Kiyotsu Gorge Tunnel, where the gorge is reflected on a floor covered with water",
+        "captionJa": "清津峡渓谷トンネルの終点。長い通路の先で、渓谷が鏡のように映る。",
+        "captionEn": "The end of the Kiyotsu Gorge Tunnel, where the gorge is mirrored at the end of a long passage.",
+        "afterSection": -1
+      },
+      {
+        "file": "Oohikage-tunnel (200808).jpg",
+        "author": "E-190",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Oohikage-tunnel_(200808).jpg",
+        "altJa": "大日影トンネル遊歩道の内部。レンガの壁とレールが奥まで続く",
+        "altEn": "Inside the Ohikage Tunnel Walking Path, with brick walls and rails running into the distance",
+        "captionJa": "大日影トンネル遊歩道。明治のレンガとレールが、照明の下にまっすぐ続く。",
+        "captionEn": "The Ohikage Tunnel Walking Path, where Meiji-era brick and rails run straight on under the lights.",
+        "afterSection": 1
+      }
+    ]
+  },
+  {
     "slug": "liminal-spots-chugoku-shikoku",
     "category": "実在スポット",
     "categoryEn": "Real Spots",
