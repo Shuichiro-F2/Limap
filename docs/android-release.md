@@ -26,7 +26,7 @@
 3. `signInWithOAuth` をネイティブでは `skipBrowserRedirect: true` ＋ `redirectTo`（`limap://auth/callback` など）で呼び、`WebBrowser.openAuthSessionAsync` で開き、戻ってきた URL のコードを `supabase.auth.exchangeCodeForSession` に渡す
 4. Supabase ダッシュボードの Authentication → URL Configuration の Redirect URLs に同じ URL を追加
 
-それまでの間は、ネイティブでは Google ボタンを隠す（JS だけの変更で OTA で配信できる）という手もある。
+2026-09-28 に、それまでの対応としてネイティブでは Google ボタンを隠した（`src/screens/AuthScreen.tsx` の `showGoogle`。OTA で配信済み）。上の修正を入れたら、`showGoogle` を元に戻す。
 
 ## Shu さんの作業が必要なもの
 

@@ -57,6 +57,13 @@ export default function AuthScreen({ navigation, route }: RootStackScreenProps<'
     }
   };
 
+  // Googleログインは今のところWeb版だけで動く。ネイティブではsupabase-jsのsignInWithOAuthが
+  // ログイン画面へ移動しない（URLを返すだけ）ため、ボタンを出さない。
+  // ネイティブで使えるようにするには expo-web-browser と URLスキームの追加（再ビルド・再審査）が必要
+  // （docs/android-release.md 参照）。
+  const showGoogle = Platform.OS === 'web';
+  const hasOAuthButtons = showGoogle || Platform.OS === 'ios';
+
   // GoogleでのログインボタンはSupabase側で新規登録・既存ログイン共通のため、
   // signupモードの場合のみここで同意チェックを行ってからOAuthを開始する
   // （OAuthはリダイレクトを伴うため、開始後に途中キャンセルする手段がない）
@@ -164,29 +171,33 @@ export default function AuthScreen({ navigation, route }: RootStackScreenProps<'
           <Text style={styles.switchLink}>{mode === 'signin' ? t.toSignUp : t.toSignIn}</Text>
         </Pressable>
 
-        <View style={styles.dividerRow}>
-          <View style={styles.dividerLine} />
-          <Text variant="body" style={styles.dividerText}>
-            {t.or}
-          </Text>
-          <View style={styles.dividerLine} />
-        </View>
+        {hasOAuthButtons && (
+          <>
+            <View style={styles.dividerRow}>
+              <View style={styles.dividerLine} />
+              <Text variant="body" style={styles.dividerText}>
+                {t.or}
+              </Text>
+              <View style={styles.dividerLine} />
+            </View>
 
-        <View style={styles.oauthButtons}>
-          <Button variant="secondary" icon="logo-google" label={t.google} onPress={handleGoogleAuth} />
+            <View style={styles.oauthButtons}>
+              {showGoogle && <Button variant="secondary" icon="logo-google" label={t.google} onPress={handleGoogleAuth} />}
 
-          {/* Sign in with AppleはiOSネイティブでのみ利用可能。Appleのデザインガイドラインに
-              沿うため、独自ボタンではなく公式コンポーネント(AppleAuthenticationButton)を使う。 */}
-          {Platform.OS === 'ios' && (
-            <AppleAuthentication.AppleAuthenticationButton
-              buttonType={AppleAuthentication.AppleAuthenticationButtonType.CONTINUE}
-              buttonStyle={AppleAuthentication.AppleAuthenticationButtonStyle.WHITE}
-              cornerRadius={25}
-              style={styles.appleButton}
-              onPress={handleAppleAuth}
-            />
-          )}
-        </View>
+              {/* Sign in with AppleはiOSネイティブでのみ利用可能。Appleのデザインガイドラインに
+                  沿うため、独自ボタンではなく公式コンポーネント(AppleAuthenticationButton)を使う。 */}
+              {Platform.OS === 'ios' && (
+                <AppleAuthentication.AppleAuthenticationButton
+                  buttonType={AppleAuthentication.AppleAuthenticationButtonType.CONTINUE}
+                  buttonStyle={AppleAuthentication.AppleAuthenticationButtonStyle.WHITE}
+                  cornerRadius={25}
+                  style={styles.appleButton}
+                  onPress={handleAppleAuth}
+                />
+              )}
+            </View>
+          </>
+        )}
       </ScrollView>
     </KeyboardAvoidingView>
   );
