@@ -99,6 +99,10 @@ export const HELP_PAGE: StaticPageContent = {
       heading: '不適切な投稿を見つけたら',
       body: '投稿詳細のメニューから通報できます。内容を確認のうえ対応いたします。',
     },
+    {
+      heading: 'アカウントを削除するには',
+      body: 'アプリ、またはWeb版（limap.jp）にログインし、マイページ右上のメニューから「アカウントを削除」を選んでください。削除すると元に戻せません。投稿・レビュー・いいね・フォローなど、アカウントに紐づくすべてのデータが削除されます。ログインできないなどの理由で削除できない場合は、お問い合わせ機能からご連絡ください。',
+    },
   ],
   faq: [
     {
@@ -308,6 +312,10 @@ export const HELP_PAGE_EN: StaticPageContent = {
     {
       heading: 'If You Find an Inappropriate Post',
       body: "You can report it from the menu on the post's detail screen. We will review the content and take appropriate action.",
+    },
+    {
+      heading: 'Deleting Your Account',
+      body: 'Log in to the app or the web version (limap.jp), open the menu at the top right of My Page, and choose "Delete Account." Deletion cannot be undone: all data linked to your account, including posts, reviews, likes and follows, will be deleted. If you cannot delete your account yourself, for example because you cannot log in, please contact us through the contact form.',
     },
   ],
   faq: [
