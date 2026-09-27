@@ -299,6 +299,34 @@ const ARTICLE_ENTRIES: ArticleSummary[] = [
     thumbnailFile: 'Old TV sets.jpg',
   },
   {
+    slug: 'liminal-spots-kyushu',
+    publishedDate: '2026-09-28',
+    categoryJa: '実在スポット',
+    categoryEn: 'Real Spots',
+    titleJa: '九州のリミナルスペース｜海底の歩行者トンネルから昭和の鉄塔まで、実在する9か所',
+    titleEn:
+      'Liminal Spaces in Kyushu: 9 Real Places, From an Undersea Pedestrian Tunnel to a Showa-Era Steel Tower',
+    leadJa:
+      '海の下を歩いて渡るトンネル、照明を抑えた地下街、昭和の港の鉄塔、斜めに上るエレベーター。九州で実際に行けるリミナルスペースを、LIMapの登録スポットから選びました。',
+    leadEn:
+      'A tunnel you walk under the sea, a dimly lit underground mall, a Showa-era port tower and an inclined elevator: real liminal spaces you can visit in Kyushu.',
+    thumbnailFile: 'Kanmon Tunnel pedestrian path (40116027523).jpg',
+  },
+  {
+    slug: 'liminal-spots-hokkaido',
+    publishedDate: '2026-09-28',
+    categoryJa: '実在スポット',
+    categoryEn: 'Real Spots',
+    titleJa: '北海道のリミナルスペース｜札幌の地下通路から湖に沈む橋まで、実在する9か所',
+    titleEn:
+      "Liminal Spaces in Hokkaido: 9 Real Places, From Sapporo's Underground Walkways to a Bridge That Sinks Into a Lake",
+    leadJa:
+      '札幌の地下歩行空間、小樽の廃線跡、もう出航しない連絡船、湖に沈む橋。北海道で実際に行けるリミナルスペースを、LIMapの登録スポットから選びました。',
+    leadEn:
+      "Sapporo's underground walkway, a disused railway in Otaru, a ferry that will never sail and a bridge that sinks into a lake: real liminal spaces you can visit in Hokkaido.",
+    thumbnailFile: 'Taushubetsu-Bridge.jpg',
+  },
+  {
     slug: 'liminal-spots-nagoya',
     publishedDate: '2026-09-27',
     categoryJa: '実在スポット',

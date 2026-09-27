@@ -2928,6 +2928,580 @@
     ]
   },
   {
+    "slug": "liminal-spots-kyushu",
+    "category": "実在スポット",
+    "categoryEn": "Real Spots",
+    "publishedDate": "2026-09-28",
+    "ja": {
+      "title": "九州のリミナルスペース｜海底の歩行者トンネルから昭和の鉄塔まで、実在する9か所",
+      "metaDescription": "九州で「リミナルスペース」を感じられる実在の場所を、LIMapの登録スポットから9か所紹介します。関門トンネルの人道、天神地下街、博多ポートタワー、若戸渡船、長崎の斜行エレベーター、軍艦島まで。行くときの注意点も。",
+      "h1": "九州のリミナルスペース——海底の歩行者トンネルから昭和の鉄塔まで、実在する9か所",
+      "lead": "九州には、海の下をまっすぐ歩いて渡るトンネルや、照明を落とした地下街、昭和の港に立つ鉄塔が、今も誰でも行ける場所として残されています。人の少ない時間に訪れると、見慣れたはずの移動の途中が、急に知らない場所に見えてきます。LIMapに登録した9か所を紹介します。",
+      "sections": [
+        {
+          "heading": "九州のリミナルスペースは「海の下と地下」と「港の塔」に多い",
+          "paragraphs": [
+            "九州で見つかるリミナルスペースには、二つの特徴があります。ひとつは、海の下や地下を通る長い通路です。本州と九州を結ぶ歩行者用の海底トンネルや、福岡・天神の地下街では、同じ景色の通路がどこまでも続きます。",
+            "もうひとつは、港や海辺に立つ塔や乗り物です。昭和の鉄塔、平成のはじめの博覧会の塔、大きな橋の下を行き来する渡し船。この記事では、福岡・北九州・長崎で「今、誰でも行けること」を条件に選んだ場所を中心に、役目を終えた炭鉱や鉄道の遺構も紹介します。"
+          ]
+        },
+        {
+          "heading": "海の下と地下：780mの人道トンネルと、照明を抑えた地下街",
+          "paragraphs": [
+            "関門トンネル人道は、北九州市門司区と山口県下関市を海の下で結ぶ、歩く人のためのトンネルです。1958年に車道と同時に開通しました。エレベーターで地下約60mまで下りると、蛍光灯に照らされた約780mの通路が、先が見えないほどまっすぐ延びています。途中の床には福岡県と山口県の県境の線が引かれています。歩行者は無料で、6:00から22:00まで通れます。",
+            "福岡の天神地下街は、1976年に開業した約590mの地下街です。19世紀のヨーロッパをイメージした石畳の床と唐草模様の鉄の天井が続き、通路の照明はあえて暗めに抑えられています。店が閉まったあとや開く前の人のいない通路は、どこにも存在しない街の路地に迷い込んだように見えます。"
+          ],
+          "spots": [
+            {
+              "title": "関門トンネル人道",
+              "slug": "stuSgTd9",
+              "thumbnailUrl": "https://pbs.twimg.com/media/GhoCfrIa4AALY5Y.jpg"
+            },
+            {
+              "title": "天神地下街",
+              "slug": "bABcy5N8",
+              "thumbnailUrl": "https://pbs.twimg.com/media/HH_BAuUb0AAz5Zg.jpg"
+            }
+          ]
+        },
+        {
+          "heading": "港の塔：昭和の赤い鉄塔と、鏡で覆われたタワー",
+          "paragraphs": [
+            "博多ふ頭に立つ博多ポートタワーは、1964年に開業した高さ100mの赤い鉄塔で、東京タワーと同じ内藤多仲が設計しました。地上70mの円い展望室には無料で上がることができます。人の少ない時間には、港の明かりに囲まれた昭和の部屋だけが静かに浮かんでいます。",
+            "百道浜の福岡タワーは、1989年のアジア太平洋博覧会（よかトピア）のモニュメントとして建てられた、高さ234mのタワーです。外側は約8000枚のハーフミラーで覆われています。地上123mの展望室は、夜になると窓に室内が映り込み、海と街と自分の姿の境目があいまいになります。"
+          ],
+          "spots": [
+            {
+              "title": "博多ポートタワー",
+              "slug": "X8fbHEwM",
+              "thumbnailUrl": "https://pbs.twimg.com/media/G5eVwfvbMAAXxXN.jpg"
+            },
+            {
+              "title": "福岡タワー",
+              "slug": "yU2GmJuC",
+              "thumbnailUrl": "https://pbs.twimg.com/media/HRJZ4rZbAAAuiAz.jpg"
+            }
+          ]
+        },
+        {
+          "heading": "橋の下の渡し船と、斜めに上るエレベーター",
+          "paragraphs": [
+            "北九州の若戸渡船は、洞海湾をはさんだ若松と戸畑を片道約3分で結ぶ小さな渡し船です。明治のころから続き、1962年に真上に若戸大橋が架かったあとも、市民の要望で運航が続けられてきました。大人100円。巨大な赤い橋の下を小さな船が行き来する景色には、時代の流れから少しだけ外れたような空気があります。",
+            "長崎のグラバースカイロードは、南山手の斜面を斜めに上っていくエレベーターです。2002年に市道の一部として造られ、誰でも無料で乗ることができます。丸い窓のついた箱が、港と斜面の家並みを見下ろしながら静かに上っていく。道路とも乗り物ともつかない、坂の街ならではの通路です。"
+          ],
+          "spots": [
+            {
+              "title": "若戸渡船",
+              "slug": "m7ojMcHo",
+              "thumbnailUrl": "https://pbs.twimg.com/media/FppkaIVacAAXzhi.jpg"
+            },
+            {
+              "title": "グラバースカイロード（斜行エレベーター）",
+              "slug": "Qom26yXL",
+              "thumbnailUrl": "https://pbs.twimg.com/media/HQcMc4vWkAAz1V9.jpg"
+            }
+          ]
+        },
+        {
+          "heading": "役目を終えた炭鉱と鉄道：竪坑櫓、渓谷の鉄橋、軍艦島",
+          "paragraphs": [
+            "福岡県志免町の旧志免鉱業所竪坑櫓は、1943年に完成した高さ47.65mの鉄筋コンクリートの塔です。海軍の炭鉱の坑口として建てられ、戦後は国鉄の炭鉱として使われたのち、1964年に閉山しました。国の重要文化財で、周りは公園として整備されています。住宅街の中に、巨大なコンクリートの塊だけが唐突にそびえています。",
+            "宮崎県の高千穂橋梁は、河底から高さ105mの鉄道橋です。2005年の台風で高千穂鉄道が不通になり、2008年に橋を含む区間が廃止されましたが、今は「高千穂あまてらす鉄道」のカートで橋の上まで行くことができます。長崎港の沖の端島（軍艦島）は、1974年の閉山で無人島になった炭鉱の島で、2015年に世界文化遺産の構成資産になりました。上陸できるのは見学ツアーだけです。"
+          ],
+          "spots": [
+            {
+              "title": "旧志免鉱業所竪坑櫓",
+              "slug": "ffbCQ6bM",
+              "thumbnailUrl": "https://pbs.twimg.com/media/FLEfdbBVQAAODWy.jpg"
+            },
+            {
+              "title": "高千穂橋梁",
+              "slug": "7gRLUSMJ"
+            },
+            {
+              "title": "端島（軍艦島）",
+              "slug": "ZMkEuArd"
+            }
+          ]
+        },
+        {
+          "heading": "行くときの、現実的な注意点",
+          "paragraphs": [
+            "地下街や渡し船、斜行エレベーターは、人が毎日使う場所です。撮影するときは店や通る人、乗る人の顔が写らないように気をつけ、通行の邪魔にならないようにしてください。グラバースカイロードの周りは住宅地なので、家や住民を写さない配慮が必要です。天神地下街では、仕事としての撮影には事前の申請が求められています。",
+            "関門トンネル人道は22時から翌朝6時までは通れません。若戸渡船は天候で運休することがあり、グラバースカイロードも補修工事で運休する日があります。旧志免鉱業所竪坑櫓の中には入れないので、公園から外観を眺めてください。軍艦島は個人では上陸できません。"
+          ]
+        },
+        {
+          "heading": "撮ったら、地図に残してください",
+          "paragraphs": [
+            "九州には、まだ記録されていない地下通路や、港の古い建物がたくさんあります。毎日通る乗り換えの通路が、誰かにとっての探していた景色かもしれません。",
+            "LIMapは、そうした場所を写真と位置つきで残していく地図です。見つけた場所があれば、ぜひ登録してください。"
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "福岡で手軽にリミナルスペースを感じられる場所は？",
+          "a": "天神地下街がおすすめです。地下鉄の天神駅・天神南駅と直結していて、通路は朝5:30から深夜まで開いています。照明を抑えた石畳の通路が長く続き、店が閉まったあとや開く前の時間はとくに人が少なくなります。"
+        },
+        {
+          "q": "関門トンネル人道は歩いて渡れますか？",
+          "a": "はい。歩行者は無料で、6:00から22:00まで通れます。門司側は西鉄バス「関門トンネル人道口」バス停のすぐ前に入口があり、エレベーターで地下に下ります。通路の長さは約780mで、途中の床に福岡県と山口県の県境の表示があります。"
+        },
+        {
+          "q": "無料で入れる場所はありますか？",
+          "a": "関門トンネル人道（歩行者）、天神地下街の通路、博多ポートタワーの展望室、グラバースカイロードは無料です。若戸渡船は大人100円、福岡タワーの展望室は大人1,000円です。"
+        }
+      ]
+    },
+    "en": {
+      "title": "Liminal Spaces in Kyushu: 9 Real Places, From an Undersea Pedestrian Tunnel to a Showa-Era Steel Tower",
+      "metaDescription": "Nine real places in Kyushu where you can feel the atmosphere of a liminal space, chosen from spots registered on LIMap: the Kanmon pedestrian tunnel, Tenjin Underground Mall, Hakata Port Tower, the Wakato ferry, Nagasaki's inclined elevator and Gunkanjima. With tips for visiting.",
+      "h1": "Liminal Spaces in Kyushu: 9 Real Places, From an Undersea Pedestrian Tunnel to a Showa-Era Steel Tower",
+      "lead": "Kyushu has a tunnel you can walk straight across under the sea, an underground mall with deliberately dimmed lights and a steel tower standing in a Showa-era port, all still places anyone can visit. At a quiet hour, a familiar part of your journey can suddenly feel like somewhere you have never been. Here are nine places registered on LIMap.",
+      "sections": [
+        {
+          "heading": "In Kyushu, Liminal Spaces Gather Under the Sea, Underground and in Port Towers",
+          "paragraphs": [
+            "The liminal spaces you find in Kyushu have two main features. The first is long passages under the sea or underground. In the undersea pedestrian tunnel linking Honshu and Kyushu, and in the underground mall of Tenjin in Fukuoka, corridors with the same view go on and on.",
+            "The second is towers and vessels by the harbor and the sea: a Showa-era steel tower, a tower built for an exposition in the late 1980s, a small ferry passing beneath a huge bridge. This article focuses on places in Fukuoka, Kitakyushu and Nagasaki chosen on one condition, that anyone can go there today, and also introduces the remains of a coal mine and railways that have finished their work."
+          ]
+        },
+        {
+          "heading": "Under the Sea and Underground: A 780-Meter Pedestrian Tunnel and a Dimly Lit Mall",
+          "paragraphs": [
+            "The Kanmon Tunnel pedestrian walkway links Moji in Kitakyushu with Shimonoseki in Yamaguchi Prefecture under the sea. It opened in 1958 together with the road tunnel. Take an elevator down about 60 meters and a corridor about 780 meters long, lit by fluorescent lights, runs so straight that you cannot see its end. Partway along, a line on the floor marks the border between Fukuoka and Yamaguchi. It is free for pedestrians and open from 6:00 to 22:00.",
+            "Tenjin Underground Mall in Fukuoka is about 590 meters long and opened in 1976. Stone-paved floors and ornate iron ceilings inspired by 19th-century Europe run its length, and the lighting in the corridors is deliberately kept low. After the shops close or before they open, the empty corridors feel like the alleys of a city that does not exist."
+          ],
+          "spots": [
+            {
+              "title": "Kanmon Tunnel Pedestrian Walkway",
+              "slug": "stuSgTd9",
+              "thumbnailUrl": "https://pbs.twimg.com/media/GhoCfrIa4AALY5Y.jpg"
+            },
+            {
+              "title": "Tenjin Underground Mall",
+              "slug": "bABcy5N8",
+              "thumbnailUrl": "https://pbs.twimg.com/media/HH_BAuUb0AAz5Zg.jpg"
+            }
+          ]
+        },
+        {
+          "heading": "Port Towers: A Red Showa-Era Steel Tower and a Tower Covered in Mirrors",
+          "paragraphs": [
+            "Hakata Port Tower, standing at Hakata Pier, is a 100-meter red steel tower opened in 1964 and designed by Tachu Naito, who also designed Tokyo Tower. Its round observation room, 70 meters up, is free to enter. When few people are around, only a Showa-era room surrounded by harbor lights floats quietly in the air.",
+            "Fukuoka Tower at Momochihama is a 234-meter tower built as the monument of the 1989 Asia-Pacific Exposition. Its exterior is covered with about 8,000 half-mirrors. At night, the room is reflected in the windows of the observation deck 123 meters up, blurring the line between the sea, the city and your own reflection."
+          ],
+          "spots": [
+            {
+              "title": "Hakata Port Tower",
+              "slug": "X8fbHEwM",
+              "thumbnailUrl": "https://pbs.twimg.com/media/G5eVwfvbMAAXxXN.jpg"
+            },
+            {
+              "title": "Fukuoka Tower",
+              "slug": "yU2GmJuC",
+              "thumbnailUrl": "https://pbs.twimg.com/media/HRJZ4rZbAAAuiAz.jpg"
+            }
+          ]
+        },
+        {
+          "heading": "A Ferry Beneath a Bridge, and an Elevator That Climbs Diagonally",
+          "paragraphs": [
+            "The Wakato Ferry in Kitakyushu is a small boat that crosses Dokai Bay between Wakamatsu and Tobata in about three minutes. It dates back to the Meiji era, and even after the Wakato Bridge was built directly overhead in 1962, it kept running at the request of local residents. The fare is 100 yen for adults. The sight of a small boat going back and forth beneath a huge red bridge feels slightly out of step with the flow of time.",
+            "The Glover Sky Road in Nagasaki is an elevator that climbs diagonally up the slope of Minamiyamate. It was built in 2002 as part of a city road, and anyone can ride it for free. A car with round windows rises quietly, looking down on the harbor and the houses on the hillside. It is a passage that is neither quite a road nor quite a ride, found only in a city of slopes."
+          ],
+          "spots": [
+            {
+              "title": "Wakato Ferry",
+              "slug": "m7ojMcHo",
+              "thumbnailUrl": "https://pbs.twimg.com/media/FppkaIVacAAXzhi.jpg"
+            },
+            {
+              "title": "Glover Sky Road (Inclined Elevator)",
+              "slug": "Qom26yXL",
+              "thumbnailUrl": "https://pbs.twimg.com/media/HQcMc4vWkAAz1V9.jpg"
+            }
+          ]
+        },
+        {
+          "heading": "A Retired Mine and Railways: A Shaft Tower, a Gorge Bridge and Gunkanjima",
+          "paragraphs": [
+            "The Shime Coal Mine shaft tower in Shime, Fukuoka Prefecture, is a 47.65-meter reinforced-concrete tower completed in 1943. It was built as the shaft of a navy coal mine, later used by Japanese National Railways, and closed in 1964. It is an Important Cultural Property of Japan, surrounded by a park. A huge block of concrete rises abruptly from a residential neighborhood.",
+            "The Takachiho Bridge in Miyazaki Prefecture is a railway bridge 105 meters above the riverbed. The Takachiho Railway was cut off by a typhoon in 2005, and the section including the bridge was abolished in 2008, but today you can ride out onto the bridge on a cart run by the Takachiho Amaterasu Railway. Off Nagasaki Port, Hashima (Gunkanjima) is a coal-mining island that became uninhabited when its mine closed in 1974, and in 2015 it became part of a World Heritage Site. You can only land there on a guided tour."
+          ],
+          "spots": [
+            {
+              "title": "Former Shime Coal Mine Shaft Tower",
+              "slug": "ffbCQ6bM",
+              "thumbnailUrl": "https://pbs.twimg.com/media/FLEfdbBVQAAODWy.jpg"
+            },
+            {
+              "title": "Takachiho Bridge",
+              "slug": "7gRLUSMJ"
+            },
+            {
+              "title": "Hashima (Gunkanjima)",
+              "slug": "ZMkEuArd"
+            }
+          ]
+        },
+        {
+          "heading": "Practical Notes for Visiting",
+          "paragraphs": [
+            "Underground malls, ferries and the inclined elevator are places people use every day. When taking photos, take care not to capture shops, passersby or passengers clearly, and do not block the way. The Glover Sky Road runs through a residential area, so avoid photographing homes and residents. Tenjin Underground Mall asks for advance applications for professional shoots.",
+            "The Kanmon pedestrian tunnel is closed from 22:00 until 6:00 the next morning. The Wakato Ferry may be suspended in bad weather, and the Glover Sky Road sometimes stops for maintenance. You cannot enter the Shime shaft tower, so view it from the park. Gunkanjima cannot be visited on your own."
+          ]
+        },
+        {
+          "heading": "If You Shoot It, Put It on the Map",
+          "paragraphs": [
+            "Kyushu still has many underground passages and old harbor buildings that no one has recorded. The transfer corridor you walk through every day may be exactly the view someone else is looking for.",
+            "LIMap is a map for recording those places with photos and locations. If you find one, please add it."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Where can I easily experience a liminal space in Fukuoka?",
+          "a": "Try Tenjin Underground Mall. It connects directly to Tenjin and Tenjin-Minami subway stations, and its corridors are open from 5:30 in the morning until late at night. Its dimly lit stone-paved corridors run a long way, and they are especially quiet after the shops close or before they open."
+        },
+        {
+          "q": "Can I walk through the Kanmon Tunnel?",
+          "a": "Yes. It is free for pedestrians and open from 6:00 to 22:00. On the Moji side, the entrance is right by the Nishitetsu bus stop \"Kanmon Tunnel Jindo-guchi,\" and you take an elevator down. The corridor is about 780 meters long, with the Fukuoka–Yamaguchi border marked on the floor partway along."
+        },
+        {
+          "q": "Are there places I can visit for free?",
+          "a": "The Kanmon pedestrian tunnel (for pedestrians), the Tenjin Underground Mall corridors, the Hakata Port Tower observation room and the Glover Sky Road are free. The Wakato Ferry costs 100 yen for adults, and the Fukuoka Tower observation deck costs 1,000 yen for adults."
+        }
+      ]
+    },
+    "images": [
+      {
+        "file": "Kanmon Tunnel pedestrian path (40116027523).jpg",
+        "author": "Tzuhsun Hsu from Taipei, Taiwan",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Kanmon_Tunnel_pedestrian_path_(40116027523).jpg",
+        "altJa": "関門トンネル人道。蛍光灯に照らされた通路が、先が見えないほどまっすぐ続く",
+        "altEn": "The Kanmon Tunnel pedestrian walkway, a fluorescent-lit corridor running straight into the distance",
+        "captionJa": "関門トンネル人道。海の下を、約780mの通路がまっすぐ延びる。",
+        "captionEn": "The Kanmon Tunnel pedestrian walkway: a corridor about 780 meters long runs straight beneath the sea.",
+        "afterSection": -1
+      },
+      {
+        "file": "Tenjin-underground-mall.jpg",
+        "author": "MaedaAkihiko",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Tenjin-underground-mall.jpg",
+        "altJa": "天神地下街の広場。石畳の床と、唐草模様の暗い天井",
+        "altEn": "A plaza in Tenjin Underground Mall, with a stone-paved floor and a dark ornate ceiling",
+        "captionJa": "天神地下街。照明を抑えた通路に、石畳と唐草模様の天井が続く。",
+        "captionEn": "Tenjin Underground Mall, where stone paving and an ornate ceiling continue under deliberately dim lighting.",
+        "afterSection": 1
+      }
+    ]
+  },
+  {
+    "slug": "liminal-spots-hokkaido",
+    "category": "実在スポット",
+    "categoryEn": "Real Spots",
+    "publishedDate": "2026-09-28",
+    "ja": {
+      "title": "北海道のリミナルスペース｜札幌の地下通路から湖に沈む橋まで、実在する9か所",
+      "metaDescription": "北海道で「リミナルスペース」を感じられる実在の場所を、LIMapの登録スポットから9か所紹介します。札幌の地下歩行空間と地下街、イサム・ノグチの公園、小樽の廃線跡、函館の連絡船、湖に沈む橋まで。行くときの注意点も。",
+      "h1": "北海道のリミナルスペース——札幌の地下通路から湖に沈む橋まで、実在する9か所",
+      "lead": "北海道には、まっすぐ続く札幌の地下通路や、列車の来なくなった線路、もう出航しない連絡船が、今も誰でも行ける場所として残されています。人の少ない時間に訪れると、広い土地に置き去りにされた「途中の場所」の静けさがはっきりと見えてきます。LIMapに登録した9か所を紹介します。",
+      "sections": [
+        {
+          "heading": "北海道のリミナルスペースは「地下」と「役目を終えた線路や船」に多い",
+          "paragraphs": [
+            "北海道で見つかるリミナルスペースには、二つの特徴があります。ひとつは札幌の地下です。駅と繁華街を結ぶ地下の歩行空間や地下街が長くまっすぐ延び、同じ柱と照明がどこまでも続きます。",
+            "もうひとつは、役目を終えたあとも形が残された線路や船です。廃止された鉄道の線路が街なかの散策路になり、航路のなくなった連絡船が岸壁に係留されたまま公開されています。この記事では、札幌・小樽・函館で「今、誰でも行けること」を条件に選んだ場所を中心に、道東の二つの廃線跡も紹介します。"
+          ]
+        },
+        {
+          "heading": "札幌の地下：520mの歩行空間と、1971年の地下街",
+          "paragraphs": [
+            "札幌駅前通地下歩行空間、通称チ・カ・ホは、JR札幌駅と大通を結ぶ約520mの地下通路です。2011年3月に開通しました。幅12mの通路の両側に広場がとられ、白い柱と天井の天窓からの光が、同じ間隔でどこまでも続きます。通れるのは5:45から24:30まで。開いたばかりの早朝には、終わりの見えない広い廊下だけが残されます。",
+            "大通からすすきのへ続くさっぽろ地下街ポールタウンは、札幌オリンピックの前年、1971年に開業した約400mの地下街です。日中は人で埋まる通路も、店のシャッターが下りた時間や全館休業の日には、同じような店先が並ぶ長い地下道だけになります。"
+          ],
+          "spots": [
+            {
+              "title": "札幌駅前通地下歩行空間（チ・カ・ホ）",
+              "slug": "PJh7ASjj",
+              "thumbnailUrl": "https://pbs.twimg.com/media/F0JAi37aMAEaNEL.jpg"
+            },
+            {
+              "title": "さっぽろ地下街 ポールタウン",
+              "slug": "ErGwgdUJ",
+              "thumbnailUrl": "https://pbs.twimg.com/media/G5lRRCoa0AANvhA.jpg"
+            }
+          ]
+        },
+        {
+          "heading": "誰もいない舞台：イサム・ノグチの公園と、住む人のいない町並み",
+          "paragraphs": [
+            "札幌市東区のモエレ沼公園は、ごみ処理場の跡地に、彫刻家イサム・ノグチの基本設計で「全体をひとつの彫刻作品とする」考えのもとに造られた公園です。1982年に着工し、2005年にグランドオープンしました。人工の山、ガラスのピラミッド、まっすぐな並木。幾何学的な形だけが大きな空の下に置かれ、人の少ない朝には、誰かが用意したまま忘れていった舞台のように見えます。",
+            "厚別区の北海道開拓の村は、明治から昭和のはじめまでの北海道の建物を移築・再現した野外博物館で、1983年に開村しました。約54haの敷地に役場や商店、駅舎が並びますが、そこに暮らす人はいません。人の少ない日には、町並みごと時代から切り離された舞台装置の中を歩いているような感覚になります。"
+          ],
+          "spots": [
+            {
+              "title": "モエレ沼公園",
+              "slug": "MkEEtUFS",
+              "thumbnailUrl": "https://pbs.twimg.com/media/HJzex6IbsAA-rzB.jpg"
+            },
+            {
+              "title": "北海道開拓の村",
+              "slug": "wdv4MWRW",
+              "thumbnailUrl": "https://pbs.twimg.com/media/FCXYsjMVkAQvfj2.jpg"
+            }
+          ]
+        },
+        {
+          "heading": "小樽：列車の来ない線路と、役目を終えた銀行",
+          "paragraphs": [
+            "小樽の旧手宮線は、1880年に開業した北海道で最初の鉄道の一部で、1985年に廃止されました。線路は撤去されずに残され、街なかの約1.6kmが散策路として整備されています。もう列車の来ないレールと踏切が、建物のあいだをまっすぐ延びていきます。",
+            "線路のすぐ近くにある日本銀行旧小樽支店は、1912年に建てられ、2002年に支店が廃止されたあと、金融資料館として無料で公開されています。銀行が建ち並び「北のウォール街」と呼ばれた通りの中で、吹き抜けの旧営業室や大きな金庫の扉が残る館内には、役目を終えた銀行の静けさが漂います。"
+          ],
+          "spots": [
+            {
+              "title": "旧手宮線跡（小樽）",
+              "slug": "Cfe4zrW6",
+              "thumbnailUrl": "https://pbs.twimg.com/media/F9q8ZPLb0AARPTz.jpg"
+            },
+            {
+              "title": "日本銀行旧小樽支店金融資料館",
+              "slug": "D4J7oXio",
+              "thumbnailUrl": "https://pbs.twimg.com/media/FEYxtP_aQAE8FXr.jpg"
+            }
+          ]
+        },
+        {
+          "heading": "函館：もう出航しない連絡船",
+          "paragraphs": [
+            "函館駅から歩いて約3分の岸壁に、青函連絡船の摩周丸が係留されています。1965年に就航し、1988年3月に青函航路が廃止されるまで青森と函館を結んだ船です。今は記念館として公開され、並んだ座席や操舵室、無線通信室を見ることができます。",
+            "乗客のいない客室に座ると、窓の外には今も港が見えます。二度と出航しない船の中には、最後の航海を終えたあとの時間がそのまま流れています。"
+          ],
+          "spots": [
+            {
+              "title": "函館市青函連絡船記念館摩周丸",
+              "slug": "K9KD56uc",
+              "thumbnailUrl": "https://pbs.twimg.com/media/G_vgUbyXcAA7ejL.jpg"
+            }
+          ]
+        },
+        {
+          "heading": "道東：湖に沈む橋と、森の中の駅跡",
+          "paragraphs": [
+            "上士幌町の糠平湖には、旧国鉄士幌線のタウシュベツ川橋梁が残っています。1937年に完成した、11連のアーチが並ぶコンクリートの橋です。1955年に糠平ダムの建設で線路が付け替えられて使われなくなり、今は湖の水位によって、冬から春にかけて姿を現し、秋までに湖に沈みます。国道273号沿いの駐車場から歩いてすぐの展望台から、対岸に眺めることができます。",
+            "同じ士幌線の幌加駅跡には、ホームとポイントを含む線路が今も残されています。1978年に列車の運転が休止され、1987年に路線が廃止されました。深い森の中に、列車を待つ人のいないホームだけが残っています。"
+          ],
+          "spots": [
+            {
+              "title": "タウシュベツ川橋梁（幻の橋）",
+              "slug": "BQQBELWM",
+              "thumbnailUrl": "https://pbs.twimg.com/media/FR_qcs2agAEksYu.jpg"
+            },
+            {
+              "title": "旧国鉄士幌線 幌加駅跡",
+              "slug": "AjQzCCkp",
+              "thumbnailUrl": "https://pbs.twimg.com/media/G5Nhw2GbQAAq80C.jpg"
+            }
+          ]
+        },
+        {
+          "heading": "行くときの、現実的な注意点",
+          "paragraphs": [
+            "地下街や資料館、記念館は、人が働き、訪れる場所です。撮影するときは店や人の顔が写らないように気をつけ、三脚やフラッシュは使わないようにしてください。北海道開拓の村では、SNSのライブ配信やドローンの使用が禁止されています。チ・カ・ホは深夜から早朝までは通れません。",
+            "道東の二つの廃線跡は、ヒグマが出る地域にあります。タウシュベツ川橋梁は、橋のそばまで続く林道に一般車が入れないため、国道沿いの展望台から眺めるか、地元のガイドツアーを利用してください。冬の北海道は日が短く、雪で道が閉ざされることもあるので、時間と天候には余裕を持って出かけてください。"
+          ]
+        },
+        {
+          "heading": "撮ったら、地図に残してください",
+          "paragraphs": [
+            "北海道には、まだ記録されていない地下通路や、役目を終えた建物がたくさんあります。雪に閉ざされた季節にしか見えない景色も少なくありません。",
+            "LIMapは、そうした場所を写真と位置つきで残していく地図です。見つけた場所があれば、ぜひ登録してください。"
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "札幌で手軽にリミナルスペースを感じられる場所は？",
+          "a": "札幌駅と大通を結ぶ地下歩行空間チ・カ・ホと、大通からすすきのへ続く地下街ポールタウンがおすすめです。どちらも駅から直接入れて、同じような景色の長い通路が続きます。人の少ない早朝や、店が閉まったあとの時間が向いています。"
+        },
+        {
+          "q": "タウシュベツ川橋梁はいつ見られますか？",
+          "a": "糠平湖の水位によって変わります。例年、水位が下がる冬から春にかけて姿を現し、秋までに湖に沈みます。国道273号沿いの駐車場から歩いてすぐの展望台から眺められます。橋のそばまでの林道は一般車が通行止めで、ヒグマ対策も必要なため、近くで見たい場合はガイドツアーを利用してください。"
+        },
+        {
+          "q": "無料で入れる場所はありますか？",
+          "a": "チ・カ・ホとポールタウンの通路、小樽の旧手宮線跡は自由に歩けます。日本銀行旧小樽支店金融資料館も入館無料です。北海道開拓の村と摩周丸は有料です。"
+        }
+      ]
+    },
+    "en": {
+      "title": "Liminal Spaces in Hokkaido: 9 Real Places, From Sapporo's Underground Walkways to a Bridge That Sinks Into a Lake",
+      "metaDescription": "Nine real places in Hokkaido where you can feel the atmosphere of a liminal space, chosen from spots registered on LIMap: Sapporo's underground walkway and mall, an Isamu Noguchi park, a disused railway in Otaru, a museum ferry in Hakodate and a bridge that sinks into a lake. With tips for visiting.",
+      "h1": "Liminal Spaces in Hokkaido: 9 Real Places, From Sapporo's Underground Walkways to a Bridge That Sinks Into a Lake",
+      "lead": "In Hokkaido, Sapporo's long straight underground walkways, railway tracks no train will run on again and a ferry that will never sail are all still places anyone can visit. At a quiet hour, the stillness of these in-between places, left behind in a wide landscape, becomes easy to see. Here are nine places registered on LIMap.",
+      "sections": [
+        {
+          "heading": "In Hokkaido, Liminal Spaces Gather Underground and Along Retired Railways and Ships",
+          "paragraphs": [
+            "The liminal spaces you find in Hokkaido have two main features. The first is underground Sapporo. Walkways and malls linking the stations with the city center run long and straight, with the same pillars and lights repeating without end.",
+            "The second is railways and ships whose shapes remain after their work ended. The tracks of a closed railway have become a walking path through town, and a ferry whose route was abolished is moored at its pier and open to visitors. This article focuses on places in Sapporo, Otaru and Hakodate chosen on one condition, that anyone can go there today, and also introduces two old railway sites in eastern Hokkaido."
+          ]
+        },
+        {
+          "heading": "Underground Sapporo: A 520-Meter Walkway and a Mall From 1971",
+          "paragraphs": [
+            "The Sapporo Ekimae-dori Underground Walkway, known as Chi-Ka-Ho, is an underground passage about 520 meters long linking JR Sapporo Station with Odori. It opened in March 2011. Open spaces line both sides of a 12-meter-wide corridor, and white pillars and light from the skylights repeat at the same intervals as far as you can see. It is open from 5:45 to 24:30, and just after opening in the early morning, only an endless wide hallway remains.",
+            "Sapporo Underground Mall Pole Town, running from Odori to Susukino, is a mall about 400 meters long that opened in 1971, the year before the Sapporo Winter Olympics. Its corridor is packed during the day, but once the shutters are down, or on days when the whole mall is closed, it becomes a long underground passage lined with near-identical shopfronts."
+          ],
+          "spots": [
+            {
+              "title": "Sapporo Ekimae-dori Underground Walkway (Chi-Ka-Ho)",
+              "slug": "PJh7ASjj",
+              "thumbnailUrl": "https://pbs.twimg.com/media/F0JAi37aMAEaNEL.jpg"
+            },
+            {
+              "title": "Sapporo Underground Mall Pole Town",
+              "slug": "ErGwgdUJ",
+              "thumbnailUrl": "https://pbs.twimg.com/media/G5lRRCoa0AANvhA.jpg"
+            }
+          ]
+        },
+        {
+          "heading": "Empty Stages: An Isamu Noguchi Park and a Town Where No One Lives",
+          "paragraphs": [
+            "Moerenuma Park in Sapporo's Higashi Ward was built on the site of a former waste-disposal facility, following a basic design by the sculptor Isamu Noguchi with the idea of making the whole park a single work of sculpture. Construction began in 1982, and the park fully opened in 2005. An artificial hill, a glass pyramid, straight rows of trees: only geometric forms placed under a wide sky. On a quiet morning, it looks like a stage someone prepared and then forgot.",
+            "The Historical Village of Hokkaido in Atsubetsu Ward is an open-air museum of buildings from the Meiji era to the early Showa era, moved or reconstructed here. It opened in 1983. Town offices, shops and a station building line its 54 hectares, but no one lives there. On a quiet day, it feels like walking through a stage set cut away from time, streets and all."
+          ],
+          "spots": [
+            {
+              "title": "Moerenuma Park",
+              "slug": "MkEEtUFS",
+              "thumbnailUrl": "https://pbs.twimg.com/media/HJzex6IbsAA-rzB.jpg"
+            },
+            {
+              "title": "Historical Village of Hokkaido",
+              "slug": "wdv4MWRW",
+              "thumbnailUrl": "https://pbs.twimg.com/media/FCXYsjMVkAQvfj2.jpg"
+            }
+          ]
+        },
+        {
+          "heading": "Otaru: Tracks No Train Will Run On, and a Bank That Has Closed",
+          "paragraphs": [
+            "Otaru's former Temiya Line was part of Hokkaido's first railway, opened in 1880, and was closed in 1985. The tracks were never removed, and about 1.6 kilometers through town have been turned into a walking path. Rails and level crossings that no train will use again run straight between the buildings.",
+            "Close to the tracks, the former Otaru Branch of the Bank of Japan was built in 1912. After the branch closed in 2002, it opened as a free museum of finance. On a street once lined with banks and nicknamed the \"Wall Street of the North,\" its atrium-like former banking hall and huge vault door hold the quiet of a bank that has finished its work."
+          ],
+          "spots": [
+            {
+              "title": "Former Temiya Line (Otaru)",
+              "slug": "Cfe4zrW6",
+              "thumbnailUrl": "https://pbs.twimg.com/media/F9q8ZPLb0AARPTz.jpg"
+            },
+            {
+              "title": "Bank of Japan Otaru Museum (Former Otaru Branch)",
+              "slug": "D4J7oXio",
+              "thumbnailUrl": "https://pbs.twimg.com/media/FEYxtP_aQAE8FXr.jpg"
+            }
+          ]
+        },
+        {
+          "heading": "Hakodate: A Ferry That Will Never Sail Again",
+          "paragraphs": [
+            "About three minutes' walk from Hakodate Station, the Seikan ferry Mashu Maru is moored at the pier. It entered service in 1965 and linked Aomori and Hakodate until the Seikan ferry route was abolished in March 1988. It is now open as a memorial museum, where you can see rows of seats, the bridge and the radio room.",
+            "Sit in a passenger cabin with no other passengers, and the harbor is still there outside the window. Inside a ship that will never sail again, the time after its final voyage simply goes on."
+          ],
+          "spots": [
+            {
+              "title": "Seikan Ferry Memorial Ship Mashu Maru",
+              "slug": "K9KD56uc",
+              "thumbnailUrl": "https://pbs.twimg.com/media/G_vgUbyXcAA7ejL.jpg"
+            }
+          ]
+        },
+        {
+          "heading": "Eastern Hokkaido: A Bridge That Sinks Into a Lake, and a Station in the Forest",
+          "paragraphs": [
+            "At Lake Nukabira in Kamishihoro, the Taushubetsu River Bridge of the former Shihoro Line still stands. Completed in 1937, it is a concrete bridge with a row of eleven arches. It fell out of use in 1955, when the line was rerouted for the construction of the Nukabira Dam. Depending on the lake's water level, it appears from winter into spring and sinks back beneath the water by autumn. You can see it across the lake from an observation deck a short walk from a parking area on National Route 273.",
+            "At the site of Horoka Station on the same Shihoro Line, the platforms and tracks, including a set of points, still remain. Train service was suspended in 1978, and the line was abolished in 1987. Deep in the forest, only a platform with no one waiting for a train is left."
+          ],
+          "spots": [
+            {
+              "title": "Taushubetsu River Bridge",
+              "slug": "BQQBELWM",
+              "thumbnailUrl": "https://pbs.twimg.com/media/FR_qcs2agAEksYu.jpg"
+            },
+            {
+              "title": "Former Horoka Station (Shihoro Line)",
+              "slug": "AjQzCCkp",
+              "thumbnailUrl": "https://pbs.twimg.com/media/G5Nhw2GbQAAq80C.jpg"
+            }
+          ]
+        },
+        {
+          "heading": "Practical Notes for Visiting",
+          "paragraphs": [
+            "Underground malls, museums and memorial ships are places where people work and visit. When taking photos, take care not to capture shops or people's faces clearly, and avoid tripods and flash. At the Historical Village of Hokkaido, live-streaming on social media and flying drones are prohibited. Chi-Ka-Ho is closed from late at night until early morning.",
+            "The two old railway sites in eastern Hokkaido are in brown bear country. Ordinary vehicles cannot use the forest road that leads to the Taushubetsu River Bridge, so view it from the observation deck by the highway or join a local guided tour. Winter days in Hokkaido are short and roads can be closed by snow, so leave plenty of margin for time and weather."
+          ]
+        },
+        {
+          "heading": "If You Shoot It, Put It on the Map",
+          "paragraphs": [
+            "Hokkaido still has many underground passages and retired buildings that no one has recorded, and some views only appear in the snowbound season.",
+            "LIMap is a map for recording those places with photos and locations. If you find one, please add it."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Where can I easily experience a liminal space in Sapporo?",
+          "a": "Try Chi-Ka-Ho, the underground walkway between Sapporo Station and Odori, and Pole Town, the underground mall from Odori to Susukino. Both connect directly to stations and have long corridors where the same view repeats. Early morning, or after the shops close, is the best time."
+        },
+        {
+          "q": "When can I see the Taushubetsu River Bridge?",
+          "a": "It depends on the water level of Lake Nukabira. In a typical year, it appears as the water drops from winter into spring and sinks back beneath the water by autumn. You can see it from an observation deck a short walk from a parking area on National Route 273. The forest road to the bridge is closed to ordinary vehicles and bear precautions are needed, so join a guided tour if you want to see it up close."
+        },
+        {
+          "q": "Are there places I can visit for free?",
+          "a": "The Chi-Ka-Ho and Pole Town corridors and the former Temiya Line in Otaru are free to walk through. The Bank of Japan Otaru Museum is also free to enter. The Historical Village of Hokkaido and the Mashu Maru charge admission."
+        }
+      ]
+    },
+    "images": [
+      {
+        "file": "Taushubetsu-Bridge.jpg",
+        "author": "MaedaAkihiko",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Taushubetsu-Bridge.jpg",
+        "altJa": "水の引いた糠平湖の湖底に並ぶ、タウシュベツ川橋梁のコンクリートのアーチ",
+        "altEn": "The concrete arches of the Taushubetsu River Bridge standing on the exposed bed of Lake Nukabira",
+        "captionJa": "タウシュベツ川橋梁。湖の水位が下がる季節にだけ、アーチが姿を現す。",
+        "captionEn": "The Taushubetsu River Bridge: its arches appear only in the season when the lake's water level drops.",
+        "afterSection": -1
+      },
+      {
+        "file": "Temiya Line.jpg",
+        "author": "Drivephotographer",
+        "license": "CC0 1.0 (パブリックドメイン)",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Temiya_Line.jpg",
+        "altJa": "小樽の街なかに残る旧手宮線の線路と、並行する散策路",
+        "altEn": "The tracks of the former Temiya Line running through Otaru, with a walking path alongside",
+        "captionJa": "小樽の旧手宮線跡。列車の来ない線路が、街の中をまっすぐ延びていく。",
+        "captionEn": "The former Temiya Line in Otaru, where tracks no train will use run straight through town.",
+        "afterSection": 3
+      }
+    ]
+  },
+  {
     "slug": "liminal-spots-nagoya",
     "category": "実在スポット",
     "categoryEn": "Real Spots",
