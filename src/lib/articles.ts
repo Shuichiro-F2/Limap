@@ -299,6 +299,36 @@ const ARTICLE_ENTRIES: ArticleSummary[] = [
     thumbnailFile: 'Old TV sets.jpg',
   },
   {
+    slug: 'liminal-space-games',
+    publishedDate: '2026-09-28',
+    categoryJa: 'ゲーム',
+    categoryEn: 'Games',
+    titleJa:
+      'リミナルスペースを歩けるゲーム7選｜『8番出口』『Pools』『Escape the Backrooms』ほか、怖さと日本語対応まで',
+    titleEn:
+      '7 Games Where You Can Walk Through Liminal Spaces: The Exit 8, Pools, Escape the Backrooms and More',
+    leadJa:
+      '『8番出口』『Pools』『Escape the Backrooms』など、リミナルスペースやバックルームズを歩ける7本を、怖さや日本語対応とあわせて紹介。現実に行ける近い場所も。',
+    leadEn:
+      'Seven games that let you walk through liminal spaces and the Backrooms, from The Exit 8 to Pools and Escape the Backrooms, with how scary they are and real places that feel like them.',
+    thumbnailFile: 'Tokyo-STA Keiyo-underground-passage.jpg',
+  },
+  {
+    slug: 'pools-game',
+    publishedDate: '2026-09-28',
+    categoryJa: 'ゲーム',
+    categoryEn: 'Games',
+    titleJa:
+      'ゲーム『Pools』とは？怖い？日本語は？どこで遊べる？プールルームを歩く作品と、現実の「Poolsっぽい」場所',
+    titleEn:
+      'What Is the Game Pools? Is It Scary? Where Can You Play It? The Poolrooms Game, and Real Places That Feel Like Pools',
+    leadJa:
+      '敵も台詞も音楽もない、タイルのプールを歩くゲーム『Pools』。元になった「プールルーム」、遊べる機種と日本語、怖さの種類、現実の近い場所まで解説します。',
+    leadEn:
+      'Pools, the game of wandering tiled pools with no enemies, dialogue or music: the Poolrooms behind it, platforms and language, what kind of fear it offers, and real places like it.',
+    thumbnailFile: 'Vancouver - Robert Lee YMCA pool 01.jpg',
+  },
+  {
     slug: 'liminal-spots-tokai',
     publishedDate: '2026-09-28',
     categoryJa: '実在スポット',
