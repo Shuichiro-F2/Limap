@@ -75,7 +75,7 @@ export function renderPage(opts: {
     <title>${escapeHtml(opts.title)}</title>
     <meta name="description" content="${escapeHtml(opts.description)}" />
 ${opts.noindex ? '    <meta name="robots" content="noindex" />\n' : ''}    <link rel="canonical" href="${escapeHtml(opts.url)}" />
-    <meta name="theme-color" content="#16130f" />
+    <meta name="theme-color" content="#1a1a1a" />
     <link rel="apple-touch-icon" href="${SITE_URL}/apple-touch-icon.png" />
     <link rel="icon" href="${SITE_URL}/apple-touch-icon.png" />
     <meta property="og:type" content="website" />
@@ -92,7 +92,7 @@ ${jsonLdTags}
       href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=DotGothic16&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/articles/assets/article.css" />
+    <link rel="stylesheet" href="/articles/assets/article.css?v=3" />
   </head>
   <body>
     <header class="site-header">

@@ -232,6 +232,39 @@ function cardThumbImg(image, lang) {
   )}?width=600" alt="${escapeHtml(alt)}" loading="lazy" onerror="this.style.display='none'" />`;
 }
 
+// 記事一覧・関連記事の1行（小さな写真＋カテゴリ＋タイトル）。アプリのコラムタブの一覧と同じ構成
+function columnRow(article, lang, href) {
+  const t = lang === 'ja' ? article.ja : article.en;
+  const cat = lang === 'ja' ? article.category : article.categoryEn;
+  return `          <a class="col-row" href="${href}">
+            ${cardThumbImg(heroImageOf(article), lang)}
+            <span class="col-row-body">
+              <span class="col-kicker">${escapeHtml(cat)}</span>
+              <span class="col-row-title">${escapeHtml(t.h1)}</span>
+            </span>
+          </a>`;
+}
+
+// 記事一覧の先頭に置く、最新記事の大きなカード
+function columnFeatured(article, lang, href) {
+  const t = lang === 'ja' ? article.ja : article.en;
+  const cat = lang === 'ja' ? article.category : article.categoryEn;
+  const hero = heroImageOf(article);
+  const img = hero
+    ? `<img class="col-featured-img" src="https://commons.wikimedia.org/wiki/Special:FilePath/${encodeURIComponent(
+        hero.file
+      )}?width=1200" alt="${escapeHtml(lang === 'ja' ? hero.altJa : hero.altEn)}" onerror="this.style.display='none'" />`
+    : '';
+  return `        <a class="col-featured" href="${href}">
+          ${img}
+          <span class="col-featured-body">
+            <span class="col-kicker">${escapeHtml(cat)}・${article.publishedDate}</span>
+            <span class="col-featured-title">${escapeHtml(t.h1)}</span>
+            <span class="col-featured-desc">${escapeHtml(t.metaDescription)}</span>
+          </span>
+        </a>`;
+}
+
 // ---- 言語ごとのURL ----
 // 日本語版は /articles/<slug>/、英語版は /en/articles/<slug>/。
 // 以前は1つのURLに日英の本文を両方入れてJSで切り替えていたが、英語の検索で評価されるよう、
@@ -265,7 +298,7 @@ function langSwitch(lang, jaPath, enPath) {
 }
 
 // 記事・一覧ページ共通の <head> 内のフォント・CSS（キャッシュの古いJS/CSSを使わないよう版番号を付ける）
-const ASSET_VERSION = '2';
+const ASSET_VERSION = '3';
 
 function fontAndStyleLinks() {
   return `    <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -297,20 +330,10 @@ function relatedBlock(current, all, lang) {
   const others = all.filter((a) => a.slug !== current.slug).slice(0, 4);
   if (others.length === 0) return '';
   const heading = lang === 'ja' ? 'こちらもおすすめ' : 'You Might Also Like';
-  const items = others
-    .map((a) => {
-      const t = lang === 'ja' ? a.ja : a.en;
-      const cat = lang === 'ja' ? a.category : a.categoryEn;
-      return `          <a href="${SITE_URL}${articlePath(a.slug, lang)}">
-            ${cardThumbImg(heroImageOf(a), lang)}
-            <span class="related-category">${escapeHtml(cat)}</span>
-            <span class="related-item-title">${escapeHtml(t.h1)}</span>
-          </a>`;
-    })
-    .join('\n');
+  const items = others.map((a) => columnRow(a, lang, `${SITE_URL}${articlePath(a.slug, lang)}`)).join('\n');
   return `      <div class="related-block">
         <h2>${heading}</h2>
-        <div class="related-list">
+        <div class="col-list">
 ${items}
         </div>
       </div>`;
@@ -399,7 +422,7 @@ function renderArticlePage(article, all, lang) {
     <title>${escapeHtml(content.title)} | LIMap</title>
     <meta name="description" content="${escapeHtml(content.metaDescription)}" />
     <link rel="canonical" href="${url}" />
-${hreflangLinks(jaPath, enPath)}    <meta name="theme-color" content="#16130f" />
+${hreflangLinks(jaPath, enPath)}    <meta name="theme-color" content="#1a1a1a" />
     <link rel="apple-touch-icon" href="${SITE_URL}/apple-touch-icon.png" />
     <link rel="icon" href="${SITE_URL}/apple-touch-icon.png" />
     <link rel="manifest" href="${SITE_URL}/manifest.json" />
@@ -467,18 +490,10 @@ const HUB_TEXT = {
 function renderHubPage(all, lang) {
   const text = HUB_TEXT[lang];
   const url = `${SITE_URL}${hubPath(lang)}`;
-  const items = all
-    .map((a) => {
-      const t = lang === 'ja' ? a.ja : a.en;
-      const cat = lang === 'ja' ? a.category : a.categoryEn;
-      return `        <a href="${articlePath(a.slug, lang)}">
-          ${cardThumbImg(heroImageOf(a), lang)}
-          <span class="related-category">${escapeHtml(cat)}</span>
-          <p class="hub-item-title">${escapeHtml(t.h1)}</p>
-          <p class="hub-item-desc">${escapeHtml(t.metaDescription)}</p>
-        </a>`;
-    })
-    .join('\n');
+  // 最新の1本は大きな写真付きで目立たせ、残りは細い線で区切った一覧にする（アプリのコラムタブと同じ）
+  const [featured, ...rest] = all;
+  const featuredHtml = featured ? columnFeatured(featured, lang, articlePath(featured.slug, lang)) : '';
+  const items = rest.map((a) => columnRow(a, lang, articlePath(a.slug, lang))).join('\n');
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
@@ -495,7 +510,7 @@ function renderHubPage(all, lang) {
     <title>${escapeHtml(text.title)}</title>
     <meta name="description" content="${escapeHtml(text.description)}" />
     <link rel="canonical" href="${url}" />
-${hreflangLinks(hubPath('ja'), hubPath('en'))}    <meta name="theme-color" content="#16130f" />
+${hreflangLinks(hubPath('ja'), hubPath('en'))}    <meta name="theme-color" content="#1a1a1a" />
     <link rel="apple-touch-icon" href="${SITE_URL}/apple-touch-icon.png" />
     <link rel="icon" href="${SITE_URL}/apple-touch-icon.png" />
     <link rel="manifest" href="${SITE_URL}/manifest.json" />
@@ -525,7 +540,8 @@ ${langSwitch(lang, hubPath('ja'), hubPath('en'))}
     <main>
       <h1 class="article-title">${escapeHtml(text.h1)}</h1>
       <p class="hub-lead">${escapeHtml(text.lead)}</p>
-      <div class="hub-list">
+${featuredHtml}
+      <div class="col-list hub-col-list">
 ${items}
       </div>
     </main>

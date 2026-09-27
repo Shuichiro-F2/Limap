@@ -5,16 +5,18 @@
 
 :root {
   --font-heading: "DotGothic16", "Noto Sans JP", sans-serif;
-  --bg: #16130f;
-  --surface: #211c16;
-  --surface-alt: #2a241c;
-  --border: #3a3226;
-  --text-primary: #f4efe4;
-  --text-secondary: #cdc3ae;
-  --text-muted: #948a76;
+  /* 色はアプリ本体（src/lib/theme.ts）と同じ値。変えるときは両方を直す */
+  --bg: #1a1a1a;
+  --surface: #232323;
+  --surface-alt: #2c2c2c;
+  --border: #383838;
+  --text-primary: #f2f2ee;
+  --text-secondary: #b9b9b3;
+  --text-muted: #85857f;
   --accent: #dece32;
-  --accent-text: #2a2a2a;
-  --max-width: 760px;
+  --accent-text: #1d1b0e;
+  --radius: 14px;
+  --max-width: 720px;
 }
 
 * {
@@ -31,7 +33,7 @@ body {
   background-color: var(--bg);
   color: var(--text-primary);
   font-family: "Noto Sans JP", "Hiragino Sans", "Yu Gothic", -apple-system, BlinkMacSystemFont, sans-serif;
-  line-height: 1.9;
+  line-height: 1.95;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -145,7 +147,7 @@ span[data-lang].lang-active {
   border-bottom: 1px solid var(--border);
   position: sticky;
   top: 0;
-  background-color: rgba(22, 19, 15, 0.92);
+  background-color: rgba(26, 26, 26, 0.92);
   backdrop-filter: blur(6px);
   z-index: 10;
 }
@@ -176,11 +178,10 @@ span[data-lang].lang-active {
   border: none;
   background: transparent;
   color: var(--text-secondary);
+  font-family: var(--font-heading);
   font-size: 12px;
-  font-weight: 700;
   padding: 6px 14px;
   cursor: pointer;
-  font-family: inherit;
 }
 
 .lang-switch button.active {
@@ -192,8 +193,8 @@ span[data-lang].lang-active {
 .lang-switch a,
 .lang-switch span {
   color: var(--text-secondary);
+  font-family: var(--font-heading);
   font-size: 12px;
-  font-weight: 700;
   padding: 6px 14px;
   text-decoration: none;
 }
@@ -209,12 +210,18 @@ main {
   padding: 40px 20px 0;
 }
 
-.article-category {
+/* カテゴリなどの小さなラベル。太字の代わりにドットフォント＋黄色で目立たせる（アプリと同じ） */
+.article-category,
+.col-kicker {
   display: inline-block;
+  font-family: var(--font-heading);
   color: var(--accent);
   font-size: 12px;
-  font-weight: 700;
   letter-spacing: 0.06em;
+  line-height: 1.5;
+}
+
+.article-category {
   margin-bottom: 14px;
 }
 
@@ -235,7 +242,7 @@ h1.article-title {
 .article-lead {
   font-size: 16px;
   color: var(--text-secondary);
-  border-left: 3px solid var(--accent);
+  border-left: 2px solid var(--accent);
   padding-left: 16px;
   margin: 0 0 40px;
 }
@@ -257,7 +264,7 @@ figure.article-hero img {
   height: auto;
   max-height: 420px;
   object-fit: cover;
-  border-radius: 14px;
+  border-radius: var(--radius);
   display: block;
   background-color: var(--surface);
 }
@@ -285,24 +292,32 @@ figure.article-hero .hero-credit a:hover {
 }
 
 article section.article-section {
-  margin-bottom: 36px;
+  margin-bottom: 48px;
 }
 
+/* 章見出し。区切り線の代わりに、頭に小さな黄色の四角（ドット）を置く */
 h2.section-heading {
   font-family: var(--font-heading);
   font-weight: 400;
-  font-size: 20px;
+  font-size: 21px;
   line-height: 1.6;
-  margin: 0 0 14px;
-  padding-top: 4px;
-  border-top: 1px solid var(--border);
-  padding-top: 20px;
+  margin: 0 0 16px;
+}
+
+h2.section-heading::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin: 0 12px 0 0;
+  vertical-align: 0.2em;
+  background-color: var(--accent);
 }
 
 .article-section p {
-  font-size: 15.5px;
+  font-size: 16px;
   color: var(--text-primary);
-  margin: 0 0 16px;
+  margin: 0 0 18px;
 }
 
 /* よくある質問（generate-articles.js の faqBlock） */
@@ -311,8 +326,9 @@ h2.section-heading {
 }
 
 h3.faq-question {
-  font-size: 15.5px;
-  font-weight: 700;
+  font-family: var(--font-heading);
+  font-size: 16px;
+  font-weight: 400;
   line-height: 1.6;
   margin: 0 0 6px;
   color: var(--text-primary);
@@ -342,10 +358,10 @@ h3.faq-question::before {
 
 .spot-cards-label {
   grid-column: 1 / -1;
+  font-family: var(--font-heading);
   color: var(--text-muted);
-  font-size: 11.5px;
-  font-weight: 700;
-  letter-spacing: 0.02em;
+  font-size: 12px;
+  letter-spacing: 0.04em;
   margin-bottom: 2px;
 }
 
@@ -354,7 +370,7 @@ h3.faq-question::before {
   overflow: hidden;
   background-color: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 12px;
+  border-radius: var(--radius);
   color: var(--text-primary);
   text-decoration: none;
 }
@@ -366,7 +382,7 @@ h3.faq-question::before {
 .spot-card-thumb {
   display: block;
   width: 100%;
-  height: 92px;
+  height: 104px;
   object-fit: cover;
   background-color: var(--surface-alt);
 }
@@ -381,16 +397,16 @@ h3.faq-question::before {
 
 .spot-card-title {
   display: block;
-  padding: 10px 12px;
-  font-size: 12.5px;
-  line-height: 1.5;
+  padding: 10px 12px 12px;
+  font-size: 13px;
+  line-height: 1.6;
 }
 
 .cta-block {
   margin: 48px 0;
   padding: 28px 24px;
   background-color: var(--accent);
-  border-radius: 16px;
+  border-radius: var(--radius);
   text-align: center;
 }
 
@@ -413,8 +429,8 @@ h3.faq-question::before {
   display: inline-block;
   background-color: var(--accent-text);
   color: var(--accent);
-  font-weight: 700;
-  font-size: 14px;
+  font-family: var(--font-heading);
+  font-size: 15px;
   padding: 12px 28px;
   border-radius: 999px;
   text-decoration: none;
@@ -435,65 +451,107 @@ h3.faq-question::before {
 }
 
 .related-block {
-  margin: 48px 0 60px;
+  margin: 56px 0 60px;
 }
 
 .related-block h2 {
   font-family: var(--font-heading);
   font-weight: 400;
-  font-size: 18px;
-  margin: 0 0 16px;
+  font-size: 19px;
+  margin: 0 0 8px;
 }
 
-.related-list {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
+/* 記事一覧・関連記事の行（小さな写真＋カテゴリ＋タイトル。細い線で区切る） */
+.col-list {
+  display: flex;
+  flex-direction: column;
 }
 
-@media (max-width: 520px) {
-  .related-list {
-    grid-template-columns: 1fr;
-  }
-}
-
-.related-list a {
-  display: block;
-  overflow: hidden;
-  padding: 16px;
-  background-color: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 12px;
+a.col-row {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  padding: 14px 0;
   color: var(--text-primary);
   text-decoration: none;
-  font-size: 13.5px;
-  line-height: 1.6;
 }
 
-.related-list a:hover {
-  border-color: var(--accent);
+a.col-row + a.col-row {
+  border-top: 1px solid var(--border);
 }
 
-.related-list img.card-thumb {
-  display: block;
-  width: calc(100% + 32px);
-  height: 120px;
+a.col-row img.card-thumb {
+  flex-shrink: 0;
+  width: 104px;
+  height: 78px;
   object-fit: cover;
-  margin: -16px -16px 12px;
+  border-radius: 8px;
   background-color: var(--surface-alt);
 }
 
-.related-list .related-category {
-  display: block;
-  color: var(--accent);
-  font-size: 11px;
-  font-weight: 700;
-  margin-bottom: 6px;
+.col-row-body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
 }
 
-.related-list .related-item-title {
+.col-row-title {
   font-family: var(--font-heading);
-  font-size: 14.5px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+a.col-row:hover .col-row-title,
+a.col-featured:hover .col-featured-title {
+  color: var(--accent);
+}
+
+/* 記事一覧の先頭に置く、最新記事の大きなカード */
+a.col-featured {
+  display: block;
+  overflow: hidden;
+  margin-bottom: 8px;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+img.col-featured-img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  background-color: var(--surface-alt);
+}
+
+.col-featured-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px 18px 18px;
+}
+
+.col-featured-title {
+  font-family: var(--font-heading);
+  font-size: 19px;
+  line-height: 1.55;
+}
+
+.col-featured-desc {
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--text-secondary);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.hub-col-list {
+  margin-bottom: 60px;
 }
 
 footer.site-footer {
@@ -517,7 +575,7 @@ footer.site-footer a:hover {
 .hub-lead {
   color: var(--text-secondary);
   font-size: 15px;
-  margin-bottom: 32px;
+  margin: 0 0 32px;
 }
 
 .hub-list {
@@ -533,7 +591,7 @@ footer.site-footer a:hover {
   padding: 20px;
   background-color: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 14px;
+  border-radius: var(--radius);
   color: var(--text-primary);
   text-decoration: none;
 }
