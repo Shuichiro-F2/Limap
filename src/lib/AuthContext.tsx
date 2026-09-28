@@ -1,10 +1,49 @@
 import React, { createContext, useContext, useEffect, useState, useCallback } from 'react';
 import { Platform } from 'react-native';
 import * as AppleAuthentication from 'expo-apple-authentication';
+import { requireOptionalNativeModule } from 'expo-modules-core';
 import type { Session } from '@supabase/supabase-js';
 import { supabase } from './supabase';
 import { fetchBlockedUserIds } from './moderation';
 import type { Profile } from '../types/database';
+
+// ネイティブアプリでのGoogleログイン後に戻ってくるURL（app.json の scheme と合わせる）
+const NATIVE_OAUTH_REDIRECT = 'limap://auth/callback';
+
+// expo-web-browser はネイティブモジュール。これを含まない古いビルド（1.0.0）にOTAでこのコードが届いても
+// 落ちないよう、ネイティブ側にモジュールがあるときだけ読み込む。無いビルドではGoogleボタンを出さない。
+const WebBrowser: typeof import('expo-web-browser') | null =
+  Platform.OS !== 'web' && requireOptionalNativeModule('ExpoWebBrowser') ? require('expo-web-browser') : null;
+
+// ログイン画面でGoogleボタンを出すかどうか（Webは常に、ネイティブはexpo-web-browser入りのビルドだけ）
+export const googleLoginAvailable = Platform.OS === 'web' || WebBrowser !== null;
+
+// ログイン後に戻ってきたURLからセッションを作る。
+// 今の設定（implicitフロー）では URL の # 以降にトークンが入る。PKCEフローに変えた場合に備えて ?code= にも対応する。
+async function createSessionFromRedirect(url: string) {
+  const hash = url.includes('#') ? url.slice(url.indexOf('#') + 1) : '';
+  const query = url.includes('?') ? url.slice(url.indexOf('?') + 1).split('#')[0] : '';
+  const params = new URLSearchParams(hash);
+  new URLSearchParams(query).forEach((value, key) => {
+    if (!params.has(key)) params.set(key, value);
+  });
+
+  const errorDescription = params.get('error_description') || params.get('error');
+  if (errorDescription) throw new Error(errorDescription);
+
+  const code = params.get('code');
+  if (code) {
+    const { error } = await supabase.auth.exchangeCodeForSession(code);
+    if (error) throw error;
+    return;
+  }
+
+  const accessToken = params.get('access_token');
+  const refreshToken = params.get('refresh_token');
+  if (!accessToken || !refreshToken) throw new Error('Login was not completed');
+  const { error } = await supabase.auth.setSession({ access_token: accessToken, refresh_token: refreshToken });
+  if (error) throw error;
+}
 
 // バッジ(公式マークなど)も含めて自分のプロフィールを取得する
 const PROFILE_SELECT = `
@@ -26,7 +65,7 @@ interface AuthContextValue {
   // 戻り値のalreadyRegisteredは、すでに登録・確認済みのメールアドレスで
   // 新規登録しようとした場合にtrueになる(詳細はsignUpWithEmailの実装コメント参照)。
   signUpWithEmail: (email: string, password: string, username: string) => Promise<{ alreadyRegistered: boolean }>;
-  signInWithOAuth: (provider: 'google') => Promise<void>;
+  signInWithOAuth: (provider: 'google') => Promise<boolean>;
   // iOSネイティブのみ。ユーザーがキャンセルした場合は何もせず終了する(エラー表示しない)。
   signInWithApple: () => Promise<void>;
   signOut: () => Promise<void>;
@@ -115,15 +154,36 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return { alreadyRegistered };
   };
 
-  // Web: ブラウザのリダイレクト経由でGoogleログインを行う。
-  // 戻り先(redirectTo)を明示しないと、リダイレクト後にアプリへ正しく戻れないことがある。
-  // ネイティブでのGoogleログインは expo-auth-session 等で別途フローを組む必要があるため未対応。
+  // Googleログイン。戻り値は、ネイティブでその場でログインが完了したときだけtrue
+  // （Webはページごとリダイレクトするので戻ってこない。ネイティブでキャンセルされたときはfalse）。
+  // Web: ブラウザのリダイレクト経由。戻り先(redirectTo)を明示しないと、リダイレクト後にアプリへ正しく戻れないことがある。
   const signInWithOAuth = async (provider: 'google') => {
-    const { error } = await supabase.auth.signInWithOAuth({
+    if (Platform.OS === 'web') {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider,
+        options: { redirectTo: window.location.origin },
+      });
+      if (error) throw error;
+      return false;
+    }
+
+    // ネイティブ：supabase-jsはブラウザ以外ではログイン画面へ移動しないため、
+    // ログイン画面のURLだけを受け取り、アプリ内のブラウザ（iOSはASWebAuthenticationSession）で開く。
+    // ログインが終わると limap://auth/callback に戻ってくるので、そのURLからセッションを作る。
+    // このURLは Supabase の Authentication → URL Configuration の Redirect URLs に登録しておく必要がある。
+    if (!WebBrowser) throw new Error('Google login is not available in this version of the app');
+    const { data, error } = await supabase.auth.signInWithOAuth({
       provider,
-      options: Platform.OS === 'web' ? { redirectTo: window.location.origin } : undefined,
+      options: { redirectTo: NATIVE_OAUTH_REDIRECT, skipBrowserRedirect: true },
     });
     if (error) throw error;
+    if (!data?.url) throw new Error('OAuth URL is missing');
+
+    const result = await WebBrowser.openAuthSessionAsync(data.url, NATIVE_OAUTH_REDIRECT);
+    // ユーザーが閉じた・キャンセルした場合は何もしない（エラー表示しない）
+    if (result.type !== 'success') return false;
+    await createSessionFromRedirect(result.url);
+    return true;
   };
 
   // iOSネイティブ専用のApple公式ログイン(Sign in with Apple)。

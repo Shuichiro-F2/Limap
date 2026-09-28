@@ -4,7 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import * as AppleAuthentication from 'expo-apple-authentication';
 import Text from '../components/AppText';
 import { Button, FormField, FormInput, formStyles } from '../components/Form';
-import { useAuth } from '../lib/AuthContext';
+import { googleLoginAvailable, useAuth } from '../lib/AuthContext';
 import { notify } from '../lib/notify';
 import { translateAuthError } from '../lib/authErrors';
 import { useLanguage, useTranslation } from '../lib/i18n';
@@ -57,22 +57,36 @@ export default function AuthScreen({ navigation, route }: RootStackScreenProps<'
     }
   };
 
-  // Googleログインは今のところWeb版だけで動く。ネイティブではsupabase-jsのsignInWithOAuthが
-  // ログイン画面へ移動しない（URLを返すだけ）ため、ボタンを出さない。
-  // ネイティブで使えるようにするには expo-web-browser と URLスキームの追加（再ビルド・再審査）が必要
-  // （docs/android-release.md 参照）。
-  const showGoogle = Platform.OS === 'web';
+  // Googleログインのボタンは、Webと、expo-web-browser入りのネイティブビルド（1.1.0以降）でだけ出す
+  // （古いビルドにはネイティブでログイン画面を開く手段がないため。lib/AuthContext.tsx 参照）。
+  const showGoogle = googleLoginAvailable;
   const hasOAuthButtons = showGoogle || Platform.OS === 'ios';
 
   // GoogleでのログインボタンはSupabase側で新規登録・既存ログイン共通のため、
   // signupモードの場合のみここで同意チェックを行ってからOAuthを開始する
   // （OAuthはリダイレクトを伴うため、開始後に途中キャンセルする手段がない）
-  const handleGoogleAuth = () => {
+  const handleGoogleAuth = async () => {
     if (requiresAgreement) {
       notify(t.confirmTitle, t.agreementRequired);
       return;
     }
-    signInWithOAuth('google');
+    setBusy(true);
+    try {
+      // Webはこのままページごとリダイレクトする。ネイティブはアプリ内のブラウザでログインし、
+      // 完了したらAppleログインと同じように前の画面へ戻る
+      const signedIn = await signInWithOAuth('google');
+      if (signedIn) {
+        if (navigation.canGoBack()) {
+          navigation.goBack();
+        } else {
+          navigation.navigate('Main', { screen: 'MapTab' });
+        }
+      }
+    } catch (e: any) {
+      notify(t.errorTitle, translateAuthError(e?.message, language));
+    } finally {
+      setBusy(false);
+    }
   };
 
   // Apple公式ログイン(iOSネイティブのみ)。GoogleログインのようなOAuthリダイレクトではなく
