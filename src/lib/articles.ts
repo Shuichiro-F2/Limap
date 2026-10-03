@@ -534,6 +534,20 @@ const ARTICLE_ENTRIES: ArticleSummary[] = [
       'A village and a village office beneath dam lakes, a bridge that comes and goes with the water, a forest flooded only in spring: seven submerged places and when to see them.',
     thumbnailFile: 'Taushubetsu-Bridge 2022.jpg',
   },
+  {
+    slug: 'underground-mall-liminal-spaces',
+    publishedDate: '2026-10-03',
+    categoryJa: '実在スポット',
+    categoryEn: 'Real Spots',
+    titleJa: '地下街・地下通路のリミナルスペース｜昭和の地下街から海の下のトンネルまで、実在する11か所',
+    titleEn:
+      'Liminal Underground Malls and Passages: 11 Real Places, From Showa-Era Arcades to a Tunnel Under the Sea',
+    leadJa:
+      '1955年の浅草地下街、カーブする名古屋のサンロード、石畳の天神地下街、海の下の関門トンネル人道。全国の地下街・地下通路11か所を紹介します。',
+    leadEn:
+      "Asakusa's 1955 underground street, Nagoya's curving Sun Road, cobbled Tenjin and the Kanmon tunnel under the sea: 11 underground malls and passages across Japan.",
+    thumbnailFile: '2014-09-01 Kanmon Pedestrian Tunnel.jpg',
+  },
 ];
 
 // 一覧は新着順(publishedDate の降順)で表示する。Array#sort は安定なので、

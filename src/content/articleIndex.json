@@ -31,6 +31,12 @@
       "titleEn": "Liminal Places Under Water: 7 Real Places, From Villages Beneath Dams to a Bridge That Comes and Goes"
     },
     {
+      "slug": "underground-mall-liminal-spaces",
+      "lastmod": "2026-10-03",
+      "titleJa": "地下街・地下通路のリミナルスペース｜昭和の地下街から海の下のトンネルまで、実在する11か所",
+      "titleEn": "Liminal Underground Malls and Passages: 11 Real Places, From Showa-Era Arcades to a Tunnel Under the Sea"
+    },
+    {
       "slug": "liminal-space-games",
       "lastmod": "2026-10-03",
       "titleJa": "リミナルスペースを歩けるゲーム7選——『8番出口』『Pools』『Escape the Backrooms』ほか",
@@ -232,6 +238,7 @@
   "spotArticles": {
     "KM5aKcco": [
       "liminal-spots-tokyo",
+      "underground-mall-liminal-spaces",
       "liminal-space-games",
       "is-backrooms-movie-scary",
       "backrooms-spots-tokyo",
@@ -239,13 +246,16 @@
       "is-exit-8-real"
     ],
     "fMm9FwDX": [
-      "liminal-spots-tokyo"
+      "liminal-spots-tokyo",
+      "underground-mall-liminal-spaces"
     ],
     "VwXjTi86": [
-      "liminal-spots-tokyo"
+      "liminal-spots-tokyo",
+      "underground-mall-liminal-spaces"
     ],
     "mUJPSbt5": [
-      "liminal-spots-tokyo"
+      "liminal-spots-tokyo",
+      "underground-mall-liminal-spaces"
     ],
     "W9n7DymW": [
       "liminal-spots-tokyo"
@@ -346,19 +356,41 @@
     "Mvs56E7i": [
       "submerged-liminal-spaces"
     ],
+    "EuDSmVMc": [
+      "underground-mall-liminal-spaces",
+      "liminal-spots-nagoya"
+    ],
+    "jwojecgD": [
+      "underground-mall-liminal-spaces",
+      "liminal-spots-nagoya"
+    ],
+    "ErGwgdUJ": [
+      "underground-mall-liminal-spaces",
+      "liminal-spots-hokkaido"
+    ],
+    "bABcy5N8": [
+      "underground-mall-liminal-spaces",
+      "liminal-spots-kyushu"
+    ],
+    "SrKMLupa": [
+      "underground-mall-liminal-spaces",
+      "liminal-spots-chugoku-shikoku"
+    ],
+    "PJh7ASjj": [
+      "underground-mall-liminal-spaces",
+      "liminal-space-games",
+      "liminal-spots-hokkaido"
+    ],
+    "stuSgTd9": [
+      "underground-mall-liminal-spaces",
+      "liminal-space-games",
+      "liminal-spots-kyushu"
+    ],
     "vbUQ9kcZ": [
       "liminal-space-games",
       "backrooms-spots-tokyo",
       "backrooms-vs-exit-8",
       "is-exit-8-real"
-    ],
-    "PJh7ASjj": [
-      "liminal-space-games",
-      "liminal-spots-hokkaido"
-    ],
-    "stuSgTd9": [
-      "liminal-space-games",
-      "liminal-spots-kyushu"
     ],
     "3ZXPPqYu": [
       "pools-game"
@@ -468,9 +500,6 @@
     "tWaY3hCp": [
       "liminal-spots-chugoku-shikoku"
     ],
-    "SrKMLupa": [
-      "liminal-spots-chugoku-shikoku"
-    ],
     "8hv3niCX": [
       "liminal-spots-chugoku-shikoku"
     ],
@@ -510,9 +539,6 @@
     "sTsoVeXe": [
       "liminal-spots-tohoku"
     ],
-    "bABcy5N8": [
-      "liminal-spots-kyushu"
-    ],
     "X8fbHEwM": [
       "liminal-spots-kyushu"
     ],
@@ -534,9 +560,6 @@
     "ZMkEuArd": [
       "liminal-spots-kyushu"
     ],
-    "ErGwgdUJ": [
-      "liminal-spots-hokkaido"
-    ],
     "MkEEtUFS": [
       "liminal-spots-hokkaido"
     ],
@@ -554,12 +577,6 @@
     ],
     "AjQzCCkp": [
       "liminal-spots-hokkaido"
-    ],
-    "EuDSmVMc": [
-      "liminal-spots-nagoya"
-    ],
-    "jwojecgD": [
-      "liminal-spots-nagoya"
     ],
     "3nQekYXT": [
       "liminal-spots-nagoya"

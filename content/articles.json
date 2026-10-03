@@ -9544,5 +9544,438 @@
         "afterSection": 5
       }
     ]
+  },
+  {
+    "slug": "underground-mall-liminal-spaces",
+    "related": [
+      "backrooms-in-japan",
+      "is-exit-8-real",
+      "liminal-spots-tokyo"
+    ],
+    "category": "実在スポット",
+    "categoryEn": "Real Spots",
+    "publishedDate": "2026-10-03",
+    "ja": {
+      "title": "地下街・地下通路のリミナルスペース｜昭和の地下街から海の下のトンネルまで、実在する11か所",
+      "h1": "地下街・地下通路のリミナルスペース｜昭和の地下街から海の下のトンネルまで、実在する11か所",
+      "metaDescription": "窓がなく、時間の手がかりがない地下街は、リミナルスペースの代表です。1955年の浅草地下街、カーブする名古屋のサンロード、石畳の天神地下街、札幌のチ・カ・ホ、海の下の関門トンネル人道まで、全国の11か所と、人の少ない時間・注意点を紹介します。",
+      "lead": "窓がなく、外の天気も時刻もわからない。同じような店先と照明が、どこまでも続く。地下街や地下通路は、日本でいちばん身近なリミナルスペースかもしれません。昭和の地下街から、海の下をくぐるトンネルまで、LIMapに登録された全国の11か所を紹介します。",
+      "sections": [
+        {
+          "heading": "地下街が「どこでもない場所」に見える理由",
+          "paragraphs": [
+            "地上の街なら、空の色や影の向きで時刻がわかります。地下には窓がないので、朝も夜も同じ明るさの照明だけが続きます。通路の幅や店の造りもそろえて作られているため、少し歩くと、自分がどこにいるのかわからなくなります。",
+            "ふだんは人で埋まっている通路だからこそ、店が閉まったあとや開く前の静けさが際立ちます。8番出口やバックルームズのような「どこまでも同じ景色が続く空間」の感覚に、いちばん近い場所のひとつです。"
+          ]
+        },
+        {
+          "heading": "昭和の地下街：浅草、名古屋、札幌",
+          "paragraphs": [
+            "東京の浅草地下街は1955年に開業し、戦後に造られた地下街として今も残っているものでは日本最古とされます。東京メトロ銀座線の浅草駅の改札を出てすぐのところに、低い天井の通路が全長50mほど続き、飲食店や理髪店が並んでいます。",
+            "名古屋の伏見地下街（長者町地下街）は、1957年に地上の繊維問屋街と地下鉄の駅を結ぶ地下の問屋街として生まれました。全長240mの一直線の通路で、店は片側にしか並びません。同じ1957年に開業した名駅地下街サンロードは、地下鉄東山線と一緒に造られたため、通路が線路に沿って大きくカーブしています。先の見えない曲がり道に、同じような店先が続きます。",
+            "札幌のさっぽろ地下街ポールタウンは、札幌オリンピックの前年、1971年に開業した約400mの地下街です。大通からすすきのへまっすぐ続き、シャッターが下りた時間には、長い地下道だけが残ります。"
+          ],
+          "spots": [
+            {
+              "title": "浅草地下街",
+              "slug": "mUJPSbt5",
+              "afterParagraph": 0
+            },
+            {
+              "title": "伏見地下街（長者町地下街）",
+              "slug": "EuDSmVMc",
+              "afterParagraph": 1
+            },
+            {
+              "title": "名駅地下街サンロード",
+              "slug": "jwojecgD",
+              "afterParagraph": 1
+            },
+            {
+              "title": "さっぽろ地下街 ポールタウン",
+              "slug": "ErGwgdUJ",
+              "afterParagraph": 2
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://www.instagram.com/p/DRJza_REVS8/",
+              "spot": "mUJPSbt5",
+              "afterParagraph": 0
+            },
+            {
+              "url": "https://x.com/akira_x1020/status/1853241020328415715",
+              "spot": "EuDSmVMc",
+              "afterParagraph": 1
+            },
+            {
+              "url": "https://x.com/fromnagoya_tw/status/1636887389393293316",
+              "spot": "jwojecgD",
+              "afterParagraph": 1
+            },
+            {
+              "url": "https://x.com/nape0404/status/1988710078355239250",
+              "spot": "ErGwgdUJ",
+              "afterParagraph": 2
+            }
+          ]
+        },
+        {
+          "heading": "つくり込まれた地下の街：天神と紙屋町",
+          "paragraphs": [
+            "福岡の天神地下街は、1976年に開業した約590mの地下街です。19世紀のヨーロッパをイメージした石畳の床と唐草模様の鉄の天井が続き、照明はあえて暗めに抑えられています。店が閉まったあとの通路は、どこにも存在しない外国の路地に迷い込んだように見えます。",
+            "広島の紙屋町シャレオは、街の中心の紙屋町交差点の地下を十字に走る地下街で、2001年に開業しました。店が開く前や閉まったあとには、明るい照明だけが残る長い通路と広場が、行き先のわからない空間になります。"
+          ],
+          "spots": [
+            {
+              "title": "天神地下街",
+              "slug": "bABcy5N8",
+              "afterParagraph": 0
+            },
+            {
+              "title": "紙屋町シャレオ（地下街）",
+              "slug": "SrKMLupa",
+              "afterParagraph": 1
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/pokerii_/status/2053572181096018110",
+              "spot": "bABcy5N8",
+              "afterParagraph": 0
+            },
+            {
+              "url": "https://x.com/nununu_nune/status/1501850988990238729",
+              "spot": "SrKMLupa",
+              "afterParagraph": 1
+            }
+          ]
+        },
+        {
+          "heading": "通り抜けるためだけの地下通路：札幌、丸の内、汐留",
+          "paragraphs": [
+            "札幌駅前通地下歩行空間、通称チ・カ・ホは、JR札幌駅と大通を結ぶ約520mの地下通路で、2011年に開通しました。幅12mの通路に白い柱が同じ間隔で並び、通れるのは5時45分から24時30分まで。開いたばかりの早朝には、終わりの見えない広い廊下だけがあります。",
+            "東京・丸の内の行幸地下通路は、1960年に完成した地下駐車場を2007年に歩行者の通路に改めたものです。東京駅から皇居の方向へまっすぐ延び、壁沿いのガラスのショーケースが約220m続きます。新橋と汐留の高層ビル街を地下で結ぶ汐留シオサイトの地下歩道も、頭上の華やかさとは対照的な、コンクリートと照明だけの通路です。"
+          ],
+          "spots": [
+            {
+              "title": "札幌駅前通地下歩行空間（チ・カ・ホ）",
+              "slug": "PJh7ASjj",
+              "afterParagraph": 0
+            },
+            {
+              "title": "行幸地下ギャラリー",
+              "slug": "fMm9FwDX",
+              "afterParagraph": 1
+            },
+            {
+              "title": "汐留シオサイト地下歩道",
+              "slug": "VwXjTi86",
+              "afterParagraph": 1
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/inthecitynight/status/1675973009595858944",
+              "spot": "PJh7ASjj",
+              "afterParagraph": 0
+            },
+            {
+              "url": "https://www.instagram.com/p/DF4I9TkzUZ-/",
+              "spot": "fMm9FwDX",
+              "afterParagraph": 1
+            },
+            {
+              "url": "https://www.instagram.com/p/DU7BXtzDz21/",
+              "spot": "VwXjTi86",
+              "afterParagraph": 1
+            }
+          ]
+        },
+        {
+          "heading": "駅の地下深くと、海の下",
+          "paragraphs": [
+            "東京駅の京葉線ホームは、ほかの乗り場から大きく離れた地下深くにあります。1990年の京葉線の乗り入れにあたり、もともと成田新幹線の駅として計画されていた地下の空間が使われたためです。乗り換えには、動く歩道の並ぶ長い連絡通路を延々と歩きます。",
+            "北九州市門司区と山口県下関市を結ぶ関門トンネル人道は、1958年に開通した、海の下を歩いて渡るトンネルです。エレベーターで地下約60mまで下りると、蛍光灯に照らされた約780mの通路がまっすぐ延び、途中の床には福岡県と山口県の県境の線が引かれています。歩行者は無料で、6時から22時まで通れます。"
+          ],
+          "spots": [
+            {
+              "title": "東京駅 京葉線・武蔵野線連絡通路",
+              "slug": "KM5aKcco",
+              "afterParagraph": 0
+            },
+            {
+              "title": "関門トンネル人道",
+              "slug": "stuSgTd9",
+              "afterParagraph": 1
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/sankichi48/status/2015193957056352699",
+              "spot": "KM5aKcco",
+              "afterParagraph": 0
+            },
+            {
+              "url": "https://x.com/ri_nya222222/status/1880818552053354579",
+              "spot": "stuSgTd9",
+              "afterParagraph": 1
+            }
+          ]
+        },
+        {
+          "heading": "行くときの、現実的な注意点",
+          "paragraphs": [
+            "地下街は、お店で働く人と通る人の生活の場です。撮影するときはお店や人の顔が写らないように気をつけ、三脚を立てたり、通行の邪魔になったりしないようにしてください。天神地下街では、仕事としての撮影には事前の申請が求められています。",
+            "地下街や地下通路には、通れる時間が決まっているところがあります。伏見地下街は日曜・祝日は通れないことが多く、チ・カ・ホは深夜から早朝まで、関門トンネル人道は22時から翌朝6時まで通れません。人の少ない時間を狙うなら、開いた直後の朝がおすすめです。"
+          ]
+        },
+        {
+          "heading": "撮ったら、地図に残してください",
+          "paragraphs": [
+            "毎日通っている地下の乗り換え通路が、誰かにとっての探していた景色かもしれません。それぞれの街のほかの場所は、地方別の記事でも紹介しています。",
+            "LIMapは、そうした場所を写真と位置つきで残していく地図です。見つけた場所があれば、ぜひ登録してください。"
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "日本でいちばん古い地下街はどこですか？",
+          "a": "戦後に造られて今も残っている地下街では、1955年に開業した東京の浅草地下街が日本最古とされます。名古屋では、1957年3月に開業した名駅地下街サンロードがいちばん古い地下街です。"
+        },
+        {
+          "q": "人の少ない地下街を見るには、何時ごろがいいですか？",
+          "a": "店が開く前の朝や、閉まったあとの夜が静かです。ただし通れる時間が決まっている地下街も多いので、事前に確かめてください。チ・カ・ホなら、通れるようになる5時45分すぎの早朝が狙い目です。"
+        },
+        {
+          "q": "地下街で写真を撮ってもいいですか？",
+          "a": "個人の撮影は多くの場所でできますが、お店や人の顔が写らないように気をつけ、三脚や通行の妨げになる撮影は避けてください。天神地下街のように、仕事としての撮影には申請が必要な場所もあります。"
+        }
+      ]
+    },
+    "en": {
+      "title": "Liminal Underground Malls and Passages: 11 Real Places, From Showa-Era Arcades to a Tunnel Under the Sea",
+      "h1": "Liminal Underground Malls and Passages: 11 Real Places, From Showa-Era Arcades to a Tunnel Under the Sea",
+      "metaDescription": "Windowless and without clues to the time, underground malls are classic liminal spaces. From the 1955 Asakusa Underground Shopping Street and the curving Sun Road in Nagoya to cobbled Tenjin, Sapporo's Chi-Ka-Ho and the Kanmon tunnel under the sea: 11 places, with quiet times and tips.",
+      "lead": "No windows, no sense of the weather or the hour. The same shopfronts and lights continue as far as you can see. Underground malls and passages may be the most familiar liminal spaces in Japan. From Showa-era arcades to a tunnel beneath the sea, here are 11 places on LIMap.",
+      "sections": [
+        {
+          "heading": "Why Underground Malls Feel Like Nowhere",
+          "paragraphs": [
+            "Above ground, the color of the sky and the angle of shadows tell you the time. Underground there are no windows, only the same lighting morning and night. Corridors and shops are built to uniform widths and designs, so after a short walk you lose track of where you are.",
+            "Because these passages are usually packed, the quiet before shops open or after they close stands out all the more. They are among the places closest to the feeling of Exit 8 or the Backrooms: the same scene repeating without end."
+          ]
+        },
+        {
+          "heading": "Showa-Era Malls: Asakusa, Nagoya, Sapporo",
+          "paragraphs": [
+            "Tokyo's Asakusa Underground Shopping Street opened in 1955 and is said to be the oldest surviving underground mall built after the war. Just outside the ticket gates of Asakusa Station on the Tokyo Metro Ginza Line, a low-ceilinged passage about 50 meters long is lined with eateries and a barber.",
+            "Nagoya's Fushimi Underground Mall (Chojamachi) was created in 1957 as an underground wholesale street linking the textile district above with the subway station. It is a straight 240-meter corridor with shops on only one side. Meieki Sun Road, also opened in 1957, was built together with the Higashiyama subway line, so its corridor curves along the tracks; similar shopfronts continue around a bend you cannot see past.",
+            "Sapporo's Pole Town opened in 1971, the year before the Sapporo Olympics, and runs about 400 meters straight from Odori to Susukino. When the shutters are down, only the long underground passage remains."
+          ],
+          "spots": [
+            {
+              "title": "Asakusa Underground Shopping Street",
+              "slug": "mUJPSbt5",
+              "afterParagraph": 0
+            },
+            {
+              "title": "Fushimi Underground Mall (Chojamachi)",
+              "slug": "EuDSmVMc",
+              "afterParagraph": 1
+            },
+            {
+              "title": "Meieki Sun Road",
+              "slug": "jwojecgD",
+              "afterParagraph": 1
+            },
+            {
+              "title": "Sapporo Underground Mall Pole Town",
+              "slug": "ErGwgdUJ",
+              "afterParagraph": 2
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://www.instagram.com/p/DRJza_REVS8/",
+              "spot": "mUJPSbt5",
+              "afterParagraph": 0
+            },
+            {
+              "url": "https://x.com/akira_x1020/status/1853241020328415715",
+              "spot": "EuDSmVMc",
+              "afterParagraph": 1
+            },
+            {
+              "url": "https://x.com/fromnagoya_tw/status/1636887389393293316",
+              "spot": "jwojecgD",
+              "afterParagraph": 1
+            },
+            {
+              "url": "https://x.com/nape0404/status/1988710078355239250",
+              "spot": "ErGwgdUJ",
+              "afterParagraph": 2
+            }
+          ]
+        },
+        {
+          "heading": "Designed Underground Towns: Tenjin and Kamiyacho",
+          "paragraphs": [
+            "Fukuoka's Tenjin Underground Mall opened in 1976 and runs about 590 meters. Cobblestone floors and arabesque iron ceilings inspired by 19th-century Europe continue throughout, and the lighting is deliberately kept dim. After closing, the passages look like an alley in a foreign city that exists nowhere.",
+            "Hiroshima's Kamiyacho Shareo, opened in 2001, crosses beneath the central Kamiyacho intersection in a cross shape. Before the shops open or after they close, long corridors and plazas lit only by bright ceilings become spaces with no clear destination."
+          ],
+          "spots": [
+            {
+              "title": "Tenjin Underground Mall",
+              "slug": "bABcy5N8",
+              "afterParagraph": 0
+            },
+            {
+              "title": "Kamiyacho Shareo",
+              "slug": "SrKMLupa",
+              "afterParagraph": 1
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/pokerii_/status/2053572181096018110",
+              "spot": "bABcy5N8",
+              "afterParagraph": 0
+            },
+            {
+              "url": "https://x.com/nununu_nune/status/1501850988990238729",
+              "spot": "SrKMLupa",
+              "afterParagraph": 1
+            }
+          ]
+        },
+        {
+          "heading": "Passages Made Only for Passing Through: Sapporo, Marunouchi, Shiodome",
+          "paragraphs": [
+            "Sapporo's Station Front Underground Walkway, known as Chi-Ka-Ho, opened in 2011 and runs about 520 meters between JR Sapporo Station and Odori. White pillars stand at regular intervals along the 12-meter-wide corridor, open from 5:45 to 24:30. Early in the morning, just after opening, there is only an endless wide hallway.",
+            "The Gyoko underground passage in Marunouchi, Tokyo, was converted in 2007 from an underground car park completed in 1960. It runs straight from Tokyo Station toward the Imperial Palace, with glass showcases along the walls for about 220 meters. The Shiodome Sio-Site underground walkway, linking Shimbashi with the Shiodome high-rises, is likewise a passage of concrete and light, in contrast to the glamour overhead."
+          ],
+          "spots": [
+            {
+              "title": "Sapporo Station Front Underground Walkway (Chi-Ka-Ho)",
+              "slug": "PJh7ASjj",
+              "afterParagraph": 0
+            },
+            {
+              "title": "Gyoko Underground Gallery",
+              "slug": "fMm9FwDX",
+              "afterParagraph": 1
+            },
+            {
+              "title": "Shiodome Sio-Site underground walkway",
+              "slug": "VwXjTi86",
+              "afterParagraph": 1
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/inthecitynight/status/1675973009595858944",
+              "spot": "PJh7ASjj",
+              "afterParagraph": 0
+            },
+            {
+              "url": "https://www.instagram.com/p/DF4I9TkzUZ-/",
+              "spot": "fMm9FwDX",
+              "afterParagraph": 1
+            },
+            {
+              "url": "https://www.instagram.com/p/DU7BXtzDz21/",
+              "spot": "VwXjTi86",
+              "afterParagraph": 1
+            }
+          ]
+        },
+        {
+          "heading": "Deep Under a Station, and Under the Sea",
+          "paragraphs": [
+            "The Keiyo Line platforms at Tokyo Station lie deep underground, far from the other platforms, because the line, which arrived in 1990, took over space originally planned for the Narita Shinkansen. Transferring means a long walk along a passage lined with moving walkways.",
+            "The Kanmon Tunnel pedestrian walkway, opened in 1958, lets you walk under the sea between Moji in Kitakyushu and Shimonoseki in Yamaguchi. An elevator takes you down about 60 meters to a straight passage of about 780 meters under fluorescent light, with the border between Fukuoka and Yamaguchi painted on the floor partway. It is free for pedestrians and open from 6:00 to 22:00."
+          ],
+          "spots": [
+            {
+              "title": "Keiyo and Musashino Line passage, Tokyo Station",
+              "slug": "KM5aKcco",
+              "afterParagraph": 0
+            },
+            {
+              "title": "Kanmon Tunnel pedestrian walkway",
+              "slug": "stuSgTd9",
+              "afterParagraph": 1
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/sankichi48/status/2015193957056352699",
+              "spot": "KM5aKcco",
+              "afterParagraph": 0
+            },
+            {
+              "url": "https://x.com/ri_nya222222/status/1880818552053354579",
+              "spot": "stuSgTd9",
+              "afterParagraph": 1
+            }
+          ]
+        },
+        {
+          "heading": "Practical Notes for Visiting",
+          "paragraphs": [
+            "Underground malls are where people work and pass through. Keep shops and faces out of your photos, and do not set up tripods or block the way. Tenjin Underground Mall requires advance permission for commercial photography.",
+            "Some malls and passages have set hours. Fushimi is often closed on Sundays and holidays, Chi-Ka-Ho closes late at night until early morning, and the Kanmon walkway is closed from 22:00 to 6:00. For quiet scenes, go just after opening in the morning."
+          ]
+        },
+        {
+          "heading": "If You Shoot It, Put It on the Map",
+          "paragraphs": [
+            "The underground transfer passage you walk every day may be exactly the scene someone has been looking for. Other places in each city appear in the regional articles.",
+            "LIMap is a map for keeping places like these, with photos and locations. If you find one, please add it."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "What is the oldest underground mall in Japan?",
+          "a": "Among surviving underground malls built after the war, the Asakusa Underground Shopping Street in Tokyo, opened in 1955, is said to be the oldest. In Nagoya, the oldest is Meieki Sun Road, opened in March 1957."
+        },
+        {
+          "q": "When is the best time to see an empty underground mall?",
+          "a": "Mornings before shops open and evenings after they close are quiet, but many malls have set hours, so check in advance. At Chi-Ka-Ho, early morning just after 5:45 is a good time."
+        },
+        {
+          "q": "Can I take photos in underground malls?",
+          "a": "Personal photography is allowed in many places, but keep shops and faces out of frame and avoid tripods or blocking the way. Some places, like Tenjin Underground Mall, require permission for commercial shoots."
+        }
+      ]
+    },
+    "images": [
+      {
+        "file": "2014-09-01 Kanmon Pedestrian Tunnel.jpg",
+        "author": "Cheng-en Cheng",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:2014-09-01_Kanmon_Pedestrian_Tunnel.jpg",
+        "altJa": "関門トンネル人道の通路。床に福岡県と山口県の県境の線が引かれている",
+        "altEn": "The Kanmon Tunnel pedestrian walkway, with the Fukuoka–Yamaguchi border painted on the floor",
+        "captionJa": "関門トンネル人道。海の下、約780mの通路の途中に県境の線が引かれている。",
+        "captionEn": "The Kanmon Tunnel pedestrian walkway: a border line painted partway along about 780 meters under the sea.",
+        "afterSection": -1
+      },
+      {
+        "file": "Kamiyacho Shareo 20170311.jpg",
+        "author": "そらみみ",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Kamiyacho_Shareo_20170311.jpg",
+        "altJa": "シャッターの下りた紙屋町シャレオの、人のいない地下の通路",
+        "altEn": "An empty corridor in Kamiyacho Shareo with shutters down",
+        "captionJa": "店が閉まった時間の紙屋町シャレオ。明るい照明だけが残る。",
+        "captionEn": "Kamiyacho Shareo after the shops have closed, with only the bright lights left on.",
+        "afterSection": 2
+      }
+    ]
   }
 ]
