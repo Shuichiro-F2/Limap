@@ -587,6 +587,19 @@ const ARTICLE_ENTRIES: ArticleSummary[] = [
       'Static, faded broadcasts and hijacked emergency alerts: the YouTube-born analog horror genre, its key works, the move to film, and cautions for viewers.',
     thumbnailFile: 'Abandoned TV.jpg',
   },
+  {
+    slug: 'liminal-spots-world',
+    publishedDate: '2026-10-03',
+    categoryJa: '実在スポット',
+    categoryEn: 'Real Spots',
+    titleJa: '世界のリミナルスペース15選｜実在する地下鉄駅・空港・ゴーストタウンを1か所ずつ紹介',
+    titleEn: 'The Most Liminal Places in the World: 15 Real Metro Stations, Airports and Ghost Towns, One by One',
+    leadJa:
+      '宇宙をテーマにした青い駅、赤い岩の洞窟駅、未来を描いた空港、誰も住まなかったお城の街。世界の実在する15か所を1か所ずつ紹介します。',
+    leadEn:
+      'A blue space-themed station, a red rock cave of a station, airports that imagined the future, a town of castles no one lived in: 15 real places around the world.',
+    thumbnailFile: 'Stockholm - Solna centrum Metro station (by Pudelek).jpg',
+  },
 ];
 
 // 一覧は新着順(publishedDate の降順)で表示する。Array#sort は安定なので、

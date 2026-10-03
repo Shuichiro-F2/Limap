@@ -1105,6 +1105,9 @@
         "captionEn": "A so-called \"dead mall\" with no shoppers left — the contrast with its once-bustling past is what makes it memorable.",
         "afterSection": 2
       }
+    ],
+    "related": [
+      "liminal-spots-world"
     ]
   },
   {
@@ -10826,6 +10829,761 @@
         "captionJa": "廃墟に残された古いテレビ。アナログホラーは、こうした古いメディアの質感を使って恐怖を描く。",
         "captionEn": "An old TV left in an abandoned building. Analog horror draws on the texture of old media like this.",
         "afterSection": -1
+      }
+    ]
+  },
+  {
+    "slug": "liminal-spots-world",
+    "related": [
+      "famous-liminal-spaces-around-the-world",
+      "submerged-liminal-spaces",
+      "station-liminal-spaces"
+    ],
+    "category": "実在スポット",
+    "categoryEn": "Real Spots",
+    "publishedDate": "2026-10-03",
+    "ja": {
+      "title": "世界のリミナルスペース15選｜実在する地下鉄駅・空港・ゴーストタウンを1か所ずつ紹介",
+      "h1": "世界のリミナルスペース15選｜実在する地下鉄駅・空港・ゴーストタウンを1か所ずつ紹介",
+      "metaDescription": "青い陶板の宇宙の駅、赤い岩の洞窟駅、透明なチューブが交差する空港、誰も住まなかったお城の街、砂に埋もれた鉱山町。世界の実在するリミナルスペース15か所を、訪ねるときの注意とともに1か所ずつ紹介します。",
+      "lead": "人の気配が消えた、どこか懐かしく不気味な場所は、世界中にあります。宇宙をテーマにした地下鉄駅から、未来を描いた空港、誰も暮らさなかった街、砂や水にのまれた町まで。LIMapに登録された海外の場所から15か所を選び、1か所ずつ紹介します。",
+      "sections": [
+        {
+          "heading": "世界のリミナルスペースは、どんな場所か",
+          "paragraphs": [
+            "リミナルスペースは日本だけのものではありません。地下鉄の駅、空港のターミナル、大きすぎる広場、住む人がいないまま残された街。世界中に、「人の気配が消えた、どこか懐かしく不気味な場所」があります。",
+            "この記事では、LIMapに登録されている海外の場所から15か所を選び、1か所ずつ紹介します。どれも実在する場所で、紹介する事実は公式サイトや報道などで確かめています。地下鉄駅、空港、建築と街、ゴーストタウンの順に並べました。",
+            "多くは今も使われている駅や施設です。人の少ない時間帯を選ぶと、写真で見るような静けさに出会えます。私有地や立入禁止の場所もあるので、それぞれの節に書いた注意も読んでから訪ねてください。"
+          ]
+        },
+        {
+          "heading": "1. コスモナフトラル駅（ウズベキスタン・タシケント）",
+          "paragraphs": [
+            "タシケント地下鉄の駅で、1984年に開業しました。名前はウズベク語で「宇宙飛行士たち」。ホームの壁は、深い青から水色へと少しずつ明るくなる陶板で覆われ、ガガーリンやテレシコワ、天文学者ウルグ・ベクなど、宇宙と天文にかかわる人物の肖像が丸い陶板に描かれて並んでいます。",
+            "列車が出ていったあとのホームには、青い壁と肖像だけが残ります。ソ連時代に思い描かれた「宇宙の未来」が、地下の一室にそのまま保存されているような駅です。"
+          ],
+          "spots": [
+            {
+              "title": "コスモナフトラル駅（Kosmonavtlar）",
+              "slug": "aMYSkmHZ",
+              "afterParagraph": 1
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/notanastronomer/status/2087939737839427934",
+              "spot": "aMYSkmHZ",
+              "afterParagraph": 1
+            }
+          ]
+        },
+        {
+          "heading": "2. ソルナ・セントルム駅（スウェーデン・ストックホルム近郊）",
+          "paragraphs": [
+            "ストックホルムの地下鉄は、掘った岩盤をそのまま見せ、そこに絵を描いた駅が多いことで知られます。ソルナ市にあるこの駅は1975年に開業し、ごつごつした岩の天井が一面の赤に塗られ、壁にはトウヒの森が延々と描かれています。作者のアンデシュ・オーベリとカール＝オーロヴ・ビョルクは、当時のスウェーデンで議論になっていた環境破壊や地方の過疎を題材にしました。",
+            "赤い空と黒い森に囲まれたホームは、夕暮れの森の中に駅だけが置かれたようにも見えます。人の少ない時間帯に降りると、地下にいることを忘れそうになります。"
+          ],
+          "spots": [
+            {
+              "title": "ソルナ・セントルム駅（Solna Centrum）",
+              "slug": "Cc7VvnrT",
+              "afterParagraph": 1
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/archpng/status/2093232117731713031",
+              "spot": "Cc7VvnrT",
+              "afterParagraph": 1
+            }
+          ]
+        },
+        {
+          "heading": "3. トレド駅（イタリア・ナポリ）",
+          "paragraphs": [
+            "ナポリ地下鉄1号線の駅で、2012年に開業しました。設計はスペインの建築家オスカル・トゥスケツ。地上から地下深くまで円錐形の吹き抜けが通り、その内側を青いモザイクが覆っています。吹き抜けにはロバート・ウィルソンの光の作品が組み込まれ、色が少しずつ移り変わります。",
+            "長いエスカレーターで青い空間を下っていくと、水の中へ潜っていくような感覚になります。「世界一美しい地下鉄駅」として紹介されることも多い駅ですが、人が途切れた時間の静けさは、むしろ人工の深海に近いものです。"
+          ],
+          "spots": [
+            {
+              "title": "トレド駅（Toledo）",
+              "slug": "GGaTzjiy",
+              "afterParagraph": 1
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/LeoDaVinciWave/status/2031792272409579690",
+              "spot": "GGaTzjiy",
+              "afterParagraph": 1
+            }
+          ]
+        },
+        {
+          "heading": "4. 美麗島駅 光之穹頂（台湾・高雄）",
+          "paragraphs": [
+            "高雄メトロのレッドラインとオレンジラインが交わる乗換駅で、2008年に開業しました。円形のコンコースの天井を、イタリア出身のガラス作家ナルシサス・クアグリアータによるステンドグラス「光之穹頂（光のドーム）」が覆っています。直径は約30メートル、使われたガラスは4,500枚を超えます。",
+            "ドームは「水・土・光・火」の4つの主題で、生命の誕生から終わり、再生までを描いています。乗り換えの人の流れが途切れると、色ガラスの光だけが円い床に落ち、巨大な万華鏡の底に立っているような気分になります。"
+          ],
+          "spots": [
+            {
+              "title": "美麗島駅 光之穹頂（Formosa Boulevard Station）",
+              "slug": "EozrwoNy",
+              "afterParagraph": 1
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/Fysliu/status/1521659168104402945",
+              "spot": "EozrwoNy",
+              "afterParagraph": 1
+            }
+          ]
+        },
+        {
+          "heading": "5. パリ・シャルル・ド・ゴール空港 第1ターミナル（フランス）",
+          "paragraphs": [
+            "シャルル・ド・ゴール空港でいちばん古いターミナルで、1974年に開業しました。建築家ポール・アンドリューが設計した円形のコンクリートの建物で、中央の吹き抜けを、透明なチューブに包まれたエスカレーターが何本も交差しながら渡っていきます。",
+            "2023年までに大がかりな改修が行われましたが、円い本体とチューブはそのまま残っています。乗り継ぎ客がまばらな時間には、出口の見えない巨大な装置の中に入り込んだように感じられます。"
+          ],
+          "spots": [
+            {
+              "title": "パリ・シャルル・ド・ゴール空港 第1ターミナル",
+              "slug": "Lw7vXA3V",
+              "afterParagraph": 1
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/MorganeOgerBC/status/1691357312974262272",
+              "spot": "Lw7vXA3V",
+              "afterParagraph": 1
+            }
+          ]
+        },
+        {
+          "heading": "6. マドリード・バラハス空港 第4ターミナル（スペイン）",
+          "paragraphs": [
+            "2006年に開業したターミナルで、リチャード・ロジャース・パートナーシップ（現RSHP）とスペインのエストゥディオ・ラメラが設計し、同じ年のRIBAスターリング賞を受けました。竹で仕上げた波打つ天井を、Y字形の鉄骨の柱が支えています。",
+            "柱の色は、建物の端から端へ向かって虹のように少しずつ変わっていきます。同じ形の天井と柱がどこまでも続くため、人の少ない時間帯には、自分がどれだけ歩いたのか分からなくなります。"
+          ],
+          "spots": [
+            {
+              "title": "マドリード・バラハス空港 第4ターミナル",
+              "slug": "2Vu5Nvv7",
+              "afterParagraph": 1
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/parametricarch/status/2092496957226827869",
+              "spot": "2Vu5Nvv7",
+              "afterParagraph": 1
+            }
+          ]
+        },
+        {
+          "heading": "7. TWAフライトセンター（アメリカ・ニューヨーク）",
+          "paragraphs": [
+            "ジョン・F・ケネディ国際空港にある旧ターミナルで、エーロ・サーリネンの設計により1962年に開業しました。鳥が翼を広げたような薄いコンクリートの屋根と、直線のほとんど無い室内で知られ、赤いカーペット敷きのチューブ状の通路が搭乗口へと続いていました。",
+            "2001年に閉鎖されたあと、2019年にホテル「TWAホテル」のロビーとしてよみがえりました。白い曲面の通路を歩いていると、1960年代に思い描かれた未来の中に迷い込んだような気分になります。"
+          ],
+          "spots": [
+            {
+              "title": "TWAフライトセンター（TWA Flight Center）",
+              "slug": "etS9YLnP",
+              "afterParagraph": 1
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/airportarch/status/2090460525842801059",
+              "spot": "etS9YLnP",
+              "afterParagraph": 1
+            }
+          ]
+        },
+        {
+          "heading": "8. イタリア文明宮／四角いコロッセオ（イタリア・ローマ）",
+          "paragraphs": [
+            "ローマ南部の新市街EURに建つ白い直方体の建物です。1942年に予定されていたローマ万国博覧会のために1930年代の終わりから建てられましたが、博覧会は戦争で開かれませんでした。四つの面それぞれに、横9列・縦6段のアーチが同じ形で並んでいます。",
+            "どのアーチの奥にも同じ深さの影が落ち、デ・キリコの絵のようだとよく言われます。2015年からはファッションブランドのフェンディが本社として使っていて、内部が公開されるのは展示の会期中だけですが、外観はいつでも見られます。"
+          ],
+          "spots": [
+            {
+              "title": "イタリア文明宮／四角いコロッセオ",
+              "slug": "H3TU5VjM",
+              "afterParagraph": 1
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/cartographer_s/status/2054733817315754241",
+              "spot": "H3TU5VjM",
+              "afterParagraph": 1
+            }
+          ]
+        },
+        {
+          "heading": "9. 芸術科学都市（スペイン・バレンシア）",
+          "paragraphs": [
+            "1957年の大洪水のあと、街の外へ流れを移されたトゥリア川。その旧河床に、1990年代から2000年代にかけて造られた文化施設群です。大半をサンティアゴ・カラトラバが設計し、目の形をしたプラネタリウム、骨格標本のような科学博物館、アーチが並ぶ遊歩道などが細長い敷地に一列に並びます。",
+            "建物と建物のあいだには、浅い水盤と白い舗装が大きく広がっています。観光客の多い場所ですが、朝や夕方の人の少ない時間には、未来都市の模型の中に入り込んだような眺めになります。"
+          ],
+          "spots": [
+            {
+              "title": "芸術科学都市（Ciutat de les Arts i les Ciències）",
+              "slug": "HTpfFcWy",
+              "afterParagraph": 1
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/MissCelaneaOne/status/1670863012633116678",
+              "spot": "HTpfFcWy",
+              "afterParagraph": 1
+            }
+          ]
+        },
+        {
+          "heading": "10. オルドス・康巴什（カンバシ）新区（中国・内モンゴル自治区）",
+          "paragraphs": [
+            "オルドス市の新市街で、2000年代に100万人規模の街を見込んで建設が進められました。入居が追いつかず、2009年ごろから「ゴーストタウン」として世界中で報じられましたが、その後は人口が増え、今では10万人以上が暮らしています。",
+            "市民広場の周りには、金属の塊のようなオルドス博物館や、大きな図書館、劇場が並びます。どれも巨大で新しいのに、広い舗装面を歩く人はまばらで、完成予想図がそのまま現実になったような景色が広がります。"
+          ],
+          "spots": [
+            {
+              "title": "オルドス・康巴什（カンバシ）新区 市民広場",
+              "slug": "pjaXkzcy",
+              "afterParagraph": 1
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/ZhangTaisu/status/1673682279510540291",
+              "spot": "pjaXkzcy",
+              "afterParagraph": 1
+            }
+          ]
+        },
+        {
+          "heading": "11. トロピカル・アイランズ（ドイツ・ベルリン近郊）",
+          "paragraphs": [
+            "ベルリンの南にある、もとは大型の貨物飛行船を造るために建てられた格納庫です。長さ360メートル、高さ107メートルで、柱の無い屋内空間としては世界最大級とされます。飛行船の会社が破綻したあと、2004年に屋内の熱帯リゾートとして生まれ変わりました。",
+            "鋼の骨組みの下に砂浜やラグーン、熱帯雨林があり、館内は一年中26度に保たれています。外の季節も天気も届かない人工の楽園は、ネットで語られる「プールルームズ」を現実にしたような場所です。"
+          ],
+          "spots": [
+            {
+              "title": "トロピカル・アイランズ（旧飛行船格納庫）",
+              "slug": "EQ4XUbmu",
+              "afterParagraph": 1
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/culturaltutor/status/1647218846044942337",
+              "spot": "EQ4XUbmu",
+              "afterParagraph": 1
+            }
+          ]
+        },
+        {
+          "heading": "12. コンソンノ（イタリア・ロンバルディア州）",
+          "paragraphs": [
+            "ミラノの北、ブリアンツァ地方の丘の上にあった小さな村を、1962年に実業家が買い取り、遊びの町に造り替えようとした場所です。ミナレット風の塔やパゴダ、城を模した門、ホテルやダンスホールが建てられましたが、1970年代後半の豪雨による地滑りで町へ続く道がふさがれ、町はさびれていきました。",
+            "今は、異国風の塔や柱廊が草木に囲まれて残っています。誰かが思い描いた「楽しい町」の形だけが残り、楽しむ人がいない。リミナルスペースらしさがよく表れた場所です。建物の多くは危険なため柵で囲まれた私有地で、見学できる時間も限られています。決められた範囲から眺めてください。"
+          ],
+          "spots": [
+            {
+              "title": "コンソンノ（Consonno）",
+              "slug": "sDGqDpaA",
+              "afterParagraph": 1
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/luca_barra/status/1639949680040714243",
+              "spot": "sDGqDpaA",
+              "afterParagraph": 1
+            }
+          ]
+        },
+        {
+          "heading": "13. ブルジュ・アル・ババス（トルコ・ボル県）",
+          "paragraphs": [
+            "トルコ北西部の丘の斜面に、とんがり屋根の小さなお城が何百棟も並んでいます。2014年に別荘地として工事が始まりましたが、開発会社が2018年に経営破綻し、計画732棟のうち建てかけの587棟が残されました。",
+            "どの家も同じ形で、同じ間隔で並んでいるため、どの通りに立っても同じ景色が続きます。誰も暮らしたことのない「街の形」だけがある場所です。敷地は柵で囲まれて警備員もいるので、無断では入らず、外から眺めてください。"
+          ],
+          "spots": [
+            {
+              "title": "ブルジュ・アル・ババス（Burj Al Babas）",
+              "slug": "ETbKd2jH",
+              "afterParagraph": 1
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/andreas_nigbur/status/2053367804821471631",
+              "spot": "ETbKd2jH",
+              "afterParagraph": 1
+            }
+          ]
+        },
+        {
+          "heading": "14. コールマンスコップ（ナミビア）",
+          "paragraphs": [
+            "ナミビア南部の砂漠にある、ドイツ植民地時代の鉱山町の跡です。1908年に近くでダイヤモンドが見つかって町ができ、病院や劇場まで備えるほどにぎわいましたが、より豊かな鉱床が南で見つかると人が去り、1956年には無人になりました。",
+            "そのあいだに、ナミブ砂漠の砂が家々の中へ流れ込みました。淡い色に塗られた壁に囲まれた部屋の床が砂の斜面になり、戸口の半分まで砂に埋まっています。立入が制限された区域にあるため、見学には許可が要り、現地のツアーで訪ねます。"
+          ],
+          "spots": [
+            {
+              "title": "コールマンスコップ（Kolmanskop）",
+              "slug": "qDakyLU3",
+              "afterParagraph": 1
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/_yukanoshimi_/status/1949574605674520854",
+              "spot": "qDakyLU3",
+              "afterParagraph": 1
+            }
+          ]
+        },
+        {
+          "heading": "15. ビジャ・エペクエン（アルゼンチン）",
+          "paragraphs": [
+            "塩湖のほとりで湯治とリゾートの町として栄えたエペクエンは、1985年に堤防が切れて湖水にのまれ、何年ものあいだ水の下に沈みました。2000年代の後半に水が引くと、塩で白くなった建物の骨組みと、枯れたまま立つ木々が姿を現しました。",
+            "屋根も家具も無く、通りの区画と部屋の仕切りだけが地面に残っています。町の形はあるのに、生活だけが抜き取られた場所です。詳しくは「水に沈んだ場所のリミナルスペース」の記事でも紹介しています。"
+          ],
+          "spots": [
+            {
+              "title": "ビジャ・エペクエン（Villa Epecuén）",
+              "slug": "Mvs56E7i",
+              "afterParagraph": 1
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/FascinatingTrue/status/2098303736909083064",
+              "spot": "Mvs56E7i",
+              "afterParagraph": 1
+            }
+          ]
+        },
+        {
+          "heading": "訪ねる前に知っておきたいこと",
+          "paragraphs": [
+            "駅や空港、美術館のような場所は、ふだん多くの人が使っています。撮影するときは通行の妨げにならないようにし、ほかの利用者の顔が写り込まないよう気をつけてください。国や施設によっては、撮影に決まりがあることもあります。",
+            "コンソンノ、ブルジュ・アル・ババス、コールマンスコップのような廃墟や未完成の街は、私有地だったり、立入が制限されていたりします。公開時間やツアーなど、決められた方法で訪ね、建物の中に無断で入らないでください。古い建物は崩れることもあります。"
+          ]
+        },
+        {
+          "heading": "見つけたら、地図に残してください",
+          "paragraphs": [
+            "LIMapには、この15か所のほかにも海外の場所が100件ほど登録されています。地図を世界まで広げて、気になる場所を探してみてください。日本国内の場所は、地方別の記事で紹介しています。",
+            "旅先で、人の気配が消えた不思議な場所に出会ったら、ぜひ写真と位置をLIMapに登録してください。"
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "世界で有名なリミナルスペースはどこですか？",
+          "a": "SNSでよく取り上げられるのは、ストックホルムの地下鉄駅（ソルナ・セントルム駅など）、ナポリのトレド駅、パリ・シャルル・ド・ゴール空港の第1ターミナル、トルコのブルジュ・アル・ババス、アルゼンチンのビジャ・エペクエンなどです。この記事ではこれらを含む15か所を紹介しています。"
+        },
+        {
+          "q": "リミナルスペースは実在する場所ですか？",
+          "a": "リミナルスペースの写真の多くは、実在する駅・空港・建物などで撮られたものです。この記事で紹介した15か所はすべて実在し、LIMapの地図で位置を確かめられます。一方、「バックルームズ」のように、写真をもとに作られた架空の世界もあります。"
+        },
+        {
+          "q": "紹介されている場所には行けますか？",
+          "a": "駅や空港、広場などの多くは自由に訪ねられます。コンソンノやブルジュ・アル・ババスは柵で囲まれた私有地で、コールマンスコップは許可制のツアーで訪ねます。それぞれの節に書いた注意を確かめてから訪ねてください。"
+        }
+      ]
+    },
+    "en": {
+      "title": "The Most Liminal Places in the World: 15 Real Metro Stations, Airports and Ghost Towns, One by One",
+      "h1": "The Most Liminal Places in the World: 15 Real Metro Stations, Airports and Ghost Towns, One by One",
+      "metaDescription": "A space-themed metro station in blue tile, a red rock cave of a station, an airport crossed by glass tubes, a town of castles no one lived in, a mining town buried in sand. Fifteen real liminal places around the world, one by one, with notes for visiting.",
+      "lead": "Places that feel emptied of people, nostalgic and a little eerie, exist all over the world: a space-themed metro station, airports that imagined the future, a town no one ever lived in, towns swallowed by sand and water. Here are 15 overseas places registered on LIMap, introduced one by one.",
+      "sections": [
+        {
+          "heading": "What Liminal Places Around the World Look Like",
+          "paragraphs": [
+            "Liminal spaces are not only a Japanese thing. Metro stations, airport terminals, oversized plazas, towns left without residents: all over the world there are places where people seem to have vanished, places that feel nostalgic and a little eerie.",
+            "This article picks 15 overseas places registered on LIMap and introduces them one by one. All of them are real, and the facts here have been checked against official sites, news reports and similar sources. They are ordered as metro stations, airports, architecture and cities, then ghost towns.",
+            "Most are stations and facilities still in use; visit at quiet hours to find the stillness you see in photos. Some are on private or restricted land, so read the notes in each section before you go."
+          ]
+        },
+        {
+          "heading": "1. Kosmonavtlar Station (Tashkent, Uzbekistan)",
+          "paragraphs": [
+            "A station on the Tashkent Metro, opened in 1984. Its name means \"cosmonauts\" in Uzbek. The platform walls are clad in ceramic tiles that shade from deep blue to pale blue, and round ceramic panels show figures of space and astronomy, from Gagarin and Tereshkova to the astronomer Ulugh Beg.",
+            "After a train pulls out, only the blue walls and the portraits remain. It feels like a room underground where the Soviet-era vision of a space-age future has been kept just as it was."
+          ],
+          "spots": [
+            {
+              "title": "Kosmonavtlar Station",
+              "slug": "aMYSkmHZ",
+              "afterParagraph": 1
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/notanastronomer/status/2087939737839427934",
+              "spot": "aMYSkmHZ",
+              "afterParagraph": 1
+            }
+          ]
+        },
+        {
+          "heading": "2. Solna Centrum Station (near Stockholm, Sweden)",
+          "paragraphs": [
+            "Stockholm's metro is known for stations that leave the excavated bedrock exposed and paint directly on it. This one, in Solna, opened in 1975: its rough rock ceiling is painted solid red, and a spruce forest runs along the walls. The artists, Anders Åberg and Karl-Olov Björk, took as their theme the environmental damage and rural depopulation debated in Sweden at the time.",
+            "Under a red sky and surrounded by a dark forest, the platform looks like a station dropped into the woods at dusk. Arrive at a quiet hour and you may forget you are underground."
+          ],
+          "spots": [
+            {
+              "title": "Solna Centrum Station",
+              "slug": "Cc7VvnrT",
+              "afterParagraph": 1
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/archpng/status/2093232117731713031",
+              "spot": "Cc7VvnrT",
+              "afterParagraph": 1
+            }
+          ]
+        },
+        {
+          "heading": "3. Toledo Station (Naples, Italy)",
+          "paragraphs": [
+            "A station on Line 1 of the Naples Metro, opened in 2012 and designed by the Spanish architect Óscar Tusquets. A conical void runs from street level deep underground, lined with blue mosaic, with a light work by Robert Wilson built into it that slowly shifts in color.",
+            "Riding the long escalators down through the blue feels like sinking into water. It is often called one of the most beautiful metro stations in the world, but in the quiet moments between crowds it is closer to an artificial deep sea."
+          ],
+          "spots": [
+            {
+              "title": "Toledo Station",
+              "slug": "GGaTzjiy",
+              "afterParagraph": 1
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/LeoDaVinciWave/status/2031792272409579690",
+              "spot": "GGaTzjiy",
+              "afterParagraph": 1
+            }
+          ]
+        },
+        {
+          "heading": "4. Formosa Boulevard Station, Dome of Light (Kaohsiung, Taiwan)",
+          "paragraphs": [
+            "The transfer station where Kaohsiung Metro's Red and Orange lines meet, opened in 2008. The ceiling of its circular concourse is covered by the Dome of Light, a stained-glass work by the Italian-born glass artist Narcissus Quagliata, about 30 meters across and made of more than 4,500 pieces of glass.",
+            "The dome follows four themes, water, earth, light and fire, through birth, death and rebirth. When the flow of transferring passengers thins out, only colored light falls on the round floor, and it feels like standing at the bottom of a giant kaleidoscope."
+          ],
+          "spots": [
+            {
+              "title": "Formosa Boulevard Station, Dome of Light",
+              "slug": "EozrwoNy",
+              "afterParagraph": 1
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/Fysliu/status/1521659168104402945",
+              "spot": "EozrwoNy",
+              "afterParagraph": 1
+            }
+          ]
+        },
+        {
+          "heading": "5. Paris Charles de Gaulle Airport, Terminal 1 (France)",
+          "paragraphs": [
+            "The oldest terminal at Charles de Gaulle, opened in 1974. Designed by the architect Paul Andreu, it is a round concrete building whose central atrium is crossed by escalators enclosed in transparent tubes, criss-crossing in midair.",
+            "A major renovation was completed by 2023, but the round body and the tubes remain. When few passengers are passing through, it feels like being inside an enormous machine with no visible exit."
+          ],
+          "spots": [
+            {
+              "title": "Paris Charles de Gaulle Airport, Terminal 1",
+              "slug": "Lw7vXA3V",
+              "afterParagraph": 1
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/MorganeOgerBC/status/1691357312974262272",
+              "spot": "Lw7vXA3V",
+              "afterParagraph": 1
+            }
+          ]
+        },
+        {
+          "heading": "6. Madrid-Barajas Airport, Terminal 4 (Spain)",
+          "paragraphs": [
+            "Opened in 2006, the terminal was designed by Richard Rogers Partnership (now RSHP) with the Spanish firm Estudio Lamela and won that year's RIBA Stirling Prize. A wavy bamboo-finished ceiling rests on Y-shaped steel columns.",
+            "The columns shift in color like a rainbow from one end of the building to the other. Because the same ceiling and columns repeat on and on, at quiet hours you lose track of how far you have walked."
+          ],
+          "spots": [
+            {
+              "title": "Madrid-Barajas Airport, Terminal 4",
+              "slug": "2Vu5Nvv7",
+              "afterParagraph": 1
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/parametricarch/status/2092496957226827869",
+              "spot": "2Vu5Nvv7",
+              "afterParagraph": 1
+            }
+          ]
+        },
+        {
+          "heading": "7. TWA Flight Center (New York, USA)",
+          "paragraphs": [
+            "A former terminal at John F. Kennedy International Airport, designed by Eero Saarinen and opened in 1962. It is known for its thin concrete roof shaped like spreading wings and an interior with almost no straight lines; red-carpeted tube corridors led out to the gates.",
+            "Closed in 2001, it came back to life in 2019 as the lobby of the TWA Hotel. Walking its white curved corridors feels like wandering into the future as imagined in the 1960s."
+          ],
+          "spots": [
+            {
+              "title": "TWA Flight Center",
+              "slug": "etS9YLnP",
+              "afterParagraph": 1
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/airportarch/status/2090460525842801059",
+              "spot": "etS9YLnP",
+              "afterParagraph": 1
+            }
+          ]
+        },
+        {
+          "heading": "8. Palazzo della Civiltà Italiana, the \"Square Colosseum\" (Rome, Italy)",
+          "paragraphs": [
+            "A white rectangular block in EUR, Rome's southern new town. It was built from the late 1930s for the 1942 Rome World's Fair, which never took place because of the war. Each of its four faces carries identical arches, nine across and six high.",
+            "Every arch holds a shadow of the same depth, and it is often compared to a de Chirico painting. Since 2015 it has been Fendi's headquarters; the interior opens only during exhibitions, but the exterior can be seen anytime."
+          ],
+          "spots": [
+            {
+              "title": "Palazzo della Civiltà Italiana (Square Colosseum)",
+              "slug": "H3TU5VjM",
+              "afterParagraph": 1
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/cartographer_s/status/2054733817315754241",
+              "spot": "H3TU5VjM",
+              "afterParagraph": 1
+            }
+          ]
+        },
+        {
+          "heading": "9. City of Arts and Sciences (Valencia, Spain)",
+          "paragraphs": [
+            "After the great flood of 1957, the Turia River was diverted around the city. On its old bed, this complex of cultural buildings was built from the 1990s into the 2000s. Most of it is by Santiago Calatrava: an eye-shaped planetarium, a science museum like a skeleton, and an arched promenade, all set in a row along the narrow site.",
+            "Between the buildings stretch shallow pools and white paving. It is a busy tourist spot, but in the early morning or evening, when few people are around, it looks like the inside of a scale model of a future city."
+          ],
+          "spots": [
+            {
+              "title": "City of Arts and Sciences",
+              "slug": "HTpfFcWy",
+              "afterParagraph": 1
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/MissCelaneaOne/status/1670863012633116678",
+              "spot": "HTpfFcWy",
+              "afterParagraph": 1
+            }
+          ]
+        },
+        {
+          "heading": "10. Ordos Kangbashi New Area (Inner Mongolia, China)",
+          "paragraphs": [
+            "A new district of Ordos, built in the 2000s with a population of a million in mind. Residents were slow to arrive, and from around 2009 it was reported worldwide as a \"ghost town,\" but its population has since grown, and more than 100,000 people now live there.",
+            "Around the civic square stand the Ordos Museum, like a lump of metal, a large library and a theater. Everything is huge and new, yet few people cross the vast paving, as if an architect's rendering had simply become real."
+          ],
+          "spots": [
+            {
+              "title": "Ordos Kangbashi New Area, Civic Square",
+              "slug": "pjaXkzcy",
+              "afterParagraph": 1
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/ZhangTaisu/status/1673682279510540291",
+              "spot": "pjaXkzcy",
+              "afterParagraph": 1
+            }
+          ]
+        },
+        {
+          "heading": "11. Tropical Islands (near Berlin, Germany)",
+          "paragraphs": [
+            "South of Berlin stands a hangar originally built to construct giant cargo airships. At 360 meters long and 107 meters high, it is said to be one of the largest column-free indoor spaces in the world. After the airship company went bankrupt, it reopened in 2004 as an indoor tropical resort.",
+            "Under the steel frame are a beach, a lagoon and a rainforest, kept at 26°C all year. An artificial paradise that no season or weather can reach, it is like a real-life version of the Poolrooms people talk about online."
+          ],
+          "spots": [
+            {
+              "title": "Tropical Islands (former airship hangar)",
+              "slug": "EQ4XUbmu",
+              "afterParagraph": 1
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/culturaltutor/status/1647218846044942337",
+              "spot": "EQ4XUbmu",
+              "afterParagraph": 1
+            }
+          ]
+        },
+        {
+          "heading": "12. Consonno (Lombardy, Italy)",
+          "paragraphs": [
+            "North of Milan, on a hill in Brianza, an entrepreneur bought a small village in 1962 and tried to turn it into a town of amusements. A minaret-style tower, a pagoda, a castle-like gate, a hotel and a dance hall went up, but a landslide after heavy rains in the late 1970s blocked the road to the town, and it fell into decline.",
+            "Today the exotic tower and colonnades stand among the trees. Only the shape of someone's idea of a fun town remains, with no one there to enjoy it, which is exactly what makes it liminal. Many buildings are dangerous and fenced off on private land, and visiting hours are limited; view it from the permitted areas."
+          ],
+          "spots": [
+            {
+              "title": "Consonno",
+              "slug": "sDGqDpaA",
+              "afterParagraph": 1
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/luca_barra/status/1639949680040714243",
+              "spot": "sDGqDpaA",
+              "afterParagraph": 1
+            }
+          ]
+        },
+        {
+          "heading": "13. Burj Al Babas (Bolu Province, Turkey)",
+          "paragraphs": [
+            "On a hillside in northwestern Turkey, hundreds of little castles with pointed roofs stand in rows. Construction of the villa development began in 2014, but the developer went bankrupt in 2018, leaving 587 half-built houses of the 732 planned.",
+            "Every house has the same shape and spacing, so every street shows the same view. It is the shape of a town that no one has ever lived in. The site is fenced and guarded, so do not enter without permission; view it from outside."
+          ],
+          "spots": [
+            {
+              "title": "Burj Al Babas",
+              "slug": "ETbKd2jH",
+              "afterParagraph": 1
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/andreas_nigbur/status/2053367804821471631",
+              "spot": "ETbKd2jH",
+              "afterParagraph": 1
+            }
+          ]
+        },
+        {
+          "heading": "14. Kolmanskop (Namibia)",
+          "paragraphs": [
+            "The remains of a German colonial-era mining town in the desert of southern Namibia. Founded after diamonds were found nearby in 1908, it grew prosperous enough to have a hospital and a theater, but when richer deposits were found to the south, people left, and by 1956 it was empty.",
+            "Meanwhile the sand of the Namib Desert poured into the houses. Rooms with pale painted walls now have floors of sloping sand, and doorways are half buried. It lies in a restricted area, so a permit is required and visits are made through local tours."
+          ],
+          "spots": [
+            {
+              "title": "Kolmanskop",
+              "slug": "qDakyLU3",
+              "afterParagraph": 1
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/_yukanoshimi_/status/1949574605674520854",
+              "spot": "qDakyLU3",
+              "afterParagraph": 1
+            }
+          ]
+        },
+        {
+          "heading": "15. Villa Epecuén (Argentina)",
+          "paragraphs": [
+            "Epecuén flourished as a spa and resort town on the shore of a salt lake until 1985, when a dike broke and the lake swallowed it for years. When the water receded in the late 2000s, it revealed building frames bleached white by salt and dead trees still standing.",
+            "There are no roofs or furniture, only the outlines of streets and rooms on the ground. The town keeps its shape, but life has been taken out of it. It is also covered in \"Liminal Places Under Water.\""
+          ],
+          "spots": [
+            {
+              "title": "Villa Epecuén",
+              "slug": "Mvs56E7i",
+              "afterParagraph": 1
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/FascinatingTrue/status/2098303736909083064",
+              "spot": "Mvs56E7i",
+              "afterParagraph": 1
+            }
+          ]
+        },
+        {
+          "heading": "Before You Visit",
+          "paragraphs": [
+            "Stations, airports and museums are used by many people every day. When taking photos, do not block the way, and avoid capturing other people's faces. Some countries and facilities also have rules about photography.",
+            "Ruins and unfinished towns such as Consonno, Burj Al Babas and Kolmanskop are on private land or in restricted areas. Visit by the permitted means, such as during opening hours or on tours, and do not enter buildings without permission. Old structures can collapse."
+          ]
+        },
+        {
+          "heading": "If You Find One, Put It on the Map",
+          "paragraphs": [
+            "Besides these 15, about 100 overseas places are registered on LIMap. Zoom the map out to the whole world and look for places that catch your eye. Places in Japan are covered in the regional articles.",
+            "If you come across a strange place emptied of people on your travels, please add its photo and location to LIMap."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "What are the most famous liminal spaces in the world?",
+          "a": "Frequently shared examples include Stockholm's metro stations (such as Solna Centrum), Toledo Station in Naples, Terminal 1 at Paris Charles de Gaulle, Burj Al Babas in Turkey and Villa Epecuén in Argentina. This article covers these and more, 15 places in all."
+        },
+        {
+          "q": "Are liminal spaces real places?",
+          "a": "Many liminal space photos were taken in real stations, airports and buildings. All 15 places in this article are real, and you can find them on the LIMap map. Some, like the Backrooms, are fictional worlds built from photos."
+        },
+        {
+          "q": "Can I visit these places?",
+          "a": "Most stations, airports and plazas can be visited freely. Consonno and Burj Al Babas are fenced private land, and Kolmanskop is visited on permitted tours. Check the notes in each section before you go."
+        }
+      ]
+    },
+    "images": [
+      {
+        "file": "Stockholm - Solna centrum Metro station (by Pudelek).jpg",
+        "author": "Pudelek",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Stockholm_-_Solna_centrum_Metro_station_(by_Pudelek).jpg",
+        "altJa": "ストックホルムのソルナ・セントルム駅。赤く塗られた岩の天井の下にエスカレーターが並ぶ",
+        "altEn": "Solna Centrum station in Stockholm, with escalators under a red-painted rock ceiling",
+        "captionJa": "ソルナ・セントルム駅（2015年撮影）。掘った岩盤をそのまま赤く塗った天井が、ホームを覆う。",
+        "captionEn": "Solna Centrum station (2015). The excavated bedrock, painted red, forms the ceiling over the platform.",
+        "afterSection": -1
+      },
+      {
+        "file": "Kosmonavtlar Station of Tashkent Metro 6.jpg",
+        "author": "Adam Harangozó",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Kosmonavtlar_Station_of_Tashkent_Metro_6.jpg",
+        "altJa": "コスモナフトラル駅の壁。濃い青から水色へ移る陶板に駅名が並ぶ",
+        "altEn": "The wall of Kosmonavtlar station, its tiles shading from deep blue to pale blue, with the station name",
+        "captionJa": "コスモナフトラル駅のホームの壁（2018年撮影）。青い陶板が、宇宙へ向かうように上へ行くほど濃くなる。",
+        "captionEn": "The platform wall at Kosmonavtlar (2018). The blue tiles darken toward the top, as if rising into space.",
+        "afterSection": 1
       }
     ]
   }
