@@ -1368,7 +1368,7 @@
           "heading": "それでも「近い空気感」を持つ場所は日本各地にある",
           "paragraphs": [
             "「あの部屋」そのものは存在しませんが、似た空気感を味わえる実在の場所なら日本各地にあります。LIMapには、そうした場所がすでにいくつも記録されています。",
-            "例えば、1979年開業・世界初の実用カプセルホテルとして知られる大阪のカプセルイン大阪は、同じ形の個室が延々と連なる非現実的な均質空間。かつて成田空港のターミナル駅として使われ、今は静かに時が止まった東成田駅(旧成田空港駅)の薄暗いコンコース。そして、栃木県の国道沿いで、長く使われないまま静まり返っている旧野木病院の建物（私有地のため、外から眺めるだけにしてください）。いずれも「誰もいないのに、何かの気配だけが残っている」空気感を持つ場所です。",
+            "例えば、1979年開業・世界初の実用カプセルホテルとして知られる大阪のカプセルイン大阪は、同じ形の個室が延々と連なる非現実的な均質空間。かつて成田空港のターミナル駅として使われ、今は静かに時が止まった東成田駅(旧成田空港駅)の薄暗いコンコース。いずれも「誰もいないのに、何かの気配だけが残っている」空気感を持つ場所です。",
             "気になる場所があれば、そのままLIMapの地図で位置や行き方を確認できます。あなたが感じた\"バックルームズっぽさ\"を、ぜひ他の人とも共有してみてください。"
           ],
           "spots": [
@@ -1383,12 +1383,6 @@
               "slug": "FGg4w6Jh",
               "afterParagraph": 1,
               "thumbnailUrl": "https://pbs.twimg.com/media/GLmAa2laQAAPDpD.jpg"
-            },
-            {
-              "title": "旧野木病院（廃病院）",
-              "slug": "Ru5BLnja",
-              "afterParagraph": 1,
-              "thumbnailUrl": "https://pbs.twimg.com/media/FVXOVhZacAAdBkW.jpg"
             }
           ],
           "embeds": [
@@ -1400,11 +1394,6 @@
             {
               "url": "https://x.com/hiroko_425/status/1781596370341859713",
               "spot": "FGg4w6Jh",
-              "afterParagraph": 1
-            },
-            {
-              "url": "https://x.com/ruins_cat/status/1537362267486179328",
-              "spot": "Ru5BLnja",
               "afterParagraph": 1
             }
           ]
@@ -1457,7 +1446,7 @@
           "heading": "Real Places With a Similar Atmosphere Do Exist Across Japan",
           "paragraphs": [
             "The room itself doesn't exist, but real places with a similar atmosphere are scattered across Japan. LIMap already has several of them recorded.",
-            "Take Capsule Inn Osaka, the world's first practical capsule hotel (opened 1979) — a surreal, uniform space where identical pods repeat endlessly down the corridor. Or Higashi-Narita Station, once a terminal stop for Narita Airport and now a quietly frozen-in-time station with a dim, empty concourse. Or the former Nogi Hospital in Tochigi, a building left unused for years beside a busy national highway (it is private property, so please only look from outside). Each one carries that same feeling: nobody's there, but something still lingers.",
+            "Take Capsule Inn Osaka, the world's first practical capsule hotel (opened 1979) — a surreal, uniform space where identical pods repeat endlessly down the corridor. Or Higashi-Narita Station, once a terminal stop for Narita Airport and now a quietly frozen-in-time station with a dim, empty concourse. Each one carries that same feeling: nobody's there, but something still lingers.",
             "If one of these catches your interest, you can check its exact location and how to get there right on the LIMap map. And if you find your own \"Backrooms\"-like place, record it and share that feeling with everyone else looking for it too."
           ],
           "spots": [
@@ -1472,12 +1461,6 @@
               "slug": "FGg4w6Jh",
               "afterParagraph": 1,
               "thumbnailUrl": "https://pbs.twimg.com/media/GLmAa2laQAAPDpD.jpg"
-            },
-            {
-              "title": "旧野木病院（廃病院）",
-              "slug": "Ru5BLnja",
-              "afterParagraph": 1,
-              "thumbnailUrl": "https://pbs.twimg.com/media/FVXOVhZacAAdBkW.jpg"
             }
           ],
           "embeds": [
@@ -1489,11 +1472,6 @@
             {
               "url": "https://x.com/hiroko_425/status/1781596370341859713",
               "spot": "FGg4w6Jh",
-              "afterParagraph": 1
-            },
-            {
-              "url": "https://x.com/ruins_cat/status/1537362267486179328",
-              "spot": "Ru5BLnja",
               "afterParagraph": 1
             }
           ]
@@ -1963,12 +1941,6 @@
               "slug": "FGg4w6Jh",
               "afterParagraph": 1,
               "thumbnailUrl": "https://pbs.twimg.com/media/GLmAa2laQAAPDpD.jpg"
-            },
-            {
-              "title": "旧野木病院（廃病院）",
-              "slug": "Ru5BLnja",
-              "afterParagraph": 1,
-              "thumbnailUrl": "https://pbs.twimg.com/media/FVXOVhZacAAdBkW.jpg"
             }
           ],
           "embeds": [
@@ -1980,11 +1952,6 @@
             {
               "url": "https://x.com/hiroko_425/status/1781596370341859713",
               "spot": "FGg4w6Jh",
-              "afterParagraph": 1
-            },
-            {
-              "url": "https://x.com/ruins_cat/status/1537362267486179328",
-              "spot": "Ru5BLnja",
               "afterParagraph": 1
             }
           ]
@@ -2060,12 +2027,6 @@
               "slug": "FGg4w6Jh",
               "afterParagraph": 1,
               "thumbnailUrl": "https://pbs.twimg.com/media/GLmAa2laQAAPDpD.jpg"
-            },
-            {
-              "title": "旧野木病院（廃病院）",
-              "slug": "Ru5BLnja",
-              "afterParagraph": 1,
-              "thumbnailUrl": "https://pbs.twimg.com/media/FVXOVhZacAAdBkW.jpg"
             }
           ],
           "embeds": [
@@ -2077,11 +2038,6 @@
             {
               "url": "https://x.com/hiroko_425/status/1781596370341859713",
               "spot": "FGg4w6Jh",
-              "afterParagraph": 1
-            },
-            {
-              "url": "https://x.com/ruins_cat/status/1537362267486179328",
-              "spot": "Ru5BLnja",
               "afterParagraph": 1
             }
           ]
@@ -2113,7 +2069,8 @@
         "captionEn": "The photograph that started everything — taken in June 2002 in a store under renovation in Oshkosh, Wisconsin.",
         "afterSection": 1
       }
-    ]
+    ],
+    "updatedDate": "2026-10-03"
   },
   {
     "slug": "is-backrooms-movie-scary",
@@ -3245,16 +3202,15 @@
           ],
           "spots": [
             {
-              "title": "旧野木病院（廃病院）",
-              "slug": "Ru5BLnja",
-              "afterParagraph": 1,
-              "thumbnailUrl": "https://pbs.twimg.com/media/FVXOVhZacAAdBkW.jpg"
+              "title": "サンシャインシティ 展示ホールA",
+              "slug": "otDUUTkK",
+              "afterParagraph": 1
             }
           ],
           "embeds": [
             {
-              "url": "https://x.com/ruins_cat/status/1537362267486179328",
-              "spot": "Ru5BLnja",
+              "url": "https://x.com/q_liminal/status/2096176520511578226",
+              "spot": "otDUUTkK",
               "afterParagraph": 1
             }
           ]
@@ -3311,16 +3267,15 @@
           ],
           "spots": [
             {
-              "title": "旧野木病院（廃病院）",
-              "slug": "Ru5BLnja",
-              "afterParagraph": 1,
-              "thumbnailUrl": "https://pbs.twimg.com/media/FVXOVhZacAAdBkW.jpg"
+              "title": "Sunshine City Exhibition Hall A",
+              "slug": "otDUUTkK",
+              "afterParagraph": 1
             }
           ],
           "embeds": [
             {
-              "url": "https://x.com/ruins_cat/status/1537362267486179328",
-              "spot": "Ru5BLnja",
+              "url": "https://x.com/q_liminal/status/2096176520511578226",
+              "spot": "otDUUTkK",
               "afterParagraph": 1
             }
           ]
@@ -3340,7 +3295,8 @@
         "captionEn": "Take scenery everyone has seen, and subtract only the people. That is his method.",
         "afterSection": -1
       }
-    ]
+    ],
+    "updatedDate": "2026-10-03"
   },
   {
     "slug": "what-is-noclip",
