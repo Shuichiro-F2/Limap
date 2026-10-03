@@ -1133,7 +1133,7 @@
         {
           "heading": "モデル駅は公式には発表されていない",
           "paragraphs": [
-            "結論から言うと、開発元は『8番出口』のモデルとなった特定の駅を公式には発表していません。それでも、東京都江東区にある東京メトロ・都営地下鉄「清澄白河駅」構内の通路は、不規則に並んだ蛍光灯の雰囲気がゲームの映像とよく似ているとして、SNS上でたびたびモデル地ではないかと話題になっています(制作会社は撮影地ではないとコメントしています)。",
+            "結論から言うと、開発元は『8番出口』の通路のモデルになった駅を公式には明かしていません。作者のKOTAKE CREATEさんは、通路のモデルは別の駅だとしたうえで、「照明の配置がバラバラになる」異変は東京都江東区の清澄白河駅（都営大江戸線）を参考にしたと説明しています。この駅の不揃いな蛍光灯はSNSでもたびたびモデル地ではないかと話題になりましたが、2025年から2026年にかけてのLED化工事で取り外され、今は天井に跡が残るだけになっています（なお、映画版について制作会社は撮影地ではないとコメントしています）。",
             "つまり『8番出口』は、「これが正解」という一つの場所を探し当てるゲームというより、日常のどこにでも“あの感覚”を覚える瞬間が潜んでいる、という気づきの方が面白さの本質に近いのかもしれません。"
           ]
         },
@@ -1200,6 +1200,20 @@
             }
           ]
         }
+      ],
+      "faq": [
+        {
+          "q": "『8番出口』のモデルになった駅はどこですか？",
+          "a": "開発元は公式に発表していません。作者は、通路のモデルは別の駅だとしたうえで、照明の配置がバラバラになる異変は清澄白河駅を参考にしたと説明しています。"
+        },
+        {
+          "q": "清澄白河駅の不揃いな照明は今も見られますか？",
+          "a": "見られません。2025年から2026年にかけてのLED化工事で取り外され、今は天井に跡が残るだけです。"
+        },
+        {
+          "q": "『8番出口』に似た場所は日本にありますか？",
+          "a": "東京駅の京葉線ホームへ続く長い連絡通路や、首都圏外郭放水路、松代大本営跡の地下壕など、通路や地下空間には似た空気を持つ場所があります。この記事の後半とLIMapの地図で紹介しています。"
+        }
       ]
     },
     "en": {
@@ -1218,7 +1232,7 @@
         {
           "heading": "No Station Has Ever Been Officially Confirmed",
           "paragraphs": [
-            "To be clear upfront: the developer has never officially named a real station as the model for Exit 8. Even so, a corridor inside Kiyosumi-Shirakawa Station in Tokyo's Koto Ward keeps coming up on social media, since its irregularly spaced fluorescent lights look a lot like the game's visuals (the production company has stated it was not the filming location).",
+            "To be clear upfront: the developer has never officially named the station the game's corridor is based on. The creator, KOTAKE CREATE, has said the corridor itself was modeled on a different station, but that the anomaly where the ceiling lights fall out of line was based on Kiyosumi-shirakawa Station (Toei Oedo Line) in Koto Ward, Tokyo. Those irregular fluorescent lights were often discussed on social media as the game's model, but they were removed during LED work between 2025 and 2026, and only their traces remain on the ceiling (the production company has also said the station was not a filming location for the film).",
             "In other words, Exit 8 probably isn't really about finding the one \"correct\" location. It's more about noticing that this feeling can lurk almost anywhere in everyday life."
           ]
         },
@@ -1285,6 +1299,20 @@
             }
           ]
         }
+      ],
+      "faq": [
+        {
+          "q": "Which station was The Exit 8 modeled on?",
+          "a": "The developer has not officially named one. The creator has said the corridor was based on a different station, and that the anomaly where the lights fall out of line was based on Kiyosumi-shirakawa Station."
+        },
+        {
+          "q": "Can you still see the irregular lights at Kiyosumi-shirakawa Station?",
+          "a": "No. They were removed during LED work between 2025 and 2026, and only their traces remain on the ceiling."
+        },
+        {
+          "q": "Are there places in Japan that feel like The Exit 8?",
+          "a": "Long passages and underground spaces such as the passage to the Keiyo Line platforms at Tokyo Station, the Metropolitan Area Outer Underground Discharge Channel, and the tunnels of the former Matsushiro Imperial Headquarters have a similar atmosphere. This article and the LIMap map introduce them."
+        }
       ]
     },
     "images": [
@@ -1300,7 +1328,8 @@
         "captionEn": "A corridor where the same view repeats endlessly — the kind of déjà vu Exit 8 is built on.",
         "afterSection": -1
       }
-    ]
+    ],
+    "updatedDate": "2026-10-03"
   },
   {
     "slug": "backrooms-in-japan",
@@ -2276,7 +2305,7 @@
           "heading": "LIMapに登録されている、東京の実在スポット",
           "paragraphs": [
             "以下は、LIMapに実際に登録されている東京都内の場所です。カードから地図と詳細を開けます。",
-            "地下通路系では、ゲーム『8番出口』のモデル地として知られる清澄白河駅の通路と、東京駅の京葉線・武蔵野線連絡通路。前者は蛍光灯とタイルの均質さ、後者は延々と歩かされる距離そのものが体験になります。団地・商店街系では、北区の桐ケ丘中央商店街。そして、役目を終えた交通施設として、奥多摩湖ロープウェイの川野駅跡。",
+            "地下通路系では、ゲーム『8番出口』の異変のモデルとして知られる清澄白河駅の通路と、東京駅の京葉線・武蔵野線連絡通路。前者は不揃いに並んだ蛍光灯で知られていましたが、2025年から2026年にかけての工事で照明が取り外され、今は天井に跡が残るだけです。後者は、延々と歩かされる距離そのものが体験になります。団地・商店街系では、北区の桐ケ丘中央商店街（団地の建て替えが進んでいて、商店街の組合は2025年に解散しました。住まいや住民が写らないように気をつけてください）。そして、役目を終えた交通施設として、奥多摩湖ロープウェイの川野駅跡（立入禁止のため、離れた場所から眺めるだけにしてください）。",
             "いずれも心霊スポットではありません。怖がるための場所ではなく、空間そのものを見に行く場所として登録されています。"
           ],
           "spots": [
@@ -2370,7 +2399,7 @@
           "heading": "Real Tokyo Spots Recorded on LIMap",
           "paragraphs": [
             "These are places actually recorded on LIMap. Open a card for the map and details.",
-            "For underground passages: the corridor at Kiyosumi-shirakawa Station, known as the model for the game Exit 8, and the Keiyo and Musashino line connecting passage at Tokyo Station. The first is about the uniformity of tile and fluorescent light; the second is about the sheer distance you are made to walk. For housing estates and shopping streets, Kirigaoka Chuo Shotengai in Kita ward. And as transit infrastructure that has finished its job, the former Kawano Station of the Okutama Lake ropeway.",
+            "For underground passages: the corridor at Kiyosumi-shirakawa Station, known as the model for one of the anomalies in the game Exit 8, and the Keiyo and Musashino line connecting passage at Tokyo Station. The first was known for its irregularly placed fluorescent lights, but they were removed during work between 2025 and 2026 and only their traces remain on the ceiling. The second is about the sheer distance you are made to walk. For housing estates and shopping streets, Kirigaoka Chuo Shotengai in Kita ward (the estate is being rebuilt and the shopping street association was dissolved in 2025; please keep homes and residents out of your photos). And as transit infrastructure that has finished its job, the former Kawano Station of the Okutama Lake ropeway (entry is prohibited, so view it only from a distance).",
             "None of these are haunted spots. They are recorded as places to look at the space itself, not to frighten yourself."
           ],
           "spots": [
@@ -2452,7 +2481,8 @@
         "captionEn": "Not decayed, just unused. Tokyo has a great deal of space that meets this condition.",
         "afterSection": -1
       }
-    ]
+    ],
+    "updatedDate": "2026-10-03"
   },
   {
     "slug": "backrooms-levels-explained",
@@ -3543,7 +3573,7 @@
         {
           "heading": "ゲームのあとに、現実で歩ける場所",
           "paragraphs": [
-            "ゲームの中の通路や部屋に近い空気は、現実の駅や地下通路、展示ホールにもあります。LIMapには、『8番出口』のモデルのひとつとされる清澄白河駅の通路や、東京駅の地下深くへ続く京葉線の連絡通路のほか、札幌駅と大通を結ぶ約520mの地下歩行空間チ・カ・ホ、海の下を約780m歩いて渡る関門トンネル人道も登録されています。",
+            "ゲームの中の通路や部屋に近い空気は、現実の駅や地下通路、展示ホールにもあります。LIMapには、『8番出口』の異変のモデルになった清澄白河駅の通路（不揃いな照明は2026年までに取り外されました）や、東京駅の地下深くへ続く京葉線の連絡通路のほか、札幌駅と大通を結ぶ約520mの地下歩行空間チ・カ・ホ、海の下を約780m歩いて渡る関門トンネル人道も登録されています。",
             "展示の合間の、人も什器もない展示ホールも、バックルームズ的な空間として知られています。ただし、駅や通路は多くの人が使う場所です。撮影するときは通る人の顔が写らないように気をつけ、通行の邪魔にならないようにしてください。"
           ],
           "spots": [
@@ -3675,7 +3705,7 @@
         {
           "heading": "Real Places You Can Walk After the Game",
           "paragraphs": [
-            "The atmosphere of the corridors and rooms in these games can also be found in real stations, underground passages and exhibition halls. On LIMap you can find the passage at Kiyosumi-shirakawa Station, said to be one of the models for The Exit 8, and the Keiyo Line passage that leads deep beneath Tokyo Station, as well as Chi-Ka-Ho, the 520-meter underground walkway linking Sapporo Station and Odori, and the Kanmon Tunnel pedestrian walkway, where you cross about 780 meters under the sea.",
+            "The atmosphere of the corridors and rooms in these games can also be found in real stations, underground passages and exhibition halls. On LIMap you can find the passage at Kiyosumi-shirakawa Station, the model for one of the anomalies in The Exit 8 (its irregular lights were removed by 2026), and the Keiyo Line passage that leads deep beneath Tokyo Station, as well as Chi-Ka-Ho, the 520-meter underground walkway linking Sapporo Station and Odori, and the Kanmon Tunnel pedestrian walkway, where you cross about 780 meters under the sea.",
             "An exhibition hall between shows, with no people and no fixtures, is also known as a Backrooms-like space. Stations and passages are used by many people, though. When taking photos, take care not to capture passersby clearly, and do not block the way."
           ],
           "spots": [
@@ -3747,7 +3777,8 @@
         "captionEn": "The underground passage to the Keiyo Line at Tokyo Station. The corridors of these games exist in real stations too.",
         "afterSection": -1
       }
-    ]
+    ],
+    "updatedDate": "2026-10-03"
   },
   {
     "slug": "pools-game",
@@ -7718,6 +7749,421 @@
         "captionJa": "新神戸駅に直結する新神戸オリエンタルシティ。",
         "captionEn": "Shin-Kobe Oriental City, directly connected to Shin-Kobe Station.",
         "afterSection": 1
+      }
+    ]
+  },
+  {
+    "slug": "liminal-spots-tokyo",
+    "related": [
+      "backrooms-spots-tokyo",
+      "liminal-spots-kitakanto",
+      "is-exit-8-real"
+    ],
+    "category": "実在スポット",
+    "categoryEn": "Real Spots",
+    "publishedDate": "2026-10-03",
+    "ja": {
+      "title": "東京のリミナルスペース｜駅の地下通路から屋上の観覧車まで、実在する8か所",
+      "h1": "東京のリミナルスペース｜駅の地下通路から屋上の観覧車まで、実在する8か所",
+      "metaDescription": "東京で「リミナルスペース」を感じられる実在の場所を、LIMapの登録スポットから8か所紹介します。成田新幹線の予定地を使った東京駅の京葉線通路、駐車場を改修した丸の内の地下通路、1955年開業の浅草地下街、屋上の観覧車まで。行くときの注意点も。",
+      "lead": "東京には、駅と駅、ビルとビルをつなぐ通路がどこまでも続き、昭和の娯楽のための建物が今も営業しています。人の少ない時間に歩くと、見慣れたはずの場所が急に知らない場所に見える。LIMapに登録した、誰でも行ける8か所と、映画『バックルームズ』の公開に合わせて東京に現れた2つの空間を紹介します。",
+      "sections": [
+        {
+          "heading": "東京のリミナルスペースは「乗り換えの途中」と「昭和の娯楽」に多い",
+          "paragraphs": [
+            "東京の地下には、駅と駅、ビルとビルをつなぐ通路が網の目のように張り巡らされています。そのほとんどは、目的地へ向かう途中に通り過ぎるためだけの場所です。朝夕は人で埋まる通路が、早朝や夜遅くには急に静かになる。この落差が、東京のリミナルスペースの大きな特徴です。",
+            "もうひとつは、昭和に建てられた娯楽の場所が、今も現役で使われていることです。地下の飲食店街、映画館とボウリング場の入ったビル、デパートの屋上の遊園地。新しい街並みのすぐ隣で、時間の流れ方だけが違って見えます。"
+          ]
+        },
+        {
+          "heading": "東京駅の地下深く：京葉線ホームへの長い通路",
+          "paragraphs": [
+            "東京駅の京葉線ホームは、ほかの乗り場から大きく離れた地下深くにあります。1990年3月の京葉線の乗り入れにあたって、もともと成田新幹線の駅として計画され、1983年ごろに工事が止まっていた地下の空間が使われたためです。乗り換えには、動く歩道の並ぶ「ベイロード」と呼ばれる連絡通路を延々と歩くことになります。",
+            "同じ景色の続く通路を、動く歩道に運ばれていく時間は、まさに「どこかへ向かう途中」そのものです。通勤の波が引いた夜遅くや休日の早朝には、人の気配がほとんど消えます。"
+          ],
+          "spots": [
+            {
+              "title": "東京駅 京葉線・武蔵野線連絡通路",
+              "slug": "KM5aKcco",
+              "afterParagraph": 0
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/sankichi48/status/2015193957056352699",
+              "spot": "KM5aKcco",
+              "afterParagraph": 0
+            }
+          ]
+        },
+        {
+          "heading": "丸の内と汐留：オフィス街の地下を歩く",
+          "paragraphs": [
+            "丸の内の行幸通りの地下を、東京駅から皇居の方向へまっすぐ延びるのが行幸地下通路です。1960年に完成した地下駐車場を改修して、2007年に歩行者のための通路になりました。壁沿いに並ぶガラスのショーケースは「行幸地下ギャラリー」と呼ばれ、全長約220mにわたって展示が続きます。円柱の並ぶまっすぐな通路は、休日の朝にはほとんど人が通りません。",
+            "新橋から汐留の高層ビル街へは、地上、地下、2階の歩行者デッキの3つの道があります。その地下にあたる汐留シオサイトの地下歩道は、JR新橋駅の汐留口から都営大江戸線の汐留駅まで地下でつながっています。頭上の華やかなビル街とは対照的に、コンクリートと照明だけの通路が続きます。"
+          ],
+          "spots": [
+            {
+              "title": "行幸地下ギャラリー",
+              "slug": "fMm9FwDX",
+              "afterParagraph": 0
+            },
+            {
+              "title": "汐留シオサイト地下歩道",
+              "slug": "VwXjTi86",
+              "afterParagraph": 1
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://www.instagram.com/p/DF4I9TkzUZ-/",
+              "spot": "fMm9FwDX",
+              "afterParagraph": 0
+            },
+            {
+              "url": "https://www.instagram.com/p/DU7BXtzDz21/",
+              "spot": "VwXjTi86",
+              "afterParagraph": 1
+            }
+          ]
+        },
+        {
+          "heading": "昭和が残る場所：浅草地下街とロサ会館",
+          "paragraphs": [
+            "浅草地下街は、1955年に開業した地下の商店街です。戦後に造られた地下街としては、今も残っているもので日本最古とされています。東京メトロ銀座線の浅草駅の改札を出てすぐのところに入口があり、全長50mほどの低い通路に、飲食店や理髪店が並んでいます。浅草の観光の賑わいのすぐ下に、まったく違う時間が流れています。",
+            "池袋西口のロサ会館は、1968年に開業した総合アミューズメントビルです。1946年に開業した映画館シネマ・ロサを前身とし、今もボウリング場、ゲームセンター、ライブハウス、飲食店が入っています。入り組んだ通路と古い案内表示が、昭和の娯楽ビルの空気を伝えています。池袋西口の再開発の区域に含まれていて、いずれ建て替えが予定されています。"
+          ],
+          "spots": [
+            {
+              "title": "浅草地下街",
+              "slug": "mUJPSbt5",
+              "afterParagraph": 0
+            },
+            {
+              "title": "ロサ会館",
+              "slug": "W9n7DymW",
+              "afterParagraph": 1
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://www.instagram.com/p/DRJza_REVS8/",
+              "spot": "mUJPSbt5",
+              "afterParagraph": 0
+            },
+            {
+              "url": "https://www.instagram.com/p/CxU5jbqNnRJ/",
+              "spot": "W9n7DymW",
+              "afterParagraph": 1
+            }
+          ]
+        },
+        {
+          "heading": "屋上の観覧車と、湖のほとりのロープウェイ跡",
+          "paragraphs": [
+            "蒲田駅前の東急プラザ蒲田の屋上には、1968年から続く小さな遊園地「屋上かまたえん」があります。都内で唯一の屋上観覧車「幸せの観覧車」は3代目で、2014年に一度は撤去される予定でしたが、存続を望む声を受けて、改装後に再び設置されました。駅前の雑踏を見下ろしながら、ゆっくり回るゴンドラに乗る時間は、どこか現実から浮いています。",
+            "奥多摩湖のほとりには、1962年に開業した奥多摩湖ロープウェイの跡が残っています。1966年の冬に「冬季休業」として運行を止めたまま、再開されることはありませんでした。川野駅の跡には、今もゴンドラが残されています。立入禁止で崩れる危険もあるため、近づかず、離れた場所から眺めるだけにしてください。"
+          ],
+          "spots": [
+            {
+              "title": "屋上かまたえん",
+              "slug": "g3Pub95b",
+              "afterParagraph": 0
+            },
+            {
+              "title": "奥多摩湖ロープウェイ 川野駅跡",
+              "slug": "gHBKZTqy",
+              "afterParagraph": 1
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://www.instagram.com/p/DVdr35HkStp/",
+              "spot": "g3Pub95b",
+              "afterParagraph": 0
+            },
+            {
+              "url": "https://x.com/kaede472/status/1731377068137431309",
+              "spot": "gHBKZTqy",
+              "afterParagraph": 1
+            }
+          ]
+        },
+        {
+          "heading": "夜の地下通路と、映画が東京に作った「バックルームズ」",
+          "paragraphs": [
+            "東京ドームシティでは、2003年に開業したラクーアへ続く地下通路が、閉店間際の人の少ない時間に、独特の色づかいとこもった空気で、別の場所のような表情を見せます。LIMapに投稿された写真から、その雰囲気をのぞいてみてください。",
+            "2026年9月4日に映画『バックルームズ』が日本で公開されたときには、東京に期間限定の「バックルームズ」が2つ現れました。池袋のサンシャインシティ展示ホールAでは、体験型のイベント「Q LIMINAL」が9月11日から20日まで開かれました。赤坂では、雑居ビルの2階の空室を使って、劇中の空間を実物大で再現した展示が9月1日から13日まで、ガラス越しに見られました。どちらも会期は終わっていて、赤坂の部屋は今は普通の賃貸オフィスの空室なので、訪ねるのは控えてください。"
+          ],
+          "spots": [
+            {
+              "title": "東京ドームシティ ラクーアへ続く地下通路",
+              "slug": "cLCX7GdA",
+              "afterParagraph": 0,
+              "thumbnailUrl": "https://yaucxjgxxmoixsifenfl.supabase.co/storage/v1/object/public/spot-images/5a3a3b6b-ff4c-486b-86e1-0c7e53318d37/1786607954469-6nkf2oesx.jpg"
+            },
+            {
+              "title": "サンシャインシティ 展示ホールA",
+              "slug": "otDUUTkK",
+              "afterParagraph": 1
+            },
+            {
+              "title": "新陽ビル 2F（赤坂バックルームズ）",
+              "slug": "g5SSFruW",
+              "afterParagraph": 1
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/q_liminal/status/2096176520511578226",
+              "spot": "otDUUTkK",
+              "afterParagraph": 1
+            }
+          ]
+        },
+        {
+          "heading": "行くときの、現実的な注意点",
+          "paragraphs": [
+            "駅の通路や地下街、商業ビルは、お店や通る人の生活の場です。撮影するときはお店や人の顔が写らないように気をつけ、三脚を立てたり、通行の邪魔になったりしないようにしてください。地下通路には、通れる時間が決まっているところもあります。屋上かまたえんは10時から18時まで（冬は17時まで）で、荒天のときや熱中症警戒アラートが出ているときは観覧車などが休止になります。",
+            "奥多摩湖ロープウェイの跡のように、使われなくなった施設は立入禁止です。柵や看板の内側には入らず、外から眺めるだけにしてください。なお、ゲーム『8番出口』の異変のモデルになった清澄白河駅の不揃いな照明は、2025年から2026年にかけてのLED化工事で取り外されています。"
+          ]
+        },
+        {
+          "heading": "撮ったら、地図に残してください",
+          "paragraphs": [
+            "東京には、まだ記録されていない通路や古い建物がたくさんあります。毎日通る乗り換えの通路が、誰かにとっての探していた景色かもしれません。映画をきっかけに興味を持った人は、「映画を観たあとに行きたい、東京の『バックルームズ的』な場所」もあわせて読んでみてください。",
+            "LIMapは、そうした場所を写真と位置つきで残していく地図です。見つけた場所があれば、ぜひ登録してください。"
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "東京で手軽にリミナルスペースを感じられる場所は？",
+          "a": "東京駅の京葉線ホームへ続く長い連絡通路や、丸の内の行幸地下通路は、駅から直接行けて、通るのにお金もかかりません。人の少ない早朝や夜遅く、休日の朝がおすすめです。"
+        },
+        {
+          "q": "清澄白河駅の『8番出口』のような照明は今も見られますか？",
+          "a": "見られません。不揃いに並んでいた照明は、2025年から2026年にかけてのLED化工事で取り外され、今は天井に跡が残るだけです。"
+        },
+        {
+          "q": "映画『バックルームズ』の展示やイベントには今も行けますか？",
+          "a": "サンシャインシティの「Q LIMINAL」（2026年9月11日〜20日）も、赤坂の実物大の展示（9月1日〜13日）も、会期は終わっています。"
+        }
+      ]
+    },
+    "en": {
+      "title": "Liminal Spaces in Tokyo: 8 Real Places, From Deep Station Passages to a Rooftop Ferris Wheel",
+      "h1": "Liminal Spaces in Tokyo: 8 Real Places, From Deep Station Passages to a Rooftop Ferris Wheel",
+      "metaDescription": "Eight real places in Tokyo where you can feel a liminal atmosphere, chosen from spots on LIMap: the Keiyo Line passage built in space meant for the Narita Shinkansen, a Marunouchi walkway converted from a car park, the Asakusa underground street from 1955, and a rooftop Ferris wheel. Plus practical notes for visiting.",
+      "lead": "Tokyo is laced with passages linking station to station and building to building, and buildings made for Showa-era entertainment are still in business. Walk them when few people are around, and familiar places suddenly feel unfamiliar. Here are eight places on LIMap that anyone can visit, and two spaces that appeared in Tokyo for the release of the film The Backrooms.",
+      "sections": [
+        {
+          "heading": "Tokyo's Liminal Spaces Live \"Between Transfers\" and in Showa-Era Entertainment",
+          "paragraphs": [
+            "Beneath Tokyo runs a web of passages connecting stations and buildings. Most of them exist only to be passed through on the way somewhere else. Passages packed with commuters in the morning and evening fall quiet early in the morning or late at night, and that contrast is one of the defining features of liminal spaces in Tokyo.",
+            "The other is that places built for Showa-era leisure are still in use: an underground row of eateries, a building with a cinema and a bowling alley, an amusement park on a department store roof. Right beside the newer city, time seems to move differently."
+          ]
+        },
+        {
+          "heading": "Deep Under Tokyo Station: The Long Passage to the Keiyo Line",
+          "paragraphs": [
+            "The Keiyo Line platforms at Tokyo Station sit deep underground, far from the station's other platforms. When the Keiyo Line arrived in March 1990, it used underground space originally planned as the station for the Narita Shinkansen, whose construction had stopped around 1983. To transfer, you walk a long connecting passage lined with moving walkways, known as the Bay Road.",
+            "Being carried along the moving walkways past the same scenery is the very feeling of being on the way somewhere. Late at night after the commuter rush, or early on a holiday morning, the passage empties almost completely."
+          ],
+          "spots": [
+            {
+              "title": "Keiyo and Musashino Line passage, Tokyo Station",
+              "slug": "KM5aKcco",
+              "afterParagraph": 0
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/sankichi48/status/2015193957056352699",
+              "spot": "KM5aKcco",
+              "afterParagraph": 0
+            }
+          ]
+        },
+        {
+          "heading": "Marunouchi and Shiodome: Walking Beneath the Office Districts",
+          "paragraphs": [
+            "The Gyoko underground passage runs straight beneath Gyoko-dori in Marunouchi, from Tokyo Station toward the Imperial Palace. It was converted from an underground car park completed in 1960 and opened to pedestrians in 2007. The glass showcases along its walls, known as the Gyoko Underground Gallery, continue for about 220 meters. On weekend mornings, almost no one walks this straight, column-lined corridor.",
+            "From Shimbashi to the Shiodome high-rises there are three routes: at street level, underground, and on a second-floor pedestrian deck. The underground route, the Shiodome Sio-Site underground walkway, links JR Shimbashi Station's Shiodome exit with Shiodome Station on the Toei Oedo Line. In contrast to the glittering towers above, it is a passage of concrete and light."
+          ],
+          "spots": [
+            {
+              "title": "Gyoko Underground Gallery",
+              "slug": "fMm9FwDX",
+              "afterParagraph": 0
+            },
+            {
+              "title": "Shiodome Sio-Site underground walkway",
+              "slug": "VwXjTi86",
+              "afterParagraph": 1
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://www.instagram.com/p/DF4I9TkzUZ-/",
+              "spot": "fMm9FwDX",
+              "afterParagraph": 0
+            },
+            {
+              "url": "https://www.instagram.com/p/DU7BXtzDz21/",
+              "spot": "VwXjTi86",
+              "afterParagraph": 1
+            }
+          ]
+        },
+        {
+          "heading": "Where the Showa Era Remains: Asakusa Underground Street and Rosa Kaikan",
+          "paragraphs": [
+            "The Asakusa Underground Shopping Street opened in 1955. Among underground shopping streets built after the war, it is said to be the oldest still in existence in Japan. Its entrance is just outside the ticket gates of Asakusa Station on the Tokyo Metro Ginza Line, and eateries and a barber line a low passage about 50 meters long. Right below the busy tourist streets of Asakusa, a completely different time flows.",
+            "Rosa Kaikan, at the west exit of Ikebukuro Station, opened in 1968 as an all-in-one amusement building. It grew out of the Cinema Rosa movie theater, which opened in 1946, and still houses a bowling alley, a game center, a live music venue and restaurants. Its winding corridors and old signs carry the air of a Showa-era entertainment building. It lies within the Ikebukuro west exit redevelopment area and is expected to be rebuilt eventually."
+          ],
+          "spots": [
+            {
+              "title": "Asakusa Underground Shopping Street",
+              "slug": "mUJPSbt5",
+              "afterParagraph": 0
+            },
+            {
+              "title": "Rosa Kaikan",
+              "slug": "W9n7DymW",
+              "afterParagraph": 1
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://www.instagram.com/p/DRJza_REVS8/",
+              "spot": "mUJPSbt5",
+              "afterParagraph": 0
+            },
+            {
+              "url": "https://www.instagram.com/p/CxU5jbqNnRJ/",
+              "spot": "W9n7DymW",
+              "afterParagraph": 1
+            }
+          ]
+        },
+        {
+          "heading": "A Rooftop Ferris Wheel and a Ropeway Station by the Lake",
+          "paragraphs": [
+            "On the roof of Tokyu Plaza Kamata, in front of Kamata Station, is Kamataen, a small amusement park that has been there since 1968. Its \"Ferris Wheel of Happiness\", the only rooftop Ferris wheel in Tokyo, is the third generation: it was due to be removed in 2014, but after calls to keep it, it was reinstalled following renovation. Riding a slowly turning gondola above the crowds around the station feels somehow detached from reality.",
+            "By Lake Okutama stand the remains of the Okutama Lake Ropeway, which opened in 1962. It stopped running in the winter of 1966 for a \"winter break\" and never reopened. A gondola still remains at the former Kawano Station. Entry is prohibited and there is a risk of collapse, so do not approach it; look only from a distance."
+          ],
+          "spots": [
+            {
+              "title": "Kamataen rooftop amusement park",
+              "slug": "g3Pub95b",
+              "afterParagraph": 0
+            },
+            {
+              "title": "Former Kawano Station, Okutama Lake Ropeway",
+              "slug": "gHBKZTqy",
+              "afterParagraph": 1
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://www.instagram.com/p/DVdr35HkStp/",
+              "spot": "g3Pub95b",
+              "afterParagraph": 0
+            },
+            {
+              "url": "https://x.com/kaede472/status/1731377068137431309",
+              "spot": "gHBKZTqy",
+              "afterParagraph": 1
+            }
+          ]
+        },
+        {
+          "heading": "A Late-Night Passage, and the \"Backrooms\" a Film Brought to Tokyo",
+          "paragraphs": [
+            "At Tokyo Dome City, the underground passage to LaQua, which opened in 2003, takes on the look of somewhere else near closing time, when few people are around, with its distinctive colors and close, still air. Have a look at the photos posted to LIMap.",
+            "When the film The Backrooms opened in Japan on September 4, 2026, two limited-time \"Backrooms\" appeared in Tokyo. At Sunshine City Exhibition Hall A in Ikebukuro, the hands-on event Q LIMINAL ran from September 11 to 20. In Akasaka, a life-size recreation of a scene from the film filled an empty second-floor office and could be seen through the glass from September 1 to 13. Both have ended, and the Akasaka room is now an ordinary vacant office, so please do not go looking for it."
+          ],
+          "spots": [
+            {
+              "title": "Underground passage to LaQua, Tokyo Dome City",
+              "slug": "cLCX7GdA",
+              "afterParagraph": 0,
+              "thumbnailUrl": "https://yaucxjgxxmoixsifenfl.supabase.co/storage/v1/object/public/spot-images/5a3a3b6b-ff4c-486b-86e1-0c7e53318d37/1786607954469-6nkf2oesx.jpg"
+            },
+            {
+              "title": "Sunshine City Exhibition Hall A",
+              "slug": "otDUUTkK",
+              "afterParagraph": 1
+            },
+            {
+              "title": "Shinyo Building 2F (the Akasaka Backrooms)",
+              "slug": "g5SSFruW",
+              "afterParagraph": 1
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/q_liminal/status/2096176520511578226",
+              "spot": "otDUUTkK",
+              "afterParagraph": 1
+            }
+          ]
+        },
+        {
+          "heading": "Practical Notes for Visiting",
+          "paragraphs": [
+            "Station passages, underground streets and commercial buildings are places where people work and pass through. When taking photos, keep shops and faces out of the frame, and do not set up tripods or block the way. Some underground passages are only open at certain hours. Kamataen is open from 10:00 to 18:00 (until 17:00 in winter), and the Ferris wheel and other rides stop in bad weather or when a heatstroke alert is in effect.",
+            "Disused facilities like the Okutama Lake Ropeway are off-limits. Do not go past fences or signs; view them only from outside. Also note that the irregular lights at Kiyosumi-shirakawa Station, the model for one of the anomalies in the game The Exit 8, were removed during LED work between 2025 and 2026."
+          ]
+        },
+        {
+          "heading": "If You Shoot It, Put It on the Map",
+          "paragraphs": [
+            "Tokyo still has many passages and old buildings no one has recorded. The transfer passage you walk every day may be exactly the scene someone else has been looking for. If the film got you interested, also read \"Places in Tokyo That Feel Like the Backrooms, for After the Film.\"",
+            "LIMap is a map for keeping places like these, with photos and locations. If you find one, please add it."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Where can I easily feel a liminal atmosphere in Tokyo?",
+          "a": "The long passage to the Keiyo Line platforms at Tokyo Station and the Gyoko underground passage in Marunouchi can both be reached directly from the station and cost nothing to walk. Early mornings, late nights and weekend mornings are best."
+        },
+        {
+          "q": "Can I still see the Exit 8-like lights at Kiyosumi-shirakawa Station?",
+          "a": "No. The irregularly placed lights were removed during LED work between 2025 and 2026, and only their traces remain on the ceiling."
+        },
+        {
+          "q": "Can I still visit the Backrooms film exhibitions?",
+          "a": "No. Both Q LIMINAL at Sunshine City (September 11–20, 2026) and the life-size display in Akasaka (September 1–13) have ended."
+        }
+      ]
+    },
+    "images": [
+      {
+        "file": "JR Tokyo Station Keiyo Underground Passage.JPG",
+        "author": "ARICA13",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:JR_Tokyo_Station_Keiyo_Underground_Passage.JPG",
+        "altJa": "東京駅の京葉線ホームへ続く地下通路。蛍光灯の下、まっすぐな通路が奥まで続く",
+        "altEn": "The underground passage to the Keiyo Line platforms at Tokyo Station, running straight into the distance under fluorescent lights",
+        "captionJa": "東京駅の京葉線ホームへ続く地下通路。乗り換えのために、同じ景色の中を延々と歩く。",
+        "captionEn": "The underground passage to the Keiyo Line platforms at Tokyo Station, where a transfer means a long walk through the same scenery.",
+        "afterSection": -1
+      },
+      {
+        "file": "行幸地下通路-2.jpg",
+        "author": "駅案内人",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:%E8%A1%8C%E5%B9%B8%E5%9C%B0%E4%B8%8B%E9%80%9A%E8%B7%AF-2.jpg",
+        "altJa": "丸の内の行幸地下通路。円柱の並ぶ通路が皇居の方向へ続く",
+        "altEn": "The Gyoko underground passage in Marunouchi, a column-lined corridor leading toward the Imperial Palace",
+        "captionJa": "行幸地下通路。駐車場だった空間が、皇居の方向へまっすぐ延びる通路になった。",
+        "captionEn": "The Gyoko underground passage: a former car park turned into a straight walkway toward the Imperial Palace.",
+        "afterSection": 2
       }
     ]
   }

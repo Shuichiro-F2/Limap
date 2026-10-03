@@ -6,7 +6,15 @@
     <atom:link href="https://limap.jp/en/articles/feed.xml" rel="self" type="application/rss+xml" />
     <description>What liminal spaces are, where the word comes from, how they differ from the Backrooms and dreamcore, and real examples in Japan. Articles by LIMap.</description>
     <language>en</language>
-    <lastBuildDate>Mon, 28 Sep 2026 00:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 03 Oct 2026 00:00:00 GMT</lastBuildDate>
+    <item>
+      <title>Liminal Spaces in Tokyo: 8 Real Places, From Deep Station Passages to a Rooftop Ferris Wheel</title>
+      <link>https://limap.jp/en/articles/liminal-spots-tokyo/</link>
+      <guid isPermaLink="true">https://limap.jp/en/articles/liminal-spots-tokyo/</guid>
+      <pubDate>Sat, 03 Oct 2026 00:00:00 GMT</pubDate>
+      <category>Real Spots</category>
+      <description>Eight real places in Tokyo where you can feel a liminal atmosphere, chosen from spots on LIMap: the Keiyo Line passage built in space meant for the Narita Shinkansen, a Marunouchi walkway converted from a car park, the Asakusa underground street from 1955, and a rooftop Ferris wheel. Plus practical notes for visiting.</description>
+    </item>
     <item>
       <title>7 Games Where You Can Walk Through Liminal Spaces: The Exit 8, Pools, Escape the Backrooms and More</title>
       <link>https://limap.jp/en/articles/liminal-space-games/</link>
@@ -238,14 +246,6 @@
       <pubDate>Sat, 15 Aug 2026 00:00:00 GMT</pubDate>
       <category>Comparisons</category>
       <description>Liminal space, dreamcore, and weirdcore all sit in similar territory online — here&#39;s a clear breakdown of what separates these three internet aesthetics.</description>
-    </item>
-    <item>
-      <title>Why Do Liminal Spaces Feel Scary or Unsettling?</title>
-      <link>https://limap.jp/en/articles/why-liminal-spaces-feel-scary/</link>
-      <guid isPermaLink="true">https://limap.jp/en/articles/why-liminal-spaces-feel-scary/</guid>
-      <pubDate>Sat, 15 Aug 2026 00:00:00 GMT</pubDate>
-      <category>Psychology</category>
-      <description>There&#39;s no monster in the photo, so why does it feel unsettling? Here&#39;s what psychology says about why empty, familiar places trigger unease.</description>
     </item>
   </channel>
 </rss>

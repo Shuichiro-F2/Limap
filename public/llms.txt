@@ -19,6 +19,7 @@
 
 ## コラム記事
 
+- [東京のリミナルスペース｜駅の地下通路から屋上の観覧車まで、実在する8か所](https://limap.jp/articles/liminal-spots-tokyo/): 東京で「リミナルスペース」を感じられる実在の場所を、LIMapの登録スポットから8か所紹介します。成田新幹線の予定地を使った東京駅の京葉線通路、駐車場を改修した丸の内の地下通路、1955年開業の浅草地下街、屋上の観覧車まで。行くときの注意点も。
 - [リミナルスペースを歩けるゲーム7選｜『8番出口』『Pools』『Escape the Backrooms』ほか、怖さと日本語対応まで](https://limap.jp/articles/liminal-space-games/): リミナルスペースやバックルームズを歩けるゲームを7本紹介します。『8番出口』『8番のりば』『Pools』『Escape the Backrooms』『Dreamcore』『Anemoiapolis』『The Backrooms 1998』の開発元・発売日・遊べる機種・怖さ・日本語対応と、現実に行ける近い場所まで。
 - [ゲーム『Pools』とは？怖い？日本語は？どこで遊べる？プールルームを歩く作品と、現実の「Poolsっぽい」場所](https://limap.jp/articles/pools-game/): タイル張りのプールをひたすら歩くゲーム『Pools（POOLS）』を解説します。開発元、元になった「プールルーム」、遊べる機種と日本語、怖さの種類、そして現実に行ける「Poolsっぽい」プール施設まで。
 - [静岡・東海のリミナルスペース｜光のエスカレーターから昭和の駅舎まで、実在する8か所](https://limap.jp/articles/liminal-spots-tokai/): 静岡・岐阜・三重で「リミナルスペース」を感じられる実在の場所を、LIMapの登録スポットから8か所紹介します。静岡県庁の無料展望ロビー、MOA美術館のエスカレーター、養老天命反転地、柳ケ瀬のアーケード、セラミックパークMINO、四日市港の展望室、宇治山田駅、徳山ダム。行くときの注意点も。
@@ -57,6 +58,7 @@
 
 LIMap is a map for finding and sharing liminal spaces: abandoned buildings, empty stations, late-night parking lots and other eerie, nostalgic places. English versions of the articles are at https://limap.jp/en/articles/ (each page links to its Japanese version with hreflang).
 
+- [Liminal Spaces in Tokyo: 8 Real Places, From Deep Station Passages to a Rooftop Ferris Wheel](https://limap.jp/en/articles/liminal-spots-tokyo/): Eight real places in Tokyo where you can feel a liminal atmosphere, chosen from spots on LIMap: the Keiyo Line passage built in space meant for the Narita Shinkansen, a Marunouchi walkway converted from a car park, the Asakusa underground street from 1955, and a rooftop Ferris wheel. Plus practical notes for visiting.
 - [7 Games Where You Can Walk Through Liminal Spaces: The Exit 8, Pools, Escape the Backrooms and More](https://limap.jp/en/articles/liminal-space-games/): Seven games that let you walk through liminal spaces and the Backrooms: The Exit 8, Platform 8, Pools, Escape the Backrooms, Dreamcore, Anemoiapolis and The Backrooms 1998. Developers, release dates, platforms, how scary they are, language support, and real places that feel like them.
 - [What Is the Game Pools? Is It Scary? Where Can You Play It? The Poolrooms Game, and Real Places That Feel Like Pools](https://limap.jp/en/articles/pools-game/): A guide to Pools (POOLS), the game about wandering endless tiled swimming pools: who made it, the Poolrooms that inspired it, platforms and language support, what kind of fear it offers, and real pool facilities that feel like it.
 - [Liminal Spaces in Shizuoka and Tokai: 8 Real Places, From Escalators of Light to a Showa-Era Station](https://limap.jp/en/articles/liminal-spots-tokai/): Eight real places in Shizuoka, Gifu and Mie where you can feel the atmosphere of a liminal space, chosen from spots registered on LIMap: the free observation lobby of the Shizuoka Prefectural Office, the escalators of the MOA Museum of Art, the Site of Reversible Destiny, Yanagase arcade, Ceramic Park MINO, a harbor observation room in Yokkaichi, Ujiyamada Station and Tokuyama Dam. With tips for visiting.

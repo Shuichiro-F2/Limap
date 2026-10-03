@@ -1,8 +1,12 @@
 {
   "articles": [
     {
+      "slug": "liminal-spots-tokyo",
+      "lastmod": "2026-10-03"
+    },
+    {
       "slug": "liminal-space-games",
-      "lastmod": "2026-09-28"
+      "lastmod": "2026-10-03"
     },
     {
       "slug": "pools-game",
@@ -54,7 +58,7 @@
     },
     {
       "slug": "backrooms-spots-tokyo",
-      "lastmod": "2026-09-06"
+      "lastmod": "2026-10-03"
     },
     {
       "slug": "backrooms-levels-explained",
@@ -86,7 +90,7 @@
     },
     {
       "slug": "is-exit-8-real",
-      "lastmod": "2026-08-26"
+      "lastmod": "2026-10-03"
     },
     {
       "slug": "backrooms-in-japan",

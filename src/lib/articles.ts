@@ -467,6 +467,19 @@ const ARTICLE_ENTRIES: ArticleSummary[] = [
       "Kobe's artificial island, the world's first capsule hotel, the remains of a viaduct and an ore plant: real liminal spaces you can visit in Kansai.",
     thumbnailFile: 'River mall01s3200.jpg',
   },
+  {
+    slug: 'liminal-spots-tokyo',
+    publishedDate: '2026-10-03',
+    categoryJa: '実在スポット',
+    categoryEn: 'Real Spots',
+    titleJa: '東京のリミナルスペース｜駅の地下通路から屋上の観覧車まで、実在する8か所',
+    titleEn: 'Liminal Spaces in Tokyo: 8 Real Places, From Deep Station Passages to a Rooftop Ferris Wheel',
+    leadJa:
+      '成田新幹線の予定地を使った東京駅の京葉線通路、駐車場だった丸の内の地下通路、1955年開業の浅草地下街。東京で実際に行けるリミナルスペースを選びました。',
+    leadEn:
+      'A Tokyo Station passage built in space meant for the Narita Shinkansen, a Marunouchi walkway that was once a car park, an underground street from 1955: real liminal spaces you can visit in Tokyo.',
+    thumbnailFile: 'JR Tokyo Station Keiyo Underground Passage.JPG',
+  },
 ];
 
 // 一覧は新着順(publishedDate の降順)で表示する。Array#sort は安定なので、
