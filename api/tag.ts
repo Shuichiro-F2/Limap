@@ -31,7 +31,8 @@ import {
   spotTitle,
   tagChips,
 } from '../src/content/ssrPage';
-import { regionalArticlesFor } from '../src/content/japan';
+import { JAPAN_PREFECTURES, prefectureFullName, regionalArticlesFor } from '../src/content/japan';
+import { COUNTRY_TAGS } from '../src/content/spotSeo';
 
 const SUPABASE_URL = process.env.SUPABASE_URL || '';
 const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY || '';
@@ -82,7 +83,23 @@ type TagSpot = {
   description: string | null;
   created_at: string;
   images: { storage_path: string; thumbnail_path: string | null; position: number }[] | null;
+  embeds: { thumbnail_url: string | null; position: number }[] | null;
 };
+
+// カードの写真：投稿写真があればそれ、無ければ埋め込んだ SNS 投稿のサムネイル（アプリの一覧・記事のカードと同じ考え方）
+function cardImage(s: TagSpot, imageUrl: (path: string) => string): string | null {
+  const image = [...(s.images || [])].sort((a, b) => (a.position ?? 0) - (b.position ?? 0))[0];
+  if (image) return imageUrl(image.thumbnail_path || image.storage_path);
+  const embed = [...(s.embeds || [])].sort((a, b) => (a.position ?? 0) - (b.position ?? 0)).find((e) => e.thumbnail_url);
+  return embed?.thumbnail_url ?? null;
+}
+
+// 都道府県・国名のタグは「〇〇のリミナルスペース」で検索されるため、地名のページとして見出しや説明を変える
+function placeNameOf(tagName: string): { name: string; isPrefecture: boolean } | null {
+  if (JAPAN_PREFECTURES.includes(tagName)) return { name: prefectureFullName(tagName), isPrefecture: true };
+  if (COUNTRY_TAGS.includes(tagName)) return { name: tagName, isPrefecture: false };
+  return null;
+}
 
 function renderTagPage(
   tag: TagSummary,
@@ -91,23 +108,27 @@ function renderTagPage(
   imageUrl: (path: string) => string
 ): string {
   const url = `${SITE_URL}${tagPagePath(tag.name)}`;
-  const shown = spots.slice(0, MAX_SPOTS_ON_PAGE);
-  const title = `#${tag.name} のスポット一覧（${tag.count}件） | ${SITE_NAME}`;
+  // 写真のあるスポットを先に（同じなら新しい順のまま）
+  const shown = [...spots]
+    .sort((a, b) => Number(!!cardImage(b, imageUrl)) - Number(!!cardImage(a, imageUrl)))
+    .slice(0, MAX_SPOTS_ON_PAGE);
+  const place = placeNameOf(tag.name);
+  const examples = shown.slice(0, 3).map(spotTitle).join('、');
+  const title = place
+    ? `${place.name}のリミナルスペース｜実在する${tag.count}か所 | ${SITE_NAME}`
+    : `${tag.name}のリミナルスペース一覧（${tag.count}件） | ${SITE_NAME}`;
   const description = excerpt(
-    `LIMapに登録された「${tag.name}」タグのリミナルスペース${tag.count}件。${shown
-      .slice(0, 3)
-      .map(spotTitle)
-      .join('、')}など、写真と場所で紹介します。`,
+    place
+      ? `${place.name}で「リミナルスペース」を感じられる実在の場所${tag.count}か所。${examples}など、LIMapに登録された場所を写真と地図で紹介します。`
+      : `LIMapに登録された「${tag.name}」タグのリミナルスペース${tag.count}件。${examples}など、写真と場所で紹介します。`,
     120
   );
 
   const items = shown
     .map((s) => {
-      const image = [...(s.images || [])].sort((a, b) => (a.position ?? 0) - (b.position ?? 0))[0];
-      const img = image
-        ? `<img class="card-thumb" src="${escapeHtml(imageUrl(image.thumbnail_path || image.storage_path))}" alt="${escapeHtml(
-            spotTitle(s)
-          )}" loading="lazy" />`
+      const src = cardImage(s, imageUrl);
+      const img = src
+        ? `<img class="card-thumb" src="${escapeHtml(src)}" alt="${escapeHtml(spotTitle(s))}" loading="lazy" />`
         : '';
       return `        <a href="/spot/${encodeURIComponent(s.slug)}">
           ${img}
@@ -124,14 +145,22 @@ function renderTagPage(
         } more on the LIMap map.</p>\n`
       : '';
 
-  // 都道府県のタグなら、その県を扱う地方の記事へつなぐ
+  // 都道府県のタグなら、その県を扱う地方の記事へつなぐ（一覧より先に、詳しい紹介として案内する）
   const articles = regionalArticlesFor([tag.name]);
   const articleBlock = articles.length
-    ? `      <h2 class="section-heading">この地域の記事 / Articles</h2>
+    ? `      <h2 class="section-heading">この地域を詳しく紹介した記事 / Articles</h2>
       <ul>
 ${articles.map((a) => `        <li><a href="/articles/${a.slug}/">${escapeHtml(a.label)}</a></li>`).join('\n')}
       </ul>\n`
     : '';
+
+  const heading = place ? `${place.name}のリミナルスペース` : `#${tag.name} のリミナルスペース`;
+  const lead = place
+    ? `LIMapに登録された、${escapeHtml(place.name)}にあるリミナルスペース${tag.count}か所の一覧です。人の気配が消えた通路や駅、役目を終えた建物など、スポットのページで写真や場所、アクセスを確認できます。廃墟や私有地は、外から眺めるだけにしてください。`
+    : `LIMapに登録された、「${escapeHtml(tag.name)}」タグの付いたリミナルスペース${tag.count}件の一覧です。スポットのページで、写真や場所、アクセスを確認できます。`;
+  const leadEn = place
+    ? `${tag.count} liminal spaces in ${escapeHtml(place.name)} on LIMap. Open a spot to see its photos, location and how to get there.`
+    : `${tag.count} liminal spaces tagged “${escapeHtml(tag.name)}” on LIMap. Open a spot to see its photos, location and how to get there.`;
 
   const relatedBlock = related.length
     ? `      <h2 class="section-heading">関連するタグ / Related tags</h2>
@@ -141,19 +170,17 @@ ${tagChips(related)}
     : '';
 
   const body = `${CHIP_STYLE}
-      <span class="article-category">タグ / Tag</span>
-      <h1 class="article-title">#${escapeHtml(tag.name)} のリミナルスペース</h1>
-      <p class="hub-lead">LIMapに登録された、「${escapeHtml(tag.name)}」タグの付いたリミナルスペース${
-        tag.count
-      }件の一覧です。スポットのページで、写真や場所、アクセスを確認できます。</p>
-      <p class="hub-lead" lang="en">${tag.count} liminal spaces tagged “${escapeHtml(
-        tag.name
-      )}” on LIMap. Open a spot to see its photos, location and how to get there.</p>
-      <div class="hub-list">
+      <span class="article-category">${place ? (place.isPrefecture ? '都道府県 / Prefecture' : '国・地域 / Country') : 'タグ / Tag'}</span>
+      <h1 class="article-title">${escapeHtml(heading)}</h1>
+      <p class="hub-lead">${lead}</p>
+      <p class="hub-lead" lang="en">${leadEn}</p>
+${articleBlock}      <div class="hub-list">
 ${items}
       </div>
-${more}      <p class="tag-cta"><a href="${SITE_URL}/">LIMapの地図でリミナルスペースを探す / Explore the map</a></p>
-${articleBlock}${relatedBlock}      <p><a href="${SITE_URL}/tags">タグ一覧へ / All tags</a></p>`;
+${more}      <p class="tag-cta"><a href="${SITE_URL}/">LIMapの地図でリミナルスペースを探す / Explore the map</a>${
+    place?.isPrefecture ? ` ・ <a href="${SITE_URL}/japan">日本のリミナルスペース一覧 / Liminal spaces in Japan</a>` : ''
+  }</p>
+${relatedBlock}      <p><a href="${SITE_URL}/tags">タグ一覧へ / All tags</a></p>`;
 
   return renderPage({
     title,
@@ -179,11 +206,19 @@ ${articleBlock}${relatedBlock}      <p><a href="${SITE_URL}/tags">タグ一覧�
           })),
         },
       },
-      breadcrumbJsonLd([
-        { name: 'LIMap', url: `${SITE_URL}/` },
-        { name: 'タグ一覧', url: `${SITE_URL}/tags` },
-        { name: `#${tag.name}`, url },
-      ]),
+      breadcrumbJsonLd(
+        place?.isPrefecture
+          ? [
+              { name: 'LIMap', url: `${SITE_URL}/` },
+              { name: '日本のリミナルスペース一覧', url: `${SITE_URL}/japan` },
+              { name: place.name, url },
+            ]
+          : [
+              { name: 'LIMap', url: `${SITE_URL}/` },
+              { name: 'タグ一覧', url: `${SITE_URL}/tags` },
+              { name: `#${tag.name}`, url },
+            ]
+      ),
     ],
   });
 }
@@ -260,7 +295,7 @@ export default async function handler(req: any, res: any) {
       supabase
         .from('spot_tags')
         .select(
-          'spot:spots!inner(slug, title, description, created_at, status, images:spot_images(storage_path, thumbnail_path, position))'
+          'spot:spots!inner(slug, title, description, created_at, status, images:spot_images(storage_path, thumbnail_path, position), embeds:spot_embeds(thumbnail_url, position))'
         )
         .eq('tag_id', tag.id)
         .eq('spot.status', 'published')
