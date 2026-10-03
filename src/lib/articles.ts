@@ -233,9 +233,9 @@ const ARTICLE_ENTRIES: ArticleSummary[] = [
     publishedDate: '2026-09-06',
     categoryJa: '基礎知識',
     categoryEn: 'Basics',
-    titleJa: 'プールルーム（Poolrooms）とは？青いタイルの水の空間の正体と、日本で近い場所',
+    titleJa: 'プールルーム（プールルームズ）とは？青いタイルの水の空間の正体と、日本で近い場所',
     titleEn:
-      'What Are the Poolrooms? Where the Blue-Tiled Water Spaces Came From',
+      'What Are the Poolrooms? Where the Blue-Tiled Water Spaces Came From, and Where to Feel Them in Japan',
     leadJa:
       '誰もいない室内プール、青いタイル、生ぬるい水。バックルームズより後に生まれたこの空間の成り立ちと、なぜ怖いのに懐かしいのかを解説します。',
     leadEn:
@@ -289,9 +289,9 @@ const ARTICLE_ENTRIES: ArticleSummary[] = [
     publishedDate: '2026-09-06',
     categoryJa: '基礎知識',
     categoryEn: 'Basics',
-    titleJa: 'ノークリップ（noclip）とは？ゲーム用語が「現実の裏側」を意味するようになるまで',
+    titleJa: 'ノークリップ（noclip）とは？意味と語源、ゲーム用語が「現実の裏側」を指すようになるまで',
     titleEn:
-      'What Does Noclip Mean? How a Game Dev Term Came to Describe the Back of Reality',
+      'Noclip Meaning: What Noclip Is, and How a Game Term Came to Describe the Back of Reality',
     leadJa:
       'もとは壁をすり抜けるためのデバッグ機能でした。用語の由来と、なぜこの一語がネット都市伝説の核心になったのかを解説します。',
     leadEn:

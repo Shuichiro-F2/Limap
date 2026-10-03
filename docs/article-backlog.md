@@ -20,11 +20,11 @@ Search Console（プロパティは URL プレフィックスの `https://limap.
 | 状態 | 記事 | やること | 狙う検索 |
 |---|---|---|---|
 | 済（10/03） | `backrooms-in-japan` | タイトルを「バックルームは実在する？…」に。結論の節に「元の写真の撮影場所は2024年に特定済み」を追記（以前は「モデルの場所は存在しない」と書いていて事実と食い違っていた）。FAQ 3問。旧野木病院の内部描写を「外から眺めるだけ」に | バックルーム 実在／本当にあるのか／元ネタ 場所／日本 場所 |
-| 未 | `poolrooms-explained` | タイトルに「プールルームズ」も入れる。FAQ（どこの写真？日本にある？怖い？） | プールルーム／プールルームズ |
-| 未 | `what-is-noclip` | 日英のタイトルを「意味」で引っかかる形に（英語は "Noclip Meaning"）。FAQ | ノークリップとは／noclip meaning／no clipping meaning |
-| 未 | `backrooms-levels-explained` | FAQ（レベル0・レベル37・The End とは）。順位 11 なので見出しも検索語に寄せる | バックルームズ レベル |
-| 未 | `liminal-space-vs-dreamcore` | FAQ と冒頭の結論を短く | リミナルスペース ドリームコア 違い |
-| 未 | `why-liminal-spaces-feel-scary` | 「リミナルスペース恐怖症」の節かFAQ（医学的な病名ではないことも含めて、確かめた範囲で） | リミナルスペース恐怖症／なぜ怖い |
+| 済（10/03） | `poolrooms-explained` | タイトルに「プールルームズ」も入れる。FAQ 4問（何か・実在の写真か・公式か・日本にあるか） | プールルーム／プールルームズ |
+| 済（10/03） | `what-is-noclip` | 日英のタイトルを「意味」で引っかかる形に（英語は "Noclip Meaning"）。FAQ 3問 | ノークリップとは／noclip meaning／no clipping meaning |
+| 済（10/03） | `backrooms-levels-explained` | FAQ 4問（レベルとは・レベル0・レベル37・いくつあるか） | バックルームズ レベル |
+| 済（10/03） | `liminal-space-vs-dreamcore` | FAQ 3問（冒頭の結論は既に短いので据え置き） | リミナルスペース ドリームコア 違い |
+| 済（10/03） | `why-liminal-spaces-feel-scary` | FAQ に「リミナルスペース恐怖症」を1問追加（正式な診断名ではなくネット上の言い方） | リミナルスペース恐怖症／なぜ怖い |
 
 ## B. 新しい記事の候補
 

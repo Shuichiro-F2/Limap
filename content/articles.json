@@ -456,12 +456,16 @@
       ],
       "faq": [
         {
-          "q": "ドリームコアはリミナルスペースの一種ですか？",
-          "a": "逆です。ドリームコアはリミナルスペースを含む、より広い美学のくくりです。リミナルスペースは「現実の空間」に限定される一方、ドリームコアは記憶や感情に関わる幅広い表現を含みます。"
+          "q": "リミナルスペースとドリームコアの違いは何ですか？",
+          "a": "リミナルスペースは、廊下や駐車場など実在する場所から人の気配が消えたときの違和感を起点にした様式です。ドリームコアは、夢や遠い記憶のような感覚を起点にした、より広いくくりの美学で、リミナルスペース的な画像も含みます。"
         },
         {
-          "q": "ウィアードコアとドリームコアはどちらが怖いですか？",
-          "a": "一般的にはウィアードコアの方が、混乱や不穏さといった心理的な違和感を強く前面に出す傾向があります。ドリームコアはノスタルジーの側面が強めです。"
+          "q": "ウィアードコアとはどう違いますか？",
+          "a": "ウィアードコアは、ドリームコアの延長線上にある様式で、夢のようなノスタルジーよりも「混乱」「認知の歪み」「不穏さ」を前面に出す傾向があります。"
+        },
+        {
+          "q": "リミナルスペースはドリームコアの一部ですか？",
+          "a": "重なる部分が大きく、ドリームコアがリミナルスペースを内包すると整理されることが多いです。ただしリミナルスペースは「現実の場所」に焦点がある点で、独立した言葉としても使われます。"
         }
       ]
     },
@@ -505,12 +509,16 @@
       ],
       "faq": [
         {
-          "q": "Is dreamcore a type of liminal space?",
-          "a": "It's the other way around — dreamcore is the broader category, and liminal space is one part of it. Liminal space is limited to real physical places, while dreamcore covers a much wider range of memory- and emotion-based imagery."
+          "q": "What is the difference between liminal spaces and dreamcore?",
+          "a": "Liminal spaces start from real places such as corridors and car parks, and the unease of finding them empty. Dreamcore is a broader aesthetic that starts from dreamlike feelings and distant memories, and it includes liminal-style images among many other things."
         },
         {
-          "q": "Which is creepier, weirdcore or dreamcore?",
-          "a": "Weirdcore generally leans harder into confusion and unease, while dreamcore tends to emphasize nostalgia more than fear."
+          "q": "How is weirdcore different?",
+          "a": "Weirdcore grows out of dreamcore but leans toward confusion, distorted perception and unease rather than dreamy nostalgia."
+        },
+        {
+          "q": "Are liminal spaces part of dreamcore?",
+          "a": "They overlap a lot, and dreamcore is often described as containing liminal spaces. Because liminal spaces focus on real places, the term is also used on its own."
         }
       ]
     },
@@ -539,7 +547,8 @@
         "captionEn": "Old CRT televisions — their nostalgic, degraded texture is a signature dreamcore motif.",
         "afterSection": 2
       }
-    ]
+    ],
+    "updatedDate": "2026-10-03"
   },
   {
     "slug": "why-liminal-spaces-feel-scary",
@@ -591,6 +600,10 @@
         {
           "q": "怖いのに見てしまうのはなぜですか？",
           "a": "明確な危険がないと分かっているからこそ、安全な範囲で\"ざわつく感覚\"を楽しめるためだと考えられます。ホラー映画を楽しむ心理と近いものがあります。"
+        },
+        {
+          "q": "「リミナルスペース恐怖症」という病気はありますか？",
+          "a": "ネットでは、リミナルスペースの画像が苦手なことを「リミナルスペース恐怖症」と呼ぶことがありますが、医学の正式な診断名ではなく、ネット上の言い方です。見ていて強い不安が続くときは、無理に見ないようにしてください。"
         }
       ]
     },
@@ -639,6 +652,10 @@
         {
           "q": "Why do people keep looking at liminal space photos if they're unsettling?",
           "a": "Because there's no actual danger, people can enjoy the unsettled feeling from a safe distance — similar to the appeal of watching a horror movie."
+        },
+        {
+          "q": "Is \"liminal space phobia\" a real condition?",
+          "a": "People online sometimes call a strong dislike of liminal images \"liminal space phobia\", but it is an internet expression, not a formal medical diagnosis. If the images keep making you anxious, it is fine to simply stop looking at them."
         }
       ]
     },
@@ -667,7 +684,8 @@
         "captionEn": "A long, empty institutional corridor — the familiar-yet-slightly-wrong feeling in a single image.",
         "afterSection": 1
       }
-    ]
+    ],
+    "updatedDate": "2026-10-03"
   },
   {
     "slug": "history-of-liminal-space-trend",
@@ -2503,6 +2521,24 @@
             }
           ]
         }
+      ],
+      "faq": [
+        {
+          "q": "バックルームズの「レベル」とは何ですか？",
+          "a": "バックルームズの世界を分ける階層の呼び名です。現実からすり抜けて最初に落ちる場所がレベル0で、そこからさらに別の層へ落ちていく、という入れ子の構造になっています。2019年の最初の投稿には無く、その後に有志が wiki を作る中で生まれた設定です。"
+        },
+        {
+          "q": "レベル0とはどんな場所ですか？",
+          "a": "「The Lobby」とも呼ばれる、いわゆる「あの黄色い部屋」です。黄ばんだ壁紙、湿ったカーペット、蛍光灯の唸り音がそろった空間で、まっすぐ歩いても元の場所に戻ってしまう構造そのものが脅威として描かれます。"
+        },
+        {
+          "q": "レベル37とは何ですか？",
+          "a": "通称「プールルーム」。青いタイルと生ぬるい水に満たされた空間です。もとはアーティストのジャレッド・パイクの3DCG作品で、のちにコミュニティがバックルームズのレベル37として結びつけました。"
+        },
+        {
+          "q": "レベルは全部でいくつありますか？正しい一覧はどれですか？",
+          "a": "決まった数も、正しい一覧もありません。バックルームズには権利者も原作者もおらず、wiki ごとに独立した設定が書かれているため、同じレベルでも内容が違います。"
+        }
       ]
     },
     "en": {
@@ -2567,6 +2603,24 @@
             }
           ]
         }
+      ],
+      "faq": [
+        {
+          "q": "What are the Backrooms levels?",
+          "a": "They are the layers the Backrooms world is divided into. Level 0 is where you land after slipping out of reality, and from there you can fall into further layers. The levels were not in the original 2019 post; they were invented later as fans built wikis together."
+        },
+        {
+          "q": "What is Level 0?",
+          "a": "Also called \"The Lobby\", it is the yellow room: stained wallpaper, damp carpet and the hum of fluorescent lights. Its threat is the structure itself, where walking straight ahead can bring you back to where you started."
+        },
+        {
+          "q": "What is Level 37?",
+          "a": "Better known as the Poolrooms: a space of blue tiles and lukewarm water. It began as 3D artwork by the artist Jared Pike and was later linked to the Backrooms as Level 37 by the community."
+        },
+        {
+          "q": "How many levels are there, and which list is correct?",
+          "a": "There is no fixed number and no correct list. The Backrooms has no owner or original author, and each wiki writes its own canon, so the same level can be described differently."
+        }
       ]
     },
     "images": [
@@ -2582,7 +2636,8 @@
         "captionEn": "The source image for what people call Level 0 — the 2002 photograph that started everything.",
         "afterSection": -1
       }
-    ]
+    ],
+    "updatedDate": "2026-10-03"
   },
   {
     "slug": "poolrooms-explained",
@@ -2590,9 +2645,9 @@
     "categoryEn": "Basics",
     "publishedDate": "2026-09-06",
     "ja": {
-      "title": "プールルーム（Poolrooms）とは？青いタイルの水の空間の正体と、日本で近い場所",
+      "title": "プールルーム（プールルームズ）とは？青いタイルの水の空間の正体と、日本で近い場所",
       "metaDescription": "バックルームズのレベル37としても知られるプールルーム。青いタイルと生ぬるい水の空間はどこから生まれたのか、なぜ怖いのに懐かしいのか。成り立ちと、日本で似た空気に出会える場所を紹介します。",
-      "h1": "プールルーム（Poolrooms）とは？青いタイルの水の空間の正体と、日本で近い場所",
+      "h1": "プールルーム（プールルームズ）とは？青いタイルの水の空間の正体と、日本で近い場所",
       "lead": "誰もいない室内プール。青いタイル、生ぬるい水、窓のない天井。バックルームズ関連で最も広く共有されている光景のひとつが、このプールルームです。怖いはずなのに、なぜか懐かしい——その正体を、成り立ちから解きほぐします。",
       "sections": [
         {
@@ -2646,12 +2701,30 @@
             }
           ]
         }
+      ],
+      "faq": [
+        {
+          "q": "プールルーム（プールルームズ）とは何ですか？",
+          "a": "青いタイルと水で満たされた、人のいない室内空間のイメージです。原点はアメリカのアーティスト、ジャレッド・パイクが2020年に発表した3DCG作品のシリーズ「Dream Pools」で、のちにネット上でバックルームズの「レベル37」として語られるようになりました。"
+        },
+        {
+          "q": "プールルームの画像は実在する場所の写真ですか？",
+          "a": "原点になった「Dream Pools」は、パイクが Blender で作った3DCGで、実在の場所を撮った写真ではありません。実在しないのに見覚えがあるように感じるところが、この作品の怖さと懐かしさの元になっています。"
+        },
+        {
+          "q": "プールルームは公式にバックルームズの一部なのですか？",
+          "a": "いいえ。「レベル37」という位置づけは、ネット上のコミュニティがあとから結びつけたものです。バックルームズ自体に公式の設定が無いため、このような合流がよく起こります。"
+        },
+        {
+          "q": "日本にプールルームのような場所はありますか？",
+          "a": "青いタイルの迷宮そのものはありませんが、閉館後の市民プールやシーズンオフの温浴施設など、本来は人の声が響いているはずの水まわりの空間に、近い空気があります。訪れる際は営業状況や立ち入りの可否を必ず確認してください。"
+        }
       ]
     },
     "en": {
-      "title": "What Are the Poolrooms? Where the Blue-Tiled Water Spaces Came From",
+      "title": "What Are the Poolrooms? Where the Blue-Tiled Water Spaces Came From, and Where to Feel Them in Japan",
       "metaDescription": "Also known as Backrooms Level 37, the Poolrooms are among the most shared liminal images online. Here is where they actually came from, why they feel frightening and nostalgic at once, and where to find that atmosphere in Japan.",
-      "h1": "What Are the Poolrooms? Where the Blue-Tiled Water Spaces Came From",
+      "h1": "What Are the Poolrooms? Where the Blue-Tiled Water Spaces Came From, and Where to Feel Them in Japan",
       "lead": "An indoor pool with nobody in it. Blue tile, lukewarm water, a ceiling with no windows. The Poolrooms are one of the most widely shared images in the whole liminal-horror space — unsettling and oddly nostalgic at the same time. Here is where they came from.",
       "sections": [
         {
@@ -2705,6 +2778,24 @@
             }
           ]
         }
+      ],
+      "faq": [
+        {
+          "q": "What are the Poolrooms?",
+          "a": "An image of empty indoor spaces filled with blue tiles and water. They began as \"Dream Pools\", a series of 3D artworks released in 2020 by the American artist Jared Pike, and were later talked about online as Level 37 of the Backrooms."
+        },
+        {
+          "q": "Are the Poolrooms photos of a real place?",
+          "a": "The original \"Dream Pools\" were made in Blender as 3D renders, not photographs of a real location. That they feel familiar without existing anywhere is a large part of why they feel both eerie and nostalgic."
+        },
+        {
+          "q": "Are the Poolrooms officially part of the Backrooms?",
+          "a": "No. The \"Level 37\" label was attached later by the online community. The Backrooms has no official canon, so mergers like this are common."
+        },
+        {
+          "q": "Are there places like the Poolrooms in Japan?",
+          "a": "There is no blue-tiled water maze, but public pools after closing time or bathhouses out of season, places where voices should be echoing, have a similar atmosphere. Always check opening hours and whether entry is allowed before you go."
+        }
       ]
     },
     "images": [
@@ -2732,7 +2823,8 @@
         "captionEn": "A Japanese municipal pool. The moment the voices stop, the space starts to mean something else.",
         "afterSection": 2
       }
-    ]
+    ],
+    "updatedDate": "2026-10-03"
   },
   {
     "slug": "backrooms-original-photo-location",
@@ -3226,9 +3318,9 @@
     "categoryEn": "Basics",
     "publishedDate": "2026-09-06",
     "ja": {
-      "title": "ノークリップ（noclip）とは？ゲーム用語が「現実の裏側」を意味するようになるまで",
+      "title": "ノークリップ（noclip）とは？意味と語源、ゲーム用語が「現実の裏側」を指すようになるまで",
       "metaDescription": "バックルームズの説明に必ず登場する「ノークリップ」。もとは壁をすり抜けるゲームのデバッグ機能でした。用語の由来から、なぜこの言葉がネット都市伝説の核心になったのかまで解説します。",
-      "h1": "ノークリップ（noclip）とは？ゲーム用語が「現実の裏側」を意味するようになるまで",
+      "h1": "ノークリップ（noclip）とは？意味と語源、ゲーム用語が「現実の裏側」を指すようになるまで",
       "lead": "バックルームズの説明を読むと、必ず「現実からノークリップする」という表現に出会います。聞き慣れない言葉ですが、実はゲーム制作の現場で使われてきた、ごく実務的な用語です。その由来と、なぜこの一語が都市伝説の核心になったのかを説明します。",
       "sections": [
         {
@@ -3275,12 +3367,26 @@
             }
           ]
         }
+      ],
+      "faq": [
+        {
+          "q": "ノークリップ（noclip）とはどういう意味ですか？",
+          "a": "ゲームの当たり判定を無効にして、壁や床をすり抜けて移動できるようにする機能のことです。もともとは、開発者がマップ上の任意の地点へ素早く移動して確認するための道具でした。"
+        },
+        {
+          "q": "noclip の語源は何ですか？",
+          "a": "3Dゲームで物体同士がぶつかったときに動きを止める処理「クリッピング（clipping）」を無効にすることから、no-clip と呼ばれます。『DOOM II』ではコンソールに idclip と打ち込むと有効になりました。"
+        },
+        {
+          "q": "「現実からノークリップする」とはどういうことですか？",
+          "a": "バックルームズの設定で使われる言い方で、現実の間違った場所で当たり判定が抜けるように、別の空間へ落ちてしまうことを指します。2019年に4chanへ投稿された書き込みが元になっています。"
+        }
       ]
     },
     "en": {
-      "title": "What Does Noclip Mean? How a Game Dev Term Came to Describe the Back of Reality",
+      "title": "Noclip Meaning: What Noclip Is, and How a Game Term Came to Describe the Back of Reality",
       "metaDescription": "Every explanation of the Backrooms uses the word noclip. It started as a debug feature for walking through walls. Here is where the term came from, and why one word became the core of an internet legend.",
-      "h1": "What Does Noclip Mean? How a Game Dev Term Came to Describe the Back of Reality",
+      "h1": "Noclip Meaning: What Noclip Is, and How a Game Term Came to Describe the Back of Reality",
       "lead": "Read anything about the Backrooms and you meet the phrase noclip out of reality. It sounds like jargon because it is: a practical term from game development. Here is its origin, and why this single word became the heart of the legend.",
       "sections": [
         {
@@ -3327,6 +3433,20 @@
             }
           ]
         }
+      ],
+      "faq": [
+        {
+          "q": "What does noclip mean?",
+          "a": "Noclip is a game feature that turns off collision so you can move through walls and floors. It started as a developer tool for jumping quickly to any point on a map to check it."
+        },
+        {
+          "q": "Where does the word noclip come from?",
+          "a": "In 3D games, \"clipping\" is the process that stops objects when they collide. Turning it off gives you no-clip. In DOOM II it was enabled by typing idclip into the console."
+        },
+        {
+          "q": "What does \"noclipping out of reality\" mean?",
+          "a": "It is the phrase used in the Backrooms legend for slipping through reality in the wrong place, as if collision failed, and falling into another space. It comes from a post made on 4chan in 2019."
+        }
       ]
     },
     "images": [
@@ -3342,7 +3462,8 @@
         "captionEn": "Noclip explained the other world as a malfunction rather than as magic.",
         "afterSection": -1
       }
-    ]
+    ],
+    "updatedDate": "2026-10-03"
   },
   {
     "slug": "liminal-space-games",
