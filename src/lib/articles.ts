@@ -494,6 +494,20 @@ const ARTICLE_ENTRIES: ArticleSummary[] = [
       'Kokudo Station from 1930, Nebukawa Station above the sea, the former Narita Airport Station and an underground temple: real liminal spaces in Kanagawa, Chiba and Saitama.',
     thumbnailFile: 'Metropolitan Area Outer Underground Discharge Channel (10885985325).jpg',
   },
+  {
+    slug: 'gaikaku-housuiro-tour-guide',
+    publishedDate: '2026-10-03',
+    categoryJa: '実践ガイド',
+    categoryEn: 'Practical Guide',
+    titleJa: '首都圏外郭放水路「地下神殿」の見学ガイド｜予約方法・コース・服装と、行く前に知っておきたいこと',
+    titleEn:
+      'Visiting the "Underground Temple": A Guide to Tours of the Metropolitan Area Outer Underground Discharge Channel',
+    leadJa:
+      '59本の柱が並ぶ地下の巨大空間には、見学会で入れます。完全予約制の申し込み方法、コースの違い、服装や年齢の条件をまとめました。',
+    leadEn:
+      'You can enter the vast pillared hall on a guided tour. How to book, how the courses differ, and the rules on age and clothing.',
+    thumbnailFile: 'Metropolitan Area Outer Underground Discharge Channel (10886145804).jpg',
+  },
 ];
 
 // 一覧は新着順(publishedDate の降順)で表示する。Array#sort は安定なので、
