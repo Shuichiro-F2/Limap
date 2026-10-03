@@ -854,8 +854,15 @@ function main() {
   console.log('generated:', 'public/llms.txt');
 
   // sitemap（api/sitemap.ts）が読む記事とカテゴリの一覧。記事を足して articles:build すれば sitemap にも載る
+  // スポットページ（api/spot.ts）の「このスポットが出てくる記事」用：スポットのスラッグ → 記事（新しい順）
+  const spotArticles = {};
+  for (const a of articles) {
+    const slugs = new Set(a.ja.sections.flatMap((s) => (s.spots || []).map((sp) => sp.slug)));
+    for (const slug of slugs) (spotArticles[slug] = spotArticles[slug] || []).push(a.slug);
+  }
   const index = {
-    articles: articles.map((a) => ({ slug: a.slug, lastmod: modifiedDateOf(a) })),
+    articles: articles.map((a) => ({ slug: a.slug, lastmod: modifiedDateOf(a), titleJa: a.ja.h1, titleEn: a.en.h1 })),
+    spotArticles,
     categories: indexableCategorySlugs(articles).map((slug) => ({
       slug,
       lastmod: articles

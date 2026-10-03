@@ -16,6 +16,8 @@ import { createClient } from '@supabase/supabase-js';
 import { MIN_SPOTS_FOR_TAG_PAGE, fetchAllRows, tagPagePath } from '../src/content/tagPages';
 import { prefectureFullName } from '../src/content/japan';
 import { spotPageDescription, spotPageTitle, spotPlace, spotRawTitle } from '../src/content/spotSeo';
+// コラム記事の一覧（npm run articles:build が書き出す）。このスポットが出てくる記事へのリンクに使う
+import articleIndex from '../src/content/articleIndex.json';
 
 const SUPABASE_URL = process.env.SUPABASE_URL || '';
 const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY || '';
@@ -79,7 +81,32 @@ type SpotBodyInput = {
   createdAt: string | null;
   reviews: ReviewBodyInput[];
   nearby: NearbySpot[];
+  articles: ArticleLink[];
 };
+
+type ArticleLink = { slug: string; title: string };
+
+// スポットページに載せる記事の上限
+const MAX_ARTICLES = 5;
+
+// このスポットのカードが入っているコラム記事（新しい順）。記事 → スポットだけでなく、スポット → 記事にもリンクする
+function articlesForSpot(slug: string): ArticleLink[] {
+  const index = articleIndex as {
+    articles: { slug: string; titleJa?: string }[];
+    spotArticles?: Record<string, string[]>;
+  };
+  const titles = new Map(index.articles.map((a) => [a.slug, a.titleJa ?? a.slug]));
+  return (index.spotArticles?.[slug] ?? [])
+    .slice(0, MAX_ARTICLES)
+    .map((s) => ({ slug: s, title: titles.get(s) ?? s }));
+}
+
+function buildArticlesSection(articles: ArticleLink[]): string {
+  const items = articles
+    .map((a) => `<li><a href="/articles/${encodeURIComponent(a.slug)}/">${escapeHtml(a.title)}</a></li>`)
+    .join('\n');
+  return `<section>\n<h2>この場所が出てくる記事 / Articles</h2>\n<ul>\n${items}\n</ul>\n</section>`;
+}
 
 type NearbySpot = { slug: string; title: string; distanceKm: number };
 
@@ -198,6 +225,7 @@ function buildSpotBody(s: SpotBodyInput): string {
   }
   if (details.length) parts.push(`<dl>${details.join('')}</dl>`);
   if (s.reviews.length) parts.push(buildReviewsSection(s.title, s.reviews));
+  if (s.articles.length) parts.push(buildArticlesSection(s.articles));
   if (s.nearby.length) parts.push(buildNearbySection(s.nearby));
 
   parts.push(
@@ -498,6 +526,7 @@ export default async function handler(req: any, res: any) {
         (path) => supabase.storage.from('spot-images').getPublicUrl(path).data.publicUrl
       ),
       nearby,
+      articles: articlesForSpot(spot.slug),
     });
     // 置換文字列中の $ が特殊扱いされないよう関数で渡す
     html = html.replace(/<div id="root"><\/div>/, () => `<div id="root">${body}</div>`);

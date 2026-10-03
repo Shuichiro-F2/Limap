@@ -2,145 +2,578 @@
   "articles": [
     {
       "slug": "liminal-spots-tokyo",
-      "lastmod": "2026-10-03"
+      "lastmod": "2026-10-03",
+      "titleJa": "東京のリミナルスペース｜駅の地下通路から屋上の観覧車まで、実在する8か所",
+      "titleEn": "Liminal Spaces in Tokyo: 8 Real Places, From Deep Station Passages to a Rooftop Ferris Wheel"
     },
     {
       "slug": "liminal-spots-minami-kanto",
-      "lastmod": "2026-10-03"
+      "lastmod": "2026-10-03",
+      "titleJa": "神奈川・千葉・埼玉のリミナルスペース｜地下神殿から昭和の無人駅まで、実在する8か所",
+      "titleEn": "Liminal Spaces in Kanagawa, Chiba and Saitama: 8 Real Places, From an Underground Temple to Showa-Era Stations"
     },
     {
       "slug": "liminal-space-games",
-      "lastmod": "2026-10-03"
+      "lastmod": "2026-10-03",
+      "titleJa": "リミナルスペースを歩けるゲーム7選——『8番出口』『Pools』『Escape the Backrooms』ほか",
+      "titleEn": "7 Games Where You Can Walk Through Liminal Spaces: The Exit 8, Pools, Escape the Backrooms and More"
     },
     {
       "slug": "pools-game",
-      "lastmod": "2026-09-28"
+      "lastmod": "2026-09-28",
+      "titleJa": "ゲーム『Pools』とは？——プールルームを歩く作品と、現実に行ける「Poolsっぽい」場所",
+      "titleEn": "What Is the Game Pools? The Poolrooms Game, and Real Places That Feel Like Pools"
     },
     {
       "slug": "liminal-spots-tokai",
-      "lastmod": "2026-09-28"
+      "lastmod": "2026-09-28",
+      "titleJa": "静岡・東海のリミナルスペース——光のエスカレーターから昭和の駅舎まで、実在する8か所",
+      "titleEn": "Liminal Spaces in Shizuoka and Tokai: 8 Real Places, From Escalators of Light to a Showa-Era Station"
     },
     {
       "slug": "liminal-spots-kitakanto",
-      "lastmod": "2026-09-28"
+      "lastmod": "2026-09-28",
+      "titleJa": "北関東のリミナルスペース——地下の採掘場跡から県庁の最上階まで、実在する9か所",
+      "titleEn": "Liminal Spaces in North Kanto: 9 Real Places, From an Underground Quarry to the Top Floors of Prefectural Offices"
     },
     {
       "slug": "liminal-spots-okinawa",
-      "lastmod": "2026-09-28"
+      "lastmod": "2026-09-28",
+      "titleJa": "沖縄のリミナルスペース——高架の下のビーチから最南端のアーケードまで、実在する7か所",
+      "titleEn": "Liminal Spaces in Okinawa: 7 Real Places, From a Beach Under an Elevated Road to Japan's Southernmost Arcade"
     },
     {
       "slug": "liminal-spots-hokuriku-koshinetsu",
-      "lastmod": "2026-09-28"
+      "lastmod": "2026-09-28",
+      "titleJa": "北陸・甲信越のリミナルスペース——明治の鉄道トンネルから丸窓の図書館まで、実在する8か所",
+      "titleEn": "Liminal Spaces in Hokuriku and Koshinetsu: 8 Real Places, From a Meiji-Era Railway Tunnel to a Library of Round Windows"
     },
     {
       "slug": "liminal-spots-chugoku-shikoku",
-      "lastmod": "2026-09-28"
+      "lastmod": "2026-09-28",
+      "titleJa": "中国・四国のリミナルスペース——丹下健三の県庁舎から廃線跡まで、実在する9か所",
+      "titleEn": "Liminal Spaces in Chugoku and Shikoku: 9 Real Places, From Kenzo Tange's Prefectural Office to Abandoned Railway Lines"
     },
     {
       "slug": "liminal-spots-tohoku",
-      "lastmod": "2026-09-28"
+      "lastmod": "2026-09-28",
+      "titleJa": "東北のリミナルスペース——もう出航しない連絡船から白い美術館まで、実在する8か所",
+      "titleEn": "Liminal Spaces in Tohoku: 8 Real Places, From a Ferry That Will Never Sail to a White Art Museum"
     },
     {
       "slug": "liminal-spots-kyushu",
-      "lastmod": "2026-09-28"
+      "lastmod": "2026-09-28",
+      "titleJa": "九州のリミナルスペース——海底の歩行者トンネルから昭和の鉄塔まで、実在する9か所",
+      "titleEn": "Liminal Spaces in Kyushu: 9 Real Places, From an Undersea Pedestrian Tunnel to a Showa-Era Steel Tower"
     },
     {
       "slug": "liminal-spots-hokkaido",
-      "lastmod": "2026-09-28"
+      "lastmod": "2026-09-28",
+      "titleJa": "北海道のリミナルスペース——札幌の地下通路から湖に沈む橋まで、実在する9か所",
+      "titleEn": "Liminal Spaces in Hokkaido: 9 Real Places, From Sapporo's Underground Walkways to a Bridge That Sinks Into a Lake"
     },
     {
       "slug": "liminal-spots-nagoya",
-      "lastmod": "2026-09-27"
+      "lastmod": "2026-09-27",
+      "titleJa": "名古屋のリミナルスペース——地下街から昭和の庁舎まで、実在する8か所",
+      "titleEn": "Liminal Spaces in Nagoya: 8 Real Places, From Underground Malls to Showa-Era Public Buildings"
     },
     {
       "slug": "liminal-spots-kansai",
-      "lastmod": "2026-09-27"
+      "lastmod": "2026-09-27",
+      "titleJa": "関西でリミナルスペースを撮るなら——大阪・兵庫・奈良・滋賀の実在スポット",
+      "titleEn": "Where to Photograph Liminal Spaces in Kansai: Real Spots in Osaka, Hyogo, Nara and Shiga"
     },
     {
       "slug": "is-backrooms-movie-scary",
-      "lastmod": "2026-09-06"
+      "lastmod": "2026-09-06",
+      "titleJa": "映画『バックルームズ』は怖い？ネタバレなしで、怖さの種類を説明します",
+      "titleEn": "Is the Backrooms Movie Scary? A Spoiler-Free Guide to What Kind of Fear It Uses"
     },
     {
       "slug": "backrooms-spots-tokyo",
-      "lastmod": "2026-10-03"
+      "lastmod": "2026-10-03",
+      "titleJa": "映画を観たあとに行きたい、東京の「バックルームズ的」な場所",
+      "titleEn": "Where to Go in Tokyo After Watching the Backrooms Movie"
     },
     {
       "slug": "backrooms-levels-explained",
-      "lastmod": "2026-10-03"
+      "lastmod": "2026-10-03",
+      "titleJa": "バックルームズの「レベル」とは？レベル0からThe Endまでと、公式設定が存在しない理由",
+      "titleEn": "What Are the Backrooms Levels? From Level 0 to The End — and Why There Is No Official Canon"
     },
     {
       "slug": "poolrooms-explained",
-      "lastmod": "2026-10-03"
+      "lastmod": "2026-10-03",
+      "titleJa": "プールルーム（プールルームズ）とは？青いタイルの水の空間の正体と、日本で近い場所",
+      "titleEn": "What Are the Poolrooms? Where the Blue-Tiled Water Spaces Came From, and Where to Feel Them in Japan"
     },
     {
       "slug": "backrooms-original-photo-location",
-      "lastmod": "2026-09-06"
+      "lastmod": "2026-09-06",
+      "titleJa": "バックルームズの元ネタ写真はどこで撮られた？2024年に特定された実在の建物",
+      "titleEn": "Where Was the Original Backrooms Photo Taken? The Real Building, Identified in 2024"
     },
     {
       "slug": "backrooms-vs-exit-8",
-      "lastmod": "2026-09-06"
+      "lastmod": "2026-09-06",
+      "titleJa": "バックルームズと『8番出口』は何が違う？似ているようで正反対な2つの無限空間",
+      "titleEn": "Backrooms vs Exit 8: Two Endless Spaces That Work in Opposite Ways"
     },
     {
       "slug": "who-is-kane-pixels",
-      "lastmod": "2026-10-03"
+      "lastmod": "2026-10-03",
+      "titleJa": "Kane Pixels（ケイン・パーソンズ）とは何者か？16歳の投稿から映画監督になるまで",
+      "titleEn": "Who Is Kane Pixels? From a Post at Sixteen to Directing for A24"
     },
     {
       "slug": "what-is-noclip",
-      "lastmod": "2026-10-03"
+      "lastmod": "2026-10-03",
+      "titleJa": "ノークリップ（noclip）とは？意味と語源、ゲーム用語が「現実の裏側」を指すようになるまで",
+      "titleEn": "Noclip Meaning: What Noclip Is, and How a Game Term Came to Describe the Back of Reality"
     },
     {
       "slug": "backrooms-movie-guide",
-      "lastmod": "2026-10-03"
+      "lastmod": "2026-10-03",
+      "titleJa": "映画『バックルームズ』に予習は必要？元ネタ・原作YouTube・監督を公開日にまとめる",
+      "titleEn": "Do You Need to Do Homework Before Watching Backrooms? The Legend, the YouTube Series, and the Director"
     },
     {
       "slug": "is-exit-8-real",
-      "lastmod": "2026-10-03"
+      "lastmod": "2026-10-03",
+      "titleJa": "「8番出口」は現実にあるのか？似た空気感の実在スポットを探す",
+      "titleEn": "Is \"Exit 8\" Real? Looking for Actual Places With the Same Eerie Vibe"
     },
     {
       "slug": "backrooms-in-japan",
-      "lastmod": "2026-10-03"
+      "lastmod": "2026-10-03",
+      "titleJa": "バックルームは実在する？元ネタ写真の撮影場所と、日本で「黄色い部屋」に近い場所",
+      "titleEn": "Are the Backrooms Real? Where the Original Photo Was Taken, and Places in Japan That Feel the Same"
     },
     {
       "slug": "not-haunted-just-eerie-spots",
-      "lastmod": "2026-08-26"
+      "lastmod": "2026-08-26",
+      "titleJa": "心霊スポットじゃない、「なんとなく怖い」不思議な場所の探し方",
+      "titleEn": "Not a Haunted Spot, Just Eerie: How to Find \"Strangely Unsettling\" Places"
     },
     {
       "slug": "haikyo-photo-spots-japan",
-      "lastmod": "2026-08-26"
+      "lastmod": "2026-08-26",
+      "titleJa": "廃墟の撮影スポットを地図で探す。心霊目当てじゃない、日本各地の廃墟案内",
+      "titleEn": "Finding Abandoned Buildings on a Map: Japan's Ruins, Without the Haunted-House Angle"
     },
     {
       "slug": "what-is-liminal-space",
-      "lastmod": "2026-08-15"
+      "lastmod": "2026-08-15",
+      "titleJa": "リミナルスペースとは？意味・語源・具体例をわかりやすく解説",
+      "titleEn": "What Is a Liminal Space? Meaning, Origin, and Real-World Examples"
     },
     {
       "slug": "liminal-spaces-in-japan",
-      "lastmod": "2026-08-15"
+      "lastmod": "2026-08-15",
+      "titleJa": "日本のリミナルスペースとは？特徴と代表的な場所の例",
+      "titleEn": "Liminal Spaces in Japan: What Makes Them Different"
     },
     {
       "slug": "liminal-space-vs-backrooms",
-      "lastmod": "2026-08-15"
+      "lastmod": "2026-08-15",
+      "titleJa": "リミナルスペースとバックルームの違いとは？",
+      "titleEn": "Liminal Space vs. the Backrooms: What's the Difference?"
     },
     {
       "slug": "liminal-space-vs-dreamcore",
-      "lastmod": "2026-10-03"
+      "lastmod": "2026-10-03",
+      "titleJa": "リミナルスペースとドリームコアの違いとは？",
+      "titleEn": "Liminal Space vs. Dreamcore: What's the Difference?"
     },
     {
       "slug": "why-liminal-spaces-feel-scary",
-      "lastmod": "2026-10-03"
+      "lastmod": "2026-10-03",
+      "titleJa": "なぜリミナルスペースに恐怖や不安を感じるのか",
+      "titleEn": "Why Do Liminal Spaces Feel Scary or Unsettling?"
     },
     {
       "slug": "history-of-liminal-space-trend",
-      "lastmod": "2026-08-15"
+      "lastmod": "2026-08-15",
+      "titleJa": "リミナルスペースはどう生まれ、なぜ流行したのか",
+      "titleEn": "How Liminal Spaces Became a Trend: A Brief History"
     },
     {
       "slug": "how-to-find-liminal-spaces",
-      "lastmod": "2026-08-15"
+      "lastmod": "2026-08-15",
+      "titleJa": "リミナルスペースの見つけ方・撮り方のコツ",
+      "titleEn": "How to Find and Photograph Liminal Spaces"
     },
     {
       "slug": "famous-liminal-spaces-around-the-world",
-      "lastmod": "2026-08-15"
+      "lastmod": "2026-08-15",
+      "titleJa": "世界の有名なリミナルスペース事例",
+      "titleEn": "Famous Liminal Spaces from Around the World"
     }
   ],
+  "spotArticles": {
+    "KM5aKcco": [
+      "liminal-spots-tokyo",
+      "liminal-space-games",
+      "is-backrooms-movie-scary",
+      "backrooms-spots-tokyo",
+      "backrooms-vs-exit-8",
+      "is-exit-8-real"
+    ],
+    "fMm9FwDX": [
+      "liminal-spots-tokyo"
+    ],
+    "VwXjTi86": [
+      "liminal-spots-tokyo"
+    ],
+    "mUJPSbt5": [
+      "liminal-spots-tokyo"
+    ],
+    "W9n7DymW": [
+      "liminal-spots-tokyo"
+    ],
+    "g3Pub95b": [
+      "liminal-spots-tokyo"
+    ],
+    "gHBKZTqy": [
+      "liminal-spots-tokyo",
+      "backrooms-spots-tokyo",
+      "not-haunted-just-eerie-spots"
+    ],
+    "cLCX7GdA": [
+      "liminal-spots-tokyo"
+    ],
+    "otDUUTkK": [
+      "liminal-spots-tokyo",
+      "liminal-space-games",
+      "who-is-kane-pixels"
+    ],
+    "g5SSFruW": [
+      "liminal-spots-tokyo"
+    ],
+    "bUpymfK9": [
+      "liminal-spots-minami-kanto"
+    ],
+    "Y2ciMqaA": [
+      "liminal-spots-minami-kanto"
+    ],
+    "CciNUdTX": [
+      "liminal-spots-minami-kanto"
+    ],
+    "FGg4w6Jh": [
+      "liminal-spots-minami-kanto",
+      "backrooms-levels-explained",
+      "backrooms-movie-guide",
+      "backrooms-in-japan"
+    ],
+    "JsXsWk9W": [
+      "liminal-spots-minami-kanto",
+      "is-backrooms-movie-scary",
+      "is-exit-8-real"
+    ],
+    "RAi2rKjn": [
+      "liminal-spots-minami-kanto"
+    ],
+    "prqyoo97": [
+      "liminal-spots-minami-kanto"
+    ],
+    "2nZdyNm7": [
+      "liminal-spots-minami-kanto"
+    ],
+    "vbUQ9kcZ": [
+      "liminal-space-games",
+      "backrooms-spots-tokyo",
+      "backrooms-vs-exit-8",
+      "is-exit-8-real"
+    ],
+    "PJh7ASjj": [
+      "liminal-space-games",
+      "liminal-spots-hokkaido"
+    ],
+    "stuSgTd9": [
+      "liminal-space-games",
+      "liminal-spots-kyushu"
+    ],
+    "HLy7yJkZ": [
+      "pools-game"
+    ],
+    "3ZXPPqYu": [
+      "pools-game"
+    ],
+    "UUa8yY66": [
+      "pools-game"
+    ],
+    "EQ4XUbmu": [
+      "pools-game"
+    ],
+    "LVa5rVA7": [
+      "liminal-spots-tokai"
+    ],
+    "GUck25bU": [
+      "liminal-spots-tokai"
+    ],
+    "23rLw54S": [
+      "liminal-spots-tokai"
+    ],
+    "Y2m7YAaB": [
+      "liminal-spots-tokai"
+    ],
+    "eiSnWa89": [
+      "liminal-spots-tokai"
+    ],
+    "o5t5vXLu": [
+      "liminal-spots-tokai"
+    ],
+    "Ej6x5s75": [
+      "liminal-spots-tokai"
+    ],
+    "kFtXvGrQ": [
+      "liminal-spots-tokai"
+    ],
+    "3S4gV2nM": [
+      "liminal-spots-kitakanto"
+    ],
+    "b9ekkcic": [
+      "liminal-spots-kitakanto"
+    ],
+    "dh6nPPd6": [
+      "liminal-spots-kitakanto"
+    ],
+    "qT48wnpH": [
+      "liminal-spots-kitakanto"
+    ],
+    "piDZag2m": [
+      "liminal-spots-kitakanto"
+    ],
+    "74Dex6Z8": [
+      "liminal-spots-kitakanto"
+    ],
+    "n5PKtWce": [
+      "liminal-spots-kitakanto"
+    ],
+    "TcnQTVk5": [
+      "liminal-spots-kitakanto"
+    ],
+    "gf7SinSV": [
+      "liminal-spots-kitakanto"
+    ],
+    "PHMGPkY3": [
+      "liminal-spots-okinawa"
+    ],
+    "MTwmuvAh": [
+      "liminal-spots-okinawa"
+    ],
+    "NJjytELM": [
+      "liminal-spots-okinawa"
+    ],
+    "PgKZ8Gxs": [
+      "liminal-spots-okinawa"
+    ],
+    "GeYmXhaQ": [
+      "liminal-spots-okinawa"
+    ],
+    "J7mcK3Ti": [
+      "liminal-spots-okinawa"
+    ],
+    "BEkiN7yc": [
+      "liminal-spots-okinawa"
+    ],
+    "8dDucTfE": [
+      "liminal-spots-hokuriku-koshinetsu"
+    ],
+    "6sZbje49": [
+      "liminal-spots-hokuriku-koshinetsu"
+    ],
+    "GSVYrtzL": [
+      "liminal-spots-hokuriku-koshinetsu"
+    ],
+    "dibLtfvP": [
+      "liminal-spots-hokuriku-koshinetsu"
+    ],
+    "JtXE5uD5": [
+      "liminal-spots-hokuriku-koshinetsu"
+    ],
+    "AreEbsxm": [
+      "liminal-spots-hokuriku-koshinetsu"
+    ],
+    "698Asdpz": [
+      "liminal-spots-hokuriku-koshinetsu"
+    ],
+    "ncUNG4h3": [
+      "liminal-spots-hokuriku-koshinetsu"
+    ],
+    "ZARd5zBd": [
+      "liminal-spots-chugoku-shikoku"
+    ],
+    "zodpUKpy": [
+      "liminal-spots-chugoku-shikoku"
+    ],
+    "tWaY3hCp": [
+      "liminal-spots-chugoku-shikoku"
+    ],
+    "SrKMLupa": [
+      "liminal-spots-chugoku-shikoku"
+    ],
+    "8hv3niCX": [
+      "liminal-spots-chugoku-shikoku"
+    ],
+    "8pmZvV4M": [
+      "liminal-spots-chugoku-shikoku"
+    ],
+    "gE3dSWYN": [
+      "liminal-spots-chugoku-shikoku"
+    ],
+    "oVquLazQ": [
+      "liminal-spots-chugoku-shikoku"
+    ],
+    "C3r5rXkW": [
+      "liminal-spots-chugoku-shikoku"
+    ],
+    "QLHdXHVt": [
+      "liminal-spots-tohoku"
+    ],
+    "RKcSpTm3": [
+      "liminal-spots-tohoku"
+    ],
+    "UZJT2Ht2": [
+      "liminal-spots-tohoku"
+    ],
+    "SAqp6opk": [
+      "liminal-spots-tohoku"
+    ],
+    "HDnTRVqb": [
+      "liminal-spots-tohoku"
+    ],
+    "ZPX5ynHL": [
+      "liminal-spots-tohoku"
+    ],
+    "Gi6qijiq": [
+      "liminal-spots-tohoku"
+    ],
+    "sTsoVeXe": [
+      "liminal-spots-tohoku"
+    ],
+    "bABcy5N8": [
+      "liminal-spots-kyushu"
+    ],
+    "X8fbHEwM": [
+      "liminal-spots-kyushu"
+    ],
+    "yU2GmJuC": [
+      "liminal-spots-kyushu"
+    ],
+    "m7ojMcHo": [
+      "liminal-spots-kyushu"
+    ],
+    "Qom26yXL": [
+      "liminal-spots-kyushu"
+    ],
+    "ffbCQ6bM": [
+      "liminal-spots-kyushu"
+    ],
+    "7gRLUSMJ": [
+      "liminal-spots-kyushu"
+    ],
+    "ZMkEuArd": [
+      "liminal-spots-kyushu"
+    ],
+    "ErGwgdUJ": [
+      "liminal-spots-hokkaido"
+    ],
+    "MkEEtUFS": [
+      "liminal-spots-hokkaido"
+    ],
+    "wdv4MWRW": [
+      "liminal-spots-hokkaido"
+    ],
+    "Cfe4zrW6": [
+      "liminal-spots-hokkaido"
+    ],
+    "D4J7oXio": [
+      "liminal-spots-hokkaido"
+    ],
+    "K9KD56uc": [
+      "liminal-spots-hokkaido"
+    ],
+    "BQQBELWM": [
+      "liminal-spots-hokkaido"
+    ],
+    "AjQzCCkp": [
+      "liminal-spots-hokkaido"
+    ],
+    "EuDSmVMc": [
+      "liminal-spots-nagoya"
+    ],
+    "jwojecgD": [
+      "liminal-spots-nagoya"
+    ],
+    "3nQekYXT": [
+      "liminal-spots-nagoya"
+    ],
+    "VahpLYw4": [
+      "liminal-spots-nagoya"
+    ],
+    "uW3b7GY2": [
+      "liminal-spots-nagoya"
+    ],
+    "trD2fyrV": [
+      "liminal-spots-nagoya"
+    ],
+    "ZSXELtqx": [
+      "liminal-spots-nagoya"
+    ],
+    "ZUcjGgAk": [
+      "liminal-spots-nagoya"
+    ],
+    "NbGc4Sdz": [
+      "liminal-spots-kansai"
+    ],
+    "XBXoFcN3": [
+      "liminal-spots-kansai"
+    ],
+    "77BLLqk2": [
+      "liminal-spots-kansai",
+      "backrooms-levels-explained",
+      "backrooms-movie-guide",
+      "backrooms-in-japan"
+    ],
+    "bRVna6ES": [
+      "liminal-spots-kansai"
+    ],
+    "kk5yFE6g": [
+      "liminal-spots-kansai"
+    ],
+    "tZU5uY9m": [
+      "liminal-spots-kansai",
+      "haikyo-photo-spots-japan"
+    ],
+    "es2eLiRx": [
+      "liminal-spots-kansai"
+    ],
+    "GL4Ht6wV": [
+      "liminal-spots-kansai"
+    ],
+    "V6z9Xx58": [
+      "backrooms-spots-tokyo",
+      "backrooms-original-photo-location",
+      "not-haunted-just-eerie-spots"
+    ],
+    "m52bzS9d": [
+      "poolrooms-explained",
+      "haikyo-photo-spots-japan"
+    ],
+    "nPuRMQQp": [
+      "backrooms-original-photo-location",
+      "not-haunted-just-eerie-spots"
+    ],
+    "zphbsPDi": [
+      "what-is-noclip",
+      "is-exit-8-real"
+    ],
+    "ZKgQrh3z": [
+      "haikyo-photo-spots-japan"
+    ]
+  },
   "categories": [
     {
       "slug": "real-spots",
