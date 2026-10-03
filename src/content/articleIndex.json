@@ -19,6 +19,18 @@
       "titleEn": "Visiting the \"Underground Temple\": A Guide to Tours of the Metropolitan Area Outer Underground Discharge Channel"
     },
     {
+      "slug": "amusement-park-liminal-spaces",
+      "lastmod": "2026-10-03",
+      "titleJa": "遊園地のリミナルスペース｜百貨店の屋上遊園地から閉園した遊園地まで、実在する9か所",
+      "titleEn": "Liminal Amusement Parks: 9 Real Places, From Department-Store Rooftops to Closed Parks"
+    },
+    {
+      "slug": "submerged-liminal-spaces",
+      "lastmod": "2026-10-03",
+      "titleJa": "水に沈んだ場所のリミナルスペース｜ダムに沈んだ村から季節で消える橋まで、実在する7か所",
+      "titleEn": "Liminal Places Under Water: 7 Real Places, From Villages Beneath Dams to a Bridge That Comes and Goes"
+    },
+    {
       "slug": "liminal-space-games",
       "lastmod": "2026-10-03",
       "titleJa": "リミナルスペースを歩けるゲーム7選——『8番出口』『Pools』『Escape the Backrooms』ほか",
@@ -239,7 +251,8 @@
       "liminal-spots-tokyo"
     ],
     "g3Pub95b": [
-      "liminal-spots-tokyo"
+      "liminal-spots-tokyo",
+      "amusement-park-liminal-spaces"
     ],
     "gHBKZTqy": [
       "liminal-spots-tokyo",
@@ -264,7 +277,8 @@
       "liminal-spots-minami-kanto"
     ],
     "CciNUdTX": [
-      "liminal-spots-minami-kanto"
+      "liminal-spots-minami-kanto",
+      "amusement-park-liminal-spaces"
     ],
     "FGg4w6Jh": [
       "liminal-spots-minami-kanto",
@@ -285,7 +299,52 @@
       "liminal-spots-minami-kanto"
     ],
     "2nZdyNm7": [
-      "liminal-spots-minami-kanto"
+      "liminal-spots-minami-kanto",
+      "amusement-park-liminal-spaces"
+    ],
+    "bRVna6ES": [
+      "amusement-park-liminal-spaces",
+      "liminal-spots-kansai"
+    ],
+    "Ff8i4vwk": [
+      "amusement-park-liminal-spaces"
+    ],
+    "HLy7yJkZ": [
+      "amusement-park-liminal-spaces",
+      "pools-game"
+    ],
+    "EQ4XUbmu": [
+      "amusement-park-liminal-spaces",
+      "pools-game"
+    ],
+    "DpsXBFr5": [
+      "amusement-park-liminal-spaces"
+    ],
+    "qptwvrZR": [
+      "amusement-park-liminal-spaces"
+    ],
+    "o5t5vXLu": [
+      "submerged-liminal-spaces",
+      "liminal-spots-tokai"
+    ],
+    "HmgSvMMV": [
+      "submerged-liminal-spaces"
+    ],
+    "BQQBELWM": [
+      "submerged-liminal-spaces",
+      "liminal-spots-hokkaido"
+    ],
+    "qLkZzgjt": [
+      "submerged-liminal-spaces"
+    ],
+    "GE9H3gyW": [
+      "submerged-liminal-spaces"
+    ],
+    "tbdAv23o": [
+      "submerged-liminal-spaces"
+    ],
+    "Mvs56E7i": [
+      "submerged-liminal-spaces"
     ],
     "vbUQ9kcZ": [
       "liminal-space-games",
@@ -301,16 +360,10 @@
       "liminal-space-games",
       "liminal-spots-kyushu"
     ],
-    "HLy7yJkZ": [
-      "pools-game"
-    ],
     "3ZXPPqYu": [
       "pools-game"
     ],
     "UUa8yY66": [
-      "pools-game"
-    ],
-    "EQ4XUbmu": [
       "pools-game"
     ],
     "LVa5rVA7": [
@@ -326,9 +379,6 @@
       "liminal-spots-tokai"
     ],
     "eiSnWa89": [
-      "liminal-spots-tokai"
-    ],
-    "o5t5vXLu": [
       "liminal-spots-tokai"
     ],
     "Ej6x5s75": [
@@ -502,9 +552,6 @@
     "K9KD56uc": [
       "liminal-spots-hokkaido"
     ],
-    "BQQBELWM": [
-      "liminal-spots-hokkaido"
-    ],
     "AjQzCCkp": [
       "liminal-spots-hokkaido"
     ],
@@ -543,9 +590,6 @@
       "backrooms-levels-explained",
       "backrooms-movie-guide",
       "backrooms-in-japan"
-    ],
-    "bRVna6ES": [
-      "liminal-spots-kansai"
     ],
     "kk5yFE6g": [
       "liminal-spots-kansai"

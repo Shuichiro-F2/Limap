@@ -508,6 +508,32 @@ const ARTICLE_ENTRIES: ArticleSummary[] = [
       'You can enter the vast pillared hall on a guided tour. How to book, how the courses differ, and the rules on age and clothing.',
     thumbnailFile: 'Metropolitan Area Outer Underground Discharge Channel (10886145804).jpg',
   },
+  {
+    slug: 'amusement-park-liminal-spaces',
+    publishedDate: '2026-10-03',
+    categoryJa: '実在スポット',
+    categoryEn: 'Real Spots',
+    titleJa: '遊園地のリミナルスペース｜百貨店の屋上遊園地から閉園した遊園地まで、実在する9か所',
+    titleEn: 'Liminal Amusement Parks: 9 Real Places, From Department-Store Rooftops to Closed Parks',
+    leadJa:
+      '百貨店の屋上に残る遊園地、ビルの上の観覧車、閉園した遊園地の跡。人のいない遊園地の懐かしさと不安を、実在する9か所で紹介します。',
+    leadEn:
+      'Rooftop amusement parks on department stores, a Ferris wheel on a building, and closed parks: nine real places with the nostalgia and unease of an empty amusement park.',
+    thumbnailFile: '佐世保玉屋屋上遊園地.jpg',
+  },
+  {
+    slug: 'submerged-liminal-spaces',
+    publishedDate: '2026-10-03',
+    categoryJa: '実在スポット',
+    categoryEn: 'Real Spots',
+    titleJa: '水に沈んだ場所のリミナルスペース｜ダムに沈んだ村から季節で消える橋まで、実在する7か所',
+    titleEn: 'Liminal Places Under Water: 7 Real Places, From Villages Beneath Dams to a Bridge That Comes and Goes',
+    leadJa:
+      'ダム湖に沈んだ村と役場、水位で現れては消える鉄道橋、春だけ水に浸かる林。水に沈んだ7か所を、見られる時期とともに紹介します。',
+    leadEn:
+      'A village and a village office beneath dam lakes, a bridge that comes and goes with the water, a forest flooded only in spring: seven submerged places and when to see them.',
+    thumbnailFile: 'Taushubetsu-Bridge 2022.jpg',
+  },
 ];
 
 // 一覧は新着順(publishedDate の降順)で表示する。Array#sort は安定なので、
