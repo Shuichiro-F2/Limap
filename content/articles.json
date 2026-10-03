@@ -1290,9 +1290,9 @@
     "categoryEn": "Real Spots",
     "publishedDate": "2026-08-26",
     "ja": {
-      "title": "バックルームズは日本に実在する？「黄色い部屋」に近い空気の場所を探して",
-      "metaDescription": "4chan発の都市伝説「バックルームズ」。あの黄色い部屋は日本にも実在するのか？都市伝説としての成り立ちを整理しつつ、似た雰囲気を味わえる実在スポットをLIMapから紹介します。",
-      "h1": "バックルームズは日本に実在する？「黄色い部屋」に近い空気の場所を探して",
+      "title": "バックルームは実在する？元ネタ写真の撮影場所と、日本で「黄色い部屋」に近い場所",
+      "metaDescription": "バックルーム（バックルームズ）は実在するのか。無限に続く部屋は創作ですが、元になった写真の撮影場所は2024年にアメリカで特定されています。結論と経緯を短く整理し、日本で似た空気を味わえる実在の場所を紹介します。",
+      "h1": "バックルームは実在する？元ネタ写真の撮影場所と、日本で「黄色い部屋」に近い場所",
       "lead": "「本当にこんな部屋、どこかにあるんじゃないか」。ホラー映像作品や都市伝説サイトで語られる「バックルームズ」。黄色い壁紙と蛍光灯の低い唸り音だけが響く、終わりのない部屋――そんな空間は日本にも実在するのか。この記事では都市伝説としての成り立ちを短く整理しつつ、似た空気感を味わえる実在の場所を、LIMapの実例とともに紹介します。",
       "sections": [
         {
@@ -1303,10 +1303,11 @@
           ]
         },
         {
-          "heading": "結論、バックルームズそのものは実在しない",
+          "heading": "結論：無限に続く部屋は実在しない。ただし元の写真の場所は実在する",
           "paragraphs": [
-            "先に結論から言うと、バックルームズは実際にある場所ではなく、あくまで創作から始まった都市伝説です。『8番出口』のような「モデルになった実在の場所」も公式には存在せず、\"あの黄色い部屋\"をピンポイントで探し当てることはできません。",
-            "ただし、多くの人がバックルームズの映像や設定に「なんとなく覚えがある」感覚を抱くのも事実です。この既視感の正体を辿っていくと、日常の中にも似た空気感を持つ場所が実在することに気づきます。"
+            "先に結論から言うと、無限に続く空間としてのバックルームズは実在しません。2019年の書き込みから始まった創作の都市伝説で、レベルやクリーチャーの設定も、ネット上の有志があとから書き足していったものです。",
+            "ただし、きっかけになった1枚の写真には、実在の撮影場所があります。2024年に、アメリカ・ウィスコンシン州オシュコシュの建物で、2002年の改装工事中に撮られた一室だったことが特定されました（詳しくは「バックルームズの元ネタ写真はどこで撮られた？」で解説しています）。日本で撮られた写真ではなく、部屋も改装後は別の用途に使われたため、写真のままの\"あの黄色い部屋\"を訪ねることはできません。",
+            "それでも、多くの人がバックルームズの映像や設定に「なんとなく覚えがある」感覚を抱くのも事実です。この既視感の正体を辿っていくと、日常の中にも似た空気感を持つ場所が実在することに気づきます。"
           ]
         },
         {
@@ -1320,7 +1321,7 @@
           "heading": "それでも「近い空気感」を持つ場所は日本各地にある",
           "paragraphs": [
             "「あの部屋」そのものは存在しませんが、似た空気感を味わえる実在の場所なら日本各地にあります。LIMapには、そうした場所がすでにいくつも記録されています。",
-            "例えば、1979年開業・世界初の実用カプセルホテルとして知られる大阪のカプセルイン大阪は、同じ形の個室が延々と連なる非現実的な均質空間。かつて成田空港のターミナル駅として使われ、今は静かに時が止まった東成田駅(旧成田空港駅)の薄暗いコンコース。そして、栃木県に今も残る旧野木病院の、壁一面に痕跡だけが残る廃病棟の廊下。いずれも「誰もいないのに、何かの気配だけが残っている」空気感を持つ場所です。",
+            "例えば、1979年開業・世界初の実用カプセルホテルとして知られる大阪のカプセルイン大阪は、同じ形の個室が延々と連なる非現実的な均質空間。かつて成田空港のターミナル駅として使われ、今は静かに時が止まった東成田駅(旧成田空港駅)の薄暗いコンコース。そして、栃木県の国道沿いで、長く使われないまま静まり返っている旧野木病院の建物（私有地のため、外から眺めるだけにしてください）。いずれも「誰もいないのに、何かの気配だけが残っている」空気感を持つ場所です。",
             "気になる場所があれば、そのままLIMapの地図で位置や行き方を確認できます。あなたが感じた\"バックルームズっぽさ\"を、ぜひ他の人とも共有してみてください。"
           ],
           "spots": [
@@ -1361,12 +1362,26 @@
             }
           ]
         }
+      ],
+      "faq": [
+        {
+          "q": "バックルームは本当にあるのですか？",
+          "a": "無限に続く空間としてのバックルームズは、2019年の書き込みから始まった創作の都市伝説で、実在しません。ただし元になった写真には撮影場所があり、2024年にアメリカ・ウィスコンシン州オシュコシュの建物で2002年に撮られたものだと特定されています。"
+        },
+        {
+          "q": "バックルームの元ネタの写真は日本で撮られたものですか？",
+          "a": "日本ではありません。アメリカ・ウィスコンシン州オシュコシュの建物で、改装工事中の一室を撮った写真です。経緯は「バックルームズの元ネタ写真はどこで撮られた？」で詳しく紹介しています。"
+        },
+        {
+          "q": "日本にバックルームみたいな場所はありますか？",
+          "a": "黄色い部屋そのものはありませんが、人のいない通路や同じ形の空間が続く場所など、似た空気を持つ場所は日本各地にあります。この記事の後半と、LIMapの地図で実在の場所を紹介しています。"
+        }
       ]
     },
     "en": {
-      "title": "Do the Backrooms Exist in Japan? Looking for Places With That \"Yellow Room\" Feeling",
-      "metaDescription": "The urban legend \"Backrooms\" started on 4chan. Does that yellow room really exist somewhere in Japan? We trace the legend's origins and round up real places with a similar unsettling vibe, mapped on LIMap.",
-      "h1": "Do the Backrooms Exist in Japan? Looking for Places With That \"Yellow Room\" Feeling",
+      "title": "Are the Backrooms Real? Where the Original Photo Was Taken, and Places in Japan That Feel the Same",
+      "metaDescription": "Are the Backrooms real? The endless rooms are fiction, but the photo that started it all was traced to a real building in the US in 2024. A short answer, how the location was found, and real places in Japan with the same atmosphere.",
+      "h1": "Are the Backrooms Real? Where the Original Photo Was Taken, and Places in Japan That Feel the Same",
       "lead": "\"Is there really a place like that somewhere?\" The Backrooms — an endless maze of yellow-wallpapered rooms lit only by humming fluorescent tubes — has become a horror-culture phenomenon. Does anything like it actually exist in Japan? This article briefly traces the legend's origins, then rounds up real places with a similar atmosphere, using actual examples recorded on LIMap.",
       "sections": [
         {
@@ -1377,9 +1392,10 @@
           ]
         },
         {
-          "heading": "To Be Clear, the Backrooms Aren't Real",
+          "heading": "The Short Answer: The Endless Rooms Are Fiction, but the Original Photo Is Real",
           "paragraphs": [
-            "Let's get this out of the way first: the Backrooms isn't an actual place — it's a fictional urban legend from the start. Just like Exit 8, there's no officially confirmed \"real location\" it's based on, so there's no single yellow room out there waiting to be found.",
+            "Let's get this out of the way first: the Backrooms as an endless maze of rooms is not a real place. It is a piece of fiction that grew out of a 2019 forum post, and the Levels and creatures were all added later by people online.",
+            "The single photo that started it all, however, does have a real location. In 2024 it was traced to a building in Oshkosh, Wisconsin, USA: a room photographed in 2002 while it was being renovated (we cover the full story in \"Where Was the Original Backrooms Photo Taken?\"). It was not taken in Japan, and the room was put to a different use after the renovation, so you cannot visit the yellow room as it appears in the photo.",
             "That said, plenty of people describe a nagging sense of familiarity when they see Backrooms imagery. Tracing that feeling back leads to real places with a surprisingly similar atmosphere."
           ]
         },
@@ -1394,7 +1410,7 @@
           "heading": "Real Places With a Similar Atmosphere Do Exist Across Japan",
           "paragraphs": [
             "The room itself doesn't exist, but real places with a similar atmosphere are scattered across Japan. LIMap already has several of them recorded.",
-            "Take Capsule Inn Osaka, the world's first practical capsule hotel (opened 1979) — a surreal, uniform space where identical pods repeat endlessly down the corridor. Or Higashi-Narita Station, once a terminal stop for Narita Airport and now a quietly frozen-in-time station with a dim, empty concourse. Or the former Nogi Hospital in Tochigi, its abandoned ward hallway lined wall-to-wall with decades of graffiti. Each one carries that same feeling: nobody's there, but something still lingers.",
+            "Take Capsule Inn Osaka, the world's first practical capsule hotel (opened 1979) — a surreal, uniform space where identical pods repeat endlessly down the corridor. Or Higashi-Narita Station, once a terminal stop for Narita Airport and now a quietly frozen-in-time station with a dim, empty concourse. Or the former Nogi Hospital in Tochigi, a building left unused for years beside a busy national highway (it is private property, so please only look from outside). Each one carries that same feeling: nobody's there, but something still lingers.",
             "If one of these catches your interest, you can check its exact location and how to get there right on the LIMap map. And if you find your own \"Backrooms\"-like place, record it and share that feeling with everyone else looking for it too."
           ],
           "spots": [
@@ -1435,6 +1451,20 @@
             }
           ]
         }
+      ],
+      "faq": [
+        {
+          "q": "Are the Backrooms real?",
+          "a": "The Backrooms as an endless space is fiction: an urban legend that began with a 2019 forum post. The photo behind it, however, was taken in a real building, and in 2024 it was traced to Oshkosh, Wisconsin, USA, where it was shot in 2002."
+        },
+        {
+          "q": "Was the original Backrooms photo taken in Japan?",
+          "a": "No. It shows a room in a building in Oshkosh, Wisconsin, USA, photographed while the building was being renovated. The full story is in \"Where Was the Original Backrooms Photo Taken?\""
+        },
+        {
+          "q": "Are there places like the Backrooms in Japan?",
+          "a": "The yellow room itself does not exist in Japan, but empty corridors and spaces where identical rooms repeat can be found across the country. This article and the LIMap map introduce real examples."
+        }
       ]
     },
     "images": [
@@ -1450,6 +1480,12 @@
         "captionEn": "The photograph that started it all — taken in 2002 during renovations at a store in Wisconsin, USA.",
         "afterSection": -1
       }
+    ],
+    "updatedDate": "2026-10-03",
+    "related": [
+      "backrooms-original-photo-location",
+      "backrooms-spots-tokyo",
+      "backrooms-levels-explained"
     ]
   },
   {

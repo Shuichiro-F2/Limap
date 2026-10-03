@@ -137,8 +137,8 @@ const ARTICLE_ENTRIES: ArticleSummary[] = [
     publishedDate: '2026-08-26',
     categoryJa: '実在スポット',
     categoryEn: 'Real Spots',
-    titleJa: 'バックルームズは日本に実在する？「黄色い部屋」に近い空気の場所を探して',
-    titleEn: 'Do the Backrooms Exist in Japan? Looking for Places With That "Yellow Room" Feeling',
+    titleJa: 'バックルームは実在する？元ネタ写真の撮影場所と、日本で「黄色い部屋」に近い場所',
+    titleEn: 'Are the Backrooms Real? Where the Original Photo Was Taken, and Places in Japan That Feel the Same',
     leadJa:
       '黄色い壁紙と蛍光灯の低い唸り音だけが響く、終わりのない部屋――「バックルームズ」は日本にも実在するのか。都市伝説としての成り立ちと、似た空気感を味わえる実在スポットを紹介します。',
     leadEn:
