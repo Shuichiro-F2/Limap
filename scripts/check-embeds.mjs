@@ -2,7 +2,9 @@
 // データは読むだけで、何も変更しない。
 //
 // 使い方:
-//   node --env-file=.env scripts/check-embeds.mjs [出力先.csv]
+//   node --env-file=.env scripts/check-embeds.mjs [出力先.csv]          公開中スポットの埋め込み
+//   node scripts/check-embeds.mjs --articles [出力先.csv]               コラム記事（content/articles.json）の埋め込み
+//   記事の埋め込みは日英で同じ投稿を使う決まり（check-articles.js で確認）なので、日本語版だけを数える
 //
 // 判定方法:
 // - X: 公式の oEmbed（publish.twitter.com/oembed）。削除・非公開・凍結された投稿は 404 などになる
@@ -22,9 +24,10 @@ import { spawn } from 'node:child_process';
 const CHROME = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
 const SUPABASE_URL = process.env.SUPABASE_URL;
 const ANON_KEY = process.env.SUPABASE_ANON_KEY;
-const outPath = process.argv[2] ?? 'embed-check.csv';
+const articlesMode = process.argv.includes('--articles');
+const outPath = process.argv.slice(2).find((a) => !a.startsWith('--')) ?? (articlesMode ? 'article-embed-check.csv' : 'embed-check.csv');
 
-if (!SUPABASE_URL || !ANON_KEY) {
+if (!articlesMode && (!SUPABASE_URL || !ANON_KEY)) {
   console.error('SUPABASE_URL / SUPABASE_ANON_KEY がありません（node --env-file=.env で実行してください）');
   process.exit(1);
 }
@@ -39,6 +42,23 @@ async function fetchEmbeds() {
   });
   if (!res.ok) throw new Error(`埋め込みの取得に失敗しました: ${res.status}`);
   return res.json();
+}
+
+// コラム記事の埋め込み。同じ投稿が複数の記事・セクションにあっても1回だけ調べ、使っている場所をまとめる
+function articleEmbeds() {
+  const articles = JSON.parse(fs.readFileSync('content/articles.json', 'utf8'));
+  const byUrl = new Map();
+  for (const a of articles) {
+    a.ja.sections.forEach((sec, i) => {
+      for (const e of sec.embeds ?? []) {
+        if (!byUrl.has(e.url)) {
+          byUrl.set(e.url, { url: e.url, platform: /instagram\.com/i.test(e.url) ? 'instagram' : 'x', places: [] });
+        }
+        byUrl.get(e.url).places.push(`${a.slug}#${i}${e.spot ? `(${e.spot})` : ''}`);
+      }
+    });
+  }
+  return [...byUrl.values()];
 }
 
 async function checkX(url) {
@@ -130,7 +150,7 @@ function csvCell(value) {
   return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
 }
 
-const embeds = await fetchEmbeds();
+const embeds = articlesMode ? articleEmbeds() : await fetchEmbeds();
 console.log(`点検する埋め込み: ${embeds.length}件（X ${embeds.filter((e) => e.platform === 'x').length} / Instagram ${embeds.filter((e) => e.platform === 'instagram').length}）`);
 
 const results = [];
@@ -152,6 +172,26 @@ for (const [i, e] of embeds.entries()) {
 }
 await chrome?.close();
 if (process.stdout.isTTY) process.stdout.write('\n');
+
+const count = (platform, status) => results.filter((r) => r.platform === platform && r.status === status).length;
+const summary = () => {
+  console.log(`X:         見られる ${count('x', 'ok')} / 見られない ${count('x', 'unavailable')} / 判定できず ${count('x', 'unknown')}`);
+  console.log(
+    `Instagram: 見られる ${count('instagram', 'ok')} / 見られない ${count('instagram', 'unavailable')} / 判定できず ${count('instagram', 'unknown')}`
+  );
+};
+
+// 記事：見られなくなった投稿は、記事では「Xで投稿を見る」のリンクだけが残る。差し替えるか embeds から外す
+if (articlesMode) {
+  const lines = [['status', 'platform', 'embed_url', 'used_in（記事#セクション(スポット)）', 'note'].join(',')];
+  for (const r of results.sort((a, b) => a.status.localeCompare(b.status) || a.platform.localeCompare(b.platform))) {
+    lines.push([r.status, r.platform, r.url, r.places.join(' '), r.note].map(csvCell).join(','));
+  }
+  fs.writeFileSync(outPath, '\uFEFF' + lines.join('\n') + '\n', 'utf8');
+  summary();
+  console.log(`結果: ${outPath}`);
+  process.exit(0);
+}
 
 // スポット単位で「写真も無く、見られる埋め込みが1つも無い」ものを、中身が空になったスポットとして印を付ける
 const bySpot = new Map();
@@ -187,10 +227,6 @@ for (const r of results.sort((a, b) => a.status.localeCompare(b.status) || a.pla
 }
 fs.writeFileSync(outPath, '﻿' + lines.join('\n') + '\n', 'utf8');
 
-const count = (platform, status) => results.filter((r) => r.platform === platform && r.status === status).length;
-console.log(`X:         見られる ${count('x', 'ok')} / 見られない ${count('x', 'unavailable')} / 判定できず ${count('x', 'unknown')}`);
-console.log(
-  `Instagram: 見られる ${count('instagram', 'ok')} / 見られない ${count('instagram', 'unavailable')} / 判定できず ${count('instagram', 'unknown')}`
-);
+summary();
 console.log(`写真が無く、埋め込みもすべて見られなくなったスポット: ${emptySpots.size}件`);
 console.log(`結果: ${outPath}`);

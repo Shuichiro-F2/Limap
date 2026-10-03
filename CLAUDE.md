@@ -110,7 +110,7 @@ npx tsc --noEmit       # 型チェック
 
 ## SNS埋め込みの点検
 
-公開スポットのほとんどは X・Instagram の埋め込みだけで成り立っているため、元の投稿が消えるとスポットから写真が消える。ときどき `node --env-file=.env scripts/check-embeds.mjs <出力先.csv>` で点検する（データは変更しない）。Instagram の判定にはこの Mac の Google Chrome を画面なしで使う。
+公開スポットのほとんどは X・Instagram の埋め込みだけで成り立っているため、元の投稿が消えるとスポットから写真が消える。ときどき `node --env-file=.env scripts/check-embeds.mjs <出力先.csv>` で点検する（データは変更しない）。コラム記事に入れた埋め込みは `node scripts/check-embeds.mjs --articles <出力先.csv>` で点検する（見られなくなった投稿は、同じスポットの別の投稿に差し替えるか `embeds` から外す）。Instagram の判定にはこの Mac の Google Chrome を画面なしで使う。
 
 - シミュレーターの WebView（埋め込みの中）では、日本語の一部が「?」の四角で表示される。シミュレーターに端末標準の日本語フォントが無いためで、実機では起きない
 

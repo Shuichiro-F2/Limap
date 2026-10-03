@@ -71,7 +71,7 @@ push と `eas update` は実行前に Shu に確認を取る。
   - `spot` に同じセクションの `spots` のスラッグを入れると、投稿の下に「〇〇をLIMapで見る →」のリンクが付き、**そのスポットのカードは出なくなる**（同じ写真が二重に並ばないように）。
   - `caption` は任意の短い説明（LIMap 独自の言葉で）。
   - **`ja` と `en` の同じセクションに同じ投稿を入れる**（check-articles.js が日英の食い違いを検出する）。
-  - 投稿が消えると「Xで投稿を見る」のリンクだけが残る。公開スポットと同じく、ときどき元の投稿が残っているか点検する。
+  - 投稿が消えると「Xで投稿を見る」のリンクだけが残る。ときどき `node scripts/check-embeds.mjs --articles <出力先.csv>` で点検し、見られなくなった投稿は同じスポットの別の投稿に差し替える（2026-10-03 の点検では105件中1件が削除済みだった）。
 - `related`（記事ごと、任意）= 下部の「こちらもおすすめ」に先に出す記事のスラッグの配列。残りの枠は、同じシリーズ（スラッグに `liminal-spots-`・`backrooms` などを含む）→同じカテゴリ→新しい順で自動で選ばれ、最後の1枠は「リミナルスペースとは」になる。
 - `images[]` = `{ file, author, license, licenseUrl, sourceUrl, altJa, altEn, captionJa, captionEn, afterSection }`
   - 画像は **Wikimedia Commons のファイル名**を指定し、`Special:FilePath` 経由で読み込まれる。ライセンス表記は自動出力されるので、`author` / `license` / `licenseUrl` / `sourceUrl` を正しく入れること。新しい画像は Commons のファイルページで author / license を確認してから入れる。
