@@ -548,6 +548,19 @@ const ARTICLE_ENTRIES: ArticleSummary[] = [
       "Asakusa's 1955 underground street, Nagoya's curving Sun Road, cobbled Tenjin and the Kanmon tunnel under the sea: 11 underground malls and passages across Japan.",
     thumbnailFile: '2014-09-01 Kanmon Pedestrian Tunnel.jpg',
   },
+  {
+    slug: 'station-liminal-spaces',
+    publishedDate: '2026-10-03',
+    categoryJa: '実在スポット',
+    categoryEn: 'Real Spots',
+    titleJa: '駅のリミナルスペース｜地下462段の土合駅から道のない秘境駅まで、実在する9か所',
+    titleEn: 'Liminal Stations: 9 Real Places, From 462 Steps Underground at Doai to Stations With No Road',
+    leadJa:
+      'ホームまで486段の土合駅、トンネルの中の筒石駅、道路のない小幌駅や坪尻駅。誰もいない駅のリミナルスペースを、行くときの注意とともに紹介します。',
+    leadEn:
+      'Doai with its 486 steps, Tsutsuishi inside a tunnel, Koboro and Tsubojiri with no road: liminal stations in Japan, with practical notes for visiting.',
+    thumbnailFile: 'Doai Station stairs from the basement.jpg',
+  },
 ];
 
 // 一覧は新着順(publishedDate の降順)で表示する。Array#sort は安定なので、

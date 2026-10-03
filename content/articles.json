@@ -9977,5 +9977,386 @@
         "afterSection": 2
       }
     ]
+  },
+  {
+    "slug": "station-liminal-spaces",
+    "related": [
+      "underground-mall-liminal-spaces",
+      "is-exit-8-real",
+      "liminal-space-games"
+    ],
+    "category": "実在スポット",
+    "categoryEn": "Real Spots",
+    "publishedDate": "2026-10-03",
+    "ja": {
+      "title": "駅のリミナルスペース｜地下462段の土合駅から道のない秘境駅まで、実在する9か所",
+      "h1": "駅のリミナルスペース｜地下462段の土合駅から道のない秘境駅まで、実在する9か所",
+      "metaDescription": "ホームまで486段の階段を下りる土合駅、トンネルの中の筒石駅、道路のない小幌駅や坪尻駅、断崖の田本駅、人の暮らしが消えた小和田駅まで。誰もいない駅のリミナルスペース9か所を、行くときの注意（帰りの列車・クマ）とともに紹介します。",
+      "lead": "駅は、人が集まって、すぐに去っていく場所です。乗り降りする人がほとんどいない駅や、地下深くに隠れたホームには、「誰かを待つための場所なのに、誰もいない」という独特の空気があります。地下の駅から、道のない秘境駅まで、9か所を紹介します。",
+      "sections": [
+        {
+          "heading": "誰もいない駅が、なぜ心に残るのか",
+          "paragraphs": [
+            "駅のホームや待合室は、列車を待つ人のために作られています。ベンチも時刻表も案内放送も、本来は誰かがそこにいることが前提です。そこに誰もいないとき、駅は「どこかへ向かう途中」のまま止まった空間になります。",
+            "この記事で紹介する駅は、どれも今も列車が止まる現役の駅です。ただし止まる列車はとても少なく、道路が通じていない駅もあります。訪ねるときは、必ず帰りの列車の時刻を確かめてください。"
+          ]
+        },
+        {
+          "heading": "地下深くのホーム：土合駅と筒石駅",
+          "paragraphs": [
+            "群馬県のJR上越線の土合駅は、上りホームが地上にある一方で、下りホームは1967年に開通した新清水トンネルの中、駅舎から約70m下にあります。改札から連絡通路の24段と、まっすぐ続く462段の階段を下りて、ようやくホームに着きます。照明が等間隔に並ぶ階段は、下りで10分ほど、上りはその倍以上かかることもあります。",
+            "新潟県の筒石駅（えちごトキめき鉄道）は、1969年に、全長約11kmの頸城トンネルの中に移された駅です。ホームは地上の駅舎から約40m下にあり、改札から下りホームまで290段の階段を歩きます。列車が通るとトンネルの中に強い風が吹き抜けるため、ホームと通路は重い引き戸で仕切られています。",
+            "千葉県の東成田駅は、1978年に成田空港の開港とともに「成田空港駅」として開業し、1991年に名前を変えた地下の駅です。かつての特急ホームは使われなくなり、旧駅名の駅名標や古い広告が残っています。"
+          ],
+          "spots": [
+            {
+              "title": "土合駅（下り地下ホームと462段の階段）",
+              "slug": "bip9TQfu",
+              "afterParagraph": 0
+            },
+            {
+              "title": "筒石駅（頸城トンネル内のホーム）",
+              "slug": "HahW24gp",
+              "afterParagraph": 1
+            },
+            {
+              "title": "東成田駅（旧成田空港駅）",
+              "slug": "FGg4w6Jh",
+              "afterParagraph": 2
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/RailwayTown_Omy/status/2076600021097566285",
+              "spot": "bip9TQfu",
+              "afterParagraph": 0
+            },
+            {
+              "url": "https://x.com/JIYUKENKYU_jp/status/2025188367663858148",
+              "spot": "HahW24gp",
+              "afterParagraph": 1
+            },
+            {
+              "url": "https://x.com/hiroko_425/status/1781596370341859713",
+              "spot": "FGg4w6Jh",
+              "afterParagraph": 2
+            }
+          ]
+        },
+        {
+          "heading": "道のない秘境駅：小幌駅と坪尻駅",
+          "paragraphs": [
+            "北海道のJR室蘭本線の小幌駅は、二つの長いトンネルに挟まれた80mほどのすき間にあります。三方を急な崖、残る一方を海に囲まれ、駅に通じる道路はありません。1943年に列車の行き違いのための信号場として設けられ、止まる普通列車は1日6本だけです。2015年に廃止が検討されましたが、翌年から豊浦町が管理して残しています。周辺はヒグマが出るので、一人での訪問は避けてください。",
+            "徳島県のJR土讃線の坪尻駅は、阿讃山地の谷底にあり、駅まで通じる車道がありません。勾配が急なためスイッチバック式で、止まる列車はいったん引き込み線で向きを変えてからホームに入ります。古い木造の駅舎が残り、止まる普通列車は上下3本ずつ。阿波池田方面の最終は16時台と早いので注意が必要です。"
+          ],
+          "spots": [
+            {
+              "title": "小幌駅（トンネルに挟まれた秘境駅）",
+              "slug": "UWm8ASTY",
+              "afterParagraph": 0
+            },
+            {
+              "title": "坪尻駅（谷底のスイッチバック駅）",
+              "slug": "kmzMLT99",
+              "afterParagraph": 1
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/otatravel/status/1857881669870694851",
+              "spot": "UWm8ASTY",
+              "afterParagraph": 0
+            },
+            {
+              "url": "https://x.com/always_rain3/status/2093293380264735102",
+              "spot": "kmzMLT99",
+              "afterParagraph": 1
+            }
+          ]
+        },
+        {
+          "heading": "天竜川の秘境駅：田本駅と小和田駅",
+          "paragraphs": [
+            "長野県のJR飯田線の田本駅は、天竜川の峡谷の断崖の途中にあります。ホームの背後には巨大なコンクリートの擁壁がそびえ、線路の下は谷です。駅舎はなく、小さな待合所があるだけで、細い山道を20分ほど登ると集落に出ます。普通列車でも通過するものがあるので、時刻表を確かめてから降りてください。",
+            "静岡県の小和田駅（JR飯田線）は、静岡・愛知・長野の三県の境に近い天竜川沿いにあります。1956年に完成した佐久間ダムで川沿いの集落の一部が湖に沈み、のちに周りから人の暮らしが消えました。駅に通じる車道はなく、いちばん近い集落まで山道を1時間ほど歩きます。木造の駅舎と、住居や製茶工場の跡が残っています。"
+          ],
+          "spots": [
+            {
+              "title": "田本駅（天竜川の断崖の駅）",
+              "slug": "ccoyejXJ",
+              "afterParagraph": 0
+            },
+            {
+              "title": "小和田駅（三県境の秘境駅）",
+              "slug": "nxrtUmie",
+              "afterParagraph": 1
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/miyadutakuya/status/1557955023409057793",
+              "spot": "ccoyejXJ",
+              "afterParagraph": 0
+            },
+            {
+              "url": "https://x.com/always_rain3/status/1976472978989973667",
+              "spot": "nxrtUmie",
+              "afterParagraph": 1
+            }
+          ]
+        },
+        {
+          "heading": "昭和の姿のままの駅：国道駅と根府川駅",
+          "paragraphs": [
+            "神奈川県のJR鶴見線の国道駅は、1930年に開業し、大きな改築がされていないとされる駅です。高架の下にはアーチの続く薄暗い通路がのびています。高架下には今も住まいがあるので、住民の方や戸口が写らないように気をつけてください。",
+            "小田原市の根府川駅は、相模湾を見下ろす高台の無人駅です。1923年の関東大震災では、駅に入ろうとしていた列車が土石流に巻き込まれて駅舎やホームごと海へ落ち、100人を超える人が亡くなりました。今の木造駅舎は翌1924年に建て直されたものです。"
+          ],
+          "spots": [
+            {
+              "title": "国道駅",
+              "slug": "bUpymfK9",
+              "afterParagraph": 0
+            },
+            {
+              "title": "根府川駅",
+              "slug": "Y2ciMqaA",
+              "afterParagraph": 1
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://www.instagram.com/reel/DJ0cIFKSAzA/",
+              "spot": "bUpymfK9",
+              "afterParagraph": 0
+            },
+            {
+              "url": "https://www.instagram.com/p/CHsHTE7jGV2/",
+              "spot": "Y2ciMqaA",
+              "afterParagraph": 1
+            }
+          ]
+        },
+        {
+          "heading": "行くときの、現実的な注意点",
+          "paragraphs": [
+            "秘境駅に止まる列車はとても少なく、乗り遅れると何時間も次の列車がありません。訪ねる前に行きと帰りの列車を決め、時刻表を確かめておいてください。道路のない駅では、ほかに帰る手段がありません。小幌駅、田本駅、小和田駅の周りはクマが出るので、鈴などを持ち、一人での訪問は避けてください。",
+            "どの駅も、今も列車が走る現役の駅です。線路に下りたり、ホームの端に立ったりしないでください。土合駅や筒石駅の階段にはエレベーターがなく、上るのにかなりの体力が要ります。待合室での寝泊まりや火の使用もやめましょう。"
+          ]
+        },
+        {
+          "heading": "撮ったら、地図に残してください",
+          "paragraphs": [
+            "毎日使っている駅にも、人のいない時間には別の顔があります。地下の通路や地下街については「地下街・地下通路のリミナルスペース」、ゲームの中の駅や通路については「『8番出口』は現実にあるのか」でも紹介しています。",
+            "LIMapは、そうした場所を写真と位置つきで残していく地図です。見つけた場所があれば、ぜひ登録してください。"
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "土合駅の階段は何段ありますか？",
+          "a": "下りホームから改札までは、462段の階段と連絡通路の24段を合わせて486段です。エレベーターやエスカレーターはなく、上りは20〜30分以上かかることもあります。"
+        },
+        {
+          "q": "秘境駅に行くとき、いちばん気をつけることは？",
+          "a": "帰りの列車です。止まる列車がとても少なく、道路が通じていない駅もあるので、乗り遅れると帰る手段がありません。行きと帰りの列車を決めてから出かけてください。"
+        },
+        {
+          "q": "小幌駅には車で行けますか？",
+          "a": "行けません。駅に通じる道路はなく、列車で行く駅です。周辺はヒグマが出るので、陸路で近づくのも避けてください。"
+        }
+      ]
+    },
+    "en": {
+      "title": "Liminal Stations: 9 Real Places, From 462 Steps Underground at Doai to Stations With No Road",
+      "h1": "Liminal Stations: 9 Real Places, From 462 Steps Underground at Doai to Stations With No Road",
+      "metaDescription": "Doai, where you descend 486 steps to the platform; Tsutsuishi, inside a tunnel; Koboro and Tsubojiri, with no road; Tamoto on a cliff; and Kowada, where village life has vanished. Nine liminal stations in Japan, with practical notes on return trains and bears.",
+      "lead": "Stations are places where people gather and quickly leave. Stations where almost no one gets on or off, or platforms hidden deep underground, have a peculiar air: a place for waiting, with no one waiting. Here are nine, from underground stations to remote stations with no road.",
+      "sections": [
+        {
+          "heading": "Why Empty Stations Stay With Us",
+          "paragraphs": [
+            "Platforms and waiting rooms are built for people waiting for trains. Benches, timetables and announcements all assume someone is there. When no one is, the station becomes a space frozen on the way somewhere.",
+            "Every station in this article is still served by trains. But very few trains stop, and some stations have no road. When you visit, always check the time of your train back."
+          ]
+        },
+        {
+          "heading": "Platforms Deep Underground: Doai and Tsutsuishi",
+          "paragraphs": [
+            "At Doai Station on the JR Joetsu Line in Gunma, the up platform is above ground, but the down platform is inside the Shin-Shimizu Tunnel, opened in 1967, about 70 meters below the station building. From the gate you go down 24 steps in a connecting passage and then a straight flight of 462 steps before reaching the platform. Going down takes about 10 minutes; coming up can take twice as long or more.",
+            "Tsutsuishi Station in Niigata (Echigo Tokimeki Railway) was moved in 1969 into the Kubiki Tunnel, about 11 kilometers long. The platforms are about 40 meters below the station building, 290 steps down from the gate. Strong winds blow through the tunnel when trains pass, so heavy sliding doors separate the platforms from the passages.",
+            "Higashi-Narita Station in Chiba opened in 1978 as \"Narita Airport Station\" and was renamed in 1991. Its former limited-express platform is no longer used, and signs with the old name and old advertisements remain."
+          ],
+          "spots": [
+            {
+              "title": "Doai Station (underground platform and 462 steps)",
+              "slug": "bip9TQfu",
+              "afterParagraph": 0
+            },
+            {
+              "title": "Tsutsuishi Station (platforms inside a tunnel)",
+              "slug": "HahW24gp",
+              "afterParagraph": 1
+            },
+            {
+              "title": "Higashi-Narita Station (former Narita Airport Station)",
+              "slug": "FGg4w6Jh",
+              "afterParagraph": 2
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/RailwayTown_Omy/status/2076600021097566285",
+              "spot": "bip9TQfu",
+              "afterParagraph": 0
+            },
+            {
+              "url": "https://x.com/JIYUKENKYU_jp/status/2025188367663858148",
+              "spot": "HahW24gp",
+              "afterParagraph": 1
+            },
+            {
+              "url": "https://x.com/hiroko_425/status/1781596370341859713",
+              "spot": "FGg4w6Jh",
+              "afterParagraph": 2
+            }
+          ]
+        },
+        {
+          "heading": "Remote Stations With No Road: Koboro and Tsubojiri",
+          "paragraphs": [
+            "Koboro Station on the JR Muroran Line in Hokkaido sits in a gap of about 80 meters between two long tunnels, surrounded by steep cliffs on three sides and the sea on the fourth. No road reaches it. It was established in 1943 as a passing loop, and only six local trains a day stop there. JR considered closing it in 2015, but the town of Toyoura has managed and preserved it since the following year. Brown bears live in the area, so do not visit alone.",
+            "Tsubojiri Station on the JR Dosan Line in Tokushima lies at the bottom of a valley in the Asan Mountains, with no road to it. Because of the steep grade it is a switchback: trains reverse in a siding before entering the platform. An old wooden station building remains, and only three local trains stop in each direction. The last train toward Awa-Ikeda leaves in the 16:00 hour, so plan carefully."
+          ],
+          "spots": [
+            {
+              "title": "Koboro Station (between two tunnels)",
+              "slug": "UWm8ASTY",
+              "afterParagraph": 0
+            },
+            {
+              "title": "Tsubojiri Station (switchback in a valley)",
+              "slug": "kmzMLT99",
+              "afterParagraph": 1
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/otatravel/status/1857881669870694851",
+              "spot": "UWm8ASTY",
+              "afterParagraph": 0
+            },
+            {
+              "url": "https://x.com/always_rain3/status/2093293380264735102",
+              "spot": "kmzMLT99",
+              "afterParagraph": 1
+            }
+          ]
+        },
+        {
+          "heading": "Remote Stations on the Tenryu River: Tamoto and Kowada",
+          "paragraphs": [
+            "Tamoto Station on the JR Iida Line in Nagano clings to a cliff in the Tenryu River gorge, with a huge concrete retaining wall behind the platform and the valley below the tracks. There is no station building, only a small shelter, and a narrow mountain path climbs about 20 minutes to a village. Some local trains pass without stopping, so check the timetable before getting off.",
+            "Kowada Station (JR Iida Line) in Shizuoka is near the point where Shizuoka, Aichi and Nagano meet, beside the Tenryu River. When Sakuma Dam was completed in 1956, part of the riverside settlement was submerged, and later village life around the station disappeared. No road reaches it; the nearest settlement is about an hour away on foot. A wooden station building and the remains of homes and a tea factory are still there."
+          ],
+          "spots": [
+            {
+              "title": "Tamoto Station (on a cliff above the Tenryu)",
+              "slug": "ccoyejXJ",
+              "afterParagraph": 0
+            },
+            {
+              "title": "Kowada Station (near three prefectural borders)",
+              "slug": "nxrtUmie",
+              "afterParagraph": 1
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/miyadutakuya/status/1557955023409057793",
+              "spot": "ccoyejXJ",
+              "afterParagraph": 0
+            },
+            {
+              "url": "https://x.com/always_rain3/status/1976472978989973667",
+              "spot": "nxrtUmie",
+              "afterParagraph": 1
+            }
+          ]
+        },
+        {
+          "heading": "Stations Unchanged Since the Showa Era: Kokudo and Nebukawa",
+          "paragraphs": [
+            "Kokudo Station on the JR Tsurumi Line in Kanagawa opened in 1930 and is said to have had no major rebuilding. A dim, arched passage runs beneath the viaduct. People still live under the viaduct, so keep residents and doorways out of your photos.",
+            "Nebukawa Station in Odawara is an unstaffed station on a hill above Sagami Bay. In the Great Kanto Earthquake of 1923, a train arriving at the station was swept into the sea along with the station building and platform, and more than 100 people died. The current wooden building was rebuilt in 1924."
+          ],
+          "spots": [
+            {
+              "title": "Kokudo Station",
+              "slug": "bUpymfK9",
+              "afterParagraph": 0
+            },
+            {
+              "title": "Nebukawa Station",
+              "slug": "Y2ciMqaA",
+              "afterParagraph": 1
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://www.instagram.com/reel/DJ0cIFKSAzA/",
+              "spot": "bUpymfK9",
+              "afterParagraph": 0
+            },
+            {
+              "url": "https://www.instagram.com/p/CHsHTE7jGV2/",
+              "spot": "Y2ciMqaA",
+              "afterParagraph": 1
+            }
+          ]
+        },
+        {
+          "heading": "Practical Notes for Visiting",
+          "paragraphs": [
+            "Very few trains stop at remote stations, and missing one can mean waiting hours. Decide your outbound and return trains before you go. At stations with no road, there is no other way back. Bears live around Koboro, Tamoto and Kowada, so carry a bell and do not go alone.",
+            "All of these are working stations. Do not step onto the tracks or stand at the edge of the platform. The stairs at Doai and Tsutsuishi have no elevators and take real stamina to climb. Do not sleep or use fire in waiting rooms."
+          ]
+        },
+        {
+          "heading": "If You Shoot It, Put It on the Map",
+          "paragraphs": [
+            "Even the station you use every day shows another face when no one is there. For underground passages and malls, see \"Liminal Underground Malls and Passages\"; for stations and corridors in games, see \"Is The Exit 8 Real?\"",
+            "LIMap is a map for keeping places like these, with photos and locations. If you find one, please add it."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "How many steps are there at Doai Station?",
+          "a": "From the down platform to the ticket gate there are 486 steps: a flight of 462 plus 24 in the connecting passage. There are no elevators or escalators, and climbing up can take 20 to 30 minutes or more."
+        },
+        {
+          "q": "What should I be most careful about when visiting remote stations?",
+          "a": "Your train back. Very few trains stop, and some stations have no road, so missing a train can leave you with no way home. Decide both trains before you set out."
+        },
+        {
+          "q": "Can I drive to Koboro Station?",
+          "a": "No. No road reaches the station; you go by train. Brown bears live in the area, so avoid approaching it on foot as well."
+        }
+      ]
+    },
+    "images": [
+      {
+        "file": "Doai Station stairs from the basement.jpg",
+        "author": "Rory trains",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Doai_Station_stairs_from_the_basement.jpg",
+        "altJa": "土合駅の下りホームから見上げた、まっすぐ続く長い階段",
+        "altEn": "The long straight staircase at Doai Station, seen from the underground platform",
+        "captionJa": "土合駅の下りホームから見上げた階段。改札まで462段が一直線に続く。",
+        "captionEn": "Looking up from the underground platform at Doai Station: 462 steps in a straight line to the gate.",
+        "afterSection": -1
+      }
+    ]
   }
 ]

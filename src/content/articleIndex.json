@@ -37,6 +37,12 @@
       "titleEn": "Liminal Underground Malls and Passages: 11 Real Places, From Showa-Era Arcades to a Tunnel Under the Sea"
     },
     {
+      "slug": "station-liminal-spaces",
+      "lastmod": "2026-10-03",
+      "titleJa": "駅のリミナルスペース｜地下462段の土合駅から道のない秘境駅まで、実在する9か所",
+      "titleEn": "Liminal Stations: 9 Real Places, From 462 Steps Underground at Doai to Stations With No Road"
+    },
+    {
       "slug": "liminal-space-games",
       "lastmod": "2026-10-03",
       "titleJa": "リミナルスペースを歩けるゲーム7選——『8番出口』『Pools』『Escape the Backrooms』ほか",
@@ -281,10 +287,12 @@
       "liminal-spots-tokyo"
     ],
     "bUpymfK9": [
-      "liminal-spots-minami-kanto"
+      "liminal-spots-minami-kanto",
+      "station-liminal-spaces"
     ],
     "Y2ciMqaA": [
-      "liminal-spots-minami-kanto"
+      "liminal-spots-minami-kanto",
+      "station-liminal-spaces"
     ],
     "CciNUdTX": [
       "liminal-spots-minami-kanto",
@@ -292,6 +300,7 @@
     ],
     "FGg4w6Jh": [
       "liminal-spots-minami-kanto",
+      "station-liminal-spaces",
       "backrooms-levels-explained",
       "backrooms-movie-guide",
       "backrooms-in-japan"
@@ -385,6 +394,24 @@
       "underground-mall-liminal-spaces",
       "liminal-space-games",
       "liminal-spots-kyushu"
+    ],
+    "bip9TQfu": [
+      "station-liminal-spaces"
+    ],
+    "HahW24gp": [
+      "station-liminal-spaces"
+    ],
+    "UWm8ASTY": [
+      "station-liminal-spaces"
+    ],
+    "kmzMLT99": [
+      "station-liminal-spaces"
+    ],
+    "ccoyejXJ": [
+      "station-liminal-spaces"
+    ],
+    "nxrtUmie": [
+      "station-liminal-spaces"
     ],
     "vbUQ9kcZ": [
       "liminal-space-games",
