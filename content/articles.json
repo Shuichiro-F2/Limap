@@ -10358,5 +10358,230 @@
         "afterSection": -1
       }
     ]
+  },
+  {
+    "slug": "what-is-weirdcore",
+    "related": [
+      "liminal-space-vs-dreamcore",
+      "what-is-liminal-space",
+      "why-liminal-spaces-feel-scary"
+    ],
+    "category": "違いを知る",
+    "categoryEn": "Comparisons",
+    "publishedDate": "2026-10-03",
+    "ja": {
+      "title": "ウィアードコアとは？意味と特徴、ドリームコア・リミナルスペースとの違い",
+      "h1": "ウィアードコアとは？意味と特徴、ドリームコア・リミナルスペースとの違い",
+      "metaDescription": "ウィアードコア（weirdcore）は、わざと素人っぽく低画質に作った画像で、混乱や不安、そして体験したことのない懐かしさを呼び起こすネット発の美学です。特徴的なモチーフ、生まれた時期、ドリームコアやリミナルスペースとの違い、見るときの注意までまとめました。",
+      "lead": "画質の粗い写真に、赤い文字で「ここはどこ？」。昔のパソコンで作ったような、ずれた文字と枠。ウィアードコア（weirdcore）は、懐かしいのにどこか間違っている、そんな感覚をわざと作り出すネット発の美学です。意味と特徴、ドリームコアやリミナルスペースとの違いを整理します。",
+      "sections": [
+        {
+          "heading": "ウィアードコアとは：懐かしいのに、どこか間違っている",
+          "paragraphs": [
+            "ウィアードコアは、インターネットで生まれた「美学」、つまり見た目のスタイルのひとつです。わざと素人っぽく、画質の粗い画像を作ったり加工したりして、混乱や方向感覚を失う感じ、不安、居場所のなさ、そして懐かしさを呼び起こします。この懐かしさは、自分が実際に体験した時代へのものとは限らず、知らないはずの過去に覚える郷愁に近いものだと説明されます。",
+            "見た目の手がかりになるのは、昔のネットで共有されていた画像の雰囲気です。素人っぽい編集、原始的なデジタル画像、画質の低い写真、画像を圧縮したときのノイズ。デザイン誌は、ずれた配置や古い画面の部品、意味の通らない文などを挙げ、デザインの作法をわざと崩す「アンチデザイン」だと紹介しています。英語では oddcore や strangecore と呼ばれることもあります。"
+          ]
+        },
+        {
+          "heading": "よく使われるモチーフ",
+          "paragraphs": [
+            "ファンがまとめた解説では、次のようなモチーフがよく挙げられます。「are you lost?（迷子なの？）」「nothing is real（何も本物じゃない）」のような赤い文字、黒い四角で隠された部分、こちらを見る目、顔のない人影、人のいない遊び場や教室、ショッピングモール。文字は Arial のようなありふれた書体や、ペイントソフトで書いたような手書きです。",
+            "大事なのは、怖がらせること自体が目的ではない点です。不安を感じる人もいれば、どこか懐かしく落ち着くと感じる人もいて、反応は人によって分かれます。ホラーというより、見た人の感覚を少しずらすための表現だと考えると近いでしょう。"
+          ]
+        },
+        {
+          "heading": "いつ、どこで生まれたのか",
+          "paragraphs": [
+            "正確な起源ははっきりしていません。ファンのまとめでは、2010年代に画像共有サービスの Tumblr などで似た画像が出回り始めたとされ、最も早い例を2010年代半ばとする説明が多く見られます。2012年ごろから2019年ごろまで、起源の時期には諸説があります。",
+            "広く知られるようになったのは2020年代の初めです。TikTok や YouTube、Instagram、Reddit などで、若い世代を中心に一気に広まりました。2024年には、イタリアの研究者ヴァレンティーナ・タンニが、ヴェイパーウェイヴやバックルームズとともにウィアードコアを論じた本『Exit Reality』を出しています。"
+          ]
+        },
+        {
+          "heading": "ドリームコアとの違い",
+          "paragraphs": [
+            "ウィアードコアとよく並べられるのが、ドリームコア（dreamcore）です。アメリカのファッション誌 Nylon は、ドリームコアをウィアードコアの「姉妹」と呼んでいます。どちらも、懐かしさと見慣れなさを同時に感じさせる点は共通しています。",
+            "違いとしてよく挙げられるのは、感情の向きです。ドリームコアは、夢の中のような安心感や親しみ、明るい色合いに寄りがちで、ウィアードコアは、混乱や居場所のなさ、暗い不穏さに寄りがちだと整理されます。ただ、どちらが先に生まれたのか、どちらがどちらの派生なのかは、解説によって説明が逆になっていて、はっきりした線引きはありません。"
+          ]
+        },
+        {
+          "heading": "リミナルスペースとの関係",
+          "paragraphs": [
+            "ウィアードコアの画像には、人のいない廊下や教室、駐車場など、リミナルスペースがよく使われます。ただし、リミナルスペースが必ず必要というわけではなく、文字やノイズ、目のモチーフだけで成り立つ作品もあります。リミナルスペースが「現実の場所」から生まれる感覚だとすれば、ウィアードコアはそれを画像の加工で増幅したもの、と考えるとわかりやすいかもしれません。",
+            "この感覚は映画にも届いています。2022年のホラー映画『スキナマリンク』の監督カイル・エドワード・ボールは、制作の過程でネット掲示板 Reddit のリミナルスペースとウィアードコアの投稿を見ていたと話しています。"
+          ]
+        },
+        {
+          "heading": "名前の取り違えと、見るときの注意",
+          "paragraphs": [
+            "同じ「Weirdcore」という名前で活動する映像作家がいます。音楽家エイフェックス・ツインのミュージックビデオやライブ映像を手がけている人物で、ネットの美学としてのウィアードコアとは別のものです。また、日本語で「ウィードコア」と書くと、除草剤の商品名が検索に混ざります。",
+            "ウィアードコアの画像の中には、現実感が薄れるような感覚を覚えさせるものや、つらい体験を扱う近いジャンル（トラウマコア）と重なるものもあります。見ていて気分が悪くなったり、不安が続いたりするときは、無理に見ないようにしてください。"
+          ]
+        },
+        {
+          "heading": "現実の場所で、ウィアードコアの感覚に近づく",
+          "paragraphs": [
+            "画面の中の表現ですが、近い感覚を味わえる場所は現実にもあります。岐阜県の養老天命反転地は、美術家の荒川修作とマドリン・ギンズが構想し、1995年に開園した体験型の作品です。傾いた地面と曲がりくねった通路を歩くうちに、平衡感覚が少しずつずれていきます。",
+            "広島の1991年開業の商業施設「コムズ安佐パーク」の平成初期の館内や、三重の英虞湾を望む斜面に地中海の漁村を再現した「志摩地中海村」も、懐かしさと現実離れした感じが同居する場所です。LIMapでは、こうした場所を写真と位置つきで記録しています。"
+          ],
+          "spots": [
+            {
+              "title": "養老天命反転地",
+              "slug": "23rLw54S",
+              "afterParagraph": 0
+            },
+            {
+              "title": "コムズ安佐パーク",
+              "slug": "7eD74Vfb",
+              "afterParagraph": 1
+            },
+            {
+              "title": "志摩地中海村",
+              "slug": "NP7tVnY3",
+              "afterParagraph": 1
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/tef_tef_tef_/status/1995051953450311975",
+              "spot": "23rLw54S",
+              "afterParagraph": 0
+            },
+            {
+              "url": "https://x.com/shimaamigo1/status/1893600550580846813",
+              "spot": "NP7tVnY3",
+              "afterParagraph": 1
+            }
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "ウィアードコアとは何ですか？",
+          "a": "わざと素人っぽく、画質の粗い画像を作ったり加工したりして、混乱や不安、そして体験したことのない過去への懐かしさを呼び起こす、インターネット発の美学（見た目のスタイル）です。2020年代の初めに広く知られるようになりました。"
+        },
+        {
+          "q": "ドリームコアとの違いは？",
+          "a": "どちらも懐かしさと見慣れなさを感じさせますが、ドリームコアは夢のような安心感や明るさに、ウィアードコアは混乱や不穏さに寄りがちだと整理されます。どちらが先かなどの説明は解説によって異なり、はっきりした線引きはありません。"
+        },
+        {
+          "q": "ウィアードコアは怖いものですか？",
+          "a": "怖がらせること自体が目的ではありません。不安を感じる人もいれば、懐かしさや落ち着きを感じる人もいます。ただ、気分が悪くなるような画像もあるので、つらいときは見ないようにしてください。"
+        }
+      ]
+    },
+    "en": {
+      "title": "What Is Weirdcore? Meaning, Features, and How It Differs From Dreamcore and Liminal Spaces",
+      "h1": "What Is Weirdcore? Meaning, Features, and How It Differs From Dreamcore and Liminal Spaces",
+      "metaDescription": "Weirdcore is an internet aesthetic that uses deliberately amateurish, low-quality images to evoke confusion, unease and nostalgia for times you never lived. Its motifs, when it emerged, how it differs from dreamcore and liminal spaces, and a word of caution.",
+      "lead": "A grainy photo with red text asking \"where are you?\" Misaligned words and frames that look made on an old computer. Weirdcore is an internet aesthetic that deliberately creates the feeling of something nostalgic yet wrong. Here is what it means, its features, and how it differs from dreamcore and liminal spaces.",
+      "sections": [
+        {
+          "heading": "What Weirdcore Is: Nostalgic, Yet Somehow Wrong",
+          "paragraphs": [
+            "Weirdcore is an internet-born aesthetic, a visual style. It uses amateurish, low-quality images, made or edited on purpose, to evoke confusion, disorientation, unease, alienation and nostalgia. That nostalgia is often not for a time you actually lived through, but closer to longing for a past you never knew.",
+            "Its look draws on images once shared on the early internet: amateur editing, primitive digital graphics, low-resolution photos and compression artifacts. A design magazine lists misalignment, old interface elements and nonsensical text, describing it as \"anti-design\" that deliberately breaks design conventions. It is sometimes also called oddcore or strangecore."
+          ]
+        },
+        {
+          "heading": "Common Motifs",
+          "paragraphs": [
+            "Fan-compiled explanations often list motifs such as red text like \"are you lost?\" or \"nothing is real,\" parts hidden by black squares, eyes looking back at you, faceless figures, and empty playgrounds, classrooms and shopping malls. Text is set in ordinary fonts like Arial or scrawled as if in a paint program.",
+            "Importantly, scaring the viewer is not the point. Some people feel uneasy, while others find it oddly nostalgic and calming. It is closer to a way of nudging the viewer's senses off balance than to horror itself."
+          ]
+        },
+        {
+          "heading": "When and Where It Emerged",
+          "paragraphs": [
+            "Its exact origins are unclear. Fan accounts say similar images began circulating in the 2010s on platforms such as Tumblr, often placing the earliest examples in the mid-2010s; proposed origin dates range from around 2012 to 2019.",
+            "It became widely known in the early 2020s, spreading quickly among younger users on TikTok, YouTube, Instagram and Reddit. In 2024 the Italian researcher Valentina Tanni published Exit Reality, a book discussing weirdcore alongside vaporwave and the Backrooms."
+          ]
+        },
+        {
+          "heading": "How It Differs From Dreamcore",
+          "paragraphs": [
+            "Weirdcore is often paired with dreamcore. The US fashion magazine Nylon called dreamcore weirdcore's \"sister.\" Both make you feel nostalgic and unfamiliar at once.",
+            "The difference most often cited is emotional direction: dreamcore tends toward dreamlike comfort, familiarity and brighter colors, while weirdcore tends toward confusion, alienation and darker unease. But explanations disagree about which came first or which grew out of the other, and there is no clear dividing line."
+          ]
+        },
+        {
+          "heading": "Its Relationship to Liminal Spaces",
+          "paragraphs": [
+            "Weirdcore images often use liminal spaces: empty corridors, classrooms and car parks. Liminal spaces are not required, though; some works rely only on text, noise or eye motifs. If liminal spaces are a feeling born from real places, weirdcore can be seen as that feeling amplified through image editing.",
+            "The feeling has reached film too. Kyle Edward Ball, director of the 2022 horror film Skinamarink, has said he browsed Reddit's liminal-space and weirdcore communities while making it."
+          ]
+        },
+        {
+          "heading": "A Name Mix-Up, and a Word of Caution",
+          "paragraphs": [
+            "A video artist also works under the name \"Weirdcore,\" known for music videos and live visuals for Aphex Twin; that is unrelated to the internet aesthetic. In Japanese, writing \"ウィードコア\" instead of \"ウィアードコア\" mixes in results for a herbicide brand.",
+            "Some weirdcore images can induce a sense of unreality, and some overlap with a neighboring genre that deals with painful experiences (traumacore). If the images make you feel unwell or keep you anxious, simply stop looking."
+          ]
+        },
+        {
+          "heading": "Getting Close to the Feeling in Real Places",
+          "paragraphs": [
+            "Weirdcore lives on screens, but you can find similar sensations in real places. The Site of Reversible Destiny in Yoro, Gifu, conceived by the artists Shusaku Arakawa and Madeline Gins and opened in 1995, is an experiential artwork where walking its tilted ground and winding paths gradually throws off your sense of balance.",
+            "The early-Heisei interior of Coms Asa Park, a shopping complex in Hiroshima opened in 1991, and Shima Mediterranean Village in Mie, a recreated Mediterranean fishing village on a slope above Ago Bay, also mix nostalgia with a sense of unreality. LIMap records places like these with photos and locations."
+          ],
+          "spots": [
+            {
+              "title": "Site of Reversible Destiny, Yoro Park",
+              "slug": "23rLw54S",
+              "afterParagraph": 0
+            },
+            {
+              "title": "Coms Asa Park",
+              "slug": "7eD74Vfb",
+              "afterParagraph": 1
+            },
+            {
+              "title": "Shima Mediterranean Village",
+              "slug": "NP7tVnY3",
+              "afterParagraph": 1
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/tef_tef_tef_/status/1995051953450311975",
+              "spot": "23rLw54S",
+              "afterParagraph": 0
+            },
+            {
+              "url": "https://x.com/shimaamigo1/status/1893600550580846813",
+              "spot": "NP7tVnY3",
+              "afterParagraph": 1
+            }
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "What is weirdcore?",
+          "a": "An internet-born aesthetic that uses deliberately amateurish, low-quality images to evoke confusion, unease and nostalgia for a past you never experienced. It became widely known in the early 2020s."
+        },
+        {
+          "q": "How is it different from dreamcore?",
+          "a": "Both feel nostalgic and unfamiliar, but dreamcore leans toward dreamlike comfort and brightness, while weirdcore leans toward confusion and unease. Accounts differ on which came first, and there is no clear dividing line."
+        },
+        {
+          "q": "Is weirdcore scary?",
+          "a": "Scaring people is not the goal. Some feel uneasy, others nostalgic or calm. Some images can be upsetting, though, so stop looking if they make you feel unwell."
+        }
+      ]
+    },
+    "images": [
+      {
+        "file": "Empty classroom 2020.jpg",
+        "author": "Dobrislava",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Empty_classroom_2020.jpg",
+        "altJa": "机の上に椅子が上げられた、人のいない教室",
+        "altEn": "An empty classroom with chairs stacked on the desks",
+        "captionJa": "人のいない教室。ウィアードコアの画像でよく使われる題材のひとつ。",
+        "captionEn": "An empty classroom, one of the settings often used in weirdcore images.",
+        "afterSection": -1
+      }
+    ]
   }
 ]

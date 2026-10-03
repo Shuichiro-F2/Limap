@@ -561,6 +561,19 @@ const ARTICLE_ENTRIES: ArticleSummary[] = [
       'Doai with its 486 steps, Tsutsuishi inside a tunnel, Koboro and Tsubojiri with no road: liminal stations in Japan, with practical notes for visiting.',
     thumbnailFile: 'Doai Station stairs from the basement.jpg',
   },
+  {
+    slug: 'what-is-weirdcore',
+    publishedDate: '2026-10-03',
+    categoryJa: '違いを知る',
+    categoryEn: 'Comparisons',
+    titleJa: 'ウィアードコアとは？意味と特徴、ドリームコア・リミナルスペースとの違い',
+    titleEn: 'What Is Weirdcore? Meaning, Features, and How It Differs From Dreamcore and Liminal Spaces',
+    leadJa:
+      '粗い画像に赤い文字。懐かしいのにどこか間違っている、ネット発の美学ウィアードコアの意味と特徴、ドリームコアとの違いを整理します。',
+    leadEn:
+      'Grainy images and red text: the internet aesthetic that feels nostalgic yet wrong, and how it differs from dreamcore.',
+    thumbnailFile: 'Empty classroom 2020.jpg',
+  },
 ];
 
 // 一覧は新着順(publishedDate の降順)で表示する。Array#sort は安定なので、

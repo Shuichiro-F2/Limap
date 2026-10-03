@@ -43,6 +43,12 @@
       "titleEn": "Liminal Stations: 9 Real Places, From 462 Steps Underground at Doai to Stations With No Road"
     },
     {
+      "slug": "what-is-weirdcore",
+      "lastmod": "2026-10-03",
+      "titleJa": "ウィアードコアとは？意味と特徴、ドリームコア・リミナルスペースとの違い",
+      "titleEn": "What Is Weirdcore? Meaning, Features, and How It Differs From Dreamcore and Liminal Spaces"
+    },
+    {
       "slug": "liminal-space-games",
       "lastmod": "2026-10-03",
       "titleJa": "リミナルスペースを歩けるゲーム7選——『8番出口』『Pools』『Escape the Backrooms』ほか",
@@ -413,6 +419,16 @@
     "nxrtUmie": [
       "station-liminal-spaces"
     ],
+    "23rLw54S": [
+      "what-is-weirdcore",
+      "liminal-spots-tokai"
+    ],
+    "7eD74Vfb": [
+      "what-is-weirdcore"
+    ],
+    "NP7tVnY3": [
+      "what-is-weirdcore"
+    ],
     "vbUQ9kcZ": [
       "liminal-space-games",
       "backrooms-spots-tokyo",
@@ -429,9 +445,6 @@
       "liminal-spots-tokai"
     ],
     "GUck25bU": [
-      "liminal-spots-tokai"
-    ],
-    "23rLw54S": [
       "liminal-spots-tokai"
     ],
     "Y2m7YAaB": [
@@ -675,11 +688,11 @@
       "lastmod": "2026-10-03"
     },
     {
-      "slug": "basics",
+      "slug": "comparisons",
       "lastmod": "2026-10-03"
     },
     {
-      "slug": "comparisons",
+      "slug": "basics",
       "lastmod": "2026-10-03"
     },
     {
