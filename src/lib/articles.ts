@@ -480,6 +480,20 @@ const ARTICLE_ENTRIES: ArticleSummary[] = [
       'A Tokyo Station passage built in space meant for the Narita Shinkansen, a Marunouchi walkway that was once a car park, an underground street from 1955: real liminal spaces you can visit in Tokyo.',
     thumbnailFile: 'JR Tokyo Station Keiyo Underground Passage.JPG',
   },
+  {
+    slug: 'liminal-spots-minami-kanto',
+    publishedDate: '2026-10-03',
+    categoryJa: '実在スポット',
+    categoryEn: 'Real Spots',
+    titleJa: '神奈川・千葉・埼玉のリミナルスペース｜地下神殿から昭和の無人駅まで、実在する8か所',
+    titleEn:
+      'Liminal Spaces in Kanagawa, Chiba and Saitama: 8 Real Places, From an Underground Temple to Showa-Era Stations',
+    leadJa:
+      '1930年開業の国道駅、海を見下ろす根府川駅、旧成田空港駅、地下神殿。神奈川・千葉・埼玉で実際に行けるリミナルスペースを選びました。',
+    leadEn:
+      'Kokudo Station from 1930, Nebukawa Station above the sea, the former Narita Airport Station and an underground temple: real liminal spaces in Kanagawa, Chiba and Saitama.',
+    thumbnailFile: 'Metropolitan Area Outer Underground Discharge Channel (10885985325).jpg',
+  },
 ];
 
 // 一覧は新着順(publishedDate の降順)で表示する。Array#sort は安定なので、

@@ -8176,5 +8176,412 @@
         "afterSection": 2
       }
     ]
+  },
+  {
+    "slug": "liminal-spots-minami-kanto",
+    "related": [
+      "liminal-spots-tokyo",
+      "liminal-spots-kitakanto",
+      "haikyo-photo-spots-japan"
+    ],
+    "category": "実在スポット",
+    "categoryEn": "Real Spots",
+    "publishedDate": "2026-10-03",
+    "ja": {
+      "title": "神奈川・千葉・埼玉のリミナルスペース｜地下神殿から昭和の無人駅まで、実在する8か所",
+      "h1": "神奈川・千葉・埼玉のリミナルスペース｜地下神殿から昭和の無人駅まで、実在する8か所",
+      "metaDescription": "神奈川・千葉・埼玉で「リミナルスペース」を感じられる実在の場所を、LIMapの登録スポットから8か所紹介します。1930年開業の国道駅、海を見下ろす根府川駅、旧成田空港駅、首都圏外郭放水路「地下神殿」、外から眺める廃墟まで。行くときの注意点も。",
+      "lead": "東京のすぐ外側には、開業当時の姿をほとんど変えずに使われている駅や、地下に隠れた巨大な空間、役目を終えて静まり返った建物が残っています。LIMapに登録した中から、神奈川・千葉・埼玉の8か所を紹介します。廃墟は、どれも外から眺めるだけの場所です。",
+      "sections": [
+        {
+          "heading": "南関東のリミナルスペースは「古い駅」「巨大な地下」「外から眺める廃墟」",
+          "paragraphs": [
+            "神奈川・千葉・埼玉には、毎日の通勤や通学に使われながら、昭和の初めの姿をとどめる駅がいくつもあります。人の少ない時間に降りると、時間の流れだけが別の速さで進んでいるように感じられます。",
+            "もうひとつは、ふだんは見えない巨大な地下の空間と、営業を終えて静まり返った建物です。廃墟は私有地や立入禁止の場所がほとんどなので、この記事では外から眺められる場所に限って紹介します。"
+          ]
+        },
+        {
+          "heading": "神奈川の古い駅：高架下の国道駅と、海を見下ろす根府川駅",
+          "paragraphs": [
+            "JR鶴見線の国道駅は、1930年に鶴見臨港鉄道の駅として開業しました。改札口の位置を直した以外は大きな改築がされていないとされ、高架の下にはアーチの続く薄暗い通路がのびています。駅舎の外壁には、1945年の機銃掃射の跡とされる弾痕も残っています。高架下には今も住まいや営業中の店があるので、住民の方や戸口が写らないように気をつけてください。",
+            "小田原市の根府川駅は、相模湾を見下ろす高台にある無人駅です。1923年の関東大震災では、駅に入ろうとしていた列車が土石流に巻き込まれ、駅舎やホームごと海へ落ちて、100人を超える人が亡くなりました。今の木造駅舎は翌1924年に建て直されたもので、100年を超えて使われています。駅には、1948年に駅員が建てた震災の殉難碑があります。"
+          ],
+          "spots": [
+            {
+              "title": "国道駅",
+              "slug": "bUpymfK9",
+              "afterParagraph": 0
+            },
+            {
+              "title": "根府川駅",
+              "slug": "Y2ciMqaA",
+              "afterParagraph": 1
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://www.instagram.com/reel/DJ0cIFKSAzA/",
+              "spot": "bUpymfK9",
+              "afterParagraph": 0
+            },
+            {
+              "url": "https://www.instagram.com/p/CHsHTE7jGV2/",
+              "spot": "Y2ciMqaA",
+              "afterParagraph": 1
+            }
+          ]
+        },
+        {
+          "heading": "相模湖のほとりの、10円から遊べるゲームコーナー",
+          "paragraphs": [
+            "相模湖のボート乗り場の一角に、遊覧船を運航する老舗のボート店が営むゲームコーナーがあります。1970年代製のモグラたたきなど、年代物の機械が10円から遊べ、レトロゲームの聖地として広告の撮影にも使われてきました。",
+            "湖畔の静かな空気の中で、古い機械の電子音だけが響く空間は、遊園地とも駄菓子屋とも違う、どこかに置き去りにされたような懐かしさがあります。一部の機械はすでに稼働を終えています。"
+          ],
+          "spots": [
+            {
+              "title": "振興ボート 昭和レトロゲームコーナー（相模湖公園）",
+              "slug": "CciNUdTX",
+              "afterParagraph": 0
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/ITSUKAJAPAN/status/2032771049436451051",
+              "spot": "CciNUdTX",
+              "afterParagraph": 0
+            }
+          ]
+        },
+        {
+          "heading": "千葉：役目が変わった空港駅、東成田駅",
+          "paragraphs": [
+            "東成田駅は、1978年に成田空港の開港とともに「成田空港駅」として開業しました。1991年に空港ターミナルの直下に新しい駅ができると、東成田駅と名前を変えます。今も京成東成田線の終点として、芝山鉄道との直通列車が発着していますが、かつての特急ホームは使われなくなり、旧駅名の駅名標や古い広告が残されています。",
+            "改札の外からは、第2ターミナルへ続く長さ約500mの地下通路がのびています（通れるのは5時20分から23時15分まで）。閉ざされたコンコースには1980年に設けられた陶板のレリーフも残り、現役の駅でありながら、時間が止まったような静けさが漂います。"
+          ],
+          "spots": [
+            {
+              "title": "東成田駅（旧成田空港駅）",
+              "slug": "FGg4w6Jh",
+              "afterParagraph": 0
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/hiroko_425/status/1781596370341859713",
+              "spot": "FGg4w6Jh",
+              "afterParagraph": 0
+            }
+          ]
+        },
+        {
+          "heading": "埼玉：地下につくられた「神殿」",
+          "paragraphs": [
+            "春日部市の首都圏外郭放水路は、大雨のときに周辺の川からあふれそうな水を地下に取り込み、江戸川へ流すための国の施設です。地下約22mにある調圧水槽は、長さ177m、幅78m、高さ18mの空間に、重さ約500トンの柱が59本並び、「地下神殿」と呼ばれています。",
+            "中に入れるのは見学会だけで、完全予約制です（当日の予約はできません）。地下へは階段を約100段上り下りし、夏でも地下は20℃ほどです。施設が稼働したあとは、しばらく調圧水槽に入れないことがあります。コースや料金は公式サイトで確認してください。"
+          ],
+          "spots": [
+            {
+              "title": "首都圏外郭放水路（地下神殿）",
+              "slug": "JsXsWk9W",
+              "afterParagraph": 0
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/mmohsumi/status/1182576680809844738",
+              "spot": "JsXsWk9W",
+              "afterParagraph": 0
+            }
+          ]
+        },
+        {
+          "heading": "外から眺める廃墟：岩窟ホテル、曾呂の分教場、総武はな遊園",
+          "paragraphs": [
+            "吉見町の岩窟ホテルは、高橋峰吉が1904年からノミなどの手道具で岩山を掘り進め、1925年に亡くなるまで21年間作業を続けた洋風の岩窟です。宿泊施設として完成することはなく、1982年と1987年の台風で崩れて閉鎖されました。今はフェンスに囲まれていて、外から見えるのはごく一部だけです。",
+            "鴨川市の曾呂尋常小学校分教場は、1874年に西小学校として開校し、1909年に分教場となって、1967年に廃校になった木造校舎です。城西大学を創立した水田三喜男が通った学校で、敷地に記念碑と案内板があります。校舎は傷みが進んでいて、中に入るのは危険です。",
+            "旭市の総武はな遊園は、JR倉橋駅の前にある、閉園した花の遊園地の跡です。1990年以降に開業し、2000年代の後半には営業を終えたとみられます。2022年の時点では、入園ゲートやスワンボートの浮かんでいた池の跡が残っていました。門は閉ざされ、すぐ隣には民家があります。"
+          ],
+          "spots": [
+            {
+              "title": "岩窟ホテル",
+              "slug": "RAi2rKjn",
+              "afterParagraph": 0
+            },
+            {
+              "title": "曾呂尋常小学校分教場",
+              "slug": "prqyoo97",
+              "afterParagraph": 1
+            },
+            {
+              "title": "総武はな遊園",
+              "slug": "2nZdyNm7",
+              "afterParagraph": 2
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/haikyo_info/status/1245244518527467520",
+              "spot": "RAi2rKjn",
+              "afterParagraph": 0
+            },
+            {
+              "url": "https://x.com/haikyo_info/status/1292475734141726722",
+              "spot": "prqyoo97",
+              "afterParagraph": 1
+            },
+            {
+              "url": "https://x.com/haikyo_info/status/1400497531268730883",
+              "spot": "2nZdyNm7",
+              "afterParagraph": 2
+            }
+          ]
+        },
+        {
+          "heading": "行くときの、現実的な注意点",
+          "paragraphs": [
+            "駅は、地元の人が毎日使う場所です。撮影するときは列車の運行や乗り降りの妨げにならないようにし、人の顔が写らないように気をつけてください。国道駅の高架下のように、住まいがすぐそばにある場所では特に配慮が必要です。相模湖のゲームコーナーは9時から17時まで（11月から2月は16時30分まで）です。",
+            "この記事で紹介した廃墟は、どれも私有地や立入禁止の場所です。柵や門の内側には入らず、道から外観を眺めるだけにしてください。首都圏外郭放水路の中に入れるのは、予約した見学会のときだけです。"
+          ]
+        },
+        {
+          "heading": "撮ったら、地図に残してください",
+          "paragraphs": [
+            "南関東には、まだ記録されていない古い駅や地下の通路がたくさんあります。東京の場所は「東京のリミナルスペース」、茨城・栃木・群馬は「北関東のリミナルスペース」でも紹介しています。",
+            "LIMapは、そうした場所を写真と位置つきで残していく地図です。見つけた場所があれば、ぜひ登録してください。"
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "首都圏外郭放水路（地下神殿）は予約なしで入れますか？",
+          "a": "入れません。中に入れるのは見学会だけで、完全予約制です。当日の予約はできないので、公式サイトで日程とコースを確認してから申し込んでください。"
+        },
+        {
+          "q": "記事で紹介している廃墟の中には入れますか？",
+          "a": "入れません。岩窟ホテル、曾呂尋常小学校分教場、総武はな遊園は、どれも立入禁止か私有地です。道から外観を眺めるだけにしてください。"
+        },
+        {
+          "q": "お金をかけずに行ける場所はありますか？",
+          "a": "国道駅や根府川駅、東成田駅は、電車で行けばそのまま駅の空気を感じられます。東成田駅から第2ターミナルへの地下通路も、決まった時間内なら歩いて通れます。"
+        }
+      ]
+    },
+    "en": {
+      "title": "Liminal Spaces in Kanagawa, Chiba and Saitama: 8 Real Places, From an Underground Temple to Showa-Era Stations",
+      "h1": "Liminal Spaces in Kanagawa, Chiba and Saitama: 8 Real Places, From an Underground Temple to Showa-Era Stations",
+      "metaDescription": "Eight real places in Kanagawa, Chiba and Saitama where you can feel a liminal atmosphere, chosen from spots on LIMap: Kokudo Station from 1930, Nebukawa Station above the sea, the former Narita Airport Station, the \"underground temple\" flood channel, and ruins to view from outside. Plus practical notes.",
+      "lead": "Just outside Tokyo are stations still in use with almost nothing changed since they opened, huge spaces hidden underground, and buildings that have fallen silent after their working lives ended. Here are eight places in Kanagawa, Chiba and Saitama from LIMap. The ruins are all places to view only from outside.",
+      "sections": [
+        {
+          "heading": "South Kanto: Old Stations, Vast Underground Spaces, and Ruins Seen From Outside",
+          "paragraphs": [
+            "Kanagawa, Chiba and Saitama have several stations that are used every day yet still keep their look from the early Showa era. Get off when few people are around and time seems to move at a different pace.",
+            "The others are huge underground spaces normally hidden from view, and buildings left silent after closing. Most ruins are private or off-limits, so this article only introduces ones you can see from outside."
+          ]
+        },
+        {
+          "heading": "Kanagawa's Old Stations: Kokudo Under the Viaduct, Nebukawa Above the Sea",
+          "paragraphs": [
+            "Kokudo Station on the JR Tsurumi Line opened in 1930 as a station of the Tsurumi Rinko Railway. Apart from moving the ticket gate, it is said to have had no major rebuilding, and a dim, arched passage runs beneath the viaduct. Bullet marks said to come from a 1945 strafing attack remain on the outer wall. People still live and run shops under the viaduct, so keep residents and doorways out of your photos.",
+            "Nebukawa Station in Odawara is an unstaffed station on a hill above Sagami Bay. In the Great Kanto Earthquake of 1923, a train arriving at the station was caught in a landslide and swept into the sea along with the station building and platform, and more than 100 people died. The current wooden station building was rebuilt in 1924 and has been in use for over 100 years. A memorial to the earthquake victims, erected by station staff in 1948, stands at the station."
+          ],
+          "spots": [
+            {
+              "title": "Kokudo Station",
+              "slug": "bUpymfK9",
+              "afterParagraph": 0
+            },
+            {
+              "title": "Nebukawa Station",
+              "slug": "Y2ciMqaA",
+              "afterParagraph": 1
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://www.instagram.com/reel/DJ0cIFKSAzA/",
+              "spot": "bUpymfK9",
+              "afterParagraph": 0
+            },
+            {
+              "url": "https://www.instagram.com/p/CHsHTE7jGV2/",
+              "spot": "Y2ciMqaA",
+              "afterParagraph": 1
+            }
+          ]
+        },
+        {
+          "heading": "A Game Corner by Lake Sagami, From 10 Yen a Play",
+          "paragraphs": [
+            "Next to the boat landing on Lake Sagami is a game corner run by a long-established boat company that also operates sightseeing boats. Vintage machines such as a 1970s whack-a-mole can be played from 10 yen, and the place has been used for advertising shoots as a mecca of retro games.",
+            "With only the electronic sounds of old machines echoing in the quiet air by the lake, it has a nostalgia unlike an amusement park or a candy store, as if it had been left behind somewhere. Some of the machines have already been retired."
+          ],
+          "spots": [
+            {
+              "title": "Shinko Boat retro game corner, Lake Sagami",
+              "slug": "CciNUdTX",
+              "afterParagraph": 0
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/ITSUKAJAPAN/status/2032771049436451051",
+              "spot": "CciNUdTX",
+              "afterParagraph": 0
+            }
+          ]
+        },
+        {
+          "heading": "Chiba: Higashi-Narita, an Airport Station Whose Role Changed",
+          "paragraphs": [
+            "Higashi-Narita Station opened in 1978 as \"Narita Airport Station\" when the airport opened. When a new station was built directly under the airport terminal in 1991, it was renamed Higashi-Narita. It is still the terminus of the Keisei Higashi-Narita Line, with through trains to the Shibayama Railway, but the former limited-express platform is no longer used, and station signs with the old name and old advertisements remain.",
+            "Outside the ticket gates, an underground passage about 500 meters long leads to Terminal 2 (open from 5:20 to 23:15). A ceramic relief installed in 1980 remains in the closed concourse, and although the station is in service, it has the stillness of a place where time has stopped."
+          ],
+          "spots": [
+            {
+              "title": "Higashi-Narita Station (former Narita Airport Station)",
+              "slug": "FGg4w6Jh",
+              "afterParagraph": 0
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/hiroko_425/status/1781596370341859713",
+              "spot": "FGg4w6Jh",
+              "afterParagraph": 0
+            }
+          ]
+        },
+        {
+          "heading": "Saitama: A \"Temple\" Built Underground",
+          "paragraphs": [
+            "The Metropolitan Area Outer Underground Discharge Channel in Kasukabe is a national facility that takes in water from nearby rivers during heavy rain and sends it to the Edo River. Its pressure-adjusting tank, about 22 meters underground, is a space 177 meters long, 78 meters wide and 18 meters high, with 59 pillars weighing about 500 tons each, and it is known as the \"underground temple\".",
+            "You can only enter on guided tours, which must be booked in advance (no same-day bookings). The tours involve going up and down about 100 steps, and it is around 20°C underground even in summer. After the facility has been in operation, the tank may be closed for a while. Check the official website for courses and prices."
+          ],
+          "spots": [
+            {
+              "title": "Metropolitan Area Outer Underground Discharge Channel",
+              "slug": "JsXsWk9W",
+              "afterParagraph": 0
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/mmohsumi/status/1182576680809844738",
+              "spot": "JsXsWk9W",
+              "afterParagraph": 0
+            }
+          ]
+        },
+        {
+          "heading": "Ruins to View From Outside: Gankutsu Hotel, the Soro School, Sobu Hana Yuen",
+          "paragraphs": [
+            "The Gankutsu Hotel in Yoshimi is a Western-style cave dwelling that Takahashi Minekichi carved into a rock hill with chisels and other hand tools, starting in 1904 and continuing for 21 years until his death in 1925. It was never completed as a place to stay, and it was closed after typhoons in 1982 and 1987 caused collapses. It is now fenced off, and only a small part can be seen from outside.",
+            "The former Soro branch school in Kamogawa is a wooden schoolhouse that opened in 1874 as Nishi Elementary School, became a branch school in 1909 and closed in 1967. Mizuta Mikio, founder of Josai University, studied here, and a monument and information board stand on the grounds. The building has deteriorated and it is dangerous to go inside.",
+            "Sobu Hana Yuen in Asahi is the site of a closed flower amusement park in front of JR Kurahashi Station. It is thought to have opened after 1990 and closed in the late 2000s. As of 2022, the entrance gate and the pond where swan boats once floated still remained. The gate is closed, and there are homes right next door."
+          ],
+          "spots": [
+            {
+              "title": "Gankutsu Hotel",
+              "slug": "RAi2rKjn",
+              "afterParagraph": 0
+            },
+            {
+              "title": "Former Soro branch school",
+              "slug": "prqyoo97",
+              "afterParagraph": 1
+            },
+            {
+              "title": "Sobu Hana Yuen",
+              "slug": "2nZdyNm7",
+              "afterParagraph": 2
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/haikyo_info/status/1245244518527467520",
+              "spot": "RAi2rKjn",
+              "afterParagraph": 0
+            },
+            {
+              "url": "https://x.com/haikyo_info/status/1292475734141726722",
+              "spot": "prqyoo97",
+              "afterParagraph": 1
+            },
+            {
+              "url": "https://x.com/haikyo_info/status/1400497531268730883",
+              "spot": "2nZdyNm7",
+              "afterParagraph": 2
+            }
+          ]
+        },
+        {
+          "heading": "Practical Notes for Visiting",
+          "paragraphs": [
+            "Stations are used by local people every day. When taking photos, do not get in the way of trains or passengers, and keep faces out of the frame. Take particular care where homes are right beside the station, as under the viaduct at Kokudo. The Lake Sagami game corner is open from 9:00 to 17:00 (until 16:30 from November to February).",
+            "All the ruins in this article are private or off-limits. Do not go past fences or gates; view them only from the road. You can only enter the Outer Underground Discharge Channel on a booked tour."
+          ]
+        },
+        {
+          "heading": "If You Shoot It, Put It on the Map",
+          "paragraphs": [
+            "South Kanto still has many old stations and underground passages no one has recorded. For Tokyo, see \"Liminal Spaces in Tokyo\"; for Ibaraki, Tochigi and Gunma, see \"Liminal Spaces in North Kanto.\"",
+            "LIMap is a map for keeping places like these, with photos and locations. If you find one, please add it."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Can I visit the Outer Underground Discharge Channel without a booking?",
+          "a": "No. You can only enter on guided tours, and they must be booked in advance; same-day bookings are not accepted. Check dates and courses on the official website before applying."
+        },
+        {
+          "q": "Can I go inside the ruins in this article?",
+          "a": "No. The Gankutsu Hotel, the former Soro branch school and Sobu Hana Yuen are all off-limits or private property. Please only view them from the road."
+        },
+        {
+          "q": "Are there places I can visit for free?",
+          "a": "At Kokudo, Nebukawa and Higashi-Narita stations, you can take in the atmosphere simply by arriving by train. The underground passage from Higashi-Narita Station to Terminal 2 can also be walked during its opening hours."
+        }
+      ]
+    },
+    "images": [
+      {
+        "file": "Metropolitan Area Outer Underground Discharge Channel (10885985325).jpg",
+        "author": "Kunitaka NIIDATE",
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0/",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Metropolitan_Area_Outer_Underground_Discharge_Channel_(10885985325).jpg",
+        "altJa": "首都圏外郭放水路の調圧水槽。薄暗い空間に太い柱が奥まで並ぶ",
+        "altEn": "The pressure-adjusting tank of the Outer Underground Discharge Channel, with massive pillars receding into the dark",
+        "captionJa": "首都圏外郭放水路の調圧水槽、通称「地下神殿」。地下約22mに59本の柱が並ぶ。",
+        "captionEn": "The pressure-adjusting tank of the Outer Underground Discharge Channel, known as the \"underground temple\": 59 pillars about 22 meters below ground.",
+        "afterSection": -1
+      },
+      {
+        "file": "JR Tsurumi Line Kokudō Station Underpass concourse.jpg",
+        "author": "Mister0124",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:JR_Tsurumi_Line_Kokud%C5%8D_Station_Underpass_concourse.jpg",
+        "altJa": "国道駅の高架下の通路。アーチが奥まで連なる",
+        "altEn": "The passage beneath the viaduct at Kokudo Station, with arches repeating into the distance",
+        "captionJa": "国道駅の高架下。1930年の開業当時からほとんど変わっていないとされる。",
+        "captionEn": "Beneath the viaduct at Kokudo Station, said to be little changed since it opened in 1930.",
+        "afterSection": 1
+      },
+      {
+        "file": "Passageway from Higashi-Narita Station to Narita Airport Terminal 2 Station 20110521.jpg",
+        "author": "PekePON",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0/",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Passageway_from_Higashi-Narita_Station_to_Narita_Airport_Terminal_2_Station_20110521.jpg",
+        "altJa": "東成田駅から空港第2ビル駅へ続く地下通路の入口",
+        "altEn": "The entrance to the underground passage from Higashi-Narita Station to Airport Terminal 2 Station",
+        "captionJa": "東成田駅から第2ターミナルへ続く、長さ約500mの地下通路。",
+        "captionEn": "The underground passage, about 500 meters long, from Higashi-Narita Station to Terminal 2.",
+        "afterSection": 3
+      }
+    ]
   }
 ]

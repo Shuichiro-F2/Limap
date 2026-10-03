@@ -20,6 +20,7 @@ export const REGIONAL_ARTICLES: { slug: string; label: string; prefectures: stri
   { slug: 'liminal-spots-tohoku', label: '東北のリミナルスペース', prefectures: ['青森', '岩手', '宮城', '秋田', '山形', '福島'] },
   { slug: 'liminal-spots-kitakanto', label: '北関東のリミナルスペース', prefectures: ['茨城', '栃木', '群馬'] },
   { slug: 'liminal-spots-tokyo', label: '東京のリミナルスペース', prefectures: ['東京'] },
+  { slug: 'liminal-spots-minami-kanto', label: '神奈川・千葉・埼玉のリミナルスペース', prefectures: ['神奈川', '千葉', '埼玉'] },
   { slug: 'backrooms-spots-tokyo', label: '東京の「バックルームズ的」な場所', prefectures: ['東京'] },
   {
     slug: 'liminal-spots-hokuriku-koshinetsu',
