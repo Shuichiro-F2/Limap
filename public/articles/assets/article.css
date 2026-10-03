@@ -225,6 +225,124 @@ main {
   margin-bottom: 14px;
 }
 
+/* 記事ページのカテゴリはカテゴリ別の一覧へのリンク */
+a.article-category {
+  text-decoration: none;
+}
+
+a.article-category:hover {
+  text-decoration: underline;
+}
+
+/* --- 記事一覧のカテゴリ切り替え ---------------------------------------- */
+.cat-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 28px;
+}
+
+/* スマホでは何段にも折り返さず、横にスクロールする1行にする（画面の端まで広げる） */
+@media (max-width: 600px) {
+  .cat-nav {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    margin-left: -20px;
+    margin-right: -20px;
+    padding: 0 20px;
+    scrollbar-width: none;
+  }
+
+  .cat-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .cat-chip {
+    flex-shrink: 0;
+  }
+}
+
+.cat-chip {
+  display: inline-block;
+  padding: 6px 14px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--text-secondary);
+  font-family: var(--font-heading);
+  font-size: 13px;
+  line-height: 1.5;
+  text-decoration: none;
+}
+
+a.cat-chip:hover {
+  border-color: var(--text-muted);
+  color: var(--text-primary);
+}
+
+.cat-chip.active {
+  background-color: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-text);
+}
+
+/* --- SNS投稿（X・Instagram）の埋め込み --------------------------------- */
+.sns-embed {
+  margin: 24px auto 28px;
+  max-width: 550px;
+}
+
+/* 公式スクリプトが読み込まれるまで（またはJS無し）は、元の投稿へのリンクだけを出す */
+.sns-embed blockquote {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.sns-embed blockquote > a {
+  display: block;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background-color: var(--surface);
+  color: var(--text-secondary);
+  font-size: 14px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.sns-embed .twitter-tweet-rendered,
+.sns-embed iframe {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.sns-embed figcaption {
+  margin-top: 8px;
+  color: var(--text-muted);
+  font-size: 12px;
+  line-height: 1.7;
+  text-align: center;
+}
+
+/* 投稿の下に出す、そのスポットのページへのリンク */
+a.sns-embed-spot {
+  display: inline-block;
+  margin-top: 4px;
+  color: var(--accent);
+  font-family: var(--font-heading);
+  font-size: 14px;
+  text-decoration: none;
+}
+
+a.sns-embed-spot svg {
+  margin-right: 4px;
+  vertical-align: -2px;
+}
+
+a.sns-embed-spot:hover {
+  text-decoration: underline;
+}
+
 h1.article-title {
   font-family: var(--font-heading);
   font-size: 28px;

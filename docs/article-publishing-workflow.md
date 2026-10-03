@@ -10,8 +10,9 @@ Expo（React Native Web）製のアプリ本体とは別に、SEO記事は静的
 - **必ず「実在スポット」に着地させる。** 概念解説だけの記事は競合と差がつかない。記事末尾で LIMap の登録スポットへ内部リンクを貼れる構成にする。
 - **トレンドワードはフックとして使う。** 映画・ゲームの公開に合わせた記事で入口を作り、常設の概念記事・スポット記事へ内部リンクで流す。
 - 事実関係が確認できない具体情報は書かない。書く必要がある場合は Shu に確認を求める。
+- **写真は SNS 投稿の埋め込みを多用する**（2026-10-03 Shu の方針）。自前の写真がほとんど無いため、スポットの投稿と同じく X・Instagram の公式埋め込みで場所の様子を見せる（`sections[].embeds`）。画像をダウンロードして載せ直すことはしない。埋め込む投稿は、公開スポットに既に使っている投稿か、記事用に探した投稿（場所が本文と一致していること・今も表示できることを確認する）。
 
-## ⚠️ 記事を1本追加するときに触るファイルは「4箇所」
+## ⚠️ 記事を1本追加するときに触るファイルは「3箇所」
 
 記事データが2系統に分かれているため、**1箇所でも漏れると症状が分かりにくい不具合になる**。
 
@@ -19,21 +20,22 @@ Expo（React Native Web）製のアプリ本体とは別に、SEO記事は静的
 |---|---|---|---|
 | 1 | `content/articles.json` | 記事本文（日英）。静的HTML生成の元データ | 記事ページ自体が生成されない |
 | 2 | `src/lib/articles.ts` の `ARTICLE_ENTRIES` | **アプリ内コラムタブの一覧表示用**の軽量サマリー | URL直打ちでは読めるのに、**コラムタブの一覧に出てこない** |
-| 3 | `api/sitemap.ts` の `ARTICLE_SLUGS` | sitemap.xml に載せるスラッグ一覧 | Googleにクロール候補として通知されない |
-| 4 | `public/articles/`・`public/en/articles/`（英語版）と `public/llms.txt` | 生成物（手書きせず `npm run articles:build` で再生成） | ページが古いまま／AI向けの案内(llms.txt)に記事が載らない |
+| 3 | 生成物（手書きせず `npm run articles:build` で再生成）：`public/articles/`・`public/en/articles/`（記事・一覧・カテゴリ別一覧・RSS の `feed.xml`）、`public/llms.txt`、`src/content/articleIndex.json`（sitemap が読む記事とカテゴリの一覧） | ページが古いまま／sitemap・RSS・AI向けの案内(llms.txt)に記事が載らない |
+
+- sitemap（`api/sitemap.ts`）は `src/content/articleIndex.json` を読むので、以前のように `ARTICLE_SLUGS` へ手で足す必要はない（2026-10-03 から）。
+- 記事のカテゴリ（`category`）は `scripts/article-categories.js` の `CATEGORY_SLUGS` にあるものを使う。新しいカテゴリを作るときはそこに1行足す（カテゴリ別一覧 `/articles/category/<slug>/` のURLになる）。記事が3本未満のカテゴリの一覧は noindex で、sitemap にも載らない。
 
 ### 手順
 
 1. `content/articles.json` に記事オブジェクトを追記
 2. `src/lib/articles.ts` の `ARTICLE_ENTRIES` に `ArticleSummary` を追記（`content/articles.json` と同じ順序で）
-3. `api/sitemap.ts` の `ARTICLE_SLUGS` にスラッグを追記
-4. `npm run articles:build` を実行（= `node scripts/generate-articles.js`）
-   → 日本語版 `public/articles/<slug>/index.html`・英語版 `public/en/articles/<slug>/index.html`（別URL。hreflang で結ぶ）、それぞれの記事一覧ハブ、AI向けのサイト案内 `public/llms.txt` が再生成される
+3. `npm run articles:build` を実行（= `node scripts/generate-articles.js`）
+   → 日本語版 `public/articles/<slug>/index.html`・英語版 `public/en/articles/<slug>/index.html`（別URL。hreflang で結ぶ）、それぞれの記事一覧ハブ・カテゴリ別一覧・RSS、AI向けのサイト案内 `public/llms.txt`、sitemap 用の `src/content/articleIndex.json` が再生成される
    - 地方の実在スポット記事（〇〇のリミナルスペース）なら、`src/content/japan.ts` の `REGIONAL_ARTICLES` にも足す。`/japan` の地方の見出しと、都道府県のタグ別ページ（`/tags/北海道` など）からリンクされる（Web のみの変更）
-5. `node scripts/check-articles.js` で4箇所の整合性を確認（OK が出ればよい）
-6. `git add content/articles.json src/lib/articles.ts api/sitemap.ts public/articles public/en public/llms.txt` → commit → `git push origin main`
+4. `node scripts/check-articles.js` で整合性を確認（OK が出ればよい。カテゴリ・関連記事・埋め込みのURLも確かめる）
+5. `git add content/articles.json src/lib/articles.ts src/content/articleIndex.json public/articles public/en public/llms.txt` → commit → `git push origin main`
    → Vercel が自動デプロイ（**ここまでで反映されるのは Web のみ**）
-7. **アプリ（iOS）にも反映する**
+6. **アプリ（iOS）にも反映する**
    ```bash
    npx eas-cli update --branch production --environment production --message "コラム記事『◯◯』を追加"
    ```
@@ -62,6 +64,15 @@ push と `eas update` は実行前に Shu に確認を取る。
   - `afterParagraph` は0始まりの段落index。その段落の直後にカードが挿入される。省略するとセクション末尾にまとめて表示。
   - `thumbnailUrl` が無い場合はピンアイコンのプレースホルダーになる。
   - **`ja` と `en` の両方に同じ `spots` を書くこと**（片方だけだと言語切替でカードが消える）。
+- `embeds[]`（セクションごと、任意）= `{ url, afterParagraph?, spot?, caption? }` — X・Instagram の投稿の埋め込み
+  - `url` は X（`x.com/<ユーザー>/status/<ID>`）か Instagram（`instagram.com/p/<コード>/`、ユーザー名入りの形も可）の投稿URL。それ以外は生成時にエラーになる。
+  - 画面に近づいたときに公式スクリプト（widgets.js / embed.js）で投稿を表示する。それまで（とJS無しのとき）は「Xで投稿を見る」のリンクだけが出る。
+  - `afterParagraph` は spots と同じ（その段落の直後。省略するとセクション末尾）。
+  - `spot` に同じセクションの `spots` のスラッグを入れると、投稿の下に「〇〇をLIMapで見る →」のリンクが付き、**そのスポットのカードは出なくなる**（同じ写真が二重に並ばないように）。
+  - `caption` は任意の短い説明（LIMap 独自の言葉で）。
+  - **`ja` と `en` の同じセクションに同じ投稿を入れる**（check-articles.js が日英の食い違いを検出する）。
+  - 投稿が消えると「Xで投稿を見る」のリンクだけが残る。公開スポットと同じく、ときどき元の投稿が残っているか点検する。
+- `related`（記事ごと、任意）= 下部の「こちらもおすすめ」に先に出す記事のスラッグの配列。残りの枠は、同じシリーズ（スラッグに `liminal-spots-`・`backrooms` などを含む）→同じカテゴリ→新しい順で自動で選ばれ、最後の1枠は「リミナルスペースとは」になる。
 - `images[]` = `{ file, author, license, licenseUrl, sourceUrl, altJa, altEn, captionJa, captionEn, afterSection }`
   - 画像は **Wikimedia Commons のファイル名**を指定し、`Special:FilePath` 経由で読み込まれる。ライセンス表記は自動出力されるので、`author` / `license` / `licenseUrl` / `sourceUrl` を正しく入れること。新しい画像は Commons のファイルページで author / license を確認してから入れる。
   - **既に他記事で使っているファイルを再利用する場合は、メタデータをそのままコピーする**（記憶で書くと著者名やライセンスを間違える）。

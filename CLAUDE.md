@@ -88,14 +88,13 @@ npx tsc --noEmit       # 型チェック
 
 ## コラム記事（SEO）
 
-記事の追加・修正の前に、必ず `docs/article-publishing-workflow.md` を読んでその手順に従う。1本追加するとき触るのは次の4箇所で、1つでも漏れると分かりにくい不具合になる：
+記事の追加・修正の前に、必ず `docs/article-publishing-workflow.md` を読んでその手順に従う。1本追加するとき触るのは次の3箇所で、1つでも漏れると分かりにくい不具合になる：
 
 1. `content/articles.json`（本文・日英）
 2. `src/lib/articles.ts` の `ARTICLE_ENTRIES`（アプリのコラムタブ一覧）
-3. `api/sitemap.ts` の `ARTICLE_SLUGS`
-4. `npm run articles:build` で `public/articles/` を再生成
+3. `npm run articles:build` で `public/articles/`・`public/en/articles/`・`src/content/articleIndex.json`（sitemap が読む）を再生成
 
-追加後は `node scripts/check-articles.js` で4箇所の整合性を確認する。
+追加後は `node scripts/check-articles.js` で整合性を確認する。記事の写真は、自前の写真がほとんど無いため X・Instagram の投稿の埋め込み（`sections[].embeds`）を多用する。
 
 記事を出したら、push に加えて `eas update` までがワンセット（アプリのコラムタブに反映するため）。
 

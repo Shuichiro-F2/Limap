@@ -13,48 +13,13 @@ import {
   tagsWithPages,
   type TagSpotRow,
 } from '../src/content/tagPages';
+// SEO記事（public/articles/配下、content/articles.json から静的生成）とカテゴリ別一覧の一覧。
+// npm run articles:build（scripts/generate-articles.js）が書き出すので、記事を足して生成し直せば自動で載る。
+// カテゴリ別一覧は、記事が少なく noindex にしているものは含まれない。
+import articleIndex from '../src/content/articleIndex.json';
 
 const SUPABASE_URL = process.env.SUPABASE_URL || '';
 const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY || '';
-
-// SEO記事（public/articles/配下、content/articles.jsonから静的生成）のスラッグ一覧。
-// 記事を追加した際は、content/articles.json の更新・scripts/generate-articles.js の再実行に
-// あわせて、ここにもスラッグを追加する。
-const ARTICLE_SLUGS = [
-  'what-is-liminal-space',
-  'liminal-spaces-in-japan',
-  'liminal-space-vs-backrooms',
-  'liminal-space-vs-dreamcore',
-  'why-liminal-spaces-feel-scary',
-  'history-of-liminal-space-trend',
-  'how-to-find-liminal-spaces',
-  'famous-liminal-spaces-around-the-world',
-  'is-exit-8-real',
-  'backrooms-in-japan',
-  'not-haunted-just-eerie-spots',
-  'haikyo-photo-spots-japan',
-  'backrooms-movie-guide',
-  'is-backrooms-movie-scary',
-  'backrooms-spots-tokyo',
-  'backrooms-levels-explained',
-  'poolrooms-explained',
-  'backrooms-original-photo-location',
-  'backrooms-vs-exit-8',
-  'who-is-kane-pixels',
-  'what-is-noclip',
-  'liminal-space-games',
-  'pools-game',
-  'liminal-spots-tokai',
-  'liminal-spots-kitakanto',
-  'liminal-spots-okinawa',
-  'liminal-spots-hokuriku-koshinetsu',
-  'liminal-spots-chugoku-shikoku',
-  'liminal-spots-tohoku',
-  'liminal-spots-kyushu',
-  'liminal-spots-hokkaido',
-  'liminal-spots-nagoya',
-  'liminal-spots-kansai',
-];
 
 function escapeXml(str: string): string {
   return str
@@ -73,21 +38,25 @@ export default async function handler(req: any, res: any) {
     { loc: 'https://limap.jp/help', changefreq: 'monthly', priority: '0.5' },
     { loc: 'https://limap.jp/privacy', changefreq: 'yearly', priority: '0.3' },
     { loc: 'https://limap.jp/terms', changefreq: 'yearly', priority: '0.3' },
-    { loc: 'https://limap.jp/articles/', changefreq: 'weekly', priority: '0.6' },
     { loc: 'https://limap.jp/tags', changefreq: 'weekly', priority: '0.5' },
-    ...ARTICLE_SLUGS.map((slug) => ({
-      loc: `https://limap.jp/articles/${slug}/`,
-      changefreq: 'monthly',
-      priority: '0.6',
-    })),
-    // 英語版の記事（scripts/generate-articles.js が public/en/articles/ に生成。日本語版と hreflang で結んでいる）
-    { loc: 'https://limap.jp/en/articles/', changefreq: 'weekly', priority: '0.5' },
-    ...ARTICLE_SLUGS.map((slug) => ({
-      loc: `https://limap.jp/en/articles/${slug}/`,
-      changefreq: 'monthly',
-      priority: '0.5',
-    })),
   ];
+
+  // 記事・記事一覧は、articles.json の公開日・更新日を lastmod にする
+  const latestArticle = articleIndex.articles.map((a) => a.lastmod).sort().pop() ?? '';
+  const articleUrls: { loc: string; lastmod: string; changefreq: string; priority: string }[] = [];
+  // 英語版（scripts/generate-articles.js が public/en/articles/ に生成。日本語版と hreflang で結んでいる）
+  for (const [prefix, priority] of [
+    ['https://limap.jp/articles/', '0.6'],
+    ['https://limap.jp/en/articles/', '0.5'],
+  ] as const) {
+    articleUrls.push({ loc: prefix, lastmod: latestArticle, changefreq: 'weekly', priority });
+    for (const c of articleIndex.categories) {
+      articleUrls.push({ loc: `${prefix}category/${c.slug}/`, lastmod: c.lastmod ?? latestArticle, changefreq: 'weekly', priority: '0.4' });
+    }
+    for (const a of articleIndex.articles) {
+      articleUrls.push({ loc: `${prefix}${a.slug}/`, lastmod: a.lastmod, changefreq: 'monthly', priority });
+    }
+  }
 
   let spotUrls: { loc: string; lastmod: string; changefreq: string; priority: string }[] = [];
   let tagUrls: { loc: string; lastmod: string; changefreq: string; priority: string }[] = [];
@@ -137,7 +106,7 @@ export default async function handler(req: any, res: any) {
     ...staticUrls.map(
       (u) => `  <url>\n    <loc>${escapeXml(u.loc)}</loc>\n    <changefreq>${u.changefreq}</changefreq>\n    <priority>${u.priority}</priority>\n  </url>`
     ),
-    ...[...spotUrls, ...tagUrls].map(
+    ...[...articleUrls, ...spotUrls, ...tagUrls].map(
       (u) =>
         `  <url>\n    <loc>${escapeXml(u.loc)}</loc>\n    <lastmod>${u.lastmod}</lastmod>\n    <changefreq>${u.changefreq}</changefreq>\n    <priority>${u.priority}</priority>\n  </url>`
     ),

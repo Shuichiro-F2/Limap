@@ -15,11 +15,14 @@
 
 const fs = require('fs');
 const path = require('path');
+const { categorySlugOf, indexableCategorySlugs } = require('./article-categories');
 
 const ROOT = path.resolve(__dirname, '..');
 const DATA_PATH = path.join(ROOT, 'content', 'articles.json');
 const OUT_DIR = path.join(ROOT, 'public', 'articles');
 const OUT_DIR_EN = path.join(ROOT, 'public', 'en', 'articles');
+// 生成物。api/sitemap.ts が読む（手で編集しない）
+const ARTICLE_INDEX_PATH = path.join(ROOT, 'src', 'content', 'articleIndex.json');
 const SITE_URL = 'https://limap.jp';
 // iOSアプリのApp Storeページ。src/lib/appStore.ts と同じURLを指す
 // (記事ページはReactアプリとは別の静的HTMLのため、定数を共有できず二重管理になる。
@@ -90,6 +93,9 @@ function imageBlock(image, lang, variant) {
 const SPOT_PIN_ICON =
   '<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s7-7.58 7-12a7 7 0 1 0-14 0c0 4.42 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>';
 
+const SPOT_PIN_ICON_SMALL =
+  '<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 21s7-7.58 7-12a7 7 0 1 0-14 0c0 4.42 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>';
+
 // セクション内でLIMapの実在スポットへ内部リンクを貼るためのブロック。
 // 本文段落はescapeHtmlしているため<a>タグを直接埋め込めない。そのため、
 // セクションのspots配列(各記事のja/en.sections[i].spots)に{title, slug}を
@@ -121,30 +127,86 @@ ${items}
         </div>`;
 }
 
-// 段落を出力しつつ、spots配列内の各要素が持つafterParagraph(0始まりの段落index)に従って、
-// その段落の直後にスポットカードを差し込む。最後の段落の後で一括表示していた以前の形式から、
-// 本文の関連する箇所にカードを挟み込む形式に変更している。afterParagraph未指定のスポットは
-// 従来通り段落の末尾にまとめて表示する。
-function langParagraphsWithSpots(paragraphs, spots, lang) {
-  const spotsByParagraph = new Map();
-  const trailingSpots = [];
-  (spots || []).forEach((sp) => {
-    if (typeof sp.afterParagraph === 'number') {
-      const list = spotsByParagraph.get(sp.afterParagraph) || [];
-      list.push(sp);
-      spotsByParagraph.set(sp.afterParagraph, list);
+// SNS投稿（X・Instagram）の埋め込み。記事に使える自前の写真が少ないため、スポットの投稿と同じく
+// 公式の埋め込みで写真を見せる（画像を複製せず、投稿者の表示・元の投稿へのリンクも残る）。
+// JS無しや読み込み前は「Xで投稿を見る」のリンクだけが出て、article.js が画面に近づいたときに
+// 公式スクリプト（widgets.js / embed.js）を読み込んで投稿の表示に置き換える。
+// sections[].embeds = [{ url, afterParagraph?, caption?, spot? }]（spots と同じく ja・en の両方に書く）
+// spot（同じセクションの spots にあるスラッグ）を付けると、投稿の下にそのスポットのページへのリンクを出し、
+// 同じ写真が二重に並ばないよう、そのスポットのカードは出さない。
+const X_STATUS_URL = /^https?:\/\/(?:www\.|mobile\.)?(?:x|twitter)\.com\/([A-Za-z0-9_]+)\/status\/([0-9]+)/i;
+// 投稿者名の入った形（instagram.com/<ユーザー名>/p/<コード>/）もある
+const INSTAGRAM_URL = /^https?:\/\/(?:www\.)?instagram\.com\/(?:[A-Za-z0-9_.]+\/)?(p|reel|tv)\/([A-Za-z0-9_-]+)/i;
+
+function parseEmbedUrl(url) {
+  const x = String(url).match(X_STATUS_URL);
+  if (x) return { platform: 'x', user: x[1], id: x[2] };
+  const ig = String(url).match(INSTAGRAM_URL);
+  if (ig) return { platform: 'instagram', kind: ig[1], code: ig[2] };
+  return null;
+}
+
+function embedBlock(embed, lang, spot) {
+  const parsed = parseEmbedUrl(embed.url);
+  if (!parsed) throw new Error(`埋め込みに使えないURLです（X か Instagram の投稿URLのみ）: ${embed.url}`);
+  const spotLink = spot
+    ? `<a class="sns-embed-spot" href="${SITE_URL}/spot/${escapeHtml(spot.slug)}">${SPOT_PIN_ICON_SMALL}${escapeHtml(spot.title)}${
+        lang === 'ja' ? ' をLIMapで見る' : ' on LIMap'
+      } →</a>`
+    : '';
+  const captionText = embed.caption ? escapeHtml(embed.caption) : '';
+  const caption =
+    spotLink || captionText
+      ? `\n          <figcaption>${captionText}${captionText && spotLink ? '<br />' : ''}${spotLink}</figcaption>`
+      : '';
+  if (parsed.platform === 'x') {
+    // widgets.js はブロック内のリンクから投稿IDを読む。twitter.com の形にしておくと確実に認識される
+    const href = `https://twitter.com/${parsed.user}/status/${parsed.id}`;
+    const label = lang === 'ja' ? 'Xで投稿を見る' : 'View the post on X';
+    return `\n        <figure class="sns-embed" data-platform="x">
+          <blockquote class="twitter-tweet" data-dnt="true" data-theme="dark" data-lang="${lang}"><a href="${href}" target="_blank" rel="noopener noreferrer nofollow">${label} ↗</a></blockquote>${caption}
+        </figure>`;
+  }
+  const permalink = `https://www.instagram.com/${parsed.kind}/${parsed.code}/`;
+  const label = lang === 'ja' ? 'Instagramで投稿を見る' : 'View the post on Instagram';
+  return `\n        <figure class="sns-embed" data-platform="instagram">
+          <blockquote class="instagram-media" data-instgrm-permalink="${permalink}" data-instgrm-version="14"><a href="${permalink}" target="_blank" rel="noopener noreferrer nofollow">${label} ↗</a></blockquote>${caption}
+        </figure>`;
+}
+
+// afterParagraph（0始まりの段落index）ごとにまとめる。未指定のものは段落の末尾に回す
+function groupByParagraph(items) {
+  const byParagraph = new Map();
+  const trailing = [];
+  (items || []).forEach((item) => {
+    if (typeof item.afterParagraph === 'number') {
+      const list = byParagraph.get(item.afterParagraph) || [];
+      list.push(item);
+      byParagraph.set(item.afterParagraph, list);
     } else {
-      trailingSpots.push(sp);
+      trailing.push(item);
     }
   });
+  return { byParagraph, trailing };
+}
+
+// 段落を出力しつつ、spots・embeds の各要素が持つ afterParagraph に従って、その段落の直後に
+// スポットカード・SNS投稿の埋め込みを差し込む（同じ段落ならカード→埋め込みの順）。
+// afterParagraph 未指定のものはセクションの末尾にまとめて表示する。
+function langParagraphsWithSpots(paragraphs, spots, embeds, lang) {
+  const spotBySlug = new Map((spots || []).map((sp) => [sp.slug, sp]));
+  const embeddedSpots = new Set((embeds || []).map((e) => e.spot).filter(Boolean));
+  const spotGroups = groupByParagraph((spots || []).filter((sp) => !embeddedSpots.has(sp.slug)));
+  const embedGroups = groupByParagraph(embeds);
+  const embedsHtml = (list) => (list || []).map((e) => embedBlock(e, lang, e.spot && spotBySlug.get(e.spot))).join('');
   const body = paragraphs
     .map((p, i) => {
       const pHtml = `        <p>${escapeHtml(p)}</p>`;
-      const cardHtml = spotsByParagraph.has(i) ? spotCardBlock(spotsByParagraph.get(i), lang) : '';
-      return pHtml + cardHtml;
+      const cardHtml = spotGroups.byParagraph.has(i) ? spotCardBlock(spotGroups.byParagraph.get(i), lang) : '';
+      return pHtml + cardHtml + embedsHtml(embedGroups.byParagraph.get(i));
     })
     .join('\n');
-  return body + spotCardBlock(trailingSpots, lang);
+  return body + spotCardBlock(spotGroups.trailing, lang) + embedsHtml(embedGroups.trailing);
 }
 
 // images配列のうち、指定セクションの直後(afterSection: 0始まりのセクション index)に
@@ -157,7 +219,7 @@ function langSections(sections, images, lang) {
       const imgHtml = imgHere ? '\n' + imageBlock(imgHere, lang, 'inline') : '';
       return `      <section class="article-section">
         <h2 class="section-heading">${escapeHtml(s.heading)}</h2>
-${langParagraphsWithSpots(s.paragraphs, s.spots, lang)}
+${langParagraphsWithSpots(s.paragraphs, s.spots, s.embeds, lang)}
       </section>${imgHtml}`;
     })
     .join('\n');
@@ -277,6 +339,21 @@ function hubPath(lang) {
   return lang === 'en' ? '/en/articles/' : '/articles/';
 }
 
+// カテゴリ別の記事一覧（/articles/category/<slug>/）
+function categoryPath(slug, lang) {
+  return `${hubPath(lang)}category/${slug}/`;
+}
+
+// RSS（/articles/feed.xml・/en/articles/feed.xml）
+function feedPath(lang) {
+  return `${hubPath(lang)}feed.xml`;
+}
+
+function feedLink(lang) {
+  const title = lang === 'ja' ? 'LIMap 読みもの' : 'LIMap Articles';
+  return `    <link rel="alternate" type="application/rss+xml" title="${title}" href="${SITE_URL}${feedPath(lang)}" />\n`;
+}
+
 // hreflang（x-default は日本語版）
 function hreflangLinks(jaPath, enPath) {
   return `    <link rel="alternate" hreflang="ja" href="${SITE_URL}${jaPath}" />
@@ -298,7 +375,7 @@ function langSwitch(lang, jaPath, enPath) {
 }
 
 // 記事・一覧ページ共通の <head> 内のフォント・CSS（キャッシュの古いJS/CSSを使わないよう版番号を付ける）
-const ASSET_VERSION = '3';
+const ASSET_VERSION = '4';
 
 function fontAndStyleLinks() {
   return `    <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -326,8 +403,38 @@ function siteFooter(lang) {
     </footer>`;
 }
 
+// 関連記事に「同じシリーズ」として寄せるための、スラッグに含まれる語（地方記事・バックルームズ関連など）
+const SERIES_TOKENS = ['liminal-spots-', 'backrooms', 'exit-8', 'pool', 'game', 'haikyo', 'noclip', 'kane-pixels'];
+// どの記事からも1本はリンクする、入口になる基礎の記事
+const PILLAR_SLUG = 'what-is-liminal-space';
+const RELATED_COUNT = 4;
+
+// 関連記事の選び方：articles.json の related（スラッグの配列）があればそれを先に、
+// 残りは「同じシリーズ」「同じカテゴリ」を優先し、同点なら新しい順。
+// 最後の1枠は、基礎の記事（リミナルスペースとは）が入っていなければそれにする。
+function relatedArticles(current, all) {
+  const bySlug = new Map(all.map((a) => [a.slug, a]));
+  const picked = (current.related || []).map((slug) => bySlug.get(slug)).filter(Boolean);
+  const tokensOf = (a) => SERIES_TOKENS.filter((t) => a.slug.includes(t));
+  const currentTokens = tokensOf(current);
+  const score = (a) =>
+    (tokensOf(a).some((t) => currentTokens.includes(t)) ? 2 : 0) + (a.category === current.category ? 1 : 0);
+  // all は新しい順に並んでいるので、安定ソートで同点は新しい順のまま
+  const rest = all
+    .filter((a) => a.slug !== current.slug && !picked.includes(a))
+    .map((a) => ({ a, s: score(a) }))
+    .sort((x, y) => y.s - x.s)
+    .map((x) => x.a);
+  let list = [...picked, ...rest].slice(0, RELATED_COUNT);
+  const pillar = bySlug.get(PILLAR_SLUG);
+  if (pillar && current.slug !== PILLAR_SLUG && !list.includes(pillar)) {
+    list = [...list.slice(0, RELATED_COUNT - 1), pillar];
+  }
+  return list;
+}
+
 function relatedBlock(current, all, lang) {
-  const others = all.filter((a) => a.slug !== current.slug).slice(0, 4);
+  const others = relatedArticles(current, all);
   if (others.length === 0) return '';
   const heading = lang === 'ja' ? 'こちらもおすすめ' : 'You Might Also Like';
   const items = others.map((a) => columnRow(a, lang, `${SITE_URL}${articlePath(a.slug, lang)}`)).join('\n');
@@ -349,7 +456,7 @@ function langBlock(lang, article, all) {
       : `Published: ${article.publishedDate}${updated ? ` / Updated: ${updated}` : ''}`;
   const heroImage = (article.images || []).find((img) => img.afterSection === -1);
   return `    <div class="article-body">
-      <span class="article-category">${escapeHtml(categoryLabel)}</span>
+      <a class="article-category" href="${categoryPath(categorySlugOf(article), lang)}">${escapeHtml(categoryLabel)}</a>
       <h1 class="article-title">${escapeHtml(content.h1)}</h1>
       <p class="article-meta">${dateLabel}</p>
       <p class="article-lead">${escapeHtml(content.lead)}</p>
@@ -422,7 +529,7 @@ function renderArticlePage(article, all, lang) {
     <title>${escapeHtml(content.title)} | LIMap</title>
     <meta name="description" content="${escapeHtml(content.metaDescription)}" />
     <link rel="canonical" href="${url}" />
-${hreflangLinks(jaPath, enPath)}    <meta name="theme-color" content="#1a1a1a" />
+${hreflangLinks(jaPath, enPath)}${feedLink(lang)}    <meta name="theme-color" content="#1a1a1a" />
     <link rel="apple-touch-icon" href="${SITE_URL}/apple-touch-icon.png" />
     <link rel="icon" href="${SITE_URL}/apple-touch-icon.png" />
     <link rel="manifest" href="${SITE_URL}/manifest.json" />
@@ -487,12 +594,33 @@ const HUB_TEXT = {
   },
 };
 
-function renderHubPage(all, lang) {
-  const text = HUB_TEXT[lang];
-  const url = `${SITE_URL}${hubPath(lang)}`;
-  // 最新の1本は大きな写真付きで目立たせ、残りは細い線で区切った一覧にする（アプリのコラムタブと同じ）
-  const [featured, ...rest] = all;
-  const featuredHtml = featured ? columnFeatured(featured, lang, articlePath(featured.slug, lang)) : '';
+// 一覧の上に並べるカテゴリの切り替え（すべて＋各カテゴリ）。記事の多い順
+function categoryNav(all, lang, activeSlug) {
+  const counts = new Map();
+  for (const a of all) {
+    const slug = categorySlugOf(a);
+    const entry = counts.get(slug) || { slug, label: lang === 'ja' ? a.category : a.categoryEn, count: 0 };
+    entry.count += 1;
+    counts.set(slug, entry);
+  }
+  const cats = [...counts.values()].sort((x, y) => y.count - x.count);
+  const item = (href, label, active) =>
+    active
+      ? `<span class="cat-chip active" aria-current="page">${escapeHtml(label)}</span>`
+      : `<a class="cat-chip" href="${href}">${escapeHtml(label)}</a>`;
+  const allLabel = lang === 'ja' ? 'すべて' : 'All';
+  return `      <nav class="cat-nav" aria-label="${lang === 'ja' ? 'カテゴリ' : 'Categories'}">
+        ${item(hubPath(lang), allLabel, !activeSlug)}
+${cats.map((c) => `        ${item(categoryPath(c.slug, lang), c.label, c.slug === activeSlug)}`).join('\n')}
+      </nav>`;
+}
+
+// 記事一覧ページ（全記事の一覧・カテゴリ別の一覧の共通部分）
+function renderListPage({ all, list, lang, text, path, jaPath, enPath, activeCategory, noindex, featured }) {
+  const url = `${SITE_URL}${path}`;
+  // 全記事の一覧は、最新の1本を大きな写真付きで目立たせ、残りは細い線で区切った一覧にする（アプリのコラムタブと同じ）
+  const [first, ...rest] = featured ? list : [null, ...list];
+  const featuredHtml = first ? columnFeatured(first, lang, articlePath(first.slug, lang)) + '\n' : '';
   const items = rest.map((a) => columnRow(a, lang, articlePath(a.slug, lang))).join('\n');
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -509,8 +637,8 @@ function renderHubPage(all, lang) {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover" />
     <title>${escapeHtml(text.title)}</title>
     <meta name="description" content="${escapeHtml(text.description)}" />
-    <link rel="canonical" href="${url}" />
-${hreflangLinks(hubPath('ja'), hubPath('en'))}    <meta name="theme-color" content="#1a1a1a" />
+${noindex ? '    <meta name="robots" content="noindex, follow" />\n' : ''}    <link rel="canonical" href="${url}" />
+${hreflangLinks(jaPath, enPath)}${feedLink(lang)}    <meta name="theme-color" content="#1a1a1a" />
     <link rel="apple-touch-icon" href="${SITE_URL}/apple-touch-icon.png" />
     <link rel="icon" href="${SITE_URL}/apple-touch-icon.png" />
     <link rel="manifest" href="${SITE_URL}/manifest.json" />
@@ -534,14 +662,14 @@ ${appBannerBlock(lang)}
       <a class="brand" href="${SITE_URL}/">
         <img src="/articles/assets/logo-header.png" alt="LIMap" class="brand-logo" />
       </a>
-${langSwitch(lang, hubPath('ja'), hubPath('en'))}
+${langSwitch(lang, jaPath, enPath)}
     </header>
 
     <main>
       <h1 class="article-title">${escapeHtml(text.h1)}</h1>
       <p class="hub-lead">${escapeHtml(text.lead)}</p>
-${featuredHtml}
-      <div class="col-list hub-col-list">
+${categoryNav(all, lang, activeCategory)}
+${featuredHtml}      <div class="col-list hub-col-list">
 ${items}
       </div>
     </main>
@@ -551,6 +679,87 @@ ${siteFooter(lang)}
     <script src="/articles/assets/article.js?v=${ASSET_VERSION}"></script>
   </body>
 </html>
+`;
+}
+
+function renderHubPage(all, lang) {
+  return renderListPage({
+    all,
+    list: all,
+    lang,
+    text: HUB_TEXT[lang],
+    path: hubPath(lang),
+    jaPath: hubPath('ja'),
+    enPath: hubPath('en'),
+    featured: true,
+  });
+}
+
+function renderCategoryPage(all, slug, lang, indexable) {
+  const list = all.filter((a) => categorySlugOf(a) === slug);
+  const label = lang === 'ja' ? list[0].category : list[0].categoryEn;
+  const text =
+    lang === 'ja'
+      ? {
+          title: `${label}の記事一覧 | LIMap`,
+          description: `LIMapの読みもののうち、「${label}」の記事${list.length}本の一覧です。リミナルスペースやバックルームズ、日本に実在する場所について。`,
+          h1: `${label}`,
+          lead: `「${label}」の記事${list.length}本。新しい順に並んでいます。`,
+        }
+      : {
+          title: `${label} | LIMap Articles`,
+          description: `${list.length} LIMap article${list.length === 1 ? '' : 's'} in "${label}": liminal spaces, the Backrooms, and real places in Japan.`,
+          h1: `${label}`,
+          lead: `${list.length} article${list.length === 1 ? '' : 's'} in this category, newest first.`,
+        };
+  return renderListPage({
+    all,
+    list,
+    lang,
+    text,
+    path: categoryPath(slug, lang),
+    jaPath: categoryPath(slug, 'ja'),
+    enPath: categoryPath(slug, 'en'),
+    activeCategory: slug,
+    noindex: !indexable,
+    featured: false,
+  });
+}
+
+// RSS 2.0。新しい順に最大30本
+function rfc822(date) {
+  return new Date(`${date}T09:00:00+09:00`).toUTCString();
+}
+
+function renderFeed(all, lang) {
+  const text = HUB_TEXT[lang];
+  const items = all
+    .slice(0, 30)
+    .map((a) => {
+      const t = a[lang];
+      const link = `${SITE_URL}${articlePath(a.slug, lang)}`;
+      return `    <item>
+      <title>${escapeHtml(t.title)}</title>
+      <link>${link}</link>
+      <guid isPermaLink="true">${link}</guid>
+      <pubDate>${rfc822(a.publishedDate)}</pubDate>
+      <category>${escapeHtml(lang === 'ja' ? a.category : a.categoryEn)}</category>
+      <description>${escapeHtml(t.metaDescription)}</description>
+    </item>`;
+    })
+    .join('\n');
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>${escapeHtml(lang === 'ja' ? 'LIMap 読みもの' : 'LIMap Articles')}</title>
+    <link>${SITE_URL}${hubPath(lang)}</link>
+    <atom:link href="${SITE_URL}${feedPath(lang)}" rel="self" type="application/rss+xml" />
+    <description>${escapeHtml(text.description)}</description>
+    <language>${lang}</language>
+    <lastBuildDate>${rfc822(all[0].updatedDate && all[0].updatedDate > all[0].publishedDate ? all[0].updatedDate : all[0].publishedDate)}</lastBuildDate>
+${items}
+  </channel>
+</rss>
 `;
 }
 
@@ -608,6 +817,10 @@ function main() {
   const articles = JSON.parse(fs.readFileSync(DATA_PATH, 'utf8')).sort((a, b) =>
     b.publishedDate.localeCompare(a.publishedDate)
   );
+  const unknown = articles.filter((a) => !categorySlugOf(a)).map((a) => `${a.slug}（${a.category}）`);
+  if (unknown.length) {
+    throw new Error(`scripts/article-categories.js の CATEGORY_SLUGS に無いカテゴリです: ${unknown.join(', ')}`);
+  }
 
   // 日本語版は public/articles/、英語版は public/en/articles/ に出力する
   for (const lang of ['ja', 'en']) {
@@ -621,13 +834,41 @@ function main() {
     }
     fs.writeFileSync(path.join(outDir, 'index.html'), renderHubPage(articles, lang), 'utf8');
     console.log('generated:', path.relative(ROOT, path.join(outDir, 'index.html')));
+
+    // カテゴリ別の一覧。前回の生成で残った、今は使っていないカテゴリのページは消す
+    const categoryDir = path.join(outDir, 'category');
+    fs.rmSync(categoryDir, { recursive: true, force: true });
+    const indexable = indexableCategorySlugs(articles);
+    for (const slug of new Set(articles.map(categorySlugOf))) {
+      const dir = path.join(categoryDir, slug);
+      fs.mkdirSync(dir, { recursive: true });
+      fs.writeFileSync(path.join(dir, 'index.html'), renderCategoryPage(articles, slug, lang, indexable.includes(slug)), 'utf8');
+      console.log('generated:', path.relative(ROOT, path.join(dir, 'index.html')));
+    }
+
+    fs.writeFileSync(path.join(outDir, 'feed.xml'), renderFeed(articles, lang), 'utf8');
+    console.log('generated:', path.relative(ROOT, path.join(outDir, 'feed.xml')));
   }
 
   fs.writeFileSync(path.join(ROOT, 'public', 'llms.txt'), renderLlmsTxt(articles), 'utf8');
   console.log('generated:', 'public/llms.txt');
 
-  // sitemap.tsで使う一覧をコンソールに出しておく（api/sitemap.tsへの反映は手動）
-  console.log('\nslugs:', articles.map((a) => a.slug).join(', '));
+  // sitemap（api/sitemap.ts）が読む記事とカテゴリの一覧。記事を足して articles:build すれば sitemap にも載る
+  const index = {
+    articles: articles.map((a) => ({ slug: a.slug, lastmod: modifiedDateOf(a) })),
+    categories: indexableCategorySlugs(articles).map((slug) => ({
+      slug,
+      lastmod: articles
+        .filter((a) => categorySlugOf(a) === slug)
+        .map(modifiedDateOf)
+        .sort()
+        .pop(),
+    })),
+  };
+  fs.writeFileSync(ARTICLE_INDEX_PATH, JSON.stringify(index, null, 2) + '\n', 'utf8');
+  console.log('generated:', path.relative(ROOT, ARTICLE_INDEX_PATH));
+
+
 }
 
 main();

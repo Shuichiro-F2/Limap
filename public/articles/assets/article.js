@@ -62,3 +62,57 @@ window.__limapSpotThumbFallback = function (img) {
     });
   });
 })();
+
+// SNS投稿（X・Instagram）の埋め込み。generate-articles.js の embedBlock が出力した blockquote を、
+// 画面に近づいたときに公式スクリプトで投稿の表示に置き換える（最初の表示を重くしないため）。
+// スクリプトが読めない環境では、blockquote 内の「Xで投稿を見る」リンクがそのまま残る。
+(function () {
+  var SCRIPTS = {
+    x: 'https://platform.twitter.com/widgets.js',
+    instagram: 'https://www.instagram.com/embed.js',
+  };
+  var loaded = {};
+
+  function render(platform) {
+    if (platform === 'x' && window.twttr && window.twttr.widgets) window.twttr.widgets.load();
+    if (platform === 'instagram' && window.instgrm) window.instgrm.Embeds.process();
+  }
+
+  // スクリプトは読み込んだ時点でページ内の該当する blockquote をすべて処理する
+  function load(platform) {
+    if (loaded[platform]) return;
+    loaded[platform] = true;
+    var script = document.createElement('script');
+    script.src = SCRIPTS[platform];
+    script.async = true;
+    script.charset = 'utf-8';
+    script.onload = function () {
+      render(platform);
+    };
+    document.body.appendChild(script);
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    var embeds = document.querySelectorAll('.sns-embed[data-platform]');
+    if (!embeds.length) return;
+    if (!('IntersectionObserver' in window)) {
+      embeds.forEach(function (el) {
+        load(el.getAttribute('data-platform'));
+      });
+      return;
+    }
+    var observer = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          load(entry.target.getAttribute('data-platform'));
+          observer.unobserve(entry.target);
+        });
+      },
+      { rootMargin: '800px 0px' }
+    );
+    embeds.forEach(function (el) {
+      observer.observe(el);
+    });
+  });
+})();
