@@ -600,6 +600,19 @@ const ARTICLE_ENTRIES: ArticleSummary[] = [
       'A blue space-themed station, a red rock cave of a station, airports that imagined the future, a town of castles no one lived in: 15 real places around the world.',
     thumbnailFile: 'Stockholm - Solna centrum Metro station (by Pudelek).jpg',
   },
+  {
+    slug: 'abandoned-hotel-liminal-spaces',
+    publishedDate: '2026-10-03',
+    categoryJa: '実在スポット',
+    categoryEn: 'Real Spots',
+    titleJa: '廃ホテルのリミナルスペース｜外から眺める、時間が止まった実在の10か所',
+    titleEn: 'Abandoned Hotels as Liminal Spaces: 10 Real Places Frozen in Time, Viewed From Outside',
+    leadJa:
+      '山の上の旧摩耶観光ホテル、温泉街に残る大きな旅館、一度も開業しなかったリゾートホテル。外から眺められる廃ホテル10か所を紹介します。',
+    leadEn:
+      'The former Maya Kanko Hotel on a mountain, big inns in hot-spring towns, a resort hotel that never opened: ten abandoned hotels you can view from outside.',
+    thumbnailFile: 'MayaKankoHotel Kobe 201705.jpg',
+  },
 ];
 
 // 一覧は新着順(publishedDate の降順)で表示する。Array#sort は安定なので、
