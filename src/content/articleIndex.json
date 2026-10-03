@@ -49,6 +49,12 @@
       "titleEn": "What Is Weirdcore? Meaning, Features, and How It Differs From Dreamcore and Liminal Spaces"
     },
     {
+      "slug": "what-is-analog-horror",
+      "lastmod": "2026-10-03",
+      "titleJa": "アナログホラーとは？意味と特徴、代表作と見るときの注意",
+      "titleEn": "What Is Analog Horror? Meaning, Features, Key Works and Viewing Cautions"
+    },
+    {
       "slug": "liminal-space-games",
       "lastmod": "2026-10-03",
       "titleJa": "リミナルスペースを歩けるゲーム7選——『8番出口』『Pools』『Escape the Backrooms』ほか",
@@ -270,7 +276,8 @@
       "underground-mall-liminal-spaces"
     ],
     "W9n7DymW": [
-      "liminal-spots-tokyo"
+      "liminal-spots-tokyo",
+      "what-is-analog-horror"
     ],
     "g3Pub95b": [
       "liminal-spots-tokyo",
@@ -307,6 +314,7 @@
     "FGg4w6Jh": [
       "liminal-spots-minami-kanto",
       "station-liminal-spaces",
+      "what-is-analog-horror",
       "backrooms-levels-explained",
       "backrooms-movie-guide",
       "backrooms-in-japan"

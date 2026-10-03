@@ -574,6 +574,19 @@ const ARTICLE_ENTRIES: ArticleSummary[] = [
       'Grainy images and red text: the internet aesthetic that feels nostalgic yet wrong, and how it differs from dreamcore.',
     thumbnailFile: 'Empty classroom 2020.jpg',
   },
+  {
+    slug: 'what-is-analog-horror',
+    publishedDate: '2026-10-03',
+    categoryJa: '基礎知識',
+    categoryEn: 'Basics',
+    titleJa: 'アナログホラーとは？意味と特徴、代表作と見るときの注意',
+    titleEn: 'What Is Analog Horror? Meaning, Features, Key Works and Viewing Cautions',
+    leadJa:
+      '砂嵐、色あせた放送、乗っ取られる緊急放送。YouTube 発のアナログホラーの特徴と代表作、映画化の流れ、見るときの注意をまとめました。',
+    leadEn:
+      'Static, faded broadcasts and hijacked emergency alerts: the YouTube-born analog horror genre, its key works, the move to film, and cautions for viewers.',
+    thumbnailFile: 'Abandoned TV.jpg',
+  },
 ];
 
 // 一覧は新着順(publishedDate の降順)で表示する。Array#sort は安定なので、
