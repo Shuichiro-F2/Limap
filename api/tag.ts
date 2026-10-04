@@ -33,6 +33,7 @@ import {
 } from '../src/content/ssrPage';
 import { JAPAN_PREFECTURES, prefectureFullName, regionalArticlesFor } from '../src/content/japan';
 import { COUNTRY_TAGS } from '../src/content/spotSeo';
+import { themeArticlesFor } from '../src/content/themeArticles';
 
 const SUPABASE_URL = process.env.SUPABASE_URL || '';
 const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY || '';
@@ -145,10 +146,11 @@ function renderTagPage(
         } more on the LIMap map.</p>\n`
       : '';
 
-  // 都道府県のタグなら、その県を扱う地方の記事へつなぐ（一覧より先に、詳しい紹介として案内する）
-  const articles = regionalArticlesFor([tag.name]);
+  // 都道府県のタグなら、その県を扱う地方の記事へ、テーマのタグ（廃ホテル・駅など）なら、そのテーマの記事へつなぐ
+  // （一覧より先に、詳しい紹介として案内する）
+  const articles = [...regionalArticlesFor([tag.name]), ...themeArticlesFor(tag.name)];
   const articleBlock = articles.length
-    ? `      <h2 class="section-heading">この地域を詳しく紹介した記事 / Articles</h2>
+    ? `      <h2 class="section-heading">${place ? 'この地域' : 'このテーマ'}を詳しく紹介した記事 / Articles</h2>
       <ul>
 ${articles.map((a) => `        <li><a href="/articles/${a.slug}/">${escapeHtml(a.label)}</a></li>`).join('\n')}
       </ul>\n`

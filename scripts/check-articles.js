@@ -72,6 +72,13 @@ const regionalBlock = japan.slice(japan.indexOf('REGIONAL_ARTICLES'), japan.inde
   .filter((s) => !jsonSlugs.includes(s))
   .forEach((s) => problems.push(`src/content/japan.ts の REGIONAL_ARTICLES にある記事が articles.json に無い: ${s}`));
 
+// タグ別ページからリンクしているテーマの記事（src/content/themeArticles.ts の THEME_ARTICLES）
+const theme = fs.readFileSync('src/content/themeArticles.ts', 'utf8');
+[...theme.matchAll(/slug: '([^']+)'/g)]
+  .map((m) => m[1])
+  .filter((s) => !jsonSlugs.includes(s))
+  .forEach((s) => problems.push(`src/content/themeArticles.ts の THEME_ARTICLES にある記事が articles.json に無い: ${s}`));
+
 if (problems.length) {
   console.log(problems.join('\n'));
   process.exit(1);
