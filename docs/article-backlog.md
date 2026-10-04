@@ -25,6 +25,8 @@ Search Console（プロパティは URL プレフィックスの `https://limap.
 | 済（10/03） | `backrooms-levels-explained` | FAQ 4問（レベルとは・レベル0・レベル37・いくつあるか） | バックルームズ レベル |
 | 済（10/03） | `liminal-space-vs-dreamcore` | FAQ 3問（冒頭の結論は既に短いので据え置き） | リミナルスペース ドリームコア 違い |
 | 済（10/03） | `why-liminal-spaces-feel-scary` | FAQ に「リミナルスペース恐怖症」を1問追加（正式な診断名ではなくネット上の言い方） | リミナルスペース恐怖症／なぜ怖い |
+| 済（10/04） | `what-is-noclip`（英語） | 英語の検索は「noclip meaning」「what does no clip mean」など意味を問うものがほとんど（90日で約100表示・クリック0）。タイトル・説明文・リードの1文目で意味を先に言い、表記ゆれ（no clip・no-clip）も入れた。FAQ に「チートか」を日英で追加 | noclip meaning／what does noclip mean |
+| 済（10/04） | `what-is-liminal-space`（英語） | 「liminal space meaning」で表示されるがクリック0。タイトルを「Liminal Space Meaning: …」にし、説明文・リードの1文目を定義にした。FAQ に「リミナルの意味」を日英で追加 | liminal space meaning／definition |
 
 ## B. 新しい記事の候補
 
@@ -68,4 +70,6 @@ Search Console（プロパティは URL プレフィックスの `https://limap.
 ## 測定
 
 - 記事を直したら、2〜4週間後に Search Console で同じ検索語の順位・クリック率を見比べる。
+- 次の見比べ：2026-10-17〜10-31 ごろ。10/03〜10/04 に直した記事（`backrooms-in-japan` ほか A の表）と、10/03〜10/04 に出した新しい記事9本、タグ別ページからテーマの記事へのリンク（10/04）の効果を見る。
+- スポットのページは「検出 - インデックス未登録」が多い（10/04 時点で211件）。Shu が URL 検査から主なスポットのインデックス登録をリクエストすると早まる。
 - Vercel Web Analytics は未導入（Shu が Vercel で有効にしたら、計測タグとプライバシーポリシーの1行を足す）。

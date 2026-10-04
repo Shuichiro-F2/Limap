@@ -23,7 +23,7 @@ const ARTICLE_ENTRIES: ArticleSummary[] = [
     categoryJa: '基礎知識',
     categoryEn: 'Basics',
     titleJa: 'リミナルスペースとは？意味・語源・具体例をわかりやすく解説',
-    titleEn: 'What Is a Liminal Space? Meaning, Origin, and Real-World Examples',
+    titleEn: 'Liminal Space Meaning: What Is a Liminal Space? Definition, Origin and Real Examples',
     leadJa:
       'SNSで見かける「リミナルスペース」という言葉。なんとなく雰囲気は伝わるものの、正確な意味を説明できる人は意外と少ないかもしれません。',
     leadEn:
@@ -291,7 +291,7 @@ const ARTICLE_ENTRIES: ArticleSummary[] = [
     categoryEn: 'Basics',
     titleJa: 'ノークリップ（noclip）とは？意味と語源、ゲーム用語が「現実の裏側」を指すようになるまで',
     titleEn:
-      'Noclip Meaning: What Noclip Is, and How a Game Term Came to Describe the Back of Reality',
+      'Noclip Meaning: What Does Noclip (No Clipping) Mean, and Where Did It Come From?',
     leadJa:
       'もとは壁をすり抜けるためのデバッグ機能でした。用語の由来と、なぜこの一語がネット都市伝説の核心になったのかを解説します。',
     leadEn:

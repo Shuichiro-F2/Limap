@@ -52,6 +52,10 @@
       ],
       "faq": [
         {
+          "q": "「リミナル」とはどういう意味ですか？",
+          "a": "ラテン語で「敷居」を意味する limen から来た言葉で、敷居の上にいるような、ある場所や状態から次へ移る途中の「あいだ」を表します。リミナルスペースは、廊下や駅のような、通り過ぎるための場所のことです。"
+        },
+        {
           "q": "リミナルスペースとは簡単に言うと何ですか？",
           "a": "廊下や駐車場、無人の駅など「通り過ぎるための場所」から人の気配が消え、見慣れているのにどこか違和感を覚える空間のことです。"
         },
@@ -62,10 +66,10 @@
       ]
     },
     "en": {
-      "title": "What Is a Liminal Space? Meaning, Origin, and Real-World Examples",
-      "metaDescription": "A clear explanation of what a liminal space is, where the term comes from, and everyday examples like empty malls, deserted train platforms, and parking garages.",
-      "h1": "What Is a Liminal Space? Meaning, Origin, and Real-World Examples",
-      "lead": "The term \"liminal space\" shows up constantly on social media, usually attached to a photo that feels quietly unsettling. But what does it actually mean? This article breaks down the definition, the word's origin, and the everyday places that count as liminal spaces.",
+      "title": "Liminal Space Meaning: What Is a Liminal Space? Definition, Origin and Real Examples",
+      "metaDescription": "A liminal space is a transitional place, like a hallway, an empty station or a parking garage, that feels familiar yet strangely off once the people are gone. The definition, where the word comes from, and real examples.",
+      "h1": "Liminal Space Meaning: What Is a Liminal Space? Definition, Origin and Real Examples",
+      "lead": "A liminal space is a transitional place, such as a hallway, an empty station or a parking garage, that feels familiar yet strangely off once the people are gone. The term shows up constantly on social media, usually attached to a photo that feels quietly unsettling. This article breaks down the definition, the word's origin, and the everyday places that count as liminal spaces.",
       "sections": [
         {
           "heading": "The Meaning of Liminal Space",
@@ -103,6 +107,10 @@
       ],
       "faq": [
         {
+          "q": "What does \"liminal\" mean?",
+          "a": "\"Liminal\" comes from the Latin limen, meaning threshold. It describes being on a threshold, in between one place or state and the next. A liminal space is a place of passing through, like a corridor or a station."
+        },
+        {
           "q": "What's a simple definition of a liminal space?",
           "a": "A liminal space is a transitional place — a hallway, parking lot, or empty train station — that feels familiar yet subtly wrong once the people and everyday activity are gone."
         },
@@ -137,7 +145,8 @@
         "captionEn": "An empty train station waiting room — the kind of everyday liminal space that's all around us.",
         "afterSection": 2
       }
-    ]
+    ],
+    "updatedDate": "2026-10-04"
   },
   {
     "slug": "liminal-spaces-in-japan",
@@ -3367,16 +3376,20 @@
           "a": "3Dゲームで物体同士がぶつかったときに動きを止める処理「クリッピング（clipping）」を無効にすることから、no-clip と呼ばれます。『DOOM II』ではコンソールに idclip と打ち込むと有効になりました。"
         },
         {
+          "q": "ノークリップはチートですか？",
+          "a": "プレイヤーにはチートのように使われてきました。たとえば『DOOM II』では idclip と打ち込むと有効になりました。ただし、もともとはズルをするためではなく、開発者がマップの中を素早く移動して確認するための道具でした。"
+        },
+        {
           "q": "「現実からノークリップする」とはどういうことですか？",
           "a": "バックルームズの設定で使われる言い方で、現実の間違った場所で当たり判定が抜けるように、別の空間へ落ちてしまうことを指します。2019年に4chanへ投稿された書き込みが元になっています。"
         }
       ]
     },
     "en": {
-      "title": "Noclip Meaning: What Noclip Is, and How a Game Term Came to Describe the Back of Reality",
-      "metaDescription": "Every explanation of the Backrooms uses the word noclip. It started as a debug feature for walking through walls. Here is where the term came from, and why one word became the core of an internet legend.",
-      "h1": "Noclip Meaning: What Noclip Is, and How a Game Term Came to Describe the Back of Reality",
-      "lead": "Read anything about the Backrooms and you meet the phrase noclip out of reality. It sounds like jargon because it is: a practical term from game development. Here is its origin, and why this single word became the heart of the legend.",
+      "title": "Noclip Meaning: What Does Noclip (No Clipping) Mean, and Where Did It Come From?",
+      "metaDescription": "Noclip means turning off collision in a game so you can move through walls and floors. Where the word \"no clipping\" came from, why it is called noclip, and what \"noclipping out of reality\" means in the Backrooms.",
+      "h1": "Noclip Meaning: What Does Noclip (No Clipping) Mean, and Where Did It Come From?",
+      "lead": "Noclip (also written no clip or no-clip) means turning off collision detection in a game so you can move through walls and floors. Read anything about the Backrooms and you meet the phrase \"noclip out of reality.\" It sounds like jargon because it is: a practical term from game development. Here is its origin, and why this single word became the heart of the legend.",
       "sections": [
         {
           "heading": "It Started as a Debug Feature for Walking Through Walls",
@@ -3433,6 +3446,10 @@
           "a": "In 3D games, \"clipping\" is the process that stops objects when they collide. Turning it off gives you no-clip. In DOOM II it was enabled by typing idclip into the console."
         },
         {
+          "q": "Is noclip a cheat code?",
+          "a": "Players often used it like one. In DOOM II, for example, you turned it on by typing idclip. But it began as a developer tool for moving quickly around a map to check it, not as a way to cheat."
+        },
+        {
           "q": "What does \"noclipping out of reality\" mean?",
           "a": "It is the phrase used in the Backrooms legend for slipping through reality in the wrong place, as if collision failed, and falling into another space. It comes from a post made on 4chan in 2019."
         }
@@ -3452,7 +3469,7 @@
         "afterSection": -1
       }
     ],
-    "updatedDate": "2026-10-03"
+    "updatedDate": "2026-10-04"
   },
   {
     "slug": "liminal-space-games",
