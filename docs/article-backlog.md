@@ -71,5 +71,5 @@ Search Console（プロパティは URL プレフィックスの `https://limap.
 
 - 記事を直したら、2〜4週間後に Search Console で同じ検索語の順位・クリック率を見比べる。
 - 次の見比べ：2026-10-17〜10-31 ごろ。10/03〜10/04 に直した記事（`backrooms-in-japan` ほか A の表）と、10/03〜10/04 に出した新しい記事9本、タグ別ページからテーマの記事へのリンク（10/04）の効果を見る。
-- スポットのページは「検出 - インデックス未登録」が多い（10/04 時点で211件）。Shu が URL 検査から主なスポットのインデックス登録をリクエストすると早まる。
+- スポットのページは「検出 - インデックス未登録」が多い（10/04 時点で211件）。2026-10-04 に URL 検査からインデックス登録をリクエストした（18件）：10/03〜10/04 に出した記事12本すべて（`liminal-spots-world`・`abandoned-hotel-liminal-spaces`・`abandoned-school-liminal-spaces`・`liminal-spots-tokyo`・`station-liminal-spaces`・`underground-mall-liminal-spaces`・`submerged-liminal-spaces`・`amusement-park-liminal-spaces`・`liminal-spots-minami-kanto`・`what-is-weirdcore`・`what-is-analog-horror`・`gaikaku-housuiro-tour-guide`）と、未登録だったスポット6件（旧摩耶観光ホテル・しゃくなげ學校・ソルナ・セントルム駅・ブルジュ・アル・ババス・旧大川村役場・土合駅）。インデックス登録のレポートは数週間遅れるので、未登録の一覧に載っていても、URL 検査では登録済みのことがある（沼東小学校・王子アルカディア・ラ・レインボー・タウシュベツは登録済みだった）。
 - Vercel Web Analytics は未導入（Shu が Vercel で有効にしたら、計測タグとプライバシーポリシーの1行を足す）。
