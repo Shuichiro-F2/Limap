@@ -613,6 +613,19 @@ const ARTICLE_ENTRIES: ArticleSummary[] = [
       'The former Maya Kanko Hotel on a mountain, big inns in hot-spring towns, a resort hotel that never opened: ten abandoned hotels you can view from outside.',
     thumbnailFile: 'MayaKankoHotel Kobe 201705.jpg',
   },
+  {
+    slug: 'abandoned-school-liminal-spaces',
+    publishedDate: '2026-10-04',
+    categoryJa: '実在スポット',
+    categoryEn: 'Real Spots',
+    titleJa: '廃校のリミナルスペース｜誰もいない校舎を眺める、実在の9か所',
+    titleEn: 'Abandoned Schools as Liminal Spaces: 9 Real Empty Schoolhouses in Japan',
+    leadJa:
+      '中を見学できる木造校舎、炭鉱の街の円形校舎、原野に残る北の分校。誰もいない学校の9か所を、守りたいルールとともに紹介します。',
+    leadEn:
+      'A wooden schoolhouse you can tour, a round school in a mining town, northern branch schools in the wilds: nine empty schools in Japan.',
+    thumbnailFile: '沼東小学校／校舎.jpg',
+  },
 ];
 
 // 一覧は新着順(publishedDate の降順)で表示する。Array#sort は安定なので、

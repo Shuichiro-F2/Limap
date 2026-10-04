@@ -1,6 +1,12 @@
 {
   "articles": [
     {
+      "slug": "abandoned-school-liminal-spaces",
+      "lastmod": "2026-10-04",
+      "titleJa": "廃校のリミナルスペース｜誰もいない校舎を眺める、実在の9か所",
+      "titleEn": "Abandoned Schools as Liminal Spaces: 9 Real Empty Schoolhouses in Japan"
+    },
+    {
       "slug": "liminal-spots-tokyo",
       "lastmod": "2026-10-03",
       "titleJa": "東京のリミナルスペース｜駅の地下通路から屋上の観覧車まで、実在する8か所",
@@ -266,6 +272,34 @@
     }
   ],
   "spotArticles": {
+    "NypNZ4hq": [
+      "abandoned-school-liminal-spaces"
+    ],
+    "gu6VsXgq": [
+      "abandoned-school-liminal-spaces"
+    ],
+    "nHzr9PVP": [
+      "abandoned-school-liminal-spaces"
+    ],
+    "quiNcMMg": [
+      "abandoned-school-liminal-spaces"
+    ],
+    "pW5UhxeC": [
+      "abandoned-school-liminal-spaces"
+    ],
+    "prqyoo97": [
+      "abandoned-school-liminal-spaces",
+      "liminal-spots-minami-kanto"
+    ],
+    "QLwfbM4b": [
+      "abandoned-school-liminal-spaces"
+    ],
+    "tDPJKqS6": [
+      "abandoned-school-liminal-spaces"
+    ],
+    "TmTsHg39": [
+      "abandoned-school-liminal-spaces"
+    ],
     "KM5aKcco": [
       "liminal-spots-tokyo",
       "underground-mall-liminal-spaces",
@@ -340,9 +374,6 @@
     "RAi2rKjn": [
       "liminal-spots-minami-kanto",
       "abandoned-hotel-liminal-spaces"
-    ],
-    "prqyoo97": [
-      "liminal-spots-minami-kanto"
     ],
     "2nZdyNm7": [
       "liminal-spots-minami-kanto",
@@ -774,7 +805,7 @@
   "categories": [
     {
       "slug": "real-spots",
-      "lastmod": "2026-10-03"
+      "lastmod": "2026-10-04"
     },
     {
       "slug": "comparisons",

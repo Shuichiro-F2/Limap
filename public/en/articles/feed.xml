@@ -6,7 +6,15 @@
     <atom:link href="https://limap.jp/en/articles/feed.xml" rel="self" type="application/rss+xml" />
     <description>What liminal spaces are, where the word comes from, how they differ from the Backrooms and dreamcore, and real examples in Japan. Articles by LIMap.</description>
     <language>en</language>
-    <lastBuildDate>Sat, 03 Oct 2026 00:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 04 Oct 2026 00:00:00 GMT</lastBuildDate>
+    <item>
+      <title>Abandoned Schools as Liminal Spaces: 9 Real Empty Schoolhouses in Japan</title>
+      <link>https://limap.jp/en/articles/abandoned-school-liminal-spaces/</link>
+      <guid isPermaLink="true">https://limap.jp/en/articles/abandoned-school-liminal-spaces/</guid>
+      <pubDate>Sun, 04 Oct 2026 00:00:00 GMT</pubDate>
+      <category>Real Spots</category>
+      <description>A wooden schoolhouse you can tour inside, a round school in a coal-mining town, northern branch schools left in the wilds, small wooden schools in the hills. Nine empty schools in Japan, with where to see them and the rules to keep.</description>
+    </item>
     <item>
       <title>Liminal Spaces in Tokyo: 8 Real Places, From Deep Station Passages to a Rooftop Ferris Wheel</title>
       <link>https://limap.jp/en/articles/liminal-spots-tokyo/</link>
@@ -238,14 +246,6 @@
       <pubDate>Sun, 06 Sep 2026 00:00:00 GMT</pubDate>
       <category>Comparisons</category>
       <description>Empty, uniform, no visible way out. The Backrooms and Exit 8 get compared constantly, but their fear is structured in opposite ways. Here is how each came about, and what actually separates them.</description>
-    </item>
-    <item>
-      <title>Who Is Kane Pixels? From a Post at Sixteen to Directing for A24</title>
-      <link>https://limap.jp/en/articles/who-is-kane-pixels/</link>
-      <guid isPermaLink="true">https://limap.jp/en/articles/who-is-kane-pixels/</guid>
-      <pubDate>Sun, 06 Sep 2026 00:00:00 GMT</pubDate>
-      <category>History</category>
-      <description>Kane Parsons, known online as Kane Pixels, defined what the Backrooms looks like and became an A24 feature director at twenty. His background, key works, the Blender-only workflow, and his stance on generative AI.</description>
     </item>
   </channel>
 </rss>

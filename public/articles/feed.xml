@@ -6,7 +6,15 @@
     <atom:link href="https://limap.jp/articles/feed.xml" rel="self" type="application/rss+xml" />
     <description>リミナルスペースの意味や語源、バックルームズ・ドリームコアとの違い、日本での事例まで。LIMapがまとめる読みもの記事の一覧です。</description>
     <language>ja</language>
-    <lastBuildDate>Sat, 03 Oct 2026 00:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 04 Oct 2026 00:00:00 GMT</lastBuildDate>
+    <item>
+      <title>廃校のリミナルスペース｜誰もいない校舎を眺める、実在の9か所</title>
+      <link>https://limap.jp/articles/abandoned-school-liminal-spaces/</link>
+      <guid isPermaLink="true">https://limap.jp/articles/abandoned-school-liminal-spaces/</guid>
+      <pubDate>Sun, 04 Oct 2026 00:00:00 GMT</pubDate>
+      <category>実在スポット</category>
+      <description>中を見学できる木造校舎「しゃくなげ學校」、炭鉱の街の円形校舎、原野に残る北の分校、山あいの小さな木造分校まで。誰もいない学校の9か所を、見られる場所と守りたいルールとともに紹介します。</description>
+    </item>
     <item>
       <title>東京のリミナルスペース｜駅の地下通路から屋上の観覧車まで、実在する8か所</title>
       <link>https://limap.jp/articles/liminal-spots-tokyo/</link>
@@ -238,14 +246,6 @@
       <pubDate>Sun, 06 Sep 2026 00:00:00 GMT</pubDate>
       <category>違いを知る</category>
       <description>無人の空間、終わらない通路、出口の見えなさ。バックルームズと『8番出口』はよく並べて語られますが、恐怖の構造は正反対です。両者の成り立ちと決定的な違いを整理しました。</description>
-    </item>
-    <item>
-      <title>Kane Pixels（ケイン・パーソンズ）とは何者か？16歳の投稿から映画監督になるまで</title>
-      <link>https://limap.jp/articles/who-is-kane-pixels/</link>
-      <guid isPermaLink="true">https://limap.jp/articles/who-is-kane-pixels/</guid>
-      <pubDate>Sun, 06 Sep 2026 00:00:00 GMT</pubDate>
-      <category>歴史・トレンド</category>
-      <description>バックルームズを映像として定義し、20歳でA24の長編監督になったKane Pixelsことケイン・パーソンズ。経歴、代表作、Blender1本で作る制作手法、生成AIへの発言までをまとめました。</description>
     </item>
   </channel>
 </rss>

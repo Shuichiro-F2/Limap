@@ -19,6 +19,7 @@
 
 ## コラム記事
 
+- [廃校のリミナルスペース｜誰もいない校舎を眺める、実在の9か所](https://limap.jp/articles/abandoned-school-liminal-spaces/): 中を見学できる木造校舎「しゃくなげ學校」、炭鉱の街の円形校舎、原野に残る北の分校、山あいの小さな木造分校まで。誰もいない学校の9か所を、見られる場所と守りたいルールとともに紹介します。
 - [東京のリミナルスペース｜駅の地下通路から屋上の観覧車まで、実在する8か所](https://limap.jp/articles/liminal-spots-tokyo/): 東京で「リミナルスペース」を感じられる実在の場所を、LIMapの登録スポットから8か所紹介します。成田新幹線の予定地を使った東京駅の京葉線通路、駐車場を改修した丸の内の地下通路、1955年開業の浅草地下街、屋上の観覧車まで。行くときの注意点も。
 - [神奈川・千葉・埼玉のリミナルスペース｜地下神殿から昭和の無人駅まで、実在する8か所](https://limap.jp/articles/liminal-spots-minami-kanto/): 神奈川・千葉・埼玉で「リミナルスペース」を感じられる実在の場所を、LIMapの登録スポットから8か所紹介します。1930年開業の国道駅、海を見下ろす根府川駅、旧成田空港駅、首都圏外郭放水路「地下神殿」、外から眺める廃墟まで。行くときの注意点も。
 - [首都圏外郭放水路「地下神殿」の見学ガイド｜予約方法・コース・服装と、行く前に知っておきたいこと](https://limap.jp/articles/gaikaku-housuiro-tour-guide/): 埼玉県春日部市の首都圏外郭放水路、通称「地下神殿」の見学ガイド。完全予約制の申し込み方法、7つのコースの違い、服装や年齢の条件、雨の日や施設が動いたときの注意、アクセスまで、公式の案内をもとにまとめました。
@@ -68,6 +69,7 @@
 
 LIMap is a map for finding and sharing liminal spaces: abandoned buildings, empty stations, late-night parking lots and other eerie, nostalgic places. English versions of the articles are at https://limap.jp/en/articles/ (each page links to its Japanese version with hreflang).
 
+- [Abandoned Schools as Liminal Spaces: 9 Real Empty Schoolhouses in Japan](https://limap.jp/en/articles/abandoned-school-liminal-spaces/): A wooden schoolhouse you can tour inside, a round school in a coal-mining town, northern branch schools left in the wilds, small wooden schools in the hills. Nine empty schools in Japan, with where to see them and the rules to keep.
 - [Liminal Spaces in Tokyo: 8 Real Places, From Deep Station Passages to a Rooftop Ferris Wheel](https://limap.jp/en/articles/liminal-spots-tokyo/): Eight real places in Tokyo where you can feel a liminal atmosphere, chosen from spots on LIMap: the Keiyo Line passage built in space meant for the Narita Shinkansen, a Marunouchi walkway converted from a car park, the Asakusa underground street from 1955, and a rooftop Ferris wheel. Plus practical notes for visiting.
 - [Liminal Spaces in Kanagawa, Chiba and Saitama: 8 Real Places, From an Underground Temple to Showa-Era Stations](https://limap.jp/en/articles/liminal-spots-minami-kanto/): Eight real places in Kanagawa, Chiba and Saitama where you can feel a liminal atmosphere, chosen from spots on LIMap: Kokudo Station from 1930, Nebukawa Station above the sea, the former Narita Airport Station, the "underground temple" flood channel, and ruins to view from outside. Plus practical notes.
 - [Visiting the "Underground Temple": A Guide to Tours of the Metropolitan Area Outer Underground Discharge Channel](https://limap.jp/en/articles/gaikaku-housuiro-tour-guide/): A practical guide to touring the Metropolitan Area Outer Underground Discharge Channel in Kasukabe, Saitama, known as the "underground temple": how to book, the seven courses, age and clothing rules, what happens on rainy days, and how to get there, based on the official information.

@@ -12015,5 +12015,394 @@
         "afterSection": 4
       }
     ]
+  },
+  {
+    "slug": "abandoned-school-liminal-spaces",
+    "related": [
+      "abandoned-hotel-liminal-spaces",
+      "haikyo-photo-spots-japan",
+      "liminal-spots-hokkaido"
+    ],
+    "category": "実在スポット",
+    "categoryEn": "Real Spots",
+    "publishedDate": "2026-10-04",
+    "ja": {
+      "title": "廃校のリミナルスペース｜誰もいない校舎を眺める、実在の9か所",
+      "h1": "廃校のリミナルスペース｜誰もいない校舎を眺める、実在の9か所",
+      "metaDescription": "中を見学できる木造校舎「しゃくなげ學校」、炭鉱の街の円形校舎、原野に残る北の分校、山あいの小さな木造分校まで。誰もいない学校の9か所を、見られる場所と守りたいルールとともに紹介します。",
+      "lead": "誰もが通った学校から、子どもの声だけが消えている。廃校の校舎は、自分の記憶の中の学校と重なり、懐かしさと落ち着かなさを同時に呼び起こします。中を見学できる1か所と、外から眺められる8か所を、守りたいルールとともに紹介します。",
+      "sections": [
+        {
+          "heading": "誰もいない学校は、なぜリミナルに感じるのか",
+          "paragraphs": [
+            "学校は、ほとんどの人が何年も通った場所です。同じ形の教室が廊下に沿って並び、黒板と机と窓の配置まで、どこの学校もよく似ています。だからこそ、子どもの声が消えた校舎を見ると、自分の記憶の中の学校と重なり、懐かしさと落ち着かなさが同時にやってきます。",
+            "日本では、子どもの数が減り、炭鉱や開拓の村から人が去るたびに、小さな分校や街の学校が閉じてきました。校舎が今も残る場所には、そこに確かに子どもたちがいたという気配だけが残っています。",
+            "この記事では、LIMapに登録されている廃校から、中を見学できる1か所と、道や公共の場所から外観を眺められる8か所を紹介します。ほとんどは私有地や立入禁止の場所で、建物も傷んでいます。中に入る方法は書きませんし、入らないでください。"
+          ]
+        },
+        {
+          "heading": "中に入れる木造校舎：しゃくなげ學校（滋賀・日野町）",
+          "paragraphs": [
+            "滋賀県日野町の鎌掛にある旧鎌掛小学校は、1930年に建てられた木造校舎です。2001年に廃校になったあと、地域のNPO法人が「しゃくなげ學校」として守り、一般に公開しています。色あせた黒板、古い机や椅子、当時の教科書が残る教室を、実際に歩いて見ることができます。",
+            "木の床がきしむ音だけが響く廊下は、誰もいない放課後の学校そのものです。NHKの連続テレビ小説など、多くのドラマのロケ地にもなりました。公開は土・日・祝日の10時から16時で、平日は閉まっています。維持管理のための協力金（300円）が必要です。公共交通では行きにくいので、出かける前に公開日を確かめてください。"
+          ],
+          "spots": [
+            {
+              "title": "しゃくなげ學校（旧鎌掛小学校）",
+              "slug": "NypNZ4hq",
+              "afterParagraph": 1
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/JyybNpvDh9OKbCI/status/2091088776647065830",
+              "spot": "NypNZ4hq",
+              "afterParagraph": 1
+            }
+          ]
+        },
+        {
+          "heading": "炭鉱の街の学校：沼東小学校の円形校舎・旭小学校（北海道）",
+          "paragraphs": [
+            "美唄市の我路地区は、三菱美唄炭鉱でにぎわった街でした。沼東小学校には、最も多いときで1800人を超える子どもが通い、1959〜60年には鉄筋コンクリート3階建ての円形校舎が2棟建てられました。渡り廊下で結ばれた2つの円は、上から見ると眼鏡のようだったといいます。炭鉱が閉じたあとの1974年に閉校し、今は円形校舎1棟と体育館が森の中に残っています。1階には水がたまり、冬は凍ります。",
+            "ただし、沼東小学校の跡は道路沿いではなく森の奥にあり、公開された施設ではありません。周りはヒグマの生息地で、現地にも「熊出没注意」の看板があります。建物は床が抜けて崩れかけているので、無理に近づかず、写真や地図で知るだけにとどめるのが安全です。",
+            "夕張市の旭小学校の跡は、夕張市石炭博物館のすぐ向かいに建っています。3つの小学校が統合して1975年に開校し、旧夕張第二小学校の校舎を使っていましたが、わずか8年後の1983年に別の学校と統合されて閉校しました。その後は宿泊施設「ファミリースクールふれあい」として使われ、2006年に閉鎖されました。窓の割れた校舎には今も施設の看板が残り、体育館は2021年の大雪で屋根が崩れました。博物館を訪ねたついでに、周りの道から外観を眺められます。"
+          ],
+          "spots": [
+            {
+              "title": "沼東小学校（我路の円形校舎）",
+              "slug": "gu6VsXgq",
+              "afterParagraph": 1
+            },
+            {
+              "title": "旭小学校（ファミリースクールふれあい）",
+              "slug": "nHzr9PVP",
+              "afterParagraph": 2
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/haikyo_info/status/1505053495774576643",
+              "spot": "gu6VsXgq",
+              "afterParagraph": 1
+            },
+            {
+              "url": "https://x.com/haikyo_info/status/1309568445457989632",
+              "spot": "nHzr9PVP",
+              "afterParagraph": 2
+            }
+          ]
+        },
+        {
+          "heading": "原野に残る北の学校：はぼろ緑の村（太陽小学校）・中幌糠分校（北海道）",
+          "paragraphs": [
+            "羽幌町の山中、羽幌炭砿の跡にある太陽小学校は、1940年に開校しました。1962年には、直径32.7メートルの珍しい円形の体育館が建てられました。炭鉱の閉山で1971年に閉校したあと、1982年から町の宿泊施設「緑の村」として使われ、2001年に閉鎖されました。名物だった円形体育館は2018年3月、雪の重みで潰れ、今は鉄筋3階建ての校舎と体育館の残骸が残っています。",
+            "留萌市の中幌糠分校は、1905年に開校した中幌糠小学校が前身で、子どもが減って1971年に分校となり、1983年に閉校しました。閉校のときは先生1人、児童1人だったといいます。道道沿いに木造の校舎と教員住宅が残っていますが、教室の天井は抜け、壁も崩れています。",
+            "どちらも周りはヒグマの出る場所です。太陽小学校へ渡る橋はチェーンで車が通れないようになっています。建物には近づかず、道路から眺めるだけにしてください。"
+          ],
+          "spots": [
+            {
+              "title": "はぼろ緑の村（太陽小学校）",
+              "slug": "quiNcMMg",
+              "afterParagraph": 0
+            },
+            {
+              "title": "幌糠小学校中幌糠分校",
+              "slug": "pW5UhxeC",
+              "afterParagraph": 1
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/haikyo_info/status/1413150895777337346",
+              "spot": "quiNcMMg",
+              "afterParagraph": 0
+            },
+            {
+              "url": "https://x.com/haikyo_info/status/1399531149307781126",
+              "spot": "pW5UhxeC",
+              "afterParagraph": 1
+            }
+          ]
+        },
+        {
+          "heading": "山あいの小さな木造分校：曾呂・相生・名倉の分校（千葉・岐阜・愛知）",
+          "paragraphs": [
+            "千葉県鴨川市の曾呂尋常小学校分教場は、1874年に開校し、1909年に統合されて分教場になり、1967年に廃校になった木造校舎です。本校まで遠い地区の子どもたちが通い、のちに大蔵大臣を務め城西大学を創立した水田三喜男もその一人でした。敷地には記念碑が建っています。校舎は床や屋根が崩れていて敷地は立入禁止なので、県道89号や隣の神社の側から眺めてください。",
+            "岐阜県郡上市八幡町の相生小学校相生分校は、1909年に開かれ、1954年に建てられた木造2階建ての校舎が残ります。1970年に閉校し、そのあと公民館として使われました。階段の一段ごとに「百万」「千万」と数の位が書かれていたことで知られます。今は個人が管理していて立入禁止で、すぐ隣には民家があります。県道から静かに眺めてください。",
+            "愛知県設楽町には、名倉小学校の分校の跡が2つあります。清水分校は1948年に開かれて1964年に閉じた木造平屋の校舎で、集落の中に建っています。駒ヶ原分校は、戦後に満州から引き揚げた人たちが標高およそ1000メートルの高原を切り開いた開拓地の学校で、1953年に建てられた校舎が1978年に休校し、1982年に廃止されました。隣にはキャンプ場もあります。どちらも近くの人の迷惑にならないよう、道から眺めるだけにしてください。"
+          ],
+          "spots": [
+            {
+              "title": "曾呂尋常小学校分教場",
+              "slug": "prqyoo97",
+              "afterParagraph": 0
+            },
+            {
+              "title": "相生小学校相生分校",
+              "slug": "QLwfbM4b",
+              "afterParagraph": 1
+            },
+            {
+              "title": "名倉小学校清水分校",
+              "slug": "tDPJKqS6",
+              "afterParagraph": 2
+            },
+            {
+              "title": "名倉小学校駒ヶ原分校",
+              "slug": "TmTsHg39",
+              "afterParagraph": 2
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/haikyo_info/status/1292475734141726722",
+              "spot": "prqyoo97",
+              "afterParagraph": 0
+            },
+            {
+              "url": "https://x.com/haikyo_info/status/1374013002408620039",
+              "spot": "QLwfbM4b",
+              "afterParagraph": 1
+            },
+            {
+              "url": "https://x.com/haikyo_info/status/1580113290469974017",
+              "spot": "TmTsHg39",
+              "afterParagraph": 2
+            }
+          ]
+        },
+        {
+          "heading": "廃校を訪ねるときに守りたいこと",
+          "paragraphs": [
+            "廃校の多くは、自治体や個人、企業が持っている土地と建物です。門が開いていても、窓が割れていても、敷地に入ってよいという意味ではありません。木造の校舎は床や屋根が抜けやすく、鉄筋の校舎も雪や水で傷んでいます。",
+            "山あいの分校は、今も人が暮らす集落の中や隣にあることがほとんどです。路上に車を停めたり、家や人にカメラを向けたりしないでください。北海道や山間部ではクマが出ます。冬は雪で道が閉ざされることもあります。中を見たいときは、しゃくなげ學校のように公開されている場所を選んでください。"
+          ]
+        },
+        {
+          "heading": "見つけたら、地図に残してください",
+          "paragraphs": [
+            "廃校は、雪や雨で少しずつ崩れ、いつか見られなくなります。円形体育館が潰れた太陽小学校のように、変わってしまった場所もあります。ほかの地域の場所は、地方別の記事や「廃ホテルのリミナルスペース」でも紹介しています。",
+            "LIMapは、そうした場所を写真と位置つきで残していく地図です。外から眺めた写真があれば、ぜひ登録してください。"
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "中に入れる廃校はありますか？",
+          "a": "滋賀県日野町の「しゃくなげ學校」（旧鎌掛小学校）は、土・日・祝日の10時から16時に一般公開されていて、協力金300円で木造校舎の中を見学できます。ほかの廃校の多くは私有地や立入禁止なので、外から眺めるだけにしてください。"
+        },
+        {
+          "q": "沼東小学校の円形校舎は見に行けますか？",
+          "a": "道路沿いではなく森の奥にあり、公開された施設ではありません。ヒグマの生息地で、建物も崩れかけているため、無理に近づかないでください。"
+        },
+        {
+          "q": "廃校の写真を撮るときに気をつけることは？",
+          "a": "敷地に入らず、道路など誰でも立ち入れる場所から撮ってください。山あいの分校は集落の中にあることが多いので、家や人を写さず、路上に車を停めないようにしましょう。"
+        }
+      ]
+    },
+    "en": {
+      "title": "Abandoned Schools as Liminal Spaces: 9 Real Empty Schoolhouses in Japan",
+      "h1": "Abandoned Schools as Liminal Spaces: 9 Real Empty Schoolhouses in Japan",
+      "metaDescription": "A wooden schoolhouse you can tour inside, a round school in a coal-mining town, northern branch schools left in the wilds, small wooden schools in the hills. Nine empty schools in Japan, with where to see them and the rules to keep.",
+      "lead": "The schools everyone attended, with only the children's voices gone. An empty school overlaps with the one in your memory, bringing nostalgia and unease at once. Here is one you can tour inside and eight you can view from outside, with the rules to keep.",
+      "sections": [
+        {
+          "heading": "Why Empty Schools Feel Liminal",
+          "paragraphs": [
+            "A school is a place almost everyone attended for years. Identical classrooms line the corridors, and even the arrangement of blackboard, desks and windows is much the same everywhere. That is why a school building emptied of children's voices overlaps with the school in your own memory, bringing nostalgia and unease at the same time.",
+            "In Japan, small branch schools and town schools have closed each time the number of children fell or people left mining and pioneer settlements. Where the buildings still stand, only the sense that children were truly there remains.",
+            "This article introduces abandoned schools registered on LIMap: one you can tour inside, and eight whose exteriors you can see from roads or public places. Most are on private or restricted land, and the buildings are in poor condition. It does not describe how to get inside, and you should not go in."
+          ]
+        },
+        {
+          "heading": "A Wooden School You Can Enter: Shakunage Gakko (Hino, Shiga)",
+          "paragraphs": [
+            "The former Kaigake Elementary School in Hino, Shiga, is a wooden building from 1930. After it closed in 2001, a local nonprofit has preserved it as \"Shakunage Gakko\" and opened it to the public. You can actually walk through classrooms that still hold faded blackboards, old desks and chairs, and textbooks from the time.",
+            "The corridor, where only the creak of the wooden floor echoes, is an empty after-school building itself. It has also served as a location for many dramas, including NHK morning serials. It is open on Saturdays, Sundays and holidays from 10:00 to 16:00 and closed on weekdays, with a maintenance contribution of 300 yen. It is hard to reach by public transport, so check the opening days before you go."
+          ],
+          "spots": [
+            {
+              "title": "Shakunage Gakko (former Kaigake Elementary School)",
+              "slug": "NypNZ4hq",
+              "afterParagraph": 1
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/JyybNpvDh9OKbCI/status/2091088776647065830",
+              "spot": "NypNZ4hq",
+              "afterParagraph": 1
+            }
+          ]
+        },
+        {
+          "heading": "Schools of the Mining Towns: Shoto Elementary's Round Building, Asahi Elementary (Hokkaido)",
+          "paragraphs": [
+            "The Garo district of Bibai thrived with the Mitsubishi Bibai coal mine. At its peak more than 1,800 children attended Shoto Elementary School, and in 1959–60 two three-story round buildings of reinforced concrete were built. Joined by a connecting corridor, the two circles are said to have looked like a pair of glasses from above. The school closed in 1974 after the mine shut, and one round building and the gym remain in the forest. Water pools on the ground floor and freezes in winter.",
+            "The Shoto site, however, is deep in the forest, not by a road, and is not a public facility. The area is brown bear habitat, and there are \"beware of bears\" signs on site. The building's floors have given way and it is close to collapse, so it is safest not to approach and to know it only through photos and the map.",
+            "The former Asahi Elementary School in Yubari stands right across from the Yubari Coal Mine Museum. It opened in 1975 when three elementary schools merged, using the old Yubari No. 2 Elementary building, but only eight years later, in 1983, it was merged into another school and closed. It was then used as the lodging \"Family School Fureai\" until 2006. The building with broken windows still carries the facility's sign, and the gym roof collapsed in heavy snow in 2021. When you visit the museum, you can see its exterior from the surrounding streets."
+          ],
+          "spots": [
+            {
+              "title": "Shoto Elementary School (round building at Garo)",
+              "slug": "gu6VsXgq",
+              "afterParagraph": 1
+            },
+            {
+              "title": "Asahi Elementary School (Family School Fureai)",
+              "slug": "nHzr9PVP",
+              "afterParagraph": 2
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/haikyo_info/status/1505053495774576643",
+              "spot": "gu6VsXgq",
+              "afterParagraph": 1
+            },
+            {
+              "url": "https://x.com/haikyo_info/status/1309568445457989632",
+              "spot": "nHzr9PVP",
+              "afterParagraph": 2
+            }
+          ]
+        },
+        {
+          "heading": "Northern Schools Left in the Wilds: Haboro Midori no Mura (Taiyo Elementary), Nakahoronuka Branch School (Hokkaido)",
+          "paragraphs": [
+            "Taiyo Elementary School, on the site of the Haboro coal mine in the mountains of Haboro, opened in 1940. In 1962 an unusual round gym 32.7 meters across was built. After the mine closed, the school shut in 1971, was used from 1982 as the town's lodging \"Midori no Mura,\" and closed again in 2001. The famous round gym was crushed by the weight of snow in March 2018, leaving the three-story concrete school building and the wreckage of the gym.",
+            "The Nakahoronuka Branch School in Rumoi began as Nakahoronuka Elementary School, opened in 1905. As children dwindled it became a branch school in 1971 and closed in 1983, with one teacher and one pupil at the end. The wooden schoolhouse and teacher's residence still stand by the prefectural road, but the classroom ceilings have fallen in and the walls are collapsing.",
+            "Brown bears roam both areas. The bridge to Taiyo Elementary is chained off to vehicles. Do not approach the buildings; view them only from the road."
+          ],
+          "spots": [
+            {
+              "title": "Haboro Midori no Mura (Taiyo Elementary School)",
+              "slug": "quiNcMMg",
+              "afterParagraph": 0
+            },
+            {
+              "title": "Nakahoronuka Branch School",
+              "slug": "pW5UhxeC",
+              "afterParagraph": 1
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/haikyo_info/status/1413150895777337346",
+              "spot": "quiNcMMg",
+              "afterParagraph": 0
+            },
+            {
+              "url": "https://x.com/haikyo_info/status/1399531149307781126",
+              "spot": "pW5UhxeC",
+              "afterParagraph": 1
+            }
+          ]
+        },
+        {
+          "heading": "Small Wooden Branch Schools in the Hills: Soro, Aioi and Nagura (Chiba, Gifu, Aichi)",
+          "paragraphs": [
+            "The Soro Jinjo Elementary branch school in Kamogawa, Chiba, is a wooden schoolhouse that opened in 1874, became a branch school through a merger in 1909, and closed in 1967. Children from districts far from the main school came here, among them Mizuta Mikio, who later served as finance minister and founded Josai University; a monument stands on the grounds. The floors and roof have collapsed and the grounds are off-limits, so view it from Prefectural Route 89 or the neighboring shrine.",
+            "The Aioi branch of Aioi Elementary School in Hachiman, Gujo, Gifu, opened in 1909, and its two-story wooden building from 1954 still stands. It closed in 1970 and was later used as a community hall. It is known for stairs on which each step was labeled with a place value such as \"millions\" and \"ten millions.\" It is now privately managed and off-limits, and a house stands right next door. View it quietly from the prefectural road.",
+            "In Shitara, Aichi, there are two former branches of Nagura Elementary School. The Shimizu branch is a single-story wooden schoolhouse that opened in 1948 and closed in 1964, standing within a hamlet. The Komagahara branch served a pioneer settlement that people returning from Manchuria carved out of a plateau about 1,000 meters up after the war; its 1953 building was closed temporarily in 1978 and abolished in 1982. A campsite is next door. At both, view from the road so as not to disturb people nearby."
+          ],
+          "spots": [
+            {
+              "title": "Soro Jinjo Elementary branch school",
+              "slug": "prqyoo97",
+              "afterParagraph": 0
+            },
+            {
+              "title": "Aioi branch of Aioi Elementary School",
+              "slug": "QLwfbM4b",
+              "afterParagraph": 1
+            },
+            {
+              "title": "Shimizu branch of Nagura Elementary School",
+              "slug": "tDPJKqS6",
+              "afterParagraph": 2
+            },
+            {
+              "title": "Komagahara branch of Nagura Elementary School",
+              "slug": "TmTsHg39",
+              "afterParagraph": 2
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/haikyo_info/status/1292475734141726722",
+              "spot": "prqyoo97",
+              "afterParagraph": 0
+            },
+            {
+              "url": "https://x.com/haikyo_info/status/1374013002408620039",
+              "spot": "QLwfbM4b",
+              "afterParagraph": 1
+            },
+            {
+              "url": "https://x.com/haikyo_info/status/1580113290469974017",
+              "spot": "TmTsHg39",
+              "afterParagraph": 2
+            }
+          ]
+        },
+        {
+          "heading": "Rules to Keep When Visiting Abandoned Schools",
+          "paragraphs": [
+            "Most abandoned schools are land and buildings owned by municipalities, individuals or companies. An open gate or broken window does not mean you may enter. Floors and roofs of wooden schools give way easily, and concrete buildings are damaged by snow and water.",
+            "Branch schools in the hills are almost always in or next to hamlets where people still live. Do not park on the road or point your camera at houses or people. Bears appear in Hokkaido and mountain areas, and snow can close roads in winter. If you want to see inside, choose a place that is open to the public, like Shakunage Gakko."
+          ]
+        },
+        {
+          "heading": "If You Find One, Put It on the Map",
+          "paragraphs": [
+            "Abandoned schools crumble a little each year under snow and rain, and one day they are gone. Some have already changed, like Taiyo Elementary, whose round gym collapsed. The regional articles and \"Abandoned Hotels as Liminal Spaces\" introduce other places too.",
+            "LIMap is a map for keeping places like these, with photos and locations. If you have a photo taken from outside, please add it."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Are there abandoned schools I can go inside?",
+          "a": "Shakunage Gakko (the former Kaigake Elementary School) in Hino, Shiga, is open on Saturdays, Sundays and holidays from 10:00 to 16:00, and for a 300-yen contribution you can tour the wooden building. Most other abandoned schools are private or off-limits, so view them only from outside."
+        },
+        {
+          "q": "Can I visit the round building of Shoto Elementary School?",
+          "a": "It is deep in the forest, not by a road, and is not a public facility. It is brown bear habitat and the building is close to collapse, so do not try to approach it."
+        },
+        {
+          "q": "What should I keep in mind when photographing abandoned schools?",
+          "a": "Do not enter the grounds; shoot from roads and other places open to everyone. Branch schools in the hills are often in hamlets, so keep houses and people out of your photos and do not park on the road."
+        }
+      ]
+    },
+    "images": [
+      {
+        "file": "沼東小学校／校舎.jpg",
+        "author": "Sicemaster",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:沼東小学校／校舎.jpg",
+        "altJa": "雪の森に残る沼東小学校の円形校舎。1階が水に浸かっている",
+        "altEn": "The round school building of Shoto Elementary School in a snowy forest, its ground floor flooded",
+        "captionJa": "沼東小学校の円形校舎（2003年撮影）。1階には水がたまっている。",
+        "captionEn": "The round building of Shoto Elementary School (2003), with water pooled on the ground floor.",
+        "afterSection": -1
+      },
+      {
+        "file": "Old Kaigake Elementary School ac (1).jpg",
+        "author": "Asturio Cantabrio",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Old_Kaigake_Elementary_School_ac_(1).jpg",
+        "altJa": "旧鎌掛小学校（しゃくなげ學校）の木造校舎と、草の伸びた校庭",
+        "altEn": "The wooden buildings of the former Kaigake Elementary School (Shakunage Gakko) and its grassy schoolyard",
+        "captionJa": "しゃくなげ學校（旧鎌掛小学校、2022年撮影）。土・日・祝日に中を見学できる。",
+        "captionEn": "Shakunage Gakko, the former Kaigake Elementary School (2022). It can be toured on weekends and holidays.",
+        "afterSection": 1
+      }
+    ]
   }
 ]
