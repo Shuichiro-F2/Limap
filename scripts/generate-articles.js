@@ -528,6 +528,7 @@ function renderArticlePage(article, all, lang) {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover" />
     <title>${escapeHtml(content.title)} | LIMap</title>
     <meta name="description" content="${escapeHtml(content.metaDescription)}" />
+    <meta name="robots" content="max-image-preview:large" />
     <link rel="canonical" href="${url}" />
 ${hreflangLinks(jaPath, enPath)}${feedLink(lang)}    <meta name="theme-color" content="#1a1a1a" />
     <link rel="apple-touch-icon" href="${SITE_URL}/apple-touch-icon.png" />
@@ -637,7 +638,8 @@ function renderListPage({ all, list, lang, text, path, jaPath, enPath, activeCat
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover" />
     <title>${escapeHtml(text.title)}</title>
     <meta name="description" content="${escapeHtml(text.description)}" />
-${noindex ? '    <meta name="robots" content="noindex, follow" />\n' : ''}    <link rel="canonical" href="${url}" />
+    <meta name="robots" content="${noindex ? 'noindex, follow' : 'max-image-preview:large'}" />
+    <link rel="canonical" href="${url}" />
 ${hreflangLinks(jaPath, enPath)}${feedLink(lang)}    <meta name="theme-color" content="#1a1a1a" />
     <link rel="apple-touch-icon" href="${SITE_URL}/apple-touch-icon.png" />
     <link rel="icon" href="${SITE_URL}/apple-touch-icon.png" />

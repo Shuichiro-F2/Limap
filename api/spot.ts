@@ -15,7 +15,7 @@
 import { createClient } from '@supabase/supabase-js';
 import { MIN_SPOTS_FOR_TAG_PAGE, fetchAllRows, tagPagePath } from '../src/content/tagPages';
 import { prefectureFullName } from '../src/content/japan';
-import { spotPageDescription, spotPageTitle, spotPlace, spotRawTitle } from '../src/content/spotSeo';
+import { spotPageDescription, spotPageTitle, spotPlace, spotRawTitle, isThinSpot } from '../src/content/spotSeo';
 // コラム記事の一覧（npm run articles:build が書き出す）。このスポットが出てくる記事へのリンクに使う
 import articleIndex from '../src/content/articleIndex.json';
 
@@ -366,6 +366,10 @@ export default async function handler(req: any, res: any) {
     const escUrl = escapeHtml(pageUrl);
 
     html = replaceTag(html, /<title>[^<]*<\/title>/, `<title>${escTitle}</title>`);
+    // 中身の薄いスポットは検索結果に出さない（src/content/spotSeo.ts の isThinSpot。sitemap からも外している）
+    if (isThinSpot({ description: spot.description, imageCount: images.length, reviewCount: (spot.reviews || []).length })) {
+      html = replaceTag(html, /<meta name="robots" content="[^"]*"\s*\/>/, '<meta name="robots" content="noindex" />');
+    }
     html = replaceTag(
       html,
       /<meta\s+name="description"\s+content="[^"]*"\s*\/>/,

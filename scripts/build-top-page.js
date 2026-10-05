@@ -181,7 +181,7 @@ async function main() {
   // 404ページは検索結果に出さない（ステータスでも伝わるが念のため明示する）
   fs.writeFileSync(
     NOT_FOUND_PATH,
-    shell.replace('</head>', () => '  <meta name="robots" content="noindex" />\n  </head>')
+    shell.replace(/<meta name="robots" content="[^"]*" \/>/, () => '<meta name="robots" content="noindex" />')
   );
 
   const marker = '<div id="root"></div>';

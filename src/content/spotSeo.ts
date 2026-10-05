@@ -9,6 +9,19 @@ import { JAPAN_PREFECTURES, prefectureFullName } from './japan';
 
 export const SITE_NAME = 'LIMap（リマップ）';
 
+// 中身の薄いスポットページは検索結果に出さない（noindex にし、sitemap にも載せない）。
+// サイト全体が「薄い」と見なされて、ほかのページの評価まで下がるのを防ぐため。
+// 説明文がこの文字数未満で、写真もレビューも無いスポットが対象。中身が増えれば自動で外れる。
+export const THIN_SPOT_DESCRIPTION_CHARS = 40;
+
+export function isThinSpot(spot: { description: string | null; imageCount: number; reviewCount: number }): boolean {
+  return (
+    (spot.description || '').trim().length < THIN_SPOT_DESCRIPTION_CHARS &&
+    spot.imageCount === 0 &&
+    spot.reviewCount === 0
+  );
+}
+
 // 公式スポットに付けている国名タグ（supabase/migrations/0021_official_spot_tags_and_dedup.sql）
 export const COUNTRY_TAGS = [
   'アメリカ', 'イギリス', 'イタリア', 'ドイツ', 'フランス', 'スペイン', 'スウェーデン', '香港', '中国', 'ブラジル',

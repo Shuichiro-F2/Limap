@@ -74,7 +74,8 @@ export function renderPage(opts: {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover" />
     <title>${escapeHtml(opts.title)}</title>
     <meta name="description" content="${escapeHtml(opts.description)}" />
-${opts.noindex ? '    <meta name="robots" content="noindex" />\n' : ''}    <link rel="canonical" href="${escapeHtml(opts.url)}" />
+    <meta name="robots" content="${opts.noindex ? 'noindex' : 'max-image-preview:large'}" />
+    <link rel="canonical" href="${escapeHtml(opts.url)}" />
     <meta name="theme-color" content="#1a1a1a" />
     <link rel="apple-touch-icon" href="${SITE_URL}/apple-touch-icon.png" />
     <link rel="icon" href="${SITE_URL}/apple-touch-icon.png" />

@@ -16,6 +16,7 @@ import {
 // SEO記事（public/articles/配下、content/articles.json から静的生成）とカテゴリ別一覧の一覧。
 // npm run articles:build（scripts/generate-articles.js）が書き出すので、記事を足して生成し直せば自動で載る。
 // カテゴリ別一覧は、記事が少なく noindex にしているものは含まれない。
+import { isThinSpot } from '../src/content/spotSeo';
 import articleIndex from '../src/content/articleIndex.json';
 
 const SUPABASE_URL = process.env.SUPABASE_URL || '';
@@ -66,13 +67,29 @@ export default async function handler(req: any, res: any) {
       const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
       const { data, error } = await supabase
         .from('spots')
-        .select('slug, updated_at')
+        .select('slug, updated_at, description, images:spot_images(count), reviews:spot_reviews(count)')
         .eq('status', 'published')
         .order('updated_at', { ascending: false })
         .limit(50000);
 
       if (!error && data) {
-        spotUrls = data.map((row: { slug: string; updated_at: string }) => ({
+        type SpotRow = {
+          slug: string;
+          updated_at: string;
+          description: string | null;
+          images: { count: number }[];
+          reviews: { count: number }[];
+        };
+        // 中身の薄いスポット（noindex にしているページ）は載せない
+        const indexable = (data as SpotRow[]).filter(
+          (row) =>
+            !isThinSpot({
+              description: row.description,
+              imageCount: row.images?.[0]?.count ?? 0,
+              reviewCount: row.reviews?.[0]?.count ?? 0,
+            })
+        );
+        spotUrls = indexable.map((row) => ({
           loc: `https://limap.jp/spot/${row.slug}`,
           lastmod: new Date(row.updated_at).toISOString().slice(0, 10),
           changefreq: 'weekly',
