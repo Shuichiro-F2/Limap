@@ -67,6 +67,15 @@ Search Console（プロパティは URL プレフィックスの `https://limap.
 
 英語版は表示が少ないが、「noclip meaning」「liminal space meaning」で表示がある。まずは上の A の英語タイトル改善から。日本を旅行する人向けの「Liminal spaces in Tokyo」は、東京の記事（候補1）の英語版で兼ねる。
 
+## 次の点検の候補（公式スポットの説明文）
+
+2026-10-06 に公式スポット295件の英語の説明文を作ったとき、日本語の説明文の約20件が、古い書き方のまま残っていると分かった（です・ます調、「まさにリミナルスペースそのもの」のような大げさな言い回し、出典の弱い記述、地名が書かれていないなど）。英語もその内容のまま訳しているので、日本語を直すときは英語（`description_en`）も同じ SQL で直す。
+
+- c6QEVJB6 多摩川住宅給水塔、DmNxYTtA 夕張市本町、EeKfeyAg 互楽館、eKpNs9Zn 旧中西薬局、ffbCQ6bM 志免竪坑櫓、fMm9FwDX 行幸地下ギャラリー、G5VgyPMb・pZ2q6Ugg 尾去沢鉱山
+- 2xZbLSo5 池島、AjQzCCkp 旧士幌線 幌加駅、AQ8Q9NVr 敦賀鉄道資料館（地名が無い・古い調子）
+- ncUNG4h3 北沢浮遊選鉱場、NbGc4Sdz 六甲アイランド、qgSBZ4HG 足尾、nPuRMQQp コインスナック ジョイフル24、NP7tVnY3 志摩地中海村、mUJPSbt5 浅草地下街、sTsoVeXe マルカンビル大食堂（です・ます調）
+- YfVjS3B4 旧松尾鉱山アパート群跡（「東洋一」を言い切っている。英語は「と呼ばれた」に弱めた）、VjHQSWFR 旧横田医院、ZXWghuAD 旧・姫川病院
+
 ## 測定
 
 - 記事を直したら、2〜4週間後に Search Console で同じ検索語の順位・クリック率を見比べる。
