@@ -26,6 +26,23 @@ export default function AuthScreen({ navigation, route }: RootStackScreenProps<'
 
   const requiresAgreement = mode === 'signup' && !agreed;
 
+  // 投稿しようとしてログインを求められた場合は、ログイン後にそのまま投稿の画面へ進む。
+  // それ以外は、遷移元の画面（マイページなど）に戻る。Authはモーダルとして積まれているため、
+  // 戻り先がなければトップページ（地図）へ遷移する。
+  const next = route.params?.next;
+  const nextSpotId = route.params?.spotId;
+  const finish = () => {
+    if (next === 'CreateSpot') {
+      navigation.replace('CreateSpot');
+    } else if (next === 'AddReview' && nextSpotId) {
+      navigation.replace('AddReview', { spotId: nextSpotId });
+    } else if (navigation.canGoBack()) {
+      navigation.goBack();
+    } else {
+      navigation.navigate('Main', { screen: 'MapTab' });
+    }
+  };
+
   const submit = async () => {
     if (requiresAgreement) {
       notify(t.confirmTitle, t.agreementRequired);
@@ -35,13 +52,7 @@ export default function AuthScreen({ navigation, route }: RootStackScreenProps<'
     try {
       if (mode === 'signin') {
         await signInWithEmail(email, password);
-        // ログイン完了後、遷移元の画面（マイページなど）に戻る。
-        // Authはモーダルとして積まれているため戻り先がなければトップページ（地図）へ遷移する。
-        if (navigation.canGoBack()) {
-          navigation.goBack();
-        } else {
-          navigation.navigate('Main', { screen: 'MapTab' });
-        }
+        finish();
       } else {
         const { alreadyRegistered } = await signUpWithEmail(email, password, username);
         if (alreadyRegistered) {
@@ -75,13 +86,7 @@ export default function AuthScreen({ navigation, route }: RootStackScreenProps<'
       // Webはこのままページごとリダイレクトする。ネイティブはアプリ内のブラウザでログインし、
       // 完了したらAppleログインと同じように前の画面へ戻る
       const signedIn = await signInWithOAuth('google');
-      if (signedIn) {
-        if (navigation.canGoBack()) {
-          navigation.goBack();
-        } else {
-          navigation.navigate('Main', { screen: 'MapTab' });
-        }
-      }
+      if (signedIn) finish();
     } catch (e: any) {
       notify(t.errorTitle, translateAuthError(e?.message, language));
     } finally {
@@ -99,11 +104,7 @@ export default function AuthScreen({ navigation, route }: RootStackScreenProps<'
     setBusy(true);
     try {
       await signInWithApple();
-      if (navigation.canGoBack()) {
-        navigation.goBack();
-      } else {
-        navigation.navigate('Main', { screen: 'MapTab' });
-      }
+      finish();
     } catch (e: any) {
       notify(t.errorTitle, translateAuthError(e?.message, language));
     } finally {
@@ -119,6 +120,13 @@ export default function AuthScreen({ navigation, route }: RootStackScreenProps<'
         keyboardShouldPersistTaps="handled"
       >
         <Image source={require('../../assets/splash-logo.png')} style={styles.logo} resizeMode="contain" />
+
+        {/* 投稿しようとして来た人に、なぜログインが要るのかを伝える */}
+        {next && (
+          <Text variant="body" style={styles.nextNote}>
+            {t.postNeedsAccount}
+          </Text>
+        )}
 
         <View style={styles.fields}>
           {mode === 'signup' && (
@@ -222,6 +230,7 @@ const styles = StyleSheet.create({
   // 画面の高さに余裕があるときは、上下の中央に寄せる
   content: { flexGrow: 1, justifyContent: 'center', maxWidth: 420 },
   logo: { width: 150, height: 96, alignSelf: 'center', marginBottom: space.xxl },
+  nextNote: { color: colors.textSecondary, textAlign: 'center', marginTop: -space.l, marginBottom: space.l },
   fields: { gap: 20 },
   agreementRow: { flexDirection: 'row', alignItems: 'flex-start', gap: 10 },
   checkbox: {

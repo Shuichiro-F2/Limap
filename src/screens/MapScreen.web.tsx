@@ -298,7 +298,11 @@ export default function MapScreen({ navigation, route }: Props) {
         </Pressable>
         <Pressable
           style={styles.fab}
-          onPress={() => navigation.navigate(session?.user ? 'CreateSpot' : 'Auth')}
+          onPress={() =>
+            session?.user
+              ? navigation.navigate('CreateSpot')
+              : navigation.navigate('Auth', { mode: 'signup', next: 'CreateSpot' })
+          }
           accessibilityRole="button"
           accessibilityLabel={t.map.post}
         >

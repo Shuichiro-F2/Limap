@@ -111,7 +111,8 @@ export default function CreateSpotScreen({ navigation, route }: Props) {
   // URL直接アクセスなど、未ログインでこの画面に来た場合はログイン画面へ誘導する
   useEffect(() => {
     if (!session?.user) {
-      navigation.replace('Auth');
+      // ログイン（または登録）したら、そのままこの画面に戻ってくる
+      navigation.replace('Auth', { mode: 'signup', next: 'CreateSpot' });
     }
   }, [session?.user]);
 

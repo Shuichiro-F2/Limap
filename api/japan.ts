@@ -197,7 +197,7 @@ ${RELATED_ARTICLES.map((a) => `          <li><a href="/articles/${a.slug}/">${es
         </ul>
       </section>
 
-      <p class="tag-cta"><a href="${SITE_URL}/">LIMapの地図でリミナルスペースを探す / Explore the map</a></p>`;
+      <p class="tag-cta"><a href="${SITE_URL}/create">知っている場所を投稿する / Add a place you know</a> ・ <a href="${SITE_URL}/">LIMapの地図でリミナルスペースを探す / Explore the map</a></p>`;
 
   return renderPage({
     title,

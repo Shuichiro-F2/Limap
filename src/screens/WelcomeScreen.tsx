@@ -5,6 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import Text from '../components/AppText';
 import { colors } from '../lib/theme';
 import { markWelcomeSeen } from '../lib/firstLaunch';
+import { useTranslation } from '../lib/i18n';
 import type { RootStackScreenProps } from '../navigation/types';
 
 // ネイティブアプリ限定: インストール後の初回起動時にだけ、全画面で表示する導入画面。
@@ -15,13 +16,13 @@ import type { RootStackScreenProps } from '../navigation/types';
 // この画面はRootNavigatorの初期ルートとして表示され、どのボタンを押しても
 // replaceで置き換わるので、後から戻ってくることはない。
 
-const FEATURES: { icon: keyof typeof Ionicons.glyphMap; text: string }[] = [
-  { icon: 'camera-outline', text: '訪れた場所を写真つきで投稿する' },
-  { icon: 'bookmark-outline', text: '気になるスポットを保存して見返す' },
-  { icon: 'people-outline', text: '好きなユーザーをフォローする' },
-];
-
 export default function WelcomeScreen({ navigation }: RootStackScreenProps<'Welcome'>) {
+  const t = useTranslation().welcome;
+  const features: { icon: keyof typeof Ionicons.glyphMap; text: string }[] = [
+    { icon: 'camera-outline', text: t.featurePost },
+    { icon: 'bookmark-outline', text: t.featureSave },
+    { icon: 'people-outline', text: t.featureFollow },
+  ];
   // 一度でも操作したら、この端末では二度と表示しない
   const leave = (to: 'signup' | 'signin' | 'skip') => {
     markWelcomeSeen();
@@ -43,14 +44,12 @@ export default function WelcomeScreen({ navigation }: RootStackScreenProps<'Welc
             style={styles.logo}
             resizeMode="contain"
           />
-          <Text style={styles.heading}>リミナルスペースを、{'\n'}地図に残す。</Text>
-          <Text style={styles.lead}>
-            世界中のリミナルスペースを地図から探せます。アカウントを作ると、あなたが出会った場所も残せます。
-          </Text>
+          <Text style={styles.heading}>{t.heading}</Text>
+          <Text style={styles.lead}>{t.lead}</Text>
         </View>
 
         <View style={styles.features}>
-          {FEATURES.map((f) => (
+          {features.map((f) => (
             <View key={f.text} style={styles.featureRow}>
               <View style={styles.featureIcon}>
                 <Ionicons name={f.icon} size={17} color={colors.accent} />
@@ -63,15 +62,15 @@ export default function WelcomeScreen({ navigation }: RootStackScreenProps<'Welc
 
       <View style={styles.actions}>
         <Pressable style={styles.primaryButton} onPress={() => leave('signup')}>
-          <Text style={styles.primaryButtonText}>アカウントを作成</Text>
+          <Text style={styles.primaryButtonText}>{t.signUp}</Text>
         </Pressable>
 
         <Pressable style={styles.secondaryButton} onPress={() => leave('signin')}>
-          <Text style={styles.secondaryButtonText}>ログイン</Text>
+          <Text style={styles.secondaryButtonText}>{t.signIn}</Text>
         </Pressable>
 
         <Pressable style={styles.skipButton} onPress={() => leave('skip')} hitSlop={8}>
-          <Text style={styles.skipText}>ログインせずに見る</Text>
+          <Text style={styles.skipText}>{t.skip}</Text>
         </Pressable>
       </View>
     </SafeAreaView>

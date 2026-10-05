@@ -179,7 +179,7 @@ ${tagChips(related)}
 ${articleBlock}      <div class="hub-list">
 ${items}
       </div>
-${more}      <p class="tag-cta"><a href="${SITE_URL}/">LIMapの地図でリミナルスペースを探す / Explore the map</a>${
+${more}      <p class="tag-cta"><a href="${SITE_URL}/create">知っている場所を投稿する / Add a place you know</a> ・ <a href="${SITE_URL}/">LIMapの地図でリミナルスペースを探す / Explore the map</a>${
     place?.isPrefecture ? ` ・ <a href="${SITE_URL}/japan">日本のリミナルスペース一覧 / Liminal spaces in Japan</a>` : ''
   }</p>
 ${relatedBlock}      <p><a href="${SITE_URL}/tags">タグ一覧へ / All tags</a></p>`;

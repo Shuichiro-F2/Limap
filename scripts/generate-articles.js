@@ -229,14 +229,16 @@ function ctaBlock(lang) {
   if (lang === 'ja') {
     return `      <div class="cta-block">
         <h2>気になるリミナルスペースを見つけたら</h2>
-        <p>写真と場所をLIMapに記録して、同じ感覚を持つ人たちと共有しましょう。</p>
-        <a class="cta-button" href="${SITE_URL}/">LIMapで地図を見る</a>
+        <p>写真と場所をLIMapに記録して、同じ感覚を持つ人たちと共有しましょう。写真の代わりに、XやInstagramに投稿した写真のURLでも登録できます。</p>
+        <a class="cta-button" href="${SITE_URL}/create">場所を投稿する</a>
+        <a class="cta-sub" href="${SITE_URL}/">LIMapで地図を見る</a>
       </div>`;
   }
   return `      <div class="cta-block">
         <h2>Found a liminal space of your own?</h2>
-        <p>Record the photo and location on LIMap, and share it with people who feel the same pull toward these places.</p>
-        <a class="cta-button" href="${SITE_URL}/">Open the LIMap map</a>
+        <p>Record the photo and location on LIMap, and share it with people who feel the same pull toward these places. Instead of uploading a photo, you can also use the URL of a photo you posted on X or Instagram.</p>
+        <a class="cta-button" href="${SITE_URL}/create">Add a place</a>
+        <a class="cta-sub" href="${SITE_URL}/">Open the LIMap map</a>
       </div>`;
 }
 
@@ -375,7 +377,7 @@ function langSwitch(lang, jaPath, enPath) {
 }
 
 // 記事・一覧ページ共通の <head> 内のフォント・CSS（キャッシュの古いJS/CSSを使わないよう版番号を付ける）
-const ASSET_VERSION = '4';
+const ASSET_VERSION = '5';
 
 function fontAndStyleLinks() {
   return `    <link rel="preconnect" href="https://fonts.googleapis.com" />

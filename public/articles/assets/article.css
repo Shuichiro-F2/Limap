@@ -554,6 +554,15 @@ h3.faq-question::before {
   text-decoration: none;
 }
 
+/* 投稿ボタンの下の、地図を見るだけのリンク（ボタンより控えめに） */
+.cta-block a.cta-sub {
+  display: block;
+  margin-top: 14px;
+  color: var(--accent-text);
+  font-size: 13px;
+  opacity: 0.85;
+}
+
 .support-note {
   margin: -24px 0 48px;
   text-align: center;

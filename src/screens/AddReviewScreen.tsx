@@ -59,7 +59,8 @@ export default function AddReviewScreen({ navigation, route }: Props) {
 
   useEffect(() => {
     if (!session?.user) {
-      navigation.replace('Auth');
+      // ログイン（または登録）したら、そのままこのスポットへの投稿の画面に戻ってくる
+      navigation.replace('Auth', { mode: 'signup', next: 'AddReview', spotId });
     }
   }, [session?.user]);
 

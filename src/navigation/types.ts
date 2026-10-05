@@ -29,7 +29,9 @@ export type RootStackParamList = {
   // (その手前のオープニング演出はナビゲーションの外側で再生される。RootNavigator参照)。
   Welcome: undefined;
   // modeは開いた直後のタブ(ログイン/新規登録)。未指定ならログイン。
-  Auth: { mode?: 'signin' | 'signup' } | undefined;
+  // nextは、投稿しようとして未ログインだった場合に、ログイン後そのまま続ける画面
+  // （AddReviewのときはspotIdも渡す）。Web版ではURLのクエリになるため、オブジェクトではなく平たい値にしている。
+  Auth: { mode?: 'signin' | 'signup'; next?: 'CreateSpot' | 'AddReview'; spotId?: string } | undefined;
   About: undefined;
   Help: undefined;
   Privacy: undefined;

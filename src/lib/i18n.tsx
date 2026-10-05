@@ -46,6 +46,17 @@ export function useLanguage() {
 // 対象はUIラベルのみで、投稿内容・ユーザー名などのユーザー生成コンテンツは含まない。
 const dictionary = {
   ja: {
+    // インストール後の初回起動時だけ出す導入画面（WelcomeScreen）
+    welcome: {
+      heading: 'リミナルスペースを、\n地図に残す。',
+      lead: '世界中のリミナルスペースを地図から探せます。アカウントを作ると、あなたが出会った場所も残せます。',
+      featurePost: '訪れた場所を写真つきで投稿する',
+      featureSave: '気になるスポットを保存して見返す',
+      featureFollow: '好きなユーザーをフォローする',
+      signUp: 'アカウントを作成',
+      signIn: 'ログイン',
+      skip: 'ログインせずに見る',
+    },
     auth: {
       username: 'ユーザー名',
       email: 'メールアドレス',
@@ -67,6 +78,7 @@ const dictionary = {
       agreementRequired: '利用規約とプライバシーポリシーへの同意が必要です。',
       alreadyRegisteredTitle: '登録済みのメールアドレスです',
       alreadyRegisteredMessage: 'このメールアドレスはすでに登録されています。ログインをお試しください。',
+      postNeedsAccount: '投稿するには、無料のアカウントが必要です。登録すると、行きたい場所の保存もできます。',
       confirmationSentTitle: '確認メールを送信しました',
       confirmationSentMessage: 'メール内のリンクから登録を完了してください。',
       errorTitle: 'エラー',
@@ -389,6 +401,16 @@ const dictionary = {
     },
   },
   en: {
+    welcome: {
+      heading: 'Put liminal spaces\non the map.',
+      lead: 'Explore liminal spaces from around the world on the map. With an account, you can add the places you find, too.',
+      featurePost: 'Post the places you visit, with photos',
+      featureSave: 'Save spots you like and come back to them',
+      featureFollow: 'Follow users you like',
+      signUp: 'Create an account',
+      signIn: 'Log in',
+      skip: 'Browse without logging in',
+    },
     auth: {
       username: 'Username',
       email: 'Email address',
@@ -410,6 +432,7 @@ const dictionary = {
       agreementRequired: 'You need to agree to the Terms of Service and Privacy Policy.',
       alreadyRegisteredTitle: 'Email already registered',
       alreadyRegisteredMessage: 'This email address is already registered. Please try logging in.',
+      postNeedsAccount: 'You need a free account to post. With an account, you can also save places you want to visit.',
       confirmationSentTitle: 'Confirmation email sent',
       confirmationSentMessage: 'Please complete your registration using the link in the email.',
       errorTitle: 'Error',
