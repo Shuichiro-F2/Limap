@@ -79,6 +79,7 @@ const dictionary = {
       alreadyRegisteredTitle: '登録済みのメールアドレスです',
       alreadyRegisteredMessage: 'このメールアドレスはすでに登録されています。ログインをお試しください。',
       postNeedsAccount: '投稿するには、無料のアカウントが必要です。登録すると、行きたい場所の保存もできます。',
+      guestSavedCarryOver: 'この端末に保存した{count}件の場所は、登録・ログインするとアカウントに引き継がれます。',
       confirmationSentTitle: '確認メールを送信しました',
       confirmationSentMessage: 'メール内のリンクから登録を完了してください。',
       errorTitle: 'エラー',
@@ -335,6 +336,11 @@ const dictionary = {
     },
     // スポット詳細（フル画面・地図のプレビューシート共通）と「みんなの投稿」欄
     spotDetail: {
+      // 未ログインで「行きたい」を保存したときの案内（この端末にだけ保存している）
+      guestSavedTitle: 'この端末に保存しました',
+      guestSavedMessage: '無料のアカウントを作ると、保存した場所がどの端末からでも見られます。いまの保存もそのまま引き継がれます。',
+      guestSavedSignUp: 'アカウントを作る',
+      guestSavedLater: 'あとで',
       access: 'アクセス',
       visitTime: 'おすすめの訪問時間帯',
       visitTimes: { morning: '朝', daytime: '昼', dusk: '夕方', night: '夜' },
@@ -433,6 +439,7 @@ const dictionary = {
       alreadyRegisteredTitle: 'Email already registered',
       alreadyRegisteredMessage: 'This email address is already registered. Please try logging in.',
       postNeedsAccount: 'You need a free account to post. With an account, you can also save places you want to visit.',
+      guestSavedCarryOver: 'The {count} place(s) you saved on this device will carry over to your account when you sign up or log in.',
       confirmationSentTitle: 'Confirmation email sent',
       confirmationSentMessage: 'Please complete your registration using the link in the email.',
       errorTitle: 'Error',
@@ -687,6 +694,10 @@ const dictionary = {
       continueAsNew: 'Continue as a new post',
     },
     spotDetail: {
+      guestSavedTitle: 'Saved on this device',
+      guestSavedMessage: 'Create a free account to see your saved places on any device. What you have saved so far will carry over.',
+      guestSavedSignUp: 'Create an account',
+      guestSavedLater: 'Later',
       access: 'Access',
       visitTime: 'Best Time to Visit',
       visitTimes: { morning: 'Morning', daytime: 'Daytime', dusk: 'Dusk', night: 'Night' },

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Image, Pressable, StyleSheet, Platform, ScrollView, KeyboardAvoidingView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import * as AppleAuthentication from 'expo-apple-authentication';
@@ -6,6 +6,7 @@ import Text from '../components/AppText';
 import { Button, FormField, FormInput, formStyles } from '../components/Form';
 import { googleLoginAvailable, useAuth } from '../lib/AuthContext';
 import { notify } from '../lib/notify';
+import { getGuestBookmarkIds } from '../lib/guestBookmarks';
 import { translateAuthError } from '../lib/authErrors';
 import { useLanguage, useTranslation } from '../lib/i18n';
 import { colors, space, type } from '../lib/theme';
@@ -25,6 +26,12 @@ export default function AuthScreen({ navigation, route }: RootStackScreenProps<'
   const [agreed, setAgreed] = useState(false);
 
   const requiresAgreement = mode === 'signup' && !agreed;
+
+  // 未ログインでこの端末に保存した場所の件数。登録・ログインするとアカウントへ引き継ぐことを伝える
+  const [guestSavedCount, setGuestSavedCount] = useState(0);
+  useEffect(() => {
+    getGuestBookmarkIds().then((ids) => setGuestSavedCount(ids.length));
+  }, []);
 
   // 投稿しようとしてログインを求められた場合は、ログイン後にそのまま投稿の画面へ進む。
   // それ以外は、遷移元の画面（マイページなど）に戻る。Authはモーダルとして積まれているため、
@@ -54,8 +61,11 @@ export default function AuthScreen({ navigation, route }: RootStackScreenProps<'
         await signInWithEmail(email, password);
         finish();
       } else {
-        const { alreadyRegistered } = await signUpWithEmail(email, password, username);
-        if (alreadyRegistered) {
+        const { alreadyRegistered, signedIn } = await signUpWithEmail(email, password, username);
+        if (signedIn) {
+          // 確認メールなしで登録できた（そのままログインした状態）。投稿しようとしていたなら投稿の画面へ進む
+          finish();
+        } else if (alreadyRegistered) {
           notify(t.alreadyRegisteredTitle, t.alreadyRegisteredMessage);
         } else {
           notify(t.confirmationSentTitle, t.confirmationSentMessage);
@@ -125,6 +135,11 @@ export default function AuthScreen({ navigation, route }: RootStackScreenProps<'
         {next && (
           <Text variant="body" style={styles.nextNote}>
             {t.postNeedsAccount}
+          </Text>
+        )}
+        {guestSavedCount > 0 && (
+          <Text variant="body" style={styles.nextNote}>
+            {t.guestSavedCarryOver.replace('{count}', String(guestSavedCount))}
           </Text>
         )}
 

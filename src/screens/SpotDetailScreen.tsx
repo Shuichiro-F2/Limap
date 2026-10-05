@@ -9,7 +9,8 @@ import { filterBlockedAuthors } from '../lib/moderation';
 import { colors } from '../lib/theme';
 import { WEB_SAFE_BOTTOM_OVERHANG } from '../lib/safeAreaWeb';
 import { applySpotSeo, resetSeo } from '../lib/seo';
-import { notify } from '../lib/notify';
+import { confirmAction, notify } from '../lib/notify';
+import { useTranslation } from '../lib/i18n';
 import type { RootStackScreenProps } from '../navigation/types';
 
 type Props = RootStackScreenProps<'SpotDetail'>;
@@ -18,6 +19,7 @@ export default function SpotDetailScreen({ route, navigation }: Props) {
   const { spotId } = route.params;
   const { session, blockedUserIds } = useAuth();
   const insets = useSafeAreaInsets();
+  const t = useTranslation().spotDetail;
   const {
     spot,
     loading,
@@ -35,7 +37,19 @@ export default function SpotDetailScreen({ route, navigation }: Props) {
     reviewsLoading,
     handleDeleteReview,
     handleReportReview,
-  } = useSpotDetail(spotId);
+  } = useSpotDetail(spotId, {
+    // 未ログインで保存したとき、1件目と3件目に、アカウントを作ると保存を引き継げることを案内する
+    onGuestBookmark: async (count) => {
+      if (count !== 1 && count !== 3) return;
+      const ok = await confirmAction(
+        t.guestSavedTitle,
+        t.guestSavedMessage,
+        t.guestSavedSignUp,
+        t.guestSavedLater
+      );
+      if (ok) navigation.navigate('Auth', { mode: 'signup' });
+    },
+  });
 
   // Web版: SPA内遷移でこの画面を開いた場合もタイトル/OGP/構造化データを
   // このスポット固有の内容に更新する（初回アクセス時はapi/spot.tsが同等の処理をSSR的に行う）。

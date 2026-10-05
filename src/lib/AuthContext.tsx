@@ -3,6 +3,7 @@ import { Platform } from 'react-native';
 import * as AppleAuthentication from 'expo-apple-authentication';
 import { requireOptionalNativeModule } from 'expo-modules-core';
 import type { Session } from '@supabase/supabase-js';
+import { migrateGuestBookmarks } from './guestBookmarks';
 import { supabase } from './supabase';
 import { fetchBlockedUserIds } from './moderation';
 import type { Profile } from '../types/database';
@@ -64,7 +65,11 @@ interface AuthContextValue {
   signInWithEmail: (email: string, password: string) => Promise<void>;
   // 戻り値のalreadyRegisteredは、すでに登録・確認済みのメールアドレスで
   // 新規登録しようとした場合にtrueになる(詳細はsignUpWithEmailの実装コメント参照)。
-  signUpWithEmail: (email: string, password: string, username: string) => Promise<{ alreadyRegistered: boolean }>;
+  signUpWithEmail: (
+    email: string,
+    password: string,
+    username: string
+  ) => Promise<{ alreadyRegistered: boolean; signedIn: boolean }>;
   signInWithOAuth: (provider: 'google') => Promise<boolean>;
   // iOSネイティブのみ。ユーザーがキャンセルした場合は何もせず終了する(エラー表示しない)。
   signInWithApple: () => Promise<void>;
@@ -95,6 +100,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     return () => listener.subscription.unsubscribe();
   }, []);
+
+  // 未ログインのときにこの端末へ保存した「行きたい」場所を、ログインしたアカウントへ移す
+  useEffect(() => {
+    if (!session?.user) return;
+    migrateGuestBookmarks(session.user.id).catch((e) => console.warn('保存した場所の引き継ぎエラー', e));
+  }, [session?.user?.id]);
 
   useEffect(() => {
     if (!session?.user) {
@@ -151,7 +162,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     // 新規登録成功時と見た目上同じレスポンスを返す。ただしこの場合はuser.identitiesが
     // 空配列になるため、これを「実はすでに登録済みだった」ことの判定に使う。
     const alreadyRegistered = !!data.user && Array.isArray(data.user.identities) && data.user.identities.length === 0;
-    return { alreadyRegistered };
+    // メールアドレスの確認をしない設定（Supabase の Confirm email がオフ）では、登録と同時にログインした状態になる。
+    // そのときは session が返るので、確認メールの案内は出さずにそのまま使い始められるようにする。
+    const signedIn = !!data.session;
+    return { alreadyRegistered, signedIn };
   };
 
   // Googleログイン。戻り値は、ネイティブでその場でログインが完了したときだけtrue

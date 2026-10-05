@@ -12,6 +12,7 @@ import {
 import { fetchSpotReviews, deleteSpotReview } from '../lib/spotReviews';
 import { reportReview, filterBlockedAuthors } from '../lib/moderation';
 import { useAuth } from '../lib/AuthContext';
+import { isGuestBookmarked, toggleGuestBookmark } from '../lib/guestBookmarks';
 import { useTranslation } from '../lib/i18n';
 import type { Spot, SpotReview, ReportReason } from '../types/database';
 
@@ -19,7 +20,9 @@ import type { Spot, SpotReview, ReportReason } from '../types/database';
 // フル画面の詳細画面と、地図画面のプレビューシートの両方から共有して使う。
 // 引数はURL/遷移で使うLIMap ID（slug）。いいね・行きたい・通報などのDB操作は
 // FK制約が内部の主キー(id)を参照しているため、取得したspot.idを使う。
-export function useSpotDetail(slug: string | null) {
+// onGuestBookmark は、未ログインで「行きたい」を保存したときに呼ぶ（引数はこの端末に保存している件数）。
+// 画面側で、アカウントを作ると保存を引き継げることを案内するのに使う。
+export function useSpotDetail(slug: string | null, opts?: { onGuestBookmark?: (count: number) => void }) {
   const { session, blockedUserIds } = useAuth();
   const t = useTranslation().spotDetail;
   const [spot, setSpot] = useState<Spot | null>(null);
@@ -55,7 +58,8 @@ export function useSpotDetail(slug: string | null) {
           isSpotBookmarked(session.user.id, data.id).then(setBookmarked).catch(() => {});
         } else {
           setLiked(false);
-          setBookmarked(false);
+          // 未ログインでは、この端末に保存しているかどうかを見る
+          isGuestBookmarked(data.id).then(setBookmarked).catch(() => setBookmarked(false));
         }
       })
       .catch((e) => console.warn('スポット取得エラー', e))
@@ -110,7 +114,15 @@ export function useSpotDetail(slug: string | null) {
   const handleBookmark = async () => {
     if (!spot) return;
     if (!session?.user) {
-      notify(t.loginRequiredTitle);
+      // 未ログインでも、この端末にだけ保存できる（ログインするとアカウントへ移る。lib/guestBookmarks.ts）。
+      // 保存数（bookmark_count）はアカウントの保存だけを数えるため、ここでは変えない
+      try {
+        const { bookmarked: next, count } = await toggleGuestBookmark(spot.id);
+        setBookmarked(next);
+        if (next) opts?.onGuestBookmark?.(count);
+      } catch (e) {
+        console.warn('端末への保存エラー', e);
+      }
       return;
     }
     const next = !bookmarked;
