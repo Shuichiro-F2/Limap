@@ -101,6 +101,9 @@ export interface Spot {
   author_id: string;
   title: string;
   description: string | null;
+  // 公式スポットの英語の説明文（日本語の description を英語にしたもの）。ユーザーの投稿には無い。
+  // 古いデータや列の追加前には無いので省略可にしている（supabase/migrations/0043_add_spot_description_en.sql）
+  description_en?: string | null;
   // 最寄り駅からの行き方など、現地にたどり着くためのヒントを書ける自由記述欄(任意)
   access: string | null;
   // 投稿者が選んだおすすめの訪問時間帯(任意、未設定の場合はnull)

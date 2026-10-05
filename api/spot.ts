@@ -73,6 +73,8 @@ type SpotBodyInput = {
   place: string;
   breadcrumb: Crumb[];
   description: string;
+  // 公式スポットの英語の説明文（無ければ空）
+  descriptionEn: string;
   access: string | null;
   visitTime: string | null;
   tags: { name: string; hasPage: boolean }[];
@@ -201,6 +203,10 @@ function buildSpotBody(s: SpotBodyInput): string {
     parts.push(`<img src="${escapeHtml(url)}" alt="${escapeHtml(alt)}" loading="lazy" decoding="async" />`);
   });
   if (s.description.trim()) parts.push(toParagraphs(s.description));
+  // 英語で検索する人向けに、公式スポットの英語の説明文を別の段落として載せる（lang="en" で日本語と区別する）
+  if (s.descriptionEn.trim()) {
+    parts.push(`<section lang="en">\n<h2>About this place</h2>\n${toParagraphs(s.descriptionEn)}\n</section>`);
+  }
 
   const details: string[] = [];
   if (s.access?.trim()) {
@@ -302,7 +308,7 @@ export default async function handler(req: any, res: any) {
       .from('spots')
       .select(
         `
-        id, slug, title, description, lat, lng, country, city, status, created_at, updated_at,
+        id, slug, title, description, description_en, lat, lng, country, city, status, created_at, updated_at,
         access, recommended_visit_time,
         images:spot_images(storage_path, position),
         tags:spot_tags(tag:tags(id, name)),
@@ -517,6 +523,7 @@ export default async function handler(req: any, res: any) {
       place: place.label ?? '',
       breadcrumb,
       description: spot.description || '',
+      descriptionEn: spot.description_en || '',
       access: spot.access,
       visitTime: spot.recommended_visit_time,
       tags: tagsForBody,

@@ -24,7 +24,7 @@ import VerticalFade from './VerticalFade';
 import { spotImageUrl, spotImageThumbUrl, spotThumbnailUrl } from '../lib/spots';
 import { shareSpot, copyLink } from '../lib/share';
 import { colors, radius, space, type } from '../lib/theme';
-import { useTranslation } from '../lib/i18n';
+import { useLanguage, useTranslation } from '../lib/i18n';
 import { spotPlace } from '../content/spotSeo';
 import { prefectureFullName } from '../content/japan';
 import type { Spot, SpotEmbed, SpotReview, ReportReason } from '../types/database';
@@ -147,6 +147,9 @@ export default function SpotDetailContent({
   onReportReview,
 }: Props) {
   const t = useTranslation().spotDetail;
+  const { language } = useLanguage();
+  // 英語表示のときは、公式スポットの英語の説明文があればそちらを出す（ユーザーの投稿文は翻訳しない）
+  const description = (language === 'en' && spot?.description_en) || spot?.description;
   // おすすめの訪問時間帯はDBに英語キーで保存されている。未知の値はそのまま表示する
   const visitTimeLabel = (key: string) => (t.visitTimes as Record<string, string>)[key] ?? key;
   const { width: screenWidth, height: screenHeight } = useWindowDimensions();
@@ -645,9 +648,9 @@ export default function SpotDetailContent({
               </View>
             )}
 
-            {!!spot.description && (
+            {!!description && (
               <Text variant="body" style={styles.description}>
-                {spot.description}
+                {description}
               </Text>
             )}
 
