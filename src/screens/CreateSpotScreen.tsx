@@ -20,6 +20,7 @@ import PhotoEditList, { movePhoto } from '../components/PhotoEditList';
 import { fetchAllTags, findOrCreateTag } from '../lib/tags';
 import { detectEmbedUrl, MAX_SNS_EMBEDS, type DetectedEmbed } from '../lib/embeds';
 import { isValidHttpUrl } from '../lib/url';
+import { locationFromAssets } from '../lib/photoLocation';
 import { saveCreateSpotDraft, takeCreateSpotDraft } from '../lib/createSpotDraft';
 import { saveReviewDraft } from '../lib/reviewDraft';
 import DuplicateSpotPopup from '../components/DuplicateSpotPopup';
@@ -157,10 +158,20 @@ export default function CreateSpotScreen({ navigation, route }: Props) {
       allowsMultipleSelection: true,
       quality: 0.7,
       base64: true,
+      // 撮影場所（GPS）から位置を入れるため。Web では返らないので、元の写真のデータから読む（lib/photoLocation.ts）
+      exif: true,
       selectionLimit: MAX_PHOTOS,
     });
     if (!result.canceled) {
       setImages((prev) => [...prev, ...result.assets].slice(0, MAX_PHOTOS));
+      // 位置がまだ空なら、写真の撮影場所を入れておく（地図や現在地でいつでも直せる）
+      if (!coords) {
+        const loc = locationFromAssets(result.assets);
+        if (loc) {
+          setCoords(loc);
+          notify(t.createSpot.photoLocationSetTitle, t.createSpot.photoLocationSetMessage);
+        }
+      }
     }
   };
 
