@@ -22,7 +22,6 @@ import articleIndex from '../src/content/articleIndex.json';
 const SUPABASE_URL = process.env.SUPABASE_URL || '';
 const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY || '';
 
-const DEFAULT_OG_IMAGE = 'https://limap.jp/og-image.png';
 
 function escapeHtml(str: string): string {
   return str
@@ -361,9 +360,10 @@ export default async function handler(req: any, res: any) {
     const images = (spot.images || []) as { storage_path: string; position: number }[];
     const sortedImages = [...images].sort((a, b) => (a.position ?? 0) - (b.position ?? 0));
     const firstImagePath = sortedImages[0]?.storage_path;
+    // 写真を上げていないスポット（ほとんどが SNS の埋め込みだけ）は、スポット名と地名を入れた画像を作って使う（api/og.ts）
     const ogImage = firstImagePath
       ? supabase.storage.from('spot-images').getPublicUrl(firstImagePath).data.publicUrl
-      : DEFAULT_OG_IMAGE;
+      : `https://limap.jp/api/og?id=${encodeURIComponent(spot.slug)}`;
 
     const pageUrl = `https://limap.jp/spot/${spot.slug}`;
     const escTitle = escapeHtml(pageTitle);
