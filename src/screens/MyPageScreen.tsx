@@ -16,7 +16,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import Text from '../components/AppText';
 import { HEADER_CONTENT_HEIGHT } from '../components/AppHeader';
-import { fetchSpotsByAuthor, fetchLikedSpots, fetchBookmarkedSpots, spotThumbnailUrl } from '../lib/spots';
+import { fetchSpotsByAuthor, fetchLikedSpots, fetchBookmarkedSpots, fetchVisitedSpots, spotThumbnailUrl } from '../lib/spots';
 import { fetchFollowCounts, type FollowCounts } from '../lib/profiles';
 import { useAuth } from '../lib/AuthContext';
 import { useTranslation } from '../lib/i18n';
@@ -33,6 +33,7 @@ const TABS: { icon: keyof typeof Ionicons.glyphMap }[] = [
   { icon: 'grid-outline' }, // 自分の投稿
   { icon: 'heart-outline' }, // いいね
   { icon: 'bookmark-outline' }, // 行きたい場所
+  { icon: 'footsteps-outline' }, // 行った場所（supabase/migrations/0044_add_visits.sql）
 ];
 
 export default function MyPageScreen({ navigation }: Props) {
@@ -43,7 +44,8 @@ export default function MyPageScreen({ navigation }: Props) {
   const [mineSpots, setMineSpots] = useState<Spot[]>([]);
   const [likedSpots, setLikedSpots] = useState<Spot[]>([]);
   const [bookmarkedSpots, setBookmarkedSpots] = useState<Spot[]>([]);
-  const pages = [mineSpots, likedSpots, bookmarkedSpots];
+  const [visitedSpots, setVisitedSpots] = useState<Spot[]>([]);
+  const pages = [mineSpots, likedSpots, bookmarkedSpots, visitedSpots];
 
   const [loadingInitial, setLoadingInitial] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
@@ -57,14 +59,16 @@ export default function MyPageScreen({ navigation }: Props) {
   const loadAll = useCallback(async () => {
     if (!session?.user) return;
     const userId = session.user.id;
-    const [mine, liked, bookmarked] = await Promise.all([
+    const [mine, liked, bookmarked, visited] = await Promise.all([
       fetchSpotsByAuthor(userId).catch(() => []),
       fetchLikedSpots(userId).catch(() => []),
       fetchBookmarkedSpots(userId).catch(() => []),
+      fetchVisitedSpots(userId).catch(() => []),
     ]);
     setMineSpots(mine);
     setLikedSpots(liked);
     setBookmarkedSpots(bookmarked);
+    setVisitedSpots(visited);
   }, [session?.user?.id]);
 
   // マウント時と画面に戻ってきたときの両方をこの1箇所でまとめて処理する

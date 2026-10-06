@@ -6,6 +6,8 @@ import {
   toggleBookmark,
   isSpotLiked,
   isSpotBookmarked,
+  toggleVisit,
+  isSpotVisited,
   reportSpot,
   deleteSpot,
 } from '../lib/spots';
@@ -22,12 +24,17 @@ import type { Spot, SpotReview, ReportReason } from '../types/database';
 // FK制約が内部の主キー(id)を参照しているため、取得したspot.idを使う。
 // onGuestBookmark は、未ログインで「行きたい」を保存したときに呼ぶ（引数はこの端末に保存している件数）。
 // 画面側で、アカウントを作ると保存を引き継げることを案内するのに使う。
-export function useSpotDetail(slug: string | null, opts?: { onGuestBookmark?: (count: number) => void }) {
+// onRequireLogin は、未ログインで「行った」を押したときに呼ぶ（画面側で登録を案内する）。
+export function useSpotDetail(
+  slug: string | null,
+  opts?: { onGuestBookmark?: (count: number) => void; onRequireLogin?: () => void }
+) {
   const { session, blockedUserIds } = useAuth();
   const t = useTranslation().spotDetail;
   const [spot, setSpot] = useState<Spot | null>(null);
   const [liked, setLiked] = useState(false);
   const [bookmarked, setBookmarked] = useState(false);
+  const [visited, setVisited] = useState(false);
   const [loading, setLoading] = useState(true);
   const [showReport, setShowReport] = useState(false);
   const [deleting, setDeleting] = useState(false);
@@ -56,7 +63,9 @@ export function useSpotDetail(slug: string | null, opts?: { onGuestBookmark?: (c
         if (session?.user) {
           isSpotLiked(session.user.id, data.id).then(setLiked).catch(() => {});
           isSpotBookmarked(session.user.id, data.id).then(setBookmarked).catch(() => {});
+          isSpotVisited(session.user.id, data.id).then(setVisited).catch(() => setVisited(false));
         } else {
+          setVisited(false);
           setLiked(false);
           // 未ログインでは、この端末に保存しているかどうかを見る
           isGuestBookmarked(data.id).then(setBookmarked).catch(() => setBookmarked(false));
@@ -136,6 +145,22 @@ export function useSpotDetail(slug: string | null, opts?: { onGuestBookmark?: (c
     }
   };
 
+  // 「行った」の記録。本人にだけ見える記録なので、件数は表示しない
+  const handleVisit = async () => {
+    if (!spot) return;
+    if (!session?.user) {
+      opts?.onRequireLogin?.();
+      return;
+    }
+    const next = !visited;
+    setVisited(next);
+    try {
+      await toggleVisit(session.user.id, spot.id, !next);
+    } catch {
+      setVisited(!next);
+    }
+  };
+
   const handleReport = async (reason: ReportReason) => {
     if (!spot) return;
     if (!session?.user) {
@@ -173,10 +198,12 @@ export function useSpotDetail(slug: string | null, opts?: { onGuestBookmark?: (c
     loading,
     liked,
     bookmarked,
+    visited,
     showReport,
     setShowReport,
     handleLike,
     handleBookmark,
+    handleVisit,
     handleReport,
     isOwner,
     deleting,

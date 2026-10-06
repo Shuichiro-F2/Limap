@@ -63,6 +63,9 @@ type Props = {
   loading: boolean;
   liked: boolean;
   bookmarked: boolean;
+  // 「行った」の記録（本人にだけ見える）。渡さない画面ではボタンを出さない
+  visited?: boolean;
+  onVisit?: () => void;
   showReport: boolean;
   onToggleReport: () => void;
   onLike: () => void;
@@ -121,6 +124,8 @@ export default function SpotDetailContent({
   loading,
   liked,
   bookmarked,
+  visited = false,
+  onVisit,
   showReport,
   onToggleReport,
   onLike,
@@ -540,6 +545,21 @@ export default function SpotDetailContent({
                   {spot.bookmark_count > 0 ? `${t.wantToGo} ${spot.bookmark_count}` : t.wantToGo}
                 </Text>
               </Pressable>
+              {onVisit && (
+                <Pressable
+                  style={[styles.actionButton, visited && styles.actionButtonActive]}
+                  onPress={onVisit}
+                  accessibilityRole="button"
+                  aria-selected={visited}
+                >
+                  <Ionicons
+                    name={visited ? 'footsteps' : 'footsteps-outline'}
+                    size={17}
+                    color={visited ? colors.accent : colors.accentText}
+                  />
+                  <Text style={[styles.actionText, visited && styles.actionTextActive]}>{t.beenHere}</Text>
+                </Pressable>
+              )}
               <Pressable
                 style={styles.menuButton}
                 onPress={() => setShowMenu((v) => !v)}

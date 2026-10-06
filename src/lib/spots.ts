@@ -659,3 +659,36 @@ export async function fetchRandomSpotSlug(excludeSlug?: string | null): Promise<
   }
   return null;
 }
+
+// 「行った」場所（visits）。本人にだけ見える記録で、件数は数えない（supabase/migrations/0044_add_visits.sql）
+export async function toggleVisit(userId: string, spotId: string, currentlyVisited: boolean) {
+  if (currentlyVisited) {
+    const { error } = await supabase.from('visits').delete().eq('user_id', userId).eq('spot_id', spotId);
+    if (error) throw error;
+  } else {
+    const { error } = await supabase.from('visits').insert({ user_id: userId, spot_id: spotId });
+    if (error) throw error;
+  }
+}
+
+export async function isSpotVisited(userId: string, spotId: string): Promise<boolean> {
+  const { data, error } = await supabase
+    .from('visits')
+    .select('spot_id')
+    .eq('user_id', userId)
+    .eq('spot_id', spotId)
+    .maybeSingle();
+  if (error) throw error;
+  return !!data;
+}
+
+// マイページ: 行った場所の一覧
+export async function fetchVisitedSpots(userId: string): Promise<Spot[]> {
+  const { data, error } = await supabase
+    .from('visits')
+    .select(`spot:spots!visits_spot_id_fkey(${SPOT_SELECT})`)
+    .eq('user_id', userId)
+    .order('created_at', { ascending: false });
+  if (error) throw error;
+  return normalizeSpots((data ?? []).map((r: any) => r.spot).filter(Boolean));
+}

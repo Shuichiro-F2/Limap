@@ -25,10 +25,12 @@ export default function SpotDetailScreen({ route, navigation }: Props) {
     loading,
     liked,
     bookmarked,
+    visited,
     showReport,
     setShowReport,
     handleLike,
     handleBookmark,
+    handleVisit,
     handleReport,
     isOwner,
     deleting,
@@ -47,6 +49,11 @@ export default function SpotDetailScreen({ route, navigation }: Props) {
         t.guestSavedSignUp,
         t.guestSavedLater
       );
+      if (ok) navigation.navigate('Auth', { mode: 'signup' });
+    },
+    // 未ログインで「行った」を押したとき
+    onRequireLogin: async () => {
+      const ok = await confirmAction(t.visitLoginTitle, t.visitLoginMessage, t.guestSavedSignUp, t.guestSavedLater);
       if (ok) navigation.navigate('Auth', { mode: 'signup' });
     },
   });
@@ -171,6 +178,8 @@ export default function SpotDetailScreen({ route, navigation }: Props) {
         loading={loading}
         liked={liked}
         bookmarked={bookmarked}
+        visited={visited}
+        onVisit={handleVisit}
         showReport={showReport}
         onToggleReport={() => setShowReport(!showReport)}
         onLike={handleLike}
