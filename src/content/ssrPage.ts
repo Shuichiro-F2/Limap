@@ -63,12 +63,22 @@ export function renderPage(opts: {
   jsonLd: unknown[];
   body: string;
   noindex?: boolean;
+  // 英語のページ（/en/spot/... など）のとき 'en'。html の lang・og:locale・フッターを英語にする
+  lang?: 'ja' | 'en';
+  // 共有したときの画像（省略すると共通の画像）
+  image?: string;
+  // 日英の対応するページ（hreflang）
+  alternates?: { hreflang: string; href: string }[];
 }): string {
+  const en = opts.lang === 'en';
+  const alternateTags = (opts.alternates ?? [])
+    .map((a) => `    <link rel="alternate" hreflang="${escapeHtml(a.hreflang)}" href="${escapeHtml(a.href)}" />\n`)
+    .join('');
   const jsonLdTags = opts.jsonLd
     .map((d) => `    <script type="application/ld+json">${escapeJsonLd(d)}</script>`)
     .join('\n');
   return `<!DOCTYPE html>
-<html lang="ja">
+<html lang="${en ? 'en' : 'ja'}">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover" />
@@ -76,7 +86,7 @@ export function renderPage(opts: {
     <meta name="description" content="${escapeHtml(opts.description)}" />
     <meta name="robots" content="${opts.noindex ? 'noindex' : 'max-image-preview:large'}" />
     <link rel="canonical" href="${escapeHtml(opts.url)}" />
-    <meta name="theme-color" content="#1a1a1a" />
+${alternateTags}    <meta name="theme-color" content="#1a1a1a" />
     <link rel="apple-touch-icon" href="${SITE_URL}/apple-touch-icon.png" />
     <link rel="icon" href="${SITE_URL}/apple-touch-icon.png" />
     <meta property="og:type" content="website" />
@@ -84,8 +94,8 @@ export function renderPage(opts: {
     <meta property="og:url" content="${escapeHtml(opts.url)}" />
     <meta property="og:title" content="${escapeHtml(opts.title)}" />
     <meta property="og:description" content="${escapeHtml(opts.description)}" />
-    <meta property="og:image" content="${SITE_URL}/og-image.png" />
-    <meta property="og:locale" content="ja_JP" />
+    <meta property="og:image" content="${escapeHtml(opts.image ?? `${SITE_URL}/og-image.png`)}" />
+    <meta property="og:locale" content="${en ? 'en_US' : 'ja_JP'}" />
 ${jsonLdTags}
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -105,11 +115,17 @@ ${jsonLdTags}
 ${opts.body}
     </main>
     <footer class="site-footer">
-      <a href="${SITE_URL}/">LIMapトップへ</a>
+${
+  en
+    ? `      <a href="${SITE_URL}/">LIMap home</a>
+      <a href="${SITE_URL}/en/articles/">Articles</a>
+      <a href="${SITE_URL}/en/articles/what-is-liminal-space/">What is a liminal space?</a>`
+    : `      <a href="${SITE_URL}/">LIMapトップへ</a>
       <a href="${SITE_URL}/japan">日本のリミナルスペース一覧</a>
       <a href="${SITE_URL}/tags">タグ一覧</a>
       <a href="${SITE_URL}/articles/">記事一覧</a>
-      <a href="${SITE_URL}/about">リミナルスペースとは</a>
+      <a href="${SITE_URL}/about">リミナルスペースとは</a>`
+}
     </footer>
   </body>
 </html>

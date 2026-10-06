@@ -22,7 +22,6 @@ import articleIndex from '../src/content/articleIndex.json';
 const SUPABASE_URL = process.env.SUPABASE_URL || '';
 const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY || '';
 
-
 function escapeHtml(str: string): string {
   return str
     .replace(/&/g, '&amp;')
@@ -74,6 +73,8 @@ type SpotBodyInput = {
   description: string;
   // 公式スポットの英語の説明文（無ければ空）
   descriptionEn: string;
+  // 英語のページ（/en/spot/...）があればその URL（無ければ空）
+  englishPageUrl: string;
   access: string | null;
   visitTime: string | null;
   tags: { name: string; hasPage: boolean }[];
@@ -204,7 +205,8 @@ function buildSpotBody(s: SpotBodyInput): string {
   if (s.description.trim()) parts.push(toParagraphs(s.description));
   // 英語で検索する人向けに、公式スポットの英語の説明文を別の段落として載せる（lang="en" で日本語と区別する）
   if (s.descriptionEn.trim()) {
-    parts.push(`<section lang="en">\n<h2>About this place</h2>\n${toParagraphs(s.descriptionEn)}\n</section>`);
+    const englishLink = s.englishPageUrl ? `\n<p><a href="${escapeHtml(s.englishPageUrl)}">Read this page in English</a></p>` : '';
+    parts.push(`<section lang="en">\n<h2>About this place</h2>\n${toParagraphs(s.descriptionEn)}${englishLink}\n</section>`);
   }
 
   const details: string[] = [];
@@ -307,7 +309,7 @@ export default async function handler(req: any, res: any) {
       .from('spots')
       .select(
         `
-        id, slug, title, description, description_en, lat, lng, country, city, status, created_at, updated_at,
+        id, slug, title, title_en, description, description_en, lat, lng, country, city, status, created_at, updated_at,
         access, recommended_visit_time,
         images:spot_images(storage_path, position),
         tags:spot_tags(tag:tags(id, name)),
@@ -381,7 +383,18 @@ export default async function handler(req: any, res: any) {
       /<meta\s+name="description"\s+content="[^"]*"\s*\/>/,
       `<meta name="description" content="${escDesc}" />`
     );
-    html = replaceTag(html, /<link rel="canonical" href="[^"]*"\s*\/>/, `<link rel="canonical" href="${escUrl}" />`);
+    // 英語のページ（/en/spot/...、api/spot-en.ts）があるスポットは、日英の対応を検索エンジンに伝える
+    const hasEnglishPage = !!((spot as any).title_en && (spot as any).description_en);
+    const alternateLinks = hasEnglishPage
+      ? `\n    <link rel="alternate" hreflang="ja" href="${escUrl}" />` +
+        `\n    <link rel="alternate" hreflang="en" href="https://limap.jp/en/spot/${escapeHtml(spot.slug)}" />` +
+        `\n    <link rel="alternate" hreflang="x-default" href="${escUrl}" />`
+      : '';
+    html = replaceTag(
+      html,
+      /<link rel="canonical" href="[^"]*"\s*\/>/,
+      `<link rel="canonical" href="${escUrl}" />${alternateLinks}`
+    );
     html = replaceTag(
       html,
       /<meta property="og:url" content="[^"]*"\s*\/>/,
@@ -524,6 +537,7 @@ export default async function handler(req: any, res: any) {
       breadcrumb,
       description: spot.description || '',
       descriptionEn: spot.description_en || '',
+      englishPageUrl: (spot as any).title_en && spot.description_en ? `/en/spot/${spot.slug}` : '',
       access: spot.access,
       visitTime: spot.recommended_visit_time,
       tags: tagsForBody,

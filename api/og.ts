@@ -12,10 +12,10 @@ import { ImageResponse } from '@vercel/og';
 export const config = { runtime: 'edge' };
 import { createClient } from '@supabase/supabase-js';
 import { spotPlace, spotRawTitle } from '../src/content/spotSeo';
+import { placeLabelEn } from '../src/content/placeNamesEn';
 
 const SUPABASE_URL = process.env.SUPABASE_URL || '';
 const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY || '';
-
 
 const ACCENT = '#dece32';
 const BACKGROUND = '#1a1a1a';
@@ -43,7 +43,10 @@ const h = (type: string, style: Record<string, unknown>, children?: unknown) => 
 });
 
 export default async function handler(req: Request): Promise<Response> {
-  const id = new URL(req.url).searchParams.get('id');
+  const params = new URL(req.url).searchParams;
+  const id = params.get('id');
+  // 英語のスポットのページ（/en/spot/...）用。英語の名前と地名で作る
+  const en = params.get('lang') === 'en';
 
   let title = 'LIMap';
   let place = '';
@@ -51,7 +54,8 @@ export default async function handler(req: Request): Promise<Response> {
     const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
     const { data: spot } = await supabase
       .from('spots')
-      .select('title, description, city, country, tags:spot_tags(tag:tags(name))')
+      // title_en は 0048 で足した列。列の有無に関わらず動くよう、* で読む
+      .select('*, tags:spot_tags(tag:tags(name))')
       .eq('slug', id)
       .eq('status', 'published')
       .maybeSingle();
@@ -59,14 +63,20 @@ export default async function handler(req: Request): Promise<Response> {
       const tagNames = ((spot.tags || []) as any[])
         .map((row) => (Array.isArray(row.tag) ? row.tag[0] : row.tag)?.name)
         .filter(Boolean);
-      title = spotRawTitle(spot as any);
-      place = spotPlace(tagNames, (spot as any).city, (spot as any).country).label || '';
+      if (en && (spot as any).title_en) {
+        title = (spot as any).title_en;
+        place = placeLabelEn(tagNames);
+      } else {
+        title = spotRawTitle(spot as any);
+        place = spotPlace(tagNames, (spot as any).city, (spot as any).country).label || '';
+      }
     }
   }
   // 長すぎる名前は2行に収まるよう切る
-  if (title.length > 36) title = `${title.slice(0, 35)}…`;
+  const maxLen = en ? 60 : 36;
+  if (title.length > maxLen) title = `${title.slice(0, maxLen - 1)}…`;
 
-  const caption = 'リミナルスペースを地図で探す';
+  const caption = en ? 'Find liminal spaces on the map' : 'リミナルスペースを地図で探す';
   const font = await loadFont(`${title}${place}${caption}LIMaplimap.jp`);
 
   return new ImageResponse(

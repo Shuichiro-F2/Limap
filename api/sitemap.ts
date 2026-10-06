@@ -67,7 +67,7 @@ export default async function handler(req: any, res: any) {
       const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
       const { data, error } = await supabase
         .from('spots')
-        .select('slug, updated_at, description, images:spot_images(count), reviews:spot_reviews(count)')
+        .select('slug, updated_at, description, title_en, description_en, images:spot_images(count), reviews:spot_reviews(count)')
         .eq('status', 'published')
         .order('updated_at', { ascending: false })
         .limit(50000);
@@ -77,6 +77,8 @@ export default async function handler(req: any, res: any) {
           slug: string;
           updated_at: string;
           description: string | null;
+          title_en: string | null;
+          description_en: string | null;
           images: { count: number }[];
           reviews: { count: number }[];
         };
@@ -95,6 +97,17 @@ export default async function handler(req: any, res: any) {
           changefreq: 'weekly',
           priority: '0.7',
         }));
+        // 英語の名前と説明文がある公式スポットは、英語のページ（api/spot-en.ts）も載せる
+        spotUrls.push(
+          ...indexable
+            .filter((row) => row.title_en && row.description_en)
+            .map((row) => ({
+              loc: `https://limap.jp/en/spot/${row.slug}`,
+              lastmod: new Date(row.updated_at).toISOString().slice(0, 10),
+              changefreq: 'weekly',
+              priority: '0.6',
+            }))
+        );
       }
     }
   } catch {
