@@ -637,3 +637,25 @@ function normalizeSpots(rows: any[]): Spot[] {
     embeds: [...(row.embeds ?? [])].sort((a: any, b: any) => a.position - b.position),
   }));
 }
+
+// 「どこかへ迷い込む」ボタン用に、公開中のスポットからランダムに1件選んで LIMap ID(slug) を返す。
+// 件数を数えてから、ランダムな位置の1件だけを取る（全件は読まない）。
+export async function fetchRandomSpotSlug(excludeSlug?: string | null): Promise<string | null> {
+  const { count, error } = await supabase
+    .from('spots')
+    .select('id', { count: 'exact', head: true })
+    .eq('status', 'published');
+  if (error || !count) return null;
+  for (let attempt = 0; attempt < 3; attempt++) {
+    const offset = Math.floor(Math.random() * count);
+    const { data } = await supabase
+      .from('spots')
+      .select('slug')
+      .eq('status', 'published')
+      .order('id')
+      .range(offset, offset);
+    const slug = data?.[0]?.slug ?? null;
+    if (slug && slug !== excludeSlug) return slug;
+  }
+  return null;
+}

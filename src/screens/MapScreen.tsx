@@ -4,12 +4,13 @@ import Mapbox, { Camera, MapView, UserLocation, ShapeSource, CircleLayer, Symbol
 import { Ionicons } from '@expo/vector-icons';
 import * as Location from 'expo-location';
 import { MAPBOX_ACCESS_TOKEN } from '@env';
-import { fetchSpotsInBounds } from '../lib/spots';
+import { fetchSpotsInBounds, fetchRandomSpotSlug } from '../lib/spots';
 import { filterBlockedAuthors } from '../lib/moderation';
 import { spotsToFeatureCollection } from '../lib/geo';
 import { generateSessionToken, suggestPlaces, retrievePlace, type SuggestResult } from '../lib/mapboxSearch';
 import MapTopBar, { spotMatchesFilter } from '../components/MapTopBar';
 import MapSpotCard from '../components/MapSpotCard';
+import FirstPostNudge from '../components/FirstPostNudge';
 import { useAuth } from '../lib/AuthContext';
 import { useLanguage, useTranslation } from '../lib/i18n';
 import { colors, radius, space } from '../lib/theme';
@@ -268,6 +269,19 @@ export default function MapScreen({ navigation, route }: Props) {
             <Ionicons name="map-outline" size={20} color={colors.textPrimary} />
           </Pressable>
         )}
+        {/* ランダムに1か所を開く。眺めているだけの人にも、地図の中を「迷い込む」楽しみを */}
+        <Pressable
+          style={styles.roundButton}
+          onPress={async () => {
+            const slug = await fetchRandomSpotSlug(selectedSpot?.slug);
+            if (slug) navigation.navigate('SpotDetail', { spotId: slug });
+          }}
+          hitSlop={8}
+          accessibilityRole="button"
+          accessibilityLabel={t.map.randomSpot}
+        >
+          <Ionicons name="shuffle-outline" size={20} color={colors.textPrimary} />
+        </Pressable>
         <Pressable
           style={styles.roundButton}
           onPress={goToMyLocation}
@@ -290,6 +304,13 @@ export default function MapScreen({ navigation, route }: Props) {
           <Ionicons name="add" size={28} color={colors.accentText} />
         </Pressable>
       </View>
+
+      {/* 登録したのにまだ投稿していない人への「最初の1か所」の案内。スポットのカードを出している間は隠す */}
+      {!selectedSpot && (
+        <View style={styles.nudgeWrap}>
+          <FirstPostNudge onPost={() => navigation.navigate('CreateSpot')} />
+        </View>
+      )}
 
       {selectedSpot && (
         <View style={styles.cardWrap} onLayout={(e) => setCardHeight(e.nativeEvent.layout.height)}>
@@ -329,4 +350,6 @@ const styles = StyleSheet.create({
     boxShadow: '0px 6px 20px rgba(0, 0, 0, 0.45)',
   },
   cardWrap: { position: 'absolute', left: space.m, right: space.m, bottom: space.m },
+  // 右下のボタン列（幅44）と重ならないよう、右側を空けて左下に置く
+  nudgeWrap: { position: 'absolute', left: space.m, right: 44 + space.l * 2, bottom: space.m, maxWidth: 420 },
 });

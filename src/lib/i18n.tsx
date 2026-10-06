@@ -147,6 +147,13 @@ const dictionary = {
       showHelp: '説明を表示',
     },
     map: {
+      // 登録したのにまだ投稿していない人への案内（components/FirstPostNudge.tsx）
+      firstPostTitle: '最初の1か所を残してみませんか',
+      firstPostBody: '人の気配が消えた、不思議な場所を知っていたら。写真が無くても、SNSに投稿した写真のURLで投稿できます。',
+      firstPostButton: '投稿する',
+      firstPostClose: '閉じる',
+      // ランダムに1か所を開くボタン
+      randomSpot: 'どこかへ迷い込む',
       searchPlaceholder: '住所や施設名で検索',
       filterAll: 'すべて',
       // 地図の絞り込みボタン。キーは tags テーブルのタグ名（日本語）
@@ -294,6 +301,8 @@ const dictionary = {
         '最大{n}件まで追加できます。Instagram・Xで話題になっている場所であれば、関連する投稿のURLを追加すると詳細画面に埋め込み表示されます。',
       embedPlaceholder: 'https://www.instagram.com/p/... または https://x.com/.../status/...',
       mediaRequiredNote: '写真またはSNS投稿のいずれか一方は必須です',
+      guideTitle: '必要なのは「場所」と「写真」だけ',
+      guideBody: '写真が手元に無くても、XやInstagramに投稿した写真のURLを貼れば代わりになります。名前や説明は空でも投稿でき、あとから編集できます。',
       hashtags: 'ハッシュタグ',
       hashtagsHelp: '最大{n}個まで追加できます。雰囲気を表すキーワードを追加すると、検索で見つけてもらいやすくなります。',
       hashtagPlaceholder: 'ハッシュタグを入力（新規作成も可）',
@@ -507,6 +516,11 @@ const dictionary = {
       showHelp: 'Show help',
     },
     map: {
+      firstPostTitle: 'Add your first place?',
+      firstPostBody: 'If you know an eerie place emptied of people, share it. No photo needed: the URL of a photo you posted on social media works too.',
+      firstPostButton: 'Post',
+      firstPostClose: 'Close',
+      randomSpot: 'Wander somewhere',
       searchPlaceholder: 'Search by address or place name',
       filterAll: 'All',
       filterLabels: { 廃墟: 'Abandoned', 地下: 'Underground', 駅: 'Stations', 集合住宅: 'Housing', 廃工場: 'Factories' } as Record<string, string>,
@@ -653,6 +667,8 @@ const dictionary = {
         'You can add up to {n}. If this spot is featured on Instagram or X, add the URL of a related post to embed it on the detail screen.',
       embedPlaceholder: 'https://www.instagram.com/p/... or https://x.com/.../status/...',
       mediaRequiredNote: 'A photo or an SNS embed is required',
+      guideTitle: 'All you need is a place and a photo',
+      guideBody: 'No photo on hand? Paste the URL of a photo you posted on X or Instagram instead. The name and description are optional, and you can edit them later.',
       hashtags: 'Hashtags',
       hashtagsHelp: 'You can add up to {n}. Adding keywords that describe the mood helps others find this spot through search.',
       hashtagPlaceholder: 'Enter a hashtag (you can create new ones)',

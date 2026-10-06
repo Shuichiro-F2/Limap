@@ -376,6 +376,15 @@ export default function CreateSpotScreen({ navigation, route }: Props) {
         keyboardShouldPersistTaps="handled"
         automaticallyAdjustKeyboardInsets
       >
+        {/* 投稿のハードルを下げるための案内。必須は「場所」と「写真またはSNSの投稿URL」の2つだけで、
+            写真が手元に無くても、SNSに投稿した写真のURLで代わりになることを最初に伝える */}
+        <View style={styles.guideCard}>
+          <Text style={styles.guideTitle}>{t.createSpot.guideTitle}</Text>
+          <Text variant="body" style={styles.guideBody}>
+            {t.createSpot.guideBody}
+          </Text>
+        </View>
+
         <FormSection first title={t.createSpot.sectionSpot}>
           <FormField label={t.createSpot.name} help={t.createSpot.nameHelp}>
             <FormInput
@@ -604,6 +613,16 @@ export default function CreateSpotScreen({ navigation, route }: Props) {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: colors.background },
   flex: { flex: 1 },
+  guideCard: {
+    backgroundColor: colors.surface,
+    borderRadius: radius.m,
+    padding: space.m,
+    marginBottom: space.m,
+    borderLeftWidth: 3,
+    borderLeftColor: colors.accent,
+  },
+  guideTitle: { color: colors.textPrimary, fontSize: type.body, marginBottom: 4 },
+  guideBody: { color: colors.textSecondary, fontSize: type.small, lineHeight: 20 },
   accessInput: { minHeight: 80 },
   locationRow: { flexDirection: 'row', gap: space.s },
   coordsRow: { flexDirection: 'row', alignItems: 'center', gap: 6 },
