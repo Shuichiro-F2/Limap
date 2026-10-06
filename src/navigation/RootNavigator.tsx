@@ -10,6 +10,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Ionicons } from '@expo/vector-icons';
 import { useAuth } from '../lib/AuthContext';
 import AuthScreen from '../screens/AuthScreen';
+import NotificationsScreen from '../screens/NotificationsScreen';
 import WelcomeScreen from '../screens/WelcomeScreen';
 import MainTabNavigator from './MainTabNavigator';
 import SpotDetailScreen from '../screens/SpotDetailScreen';
@@ -75,6 +76,7 @@ const linking: LinkingOptions<RootStackParamList> = {
       EditProfile: 'edit-profile',
       FollowList: 'user/:userId/:mode',
       BlockedUsers: 'blocked-users',
+      Notifications: 'notifications',
       Contact: 'contact',
       AdminInbox: 'admin/inbox',
       AdminThread: 'admin/thread/:threadId',
@@ -245,6 +247,15 @@ export default function RootNavigator() {
           component={EditProfileScreen}
           options={{
             title: t.navigation.editProfile,
+            headerStyle: { backgroundColor: colors.background },
+            headerTintColor: colors.textPrimary,
+          }}
+        />
+        <Stack.Screen
+          name="Notifications"
+          component={NotificationsScreen}
+          options={{
+            title: t.notifications.headerTitle,
             headerStyle: { backgroundColor: colors.background },
             headerTintColor: colors.textPrimary,
           }}

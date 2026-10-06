@@ -18,6 +18,7 @@ import Text from '../components/AppText';
 import { HEADER_CONTENT_HEIGHT } from '../components/AppHeader';
 import { fetchSpotsByAuthor, fetchLikedSpots, fetchBookmarkedSpots, fetchVisitedSpots, spotThumbnailUrl } from '../lib/spots';
 import { fetchFollowCounts, type FollowCounts } from '../lib/profiles';
+import { fetchActivity, getActivitySeenAt } from '../lib/activity';
 import { useAuth } from '../lib/AuthContext';
 import { useTranslation } from '../lib/i18n';
 import { colors, space, type } from '../lib/theme';
@@ -51,6 +52,8 @@ export default function MyPageScreen({ navigation }: Props) {
   const [refreshing, setRefreshing] = useState(false);
   const [pageIndex, setPageIndex] = useState(0);
   const [followCounts, setFollowCounts] = useState<FollowCounts>({ followers: 0, following: 0 });
+  // 最後にお知らせを開いてから、新しいいいね・フォローなどがあるか
+  const [hasNewActivity, setHasNewActivity] = useState(false);
 
   const pagerRef = useRef<ScrollView>(null);
   const scrollX = useRef(new Animated.Value(0)).current;
@@ -69,6 +72,10 @@ export default function MyPageScreen({ navigation }: Props) {
     setLikedSpots(liked);
     setBookmarkedSpots(bookmarked);
     setVisitedSpots(visited);
+    // お知らせの新着の有無（失敗しても、印を出さないだけ）
+    Promise.all([fetchActivity(userId), getActivitySeenAt(userId)])
+      .then(([items, seenAt]) => setHasNewActivity(!!items[0] && (!seenAt || items[0].at > seenAt)))
+      .catch(() => setHasNewActivity(false));
   }, [session?.user?.id]);
 
   // マウント時と画面に戻ってきたときの両方をこの1箇所でまとめて処理する
@@ -126,9 +133,10 @@ export default function MyPageScreen({ navigation }: Props) {
   );
 
   // タブの下線インジケーター：横スワイプの位置(scrollX)に連動して自然に滑らせる
+  // タブの数に合わせて区切りを作る（タブを足しても、下線が最後のタブまで動くように）
   const indicatorTranslateX = scrollX.interpolate({
-    inputRange: [0, screenWidth, screenWidth * 2],
-    outputRange: [0, screenWidth / TABS.length, (screenWidth / TABS.length) * 2],
+    inputRange: TABS.map((_, i) => screenWidth * i),
+    outputRange: TABS.map((_, i) => (screenWidth / TABS.length) * i),
     extrapolate: 'clamp',
   });
 
@@ -161,6 +169,13 @@ export default function MyPageScreen({ navigation }: Props) {
           icon="create-outline"
           label={t.profile.editProfile}
           onPress={() => navigation.navigate('EditProfile')}
+        />
+        <Button
+          compact
+          variant="secondary"
+          icon={hasNewActivity ? 'notifications' : 'notifications-outline'}
+          label={hasNewActivity ? t.profile.notificationsNew : t.profile.notifications}
+          onPress={() => navigation.navigate('Notifications')}
         />
       </ProfileHeader>
 

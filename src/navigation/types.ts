@@ -40,6 +40,8 @@ export type RootStackParamList = {
   EditProfile: undefined;
   FollowList: { userId: string; mode: 'followers' | 'following' };
   BlockedUsers: undefined;
+  // アプリ内のお知らせ（自分の投稿へのいいね・行ってきた投稿、新しいフォロワー）
+  Notifications: undefined;
   Contact: undefined;
   // 運営(is_admin)専用の問い合わせ管理画面。
   AdminInbox: undefined;
