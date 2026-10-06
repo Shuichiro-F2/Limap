@@ -692,3 +692,12 @@ export async function fetchVisitedSpots(userId: string): Promise<Spot[]> {
   if (error) throw error;
   return normalizeSpots((data ?? []).map((r: any) => r.spot).filter(Boolean));
 }
+
+// スポットの「情報が変わった」という知らせ（supabase/migrations/0045_add_spot_updates.sql）。
+// 通報（reports）とは別で、運営が確かめてから説明文などを直す。未ログインでも送れる。
+export type SpotUpdateKind = 'demolished' | 'closed' | 'no_entry' | 'reopened';
+
+export async function sendSpotUpdate(spotId: string, kind: SpotUpdateKind, reporterId: string | null) {
+  const { error } = await supabase.from('spot_updates').insert({ spot_id: spotId, kind, reporter_id: reporterId });
+  if (error) throw error;
+}

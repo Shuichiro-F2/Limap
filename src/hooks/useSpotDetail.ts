@@ -8,6 +8,8 @@ import {
   isSpotBookmarked,
   toggleVisit,
   isSpotVisited,
+  sendSpotUpdate,
+  type SpotUpdateKind,
   reportSpot,
   deleteSpot,
 } from '../lib/spots';
@@ -161,6 +163,20 @@ export function useSpotDetail(
     }
   };
 
+  // 「情報が変わった」という知らせを送る。未ログインでも送れる。送れたら true
+  const handleSpotUpdate = async (kind: SpotUpdateKind): Promise<boolean> => {
+    if (!spot) return false;
+    try {
+      await sendSpotUpdate(spot.id, kind, session?.user?.id ?? null);
+      notify(t.spotUpdateThanksTitle, t.spotUpdateThanksMessage);
+      return true;
+    } catch (e) {
+      console.warn('情報の知らせの送信エラー', e);
+      notify(t.spotUpdateFailedTitle);
+      return false;
+    }
+  };
+
   const handleReport = async (reason: ReportReason) => {
     if (!spot) return;
     if (!session?.user) {
@@ -204,6 +220,7 @@ export function useSpotDetail(
     handleLike,
     handleBookmark,
     handleVisit,
+    handleSpotUpdate,
     handleReport,
     isOwner,
     deleting,

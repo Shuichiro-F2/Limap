@@ -45,6 +45,8 @@ const EMBED_FALLBACK_HEIGHT = 420;
 
 // 通報理由の表示順。ラベルは i18n の spotDetail.reportReasons
 const REPORT_REASONS: ReportReason[] = ['privacy', 'wrong_location', 'inappropriate', 'spam', 'other'];
+// 「情報が変わった」という知らせの種類（lib/spots.ts の SpotUpdateKind）
+const SPOT_UPDATE_KINDS = ['demolished', 'closed', 'no_entry', 'reopened'] as const;
 
 // 戻る・共有ボタンや写真の枚数表示の下地（黄色背景の墨色を半透明にしたもの）
 const OVERLAY_BG = 'rgba(29,27,14,0.72)';
@@ -66,6 +68,8 @@ type Props = {
   // 「行った」の記録（本人にだけ見える）。渡さない画面ではボタンを出さない
   visited?: boolean;
   onVisit?: () => void;
+  // 「情報が変わった」という知らせを送る。渡さない画面ではメニューに出さない
+  onSpotUpdate?: (kind: (typeof SPOT_UPDATE_KINDS)[number]) => Promise<boolean>;
   showReport: boolean;
   onToggleReport: () => void;
   onLike: () => void;
@@ -126,6 +130,7 @@ export default function SpotDetailContent({
   bookmarked,
   visited = false,
   onVisit,
+  onSpotUpdate,
   showReport,
   onToggleReport,
   onLike,
@@ -161,6 +166,7 @@ export default function SpotDetailContent({
   // PCなど横幅の広い画面では、画像や本文が横に間延びしないよう最大幅で中央寄せする。
   const contentWidth = Math.min(screenWidth, MAX_CONTENT_WIDTH);
   const [showMenu, setShowMenu] = useState(false);
+  const [showSpotUpdate, setShowSpotUpdate] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   // 表示中の写真・SNS埋め込みの番号。「1 / 3」の表示に使う。
   const [activeImageIndex, setActiveImageIndex] = useState(0);
@@ -596,6 +602,18 @@ export default function SpotDetailContent({
                     <Text style={styles.menuItemText}>{t.copyLink}</Text>
                   </Pressable>
                 )}
+                {onSpotUpdate && (
+                  <Pressable
+                    style={styles.menuItem}
+                    onPress={() => {
+                      setShowMenu(false);
+                      setShowSpotUpdate(true);
+                    }}
+                  >
+                    <Ionicons name="information-circle-outline" size={18} color={colors.textPrimary} />
+                    <Text style={styles.menuItemText}>{t.spotUpdateMenu}</Text>
+                  </Pressable>
+                )}
                 {isOwner && onEdit && (
                   <Pressable
                     style={styles.menuItem}
@@ -631,6 +649,26 @@ export default function SpotDetailContent({
                     <Text style={[styles.menuItemText, styles.menuItemDangerText]}>{t.report}</Text>
                   </Pressable>
                 )}
+              </View>
+            )}
+
+            {showSpotUpdate && onSpotUpdate && (
+              <View style={styles.darkPanel}>
+                <Text style={styles.panelTitle}>{t.spotUpdateTitle}</Text>
+                {SPOT_UPDATE_KINDS.map((kind) => (
+                  <Pressable
+                    key={kind}
+                    style={styles.reportOption}
+                    onPress={async () => {
+                      if (await onSpotUpdate(kind)) setShowSpotUpdate(false);
+                    }}
+                  >
+                    <Text variant="body" style={styles.reportOptionText}>{t.spotUpdateKinds[kind]}</Text>
+                  </Pressable>
+                ))}
+                <Pressable style={styles.reportOption} onPress={() => setShowSpotUpdate(false)}>
+                  <Text variant="body" style={styles.reportOptionText}>{t.cancel}</Text>
+                </Pressable>
               </View>
             )}
 

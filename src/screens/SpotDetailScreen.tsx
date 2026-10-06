@@ -31,6 +31,7 @@ export default function SpotDetailScreen({ route, navigation }: Props) {
     handleLike,
     handleBookmark,
     handleVisit,
+    handleSpotUpdate,
     handleReport,
     isOwner,
     deleting,
@@ -180,6 +181,7 @@ export default function SpotDetailScreen({ route, navigation }: Props) {
         bookmarked={bookmarked}
         visited={visited}
         onVisit={handleVisit}
+        onSpotUpdate={handleSpotUpdate}
         showReport={showReport}
         onToggleReport={() => setShowReport(!showReport)}
         onLike={handleLike}
