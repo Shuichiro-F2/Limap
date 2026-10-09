@@ -137,7 +137,7 @@ const ARTICLE_ENTRIES: ArticleSummary[] = [
     publishedDate: '2026-08-26',
     categoryJa: '実在スポット',
     categoryEn: 'Real Spots',
-    titleJa: 'バックルームは実在する？元ネタ写真の撮影場所と、日本で「黄色い部屋」に近い場所',
+    titleJa: 'バックルームは実在する？部屋は創作、元の写真はアメリカに実在｜日本で似た場所',
     titleEn: 'Are the Backrooms Real? Where the Original Photo Was Taken, and Places in Japan That Feel the Same',
     leadJa:
       '黄色い壁紙と蛍光灯の低い唸り音だけが響く、終わりのない部屋――「バックルームズ」は日本にも実在するのか。都市伝説としての成り立ちと、似た空気感を味わえる実在スポットを紹介します。',
@@ -233,7 +233,7 @@ const ARTICLE_ENTRIES: ArticleSummary[] = [
     publishedDate: '2026-09-06',
     categoryJa: '基礎知識',
     categoryEn: 'Basics',
-    titleJa: 'プールルーム（プールルームズ）とは？青いタイルの水の空間の正体と、日本で近い場所',
+    titleJa: 'プールルームとは？元ネタは2020年のCG作品「Dream Pools」｜怖い理由と日本で近い場所',
     titleEn:
       'What Are the Poolrooms? Where the Blue-Tiled Water Spaces Came From, and Where to Feel Them in Japan',
     leadJa:
@@ -247,7 +247,7 @@ const ARTICLE_ENTRIES: ArticleSummary[] = [
     publishedDate: '2026-09-06',
     categoryJa: '事例紹介',
     categoryEn: 'Examples',
-    titleJa: 'バックルームズの元ネタ写真はどこで撮られた？2024年に特定された実在の建物',
+    titleJa: 'バックルームズの元ネタ写真はどこで撮られた？2024年に特定された撮影場所（アメリカ・ウィスコンシン州）',
     titleEn:
       'Where Was the Original Backrooms Photo Taken? The Real Building, Identified in 2024',
     leadJa:
@@ -289,7 +289,7 @@ const ARTICLE_ENTRIES: ArticleSummary[] = [
     publishedDate: '2026-09-06',
     categoryJa: '基礎知識',
     categoryEn: 'Basics',
-    titleJa: 'ノークリップ（noclip）とは？意味と語源、ゲーム用語が「現実の裏側」を指すようになるまで',
+    titleJa: 'ノークリップ（noclip）とは？意味は「壁をすり抜ける」、語源とバックルームズでの使われ方',
     titleEn:
       'Noclip Meaning: What Does Noclip (No Clipping) Mean, and Where Did It Come From?',
     leadJa:
@@ -304,7 +304,7 @@ const ARTICLE_ENTRIES: ArticleSummary[] = [
     categoryJa: 'ゲーム',
     categoryEn: 'Games',
     titleJa:
-      'リミナルスペースを歩けるゲーム7選｜『8番出口』『Pools』『Escape the Backrooms』ほか、怖さと日本語対応まで',
+      'リミナルスペースのゲーム7選【2026年】8番出口・Pools・Escape the Backrooms、怖さと日本語対応',
     titleEn:
       '7 Games Where You Can Walk Through Liminal Spaces: The Exit 8, Pools, Escape the Backrooms and More',
     leadJa:
