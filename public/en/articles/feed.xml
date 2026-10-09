@@ -6,7 +6,15 @@
     <atom:link href="https://limap.jp/en/articles/feed.xml" rel="self" type="application/rss+xml" />
     <description>What liminal spaces are, where the word comes from, how they differ from the Backrooms and dreamcore, and real examples in Japan. Articles by LIMap.</description>
     <language>en</language>
-    <lastBuildDate>Sun, 04 Oct 2026 00:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 09 Oct 2026 00:00:00 GMT</lastBuildDate>
+    <item>
+      <title>Liminal Observation Decks in Japan: 10 Quiet Viewing Rooms, From Prefectural Office Top Floors to Port Towers</title>
+      <link>https://limap.jp/en/articles/observation-deck-liminal-spaces/</link>
+      <guid isPermaLink="true">https://limap.jp/en/articles/observation-deck-liminal-spaces/</guid>
+      <pubDate>Fri, 09 Oct 2026 00:00:00 GMT</pubDate>
+      <category>Real Spots</category>
+      <description>Free top-floor lobbies in prefectural government buildings, port towers open late into the night, and a viewing deck where the railway tracks stop in mid-air. Ten observation rooms in Japan that fall silent when few people are around, with hours, fees and tips for visiting.</description>
+    </item>
     <item>
       <title>Abandoned Schools as Liminal Spaces: 9 Real Empty Schoolhouses in Japan</title>
       <link>https://limap.jp/en/articles/abandoned-school-liminal-spaces/</link>
@@ -238,14 +246,6 @@
       <pubDate>Sun, 06 Sep 2026 00:00:00 GMT</pubDate>
       <category>Examples</category>
       <description>One photograph posted to 4chan in 2019 created the Backrooms. Its location stayed unknown for five years, until internet researchers pinned it down in 2024. Here is where, when, and why that picture was taken.</description>
-    </item>
-    <item>
-      <title>Backrooms vs Exit 8: Two Endless Spaces That Work in Opposite Ways</title>
-      <link>https://limap.jp/en/articles/backrooms-vs-exit-8/</link>
-      <guid isPermaLink="true">https://limap.jp/en/articles/backrooms-vs-exit-8/</guid>
-      <pubDate>Sun, 06 Sep 2026 00:00:00 GMT</pubDate>
-      <category>Comparisons</category>
-      <description>Empty, uniform, no visible way out. The Backrooms and Exit 8 get compared constantly, but their fear is structured in opposite ways. Here is how each came about, and what actually separates them.</description>
     </item>
   </channel>
 </rss>

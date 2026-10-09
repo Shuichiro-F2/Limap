@@ -626,6 +626,19 @@ const ARTICLE_ENTRIES: ArticleSummary[] = [
       'A wooden schoolhouse you can tour, a round school in a mining town, northern branch schools in the wilds: nine empty schools in Japan.',
     thumbnailFile: '沼東小学校／校舎.jpg',
   },
+  {
+    slug: 'observation-deck-liminal-spaces',
+    publishedDate: '2026-10-09',
+    categoryJa: '実在スポット',
+    categoryEn: 'Real Spots',
+    titleJa: '展望室のリミナルスペース｜県庁の最上階から港のタワーまで、人の少ない実在の10か所',
+    titleEn: 'Liminal Observation Decks in Japan: 10 Quiet Viewing Rooms, From Prefectural Office Top Floors to Port Towers',
+    leadJa:
+      '無料で上がれる県庁の最上階、夜まで開く港のタワー、線路の途切れた鉄橋の展望台。人の少ない時間の展望室10か所を紹介します。',
+    leadEn:
+      'Free top-floor lobbies in prefectural offices, port towers open late, and a deck where the tracks stop in mid-air: ten quiet observation rooms.',
+    thumbnailFile: 'Observation Floor of Higashiyama Sky Tower - 1.jpg',
+  },
 ];
 
 // 一覧は新着順(publishedDate の降順)で表示する。Array#sort は安定なので、

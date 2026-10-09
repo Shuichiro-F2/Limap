@@ -1,6 +1,12 @@
 {
   "articles": [
     {
+      "slug": "observation-deck-liminal-spaces",
+      "lastmod": "2026-10-09",
+      "titleJa": "展望室のリミナルスペース｜県庁の最上階から港のタワーまで、人の少ない実在の10か所",
+      "titleEn": "Liminal Observation Decks in Japan: 10 Quiet Viewing Rooms, From Prefectural Office Top Floors to Port Towers"
+    },
+    {
       "slug": "abandoned-school-liminal-spaces",
       "lastmod": "2026-10-04",
       "titleJa": "廃校のリミナルスペース｜誰もいない校舎を眺める、実在の9か所",
@@ -86,13 +92,13 @@
     },
     {
       "slug": "liminal-spots-tokai",
-      "lastmod": "2026-09-28",
+      "lastmod": "2026-10-09",
       "titleJa": "静岡・東海のリミナルスペース——光のエスカレーターから昭和の駅舎まで、実在する8か所",
       "titleEn": "Liminal Spaces in Shizuoka and Tokai: 8 Real Places, From Escalators of Light to a Showa-Era Station"
     },
     {
       "slug": "liminal-spots-kitakanto",
-      "lastmod": "2026-09-28",
+      "lastmod": "2026-10-09",
       "titleJa": "北関東のリミナルスペース——地下の採掘場跡から県庁の最上階まで、実在する9か所",
       "titleEn": "Liminal Spaces in North Kanto: 9 Real Places, From an Underground Quarry to the Top Floors of Prefectural Offices"
     },
@@ -116,7 +122,7 @@
     },
     {
       "slug": "liminal-spots-tohoku",
-      "lastmod": "2026-09-28",
+      "lastmod": "2026-10-09",
       "titleJa": "東北のリミナルスペース——もう出航しない連絡船から白い美術館まで、実在する8か所",
       "titleEn": "Liminal Spaces in Tohoku: 8 Real Places, From a Ferry That Will Never Sail to a White Art Museum"
     },
@@ -134,13 +140,13 @@
     },
     {
       "slug": "liminal-spots-nagoya",
-      "lastmod": "2026-09-27",
+      "lastmod": "2026-10-09",
       "titleJa": "名古屋のリミナルスペース——地下街から昭和の庁舎まで、実在する8か所",
       "titleEn": "Liminal Spaces in Nagoya: 8 Real Places, From Underground Malls to Showa-Era Public Buildings"
     },
     {
       "slug": "liminal-spots-kansai",
-      "lastmod": "2026-09-27",
+      "lastmod": "2026-10-09",
       "titleJa": "関西でリミナルスペースを撮るなら——大阪・兵庫・奈良・滋賀の実在スポット",
       "titleEn": "Where to Photograph Liminal Spaces in Kansai: Real Spots in Osaka, Hyogo, Nara and Shiga"
     },
@@ -272,6 +278,46 @@
     }
   ],
   "spotArticles": {
+    "GUck25bU": [
+      "observation-deck-liminal-spaces",
+      "liminal-spots-tokai"
+    ],
+    "piDZag2m": [
+      "observation-deck-liminal-spaces",
+      "liminal-spots-kitakanto"
+    ],
+    "qT48wnpH": [
+      "observation-deck-liminal-spaces",
+      "liminal-spots-kitakanto"
+    ],
+    "SAqp6opk": [
+      "observation-deck-liminal-spaces",
+      "liminal-spots-tohoku"
+    ],
+    "AreEbsxm": [
+      "observation-deck-liminal-spaces",
+      "liminal-spots-hokuriku-koshinetsu"
+    ],
+    "Ej6x5s75": [
+      "observation-deck-liminal-spaces",
+      "liminal-spots-tokai"
+    ],
+    "X8fbHEwM": [
+      "observation-deck-liminal-spaces",
+      "liminal-spots-kyushu"
+    ],
+    "trD2fyrV": [
+      "observation-deck-liminal-spaces",
+      "liminal-spots-nagoya"
+    ],
+    "b9ekkcic": [
+      "observation-deck-liminal-spaces",
+      "liminal-spots-kitakanto"
+    ],
+    "kk5yFE6g": [
+      "observation-deck-liminal-spaces",
+      "liminal-spots-kansai"
+    ],
     "NypNZ4hq": [
       "abandoned-school-liminal-spaces"
     ],
@@ -564,16 +610,10 @@
     "LVa5rVA7": [
       "liminal-spots-tokai"
     ],
-    "GUck25bU": [
-      "liminal-spots-tokai"
-    ],
     "Y2m7YAaB": [
       "liminal-spots-tokai"
     ],
     "eiSnWa89": [
-      "liminal-spots-tokai"
-    ],
-    "Ej6x5s75": [
       "liminal-spots-tokai"
     ],
     "kFtXvGrQ": [
@@ -582,16 +622,7 @@
     "3S4gV2nM": [
       "liminal-spots-kitakanto"
     ],
-    "b9ekkcic": [
-      "liminal-spots-kitakanto"
-    ],
     "dh6nPPd6": [
-      "liminal-spots-kitakanto"
-    ],
-    "qT48wnpH": [
-      "liminal-spots-kitakanto"
-    ],
-    "piDZag2m": [
       "liminal-spots-kitakanto"
     ],
     "74Dex6Z8": [
@@ -642,9 +673,6 @@
     "JtXE5uD5": [
       "liminal-spots-hokuriku-koshinetsu"
     ],
-    "AreEbsxm": [
-      "liminal-spots-hokuriku-koshinetsu"
-    ],
     "698Asdpz": [
       "liminal-spots-hokuriku-koshinetsu"
     ],
@@ -684,9 +712,6 @@
     "UZJT2Ht2": [
       "liminal-spots-tohoku"
     ],
-    "SAqp6opk": [
-      "liminal-spots-tohoku"
-    ],
     "HDnTRVqb": [
       "liminal-spots-tohoku"
     ],
@@ -698,9 +723,6 @@
     ],
     "sTsoVeXe": [
       "liminal-spots-tohoku"
-    ],
-    "X8fbHEwM": [
-      "liminal-spots-kyushu"
     ],
     "yU2GmJuC": [
       "liminal-spots-kyushu"
@@ -747,9 +769,6 @@
     "uW3b7GY2": [
       "liminal-spots-nagoya"
     ],
-    "trD2fyrV": [
-      "liminal-spots-nagoya"
-    ],
     "ZSXELtqx": [
       "liminal-spots-nagoya"
     ],
@@ -767,9 +786,6 @@
       "backrooms-levels-explained",
       "backrooms-movie-guide",
       "backrooms-in-japan"
-    ],
-    "kk5yFE6g": [
-      "liminal-spots-kansai"
     ],
     "tZU5uY9m": [
       "liminal-spots-kansai",
@@ -805,7 +821,7 @@
   "categories": [
     {
       "slug": "real-spots",
-      "lastmod": "2026-10-04"
+      "lastmod": "2026-10-09"
     },
     {
       "slug": "comparisons",

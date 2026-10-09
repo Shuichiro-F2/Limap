@@ -6,7 +6,15 @@
     <atom:link href="https://limap.jp/articles/feed.xml" rel="self" type="application/rss+xml" />
     <description>リミナルスペースの意味や語源、バックルームズ・ドリームコアとの違い、日本での事例まで。LIMapがまとめる読みもの記事の一覧です。</description>
     <language>ja</language>
-    <lastBuildDate>Sun, 04 Oct 2026 00:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Fri, 09 Oct 2026 00:00:00 GMT</lastBuildDate>
+    <item>
+      <title>展望室のリミナルスペース｜県庁の最上階から港のタワーまで、人の少ない実在の10か所</title>
+      <link>https://limap.jp/articles/observation-deck-liminal-spaces/</link>
+      <guid isPermaLink="true">https://limap.jp/articles/observation-deck-liminal-spaces/</guid>
+      <pubDate>Fri, 09 Oct 2026 00:00:00 GMT</pubDate>
+      <category>実在スポット</category>
+      <description>無料で上がれる県庁の最上階、夜まで開いている港のタワー、線路の途切れた鉄橋の展望台。人の少ない時間に静まり返る展望室10か所を、開いている時間・料金・行くときの注意とともに紹介します。</description>
+    </item>
     <item>
       <title>廃校のリミナルスペース｜誰もいない校舎を眺める、実在の9か所</title>
       <link>https://limap.jp/articles/abandoned-school-liminal-spaces/</link>
@@ -238,14 +246,6 @@
       <pubDate>Sun, 06 Sep 2026 00:00:00 GMT</pubDate>
       <category>事例紹介</category>
       <description>2019年に4chanへ投稿され、バックルームズという都市伝説を生んだ1枚の写真。その撮影場所は5年間不明でしたが、2024年に特定されました。どこで、いつ、なぜ撮られた写真だったのかをまとめます。</description>
-    </item>
-    <item>
-      <title>バックルームズと『8番出口』は何が違う？似ているようで正反対な2つの無限空間</title>
-      <link>https://limap.jp/articles/backrooms-vs-exit-8/</link>
-      <guid isPermaLink="true">https://limap.jp/articles/backrooms-vs-exit-8/</guid>
-      <pubDate>Sun, 06 Sep 2026 00:00:00 GMT</pubDate>
-      <category>違いを知る</category>
-      <description>無人の空間、終わらない通路、出口の見えなさ。バックルームズと『8番出口』はよく並べて語られますが、恐怖の構造は正反対です。両者の成り立ちと決定的な違いを整理しました。</description>
     </item>
   </channel>
 </rss>
