@@ -98,6 +98,8 @@ npx tsc --noEmit       # 型チェック
 
 記事を出したら、push に加えて `eas update` までがワンセット（アプリのコラムタブに反映するため）。
 
+2026-10-10 から、Claude デスクトップアプリの予約タスクが記事の下書きを自動で作る（「【週2回】LIMap 新しいコラム記事の下書き」月・金 10時、「【週1回】LIMap 既存のコラム記事の改善」水 10時）。どちらも `git worktree` で `/Users/Shu/Developer/limap-worktrees/` に `article-draft/…`・`article-improve/…` のブランチを作って作業し、push・SQL の実行はせずに Shu へ報告する。Shu が承認したら、その会話で rebase して `git push origin <ブランチ>:main` する。手で記事を書くときも、公開前の下書きブランチと題材が重ならないか `git branch --list 'article-*'` で確かめる。
+
 ## 公式スポットの追加・説明文
 
 2026-09-27 に公式スポット265件の説明文を点検したところ、約4割に事実の誤り（営業中なのに「廃墟」、解体済みなのに「残っている」、年代・駅名の誤りなど）があり、実在しない場所（SNS上の創作）も1件含まれていた。また15件は他サイト（廃墟検索地図）の文章とほぼ同じだった。修正の記録は `supabase/migrations/0023_fix_official_spot_descriptions.sql`。公式スポットを追加・編集するときは次を守る：
