@@ -19,6 +19,7 @@
 
 ## コラム記事
 
+- [廃線跡のリミナルスペース｜竹林のレールから明治のトンネルまで、列車の来ない実在の10か所](https://limap.jp/articles/abandoned-railway-liminal-spaces/): 竹林に埋もれたレール、明治のレンガのトンネル、湖に沈むアーチ橋、街なかに残る踏切。もう列車の来ない廃線跡10か所を、歩ける区間・開いている時間・料金・立ち入ってはいけない場所とともに紹介します。
 - [展望室のリミナルスペース｜県庁の最上階から港のタワーまで、人の少ない実在の10か所](https://limap.jp/articles/observation-deck-liminal-spaces/): 無料で上がれる県庁の最上階、夜まで開いている港のタワー、線路の途切れた鉄橋の展望台。人の少ない時間に静まり返る展望室10か所を、開いている時間・料金・行くときの注意とともに紹介します。
 - [廃校のリミナルスペース｜誰もいない校舎を眺める、実在の9か所](https://limap.jp/articles/abandoned-school-liminal-spaces/): 中を見学できる木造校舎「しゃくなげ學校」、炭鉱の街の円形校舎、原野に残る北の分校、山あいの小さな木造分校まで。誰もいない学校の9か所を、見られる場所と守りたいルールとともに紹介します。
 - [東京のリミナルスペース｜駅の地下通路から屋上の観覧車まで、実在する8か所](https://limap.jp/articles/liminal-spots-tokyo/): 東京で「リミナルスペース」を感じられる実在の場所を、LIMapの登録スポットから8か所紹介します。成田新幹線の予定地を使った東京駅の京葉線通路、駐車場を改修した丸の内の地下通路、1955年開業の浅草地下街、屋上の観覧車まで。行くときの注意点も。
@@ -70,6 +71,7 @@
 
 LIMap is a map for finding and sharing liminal spaces: abandoned buildings, empty stations, late-night parking lots and other eerie, nostalgic places. English versions of the articles are at https://limap.jp/en/articles/ (each page links to its Japanese version with hreflang).
 
+- [Liminal Abandoned Railways in Japan: 10 Real Places Where Trains No Longer Run, From Bamboo-Lined Rails to Meiji-Era Tunnels](https://limap.jp/en/articles/abandoned-railway-liminal-spaces/): Rails buried in a bamboo grove, a Meiji-era brick tunnel, an arch bridge that sinks into a lake, level crossings left in the middle of a city. Ten disused railways in Japan where trains no longer run, with walkable sections, hours, fees and places you must not enter.
 - [Liminal Observation Decks in Japan: 10 Quiet Viewing Rooms, From Prefectural Office Top Floors to Port Towers](https://limap.jp/en/articles/observation-deck-liminal-spaces/): Free top-floor lobbies in prefectural government buildings, port towers open late into the night, and a viewing deck where the railway tracks stop in mid-air. Ten observation rooms in Japan that fall silent when few people are around, with hours, fees and tips for visiting.
 - [Abandoned Schools as Liminal Spaces: 9 Real Empty Schoolhouses in Japan](https://limap.jp/en/articles/abandoned-school-liminal-spaces/): A wooden schoolhouse you can tour inside, a round school in a coal-mining town, northern branch schools left in the wilds, small wooden schools in the hills. Nine empty schools in Japan, with where to see them and the rules to keep.
 - [Liminal Spaces in Tokyo: 8 Real Places, From Deep Station Passages to a Rooftop Ferris Wheel](https://limap.jp/en/articles/liminal-spots-tokyo/): Eight real places in Tokyo where you can feel a liminal atmosphere, chosen from spots on LIMap: the Keiyo Line passage built in space meant for the Narita Shinkansen, a Marunouchi walkway converted from a car park, the Asakusa underground street from 1955, and a rooftop Ferris wheel. Plus practical notes for visiting.

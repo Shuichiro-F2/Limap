@@ -639,6 +639,19 @@ const ARTICLE_ENTRIES: ArticleSummary[] = [
       'Free top-floor lobbies in prefectural offices, port towers open late, and a deck where the tracks stop in mid-air: ten quiet observation rooms.',
     thumbnailFile: 'Observation Floor of Higashiyama Sky Tower - 1.jpg',
   },
+  {
+    slug: 'abandoned-railway-liminal-spaces',
+    publishedDate: '2026-10-12',
+    categoryJa: '実在スポット',
+    categoryEn: 'Real Spots',
+    titleJa: '廃線跡のリミナルスペース｜竹林のレールから明治のトンネルまで、列車の来ない実在の10か所',
+    titleEn: 'Liminal Abandoned Railways in Japan: 10 Real Places Where Trains No Longer Run, From Bamboo-Lined Rails to Meiji-Era Tunnels',
+    leadJa:
+      '竹林のレール、明治のトンネル、湖に沈むアーチ橋、街なかの踏切。もう列車の来ない、歩いて訪ねられる廃線跡10か所を紹介します。',
+    leadEn:
+      'Rails in a bamboo grove, a Meiji-era tunnel, an arch bridge that sinks into a lake: ten disused railways in Japan you can visit on foot.',
+    thumbnailFile: 'Tottori-Kurayoshi Line abandoned trace. (Bamboo forest.)-xl.jpg',
+  },
 ];
 
 // 一覧は新着順(publishedDate の降順)で表示する。Array#sort は安定なので、

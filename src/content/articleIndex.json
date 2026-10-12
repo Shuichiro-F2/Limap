@@ -1,6 +1,12 @@
 {
   "articles": [
     {
+      "slug": "abandoned-railway-liminal-spaces",
+      "lastmod": "2026-10-12",
+      "titleJa": "廃線跡のリミナルスペース｜竹林のレールから明治のトンネルまで、列車の来ない実在の10か所",
+      "titleEn": "Liminal Abandoned Railways in Japan: 10 Real Places Where Trains No Longer Run, From Bamboo-Lined Rails to Meiji-Era Tunnels"
+    },
+    {
       "slug": "observation-deck-liminal-spaces",
       "lastmod": "2026-10-09",
       "titleJa": "展望室のリミナルスペース｜県庁の最上階から港のタワーまで、人の少ない実在の10か所",
@@ -278,6 +284,46 @@
     }
   ],
   "spotArticles": {
+    "gE3dSWYN": [
+      "abandoned-railway-liminal-spaces",
+      "liminal-spots-chugoku-shikoku"
+    ],
+    "8dDucTfE": [
+      "abandoned-railway-liminal-spaces",
+      "liminal-spots-hokuriku-koshinetsu"
+    ],
+    "n5PKtWce": [
+      "abandoned-railway-liminal-spaces",
+      "liminal-spots-kitakanto"
+    ],
+    "TcnQTVk5": [
+      "abandoned-railway-liminal-spaces",
+      "liminal-spots-kitakanto"
+    ],
+    "Cfe4zrW6": [
+      "abandoned-railway-liminal-spaces",
+      "liminal-spots-hokkaido"
+    ],
+    "BQQBELWM": [
+      "abandoned-railway-liminal-spaces",
+      "submerged-liminal-spaces",
+      "liminal-spots-hokkaido"
+    ],
+    "AjQzCCkp": [
+      "abandoned-railway-liminal-spaces",
+      "liminal-spots-hokkaido"
+    ],
+    "7gRLUSMJ": [
+      "abandoned-railway-liminal-spaces",
+      "liminal-spots-kyushu"
+    ],
+    "gf7SinSV": [
+      "abandoned-railway-liminal-spaces",
+      "liminal-spots-kitakanto"
+    ],
+    "qqCxVs6h": [
+      "abandoned-railway-liminal-spaces"
+    ],
     "GUck25bU": [
       "observation-deck-liminal-spaces",
       "liminal-spots-tokai"
@@ -454,10 +500,6 @@
     "HmgSvMMV": [
       "submerged-liminal-spaces"
     ],
-    "BQQBELWM": [
-      "submerged-liminal-spaces",
-      "liminal-spots-hokkaido"
-    ],
     "qLkZzgjt": [
       "submerged-liminal-spaces"
     ],
@@ -628,15 +670,6 @@
     "74Dex6Z8": [
       "liminal-spots-kitakanto"
     ],
-    "n5PKtWce": [
-      "liminal-spots-kitakanto"
-    ],
-    "TcnQTVk5": [
-      "liminal-spots-kitakanto"
-    ],
-    "gf7SinSV": [
-      "liminal-spots-kitakanto"
-    ],
     "PHMGPkY3": [
       "liminal-spots-okinawa"
     ],
@@ -657,9 +690,6 @@
     ],
     "BEkiN7yc": [
       "liminal-spots-okinawa"
-    ],
-    "8dDucTfE": [
-      "liminal-spots-hokuriku-koshinetsu"
     ],
     "6sZbje49": [
       "liminal-spots-hokuriku-koshinetsu"
@@ -692,9 +722,6 @@
       "liminal-spots-chugoku-shikoku"
     ],
     "8pmZvV4M": [
-      "liminal-spots-chugoku-shikoku"
-    ],
-    "gE3dSWYN": [
       "liminal-spots-chugoku-shikoku"
     ],
     "oVquLazQ": [
@@ -736,9 +763,6 @@
     "ffbCQ6bM": [
       "liminal-spots-kyushu"
     ],
-    "7gRLUSMJ": [
-      "liminal-spots-kyushu"
-    ],
     "ZMkEuArd": [
       "liminal-spots-kyushu"
     ],
@@ -748,16 +772,10 @@
     "wdv4MWRW": [
       "liminal-spots-hokkaido"
     ],
-    "Cfe4zrW6": [
-      "liminal-spots-hokkaido"
-    ],
     "D4J7oXio": [
       "liminal-spots-hokkaido"
     ],
     "K9KD56uc": [
-      "liminal-spots-hokkaido"
-    ],
-    "AjQzCCkp": [
       "liminal-spots-hokkaido"
     ],
     "3nQekYXT": [
@@ -821,7 +839,7 @@
   "categories": [
     {
       "slug": "real-spots",
-      "lastmod": "2026-10-09"
+      "lastmod": "2026-10-12"
     },
     {
       "slug": "comparisons",

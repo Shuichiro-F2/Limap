@@ -12839,5 +12839,490 @@
       "station-liminal-spaces",
       "liminal-spots-kitakanto"
     ]
+  },
+  {
+    "slug": "abandoned-railway-liminal-spaces",
+    "category": "実在スポット",
+    "categoryEn": "Real Spots",
+    "publishedDate": "2026-10-12",
+    "ja": {
+      "title": "廃線跡のリミナルスペース｜竹林のレールから明治のトンネルまで、列車の来ない実在の10か所",
+      "h1": "廃線跡のリミナルスペース｜竹林のレールから明治のトンネルまで、列車の来ない実在の10か所",
+      "metaDescription": "竹林に埋もれたレール、明治のレンガのトンネル、湖に沈むアーチ橋、街なかに残る踏切。もう列車の来ない廃線跡10か所を、歩ける区間・開いている時間・料金・立ち入ってはいけない場所とともに紹介します。",
+      "lead": "レールも踏切もトンネルも残っているのに、列車だけが来ない。廃線跡には、どこかへ向かうための道が、行き先を失ったまま続いている静けさがあります。竹林の中のレールから明治のトンネル、湖に沈むアーチ橋まで、歩いて訪ねられる10か所を紹介します。",
+      "sections": [
+        {
+          "heading": "廃線跡は、なぜ「どこでもない場所」に感じるのか",
+          "paragraphs": [
+            "線路は、どこかからどこかへ移動するためだけに作られた場所です。駅のホームも、トンネルも、鉄橋も、そこに留まるためではなく、通り過ぎるためにあります。列車が来なくなると、その「通り過ぎるための場所」だけが、役目を失ったまま残ります。",
+            "まっすぐに延びるレール、等間隔に並ぶ枕木、誰も待っていないホーム。形は鉄道のままなのに、時刻表だけが消えている。その「途中で止まってしまった感じ」が、リミナルスペースと呼ばれる感覚に近いのかもしれません。ここでは、遊歩道や散策路として整備され、歩いて訪ねられる廃線跡を中心に10か所を紹介します。"
+          ]
+        },
+        {
+          "heading": "竹林の中のレール：旧国鉄倉吉線（鳥取）",
+          "paragraphs": [
+            "鳥取県倉吉市関金町の旧国鉄倉吉線は、1985年に廃止された路線です。泰久寺駅の跡から山守トンネルの入口近くまでの約500mは、両側から竹が覆いかぶさり、その下に錆びたレールが残っています。泰久寺駅の跡にはホームの跡もあり、山守トンネルを除いて自由に歩けます。竹の葉が擦れる音のほかには何も聞こえない、緑色のトンネルのような道です。",
+            "山守トンネルの中に入れるのは、ガイド付きの団体ツアーか、年に数回の「ウォーキングオープンデー」のときだけで、ヘルメットを着けて歩きます（2026年の分はすべて満員で受付を終えています）。車は「せきがね廃線跡観光案内所」前の無料駐車場に停め、歩いて15〜20分ほどです。駅の跡のまわりは私有地で、下の県道の路側帯にも停めないよう呼びかけられています。"
+          ],
+          "spots": [
+            {
+              "title": "旧国鉄倉吉線廃線跡（竹林）",
+              "slug": "gE3dSWYN",
+              "afterParagraph": 0
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/rabbitmacky/status/1546090895325286403",
+              "spot": "gE3dSWYN",
+              "afterParagraph": 0
+            }
+          ]
+        },
+        {
+          "heading": "明治のトンネルを歩く：大日影トンネル遊歩道（山梨）",
+          "paragraphs": [
+            "山梨県甲州市勝沼の大日影トンネルは、1903年に開通した中央本線のトンネルです。1997年に隣に新しいトンネルができて使われなくなり、2005年に旧勝沼町がJR東日本から譲り受けて、全長約1.4kmの遊歩道にしました。レンガの壁と蒸気機関車の煤、レールや標識が残る一直線の通路を、照明に照らされながら片道約30分かけて歩きます。",
+            "トンネルの傷みを直す工事のため2016年から閉鎖されていましたが、2024年3月に再び歩けるようになりました。開いているのは毎日9時から16時で、12月29日から1月3日までは休みです。入場は無料です。"
+          ],
+          "spots": [
+            {
+              "title": "大日影トンネル遊歩道",
+              "slug": "8dDucTfE",
+              "afterParagraph": 0
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/8010Teardrop/status/1530060166711742464",
+              "spot": "8dDucTfE",
+              "afterParagraph": 0
+            }
+          ]
+        },
+        {
+          "heading": "レンガの橋とトンネルの連なり：碓氷峠のアプトの道（群馬）",
+          "paragraphs": [
+            "群馬県安中市の碓氷第三橋梁、通称めがね橋は、1893年の旧信越本線の開業とともに使われ始めたレンガのアーチ橋です。長さ約91m、川底からの高さ約31mで、約200万個のレンガが使われたとされ、国の重要文化財に指定されています。急な碓氷峠を歯車で上り下りしたこの区間は、1963年に新しい線路に切り替わって役目を終えました。線路跡は、横川駅から熊ノ平までの約6kmが遊歩道「アプトの道」になり、10のトンネルと6つの橋を歩いて通り抜けられます。",
+            "終点の熊ノ平は、1893年に列車の行き違いのための停車場として作られ、のちに駅になり、1966年からは信号場として、1997年に横川〜軽井沢が廃止されるまで使われました。1937年に建てられた変電所の建物（国の重要文化財、中は非公開）が残り、1950年の山崩れで亡くなった50人を悼む母子像があります。アプトの道は一年中開いていて、トンネルの照明は7時から18時まで点きます。熊ノ平より先、軽井沢側の線路跡には入れません。"
+          ],
+          "spots": [
+            {
+              "title": "碓氷第三橋梁（めがね橋）とアプトの道",
+              "slug": "n5PKtWce",
+              "afterParagraph": 0
+            },
+            {
+              "title": "熊ノ平駅跡（旧国鉄信越本線）",
+              "slug": "TcnQTVk5",
+              "afterParagraph": 1
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/karakorum_3/status/1444515904646123520",
+              "spot": "n5PKtWce",
+              "afterParagraph": 0
+            },
+            {
+              "url": "https://x.com/yagio_higuchi/status/1920424595636568514",
+              "spot": "TcnQTVk5",
+              "afterParagraph": 1
+            }
+          ]
+        },
+        {
+          "heading": "街なかに残る線路と踏切：旧手宮線（北海道・小樽）",
+          "paragraphs": [
+            "小樽の旧手宮線は、1880年に手宮〜札幌間が開通した、北海道で最初の鉄道の一部です。旅客列車は1962年に、貨物列車は1985年に廃止されましたが、線路と踏切の遮断機は撤去されずに残され、街なかの約1.6kmが散策路として整備されています。ビルや倉庫のあいだを、もう列車の来ないレールがまっすぐ延びていきます。",
+            "線路の先、手宮の小樽市総合博物館には、機関車庫や転車台などの「旧手宮鉄道施設」（国の重要文化財）が残っています（入館は有料）。冬は、散策路の一部が「小樽雪あかりの路」の会場になり、寿司屋通り側の急な階段は冬のあいだ通れません。"
+          ],
+          "spots": [
+            {
+              "title": "旧手宮線跡（小樽）",
+              "slug": "Cfe4zrW6",
+              "afterParagraph": 0
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/kame__pyon/status/1936489281910116548",
+              "spot": "Cfe4zrW6",
+              "afterParagraph": 0
+            }
+          ]
+        },
+        {
+          "heading": "湖に沈む橋と、森の中の駅：旧国鉄士幌線（北海道・上士幌）",
+          "paragraphs": [
+            "上士幌町の糠平湖に残るタウシュベツ川橋梁は、1937年に完成した旧国鉄士幌線のコンクリートのアーチ橋です。長さ130mで、もとは11連のアーチが並んでいました。糠平ダムの建設で線路が付け替えられて使われなくなり、今はダム湖の水位によって、冬から春に姿を現し、夏から秋には湖に沈みます。崩落が年々進み、2026年4月にも側壁の一部が崩れているのが見つかりました。国道273号沿いのタウシュベツ展望台からは、約750m先に眺められます。",
+            "同じ士幌線の幌加駅跡には、ホームと、ポイントを含む線路が残っています。1978年12月に糠平〜十勝三股の列車がバスに置き換えられ、路線は1987年3月に廃止されました。ホームは2017年に国の登録有形文化財になっています。深い森の中で、列車を待つ人のいないホームと、草に埋もれていくレールだけが、まっすぐ奥へ延びています。"
+          ],
+          "spots": [
+            {
+              "title": "タウシュベツ川橋梁（幻の橋）",
+              "slug": "BQQBELWM",
+              "afterParagraph": 0
+            },
+            {
+              "title": "旧国鉄士幌線 幌加駅跡",
+              "slug": "AjQzCCkp",
+              "afterParagraph": 1
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/hiroring0323/status/2081668951755653600",
+              "spot": "BQQBELWM",
+              "afterParagraph": 0
+            },
+            {
+              "url": "https://x.com/shizen5/status/1546778104013524994",
+              "spot": "AjQzCCkp",
+              "afterParagraph": 1
+            }
+          ]
+        },
+        {
+          "heading": "谷の上で止まる鉄橋：高千穂橋梁（宮崎）",
+          "paragraphs": [
+            "宮崎県高千穂町の高千穂橋梁は、五ヶ瀬川の深い谷をまたぐ旧高千穂鉄道の鉄橋です。最も高いところで105mあり、日本一高い鉄道橋とされてきました。2005年9月の台風14号で高千穂鉄道は全線が止まり、橋を含む区間は復旧されないまま2008年12月に廃止されました。",
+            "今は高千穂あまてらす鉄道が、観光用の車両「グランド・スーパーカート」を往復5.1km、約30分で走らせています。カートは鉄橋の上で止まり、床のガラス越しに谷底を見下ろせます。運行は9時40分から15時40分まで1日10便で、乗車券は当日だけの販売、乗るだけなら大人2,300円です（2026年4月の改定後）。毎月第3木曜日は休みで、雨や強風の日は運休し、風で鉄橋を渡れない日は手前の天岩戸駅までの往復になります。"
+          ],
+          "spots": [
+            {
+              "title": "高千穂橋梁",
+              "slug": "7gRLUSMJ",
+              "afterParagraph": 0
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/Canon_Williams_/status/1995700982660071915",
+              "spot": "7gRLUSMJ",
+              "afterParagraph": 0
+            }
+          ]
+        },
+        {
+          "heading": "自転車道の途中の駅：筑波鉄道 真壁駅跡（茨城）",
+          "paragraphs": [
+            "茨城県桜川市の真壁駅跡は、1918年に開業し、1987年に廃止された筑波鉄道筑波線（土浦〜岩瀬）の駅の跡です。線路跡はサイクリングロード「つくば霞ヶ浦りんりんロード」になり、真壁駅跡はトイレやベンチ、駐車場のある休憩所として整備されています。列車の代わりに自転車が通り過ぎていく、まっすぐな道の途中に、駅だった場所だけが静かに残っています。"
+          ],
+          "spots": [
+            {
+              "title": "筑波鉄道 真壁駅跡",
+              "slug": "gf7SinSV",
+              "afterParagraph": 0
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://www.instagram.com/p/DYYIWFYgXMq/",
+              "spot": "gf7SinSV",
+              "afterParagraph": 0
+            }
+          ]
+        },
+        {
+          "heading": "森の奥のトンネル：旧船木鉄道 大棚トンネル（山口）",
+          "paragraphs": [
+            "山口県宇部市東吉部の大棚トンネルは、旧船木鉄道の線路跡に残るトンネルです。石を積んだ壁に、レンガのアーチが組まれています。船木鉄道は1916年に開業し、1926年に吉部まで延びましたが、このトンネルのある万倉〜吉部は戦時中の1944年に休止され、1961年には全線が廃止されました。旧吉部小学校の裏手から線路跡を400mほど歩いた先で、木々の中に坑口が静かに口を開けています。",
+            "トンネルの中は暗く、足元が悪いので、外から眺めるだけにしてください。近くには民家があり、駐車できる場所もほとんどありません。"
+          ],
+          "spots": [
+            {
+              "title": "旧船木鉄道 大棚トンネル",
+              "slug": "qqCxVs6h",
+              "afterParagraph": 0
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/hiroshisj/status/1561552207291772929",
+              "spot": "qqCxVs6h",
+              "afterParagraph": 0
+            }
+          ]
+        },
+        {
+          "heading": "行くときの、現実的な注意点",
+          "paragraphs": [
+            "ここで紹介した場所の多くは、遊歩道や散策路として整備された区間です。廃線跡のすべてが歩けるわけではなく、整備された区間の外は私有地や立入禁止のことがあります。熊ノ平より先の碓氷峠の線路跡、倉吉線の泰久寺駅跡のまわりの私有地、タウシュベツ川橋梁の橋の上には入らないでください。今も列車が走っている線路にも、決して立ち入らないでください。",
+            "山あいの廃線跡は、野生動物の暮らす場所でもあります。上士幌町は町全体がヒグマの生息地だと注意を呼びかけていて、タウシュベツ川橋梁へ向かう林道は、予約制のゲートの鍵を借りて車かバイクで入ります（2026年は4月25日から11月1日まで、協力金は1人2,000円。歩きや自転車では入れません）。鍵を借りずに近くで見たいときは、地元のガイドツアーを使います。",
+            "近くに家がある場所では、住む人の暮らしを妨げないよう、静かに歩き、人や家が写らないように撮りましょう。開いている時間や料金、通れる区間は変わることがあるので、行く前に自治体や施設の公式の案内を確かめてください。"
+          ]
+        },
+        {
+          "heading": "撮ったら、地図に残してください",
+          "paragraphs": [
+            "列車の来なくなった線路は、全国の山あいや街なかに、まだたくさん残っています。歩ける廃線跡や、駅だった場所の静けさを見つけたら、LIMapの地図に投稿してみてください。誰かが次に、その行き先を失った道を訪ねるきっかけになります。"
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "廃線跡は自由に歩いてもいいですか？",
+          "a": "遊歩道や散策路として整備された区間は歩けます。この記事で紹介したアプトの道、大日影トンネル遊歩道、旧手宮線、倉吉線の竹林の区間（山守トンネルを除く）、りんりんロードの真壁駅跡がそれにあたります。整備された区間の外は私有地や立入禁止のことがあるので、入らないでください。"
+        },
+        {
+          "q": "無料で歩ける廃線跡はどこですか？",
+          "a": "大日影トンネル遊歩道、アプトの道、旧手宮線、倉吉線の竹林の区間、真壁駅跡は無料です。高千穂あまてらす鉄道のグランド・スーパーカートは大人2,300円、タウシュベツ川橋梁へ向かう林道のゲートの鍵は1人2,000円の協力金がかかります。"
+        },
+        {
+          "q": "冬でも行けますか？",
+          "a": "アプトの道は一年中開いていて、大日影トンネル遊歩道も年末年始のほかは開いています。旧手宮線は寿司屋通り側の階段が冬のあいだ通れません。タウシュベツ川橋梁へ向かう林道のゲートの鍵の貸し出しは11月1日までで、倉吉線の廃線跡観光案内所は12月から2月まで閉まります。"
+        }
+      ]
+    },
+    "en": {
+      "title": "Liminal Abandoned Railways in Japan: 10 Real Places Where Trains No Longer Run, From Bamboo-Lined Rails to Meiji-Era Tunnels",
+      "h1": "Liminal Abandoned Railways in Japan: 10 Real Places Where Trains No Longer Run, From Bamboo-Lined Rails to Meiji-Era Tunnels",
+      "metaDescription": "Rails buried in a bamboo grove, a Meiji-era brick tunnel, an arch bridge that sinks into a lake, level crossings left in the middle of a city. Ten disused railways in Japan where trains no longer run, with walkable sections, hours, fees and places you must not enter.",
+      "lead": "The rails, the level crossings and the tunnels are all still there; only the trains have stopped coming. Disused railways have a particular stillness: a route built to take you somewhere carries on with nowhere left to go. Here are ten you can visit on foot, from rails in a bamboo grove to a Meiji-era tunnel and an arch bridge that sinks into a lake.",
+      "sections": [
+        {
+          "heading": "Why disused railways feel like nowhere",
+          "paragraphs": [
+            "A railway is built only to get from one place to another. Platforms, tunnels and bridges are not places to stay, but places to pass through. When the trains stop running, these places for passing through are left behind, with no job left to do.",
+            "Rails stretching straight ahead, sleepers laid at regular intervals, a platform where no one is waiting. Everything still has the shape of a railway, but the timetable has vanished. That feeling of something stopped halfway may be close to what people call a liminal space. Here are ten disused railways in Japan, mostly sections that have been turned into walking paths, that you can visit on foot."
+          ]
+        },
+        {
+          "heading": "Rails in a bamboo grove: the former JNR Kurayoshi Line (Tottori)",
+          "paragraphs": [
+            "The former JNR Kurayoshi Line in Sekigane, Kurayoshi, Tottori, closed in 1985. For about 500 meters, from the site of Taikyuji Station to near the entrance of the Yamamori Tunnel, bamboo arches over the track from both sides, and rusted rails remain beneath it. The remains of a platform are still at the Taikyuji Station site, and you can walk the route freely except for the Yamamori Tunnel. It is like a green tunnel where the only sound is the rustling of bamboo leaves.",
+            "You can enter the Yamamori Tunnel only on a guided group tour or on one of the few \"Walking Open Days\" held each year, wearing a helmet (all of the 2026 dates are already full). Park in the free car park in front of the Sekigane Haisen-ato Tourist Information Center and walk for about 15 to 20 minutes. The land around the station site is private, and visitors are asked not to park on the shoulder of the prefectural road below."
+          ],
+          "spots": [
+            {
+              "title": "旧国鉄倉吉線廃線跡（竹林）",
+              "slug": "gE3dSWYN",
+              "afterParagraph": 0
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/rabbitmacky/status/1546090895325286403",
+              "spot": "gE3dSWYN",
+              "afterParagraph": 0
+            }
+          ]
+        },
+        {
+          "heading": "Walking through a Meiji-era tunnel: the Ohikage Tunnel Walking Path (Yamanashi)",
+          "paragraphs": [
+            "The Ohikage Tunnel in Katsunuma, Koshu, Yamanashi, is a Chuo Main Line tunnel that opened in 1903. It fell out of use in 1997 when a new tunnel opened alongside it, and in 2005 the former town of Katsunuma took it over from JR East and turned it into a walking path about 1.4 km long. Under the lights, you walk about 30 minutes each way along a perfectly straight passage where the brick walls, soot from steam locomotives, rails and signs remain.",
+            "It was closed from 2016 for repair work on the tunnel lining and reopened to walkers in March 2024. It is open every day from 9 a.m. to 4 p.m., except from December 29 to January 3. Entry is free."
+          ],
+          "spots": [
+            {
+              "title": "大日影トンネル遊歩道",
+              "slug": "8dDucTfE",
+              "afterParagraph": 0
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/8010Teardrop/status/1530060166711742464",
+              "spot": "8dDucTfE",
+              "afterParagraph": 0
+            }
+          ]
+        },
+        {
+          "heading": "A brick bridge and a chain of tunnels: the Abt Road over Usui Pass (Gunma)",
+          "paragraphs": [
+            "The Usui No. 3 Bridge in Annaka, Gunma, known as the Megane Bridge, is a brick arch bridge that came into use when the old Shin'etsu Main Line opened in 1893. It is about 91 meters long and about 31 meters above the riverbed, is said to contain about two million bricks, and is designated a national Important Cultural Property. This section, where trains climbed and descended the steep Usui Pass with the help of a cog rail, was replaced by a new line in 1963. About 6 km of the old track bed, from Yokokawa Station to Kumanotaira, is now the Abt Road walking trail, which takes you on foot through ten tunnels and across six bridges.",
+            "Kumanotaira, at the end of the trail, was built in 1893 as a stop where trains could pass each other. It later became a station, and from 1966 it served as a signal station until the Yokokawa to Karuizawa section closed in 1997. A substation built in 1937 still stands there (a national Important Cultural Property, not open inside), along with a statue of a mother and child that remembers the 50 people who died in a landslide in 1950. The Abt Road is open all year, and the tunnel lights are on from 7 a.m. to 6 p.m. Beyond Kumanotaira, the old track toward Karuizawa is off limits."
+          ],
+          "spots": [
+            {
+              "title": "碓氷第三橋梁（めがね橋）とアプトの道",
+              "slug": "n5PKtWce",
+              "afterParagraph": 0
+            },
+            {
+              "title": "熊ノ平駅跡（旧国鉄信越本線）",
+              "slug": "TcnQTVk5",
+              "afterParagraph": 1
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/karakorum_3/status/1444515904646123520",
+              "spot": "n5PKtWce",
+              "afterParagraph": 0
+            },
+            {
+              "url": "https://x.com/yagio_higuchi/status/1920424595636568514",
+              "spot": "TcnQTVk5",
+              "afterParagraph": 1
+            }
+          ]
+        },
+        {
+          "heading": "Rails and level crossings in the city: the former Temiya Line (Otaru, Hokkaido)",
+          "paragraphs": [
+            "The former Temiya Line in Otaru is part of the first railway in Hokkaido, which opened between Temiya and Sapporo in 1880. Passenger trains ended in 1962 and freight in 1985, but the rails and level crossing barriers were left in place, and about 1.6 km through the city center has been turned into a walking path. Rails that no trains will ever use again run straight on between office buildings and warehouses.",
+            "At the end of the line, the Otaru Museum in Temiya preserves the \"Former Temiya Railway Facilities\", including an engine shed and a turntable, which are a national Important Cultural Property (admission is charged). In winter, part of the path becomes a venue for the Otaru Snow Light Path festival, and the steep steps on the Sushiya-dori side are closed for the season."
+          ],
+          "spots": [
+            {
+              "title": "旧手宮線跡（小樽）",
+              "slug": "Cfe4zrW6",
+              "afterParagraph": 0
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/kame__pyon/status/1936489281910116548",
+              "spot": "Cfe4zrW6",
+              "afterParagraph": 0
+            }
+          ]
+        },
+        {
+          "heading": "A bridge that sinks into a lake, and a station in the forest: the former JNR Shihoro Line (Kamishihoro, Hokkaido)",
+          "paragraphs": [
+            "The Taushubetsu River Bridge, in Lake Nukabira in Kamishihoro, is a concrete arch bridge of the former JNR Shihoro Line, completed in 1937. It is 130 meters long and originally had eleven arches. It went out of use when the line was rerouted for the construction of Nukabira Dam, and today, depending on the water level of the reservoir, it emerges from winter to spring and sinks beneath the lake from summer to autumn. It crumbles a little more every year, and in April 2026 part of a side wall was again found to have collapsed. From the Taushubetsu Observation Deck along National Route 273, you can see it about 750 meters away.",
+            "At the site of Horoka Station on the same Shihoro Line, the platform and the tracks, including a set of points, still remain. In December 1978 trains between Nukabira and Tokachi-Mitsumata were replaced by buses, and the line was abolished in March 1987. The platform was registered as a national Tangible Cultural Property in 2017. Deep in the forest, a platform where no one waits and rails slowly disappearing into the grass run straight on into the trees."
+          ],
+          "spots": [
+            {
+              "title": "タウシュベツ川橋梁（幻の橋）",
+              "slug": "BQQBELWM",
+              "afterParagraph": 0
+            },
+            {
+              "title": "旧国鉄士幌線 幌加駅跡",
+              "slug": "AjQzCCkp",
+              "afterParagraph": 1
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/hiroring0323/status/2081668951755653600",
+              "spot": "BQQBELWM",
+              "afterParagraph": 0
+            },
+            {
+              "url": "https://x.com/shizen5/status/1546778104013524994",
+              "spot": "AjQzCCkp",
+              "afterParagraph": 1
+            }
+          ]
+        },
+        {
+          "heading": "A bridge that stops above a gorge: the Takachiho Railway Bridge (Miyazaki)",
+          "paragraphs": [
+            "The Takachiho Railway Bridge in Takachiho, Miyazaki, carried the former Takachiho Railway across the deep valley of the Gokase River. At its highest point it stands 105 meters up, and it has been described as the tallest railway bridge in Japan. Typhoon No. 14 in September 2005 brought the whole Takachiho Railway to a halt, and the section including the bridge was abandoned in December 2008 without ever being restored.",
+            "Today Takachiho Amaterasu Railway runs a sightseeing vehicle, the \"Grand Super Cart\", on a 5.1 km round trip that takes about 30 minutes. The cart stops on the bridge, and you can look down into the gorge through the glass floor. It runs ten times a day from 9:40 a.m. to 3:40 p.m., tickets are sold on the day only, and a ride costs 2,300 yen for adults (after the April 2026 price change). It is closed on the third Thursday of each month, does not run in rain or strong wind, and when the wind is too strong to cross the bridge it turns back at Amanoiwato Station instead."
+          ],
+          "spots": [
+            {
+              "title": "高千穂橋梁",
+              "slug": "7gRLUSMJ",
+              "afterParagraph": 0
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/Canon_Williams_/status/1995700982660071915",
+              "spot": "7gRLUSMJ",
+              "afterParagraph": 0
+            }
+          ]
+        },
+        {
+          "heading": "A station along a cycling road: the former Makabe Station of the Tsukuba Railway (Ibaraki)",
+          "paragraphs": [
+            "The site of Makabe Station in Sakuragawa, Ibaraki, belonged to the Tsukuba Railway's Tsukuba Line (Tsuchiura to Iwase), which opened in 1918 and closed in 1987. The old track bed is now the Tsukuba Kasumigaura Rin Rin Road cycling route, and the station site has been turned into a rest area with toilets, benches and parking. Halfway along a straight road where bicycles now pass instead of trains, only the place that used to be a station remains, quietly."
+          ],
+          "spots": [
+            {
+              "title": "筑波鉄道 真壁駅跡",
+              "slug": "gf7SinSV",
+              "afterParagraph": 0
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://www.instagram.com/p/DYYIWFYgXMq/",
+              "spot": "gf7SinSV",
+              "afterParagraph": 0
+            }
+          ]
+        },
+        {
+          "heading": "A tunnel deep in the woods: the Otana Tunnel of the former Funaki Railway (Yamaguchi)",
+          "paragraphs": [
+            "The Otana Tunnel in Higashi-Kibe, Ube, Yamaguchi, stands on the old track bed of the former Funaki Railway. Its stone walls are topped with a brick arch. The Funaki Railway opened in 1916 and reached Kibe in 1926, but the section between Mankura and Kibe, where this tunnel stands, was suspended during the war in 1944, and the whole line closed in 1961. About 400 meters along the old track bed from behind the former Kibe Elementary School, the portal stands quietly open among the trees.",
+            "It is dark inside with poor footing, so please only look at it from outside. There are houses nearby, and there is almost nowhere to park."
+          ],
+          "spots": [
+            {
+              "title": "旧船木鉄道 大棚トンネル",
+              "slug": "qqCxVs6h",
+              "afterParagraph": 0
+            }
+          ],
+          "embeds": [
+            {
+              "url": "https://x.com/hiroshisj/status/1561552207291772929",
+              "spot": "qqCxVs6h",
+              "afterParagraph": 0
+            }
+          ]
+        },
+        {
+          "heading": "Practical notes before you go",
+          "paragraphs": [
+            "Most of the places in this article are sections that have been turned into walking paths or trails. Not every disused railway can be walked, and outside the maintained sections the land may be private or off limits. Do not enter the old track over Usui Pass beyond Kumanotaira, the private land around the Taikyuji Station site on the Kurayoshi Line, or the deck of the Taushubetsu River Bridge. And never step onto tracks where trains still run.",
+            "Disused railways in the mountains are also home to wild animals. Kamishihoro warns that the whole town is brown bear habitat, and the forest road to the Taushubetsu River Bridge can only be entered by car or motorcycle after borrowing the key to its gate, which requires a reservation (in 2026, from April 25 to November 1, with a contribution of 2,000 yen per person; no entry on foot or by bicycle). If you want to see it up close without borrowing the key, join a local guided tour.",
+            "Where there are houses nearby, walk quietly so as not to disturb the people who live there, and take photos without showing people or their homes. Opening hours, fees and which sections are open can change, so check the official information from the local government or facility before you go."
+          ]
+        },
+        {
+          "heading": "If you take a photo, put it on the map",
+          "paragraphs": [
+            "Tracks where trains no longer run can still be found in many mountain valleys and town centers across Japan. If you find a disused railway you can walk, or the stillness of a place that used to be a station, try posting it on the LIMap map. It may be what leads someone else to that road with nowhere left to go."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Can I walk freely along disused railways?",
+          "a": "You can walk sections that have been turned into walking paths or trails. In this article, that means the Abt Road, the Ohikage Tunnel Walking Path, the former Temiya Line, the bamboo grove section of the Kurayoshi Line (except the Yamamori Tunnel) and the Makabe Station site on the Rin Rin Road. Outside the maintained sections the land may be private or off limits, so please do not enter."
+        },
+        {
+          "q": "Which disused railways can I walk for free?",
+          "a": "The Ohikage Tunnel Walking Path, the Abt Road, the former Temiya Line, the bamboo grove section of the Kurayoshi Line and the Makabe Station site are free. The Grand Super Cart of Takachiho Amaterasu Railway costs 2,300 yen for adults, and the key to the forest road gate leading to the Taushubetsu River Bridge requires a contribution of 2,000 yen per person."
+        },
+        {
+          "q": "Can I visit in winter?",
+          "a": "The Abt Road is open all year, and the Ohikage Tunnel Walking Path is open except over the New Year holidays. On the former Temiya Line, the steps on the Sushiya-dori side are closed in winter. The key to the forest road gate leading to the Taushubetsu River Bridge is lent only until November 1, and the Kurayoshi Line tourist information center is closed from December to February."
+        }
+      ]
+    },
+    "images": [
+      {
+        "file": "Tottori-Kurayoshi Line abandoned trace. (Bamboo forest.)-xl.jpg",
+        "author": "rikky_photography",
+        "license": "CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Tottori-Kurayoshi_Line_abandoned_trace._(Bamboo_forest.)-xl.jpg",
+        "altJa": "旧国鉄倉吉線の廃線跡。竹林に囲まれたレールがまっすぐ奥へ延びる",
+        "altEn": "The disused track of the former JNR Kurayoshi Line, with rails running straight ahead through a bamboo grove",
+        "captionJa": "旧国鉄倉吉線の廃線跡。竹に覆われた道の下に、錆びたレールが残る。",
+        "captionEn": "The disused track of the former JNR Kurayoshi Line, where rusted rails remain beneath the bamboo.",
+        "afterSection": -1
+      }
+    ],
+    "related": [
+      "station-liminal-spaces",
+      "submerged-liminal-spaces",
+      "liminal-spots-hokkaido"
+    ]
   }
 ]

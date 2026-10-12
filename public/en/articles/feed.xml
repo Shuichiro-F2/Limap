@@ -6,7 +6,15 @@
     <atom:link href="https://limap.jp/en/articles/feed.xml" rel="self" type="application/rss+xml" />
     <description>What liminal spaces are, where the word comes from, how they differ from the Backrooms and dreamcore, and real examples in Japan. Articles by LIMap.</description>
     <language>en</language>
-    <lastBuildDate>Fri, 09 Oct 2026 00:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 12 Oct 2026 00:00:00 GMT</lastBuildDate>
+    <item>
+      <title>Liminal Abandoned Railways in Japan: 10 Real Places Where Trains No Longer Run, From Bamboo-Lined Rails to Meiji-Era Tunnels</title>
+      <link>https://limap.jp/en/articles/abandoned-railway-liminal-spaces/</link>
+      <guid isPermaLink="true">https://limap.jp/en/articles/abandoned-railway-liminal-spaces/</guid>
+      <pubDate>Mon, 12 Oct 2026 00:00:00 GMT</pubDate>
+      <category>Real Spots</category>
+      <description>Rails buried in a bamboo grove, a Meiji-era brick tunnel, an arch bridge that sinks into a lake, level crossings left in the middle of a city. Ten disused railways in Japan where trains no longer run, with walkable sections, hours, fees and places you must not enter.</description>
+    </item>
     <item>
       <title>Liminal Observation Decks in Japan: 10 Quiet Viewing Rooms, From Prefectural Office Top Floors to Port Towers</title>
       <link>https://limap.jp/en/articles/observation-deck-liminal-spaces/</link>
@@ -238,14 +246,6 @@
       <pubDate>Sun, 06 Sep 2026 00:00:00 GMT</pubDate>
       <category>Basics</category>
       <description>Also known as Backrooms Level 37, the Poolrooms are among the most shared liminal images online. Here is where they actually came from, why they feel frightening and nostalgic at once, and where to find that atmosphere in Japan.</description>
-    </item>
-    <item>
-      <title>Where Was the Original Backrooms Photo Taken? The Real Building, Identified in 2024</title>
-      <link>https://limap.jp/en/articles/backrooms-original-photo-location/</link>
-      <guid isPermaLink="true">https://limap.jp/en/articles/backrooms-original-photo-location/</guid>
-      <pubDate>Sun, 06 Sep 2026 00:00:00 GMT</pubDate>
-      <category>Examples</category>
-      <description>One photograph posted to 4chan in 2019 created the Backrooms. Its location stayed unknown for five years, until internet researchers pinned it down in 2024. Here is where, when, and why that picture was taken.</description>
     </item>
   </channel>
 </rss>

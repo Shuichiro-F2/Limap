@@ -10,6 +10,7 @@ export const THEME_ARTICLES: { slug: string; label: string; tags: string[] }[] =
   { slug: 'station-liminal-spaces', label: '駅のリミナルスペース', tags: ['駅', '無人駅', '秘境駅', '地下鉄駅'] },
   { slug: 'underground-mall-liminal-spaces', label: '地下街・地下通路のリミナルスペース', tags: ['地下', '地下街', '地下通路', '商業施設'] },
   { slug: 'submerged-liminal-spaces', label: '水に沈んだ場所のリミナルスペース', tags: ['水没'] },
+  { slug: 'abandoned-railway-liminal-spaces', label: '廃線跡のリミナルスペース', tags: ['廃線', '廃線跡', '廃駅', '廃線橋梁', '廃線鉄橋', 'トンネル'] },
   { slug: 'observation-deck-liminal-spaces', label: '展望室のリミナルスペース', tags: ['公共施設', '高層ビル街'] },
   { slug: 'amusement-park-liminal-spaces', label: '遊園地のリミナルスペース', tags: ['廃遊園地', '屋上遊園地', 'レジャー施設'] },
   { slug: 'poolrooms-explained', label: 'プールルームズとは', tags: ['プールコア', 'レジャー施設'] },

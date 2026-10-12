@@ -6,7 +6,15 @@
     <atom:link href="https://limap.jp/articles/feed.xml" rel="self" type="application/rss+xml" />
     <description>リミナルスペースの意味や語源、バックルームズ・ドリームコアとの違い、日本での事例まで。LIMapがまとめる読みもの記事の一覧です。</description>
     <language>ja</language>
-    <lastBuildDate>Fri, 09 Oct 2026 00:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Mon, 12 Oct 2026 00:00:00 GMT</lastBuildDate>
+    <item>
+      <title>廃線跡のリミナルスペース｜竹林のレールから明治のトンネルまで、列車の来ない実在の10か所</title>
+      <link>https://limap.jp/articles/abandoned-railway-liminal-spaces/</link>
+      <guid isPermaLink="true">https://limap.jp/articles/abandoned-railway-liminal-spaces/</guid>
+      <pubDate>Mon, 12 Oct 2026 00:00:00 GMT</pubDate>
+      <category>実在スポット</category>
+      <description>竹林に埋もれたレール、明治のレンガのトンネル、湖に沈むアーチ橋、街なかに残る踏切。もう列車の来ない廃線跡10か所を、歩ける区間・開いている時間・料金・立ち入ってはいけない場所とともに紹介します。</description>
+    </item>
     <item>
       <title>展望室のリミナルスペース｜県庁の最上階から港のタワーまで、人の少ない実在の10か所</title>
       <link>https://limap.jp/articles/observation-deck-liminal-spaces/</link>
@@ -238,14 +246,6 @@
       <pubDate>Sun, 06 Sep 2026 00:00:00 GMT</pubDate>
       <category>基礎知識</category>
       <description>プールルーム（プールルームズ）は、誰もいない青いタイルの室内プールの空間。元ネタは、アメリカのアーティスト、ジャレッド・パイクが2020年に発表した3DCG作品「Dream Pools」です。バックルームズの「レベル37」と呼ばれる理由、怖いのに懐かしい理由、日本で似た空気に出会える場所まで。</description>
-    </item>
-    <item>
-      <title>バックルームズの元ネタ写真はどこで撮られた？2024年に特定された撮影場所（アメリカ・ウィスコンシン州）</title>
-      <link>https://limap.jp/articles/backrooms-original-photo-location/</link>
-      <guid isPermaLink="true">https://limap.jp/articles/backrooms-original-photo-location/</guid>
-      <pubDate>Sun, 06 Sep 2026 00:00:00 GMT</pubDate>
-      <category>事例紹介</category>
-      <description>2019年に4chanへ投稿され、バックルームズという都市伝説を生んだ1枚の写真。その撮影場所は5年間不明でしたが、2024年に特定されました。どこで、いつ、なぜ撮られた写真だったのかをまとめます。</description>
     </item>
   </channel>
 </rss>
