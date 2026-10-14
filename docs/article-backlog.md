@@ -36,6 +36,7 @@ Search Console（プロパティは URL プレフィックスの `https://limap.
 | 済（10/04） | `what-is-noclip`（英語） | 英語の検索は「noclip meaning」「what does no clip mean」など意味を問うものがほとんど（90日で約100表示・クリック0）。タイトル・説明文・リードの1文目で意味を先に言い、表記ゆれ（no clip・no-clip）も入れた。FAQ に「チートか」を日英で追加 | noclip meaning／what does noclip mean |
 | 済（10/04） | `what-is-liminal-space`（英語） | 「liminal space meaning」で表示されるがクリック0。タイトルを「Liminal Space Meaning: …」にし、説明文・リードの1文目を定義にした。FAQ に「リミナルの意味」を日英で追加 | liminal space meaning／definition |
 | 済（10/09） | `backrooms-in-japan`・`backrooms-original-photo-location`・`poolrooms-explained`・`liminal-space-games`・`what-is-noclip` | 検索結果に出るタイトル・説明文を、結論（実在するか・元ネタ・意味）が前半30字ほどに入る形に直した。実在の記事と元ネタ写真の記事は互いに `related` で案内し、撮影場所の詳しい説明は元ネタ写真の記事に任せる | バックルーム 実在／プールルーム 元ネタ／リミナルスペース ゲーム／ノークリップとは |
+| 下書き（10/14） | `what-is-weirdcore` | 直近28日（9/14〜10/11ごろ）で表示 728・クリック 7・クリック率 1%・順位 5.1。「ウィアードコア」だけで表示 548・順位 4.8・クリック率 1.1%、「ウィアードコアとは」37・「weirdcoreとは」18 はクリック 0。タイトル・説明文・リードの1文目で意味（「懐かしいのに何か変」なネット発の画像表現）を先に言う形にし、名前の意味（weird＋-core）と表記ゆれ（ウェアードコア）を本文に、FAQ に「名前の意味」「リミナルスペースとの違い」「画像はどこで見られるか」を日英で足した | ウィアードコア／ウィアードコアとは／weirdcoreとは／ウィアードコア 画像 |
 
 ## B. 新しい記事の候補
 

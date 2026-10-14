@@ -566,8 +566,8 @@ const ARTICLE_ENTRIES: ArticleSummary[] = [
     publishedDate: '2026-10-03',
     categoryJa: '違いを知る',
     categoryEn: 'Comparisons',
-    titleJa: 'ウィアードコアとは？意味と特徴、ドリームコア・リミナルスペースとの違い',
-    titleEn: 'What Is Weirdcore? Meaning, Features, and How It Differs From Dreamcore and Liminal Spaces',
+    titleJa: 'ウィアードコアとは？意味は「懐かしいのに何か変」なネット発の画像表現｜特徴とドリームコアとの違い',
+    titleEn: 'Weirdcore Meaning: The Internet Aesthetic That Feels Nostalgic Yet Wrong | Motifs and How It Differs From Dreamcore',
     leadJa:
       '粗い画像に赤い文字。懐かしいのにどこか間違っている、ネット発の美学ウィアードコアの意味と特徴、ドリームコアとの違いを整理します。',
     leadEn:
