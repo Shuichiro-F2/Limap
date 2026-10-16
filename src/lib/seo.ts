@@ -6,7 +6,7 @@ import type { StaticPageContent } from '../content/staticPages';
 import { SITE_NAME, spotPageDescription, spotPageTitle, spotPlace, spotRawTitle } from '../content/spotSeo';
 
 // public/index.html の静的な値と揃えておく（Webでスポット詳細から離脱した際に戻す用）
-const DEFAULT_TITLE = 'LIMap（リマップ） | 日本のリミナルスペースを地図で探す';
+const DEFAULT_TITLE = 'LIMap（リマップ） | リミナルスペースを地図で探して共有する';
 const DEFAULT_DESCRIPTION =
   'LIMapは、日本各地の廃墟や無人駅、地下通路、団地、深夜の駐車場など「リミナルスペース」を写真と場所で探し、記録・共有できる地図アプリです。バックルームズや『8番出口』を思わせる場所も登録されています。';
 const DEFAULT_OG_IMAGE = 'https://limap.jp/og-image.png';

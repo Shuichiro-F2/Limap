@@ -33,7 +33,7 @@ const NON_CATEGORY_TAGS = new Set(['リミナルスペース', '日本', '海外
 // 関連する記事（content/articles.json のタイトル。記事のタイトルを変えたらここも合わせる）
 const RELATED_ARTICLES: { slug: string; title: string }[] = [
   { slug: 'liminal-spaces-in-japan', title: '日本のリミナルスペースとは？特徴と代表的な場所の例' },
-  { slug: 'backrooms-in-japan', title: 'バックルームズは日本に実在する？「黄色い部屋」に近い空気の場所を探して' },
+  { slug: 'backrooms-in-japan', title: 'バックルームは実在する？部屋は創作、元の写真はアメリカに実在｜日本で似た場所' },
   { slug: 'backrooms-spots-tokyo', title: '映画を観たあとに行きたい、東京の「バックルームズ的」な場所' },
   { slug: 'is-exit-8-real', title: '「8番出口」は現実にあるのか？似た空気感の実在スポットを探す' },
   { slug: 'haikyo-photo-spots-japan', title: '廃墟の撮影スポットを地図で探す。心霊目当てじゃない、日本各地の廃墟案内' },

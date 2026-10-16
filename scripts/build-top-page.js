@@ -115,7 +115,7 @@ function spotTitle(spot) {
 
 function buildBody(spots, articles, tags) {
   const parts = [];
-  parts.push('<h1>LIMap（リマップ） | 日本のリミナルスペースを地図で探す</h1>');
+  parts.push('<h1>LIMap（リマップ） | リミナルスペースを地図で探して共有する</h1>');
   // 説明文は public/index.html の description・src/lib/seo.ts の DEFAULT_DESCRIPTION と同じ内容にしている
   parts.push(
     '<p>LIMapは、日本各地の廃墟や無人駅、地下通路、団地、深夜の駐車場など「リミナルスペース」を写真と場所で探し、記録・共有できる地図アプリです。' +
