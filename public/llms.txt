@@ -19,6 +19,7 @@
 
 ## コラム記事
 
+- [美術館・図書館・庁舎のリミナルスペース｜白い美術館から昭和の県庁舎まで、人の少ない実在の10か所](https://limap.jp/articles/museum-library-liminal-spaces/): 白い通路が入り組む美術館、6,000個の丸窓から光が落ちる図書館、誰もいない客席の音楽ホール、役目を終えた旧県庁舎。人の少ない時間に静まり返る公共建築10か所を、開いている時間・料金・休館の予定とともに紹介します。
 - [廃線跡のリミナルスペース｜竹林のレールから明治のトンネルまで、列車の来ない実在の10か所](https://limap.jp/articles/abandoned-railway-liminal-spaces/): 竹林に埋もれたレール、明治のレンガのトンネル、湖に沈むアーチ橋、街なかに残る踏切。もう列車の来ない廃線跡10か所を、歩ける区間・開いている時間・料金・立ち入ってはいけない場所とともに紹介します。
 - [展望室のリミナルスペース｜県庁の最上階から港のタワーまで、人の少ない実在の10か所](https://limap.jp/articles/observation-deck-liminal-spaces/): 無料で上がれる県庁の最上階、夜まで開いている港のタワー、線路の途切れた鉄橋の展望台。人の少ない時間に静まり返る展望室10か所を、開いている時間・料金・行くときの注意とともに紹介します。
 - [廃校のリミナルスペース｜誰もいない校舎を眺める、実在の9か所](https://limap.jp/articles/abandoned-school-liminal-spaces/): 中を見学できる木造校舎「しゃくなげ學校」、炭鉱の街の円形校舎、原野に残る北の分校、山あいの小さな木造分校まで。誰もいない学校の9か所を、見られる場所と守りたいルールとともに紹介します。
@@ -71,6 +72,7 @@
 
 LIMap is a map for finding and sharing liminal spaces: abandoned buildings, empty stations, late-night parking lots and other eerie, nostalgic places. English versions of the articles are at https://limap.jp/en/articles/ (each page links to its Japanese version with hreflang).
 
+- [Liminal Museums, Libraries and Government Buildings in Japan: 10 Quiet Public Buildings, From White Art Museums to Old Prefectural Offices](https://limap.jp/en/articles/museum-library-liminal-spaces/): An art museum of tangled white corridors, a library where light falls through 6,000 round windows, a concert hall with an empty auditorium, an old prefectural office that no longer governs. Ten public buildings in Japan that fall silent when few people are around, with hours, fees and planned closures.
 - [Liminal Abandoned Railways in Japan: 10 Real Places Where Trains No Longer Run, From Bamboo-Lined Rails to Meiji-Era Tunnels](https://limap.jp/en/articles/abandoned-railway-liminal-spaces/): Rails buried in a bamboo grove, a Meiji-era brick tunnel, an arch bridge that sinks into a lake, level crossings left in the middle of a city. Ten disused railways in Japan where trains no longer run, with walkable sections, hours, fees and places you must not enter.
 - [Liminal Observation Decks in Japan: 10 Quiet Viewing Rooms, From Prefectural Office Top Floors to Port Towers](https://limap.jp/en/articles/observation-deck-liminal-spaces/): Free top-floor lobbies in prefectural government buildings, port towers open late into the night, and a viewing deck where the railway tracks stop in mid-air. Ten observation rooms in Japan that fall silent when few people are around, with hours, fees and tips for visiting.
 - [Abandoned Schools as Liminal Spaces: 9 Real Empty Schoolhouses in Japan](https://limap.jp/en/articles/abandoned-school-liminal-spaces/): A wooden schoolhouse you can tour inside, a round school in a coal-mining town, northern branch schools left in the wilds, small wooden schools in the hills. Nine empty schools in Japan, with where to see them and the rules to keep.

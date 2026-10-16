@@ -1,6 +1,12 @@
 {
   "articles": [
     {
+      "slug": "museum-library-liminal-spaces",
+      "lastmod": "2026-10-17",
+      "titleJa": "美術館・図書館・庁舎のリミナルスペース｜白い美術館から昭和の県庁舎まで、人の少ない実在の10か所",
+      "titleEn": "Liminal Museums, Libraries and Government Buildings in Japan: 10 Quiet Public Buildings, From White Art Museums to Old Prefectural Offices"
+    },
+    {
       "slug": "abandoned-railway-liminal-spaces",
       "lastmod": "2026-10-12",
       "titleJa": "廃線跡のリミナルスペース｜竹林のレールから明治のトンネルまで、列車の来ない実在の10か所",
@@ -104,7 +110,7 @@
     },
     {
       "slug": "liminal-spots-kitakanto",
-      "lastmod": "2026-10-09",
+      "lastmod": "2026-10-17",
       "titleJa": "北関東のリミナルスペース——地下の採掘場跡から県庁の最上階まで、実在する9か所",
       "titleEn": "Liminal Spaces in North Kanto: 9 Real Places, From an Underground Quarry to the Top Floors of Prefectural Offices"
     },
@@ -116,7 +122,7 @@
     },
     {
       "slug": "liminal-spots-hokuriku-koshinetsu",
-      "lastmod": "2026-09-28",
+      "lastmod": "2026-10-17",
       "titleJa": "北陸・甲信越のリミナルスペース——明治の鉄道トンネルから丸窓の図書館まで、実在する8か所",
       "titleEn": "Liminal Spaces in Hokuriku and Koshinetsu: 8 Real Places, From a Meiji-Era Railway Tunnel to a Library of Round Windows"
     },
@@ -284,6 +290,46 @@
     }
   ],
   "spotArticles": {
+    "RKcSpTm3": [
+      "museum-library-liminal-spaces",
+      "liminal-spots-tohoku"
+    ],
+    "dibLtfvP": [
+      "museum-library-liminal-spaces",
+      "liminal-spots-hokuriku-koshinetsu"
+    ],
+    "GSVYrtzL": [
+      "museum-library-liminal-spaces",
+      "liminal-spots-hokuriku-koshinetsu"
+    ],
+    "698Asdpz": [
+      "museum-library-liminal-spaces",
+      "liminal-spots-hokuriku-koshinetsu"
+    ],
+    "74Dex6Z8": [
+      "museum-library-liminal-spaces",
+      "liminal-spots-kitakanto"
+    ],
+    "zodpUKpy": [
+      "museum-library-liminal-spaces",
+      "liminal-spots-chugoku-shikoku"
+    ],
+    "GeYmXhaQ": [
+      "museum-library-liminal-spaces",
+      "liminal-spots-okinawa"
+    ],
+    "ZPX5ynHL": [
+      "museum-library-liminal-spaces",
+      "liminal-spots-tohoku"
+    ],
+    "VahpLYw4": [
+      "museum-library-liminal-spaces",
+      "liminal-spots-nagoya"
+    ],
+    "tWaY3hCp": [
+      "museum-library-liminal-spaces",
+      "liminal-spots-chugoku-shikoku"
+    ],
     "gE3dSWYN": [
       "abandoned-railway-liminal-spaces",
       "liminal-spots-chugoku-shikoku"
@@ -667,9 +713,6 @@
     "dh6nPPd6": [
       "liminal-spots-kitakanto"
     ],
-    "74Dex6Z8": [
-      "liminal-spots-kitakanto"
-    ],
     "PHMGPkY3": [
       "liminal-spots-okinawa"
     ],
@@ -682,9 +725,6 @@
     "PgKZ8Gxs": [
       "liminal-spots-okinawa"
     ],
-    "GeYmXhaQ": [
-      "liminal-spots-okinawa"
-    ],
     "J7mcK3Ti": [
       "liminal-spots-okinawa"
     ],
@@ -694,28 +734,13 @@
     "6sZbje49": [
       "liminal-spots-hokuriku-koshinetsu"
     ],
-    "GSVYrtzL": [
-      "liminal-spots-hokuriku-koshinetsu"
-    ],
-    "dibLtfvP": [
-      "liminal-spots-hokuriku-koshinetsu"
-    ],
     "JtXE5uD5": [
-      "liminal-spots-hokuriku-koshinetsu"
-    ],
-    "698Asdpz": [
       "liminal-spots-hokuriku-koshinetsu"
     ],
     "ncUNG4h3": [
       "liminal-spots-hokuriku-koshinetsu"
     ],
     "ZARd5zBd": [
-      "liminal-spots-chugoku-shikoku"
-    ],
-    "zodpUKpy": [
-      "liminal-spots-chugoku-shikoku"
-    ],
-    "tWaY3hCp": [
       "liminal-spots-chugoku-shikoku"
     ],
     "8hv3niCX": [
@@ -733,16 +758,10 @@
     "QLHdXHVt": [
       "liminal-spots-tohoku"
     ],
-    "RKcSpTm3": [
-      "liminal-spots-tohoku"
-    ],
     "UZJT2Ht2": [
       "liminal-spots-tohoku"
     ],
     "HDnTRVqb": [
-      "liminal-spots-tohoku"
-    ],
-    "ZPX5ynHL": [
       "liminal-spots-tohoku"
     ],
     "Gi6qijiq": [
@@ -779,9 +798,6 @@
       "liminal-spots-hokkaido"
     ],
     "3nQekYXT": [
-      "liminal-spots-nagoya"
-    ],
-    "VahpLYw4": [
       "liminal-spots-nagoya"
     ],
     "uW3b7GY2": [
@@ -839,7 +855,7 @@
   "categories": [
     {
       "slug": "real-spots",
-      "lastmod": "2026-10-12"
+      "lastmod": "2026-10-17"
     },
     {
       "slug": "comparisons",

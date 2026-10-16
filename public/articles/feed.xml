@@ -6,7 +6,15 @@
     <atom:link href="https://limap.jp/articles/feed.xml" rel="self" type="application/rss+xml" />
     <description>リミナルスペースの意味や語源、バックルームズ・ドリームコアとの違い、日本での事例まで。LIMapがまとめる読みもの記事の一覧です。</description>
     <language>ja</language>
-    <lastBuildDate>Mon, 12 Oct 2026 00:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 17 Oct 2026 00:00:00 GMT</lastBuildDate>
+    <item>
+      <title>美術館・図書館・庁舎のリミナルスペース｜白い美術館から昭和の県庁舎まで、人の少ない実在の10か所</title>
+      <link>https://limap.jp/articles/museum-library-liminal-spaces/</link>
+      <guid isPermaLink="true">https://limap.jp/articles/museum-library-liminal-spaces/</guid>
+      <pubDate>Sat, 17 Oct 2026 00:00:00 GMT</pubDate>
+      <category>実在スポット</category>
+      <description>白い通路が入り組む美術館、6,000個の丸窓から光が落ちる図書館、誰もいない客席の音楽ホール、役目を終えた旧県庁舎。人の少ない時間に静まり返る公共建築10か所を、開いている時間・料金・休館の予定とともに紹介します。</description>
+    </item>
     <item>
       <title>廃線跡のリミナルスペース｜竹林のレールから明治のトンネルまで、列車の来ない実在の10か所</title>
       <link>https://limap.jp/articles/abandoned-railway-liminal-spaces/</link>
@@ -238,14 +246,6 @@
       <pubDate>Sun, 06 Sep 2026 00:00:00 GMT</pubDate>
       <category>基礎知識</category>
       <description>バックルームズの「レベル(階層)」を、レベル0からThe Endまで代表的なものに絞って整理しました。あわせて、なぜwikiごとに設定が食い違うのか、どれが正しいのかという疑問にも答えます。</description>
-    </item>
-    <item>
-      <title>プールルームとは？元ネタは2020年のCG作品「Dream Pools」｜怖い理由と日本で近い場所</title>
-      <link>https://limap.jp/articles/poolrooms-explained/</link>
-      <guid isPermaLink="true">https://limap.jp/articles/poolrooms-explained/</guid>
-      <pubDate>Sun, 06 Sep 2026 00:00:00 GMT</pubDate>
-      <category>基礎知識</category>
-      <description>プールルーム（プールルームズ）は、誰もいない青いタイルの室内プールの空間。元ネタは、アメリカのアーティスト、ジャレッド・パイクが2020年に発表した3DCG作品「Dream Pools」です。バックルームズの「レベル37」と呼ばれる理由、怖いのに懐かしい理由、日本で似た空気に出会える場所まで。</description>
     </item>
   </channel>
 </rss>

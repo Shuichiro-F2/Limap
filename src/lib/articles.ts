@@ -652,6 +652,19 @@ const ARTICLE_ENTRIES: ArticleSummary[] = [
       'Rails in a bamboo grove, a Meiji-era tunnel, an arch bridge that sinks into a lake: ten disused railways in Japan you can visit on foot.',
     thumbnailFile: 'Tottori-Kurayoshi Line abandoned trace. (Bamboo forest.)-xl.jpg',
   },
+  {
+    slug: 'museum-library-liminal-spaces',
+    publishedDate: '2026-10-17',
+    categoryJa: '実在スポット',
+    categoryEn: 'Real Spots',
+    titleJa: '美術館・図書館・庁舎のリミナルスペース｜白い美術館から昭和の県庁舎まで、人の少ない実在の10か所',
+    titleEn: 'Liminal Museums, Libraries and Government Buildings in Japan: 10 Quiet Public Buildings, From White Art Museums to Old Prefectural Offices',
+    leadJa:
+      '白い通路の美術館、丸窓から光が落ちる図書館、誰もいない客席、役目を終えた旧県庁舎。人の少ない時間の公共建築10か所を紹介します。',
+    leadEn:
+      'White-corridored art museums, a library lit through round windows, an empty auditorium, an old prefectural office: ten quiet public buildings.',
+    thumbnailFile: 'Kanazawa Umimirai Library 1F hall ac.jpg',
+  },
 ];
 
 // 一覧は新着順(publishedDate の降順)で表示する。Array#sort は安定なので、

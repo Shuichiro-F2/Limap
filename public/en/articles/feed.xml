@@ -6,7 +6,15 @@
     <atom:link href="https://limap.jp/en/articles/feed.xml" rel="self" type="application/rss+xml" />
     <description>What liminal spaces are, where the word comes from, how they differ from the Backrooms and dreamcore, and real examples in Japan. Articles by LIMap.</description>
     <language>en</language>
-    <lastBuildDate>Mon, 12 Oct 2026 00:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Sat, 17 Oct 2026 00:00:00 GMT</lastBuildDate>
+    <item>
+      <title>Liminal Museums, Libraries and Government Buildings in Japan: 10 Quiet Public Buildings, From White Art Museums to Old Prefectural Offices</title>
+      <link>https://limap.jp/en/articles/museum-library-liminal-spaces/</link>
+      <guid isPermaLink="true">https://limap.jp/en/articles/museum-library-liminal-spaces/</guid>
+      <pubDate>Sat, 17 Oct 2026 00:00:00 GMT</pubDate>
+      <category>Real Spots</category>
+      <description>An art museum of tangled white corridors, a library where light falls through 6,000 round windows, a concert hall with an empty auditorium, an old prefectural office that no longer governs. Ten public buildings in Japan that fall silent when few people are around, with hours, fees and planned closures.</description>
+    </item>
     <item>
       <title>Liminal Abandoned Railways in Japan: 10 Real Places Where Trains No Longer Run, From Bamboo-Lined Rails to Meiji-Era Tunnels</title>
       <link>https://limap.jp/en/articles/abandoned-railway-liminal-spaces/</link>
@@ -238,14 +246,6 @@
       <pubDate>Sun, 06 Sep 2026 00:00:00 GMT</pubDate>
       <category>Basics</category>
       <description>A plain-language guide to the Backrooms levels, from Level 0 to The End, covering only the ones people actually talk about. Plus an answer to the real question: why do the wikis contradict each other?</description>
-    </item>
-    <item>
-      <title>What Are the Poolrooms? Where the Blue-Tiled Water Spaces Came From, and Where to Feel Them in Japan</title>
-      <link>https://limap.jp/en/articles/poolrooms-explained/</link>
-      <guid isPermaLink="true">https://limap.jp/en/articles/poolrooms-explained/</guid>
-      <pubDate>Sun, 06 Sep 2026 00:00:00 GMT</pubDate>
-      <category>Basics</category>
-      <description>Also known as Backrooms Level 37, the Poolrooms are among the most shared liminal images online. Here is where they actually came from, why they feel frightening and nostalgic at once, and where to find that atmosphere in Japan.</description>
     </item>
   </channel>
 </rss>
