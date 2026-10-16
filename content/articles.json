@@ -2645,7 +2645,7 @@
     "publishedDate": "2026-09-06",
     "ja": {
       "title": "プールルームとは？元ネタは2020年のCG作品「Dream Pools」｜怖い理由と日本で近い場所",
-      "metaDescription": "プールルーム（プールルームズ）は、誰もいない青いタイルの室内プールの空間。元ネタは、アメリカのアーティスト、ジャレッド・パイクが2020年に発表した3DCG作品「Dream Pools」です。バックルームズの「レベル37」と呼ばれる理由、怖いのに懐かしい理由、日本で似た空気に出会える場所まで。",
+      "metaDescription": "プールルーム（プールルームズ）は、誰もいない青いタイルの室内プールの空間。元ネタは、アメリカのアーティスト、ジャレッド・パイクが2020年に発表した3DCG作品「Dream Pools」です。バックルームズの「レベル37」と呼ばれる理由、怖いのに懐かしい理由、日本で似た空気に出会える場所、2026年12月にアメリカで公開予定の映画『The Poolrooms』まで。",
       "h1": "プールルームとは？元ネタは2020年のCG作品「Dream Pools」｜怖い理由と日本で近い場所",
       "lead": "誰もいない室内プール。青いタイル、生ぬるい水、窓のない天井。バックルームズ関連で最も広く共有されている光景のひとつが、このプールルームです。怖いはずなのに、なぜか懐かしい——その正体を、成り立ちから解きほぐします。",
       "sections": [
@@ -2675,6 +2675,7 @@
           "heading": "映像・ゲーム・映画への広がり",
           "paragraphs": [
             "2022年にはケイン・パーソンズのYouTubeシリーズがプールルーム的な空間を取り込み、2024年にはフィンランドの開発者Tensoriによるホラーゲーム『Pools』が登場しました。2026年公開のA24映画『バックルームズ』にも、この系譜の空間が受け継がれています。",
+            "さらに、プールルームそのものを題材にした映画『The Poolrooms』が、アメリカで2026年12月25日に劇場公開される予定です。公式サイトでは「ファウンド・フッテージ・ホラー」とされていて、海外の映画サイトの紹介によれば、プールとウォータースライダーが果てしなく続く建物に、10代の若者が閉じ込められる物語です。ケイン・パーソンズが監督したA24の『バックルームズ』とは別の作品で、2026年10月時点では、日本での公開や出演者は発表されていません。",
             "つまりプールルームは、1人のアーティストの練習作から始まって、いまや複数のメディアにまたがる共有イメージになったということです。"
           ]
         },
@@ -2717,6 +2718,10 @@
         {
           "q": "日本にプールルームのような場所はありますか？",
           "a": "青いタイルの迷宮そのものはありませんが、閉館後の市民プールやシーズンオフの温浴施設など、本来は人の声が響いているはずの水まわりの空間に、近い空気があります。訪れる際は営業状況や立ち入りの可否を必ず確認してください。"
+        },
+        {
+          "q": "プールルームの映画はありますか？",
+          "a": "プールルームを題材にした映画『The Poolrooms』が、アメリカで2026年12月25日に劇場公開される予定です（公式サイトによる）。ケイン・パーソンズが監督したA24の『バックルームズ』とは別の作品で、2026年10月時点では日本での公開は発表されていません。"
         }
       ]
     },
@@ -2752,6 +2757,7 @@
           "heading": "Spreading Into Video, Games and Film",
           "paragraphs": [
             "In 2022 Kane Parsons' YouTube series absorbed Poolrooms-style spaces. In 2024 the Finnish developer Tensori released the horror game Pools. And the 2026 A24 film Backrooms carries the same lineage of imagery.",
+            "A film built around the Poolrooms themselves, The Poolrooms, is also scheduled to open in US theaters on December 25, 2026. Its official site calls it found-footage horror, and according to overseas film sites, it follows a teenager trapped inside a building of endless pools and waterslides. It is a separate project from A24's Backrooms, directed by Kane Parsons, and as of October 2026 no Japanese release or cast had been announced.",
             "In other words: what began as one artist's practice pieces is now a shared image spanning several media."
           ]
         },
@@ -2794,6 +2800,10 @@
         {
           "q": "Are there places like the Poolrooms in Japan?",
           "a": "There is no blue-tiled water maze, but public pools after closing time or bathhouses out of season, places where voices should be echoing, have a similar atmosphere. Always check opening hours and whether entry is allowed before you go."
+        },
+        {
+          "q": "Is there a Poolrooms movie?",
+          "a": "A film built around the Poolrooms, The Poolrooms, is scheduled to open in US theaters on December 25, 2026, according to its official site. It is a separate project from A24's Backrooms, directed by Kane Parsons, and as of October 2026 no Japanese release had been announced."
         }
       ]
     },
@@ -2823,7 +2833,7 @@
         "afterSection": 2
       }
     ],
-    "updatedDate": "2026-10-03",
+    "updatedDate": "2026-10-17",
     "related": [
       "pools-game",
       "backrooms-levels-explained",
